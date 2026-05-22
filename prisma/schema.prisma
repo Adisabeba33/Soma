@@ -1,0 +1,104 @@
+// SOMA - Sensory Sommelier for Cannabis
+// PostgreSQL schema for users, taste profiles, analysis sessions,
+// recommendations and the feedback loop.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tasteProfiles    TasteProfile[]
+  analysisSessions AnalysisSession[]
+  feedback         Feedback[]
+}
+
+model TasteProfile {
+  id                 String   @id @default(uuid())
+  userId             String
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  favoriteStrains    String[]
+  dislikedStrains    String[]
+  likedTraits        String[]
+  dislikedTraits     String[]
+  preferredAromas    String[]
+  preferredFlavors   String[]
+  preferredEffects   String[]
+  texturePreferences String[]
+  qualityPriorities  String[]
+  referenceStrain    String?
+  lookingFor         String?  @default("similar") // "similar" replacement or "new" experience
+  notes              String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  analysisSessions AnalysisSession[]
+
+  @@index([userId])
+}
+
+model AnalysisSession {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tasteProfileId String?
+  tasteProfile   TasteProfile? @relation(fields: [tasteProfileId], references: [id], onDelete: SetNull)
+  inputType      String   // manual | paste | screenshot
+  rawInput       String
+  saved          Boolean  @default(false)
+  title          String?
+  engine         String   @default("builtin") // builtin | openai
+  createdAt      DateTime @default(now())
+
+  recommendations Recommendation[]
+
+  @@index([userId])
+}
+
+model Recommendation {
+  id           String   @id @default(uuid())
+  sessionId    String
+  session      AnalysisSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  strainName   String
+  resolvedName String
+  knownStrain  Boolean  @default(true)
+  category     String   // Best Match | Closest Alternative | Worth Trying | Risky | Avoid
+  matchScore   Int
+  confidence   String   // low | medium | high
+  aromaMatch   Int
+  flavorMatch  Int
+  effectMatch  Int
+  whyItFits    String
+  riskNotes    String
+  explanation  String
+  createdAt    DateTime @default(now())
+
+  feedback Feedback[]
+
+  @@index([sessionId])
+}
+
+model Feedback {
+  id               String   @id @default(uuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recommendationId String
+  recommendation   Recommendation @relation(fields: [recommendationId], references: [id], onDelete: Cascade)
+  purchased        Boolean?
+  liked            Boolean?
+  rating           Int?
+  notes            String?
+  createdAt        DateTime @default(now())
+
+  @@index([userId])
+  @@index([recommendationId])
+}
