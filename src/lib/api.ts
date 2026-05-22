@@ -1,9 +1,32 @@
+import { prisma } from "./prisma";
 import type {
   Category,
   Confidence,
   FeedbackData,
+  FeedbackSignal,
   SessionRecommendation,
 } from "./types";
+
+// Confirmed likes/dislikes the user has logged, resolved into signals the
+// Taste Match Engine can fold into future scoring.
+export async function getFeedbackSignals(
+  userId: string,
+): Promise<FeedbackSignal[]> {
+  const rows = await prisma.feedback.findMany({
+    where: { userId, liked: { not: null } },
+    include: {
+      recommendation: { select: { resolvedName: true, strainName: true } },
+    },
+    orderBy: { createdAt: "desc" },
+    take: 200,
+  });
+
+  return rows.map((row) => ({
+    strainName: row.recommendation.resolvedName || row.recommendation.strainName,
+    liked: row.liked === true,
+    rating: row.rating,
+  }));
+}
 
 export function asArray(value: unknown, max = 40): string[] {
   if (!Array.isArray(value)) return [];
@@ -41,6 +64,7 @@ interface DbRecommendation {
   whyItFits: string;
   riskNotes: string;
   explanation: string;
+  feedbackNote: string | null;
 }
 
 interface DbFeedback {
@@ -88,6 +112,8 @@ export function dbRecToView(
     whyItFits: r.whyItFits,
     riskNotes: r.riskNotes,
     explanation: r.explanation,
+    feedbackAdjustment: 0,
+    feedbackNote: r.feedbackNote,
     feedback: toFeedbackData(feedback),
   };
 }

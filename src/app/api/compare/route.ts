@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
-import { asArray } from "@/lib/api";
+import { asArray, getFeedbackSignals } from "@/lib/api";
 import { resolveStrain, scoreStrain, useCaseFor } from "@/lib/taste-engine";
 import type { ComparisonItem } from "@/lib/types";
 
@@ -34,9 +34,11 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const feedback = await getFeedbackSignals(userId);
+
   const items: ComparisonItem[] = strains.map((name) => {
     const { strain } = resolveStrain(name);
-    const match = scoreStrain(name, profile);
+    const match = scoreStrain(name, profile, feedback);
     return {
       ...match,
       strainType: strain.type,

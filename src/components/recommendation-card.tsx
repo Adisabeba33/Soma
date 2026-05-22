@@ -1,3 +1,4 @@
+import { Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { ScoreBar } from "@/components/match-meter";
 import { cn } from "@/lib/utils";
@@ -116,6 +117,13 @@ export function RecommendationCard({
           <p className="mt-3 text-sm leading-relaxed text-foreground">
             {match.explanation}
           </p>
+
+          {match.feedbackNote && (
+            <p className="mt-3 flex items-start gap-2 rounded-lg bg-brass/10 px-3 py-2 text-sm leading-relaxed text-foreground/90">
+              <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brass" />
+              <span>{match.feedbackNote}</span>
+            </p>
+          )}
 
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <Section label="Why it suits you">{match.whyItFits}</Section>

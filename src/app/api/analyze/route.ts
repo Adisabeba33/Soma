@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
-import { asArray, asText } from "@/lib/api";
+import { asArray, asText, getFeedbackSignals } from "@/lib/api";
 import { analyze } from "@/lib/taste-engine";
 import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
 
@@ -35,7 +35,9 @@ export async function POST(req: NextRequest) {
   }
 
   // Deterministic engine first — it always produces the structured result.
-  let result = analyze(strains, profile);
+  // Confirmed feedback from past sessions is folded into the scoring.
+  const feedback = await getFeedbackSignals(userId);
+  let result = analyze(strains, profile, feedback);
   // The optional AI layer only rewrites prose; scores stay untouched.
   if (isOpenAIEnabled()) {
     result = await enhanceWithOpenAI(result, profile);
@@ -62,6 +64,7 @@ export async function POST(req: NextRequest) {
           whyItFits: r.whyItFits,
           riskNotes: r.riskNotes,
           explanation: r.explanation,
+          feedbackNote: r.feedbackNote,
         })),
       },
     },

@@ -11,6 +11,7 @@ import type {
   AnalysisResult,
   Category,
   Confidence,
+  FeedbackSignal,
   StrainMatch,
   StrainProfile,
   StrainType,
@@ -313,9 +314,100 @@ export function useCaseFor(strain: StrainProfile): string {
   return "Balanced anytime use";
 }
 
+// ---- Feedback loop -------------------------------------------------
+// A lightweight layer on top of the deterministic engine. Confirmed
+// likes and dislikes nudge the base score for strains that are
+// sensorily similar to what the user has already judged. It is
+// deliberately bounded: a single rating can only move a score a few
+// points, and the effect grows as more consistent feedback accumulates.
+
+interface ResolvedFeedback {
+  strain: StrainProfile;
+  liked: boolean;
+  sim: number;
+}
+
+// How quickly trust saturates. Higher = single ratings matter less.
+const FEEDBACK_DAMPING = 2;
+// Maximum points the feedback layer can shift a score in either direction.
+const FEEDBACK_MAX_SHIFT = 12;
+
+function topFeedbackTags(entries: ResolvedFeedback[]): string[] {
+  const tally = new Map<string, number>();
+  for (const entry of entries) {
+    for (const tag of entry.strain.aromas) {
+      tally.set(tag, (tally.get(tag) ?? 0) + entry.sim);
+    }
+  }
+  return [...tally.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 2)
+    .map(([tag]) => tag);
+}
+
+function evaluateFeedback(
+  candidate: StrainProfile,
+  feedback: FeedbackSignal[],
+): { adjustment: number; note: string | null; confidenceBoost: number } {
+  if (feedback.length === 0) {
+    return { adjustment: 0, note: null, confidenceBoost: 0 };
+  }
+
+  const entries: ResolvedFeedback[] = feedback.map((signal) => {
+    const { strain } = resolveStrain(signal.strainName);
+    return { strain, liked: signal.liked, sim: similarity(candidate, strain) };
+  });
+
+  // "Support" is how much of the user's feedback is actually relevant
+  // to this candidate — the sum of similarities.
+  const support = entries.reduce((acc, e) => acc + e.sim, 0);
+  if (support < 0.15) {
+    return { adjustment: 0, note: null, confidenceBoost: 0 };
+  }
+
+  // Similarity-weighted average sentiment, in [-1, 1].
+  const sentiment =
+    entries.reduce((acc, e) => acc + (e.liked ? 1 : -1) * e.sim, 0) / support;
+  // Trust grows with the volume of relevant feedback but never reaches 1,
+  // so one rating alone cannot dominate.
+  const trust = support / (support + FEEDBACK_DAMPING);
+  const adjustment = Math.round(sentiment * trust * FEEDBACK_MAX_SHIFT);
+
+  // Confidence only firms up once several confirmed, relevant ratings exist.
+  const confidenceBoost = feedback.length >= 3 && support >= 0.6 ? 1 : 0;
+
+  let note: string | null = null;
+  if (Math.abs(adjustment) >= 3) {
+    const positive = adjustment > 0;
+    const relevant = entries.filter(
+      (e) => e.liked === positive && e.sim > 0.1,
+    );
+    const tags = topFeedbackTags(relevant);
+    if (tags.length > 0) {
+      note = positive
+        ? `Your saved feedback leans toward ${joinList(tags)} flower, so this pick received a small boost.`
+        : `Your saved feedback leans away from ${joinList(tags)} flower, so this pick was slightly penalised.`;
+    } else {
+      note = positive
+        ? "Your saved feedback nudged this pick upward."
+        : "Your saved feedback nudged this pick downward.";
+    }
+  }
+
+  return { adjustment, note, confidenceBoost };
+}
+
+function bumpConfidence(base: Confidence, boost: number): Confidence {
+  if (boost <= 0) return base;
+  const tiers: Confidence[] = ["low", "medium", "high"];
+  const idx = Math.min(tiers.length - 1, tiers.indexOf(base) + boost);
+  return tiers[idx];
+}
+
 export function scoreStrain(
   rawName: string,
   profile: TasteProfileInput,
+  feedback: FeedbackSignal[] = [],
 ): StrainMatch {
   const { strain, known } = resolveStrain(rawName);
 
@@ -339,11 +431,16 @@ export function scoreStrain(
     0.14 * trait.score +
     0.18 * ref.score;
   const penalty = Math.min(42, conflicts.length * 15);
-  let score = Math.round(raw - penalty);
-  if (isDisliked) score = Math.min(score, 18);
-  score = clamp(score, 4, 99);
+  let baseScore = Math.round(raw - penalty);
+  if (isDisliked) baseScore = Math.min(baseScore, 18);
+  baseScore = clamp(baseScore, 4, 99);
 
-  const category = categorize(score, conflicts.length, isDisliked);
+  // Feedback loop: the deterministic base score is the anchor; confirmed
+  // likes/dislikes on similar past strains nudge it within a bounded range.
+  const fb = evaluateFeedback(strain, feedback);
+  const matchScore = clamp(baseScore + fb.adjustment, 4, 99);
+
+  const category = categorize(matchScore, conflicts.length, isDisliked);
 
   const depthSignals = [
     profile.preferredAromas,
@@ -353,22 +450,23 @@ export function scoreStrain(
     profile.favoriteStrains,
   ].filter((a) => a.length > 0).length;
 
-  let confidence: Confidence;
-  if (!known) confidence = depthSignals >= 4 ? "medium" : "low";
-  else if (depthSignals >= 4) confidence = "high";
-  else if (depthSignals >= 2) confidence = "medium";
-  else confidence = "low";
+  let baseConfidence: Confidence;
+  if (!known) baseConfidence = depthSignals >= 4 ? "medium" : "low";
+  else if (depthSignals >= 4) baseConfidence = "high";
+  else if (depthSignals >= 2) baseConfidence = "medium";
+  else baseConfidence = "low";
+  const confidence = bumpConfidence(baseConfidence, fb.confidenceBoost);
 
   const whyItFits = buildWhyItFits(effect, aroma, flavor, trait, ref);
   const riskNotes = buildRiskNotes(strain, known, conflicts, profile);
-  const explanation = buildExplanation(strain, score, category, confidence);
+  const explanation = buildExplanation(strain, matchScore, category, confidence);
 
   return {
     strainName: rawName.trim(),
     resolvedName: strain.name,
     knownStrain: known,
     category,
-    matchScore: score,
+    matchScore,
     confidence,
     aromaMatch: aroma.score,
     flavorMatch: flavor.score,
@@ -382,6 +480,8 @@ export function scoreStrain(
     whyItFits,
     riskNotes,
     explanation,
+    feedbackAdjustment: fb.adjustment,
+    feedbackNote: fb.note,
   };
 }
 
@@ -461,6 +561,7 @@ function buildExplanation(
 export function analyze(
   strainNames: string[],
   profile: TasteProfileInput,
+  feedback: FeedbackSignal[] = [],
 ): AnalysisResult {
   const seen = new Set<string>();
   const recommendations: StrainMatch[] = [];
@@ -471,7 +572,7 @@ export function analyze(
     const key = normalizeStrainName(trimmed);
     if (!key || seen.has(key)) continue;
     seen.add(key);
-    recommendations.push(scoreStrain(trimmed, profile));
+    recommendations.push(scoreStrain(trimmed, profile, feedback));
   }
 
   recommendations.sort((a, b) => b.matchScore - a.matchScore);

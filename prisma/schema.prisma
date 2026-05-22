@@ -80,6 +80,7 @@ model Recommendation {
   whyItFits    String
   riskNotes    String
   explanation  String
+  feedbackNote String?
   createdAt    DateTime @default(now())
 
   feedback Feedback[]

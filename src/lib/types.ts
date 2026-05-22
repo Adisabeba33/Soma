@@ -56,6 +56,15 @@ export interface StrainMatch {
   whyItFits: string;
   riskNotes: string;
   explanation: string;
+  feedbackAdjustment: number;
+  feedbackNote: string | null;
+}
+
+// A confirmed like/dislike on a past recommendation, fed back into scoring.
+export interface FeedbackSignal {
+  strainName: string;
+  liked: boolean;
+  rating: number | null;
 }
 
 export interface AnalysisResult {
