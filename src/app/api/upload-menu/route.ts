@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { parseMenu } from "@/lib/parse-menu";
+import { parseMenuRich } from "@/lib/parse-menu";
 import { asText } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
@@ -10,8 +10,9 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
   const text = asText(body.text, 12_000);
   if (!text) {
-    return NextResponse.json({ strains: [] });
+    return NextResponse.json({ strains: [], items: [] });
   }
-  const strains = parseMenu(text).slice(0, 60);
-  return NextResponse.json({ strains });
+  const items = parseMenuRich(text).slice(0, 60);
+  const strains = items.map((i) => i.strainName);
+  return NextResponse.json({ strains, items });
 }
