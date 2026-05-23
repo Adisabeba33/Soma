@@ -1,5 +1,6 @@
 import { prisma } from "./prisma";
 import type { ParsedMenuItem } from "./parse-menu";
+import { buildUnknownStrainPayloads } from "./unknown-strains";
 import type {
   Category,
   Confidence,
@@ -118,34 +119,46 @@ export function flattenParserWarnings(items: ParsedMenuItem[]): string[] {
   return [...set].slice(0, 20);
 }
 
-// Unknown strains feed the seed-expansion queue. We attach the grower and raw
-// line from the parsed item when we can, otherwise we still log the name.
+// Unknown strains feed the seed-expansion queue. Each (userId, normalizedName,
+// growerKey) is upserted so that recurring strains bump occurrences/lastSeenAt
+// rather than create new rows. rawName is preserved exactly as received.
 export async function logUnknownStrains(
   userId: string,
   sessionId: string,
   matches: StrainMatch[],
   items: ParsedMenuItem[],
 ): Promise<void> {
-  const unknowns = matches.filter((m) => !m.knownStrain);
-  if (unknowns.length === 0) return;
+  const payloads = buildUnknownStrainPayloads(userId, sessionId, matches, items);
+  if (payloads.length === 0) return;
 
-  const itemByName = new Map<string, ParsedMenuItem>();
-  for (const item of items) {
-    itemByName.set(item.strainName.toLowerCase(), item);
+  for (const p of payloads) {
+    await prisma.unknownStrain.upsert({
+      where: {
+        userId_normalizedName_growerKey: {
+          userId: p.userId,
+          normalizedName: p.normalizedName,
+          growerKey: p.growerKey,
+        },
+      },
+      create: {
+        userId: p.userId,
+        sessionId: p.sessionId,
+        rawName: p.rawName,
+        normalizedName: p.normalizedName,
+        grower: p.grower,
+        growerKey: p.growerKey,
+        rawLine: p.rawLine,
+      },
+      update: {
+        occurrences: { increment: 1 },
+        lastSeenAt: new Date(),
+        // Keep the most recent session and raw line so the latest sighting is
+        // easy to inspect; rawName stays as first seen for stable display.
+        sessionId: p.sessionId,
+        rawLine: p.rawLine ?? undefined,
+      },
+    });
   }
-
-  await prisma.unknownStrain.createMany({
-    data: unknowns.map((m) => {
-      const item = itemByName.get(m.strainName.toLowerCase()) ?? null;
-      return {
-        userId,
-        sessionId,
-        rawName: m.strainName,
-        grower: item?.grower ?? null,
-        rawLine: item?.rawLine ?? null,
-      };
-    }),
-  });
 }
 
 interface DbRecommendation {
