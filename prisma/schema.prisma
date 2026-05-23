@@ -20,6 +20,7 @@ model User {
   tasteProfiles    TasteProfile[]
   analysisSessions AnalysisSession[]
   feedback         Feedback[]
+  unknownStrains   UnknownStrain[]
 }
 
 model TasteProfile {
@@ -57,9 +58,13 @@ model AnalysisSession {
   saved          Boolean  @default(false)
   title          String?
   engine         String   @default("builtin") // builtin | openai
+  parsedItems    Json?    // ParsedMenuItem[] captured from the menu parser
+  parserWarnings String[] @default([]) // distinct warning strings surfaced by the parser
+  menuQuality    Json?    // { totalParsed, unclearRows, unknownStrains, avgConfidence }
   createdAt      DateTime @default(now())
 
   recommendations Recommendation[]
+  unknownStrains  UnknownStrain[]
 
   @@index([userId])
 }
@@ -102,4 +107,23 @@ model Feedback {
 
   @@index([userId])
   @@index([recommendationId])
+}
+
+// Real-world expansion queue. Anything the engine had to infer (i.e. not in
+// the seed dataset) is logged here so we can grow the seed list based on
+// what actually shows up on dispensary menus.
+model UnknownStrain {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionId String?
+  session   AnalysisSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  rawName   String
+  grower    String?
+  rawLine   String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([rawName])
+  @@index([createdAt])
 }

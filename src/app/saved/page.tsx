@@ -6,6 +6,7 @@ import {
   Bookmark,
   BookmarkCheck,
   ChevronDown,
+  Download,
   Sparkles,
   Trash2,
 } from "lucide-react";
@@ -174,6 +175,15 @@ function Group({
                     <Bookmark className="h-5 w-5" />
                   )}
                 </button>
+                <a
+                  href={`/api/sessions/${encodeURIComponent(session.id)}/export`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Export session JSON"
+                  className="shrink-0 text-muted-foreground hover:text-foreground"
+                >
+                  <Download className="h-4 w-4" />
+                </a>
                 <button
                   type="button"
                   onClick={() => onRemove(session.id)}

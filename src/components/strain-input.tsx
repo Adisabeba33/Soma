@@ -13,17 +13,20 @@ export function StrainInput({
   onAnalyze,
   analyzing,
   error,
+  parsedItems,
+  onParsedItemsChange,
 }: {
   strains: string[];
   onChange: (next: string[]) => void;
   onAnalyze: () => void;
   analyzing: boolean;
   error?: string | null;
+  parsedItems: ParsedMenuItem[];
+  onParsedItemsChange: (next: ParsedMenuItem[]) => void;
 }) {
   const [pasteText, setPasteText] = useState("");
   const [parsing, setParsing] = useState(false);
   const [parseNote, setParseNote] = useState<string | null>(null);
-  const [preview, setPreview] = useState<ParsedMenuItem[]>([]);
 
   async function extract() {
     const text = pasteText.trim();
@@ -46,7 +49,17 @@ export function StrainInput({
         }
       }
       onChange(merged);
-      setPreview(items);
+      // Merge new items into the existing preview, deduped by strain name.
+      const seen = new Set(parsedItems.map((i) => i.strainName.toLowerCase()));
+      const mergedItems = [...parsedItems];
+      for (const item of items) {
+        const key = item.strainName.toLowerCase();
+        if (!seen.has(key)) {
+          seen.add(key);
+          mergedItems.push(item);
+        }
+      }
+      onParsedItemsChange(mergedItems);
       setPasteText("");
       setParseNote(
         parsed.length
@@ -61,7 +74,7 @@ export function StrainInput({
   }
 
   function dismissPreview() {
-    setPreview([]);
+    onParsedItemsChange([]);
     setParseNote(null);
   }
 
@@ -114,8 +127,8 @@ export function StrainInput({
         </div>
       </div>
 
-      {preview.length > 0 && (
-        <ParsedMenuPreview items={preview} onDismiss={dismissPreview} />
+      {parsedItems.length > 0 && (
+        <ParsedMenuPreview items={parsedItems} onDismiss={dismissPreview} />
       )}
 
       {error && (

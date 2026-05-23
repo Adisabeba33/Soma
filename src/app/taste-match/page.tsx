@@ -2,18 +2,20 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Bookmark, Check, RotateCcw } from "lucide-react";
+import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { StrainInput } from "@/components/strain-input";
 import { TasteProfileSummary } from "@/components/taste-profile-summary";
 import { ResultsView } from "@/components/results-view";
+import { MenuQualityReport } from "@/components/menu-quality-report";
 import { Button, buttonClass } from "@/components/ui/button";
 import {
   EMPTY_PROFILE,
   profileFromApi,
   type TasteProfileState,
 } from "@/lib/profile-state";
-import type { StrainMatch } from "@/lib/types";
+import type { ParsedMenuItem } from "@/lib/parse-menu";
+import type { MenuQuality, StrainMatch } from "@/lib/types";
 
 type Phase = "loading" | "profile" | "input" | "results";
 type Rec = StrainMatch & { id?: string };
@@ -22,12 +24,14 @@ export default function TasteMatchPage() {
   const [phase, setPhase] = useState<Phase>("loading");
   const [profile, setProfile] = useState<TasteProfileState>(EMPTY_PROFILE);
   const [strains, setStrains] = useState<string[]>([]);
+  const [parsedItems, setParsedItems] = useState<ParsedMenuItem[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
   const [savingProfile, setSavingProfile] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recommendations, setRecommendations] = useState<Rec[]>([]);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [engine, setEngine] = useState<"builtin" | "openai">("builtin");
+  const [menuQuality, setMenuQuality] = useState<MenuQuality | null>(null);
   const [savedState, setSavedState] = useState<"idle" | "saving" | "saved">(
     "idle",
   );
@@ -67,13 +71,17 @@ export default function TasteMatchPage() {
     setAnalyzing(true);
     setError(null);
     try {
+      const usedPaste = parsedItems.length > 0;
       const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           strains,
-          inputType: "manual",
-          rawInput: strains.join("\n"),
+          inputType: usedPaste ? "paste" : "manual",
+          rawInput: usedPaste
+            ? parsedItems.map((i) => i.rawLine).join("\n")
+            : strains.join("\n"),
+          parsedItems,
         }),
       });
       const data = await res.json();
@@ -84,6 +92,7 @@ export default function TasteMatchPage() {
       setRecommendations(data.recommendations ?? []);
       setSessionId(data.session?.id ?? null);
       setEngine(data.engine === "openai" ? "openai" : "builtin");
+      setMenuQuality(data.menuQuality ?? null);
       setSavedState("idle");
       setPhase("results");
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -92,6 +101,15 @@ export default function TasteMatchPage() {
     } finally {
       setAnalyzing(false);
     }
+  }
+
+  function exportSession() {
+    if (!sessionId) return;
+    window.open(
+      `/api/sessions/${encodeURIComponent(sessionId)}/export`,
+      "_blank",
+      "noopener",
+    );
   }
 
   async function saveResults() {
@@ -117,6 +135,8 @@ export default function TasteMatchPage() {
     setRecommendations([]);
     setSessionId(null);
     setStrains([]);
+    setParsedItems([]);
+    setMenuQuality(null);
     setError(null);
     setPhase("input");
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -172,6 +192,8 @@ export default function TasteMatchPage() {
               onAnalyze={runAnalysis}
               analyzing={analyzing}
               error={error}
+              parsedItems={parsedItems}
+              onParsedItemsChange={setParsedItems}
             />
           </div>
         </>
@@ -211,6 +233,15 @@ export default function TasteMatchPage() {
                     ? "Saving…"
                     : "Save results"}
               </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={exportSession}
+                disabled={!sessionId}
+              >
+                <Download className="h-4 w-4" />
+                Export JSON
+              </Button>
               <Button variant="ghost" size="sm" onClick={startOver}>
                 <RotateCcw className="h-4 w-4" />
                 New analysis
@@ -221,6 +252,12 @@ export default function TasteMatchPage() {
           <div className="mt-8">
             <TasteProfileSummary state={profile} />
           </div>
+
+          {menuQuality && menuQuality.totalParsed > 0 && (
+            <div className="mt-6">
+              <MenuQualityReport quality={menuQuality} />
+            </div>
+          )}
 
           <p className="mt-6 rounded-xl border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
             These are sensory matches, not guarantees. Real quality still

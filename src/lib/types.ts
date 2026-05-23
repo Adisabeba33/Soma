@@ -100,6 +100,15 @@ export interface SessionDetail extends SessionSummary {
   recommendations: SessionRecommendation[];
 }
 
+// A snapshot of how legible the pasted menu was. Computed at analyze time and
+// persisted with the session so we can see parse quality drift over real menus.
+export interface MenuQuality {
+  totalParsed: number;
+  unclearRows: number;
+  unknownStrains: number;
+  avgConfidence: number; // 0–1 mean of per-line confidence (high=1, medium=0.6, low=0.3)
+}
+
 export interface ComparisonItem extends StrainMatch {
   strainType: StrainType;
   potency: Potency;

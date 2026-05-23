@@ -1,7 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
-import { asArray, asText, getFeedbackSignals } from "@/lib/api";
+import {
+  asArray,
+  asText,
+  computeMenuQuality,
+  flattenParserWarnings,
+  getFeedbackSignals,
+  logUnknownStrains,
+  sanitizeParsedItems,
+} from "@/lib/api";
 import { analyze } from "@/lib/taste-engine";
 import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
 
@@ -14,6 +23,7 @@ export async function POST(req: NextRequest) {
   const strains = asArray(body.strains, 60);
   const inputType = body.inputType === "paste" ? "paste" : "manual";
   const rawInput = asText(body.rawInput, 12_000) ?? strains.join("\n");
+  const parsedItems = sanitizeParsedItems(body.parsedItems, 60);
 
   if (strains.length === 0) {
     return NextResponse.json(
@@ -43,6 +53,8 @@ export async function POST(req: NextRequest) {
     result = await enhanceWithOpenAI(result, profile);
   }
 
+  const menuQuality = computeMenuQuality(parsedItems, result.recommendations);
+
   const session = await prisma.analysisSession.create({
     data: {
       userId,
@@ -50,6 +62,12 @@ export async function POST(req: NextRequest) {
       inputType,
       rawInput,
       engine: result.engine,
+      parsedItems:
+        parsedItems.length > 0
+          ? (parsedItems as unknown as Prisma.InputJsonValue)
+          : undefined,
+      parserWarnings: flattenParserWarnings(parsedItems),
+      menuQuality: menuQuality as unknown as Prisma.InputJsonValue,
       recommendations: {
         create: result.recommendations.map((r) => ({
           strainName: r.strainName,
@@ -71,6 +89,12 @@ export async function POST(req: NextRequest) {
     include: { recommendations: true },
   });
 
+  // Fire-and-forget on the unknown-strain queue. A failure here must not
+  // block the user's analysis response.
+  logUnknownStrains(userId, session.id, result.recommendations, parsedItems).catch(
+    (err) => console.error("logUnknownStrains failed", err),
+  );
+
   const recommendations = result.recommendations.map((r) => ({
     ...r,
     id: session.recommendations.find((d) => d.strainName === r.strainName)?.id,
@@ -88,5 +112,6 @@ export async function POST(req: NextRequest) {
     },
     recommendations,
     engine: result.engine,
+    menuQuality,
   });
 }
