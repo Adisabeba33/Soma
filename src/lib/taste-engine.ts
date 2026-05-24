@@ -434,6 +434,30 @@ export function scoreStrain(
   const isFavoriteAnchor = !isDisliked && ref.score === 100 && ref.against !== null;
   const favoriteAnchorName: string | null = isFavoriteAnchor ? ref.against : null;
 
+  // For the explanation: did the match come through an alias (either the
+  // saved favourite was written as an alias, or the user typed an alias of
+  // the favourite on the menu)? We surface this so wording can be honest:
+  // "one of your saved favourites" vs "matches one of your saved favourites
+  // by alias".
+  let favoriteMatchKind: "canonical" | "alias" = "canonical";
+  let favoriteSurface: string | null = null;
+  if (isFavoriteAnchor) {
+    const matchedFavoriteSurface = profile.favoriteStrains.find((f) => {
+      const r = findStrain(f);
+      return r !== null && r.name === strain.name;
+    });
+    favoriteSurface = matchedFavoriteSurface ?? null;
+    const favoriteIsCanonical =
+      matchedFavoriteSurface !== undefined &&
+      normalizeStrainName(matchedFavoriteSurface) ===
+        normalizeStrainName(strain.name);
+    const strainTypedCanonical =
+      normalizeStrainName(rawName) === normalizeStrainName(strain.name);
+    if (!favoriteIsCanonical || !strainTypedCanonical) {
+      favoriteMatchKind = "alias";
+    }
+  }
+
   const raw =
     0.27 * effect.score +
     0.23 * aroma.score +
@@ -443,7 +467,10 @@ export function scoreStrain(
   const penalty = Math.min(42, conflicts.length * 15);
   let baseScore = Math.round(raw - penalty);
   if (isDisliked) baseScore = Math.min(baseScore, 18);
-  if (isFavoriteAnchor) baseScore = Math.max(baseScore, 96);
+  // Favourite anchor lives in 94–96. Never 100, because grower, batch
+  // freshness, package date and storage are not captured — even a perfect
+  // sensory match can be a bad pickup.
+  if (isFavoriteAnchor) baseScore = clamp(Math.max(baseScore, 94), 94, 96);
   baseScore = clamp(baseScore, 4, 99);
 
   // Feedback loop: the deterministic base score is the anchor; confirmed
@@ -482,6 +509,8 @@ export function scoreStrain(
     trait,
     ref,
     favoriteAnchorName,
+    favoriteMatchKind,
+    favoriteSurface,
   );
   const riskNotes = buildRiskNotes(strain, known, conflicts, profile);
   const explanation = buildExplanation(
@@ -490,6 +519,8 @@ export function scoreStrain(
     category,
     confidence,
     favoriteAnchorName,
+    favoriteMatchKind,
+    favoriteSurface,
   );
 
   return {
@@ -523,6 +554,8 @@ function buildWhyItFits(
   trait: { matched: string[] },
   ref: { score: number; against: string | null },
   favoriteAnchorName: string | null,
+  favoriteMatchKind: "canonical" | "alias",
+  favoriteSurface: string | null,
 ): string {
   if (favoriteAnchorName) {
     const supporting: string[] = [];
@@ -533,7 +566,11 @@ function buildWhyItFits(
     const tail = supporting.length
       ? ` It also lines up with ${joinList(supporting)}.`
       : "";
-    return `It's the saved favourite itself — SŌMA treats ${favoriteAnchorName} as your direct sensory anchor.${tail}`;
+    const opener =
+      favoriteMatchKind === "alias" && favoriteSurface
+        ? `It matches one of your saved favourites by alias — you listed it as “${favoriteSurface}”, and ${favoriteAnchorName} is the canonical strain SŌMA reads it as.`
+        : `It is one of your saved favourites — SŌMA treats ${favoriteAnchorName} as your direct sensory anchor.`;
+    return `${opener}${tail}`;
   }
 
   const points: string[] = [];
@@ -542,8 +579,17 @@ function buildWhyItFits(
   if (aroma.matched.length) points.push(`a ${labelList(aroma.matched)} nose`);
   if (flavor.matched.length) points.push(`${labelList(flavor.matched)} on the palate`);
   if (trait.matched.length) points.push(`${labelList(trait.matched)} structure`);
-  if (ref.score >= 72 && ref.against)
-    points.push(`a clear kinship with ${ref.against}`);
+  // Four-tier wording for favourite kinship. The exact-anchor case is
+  // handled above; here we distinguish "close to" vs "same sensory
+  // territory" vs nothing, so the language is honest about how strong the
+  // link actually is.
+  if (ref.against) {
+    if (ref.score >= 72) {
+      points.push(`closeness to your saved favourite ${ref.against}`);
+    } else if (ref.score >= 60) {
+      points.push(`the same sensory territory as ${ref.against}`);
+    }
+  }
 
   if (points.length === 0) {
     return "It is a balanced profile with no strong clash against your taste profile, though nothing in it strongly echoes your stated favourites either.";
@@ -589,12 +635,16 @@ function buildExplanation(
   category: Category,
   confidence: Confidence,
   favoriteAnchorName: string | null,
+  favoriteMatchKind: "canonical" | "alias",
+  favoriteSurface: string | null,
 ): string {
   if (favoriteAnchorName) {
-    return (
-      `${strain.name} is one of your saved favourites, so SŌMA treats it as a direct sensory anchor rather than scoring it like any other strain — it lands at ${score}%. ` +
-      `Confidence in this read is ${confidence}; batch quality still depends on grower, freshness and storage, so even a favourite can vary from one purchase to the next.`
-    );
+    const opener =
+      favoriteMatchKind === "alias" && favoriteSurface
+        ? `${strain.name} matches one of your saved favourites by alias — you listed it as “${favoriteSurface}”. It's the same strain canonically, so SŌMA treats it as a direct sensory anchor.`
+        : `${strain.name} is one of your saved favourites, so SŌMA treats it as a direct sensory anchor.`;
+    const cap = `It lands at ${score}% — not 100% — because grower, batch freshness, package date and storage are not captured here. Sensory identity matches your preference; purchase quality is still unknown.`;
+    return `${opener} ${cap}`;
   }
   const opener = `${strain.name} lands at ${score}% — a ${category.toLowerCase()} for your profile.`;
   const direction =

@@ -22,42 +22,49 @@ function profile(overrides: Partial<TasteProfileInput> = {}): TasteProfileInput 
   };
 }
 
-describe("favorite anchor behaviour", () => {
-  it("scores a favourite at ≥95 even with an otherwise sparse profile", () => {
+describe("favourite anchor behaviour", () => {
+  it("scores a favourite in the 94–96 range, never 100", () => {
     const result = scoreStrain(
       "Super Lemon Haze",
       profile({ favoriteStrains: ["Super Lemon Haze"] }),
     );
     assert.ok(
-      result.matchScore >= 95,
-      `expected ≥95, got ${result.matchScore}`,
+      result.matchScore >= 94 && result.matchScore <= 96,
+      `expected 94–96, got ${result.matchScore}`,
     );
     assert.equal(result.category, "Best Match");
     assert.equal(result.confidence, "high");
   });
 
-  it("recognises a favourite by its alias", () => {
-    const result = scoreStrain(
-      "Super Lemon Haze",
-      profile({ favoriteStrains: ["SLH"] }),
-    );
-    assert.ok(result.matchScore >= 95);
-    assert.equal(result.category, "Best Match");
-  });
-
-  it("recognises the same strain typed via alias against canonical favourite", () => {
-    const result = scoreStrain("SLH", profile({ favoriteStrains: ["Super Lemon Haze"] }));
-    assert.ok(result.matchScore >= 95);
-  });
-
-  it("explanation discloses the favourite anchor", () => {
+  it("uses canonical wording when both sides are canonical", () => {
     const result = scoreStrain(
       "Super Lemon Haze",
       profile({ favoriteStrains: ["Super Lemon Haze"] }),
     );
-    assert.match(result.explanation, /saved favourite/i);
-    assert.match(result.explanation, /sensory anchor/i);
-    assert.match(result.whyItFits, /saved favourite|sensory anchor/i);
+    assert.match(result.explanation, /is one of your saved favourites/i);
+    assert.doesNotMatch(result.explanation, /by alias/i);
+    assert.match(result.explanation, /not 100%/i);
+    assert.match(result.explanation, /grower, batch freshness/i);
+  });
+
+  it("uses alias wording when the favourite was listed by alias", () => {
+    const result = scoreStrain(
+      "Super Lemon Haze",
+      profile({ favoriteStrains: ["SLH"] }),
+    );
+    assert.ok(result.matchScore >= 94 && result.matchScore <= 96);
+    assert.match(result.explanation, /matches one of your saved favourites by alias/i);
+    assert.match(result.explanation, /listed it as/i);
+    assert.match(result.whyItFits, /by alias/i);
+  });
+
+  it("uses alias wording when the user types an alias on the menu", () => {
+    const result = scoreStrain(
+      "SLH",
+      profile({ favoriteStrains: ["Super Lemon Haze"] }),
+    );
+    assert.ok(result.matchScore >= 94 && result.matchScore <= 96);
+    assert.match(result.explanation, /matches one of your saved favourites by alias/i);
   });
 
   it("does not anchor a non-favourite, even if sensorily similar", () => {
@@ -66,10 +73,36 @@ describe("favorite anchor behaviour", () => {
       profile({ favoriteStrains: ["Super Lemon Haze"] }),
     );
     assert.ok(
-      result.matchScore < 95,
+      result.matchScore < 94,
       `expected non-favourite under anchor floor, got ${result.matchScore}`,
     );
-    assert.doesNotMatch(result.explanation, /saved favourite/i);
+    assert.doesNotMatch(result.explanation, /saved favourites/i);
+  });
+
+  it("uses 'closeness to your saved favourite' wording for nearby strains", () => {
+    const result = scoreStrain(
+      "Lemon Haze",
+      profile({ favoriteStrains: ["Super Lemon Haze"] }),
+    );
+    if (result.referenceSimilarity >= 72) {
+      assert.match(
+        result.whyItFits,
+        /closeness to your saved favourite/i,
+      );
+    }
+  });
+
+  it("uses 'same sensory territory' wording for moderate kinship", () => {
+    const result = scoreStrain(
+      "Granddaddy Purple",
+      profile({ favoriteStrains: ["Northern Lights"] }),
+    );
+    if (
+      result.referenceSimilarity >= 60 &&
+      result.referenceSimilarity < 72
+    ) {
+      assert.match(result.whyItFits, /same sensory territory/i);
+    }
   });
 
   it("disliked list wins when a strain is in both lists", () => {
@@ -99,15 +132,13 @@ describe("favorite anchor behaviour", () => {
     const result = scoreStrain(
       "Super Lemon Haze",
       profile({ favoriteStrains: ["Super Lemon Haze"] }),
-      // Three confirmed dislikes on a sensorily-similar strain would normally
-      // pull a non-anchor down by a few points; the anchor must ignore that.
       [
         { strainName: "Super Lemon Haze", liked: false, rating: 1 },
         { strainName: "Super Lemon Haze", liked: false, rating: 2 },
         { strainName: "Super Lemon Haze", liked: false, rating: 1 },
       ],
     );
-    assert.ok(result.matchScore >= 95);
+    assert.ok(result.matchScore >= 94 && result.matchScore <= 96);
     assert.equal(result.feedbackAdjustment, 0);
     assert.equal(result.feedbackNote, null);
   });
