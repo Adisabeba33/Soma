@@ -221,13 +221,13 @@
       "strain": "Sour Diesel",
       "scoreSpread": 92,
       "divergence": {
-        "similarity": 0.442,
-        "similarityBigrams": 0.372,
+        "similarity": 0.41,
+        "similarityBigrams": 0.344,
         "flag": "diverging"
       },
       "divergenceWhy": {
-        "similarity": 0.207,
-        "similarityBigrams": 0.062,
+        "similarity": 0.16,
+        "similarityBigrams": 0.045,
         "flag": "diverging"
       },
       "divergenceRisk": {
@@ -268,9 +268,9 @@
           "category": "Best Match",
           "confidence": "high",
           "knownStrain": true,
-          "whyItFits": "It lands on the energetic, cerebral head-high, uplifted and euphoric effect you're after, a citrus, diesel, gassy and skunky nose, citrus and gassy on the palate, loud / strong smell, terpy / flavorful, gassy and high potency structure and a clear kinship with Sour Diesel.",
+          "whyItFits": "It's the saved favourite itself — SŌMA treats Sour Diesel as your direct sensory anchor. It also lines up with the energetic, cerebral head-high, uplifted and euphoric effect you're after, a citrus, diesel, gassy and skunky nose and citrus and gassy on the palate.",
           "riskNotes": "You flagged weak smell and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
-          "explanation": "Sour Diesel lands at 96% — a best match for your profile. It sits close to the sensory territory you keep returning to."
+          "explanation": "Sour Diesel is one of your saved favourites, so SŌMA treats it as a direct sensory anchor rather than scoring it like any other strain — it lands at 96%."
         },
         "dessert-couch-lock": {
           "matchScore": 18,
@@ -387,15 +387,15 @@
     },
     {
       "strain": "GMO Cookies",
-      "scoreSpread": 50,
+      "scoreSpread": 73,
       "divergence": {
-        "similarity": 0.372,
-        "similarityBigrams": 0.306,
+        "similarity": 0.349,
+        "similarityBigrams": 0.276,
         "flag": "diverging"
       },
       "divergenceWhy": {
-        "similarity": 0.306,
-        "similarityBigrams": 0.116,
+        "similarity": 0.266,
+        "similarityBigrams": 0.102,
         "flag": "diverging"
       },
       "divergenceRisk": {
@@ -450,13 +450,13 @@
           "explanation": "GMO Cookies lands at 51% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
         },
         "cheese-funk": {
-          "matchScore": 73,
-          "category": "Closest Alternative",
+          "matchScore": 96,
+          "category": "Best Match",
           "confidence": "high",
           "knownStrain": true,
-          "whyItFits": "It lands on the relaxed effect you're after, a earthy and herbal nose, earthy, spicy and herbal on the palate, loud / strong smell and gassy structure and a clear kinship with GMO Cookies.",
+          "whyItFits": "It's the saved favourite itself — SŌMA treats GMO Cookies as your direct sensory anchor. It also lines up with the relaxed effect you're after, a earthy and herbal nose and earthy, spicy and herbal on the palate.",
           "riskNotes": "You flagged dry flower and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
-          "explanation": "GMO Cookies lands at 73% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+          "explanation": "GMO Cookies is one of your saved favourites, so SŌMA treats it as a direct sensory anchor rather than scoring it like any other strain — it lands at 96%."
         },
         "blank-slate": {
           "matchScore": 39,
@@ -471,15 +471,15 @@
     },
     {
       "strain": "Northern Lights",
-      "scoreSpread": 73,
+      "scoreSpread": 90,
       "divergence": {
-        "similarity": 0.335,
-        "similarityBigrams": 0.253,
+        "similarity": 0.274,
+        "similarityBigrams": 0.183,
         "flag": "diverging"
       },
       "divergenceWhy": {
-        "similarity": 0.338,
-        "similarityBigrams": 0.125,
+        "similarity": 0.304,
+        "similarityBigrams": 0.112,
         "flag": "diverging"
       },
       "divergenceRisk": {
@@ -507,13 +507,13 @@
           "explanation": "Northern Lights lands at 20% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
         },
         "heavy-sleeper": {
-          "matchScore": 79,
-          "category": "Closest Alternative",
+          "matchScore": 96,
+          "category": "Best Match",
           "confidence": "high",
           "knownStrain": true,
-          "whyItFits": "It lands on the sleepy, heavy body and relaxed effect you're after, a earthy, sweet and spicy nose, earthy and sweet on the palate, heavy body feel and dense buds structure and a clear kinship with Northern Lights.",
+          "whyItFits": "It's the saved favourite itself — SŌMA treats Northern Lights as your direct sensory anchor. It also lines up with the sleepy, heavy body and relaxed effect you're after, a earthy, sweet and spicy nose and earthy and sweet on the palate.",
           "riskNotes": "You flagged weak smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
-          "explanation": "Northern Lights lands at 79% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+          "explanation": "Northern Lights is one of your saved favourites, so SŌMA treats it as a direct sensory anchor rather than scoring it like any other strain — it lands at 96%."
         },
         "sour-citrus-head": {
           "matchScore": 6,
@@ -555,15 +555,15 @@
     },
     {
       "strain": "Super Lemon Haze",
-      "scoreSpread": 73,
+      "scoreSpread": 92,
       "divergence": {
-        "similarity": 0.515,
-        "similarityBigrams": 0.432,
+        "similarity": 0.449,
+        "similarityBigrams": 0.364,
         "flag": "diverging"
       },
       "divergenceWhy": {
-        "similarity": 0.495,
-        "similarityBigrams": 0.25,
+        "similarity": 0.446,
+        "similarityBigrams": 0.224,
         "flag": "diverging"
       },
       "divergenceRisk": {
@@ -582,13 +582,13 @@
           "explanation": "Super Lemon Haze lands at 10% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
         },
         "daytime-creative": {
-          "matchScore": 77,
-          "category": "Closest Alternative",
+          "matchScore": 96,
+          "category": "Best Match",
           "confidence": "high",
           "knownStrain": true,
-          "whyItFits": "It lands on the uplifted, creative, energetic and cerebral head-high effect you're after, a citrus and herbal nose, citrus and herbal on the palate, loud / strong smell and terpy / flavorful structure and a clear kinship with Super Lemon Haze.",
+          "whyItFits": "It's the saved favourite itself — SŌMA treats Super Lemon Haze as your direct sensory anchor. It also lines up with the uplifted, creative, energetic and cerebral head-high effect you're after, a citrus and herbal nose and citrus and herbal on the palate.",
           "riskNotes": "You flagged hay / grassy smell and harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
-          "explanation": "Super Lemon Haze lands at 77% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+          "explanation": "Super Lemon Haze is one of your saved favourites, so SŌMA treats it as a direct sensory anchor rather than scoring it like any other strain — it lands at 96%."
         },
         "heavy-sleeper": {
           "matchScore": 4,
@@ -639,15 +639,15 @@
     },
     {
       "strain": "Wedding Cake",
-      "scoreSpread": 68,
+      "scoreSpread": 80,
       "divergence": {
-        "similarity": 0.455,
-        "similarityBigrams": 0.352,
+        "similarity": 0.306,
+        "similarityBigrams": 0.203,
         "flag": "diverging"
       },
       "divergenceWhy": {
-        "similarity": 0.368,
-        "similarityBigrams": 0.139,
+        "similarity": 0.31,
+        "similarityBigrams": 0.13,
         "flag": "diverging"
       },
       "divergenceRisk": {
@@ -657,13 +657,13 @@
       },
       "byArchetype": {
         "chill-evening": {
-          "matchScore": 83,
+          "matchScore": 96,
           "category": "Best Match",
           "confidence": "high",
           "knownStrain": true,
-          "whyItFits": "It lands on the relaxed, calm head, happy and heavy body effect you're after, a sweet and creamy nose, sweet, creamy and vanilla on the palate, dense buds and terpy / flavorful structure and a clear kinship with Wedding Cake.",
+          "whyItFits": "It's the saved favourite itself — SŌMA treats Wedding Cake as your direct sensory anchor. It also lines up with the relaxed, calm head, happy and heavy body effect you're after, a sweet and creamy nose and sweet, creamy and vanilla on the palate.",
           "riskNotes": "You flagged harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
-          "explanation": "Wedding Cake lands at 83% — a best match for your profile. It sits close to the sensory territory you keep returning to."
+          "explanation": "Wedding Cake is one of your saved favourites, so SŌMA treats it as a direct sensory anchor rather than scoring it like any other strain — it lands at 96%."
         },
         "daytime-creative": {
           "matchScore": 16,
@@ -693,13 +693,13 @@
           "explanation": "Wedding Cake lands at 18% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
         },
         "dessert-couch-lock": {
-          "matchScore": 84,
+          "matchScore": 96,
           "category": "Best Match",
           "confidence": "high",
           "knownStrain": true,
-          "whyItFits": "It lands on the relaxed, euphoric, heavy body and happy effect you're after, a sweet and creamy nose, sweet, creamy and vanilla on the palate, frosty, sticky, terpy / flavorful and high potency structure and a clear kinship with Wedding Cake.",
+          "whyItFits": "It's the saved favourite itself — SŌMA treats Wedding Cake as your direct sensory anchor. It also lines up with the relaxed, euphoric, heavy body and happy effect you're after, a sweet and creamy nose and sweet, creamy and vanilla on the palate.",
           "riskNotes": "You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
-          "explanation": "Wedding Cake lands at 84% — a best match for your profile. It sits close to the sensory territory you keep returning to."
+          "explanation": "Wedding Cake is one of your saved favourites, so SŌMA treats it as a direct sensory anchor rather than scoring it like any other strain — it lands at 96%."
         },
         "cheese-funk": {
           "matchScore": 46,
@@ -723,15 +723,15 @@
     },
     {
       "strain": "Runtz",
-      "scoreSpread": 55,
+      "scoreSpread": 62,
       "divergence": {
-        "similarity": 0.396,
-        "similarityBigrams": 0.321,
+        "similarity": 0.319,
+        "similarityBigrams": 0.24,
         "flag": "diverging"
       },
       "divergenceWhy": {
-        "similarity": 0.474,
-        "similarityBigrams": 0.208,
+        "similarity": 0.428,
+        "similarityBigrams": 0.187,
         "flag": "diverging"
       },
       "divergenceRisk": {
@@ -777,13 +777,13 @@
           "explanation": "Runtz lands at 39% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
         },
         "dessert-couch-lock": {
-          "matchScore": 89,
+          "matchScore": 96,
           "category": "Best Match",
           "confidence": "high",
           "knownStrain": true,
-          "whyItFits": "It lands on the relaxed, euphoric and happy effect you're after, a sweet, creamy, fruity and tropical nose, sweet, creamy and fruity on the palate, frosty, sticky, terpy / flavorful and high potency structure and a clear kinship with Runtz.",
+          "whyItFits": "It's the saved favourite itself — SŌMA treats Runtz as your direct sensory anchor. It also lines up with the relaxed, euphoric and happy effect you're after, a sweet, creamy, fruity and tropical nose and sweet, creamy and fruity on the palate.",
           "riskNotes": "You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
-          "explanation": "Runtz lands at 89% — a best match for your profile. It sits close to the sensory territory you keep returning to."
+          "explanation": "Runtz is one of your saved favourites, so SŌMA treats it as a direct sensory anchor rather than scoring it like any other strain — it lands at 96%."
         },
         "cheese-funk": {
           "matchScore": 34,

@@ -418,11 +418,21 @@ export function scoreStrain(
   const ref = referenceSimilarity(strain, profile.favoriteStrains);
   const conflicts = dislikedConflicts(strain, profile.dislikedTraits);
 
-  const isDisliked = profile.dislikedStrains.some(
-    (d) =>
-      normalizeStrainName(d) === normalizeStrainName(strain.name) ||
-      normalizeStrainName(d) === normalizeStrainName(rawName),
-  );
+  // Disliked detection — resolve aliases through findStrain so that flagging
+  // "GG4" also catches "Gorilla Glue #4" and vice versa.
+  const isDisliked = profile.dislikedStrains.some((d) => {
+    const resolved = findStrain(d);
+    if (resolved && resolved.name === strain.name) return true;
+    return normalizeStrainName(d) === normalizeStrainName(rawName);
+  });
+
+  // Favorite anchor — when the strain the user is looking at is canonically
+  // one of their saved favourites (alias-aware via findStrain inside
+  // referenceSimilarity), it has to dominate the score. A weighted-sum of
+  // partial signals can otherwise cap a favourite around 70% if the rest of
+  // the profile is sparse, which destroys trust. Disliked-list wins ties.
+  const isFavoriteAnchor = !isDisliked && ref.score === 100 && ref.against !== null;
+  const favoriteAnchorName: string | null = isFavoriteAnchor ? ref.against : null;
 
   const raw =
     0.27 * effect.score +
@@ -433,14 +443,19 @@ export function scoreStrain(
   const penalty = Math.min(42, conflicts.length * 15);
   let baseScore = Math.round(raw - penalty);
   if (isDisliked) baseScore = Math.min(baseScore, 18);
+  if (isFavoriteAnchor) baseScore = Math.max(baseScore, 96);
   baseScore = clamp(baseScore, 4, 99);
 
   // Feedback loop: the deterministic base score is the anchor; confirmed
   // likes/dislikes on similar past strains nudge it within a bounded range.
+  // A favorite anchor is exempt — the user already told us this is the
+  // reference, noise from related sessions shouldn't drag it down.
   const fb = evaluateFeedback(strain, feedback);
-  const matchScore = clamp(baseScore + fb.adjustment, 4, 99);
+  const fbAdjustment = isFavoriteAnchor ? 0 : fb.adjustment;
+  const matchScore = clamp(baseScore + fbAdjustment, 4, 99);
 
-  const category = categorize(matchScore, conflicts.length, isDisliked);
+  let category = categorize(matchScore, conflicts.length, isDisliked);
+  if (isFavoriteAnchor) category = "Best Match";
 
   const depthSignals = [
     profile.preferredAromas,
@@ -455,11 +470,27 @@ export function scoreStrain(
   else if (depthSignals >= 4) baseConfidence = "high";
   else if (depthSignals >= 2) baseConfidence = "medium";
   else baseConfidence = "low";
+  // Favorite anchors are high-confidence by definition — the user has told us
+  // this is their reference point.
+  if (isFavoriteAnchor) baseConfidence = "high";
   const confidence = bumpConfidence(baseConfidence, fb.confidenceBoost);
 
-  const whyItFits = buildWhyItFits(effect, aroma, flavor, trait, ref);
+  const whyItFits = buildWhyItFits(
+    effect,
+    aroma,
+    flavor,
+    trait,
+    ref,
+    favoriteAnchorName,
+  );
   const riskNotes = buildRiskNotes(strain, known, conflicts, profile);
-  const explanation = buildExplanation(strain, matchScore, category, confidence);
+  const explanation = buildExplanation(
+    strain,
+    matchScore,
+    category,
+    confidence,
+    favoriteAnchorName,
+  );
 
   return {
     strainName: rawName.trim(),
@@ -480,8 +511,8 @@ export function scoreStrain(
     whyItFits,
     riskNotes,
     explanation,
-    feedbackAdjustment: fb.adjustment,
-    feedbackNote: fb.note,
+    feedbackAdjustment: fbAdjustment,
+    feedbackNote: isFavoriteAnchor ? null : fb.note,
   };
 }
 
@@ -491,7 +522,20 @@ function buildWhyItFits(
   flavor: { matched: string[] },
   trait: { matched: string[] },
   ref: { score: number; against: string | null },
+  favoriteAnchorName: string | null,
 ): string {
+  if (favoriteAnchorName) {
+    const supporting: string[] = [];
+    if (effect.matched.length)
+      supporting.push(`the ${labelList(effect.matched)} effect you're after`);
+    if (aroma.matched.length) supporting.push(`a ${labelList(aroma.matched)} nose`);
+    if (flavor.matched.length) supporting.push(`${labelList(flavor.matched)} on the palate`);
+    const tail = supporting.length
+      ? ` It also lines up with ${joinList(supporting)}.`
+      : "";
+    return `It's the saved favourite itself — SŌMA treats ${favoriteAnchorName} as your direct sensory anchor.${tail}`;
+  }
+
   const points: string[] = [];
   if (effect.matched.length)
     points.push(`the ${labelList(effect.matched)} effect you're after`);
@@ -544,7 +588,14 @@ function buildExplanation(
   score: number,
   category: Category,
   confidence: Confidence,
+  favoriteAnchorName: string | null,
 ): string {
+  if (favoriteAnchorName) {
+    return (
+      `${strain.name} is one of your saved favourites, so SŌMA treats it as a direct sensory anchor rather than scoring it like any other strain — it lands at ${score}%. ` +
+      `Confidence in this read is ${confidence}; batch quality still depends on grower, freshness and storage, so even a favourite can vary from one purchase to the next.`
+    );
+  }
   const opener = `${strain.name} lands at ${score}% — a ${category.toLowerCase()} for your profile.`;
   const direction =
     category === "Avoid"
