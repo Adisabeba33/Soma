@@ -23,6 +23,9 @@ export function SiteFooter() {
               <Link href="/compare" className="hover:text-accent">
                 Compare
               </Link>
+              <Link href="/catalog" className="hover:text-accent">
+                Catalog
+              </Link>
               <Link href="/profile" className="hover:text-accent">
                 My Profile
               </Link>
