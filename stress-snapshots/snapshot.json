@@ -1,0 +1,893 @@
+{
+  "archetypes": [
+    {
+      "key": "chill-evening",
+      "label": "Chill evening",
+      "description": "Wind-down, soft body, no edge"
+    },
+    {
+      "key": "daytime-creative",
+      "label": "Daytime creative",
+      "description": "Focus, clean head-up, no couch"
+    },
+    {
+      "key": "heavy-sleeper",
+      "label": "Heavy sleeper",
+      "description": "Deep body, knock-out, end of day"
+    },
+    {
+      "key": "sour-citrus-head",
+      "label": "Sour citrus head",
+      "description": "Loud diesel-and-zest, head-forward"
+    },
+    {
+      "key": "dessert-couch-lock",
+      "label": "Dessert couch-lock",
+      "description": "Sweet/creamy nose, settled body"
+    },
+    {
+      "key": "cheese-funk",
+      "label": "Cheese / funk",
+      "description": "Pungent, hungry, sociable"
+    },
+    {
+      "key": "blank-slate",
+      "label": "Blank slate",
+      "description": "Almost no preferences expressed (exploration)"
+    }
+  ],
+  "strains": [
+    "GG4",
+    "WiFi OG",
+    "Sour Diesel",
+    "Skunk #1",
+    "GMO Cookies",
+    "Northern Lights",
+    "Super Lemon Haze",
+    "Wedding Cake",
+    "Runtz",
+    "White Hot Guava"
+  ],
+  "rows": [
+    {
+      "strain": "GG4",
+      "scoreSpread": 40,
+      "divergence": {
+        "similarity": 0.47,
+        "similarityBigrams": 0.417,
+        "flag": "diverging"
+      },
+      "divergenceWhy": {
+        "similarity": 0.399,
+        "similarityBigrams": 0.158,
+        "flag": "diverging"
+      },
+      "divergenceRisk": {
+        "similarity": 0.72,
+        "similarityBigrams": 0.676,
+        "flag": "borderline"
+      },
+      "byArchetype": {
+        "chill-evening": {
+          "matchScore": 49,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, calm head, happy and heavy body effect you're after.",
+          "riskNotes": "You flagged harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GG4 lands at 49% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "daytime-creative": {
+          "matchScore": 19,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on a pine nose, pine on the palate and loud / strong smell structure.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged hay / grassy smell and harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GG4 lands at 19% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "heavy-sleeper": {
+          "matchScore": 54,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the heavy body and relaxed effect you're after, a earthy nose, earthy on the palate and heavy body feel, high potency and sticky structure.",
+          "riskNotes": "You flagged weak smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GG4 lands at 54% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "sour-citrus-head": {
+          "matchScore": 37,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the euphoric effect you're after, a diesel and gassy nose, gassy on the palate and loud / strong smell, gassy and high potency structure.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged weak smell and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GG4 lands at 37% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "dessert-couch-lock": {
+          "matchScore": 53,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, euphoric, heavy body and happy effect you're after and frosty, sticky and high potency structure.",
+          "riskNotes": "You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GG4 lands at 53% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "cheese-funk": {
+          "matchScore": 59,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed and happy effect you're after, a earthy nose, earthy on the palate and loud / strong smell, earthy and gassy structure.",
+          "riskNotes": "You flagged dry flower and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GG4 lands at 59% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "blank-slate": {
+          "matchScore": 59,
+          "category": "Worth Trying",
+          "confidence": "medium",
+          "knownStrain": true,
+          "whyItFits": "It lands on the happy effect you're after.",
+          "riskNotes": "The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GG4 lands at 59% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        }
+      }
+    },
+    {
+      "strain": "WiFi OG",
+      "scoreSpread": 32,
+      "divergence": {
+        "similarity": 0.408,
+        "similarityBigrams": 0.356,
+        "flag": "diverging"
+      },
+      "divergenceWhy": {
+        "similarity": 0.336,
+        "similarityBigrams": 0.128,
+        "flag": "diverging"
+      },
+      "divergenceRisk": {
+        "similarity": 0.762,
+        "similarityBigrams": 0.743,
+        "flag": "borderline"
+      },
+      "byArchetype": {
+        "chill-evening": {
+          "matchScore": 45,
+          "category": "Risky",
+          "confidence": "medium",
+          "knownStrain": false,
+          "whyItFits": "It lands on the relaxed, calm head and heavy body effect you're after and dense buds structure.",
+          "riskNotes": "You flagged harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. We don't hold detailed sensory data on this one, so the read above is inferred from the name. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "WiFi OG lands at 45% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "daytime-creative": {
+          "matchScore": 18,
+          "category": "Avoid",
+          "confidence": "medium",
+          "knownStrain": false,
+          "whyItFits": "It lands on a pine nose, pine on the palate and dense buds structure.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged hay / grassy smell and harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. We don't hold detailed sensory data on this one, so the read above is inferred from the name. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "WiFi OG lands at 18% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "heavy-sleeper": {
+          "matchScore": 50,
+          "category": "Worth Trying",
+          "confidence": "medium",
+          "knownStrain": false,
+          "whyItFits": "It lands on the heavy body and relaxed effect you're after, a earthy nose, earthy on the palate and dense buds structure.",
+          "riskNotes": "You flagged weak smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. We don't hold detailed sensory data on this one, so the read above is inferred from the name. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "WiFi OG lands at 50% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "sour-citrus-head": {
+          "matchScore": 20,
+          "category": "Avoid",
+          "confidence": "medium",
+          "knownStrain": false,
+          "whyItFits": "It lands on a gassy nose, gassy on the palate and gassy structure.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged weak smell and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. We don't hold detailed sensory data on this one, so the read above is inferred from the name. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "WiFi OG lands at 20% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "dessert-couch-lock": {
+          "matchScore": 35,
+          "category": "Avoid",
+          "confidence": "medium",
+          "knownStrain": false,
+          "whyItFits": "It lands on the relaxed and heavy body effect you're after.",
+          "riskNotes": "You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. We don't hold detailed sensory data on this one, so the read above is inferred from the name. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "WiFi OG lands at 35% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "cheese-funk": {
+          "matchScore": 47,
+          "category": "Risky",
+          "confidence": "medium",
+          "knownStrain": false,
+          "whyItFits": "It lands on the relaxed effect you're after, a earthy nose, earthy on the palate and earthy and gassy structure.",
+          "riskNotes": "You flagged dry flower and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. We don't hold detailed sensory data on this one, so the read above is inferred from the name. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "WiFi OG lands at 47% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "blank-slate": {
+          "matchScore": 39,
+          "category": "Risky",
+          "confidence": "low",
+          "knownStrain": false,
+          "whyItFits": "It is a balanced profile with no strong clash against your taste profile, though nothing in it strongly echoes your stated favourites either.",
+          "riskNotes": "We don't hold detailed sensory data on this one, so the read above is inferred from the name. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "WiFi OG lands at 39% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        }
+      }
+    },
+    {
+      "strain": "Sour Diesel",
+      "scoreSpread": 92,
+      "divergence": {
+        "similarity": 0.442,
+        "similarityBigrams": 0.372,
+        "flag": "diverging"
+      },
+      "divergenceWhy": {
+        "similarity": 0.207,
+        "similarityBigrams": 0.062,
+        "flag": "diverging"
+      },
+      "divergenceRisk": {
+        "similarity": 0.674,
+        "similarityBigrams": 0.615,
+        "flag": "borderline"
+      },
+      "byArchetype": {
+        "chill-evening": {
+          "matchScore": 4,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on terpy / flavorful structure.",
+          "riskNotes": "It leans toward a light, heady lift rather than the weight you tend to want. It leans toward citrus-forward, which can read as the sharp citrus you avoid. You flagged harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Sour Diesel lands at 4% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "daytime-creative": {
+          "matchScore": 65,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the uplifted, creative, energetic and cerebral head-high effect you're after, a citrus nose, citrus and herbal on the palate and loud / strong smell and terpy / flavorful structure.",
+          "riskNotes": "You flagged hay / grassy smell and harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Sour Diesel lands at 65% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "heavy-sleeper": {
+          "matchScore": 4,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on high potency structure.",
+          "riskNotes": "It leans toward a light, heady lift rather than the weight you tend to want. It leans toward citrus-forward, which can read as the sharp citrus you avoid. You flagged weak smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Sour Diesel lands at 4% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "sour-citrus-head": {
+          "matchScore": 96,
+          "category": "Best Match",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the energetic, cerebral head-high, uplifted and euphoric effect you're after, a citrus, diesel, gassy and skunky nose, citrus and gassy on the palate, loud / strong smell, terpy / flavorful, gassy and high potency structure and a clear kinship with Sour Diesel.",
+          "riskNotes": "You flagged weak smell and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Sour Diesel lands at 96% — a best match for your profile. It sits close to the sensory territory you keep returning to."
+        },
+        "dessert-couch-lock": {
+          "matchScore": 18,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the euphoric effect you're after and terpy / flavorful and high potency structure.",
+          "riskNotes": "It leans toward citrus-forward, which can read as the sharp citrus you avoid. You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Sour Diesel lands at 18% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "cheese-funk": {
+          "matchScore": 27,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on a skunky nose, herbal on the palate and loud / strong smell and gassy structure.",
+          "riskNotes": "It leans toward a light, heady lift rather than the weight you tend to want. You flagged dry flower and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Sour Diesel lands at 27% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "blank-slate": {
+          "matchScore": 39,
+          "category": "Risky",
+          "confidence": "medium",
+          "knownStrain": true,
+          "whyItFits": "It is a balanced profile with no strong clash against your taste profile, though nothing in it strongly echoes your stated favourites either.",
+          "riskNotes": "The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Sour Diesel lands at 39% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        }
+      }
+    },
+    {
+      "strain": "Skunk #1",
+      "scoreSpread": 38,
+      "divergence": {
+        "similarity": 0.476,
+        "similarityBigrams": 0.422,
+        "flag": "diverging"
+      },
+      "divergenceWhy": {
+        "similarity": 0.572,
+        "similarityBigrams": 0.272,
+        "flag": "diverging"
+      },
+      "divergenceRisk": {
+        "similarity": 0.788,
+        "similarityBigrams": 0.741,
+        "flag": "borderline"
+      },
+      "byArchetype": {
+        "chill-evening": {
+          "matchScore": 46,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed and happy effect you're after, a sweet nose and sweet on the palate.",
+          "riskNotes": "You flagged harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Skunk #1 lands at 46% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "daytime-creative": {
+          "matchScore": 38,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the uplifted and creative effect you're after and loud / strong smell structure.",
+          "riskNotes": "You flagged hay / grassy smell and harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Skunk #1 lands at 38% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "heavy-sleeper": {
+          "matchScore": 52,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed effect you're after, a earthy, sweet and spicy nose and earthy and sweet on the palate.",
+          "riskNotes": "You flagged weak smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Skunk #1 lands at 52% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "sour-citrus-head": {
+          "matchScore": 41,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the uplifted effect you're after, a skunky nose, spicy on the palate and loud / strong smell structure.",
+          "riskNotes": "You flagged weak smell and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Skunk #1 lands at 41% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "dessert-couch-lock": {
+          "matchScore": 44,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed and happy effect you're after, a sweet nose and sweet on the palate.",
+          "riskNotes": "You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Skunk #1 lands at 44% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "cheese-funk": {
+          "matchScore": 65,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, happy and hungry effect you're after, a skunky and earthy nose, earthy and spicy on the palate and loud / strong smell and earthy structure.",
+          "riskNotes": "You flagged dry flower and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Skunk #1 lands at 65% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "blank-slate": {
+          "matchScore": 76,
+          "category": "Closest Alternative",
+          "confidence": "medium",
+          "knownStrain": true,
+          "whyItFits": "It lands on the happy effect you're after and a sweet nose.",
+          "riskNotes": "The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Skunk #1 lands at 76% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        }
+      }
+    },
+    {
+      "strain": "GMO Cookies",
+      "scoreSpread": 50,
+      "divergence": {
+        "similarity": 0.372,
+        "similarityBigrams": 0.306,
+        "flag": "diverging"
+      },
+      "divergenceWhy": {
+        "similarity": 0.306,
+        "similarityBigrams": 0.116,
+        "flag": "diverging"
+      },
+      "divergenceRisk": {
+        "similarity": 0.72,
+        "similarityBigrams": 0.676,
+        "flag": "borderline"
+      },
+      "byArchetype": {
+        "chill-evening": {
+          "matchScore": 40,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed and heavy body effect you're after and terpy / flavorful structure.",
+          "riskNotes": "You flagged harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GMO Cookies lands at 40% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "daytime-creative": {
+          "matchScore": 23,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on a herbal nose, herbal on the palate and loud / strong smell and terpy / flavorful structure.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged hay / grassy smell and harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GMO Cookies lands at 23% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "heavy-sleeper": {
+          "matchScore": 64,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the sleepy, deep couch-lock, heavy body and relaxed effect you're after, a earthy and spicy nose, earthy on the palate and heavy body feel and high potency structure.",
+          "riskNotes": "You flagged weak smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GMO Cookies lands at 64% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "sour-citrus-head": {
+          "matchScore": 40,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the euphoric effect you're after, a gassy nose, gassy and spicy on the palate and loud / strong smell, terpy / flavorful, gassy and high potency structure.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged weak smell and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GMO Cookies lands at 40% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "dessert-couch-lock": {
+          "matchScore": 51,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, euphoric, heavy body and deep couch-lock effect you're after and frosty, terpy / flavorful and high potency structure.",
+          "riskNotes": "You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GMO Cookies lands at 51% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "cheese-funk": {
+          "matchScore": 73,
+          "category": "Closest Alternative",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed effect you're after, a earthy and herbal nose, earthy, spicy and herbal on the palate, loud / strong smell and gassy structure and a clear kinship with GMO Cookies.",
+          "riskNotes": "You flagged dry flower and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GMO Cookies lands at 73% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        },
+        "blank-slate": {
+          "matchScore": 39,
+          "category": "Risky",
+          "confidence": "medium",
+          "knownStrain": true,
+          "whyItFits": "It is a balanced profile with no strong clash against your taste profile, though nothing in it strongly echoes your stated favourites either.",
+          "riskNotes": "The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "GMO Cookies lands at 39% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        }
+      }
+    },
+    {
+      "strain": "Northern Lights",
+      "scoreSpread": 73,
+      "divergence": {
+        "similarity": 0.335,
+        "similarityBigrams": 0.253,
+        "flag": "diverging"
+      },
+      "divergenceWhy": {
+        "similarity": 0.338,
+        "similarityBigrams": 0.125,
+        "flag": "diverging"
+      },
+      "divergenceRisk": {
+        "similarity": 0.72,
+        "similarityBigrams": 0.676,
+        "flag": "borderline"
+      },
+      "byArchetype": {
+        "chill-evening": {
+          "matchScore": 62,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, calm head, happy and heavy body effect you're after, a sweet nose, sweet on the palate and smooth taste and dense buds structure.",
+          "riskNotes": "You flagged harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Northern Lights lands at 62% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "daytime-creative": {
+          "matchScore": 20,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on a pine nose, pine on the palate and dense buds structure.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged hay / grassy smell and harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Northern Lights lands at 20% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "heavy-sleeper": {
+          "matchScore": 79,
+          "category": "Closest Alternative",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the sleepy, heavy body and relaxed effect you're after, a earthy, sweet and spicy nose, earthy and sweet on the palate, heavy body feel and dense buds structure and a clear kinship with Northern Lights.",
+          "riskNotes": "You flagged weak smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Northern Lights lands at 79% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        },
+        "sour-citrus-head": {
+          "matchScore": 6,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It is a balanced profile with no strong clash against your taste profile, though nothing in it strongly echoes your stated favourites either.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged weak smell and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Northern Lights lands at 6% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "dessert-couch-lock": {
+          "matchScore": 49,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, heavy body and happy effect you're after, a sweet nose and sweet on the palate.",
+          "riskNotes": "You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Northern Lights lands at 49% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "cheese-funk": {
+          "matchScore": 50,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed and happy effect you're after, a earthy nose, earthy on the palate and earthy structure.",
+          "riskNotes": "You flagged dry flower and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Northern Lights lands at 50% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "blank-slate": {
+          "matchScore": 76,
+          "category": "Closest Alternative",
+          "confidence": "medium",
+          "knownStrain": true,
+          "whyItFits": "It lands on the happy effect you're after and a sweet nose.",
+          "riskNotes": "The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Northern Lights lands at 76% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        }
+      }
+    },
+    {
+      "strain": "Super Lemon Haze",
+      "scoreSpread": 73,
+      "divergence": {
+        "similarity": 0.515,
+        "similarityBigrams": 0.432,
+        "flag": "diverging"
+      },
+      "divergenceWhy": {
+        "similarity": 0.495,
+        "similarityBigrams": 0.25,
+        "flag": "diverging"
+      },
+      "divergenceRisk": {
+        "similarity": 0.674,
+        "similarityBigrams": 0.615,
+        "flag": "borderline"
+      },
+      "byArchetype": {
+        "chill-evening": {
+          "matchScore": 10,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the happy effect you're after, a sweet nose, sweet on the palate and terpy / flavorful structure.",
+          "riskNotes": "It leans toward a light, heady lift rather than the weight you tend to want. It leans toward citrus-forward, which can read as the sharp citrus you avoid. You flagged harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Super Lemon Haze lands at 10% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "daytime-creative": {
+          "matchScore": 77,
+          "category": "Closest Alternative",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the uplifted, creative, energetic and cerebral head-high effect you're after, a citrus and herbal nose, citrus and herbal on the palate, loud / strong smell and terpy / flavorful structure and a clear kinship with Super Lemon Haze.",
+          "riskNotes": "You flagged hay / grassy smell and harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Super Lemon Haze lands at 77% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        },
+        "heavy-sleeper": {
+          "matchScore": 4,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on a sweet nose and sweet on the palate.",
+          "riskNotes": "It leans toward a light, heady lift rather than the weight you tend to want. It leans toward citrus-forward, which can read as the sharp citrus you avoid. You flagged weak smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Super Lemon Haze lands at 4% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "sour-citrus-head": {
+          "matchScore": 60,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the energetic, cerebral head-high and uplifted effect you're after, a citrus nose, citrus on the palate and loud / strong smell and terpy / flavorful structure.",
+          "riskNotes": "You flagged weak smell and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Super Lemon Haze lands at 60% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "dessert-couch-lock": {
+          "matchScore": 24,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the happy effect you're after, a sweet nose, sweet on the palate and terpy / flavorful structure.",
+          "riskNotes": "It leans toward citrus-forward, which can read as the sharp citrus you avoid. You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Super Lemon Haze lands at 24% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "cheese-funk": {
+          "matchScore": 26,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the happy effect you're after, a herbal nose, herbal on the palate and loud / strong smell structure.",
+          "riskNotes": "It leans toward a light, heady lift rather than the weight you tend to want. You flagged dry flower and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Super Lemon Haze lands at 26% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "blank-slate": {
+          "matchScore": 76,
+          "category": "Closest Alternative",
+          "confidence": "medium",
+          "knownStrain": true,
+          "whyItFits": "It lands on the happy effect you're after and a sweet nose.",
+          "riskNotes": "The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Super Lemon Haze lands at 76% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        }
+      }
+    },
+    {
+      "strain": "Wedding Cake",
+      "scoreSpread": 68,
+      "divergence": {
+        "similarity": 0.455,
+        "similarityBigrams": 0.352,
+        "flag": "diverging"
+      },
+      "divergenceWhy": {
+        "similarity": 0.368,
+        "similarityBigrams": 0.139,
+        "flag": "diverging"
+      },
+      "divergenceRisk": {
+        "similarity": 0.72,
+        "similarityBigrams": 0.676,
+        "flag": "borderline"
+      },
+      "byArchetype": {
+        "chill-evening": {
+          "matchScore": 83,
+          "category": "Best Match",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, calm head, happy and heavy body effect you're after, a sweet and creamy nose, sweet, creamy and vanilla on the palate, dense buds and terpy / flavorful structure and a clear kinship with Wedding Cake.",
+          "riskNotes": "You flagged harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Wedding Cake lands at 83% — a best match for your profile. It sits close to the sensory territory you keep returning to."
+        },
+        "daytime-creative": {
+          "matchScore": 16,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on terpy / flavorful and dense buds structure.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged hay / grassy smell and harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Wedding Cake lands at 16% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "heavy-sleeper": {
+          "matchScore": 66,
+          "category": "Closest Alternative",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the heavy body and relaxed effect you're after, a earthy, sweet and spicy nose, earthy and sweet on the palate and dense buds, high potency and sticky structure.",
+          "riskNotes": "You flagged weak smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Wedding Cake lands at 66% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        },
+        "sour-citrus-head": {
+          "matchScore": 18,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the euphoric effect you're after and terpy / flavorful and high potency structure.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged weak smell and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Wedding Cake lands at 18% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "dessert-couch-lock": {
+          "matchScore": 84,
+          "category": "Best Match",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, euphoric, heavy body and happy effect you're after, a sweet and creamy nose, sweet, creamy and vanilla on the palate, frosty, sticky, terpy / flavorful and high potency structure and a clear kinship with Wedding Cake.",
+          "riskNotes": "You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Wedding Cake lands at 84% — a best match for your profile. It sits close to the sensory territory you keep returning to."
+        },
+        "cheese-funk": {
+          "matchScore": 46,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed and happy effect you're after, a earthy nose and earthy on the palate.",
+          "riskNotes": "You flagged dry flower and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Wedding Cake lands at 46% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "blank-slate": {
+          "matchScore": 76,
+          "category": "Closest Alternative",
+          "confidence": "medium",
+          "knownStrain": true,
+          "whyItFits": "It lands on the happy effect you're after and a sweet nose.",
+          "riskNotes": "The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Wedding Cake lands at 76% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        }
+      }
+    },
+    {
+      "strain": "Runtz",
+      "scoreSpread": 55,
+      "divergence": {
+        "similarity": 0.396,
+        "similarityBigrams": 0.321,
+        "flag": "diverging"
+      },
+      "divergenceWhy": {
+        "similarity": 0.474,
+        "similarityBigrams": 0.208,
+        "flag": "diverging"
+      },
+      "divergenceRisk": {
+        "similarity": 0.788,
+        "similarityBigrams": 0.741,
+        "flag": "borderline"
+      },
+      "byArchetype": {
+        "chill-evening": {
+          "matchScore": 68,
+          "category": "Closest Alternative",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, calm head and happy effect you're after, a sweet and creamy nose, sweet, creamy and berry on the palate and terpy / flavorful structure.",
+          "riskNotes": "You flagged harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Runtz lands at 68% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        },
+        "daytime-creative": {
+          "matchScore": 37,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the uplifted effect you're after, a tropical nose and terpy / flavorful structure.",
+          "riskNotes": "You flagged hay / grassy smell and harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Runtz lands at 37% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "heavy-sleeper": {
+          "matchScore": 44,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed effect you're after, a sweet nose, sweet on the palate and high potency and sticky structure.",
+          "riskNotes": "You flagged weak smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Runtz lands at 44% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "sour-citrus-head": {
+          "matchScore": 39,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the uplifted and euphoric effect you're after and terpy / flavorful and high potency structure.",
+          "riskNotes": "You flagged weak smell and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Runtz lands at 39% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "dessert-couch-lock": {
+          "matchScore": 89,
+          "category": "Best Match",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, euphoric and happy effect you're after, a sweet, creamy, fruity and tropical nose, sweet, creamy and fruity on the palate, frosty, sticky, terpy / flavorful and high potency structure and a clear kinship with Runtz.",
+          "riskNotes": "You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Runtz lands at 89% — a best match for your profile. It sits close to the sensory territory you keep returning to."
+        },
+        "cheese-funk": {
+          "matchScore": 34,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed and happy effect you're after.",
+          "riskNotes": "You flagged dry flower and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Runtz lands at 34% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "blank-slate": {
+          "matchScore": 76,
+          "category": "Closest Alternative",
+          "confidence": "medium",
+          "knownStrain": true,
+          "whyItFits": "It lands on the happy effect you're after and a sweet nose.",
+          "riskNotes": "The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "Runtz lands at 76% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        }
+      }
+    },
+    {
+      "strain": "White Hot Guava",
+      "scoreSpread": 55,
+      "divergence": {
+        "similarity": 0.354,
+        "similarityBigrams": 0.274,
+        "flag": "diverging"
+      },
+      "divergenceWhy": {
+        "similarity": 0.452,
+        "similarityBigrams": 0.182,
+        "flag": "diverging"
+      },
+      "divergenceRisk": {
+        "similarity": 0.72,
+        "similarityBigrams": 0.676,
+        "flag": "borderline"
+      },
+      "byArchetype": {
+        "chill-evening": {
+          "matchScore": 61,
+          "category": "Worth Trying",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, calm head, happy and heavy body effect you're after, a sweet nose, sweet on the palate and terpy / flavorful structure.",
+          "riskNotes": "You flagged harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "White Hot Guava lands at 61% — a worth trying for your profile. It overlaps with your taste in real ways without being a perfect echo of your favourites."
+        },
+        "daytime-creative": {
+          "matchScore": 24,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on a tropical nose, tropical on the palate and loud / strong smell and terpy / flavorful structure.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged hay / grassy smell and harsh smoke on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "White Hot Guava lands at 24% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "heavy-sleeper": {
+          "matchScore": 49,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the heavy body and relaxed effect you're after, a sweet nose, sweet on the palate and high potency and sticky structure.",
+          "riskNotes": "You flagged weak smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "White Hot Guava lands at 49% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "sour-citrus-head": {
+          "matchScore": 32,
+          "category": "Avoid",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the euphoric effect you're after, a gassy nose, gassy on the palate and loud / strong smell, terpy / flavorful and high potency structure.",
+          "riskNotes": "It leans toward a heavy, sedating body that can feel like too much. You flagged weak smell and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "White Hot Guava lands at 32% — a avoid for your profile. On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+        },
+        "dessert-couch-lock": {
+          "matchScore": 79,
+          "category": "Closest Alternative",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed, euphoric, heavy body and happy effect you're after, a sweet, fruity and tropical nose, sweet and fruity on the palate and frosty, sticky, terpy / flavorful and high potency structure.",
+          "riskNotes": "You flagged harsh smoke and hay / grassy smell on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "White Hot Guava lands at 79% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        },
+        "cheese-funk": {
+          "matchScore": 41,
+          "category": "Risky",
+          "confidence": "high",
+          "knownStrain": true,
+          "whyItFits": "It lands on the relaxed and happy effect you're after and loud / strong smell structure.",
+          "riskNotes": "You flagged dry flower and bland taste on past pickups — that comes down to freshness, packaging date and storage rather than the strain itself. The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "White Hot Guava lands at 41% — a risky for your profile. There is some overlap with your taste, but enough friction that it could genuinely go either way."
+        },
+        "blank-slate": {
+          "matchScore": 76,
+          "category": "Closest Alternative",
+          "confidence": "medium",
+          "knownStrain": true,
+          "whyItFits": "It lands on the happy effect you're after and a sweet nose.",
+          "riskNotes": "The same strain can be excellent from one grower and flat from another, so batch quality and cure still decide the experience. This is a sensory match, not a guarantee.",
+          "explanation": "White Hot Guava lands at 76% — a closest alternative for your profile. It sits close to the sensory territory you keep returning to."
+        }
+      }
+    }
+  ]
+}

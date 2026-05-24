@@ -11,6 +11,7 @@
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "test": "tsx --test tests/*.test.ts",
+    "stress": "tsx scripts/stress/run.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {

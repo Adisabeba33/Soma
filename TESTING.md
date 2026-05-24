@@ -140,6 +140,39 @@ Runs the `node:test` suite via `tsx`. Covers the menu parser, the strain
 name normalizer, and the unknown-strain payload builder. ~30 assertions,
 finishes in under a second. Use it as a smoke check before pushing.
 
+### Engine stress-test (`npm run stress`)
+
+```bash
+npm run stress
+```
+
+Runs the seven curated archetype profiles (`chill-evening`,
+`daytime-creative`, `heavy-sleeper`, `sour-citrus-head`,
+`dessert-couch-lock`, `cheese-funk`, `blank-slate`) against a fixed
+10-strain set covering distinct sensory territories (gas / skunk /
+citrus / dessert / pine / funk / dessert / heavy / creative — plus
+`WiFi OG` which is intentionally **not** in the seed DB so the
+inference path is exercised too).
+
+Prints:
+- **Score matrix** — archetype × strain, colour-coded by category.
+- **Score spread per strain** — `max − min` across archetypes.
+  Anything `<15pt` is flagged as a calibration concern.
+- **Semantic divergence per strain** — mean pairwise Jaccard
+  similarity of the explanations (boilerplate caveat stripped).
+  `≥0.80 = too similar`, `≥0.65 = borderline`, `<0.65 = diverging`.
+- **Repeated bigrams** — phrases recycled across many explanations.
+  This is the "illusion of intelligence" check: an opener or
+  catchphrase that appears in >50% of all explanations means the
+  engine is templating, not reasoning.
+
+Always writes `stress-snapshots/snapshot.json` (deterministic, no
+timestamps). The file is committed, so after a change to the engine
+or vocab run `npm run stress` again and `git diff
+stress-snapshots/snapshot.json` to see what shifted. A regression
+that flattens scores or recycles more phrasing will jump out
+immediately.
+
 ---
 
 ## 7. Real-world sample menus
