@@ -8,6 +8,11 @@
 
 import { findStrain, normalizeStrainName, STRAINS } from "./strain-data";
 import { evaluatePurchase } from "./purchase-confidence";
+import {
+  areAdjacent,
+  effectArchetypeOf,
+  inferProfileArchetype,
+} from "./effect-archetype";
 import type {
   AnalysisResult,
   Category,
@@ -459,18 +464,43 @@ export function scoreStrain(
     }
   }
 
+  // Behavioural-archetype layer. Raw effect-tags ("energetic + focused")
+  // collapse very different experiences — Green Crack's sharp dopamine
+  // spike reads the same as Jack Herer's clean creative daytime on
+  // tag-overlap alone. Archetypes split those buckets: when the strain's
+  // archetype doesn't match (and isn't adjacent to) the profile's target,
+  // we dampen the effect contribution so tag-overlap can't auto-win.
+  // When archetype matches AND the user has strong sensory overlap, a
+  // small bonus rewards the terp-forward sensory win the engine was
+  // previously missing.
+  const strainArchetype = effectArchetypeOf(strain);
+  const targetArchetype = inferProfileArchetype(profile);
+  const archetypeMatch =
+    targetArchetype !== null && targetArchetype === strainArchetype;
+  const archetypeMismatch =
+    targetArchetype !== null && !areAdjacent(targetArchetype, strainArchetype);
+  const effectContribution =
+    archetypeMismatch && effect.matched.length > 0
+      ? effect.score * 0.6
+      : effect.score;
+  const archetypeBonus =
+    archetypeMatch && (aroma.score >= 70 || flavor.score >= 70) ? 4 : 0;
+
   const raw =
-    0.27 * effect.score +
+    0.27 * effectContribution +
     0.23 * aroma.score +
     0.18 * flavor.score +
     0.14 * trait.score +
-    0.18 * ref.score;
+    0.18 * ref.score +
+    archetypeBonus;
   const penalty = Math.min(42, conflicts.length * 15);
   let baseScore = Math.round(raw - penalty);
   if (isDisliked) baseScore = Math.min(baseScore, 18);
   // Favourite anchor lives in 94–96. Never 100, because grower, batch
   // freshness, package date and storage are not captured — even a perfect
-  // sensory match can be a bad pickup.
+  // sensory match can be a bad pickup. Anchor floor wins over the
+  // archetype dampener intentionally — the user explicitly chose this
+  // strain.
   if (isFavoriteAnchor) baseScore = clamp(Math.max(baseScore, 94), 94, 96);
   baseScore = clamp(baseScore, 4, 99);
 
