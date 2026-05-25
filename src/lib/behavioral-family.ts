@@ -177,14 +177,14 @@ export interface FamilyEvidence {
 // Evidence-density-scaled bonus. Family is the gate. Once family matches,
 // secondary signals increase the reward. Asymmetric — never negative.
 //
-//   1 signal  (family alone)    → +2
-//   2 signals                   → +4
-//   3 signals                   → +6
-//   4 signals                   → +8
+//   1 signal  (family alone)    → +3
+//   2 signals                   → +6
+//   3 signals                   → +9
+//   4 signals                   → +12
 //
 // Combined with Layer 1's archetype bonus (+4) and Layer 2's texture bonus
 // (+3), the maximum upward swing on a richly-aligned non-anchor strain is
-// +15. Anchor floor 94–96 still wins.
+// +19. Anchor floor 94–96 still wins.
 export function familyBonus(
   strainFamily: BehavioralFamily | null,
   targetFamily: BehavioralFamily | null,
@@ -198,7 +198,33 @@ export function familyBonus(
   if (evidence.aromaMatched >= 1 || evidence.flavorMatched >= 1) signals++;
   if (evidence.refScore >= 40) signals++;
 
-  return signals * 2;
+  return signals * 3;
+}
+
+// Trust-mode detection. When ≥ 2 of the user's resolved favourites land in
+// the same behavioural family, we trust that empirical signal more than
+// the enumerated preferences. The scoring formula re-weights to make
+// reference-similarity dominant; sensory tag scores still contribute,
+// just less. This is the architectural answer to contradictory profiles
+// (favourites say "kush nighttime" while preferred aromas say "citrus
+// daytime") — favourites are lived experience, prefs are just labels.
+export function hasClusteredFavorites(profile: TasteProfileInput): boolean {
+  const favStrains = profile.favoriteStrains
+    .map((f) => findStrain(f))
+    .filter((s): s is StrainProfile => Boolean(s));
+  if (favStrains.length < 2) return false;
+
+  const families = favStrains
+    .map(behavioralFamilyOf)
+    .filter((f): f is BehavioralFamily => f !== null);
+  if (families.length < 2) return false;
+
+  const counts = new Map<BehavioralFamily, number>();
+  for (const f of families) counts.set(f, (counts.get(f) ?? 0) + 1);
+  for (const count of counts.values()) {
+    if (count >= 2) return true;
+  }
+  return false;
 }
 
 function mostCommon(items: BehavioralFamily[]): BehavioralFamily {

@@ -21,6 +21,7 @@ import {
 import {
   behavioralFamilyOf,
   familyBonus,
+  hasClusteredFavorites,
   inferProfileFamily,
 } from "./behavioral-family";
 import type {
@@ -523,12 +524,30 @@ export function scoreStrain(
     effectScore: effect.score,
   });
 
+  // Trust-favorites mode — fires when ≥ 2 of the user's resolved favourites
+  // cluster in the same behavioural family. In that case the user has
+  // given us a strong empirical anchor (their lived experience), so the
+  // formula treats reference-similarity as the dominant signal and the
+  // enumerated preference tags as supporting. This is the architectural
+  // answer to contradictory profiles — favourites say "kush nighttime"
+  // while preferredAromas say "citrus daytime."
+  //
+  // Important: this is a re-weighting, not a Layer-3 penalty. Cross-family
+  // strains can still win if they're genuinely exceptional on the
+  // remaining signals; they just no longer auto-win on tag overlap alone.
+  // Default mode (no clustered favourites) keeps the original weights so
+  // sparse/exploring profiles are not affected.
+  const trustMode = hasClusteredFavorites(profile);
+  const W = trustMode
+    ? { effect: 0.22, aroma: 0.18, flavor: 0.14, trait: 0.1, ref: 0.36 }
+    : { effect: 0.27, aroma: 0.23, flavor: 0.18, trait: 0.14, ref: 0.18 };
+
   const raw =
-    0.27 * effectContribution +
-    0.23 * aroma.score +
-    0.18 * flavor.score +
-    0.14 * trait.score +
-    0.18 * ref.score +
+    W.effect * effectContribution +
+    W.aroma * aroma.score +
+    W.flavor * flavor.score +
+    W.trait * trait.score +
+    W.ref * ref.score +
     archetypeBonus +
     textureMod +
     familyMod;

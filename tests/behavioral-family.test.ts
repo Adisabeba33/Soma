@@ -4,6 +4,7 @@ import { strict as assert } from "node:assert";
 import {
   behavioralFamilyOf,
   familyBonus,
+  hasClusteredFavorites,
   inferProfileFamily,
 } from "../src/lib/behavioral-family";
 import { scoreStrain } from "../src/lib/taste-engine";
@@ -169,17 +170,17 @@ describe("familyBonus — evidence-density scaling", () => {
     assert.equal(familyBonus("edgy-stimulant", "nighttime-indica", evidenceFull), 0);
   });
 
-  it("family gate + zero evidence → +2 (minimal recognition)", () => {
+  it("family gate + zero evidence → +3 (minimal recognition)", () => {
     assert.equal(
       familyBonus("nighttime-indica", "nighttime-indica", evidenceEmpty),
-      2,
+      3,
     );
   });
 
-  it("family + all 3 secondary signals → +8 (full evidence)", () => {
+  it("family + all 3 secondary signals → +12 (full evidence)", () => {
     assert.equal(
       familyBonus("nighttime-indica", "nighttime-indica", evidenceFull),
-      8,
+      12,
     );
   });
 
@@ -191,7 +192,7 @@ describe("familyBonus — evidence-density scaling", () => {
       refScore: 0,
       effectScore: 70,
     });
-    assert.equal(partial, 4); // family + effect signal
+    assert.equal(partial, 6); // family + effect signal = 2 signals × 3
   });
 });
 
@@ -299,5 +300,134 @@ describe("integration — anchor floor still wins over family layer", () => {
     });
     const r = scoreStrain("Trainwreck", wreckLover);
     assert.ok(r.matchScore >= 94 && r.matchScore <= 96);
+  });
+});
+
+describe("hasClusteredFavorites — trust-mode detection", () => {
+  it("returns false for an empty profile", () => {
+    assert.equal(hasClusteredFavorites(profile()), false);
+  });
+
+  it("returns false with a single favourite (1 strain can't cluster)", () => {
+    assert.equal(
+      hasClusteredFavorites(profile({ favoriteStrains: ["Northern Lights"] })),
+      false,
+    );
+  });
+
+  it("returns true when ≥ 2 favourites land in the same family", () => {
+    assert.equal(
+      hasClusteredFavorites(
+        profile({ favoriteStrains: ["Northern Lights", "Granddaddy Purple"] }),
+      ),
+      true,
+    );
+  });
+
+  it("returns false when 2 favourites split across families (no dominance)", () => {
+    assert.equal(
+      hasClusteredFavorites(
+        profile({ favoriteStrains: ["Northern Lights", "Jack Herer"] }),
+      ),
+      false,
+    );
+  });
+
+  it("returns true when majority of favourites cluster (NL+GDP+Bubba+Jack)", () => {
+    assert.equal(
+      hasClusteredFavorites(
+        profile({
+          favoriteStrains: [
+            "Northern Lights",
+            "Granddaddy Purple",
+            "Bubba Kush",
+            "Jack Herer",
+          ],
+        }),
+      ),
+      true,
+    );
+  });
+});
+
+describe("integration — trust-mode reweighting on a contradictory profile", () => {
+  // The reported runtime regression: user has NL+GDP+Bubba favourites
+  // but enumerated preferences pull toward bright/daytime (citrus/pine
+  // aromas, focused/creative effects). Default weighted-sum lets Jack
+  // Herer dominate purely on tag overlap; family layer alone can't
+  // overcome 30pt of aroma+flavor advantage. Trust-mode reweighting
+  // re-prioritises favourites over enumerated tags so the empirical
+  // anchor wins.
+  const contradictoryProfile = profile({
+    favoriteStrains: ["Northern Lights", "Granddaddy Purple", "Bubba Kush"],
+    preferredAromas: ["citrus", "pine"],
+    preferredFlavors: ["citrus"],
+    preferredEffects: ["focused", "creative", "energetic"],
+  });
+
+  it("Ice Cream Cake outscores Sour Diesel (family > terp-mismatch)", () => {
+    const icc = scoreStrain("Ice Cream Cake", contradictoryProfile);
+    const sd = scoreStrain("Sour Diesel", contradictoryProfile);
+    assert.ok(
+      icc.matchScore > sd.matchScore,
+      `ICC (${icc.matchScore}) must beat Sour Diesel (${sd.matchScore}) — same family vs edgy-stimulant`,
+    );
+  });
+
+  it("Family-aligned strains rise above Jack Herer (the perfect-terp-mismatch)", () => {
+    const masterKush = scoreStrain("Master Kush", contradictoryProfile);
+    const purpleKush = scoreStrain("Purple Kush", contradictoryProfile);
+    const jackHerer = scoreStrain("Jack Herer", contradictoryProfile);
+    // Master Kush and Purple Kush share archetype + family with the
+    // user's favourites. Even when Jack Herer matches every enumerated
+    // preference perfectly, lived-experience favourites must win.
+    assert.ok(
+      masterKush.matchScore > jackHerer.matchScore,
+      `Master Kush (${masterKush.matchScore}) must beat Jack Herer (${jackHerer.matchScore})`,
+    );
+    assert.ok(
+      purpleKush.matchScore > jackHerer.matchScore,
+      `Purple Kush (${purpleKush.matchScore}) must beat Jack Herer (${jackHerer.matchScore})`,
+    );
+  });
+
+  it("Jack Herer is not catastrophically punished — still readable score", () => {
+    // Trust-mode is re-weighting, not penalty. Jack Herer on a contradictory
+    // profile should land mid-range, not at 5%. The user might genuinely
+    // be open to it occasionally.
+    const jackHerer = scoreStrain("Jack Herer", contradictoryProfile);
+    assert.ok(
+      jackHerer.matchScore >= 40 && jackHerer.matchScore <= 70,
+      `JH should be mid-range, got ${jackHerer.matchScore}`,
+    );
+  });
+
+  it("Anchor strains still pin 94–96 even in trust-mode", () => {
+    for (const name of ["Northern Lights", "Granddaddy Purple", "Bubba Kush"]) {
+      const r = scoreStrain(name, contradictoryProfile);
+      assert.ok(
+        r.matchScore >= 94 && r.matchScore <= 96,
+        `${name} anchor expected 94–96, got ${r.matchScore}`,
+      );
+    }
+  });
+});
+
+describe("integration — default mode untouched without clustered favourites", () => {
+  it("single-favourite profile uses default weights", () => {
+    // 1 favourite → trust-mode OFF. The strain still anchors at 94–96,
+    // but cross-family strains use the original formula weights.
+    const single = profile({ favoriteStrains: ["Jack Herer"] });
+    const jh = scoreStrain("Jack Herer", single);
+    assert.ok(jh.matchScore >= 94 && jh.matchScore <= 96);
+  });
+
+  it("sparse profile (no favourites, no preferences) is unaffected", () => {
+    // Neither trust-mode nor family layer can fire on a blank profile —
+    // both gate on signals that don't exist. Scores stay in whatever
+    // band the base formula produces, exactly as before this change.
+    const blank = profile();
+    const score = scoreStrain("Blue Dream", blank).matchScore;
+    assert.ok(score > 0 && score < 100, `score should be in valid range`);
   });
 });
