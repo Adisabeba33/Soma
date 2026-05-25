@@ -139,7 +139,21 @@ Each layer is a bounded modifier on top of the weighted-sum. Anchor floor
 | Layer 3 family | Recognition (gate + evidence density) | 0 to +12pt |
 
 Combined worst-case downward swing ≈ −14pt; upward ≈ +19pt. Anchor floor
-always overrides. Maximum non-anchor score in best case ≈ 99 (clamp).
+always overrides.
+
+### Calibration bands (the visible score zones)
+
+| Zone | Score range | What it means |
+| --- | --- | --- |
+| **Favourite anchor** | **94–96** | Direct favourite match only (canonical or alias). Reserved. |
+| (gap) | 89–93 | Empty by design. Visual signal that "this is not your strain." |
+| **Strong alternative** | up to 88 | Anything else, regardless of how rich the signal stack is. |
+
+Non-anchor strains are hard-capped at 88 even when family + archetype +
+texture all align and feedback has lifted them. The point is to keep
+favourites visually distinguishable from "really close alternatives" —
+no amount of stacking should let a non-anchor sneak into the anchor
+band. Feedback adjustments still operate, just under the ceiling.
 
 ---
 

@@ -3,7 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
 import { asArray, getFeedbackSignals } from "@/lib/api";
 import { resolveStrain, scoreStrain, useCaseFor } from "@/lib/taste-engine";
-import type { ComparisonItem } from "@/lib/types";
+import { buildAuditEntry, writeCompareAudit } from "@/lib/compare-audit";
+import type { ComparisonItem, StrainMatch } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
@@ -36,9 +37,13 @@ export async function POST(req: NextRequest) {
 
   const feedback = await getFeedbackSignals(userId);
 
-  const items: ComparisonItem[] = strains.map((name) => {
+  const matches: StrainMatch[] = strains.map((name) =>
+    scoreStrain(name, profile, feedback),
+  );
+
+  const items: ComparisonItem[] = strains.map((name, i) => {
     const { strain } = resolveStrain(name);
-    const match = scoreStrain(name, profile, feedback);
+    const match = matches[i];
     return {
       ...match,
       strainType: strain.type,
@@ -54,5 +59,20 @@ export async function POST(req: NextRequest) {
     item.matchScore > best.matchScore ? item : best,
   );
 
+  // Fire-and-forget audit log. Disabled with COMPARE_AUDIT=off env var.
+  try {
+    const entry = buildAuditEntry(
+      userId,
+      profile,
+      strains,
+      matches,
+      closest.strainName,
+    );
+    writeCompareAudit(entry);
+  } catch (err) {
+    console.error("compare audit failed", err);
+  }
+
   return NextResponse.json({ items, closestName: closest.strainName });
 }
+

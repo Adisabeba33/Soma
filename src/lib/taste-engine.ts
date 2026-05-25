@@ -568,7 +568,15 @@ export function scoreStrain(
   // reference, noise from related sessions shouldn't drag it down.
   const fb = evaluateFeedback(strain, feedback);
   const fbAdjustment = isFavoriteAnchor ? 0 : fb.adjustment;
-  const matchScore = clamp(baseScore + fbAdjustment, 4, 99);
+  let matchScore = clamp(baseScore + fbAdjustment, 4, 99);
+  // Calibration band: reserve 94–96 exclusively for direct favourite
+  // anchors. Strong non-anchor alternatives top out at 88 so the visual
+  // gap between "your strain" and "close alternative" stays obvious.
+  // Anchors flow through unchanged.
+  const NON_ANCHOR_CEILING = 88;
+  if (!isFavoriteAnchor && matchScore > NON_ANCHOR_CEILING) {
+    matchScore = NON_ANCHOR_CEILING;
+  }
 
   let category = categorize(matchScore, conflicts.length, isDisliked);
   if (isFavoriteAnchor) category = "Best Match";

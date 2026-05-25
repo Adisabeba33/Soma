@@ -303,6 +303,56 @@ describe("integration — anchor floor still wins over family layer", () => {
   });
 });
 
+describe("calibration band — non-anchor ceiling at 88", () => {
+  // Reserve 94–96 for direct favourite anchors only. Any other strain,
+  // no matter how strong the layered evidence, caps at 88. Creates a
+  // visible gap between "your strain" and "close alternative."
+  const alignedNight = profile({
+    favoriteStrains: ["Northern Lights", "Granddaddy Purple", "Bubba Kush"],
+    preferredAromas: ["earthy", "woody", "sweet"],
+    preferredFlavors: ["earthy", "sweet"],
+    preferredEffects: ["sleepy", "body-heavy", "relaxed", "calm"],
+    likedTraits: ["heavy-body", "dense-buds", "smooth"],
+  });
+
+  it("non-anchor strong alternatives are capped at 88", () => {
+    for (const name of ["Purple Punch", "LA Kush Cake", "Ice Cream Cake"]) {
+      const r = scoreStrain(name, alignedNight);
+      assert.ok(
+        r.matchScore <= 88,
+        `${name} expected ≤88 (non-anchor), got ${r.matchScore}`,
+      );
+    }
+  });
+
+  it("anchors are unaffected by the ceiling and stay 94–96", () => {
+    for (const name of ["Northern Lights", "Granddaddy Purple", "Bubba Kush"]) {
+      const r = scoreStrain(name, alignedNight);
+      assert.ok(
+        r.matchScore >= 94 && r.matchScore <= 96,
+        `${name} anchor expected 94–96, got ${r.matchScore}`,
+      );
+    }
+  });
+
+  it("the 89–93 gap stays empty on aligned profiles", () => {
+    const cohort = [
+      "Purple Punch",
+      "LA Kush Cake",
+      "Wedding Cake",
+      "Ice Cream Cake",
+      "GMO Cookies",
+    ];
+    for (const name of cohort) {
+      const score = scoreStrain(name, alignedNight).matchScore;
+      assert.ok(
+        score <= 88 || score >= 94,
+        `${name} fell into the reserved gap zone: ${score}`,
+      );
+    }
+  });
+});
+
 describe("hasClusteredFavorites — trust-mode detection", () => {
   it("returns false for an empty profile", () => {
     assert.equal(hasClusteredFavorites(profile()), false);
