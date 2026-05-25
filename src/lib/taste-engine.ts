@@ -18,6 +18,11 @@ import {
   inferProfileTexture,
   textureContribution,
 } from "./effect-texture";
+import {
+  behavioralFamilyOf,
+  familyBonus,
+  inferProfileFamily,
+} from "./behavioral-family";
 import type {
   AnalysisResult,
   Category,
@@ -500,6 +505,24 @@ export function scoreStrain(
   const targetTexture = inferProfileTexture(profile);
   const textureMod = textureContribution(strainTexture, targetTexture);
 
+  // Layer 3 — behavioural family. Pure function of (archetype, texture)
+  // → 5 named universes (nighttime-indica, daytime-functional,
+  // exotic-modern-hybrid, edgy-stimulant, contemplative-quiet) or null.
+  // RECOGNITION-ONLY: 0 to +8 bonus, never negative — Layers 1 and 2
+  // already handle punishment. Bonus scales with evidence density so
+  // Purple-Punch-on-Northern-Lights-profile gets meaningful recognition
+  // while Green-Crack-on-the-same-profile gets none (different family
+  // → 0 bonus, gate fails).
+  const strainFamily = behavioralFamilyOf(strain);
+  const targetFamily = inferProfileFamily(profile);
+  const familyMod = familyBonus(strainFamily, targetFamily, {
+    effectMatched: effect.matched.length,
+    aromaMatched: aroma.matched.length,
+    flavorMatched: flavor.matched.length,
+    refScore: ref.score,
+    effectScore: effect.score,
+  });
+
   const raw =
     0.27 * effectContribution +
     0.23 * aroma.score +
@@ -507,7 +530,8 @@ export function scoreStrain(
     0.14 * trait.score +
     0.18 * ref.score +
     archetypeBonus +
-    textureMod;
+    textureMod +
+    familyMod;
   const penalty = Math.min(42, conflicts.length * 15);
   let baseScore = Math.round(raw - penalty);
   if (isDisliked) baseScore = Math.min(baseScore, 18);

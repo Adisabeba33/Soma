@@ -157,15 +157,21 @@ function inferEffectTexture(strain: StrainProfile): EffectTexture {
 //   Soft cluster:  smooth ↔ dreamy ↔ floaty ↔ lucid
 //   Edgy cluster:  electric ↔ sharp ↔ chaotic
 //   Heavy cluster: grounded ↔ pressure-heavy
+//
+// One cross-cluster bridge: smooth ↔ grounded. A dessert-couch-lock cake
+// strain (smooth-heavy) feels close enough to a deep-sleeper indica
+// (grounded) experientially that punishing the mismatch contradicts
+// real-world overlap. The bridge is one-way conceptually but symmetric
+// in adjacency. No other cross-cluster pairs bridge.
 const ADJACENT: Record<EffectTexture, EffectTexture[]> = {
-  smooth: ["dreamy", "lucid", "floaty"],
+  smooth: ["dreamy", "lucid", "floaty", "grounded"],
   dreamy: ["smooth", "floaty"],
   floaty: ["dreamy", "lucid", "smooth"],
   lucid: ["smooth", "floaty"],
   electric: ["sharp", "chaotic"],
   sharp: ["electric", "chaotic"],
   chaotic: ["electric", "sharp"],
-  grounded: ["pressure-heavy"],
+  grounded: ["pressure-heavy", "smooth"],
   "pressure-heavy": ["grounded"],
 };
 
