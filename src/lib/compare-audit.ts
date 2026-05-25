@@ -22,7 +22,7 @@ import {
   inferProfileFamily,
 } from "./behavioral-family";
 import type { BehavioralFamily } from "./behavioral-family";
-import { resolveStrain } from "./taste-engine";
+import { reconciledDislikes, resolveStrain } from "./taste-engine";
 import type {
   PurchaseConfidence,
   StrainMatch,
@@ -65,6 +65,10 @@ export interface CompareAuditEntry {
     targetArchetype: EffectArchetype | null;
     targetTexture: EffectTexture | null;
     targetFamily: BehavioralFamily | null;
+    // Dislikes that were silenced because the user's own favourites
+    // would themselves trigger them — surfaces self-contradicting
+    // profiles transparently.
+    reconciledDislikes: string[];
   };
   items: CompareAuditItem[];
   closestName: string;
@@ -119,6 +123,7 @@ export function buildAuditEntry(
       targetArchetype: inferProfileArchetype(profile),
       targetTexture: inferProfileTexture(profile),
       targetFamily: inferProfileFamily(profile),
+      reconciledDislikes: reconciledDislikes(profile),
     },
     items: rawInputs.map((raw, i) => buildAuditItem(raw, matches[i])),
     closestName,

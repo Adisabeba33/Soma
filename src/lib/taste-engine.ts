@@ -266,7 +266,17 @@ function referenceSimilarity(
 function dislikedConflicts(
   strain: StrainProfile,
   disliked: string[],
+  favorites: StrainProfile[],
 ): string[] {
+  // Reconcile self-contradicting profiles. If any of the user's
+  // favourites would themselves trigger a given dislike (e.g., user
+  // dislikes "too-heavy" but favourites contain heavy-body indicas),
+  // suppress that dislike — the lived-experience favourite overrides
+  // the label. Without this, the engine penalises the user's own
+  // family for the very trait their favourites carry, anchor-floor
+  // saves the favourites but family-aligned non-anchors collapse.
+  const reconciled = disliked.filter((d) => !favoriteTriggers(d, favorites));
+
   const conflicts: string[] = [];
   const has = (...tags: string[]) =>
     tags.some(
@@ -277,7 +287,7 @@ function dislikedConflicts(
         strain.traits.includes(t),
     );
 
-  for (const d of disliked) {
+  for (const d of reconciled) {
     if (
       d === "sharp-citrus" &&
       (strain.aromas.includes("citrus") || strain.flavors.includes("citrus"))
@@ -296,6 +306,51 @@ function dislikedConflicts(
     }
   }
   return conflicts;
+}
+
+// True when at least one favourite would itself trigger the given
+// dislike mapping. Used to silence self-contradicting dislikes.
+function favoriteTriggers(disliked: string, favorites: StrainProfile[]): boolean {
+  if (favorites.length === 0) return false;
+  const has = (s: StrainProfile, ...tags: string[]) =>
+    tags.some(
+      (t) =>
+        s.aromas.includes(t) ||
+        s.flavors.includes(t) ||
+        s.effects.includes(t) ||
+        s.traits.includes(t),
+    );
+  if (disliked === "sharp-citrus") {
+    return favorites.some(
+      (f) => f.aromas.includes("citrus") || f.flavors.includes("citrus"),
+    );
+  }
+  if (disliked === "too-light") {
+    return favorites.some(
+      (f) =>
+        f.type === "sativa" &&
+        !has(f, "body-heavy", "heavy-body", "couch-lock"),
+    );
+  }
+  if (disliked === "too-heavy") {
+    return favorites.some((f) =>
+      has(f, "couch-lock", "heavy-body", "body-heavy", "sleepy"),
+    );
+  }
+  // Other dislikes (dry-flower, weak-smell, hay-smell, etc.) are
+  // batch-quality concerns that don't map to strain-intrinsic conflict
+  // logic, so reconciliation doesn't apply.
+  return false;
+}
+
+// Lists the dislikes that were silenced by reconciliation for this
+// profile. Surfaced in the compare audit log so we can see at a glance
+// when the engine read a profile as self-contradicting.
+export function reconciledDislikes(profile: TasteProfileInput): string[] {
+  const favorites = profile.favoriteStrains
+    .map((f) => findStrain(f))
+    .filter((s): s is StrainProfile => Boolean(s));
+  return profile.dislikedTraits.filter((d) => favoriteTriggers(d, favorites));
 }
 
 function categorize(
@@ -433,7 +488,14 @@ export function scoreStrain(
   const effect = setScore(strain.effects, profile.preferredEffects);
   const trait = setScore(strain.traits, profile.likedTraits);
   const ref = referenceSimilarity(strain, profile.favoriteStrains);
-  const conflicts = dislikedConflicts(strain, profile.dislikedTraits);
+  const resolvedFavorites = profile.favoriteStrains
+    .map((f) => findStrain(f))
+    .filter((s): s is StrainProfile => Boolean(s));
+  const conflicts = dislikedConflicts(
+    strain,
+    profile.dislikedTraits,
+    resolvedFavorites,
+  );
 
   // Disliked detection — resolve aliases through findStrain so that flagging
   // "GG4" also catches "Gorilla Glue #4" and vice versa.

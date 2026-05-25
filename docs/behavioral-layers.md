@@ -208,6 +208,70 @@ their two go-to indicas shouldn't have to add a third just to be heard.
 
 ---
 
+## Disliked-favourite reconciliation
+
+A second philosophy-level rule, in the same "favourites = lived
+experience > labels" family as trust-mode. When the user's profile is
+self-contradicting — they've marked a trait as disliked AND their own
+favourites carry that trait — the disliked label is silenced for
+scoring purposes.
+
+### The pattern
+
+A real user profile from testing:
+- Favourites: Northern Lights, Granddaddy Purple, Bubba Kush (all
+  heavy-body indicas)
+- Disliked traits: `too-heavy / sedating`
+
+Pre-reconciliation: every nighttime strain — including the user's own
+favourites — accumulated a `too-heavy` conflict (−15pt per). Anchor
+floor saved the favourites at 94–96, but family-aligned non-anchors
+(Purple Punch, LA Kush Cake, Ice Cream Cake, Master Kush) collapsed
+into the 30–50 range because the dislike penalty hit before family
+recognition could compensate.
+
+### The reconciliation rule
+
+For each disliked trait the user listed, if **any** of their resolved
+favourites would themselves trigger that dislike's conflict-mapping,
+the dislike is removed from conflict computation for the entire
+profile. The dislike doesn't fire on any strain in that session.
+
+Mapping (matches the existing `dislikedConflicts` logic):
+
+| Disliked | Triggers if a favourite has… |
+| --- | --- |
+| `too-heavy` | couch-lock / heavy-body / body-heavy / sleepy |
+| `too-light` | sativa type without body-heavy traits |
+| `sharp-citrus` | citrus aroma or flavor |
+
+Batch-quality dislikes (`dry-flower`, `weak-smell`, `hay-smell`,
+`harsh`, `bland-taste`, `seedy`) never reconcile — they don't have
+strain-intrinsic conflict mappings to begin with, they're surfaced
+as risk language rather than scoring penalties.
+
+### Why ≥ 1 favourite, not ≥ 2
+
+For trust-mode reweighting, ≥ 2 clustered favourites prevents a single
+favourite from triggering a major formula rewrite. For reconciliation,
+**one** favourite that contradicts the dislike is enough — the user
+has explicitly anchored on a strain with that trait, which is a
+stronger signal than abstract preference clustering.
+
+### What it does NOT do
+
+- **Doesn't soften honest dislikes**: if favourites are bright sativas
+  and the user dislikes `too-heavy`, the dislike still fires on heavy
+  strains — there's no contradiction.
+- **Doesn't override anchor floor**: favourites with disliked traits
+  still anchor at 94–96 (this never depended on reconciliation).
+- **Doesn't surface to the user as a UI element today**: the silenced
+  dislike list lives in the compare audit log
+  (`modeSnapshot.reconciledDislikes`) so we can see when the engine
+  read a profile as self-contradicting, but the user isn't told.
+
+---
+
 ## Adding a new strain or override
 
 1. Find the term whose definition above best describes the lived
