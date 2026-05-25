@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
+import { knownAsNames } from "@/lib/strain-identity";
 import type { CatalogEntry } from "@/lib/catalog";
 
 const AROMA_FILTERS = [
@@ -261,7 +262,9 @@ function CatalogRow({
 }
 
 function CatalogDetail({ entry }: { entry: CatalogEntry }) {
-  const { strain, similar } = entry;
+  const { strain, similar, identity, familyMembers } = entry;
+  const knownAs = knownAsNames(strain.aliases, identity);
+
   return (
     <div className="border-t border-border bg-muted/30 p-5">
       <div className="grid gap-5 sm:grid-cols-2">
@@ -271,33 +274,81 @@ function CatalogDetail({ entry }: { entry: CatalogEntry }) {
         <DetailColumn label="Texture / cure" values={strain.traits} kind="trait" />
       </div>
 
-      {strain.aliases && strain.aliases.length > 0 && (
-        <div className="mt-5">
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-            All aliases
+      {knownAs.length > 0 && (
+        <PassportBlock label="Known as">
+          <p className="text-sm text-foreground">{knownAs.join(" · ")}</p>
+        </PassportBlock>
+      )}
+
+      {identity?.breeder && (
+        <PassportBlock label="Breeder">
+          <p className="text-sm text-foreground">{identity.breeder}</p>
+        </PassportBlock>
+      )}
+
+      {identity?.lineage &&
+        (identity.lineage.cross ||
+          (identity.lineage.parents && identity.lineage.parents.length > 0)) && (
+          <PassportBlock label="Lineage">
+            {identity.lineage.cross && (
+              <p className="text-sm text-foreground">{identity.lineage.cross}</p>
+            )}
+            {identity.lineage.parents &&
+              identity.lineage.parents.length > 0 &&
+              !identity.lineage.cross && (
+                <p className="text-sm text-foreground">
+                  {identity.lineage.parents.join(" × ")}
+                </p>
+              )}
+          </PassportBlock>
+        )}
+
+      {identity?.sensoryFamily && (
+        <PassportBlock label="Sensory family">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent">
+              {identity.sensoryFamily}
+            </span>
+            {familyMembers.length > 0 && (
+              <span className="text-xs text-muted-foreground">
+                also: {familyMembers.slice(0, 6).join(" · ")}
+                {familyMembers.length > 6 ? " …" : ""}
+              </span>
+            )}
+          </div>
+        </PassportBlock>
+      )}
+
+      {identity?.phenotypeNotes && identity.phenotypeNotes.length > 0 && (
+        <PassportBlock label="Phenotype notes">
+          <ul className="mt-1 space-y-1 text-sm text-foreground/90">
+            {identity.phenotypeNotes.map((note, i) => (
+              <li key={i} className="leading-relaxed">
+                — {note}
+              </li>
+            ))}
+          </ul>
+        </PassportBlock>
+      )}
+
+      {identity?.growerVariants && identity.growerVariants.length > 0 && (
+        <PassportBlock label="Grower variants">
+          <p className="text-sm text-foreground">
+            {identity.growerVariants.join(" · ")}
           </p>
-          <p className="mt-1 text-sm text-foreground">
-            {strain.aliases.join(" · ")}
-          </p>
-        </div>
+        </PassportBlock>
       )}
 
       {strain.note && (
-        <div className="mt-5">
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-            Internal note
-          </p>
-          <p className="mt-1 text-sm leading-relaxed text-foreground/90">
+        <PassportBlock label="Internal note">
+          <p className="text-sm leading-relaxed text-foreground/90">
             {strain.note}
           </p>
-        </div>
+        </PassportBlock>
       )}
 
-      <div className="mt-5">
-        <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-          Nearby in sensory space
-        </p>
-        <ul className="mt-2 flex flex-wrap gap-1.5">
+      <PassportBlock label="Nearby in sensory space">
+        <ul className="flex flex-wrap gap-1.5">
           {similar.map((s) => (
             <li key={s.name}>
               <Link
@@ -312,14 +363,22 @@ function CatalogDetail({ entry }: { entry: CatalogEntry }) {
             </li>
           ))}
         </ul>
-      </div>
+      </PassportBlock>
 
       <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
-        Source: curated seed (hand-mapped). Catalog confidence is{" "}
-        <strong className="text-foreground">{entry.confidence}</strong> based on
-        how complete this entry&apos;s sensory data is. Batch quality still
-        depends on grower, freshness and storage — none of which is captured
-        here.
+        Sensory data: curated seed (hand-mapped); detail completeness is{" "}
+        <strong className="text-foreground">{entry.confidence}</strong>.{" "}
+        {identity ? (
+          <>
+            Identity data confidence is{" "}
+            <strong className="text-foreground">{identity.sourceConfidence}</strong>
+            .{" "}
+          </>
+        ) : (
+          <>No identity record yet — lineage, breeder and family aren&apos;t available for this strain.{" "}</>
+        )}
+        Batch quality still depends on grower, freshness and storage — none of
+        which is captured here.
       </p>
 
       <div className="mt-5 border-t border-border pt-4">
@@ -331,6 +390,23 @@ function CatalogDetail({ entry }: { entry: CatalogEntry }) {
           Use in Taste Match
         </Link>
       </div>
+    </div>
+  );
+}
+
+function PassportBlock({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="mt-5">
+      <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        {label}
+      </p>
+      <div className="mt-1">{children}</div>
     </div>
   );
 }
