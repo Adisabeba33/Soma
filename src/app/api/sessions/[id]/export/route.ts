@@ -78,6 +78,7 @@ export async function GET(
       riskNotes: r.riskNotes,
       explanation: r.explanation,
       feedbackNote: r.feedbackNote,
+      purchaseConfidence: r.purchaseConfidence,
       feedback: r.feedback[0]
         ? {
             purchased: r.feedback[0].purchased,

@@ -1,6 +1,9 @@
 export type StrainType = "indica" | "sativa" | "hybrid";
 export type Potency = "mild" | "moderate" | "strong" | "very-strong";
 
+import type { PurchaseConfidence } from "./purchase-confidence";
+export type { PurchaseConfidence, PurchaseSignals, SignalLevel } from "./purchase-confidence";
+
 export interface StrainProfile {
   name: string;
   aliases?: string[];
@@ -58,6 +61,9 @@ export interface StrainMatch {
   explanation: string;
   feedbackAdjustment: number;
   feedbackNote: string | null;
+  // Second axis: how confident we are about THIS purchase, separate from
+  // the sensory match score. See src/lib/purchase-confidence.ts.
+  purchaseConfidence: PurchaseConfidence;
 }
 
 // A confirmed like/dislike on a past recommendation, fed back into scoring.

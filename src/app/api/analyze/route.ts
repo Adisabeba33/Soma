@@ -83,6 +83,7 @@ export async function POST(req: NextRequest) {
           riskNotes: r.riskNotes,
           explanation: r.explanation,
           feedbackNote: r.feedbackNote,
+          purchaseConfidence: r.purchaseConfidence as unknown as Prisma.InputJsonValue,
         })),
       },
     },

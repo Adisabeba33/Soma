@@ -7,6 +7,7 @@
 // into every explanation.
 
 import { findStrain, normalizeStrainName, STRAINS } from "./strain-data";
+import { evaluatePurchase } from "./purchase-confidence";
 import type {
   AnalysisResult,
   Category,
@@ -522,6 +523,10 @@ export function scoreStrain(
     favoriteMatchKind,
     favoriteSurface,
   );
+  // Second axis: purchase confidence. Today nothing is known about the
+  // batch, grower or storage, so this returns all-"unknown". The seam is
+  // here for grower-reliability and freshness signals to plug in later.
+  const purchaseConfidence = evaluatePurchase();
 
   return {
     strainName: rawName.trim(),
@@ -544,6 +549,7 @@ export function scoreStrain(
     explanation,
     feedbackAdjustment: fbAdjustment,
     feedbackNote: isFavoriteAnchor ? null : fb.note,
+    purchaseConfidence,
   };
 }
 

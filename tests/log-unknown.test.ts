@@ -3,6 +3,7 @@ import { strict as assert } from "node:assert";
 
 import { buildUnknownStrainPayloads } from "../src/lib/unknown-strains";
 import type { ParsedMenuItem } from "../src/lib/parse-menu";
+import { emptyPurchaseConfidence } from "../src/lib/purchase-confidence";
 import type { StrainMatch } from "../src/lib/types";
 
 function match(strainName: string, knownStrain: boolean): StrainMatch {
@@ -27,6 +28,7 @@ function match(strainName: string, knownStrain: boolean): StrainMatch {
     explanation: "",
     feedbackAdjustment: 0,
     feedbackNote: null,
+    purchaseConfidence: emptyPurchaseConfidence(),
   };
 }
 

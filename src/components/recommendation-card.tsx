@@ -1,8 +1,13 @@
-import { AlertTriangle, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { ScoreBar } from "@/components/match-meter";
 import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
+import {
+  signalLabel,
+  type PurchaseSignals,
+  type SignalLevel,
+} from "@/lib/purchase-confidence";
 import type { Category, StrainMatch } from "@/lib/types";
 
 export type RecommendationView = StrainMatch & { id?: string };
@@ -34,6 +39,20 @@ const CATEGORY_META: Record<
   },
 };
 
+const PURCHASE_TONE: Record<SignalLevel, string> = {
+  unknown: "text-muted-foreground",
+  low: "text-[#a23b2c]",
+  medium: "text-brass",
+  high: "text-accent",
+};
+
+const PURCHASE_LABEL: Record<SignalLevel, string> = {
+  unknown: "Unknown",
+  low: "Low",
+  medium: "Medium",
+  high: "High",
+};
+
 export function RecommendationCard({
   match,
   rank,
@@ -48,12 +67,16 @@ export function RecommendationCard({
     ...match.matchedEffects.map((v) => labelFor(v)),
     ...match.matchedAromas.map((v) => labelFor(v)),
   ].slice(0, 6);
+  const purchase = match.purchaseConfidence;
+  const hasPurchaseSignals = Object.values(purchase.signals).some(
+    (s) => s !== "unknown",
+  );
 
   return (
     <Card className="overflow-hidden">
       <div className="flex flex-col gap-5 p-6 sm:flex-row sm:gap-7">
-        {/* Score column */}
-        <div className="flex shrink-0 flex-row items-center gap-4 sm:w-32 sm:flex-col sm:items-start sm:gap-2">
+        {/* Score column — two stacked axes: Sensory match (big) and Purchase confidence (small). */}
+        <div className="flex shrink-0 flex-row items-center gap-5 sm:w-32 sm:flex-col sm:items-start sm:gap-3">
           <div>
             <div className="flex items-baseline gap-1">
               <span
@@ -67,14 +90,27 @@ export function RecommendationCard({
               <span className="text-lg text-muted-foreground">%</span>
             </div>
             <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
-              Taste match
+              Sensory match
             </p>
+            <div className="mt-2 hidden h-1.5 w-full overflow-hidden rounded-full bg-muted sm:block">
+              <div
+                className={cn("h-full rounded-full animate-grow", meta.bar)}
+                style={{ width: `${match.matchScore}%` }}
+              />
+            </div>
           </div>
-          <div className="hidden h-1.5 w-full overflow-hidden rounded-full bg-muted sm:block">
-            <div
-              className={cn("h-full rounded-full animate-grow", meta.bar)}
-              style={{ width: `${match.matchScore}%` }}
-            />
+          <div className="sm:w-full sm:border-t sm:border-border sm:pt-3">
+            <p
+              className={cn(
+                "font-display text-2xl font-semibold leading-tight",
+                PURCHASE_TONE[purchase.overall],
+              )}
+            >
+              {PURCHASE_LABEL[purchase.overall]}
+            </p>
+            <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
+              Purchase confidence
+            </p>
           </div>
         </div>
 
@@ -94,7 +130,7 @@ export function RecommendationCard({
               <span className="text-xs text-muted-foreground">#{rank}</span>
             )}
             <span className="ml-auto rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground">
-              Confidence: {match.confidence}
+              Sensory confidence: {match.confidence}
             </span>
           </div>
 
@@ -161,13 +197,21 @@ export function RecommendationCard({
             </div>
           )}
 
-          <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
-            <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-            <span>
-              Batch quality may vary — grower, freshness and package date
-              aren&apos;t captured. Sensory match is the only signal here.
-            </span>
-          </p>
+          {hasPurchaseSignals ? (
+            <PurchaseBreakdown
+              signals={purchase.signals}
+              notes={purchase.notes}
+            />
+          ) : (
+            <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+              <span className="font-medium text-foreground">
+                Purchase confidence is unknown
+              </span>{" "}
+              — SŌMA captures no grower, package date, cure or storage
+              information. Sensory identity matches your preference; this
+              specific purchase is a separate question.
+            </p>
+          )}
 
           {children && (
             <div className="mt-5 border-t border-border pt-4">{children}</div>
@@ -175,6 +219,54 @@ export function RecommendationCard({
         </div>
       </div>
     </Card>
+  );
+}
+
+function PurchaseBreakdown({
+  signals,
+  notes,
+}: {
+  signals: PurchaseSignals;
+  notes: string[];
+}) {
+  const keys: Array<keyof PurchaseSignals> = [
+    "freshness",
+    "cure",
+    "storage",
+    "growerReliability",
+    "phenotypeConsistency",
+  ];
+  return (
+    <div className="mt-4">
+      <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        Purchase signals
+      </p>
+      <ul className="mt-2 flex flex-wrap gap-1.5">
+        {keys.map((k) => {
+          const level = signals[k];
+          return (
+            <li key={k}>
+              <span
+                className={cn(
+                  "inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-0.5 text-xs",
+                  PURCHASE_TONE[level],
+                )}
+              >
+                <span className="text-muted-foreground">{signalLabel(k)}:</span>
+                <span className="font-medium">{PURCHASE_LABEL[level]}</span>
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+      {notes.length > 0 && (
+        <ul className="mt-2 space-y-1 text-xs leading-relaxed text-muted-foreground">
+          {notes.map((n, i) => (
+            <li key={i}>— {n}</li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 

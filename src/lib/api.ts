@@ -1,5 +1,9 @@
 import { prisma } from "./prisma";
 import type { ParsedMenuItem } from "./parse-menu";
+import {
+  emptyPurchaseConfidence,
+  isPurchaseConfidence,
+} from "./purchase-confidence";
 import { buildUnknownStrainPayloads } from "./unknown-strains";
 import type {
   Category,
@@ -7,6 +11,7 @@ import type {
   FeedbackData,
   FeedbackSignal,
   MenuQuality,
+  PurchaseConfidence,
   SessionRecommendation,
   StrainMatch,
 } from "./types";
@@ -176,6 +181,7 @@ interface DbRecommendation {
   riskNotes: string;
   explanation: string;
   feedbackNote: string | null;
+  purchaseConfidence?: unknown;
 }
 
 interface DbFeedback {
@@ -203,6 +209,11 @@ export function dbRecToView(
   r: DbRecommendation,
   feedback: DbFeedback | null = null,
 ): SessionRecommendation {
+  const purchaseConfidence: PurchaseConfidence = isPurchaseConfidence(
+    r.purchaseConfidence,
+  )
+    ? r.purchaseConfidence
+    : emptyPurchaseConfidence();
   return {
     id: r.id,
     strainName: r.strainName,
@@ -226,5 +237,6 @@ export function dbRecToView(
     feedbackAdjustment: 0,
     feedbackNote: r.feedbackNote,
     feedback: toFeedbackData(feedback),
+    purchaseConfidence,
   };
 }

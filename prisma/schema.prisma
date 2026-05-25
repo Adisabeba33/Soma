@@ -70,23 +70,26 @@ model AnalysisSession {
 }
 
 model Recommendation {
-  id           String   @id @default(uuid())
-  sessionId    String
-  session      AnalysisSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
-  strainName   String
-  resolvedName String
-  knownStrain  Boolean  @default(true)
-  category     String   // Best Match | Closest Alternative | Worth Trying | Risky | Avoid
-  matchScore   Int
-  confidence   String   // low | medium | high
-  aromaMatch   Int
-  flavorMatch  Int
-  effectMatch  Int
-  whyItFits    String
-  riskNotes    String
-  explanation  String
-  feedbackNote String?
-  createdAt    DateTime @default(now())
+  id                 String   @id @default(uuid())
+  sessionId          String
+  session            AnalysisSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  strainName         String
+  resolvedName       String
+  knownStrain        Boolean  @default(true)
+  category           String   // Best Match | Closest Alternative | Worth Trying | Risky | Avoid
+  matchScore         Int      // sensory match (0–99)
+  confidence         String   // sensory confidence: low | medium | high
+  aromaMatch         Int
+  flavorMatch        Int
+  effectMatch        Int
+  whyItFits          String
+  riskNotes          String
+  explanation        String
+  feedbackNote       String?
+  // Second axis — see src/lib/purchase-confidence.ts. Nullable so old rows
+  // stay valid; readers default to all-"unknown".
+  purchaseConfidence Json?
+  createdAt          DateTime @default(now())
 
   feedback Feedback[]
 
