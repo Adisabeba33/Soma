@@ -13,6 +13,11 @@ import {
   effectArchetypeOf,
   inferProfileArchetype,
 } from "./effect-archetype";
+import {
+  effectTextureOf,
+  inferProfileTexture,
+  textureContribution,
+} from "./effect-texture";
 import type {
   AnalysisResult,
   Category,
@@ -486,13 +491,23 @@ export function scoreStrain(
   const archetypeBonus =
     archetypeMatch && (aroma.score >= 70 || flavor.score >= 70) ? 4 : 0;
 
+  // Layer 2 — effect texture. Within a single archetype (e.g.
+  // clean-creative-daytime), strains still feel very different: Jack
+  // Herer's lucid is not Trainwreck's chaotic. Bounded ±3pt: match
+  // bonus, cross-cluster mismatch dampener, adjacent textures neutral.
+  // Sparse profile → null target → 0 contribution.
+  const strainTexture = effectTextureOf(strain);
+  const targetTexture = inferProfileTexture(profile);
+  const textureMod = textureContribution(strainTexture, targetTexture);
+
   const raw =
     0.27 * effectContribution +
     0.23 * aroma.score +
     0.18 * flavor.score +
     0.14 * trait.score +
     0.18 * ref.score +
-    archetypeBonus;
+    archetypeBonus +
+    textureMod;
   const penalty = Math.min(42, conflicts.length * 15);
   let baseScore = Math.round(raw - penalty);
   if (isDisliked) baseScore = Math.min(baseScore, 18);
