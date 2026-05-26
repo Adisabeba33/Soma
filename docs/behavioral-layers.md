@@ -132,14 +132,37 @@ Each layer is a bounded modifier on top of the weighted-sum. Anchor floor
 
 | Layer | Mechanism | Max contribution |
 | --- | --- | --- |
-| Layer 1 archetype | Mismatch dampens effect contribution to 60% | ≈ −11pt (worst case) |
-| Layer 1 archetype | Match + strong aroma/flavor → bonus | +4pt |
+| Layer 1 archetype | Cross-family mismatch dampens effect contribution to 60% | ≈ −11pt (worst case) |
+| Layer 1 archetype | Exact match + strong aroma/flavor → bonus | +5pt |
+| Layer 1 archetype | Exact match alone → bonus | +3pt |
+| Layer 1 archetype | Adjacent (within-family neighbour) → bonus | +1pt |
 | Layer 2 texture | Match → bonus | +3pt |
 | Layer 2 texture | Cross-cluster mismatch → dampener | −3pt |
 | Layer 3 family | Recognition (gate + evidence density) | 0 to +12pt |
 
-Combined worst-case downward swing ≈ −14pt; upward ≈ +19pt. Anchor floor
+Combined worst-case downward swing ≈ −14pt; upward ≈ +20pt. Anchor floor
 always overrides.
+
+### Why archetype is graduated (Layer 1 detail)
+
+Before the graduation, exact-match-with-strong-sensory was +4 and
+everything else was 0. Users with kush favourites couldn't see Purple
+Punch (deep-sleeper exact match) score above Wedding Cake
+(dessert-couch-lock adjacent) within nighttime-indica family — both
+landed at the same archetype-bonus of 0 unless the sensory tags happened
+to align tightly.
+
+Graduation introduces a 3-tier reward inside the family cluster:
+
+| Within-family relationship | Bonus |
+| --- | --- |
+| Exact archetype + strong sensory (aroma OR flavor ≥ 70) | +5 |
+| Exact archetype, no strong sensory | +3 |
+| Adjacent archetype (e.g. deep-sleeper ↔ dessert-couch-lock) | +1 |
+| Cross-family (not adjacent) | dampener on effect |
+
+Net effect: a clean ≈4pt visible gap between "exact bullseye" and
+"family neighbour" cohorts, without inflating either.
 
 ### Calibration bands (the visible score zones)
 

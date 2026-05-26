@@ -195,3 +195,58 @@ describe("scoring — sparse profiles don't get archetype-penalised", () => {
     assert.ok(b.matchScore > 0);
   });
 });
+
+describe("graduated archetype bonus — within-family discrimination", () => {
+  // The user-reported regression after reconciliation: on a kush
+  // favourite cluster with bright daytime preferences, family-aligned
+  // strains all collapsed into the same score band even though they
+  // belong to different archetypes within nighttime-indica.
+  //
+  // Graduated bonus: exact archetype match → +3 (or +5 with strong
+  // sensory), adjacent → +1. Creates a ~2-3pt visible gap between
+  // "exact match" and "within-family neighbour."
+  const kushProfile = profile({
+    favoriteStrains: ["Northern Lights", "Granddaddy Purple", "Bubba Kush"],
+    likedTraits: ["loud-smell", "potent", "terpy"],
+    dislikedTraits: ["dry-flower", "weak-smell", "too-heavy"],
+    preferredAromas: ["pine", "citrus", "sweet", "herbal"],
+    preferredFlavors: ["citrus", "sweet", "herbal"],
+    preferredEffects: ["happy", "uplifted", "focused", "creative"],
+  });
+
+  it("exact deep-sleeper match outscores adjacent dessert-couch-lock", () => {
+    // Master Kush = deep-sleeper × grounded (exact target match)
+    // Ice Cream Cake = dessert-couch-lock × smooth (adjacent within family)
+    const mk = scoreStrain("Master Kush", kushProfile);
+    const icc = scoreStrain("Ice Cream Cake", kushProfile);
+    assert.ok(
+      mk.matchScore > icc.matchScore,
+      `exact deep-sleeper match (MK ${mk.matchScore}) should beat adjacent (ICC ${icc.matchScore})`,
+    );
+    assert.ok(
+      mk.matchScore - icc.matchScore >= 2,
+      `gap should be visible (at least 2pt), got ${mk.matchScore - icc.matchScore}`,
+    );
+  });
+
+  it("Purple Kush (exact deep-sleeper) outscores Wedding Cake (adjacent)", () => {
+    const pk = scoreStrain("Purple Kush", kushProfile);
+    const wc = scoreStrain("Wedding Cake", kushProfile);
+    assert.ok(
+      pk.matchScore > wc.matchScore,
+      `exact (PK ${pk.matchScore}) should beat adjacent (WC ${wc.matchScore})`,
+    );
+  });
+
+  it("adjacent family members still beat cross-family strains", () => {
+    // Adjacent gets +1, cross-family (no dampener if no effect overlap)
+    // still gets nothing — adjacent within-family should rank higher
+    // than cross-family on a nighttime profile.
+    const icc = scoreStrain("Ice Cream Cake", kushProfile);
+    const jh = scoreStrain("Jack Herer", kushProfile);
+    assert.ok(
+      icc.matchScore > jh.matchScore,
+      `adjacent family (ICC ${icc.matchScore}) should beat cross-family (JH ${jh.matchScore})`,
+    );
+  });
+});

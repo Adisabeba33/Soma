@@ -540,24 +540,41 @@ export function scoreStrain(
   // Behavioural-archetype layer. Raw effect-tags ("energetic + focused")
   // collapse very different experiences — Green Crack's sharp dopamine
   // spike reads the same as Jack Herer's clean creative daytime on
-  // tag-overlap alone. Archetypes split those buckets: when the strain's
-  // archetype doesn't match (and isn't adjacent to) the profile's target,
-  // we dampen the effect contribution so tag-overlap can't auto-win.
-  // When archetype matches AND the user has strong sensory overlap, a
-  // small bonus rewards the terp-forward sensory win the engine was
-  // previously missing.
+  // tag-overlap alone. Archetypes split those buckets.
+  //
+  // Bonus is graduated, not binary, so within-family alignment registers:
+  //   - Exact archetype + strong sensory (aroma OR flavor ≥ 70) → +5
+  //   - Exact archetype alone                                   → +3
+  //   - Adjacent archetype (within-family neighbour)            → +1
+  //   - Cross-family (not adjacent) + effect overlap            → dampen
+  //                                                                effect ×0.6
+  //
+  // The +1 adjacent step exists because users with NL/GDP/Bubba favourites
+  // (all deep-sleeper) should see Purple Punch (exact deep-sleeper) score
+  // a little above LA Kush Cake / Wedding Cake (dessert-couch-lock,
+  // adjacent within nighttime-indica). Before this graduation, exact and
+  // adjacent both produced 0 archetype bonus and collapsed in the score.
   const strainArchetype = effectArchetypeOf(strain);
   const targetArchetype = inferProfileArchetype(profile);
   const archetypeMatch =
     targetArchetype !== null && targetArchetype === strainArchetype;
+  const archetypeAdjacent =
+    targetArchetype !== null &&
+    targetArchetype !== strainArchetype &&
+    areAdjacent(targetArchetype, strainArchetype);
   const archetypeMismatch =
     targetArchetype !== null && !areAdjacent(targetArchetype, strainArchetype);
   const effectContribution =
     archetypeMismatch && effect.matched.length > 0
       ? effect.score * 0.6
       : effect.score;
-  const archetypeBonus =
-    archetypeMatch && (aroma.score >= 70 || flavor.score >= 70) ? 4 : 0;
+  const archetypeBonus = archetypeMatch
+    ? aroma.score >= 70 || flavor.score >= 70
+      ? 5
+      : 3
+    : archetypeAdjacent
+      ? 1
+      : 0;
 
   // Layer 2 — effect texture. Within a single archetype (e.g.
   // clean-creative-daytime), strains still feel very different: Jack
