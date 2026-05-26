@@ -231,6 +231,41 @@ their two go-to indicas shouldn't have to add a third just to be heard.
 
 ---
 
+## Behavioural-weighted similarity
+
+The same three layers (archetype / texture / family) also feed the
+`similarity(a, b)` function used by Catalog "Nearby in sensory space"
+and by `referenceSimilarity` inside Compare scoring. Without
+behavioural weighting, similarity is naive tag-Jaccard plus a small
+type bonus — which collapses dessert-cake territory (Wedding Cake /
+Birthday Cake / Biscotti / Gelato Cake) into one indistinct cloud
+because they all share "sweet, creamy, vanilla, relaxed, euphoric"
+tags.
+
+Behavioural bonuses on top of Jaccard:
+
+| Match dimension | Bonus |
+| --- | --- |
+| Same `type` (indica/sativa/hybrid) | +0.08 |
+| Same effect archetype | +0.10 |
+| Same effect texture | +0.05 |
+| Same behavioural family (non-null) | +0.03 |
+
+Max possible behavioural-only lift: +0.26. The final value is clamped
+to 1.0, and the anchor-identity guard (see below) prevents this from
+leaking into the anchor band.
+
+### Anchor-identity guard
+
+Because behavioural similarity can push very-similar pairs (e.g.
+Purple Punch vs Granddaddy Purple) close to 1.0, `referenceSimilarity`
+hard-caps non-canonical matches at 99. The 100 score is reserved
+exclusively for an exact canonical name match against a favourite.
+This keeps `isFavoriteAnchor` driven by explicit user identity, not
+by coincidental high similarity.
+
+---
+
 ## Disliked-favourite reconciliation
 
 A second philosophy-level rule, in the same "favourites = lived

@@ -225,6 +225,18 @@ export function similarity(a: StrainProfile, b: StrainProfile): number {
   const union = new Set([...setA, ...setB]).size;
   let sim = union === 0 ? 0 : inter / union;
   if (a.type === b.type) sim += 0.08;
+  // Behavioural-weighted similarity. Naive tag-Jaccard collapses
+  // dessert-cake territory (Wedding Cake / Birthday Cake / Biscotti /
+  // Gelato Cake all share "sweet, creamy, vanilla, relaxed, euphoric")
+  // into one indistinct cloud in Catalog Nearby. The three structural
+  // layers we already compute let us reward exact behavioural twinning
+  // and de-emphasise pairs that only overlap on broad surface vocab.
+  // This also propagates into Compare via referenceSimilarity → ref.score,
+  // tightening within-family discrimination without a new layer.
+  if (effectArchetypeOf(a) === effectArchetypeOf(b)) sim += 0.1;
+  if (effectTextureOf(a) === effectTextureOf(b)) sim += 0.05;
+  const famA = behavioralFamilyOf(a);
+  if (famA !== null && famA === behavioralFamilyOf(b)) sim += 0.03;
   return Math.min(1, sim);
 }
 
@@ -260,7 +272,13 @@ function referenceSimilarity(
       against = fav.name;
     }
   }
-  return { score: Math.round(best * 100), against };
+  // Reserve 100 strictly for canonical-name match above. After
+  // behavioural-weighted similarity, non-favourite strains can climb
+  // very close to 1.0 (Purple Punch vs GDP, for example), and we must
+  // not let that trigger the anchor floor via `ref.score === 100`.
+  // Cap at 99 so anchor logic stays driven by explicit favourite
+  // identity, not high similarity.
+  return { score: Math.min(99, Math.round(best * 100)), against };
 }
 
 function dislikedConflicts(
