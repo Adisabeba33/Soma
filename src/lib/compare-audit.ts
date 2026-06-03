@@ -22,6 +22,10 @@ import {
   inferProfileFamily,
 } from "./behavioral-family";
 import type { BehavioralFamily } from "./behavioral-family";
+import {
+  detectProfileContradictions,
+  type ProfileContradiction,
+} from "./profile-contradictions";
 import { reconciledDislikes, resolveStrain } from "./taste-engine";
 import type {
   PurchaseConfidence,
@@ -69,6 +73,11 @@ export interface CompareAuditEntry {
     // would themselves trigger them — surfaces self-contradicting
     // profiles transparently.
     reconciledDislikes: string[];
+    // Rich, human-readable contradiction records. Always present —
+    // empty array means "no contradictions detected for this run."
+    // Makes it grep-friendly: jq '.modeSnapshot.contradictions' across
+    // many audit files surfaces the patterns at a glance.
+    contradictions: ProfileContradiction[];
   };
   items: CompareAuditItem[];
   closestName: string;
@@ -124,6 +133,7 @@ export function buildAuditEntry(
       targetTexture: inferProfileTexture(profile),
       targetFamily: inferProfileFamily(profile),
       reconciledDislikes: reconciledDislikes(profile),
+      contradictions: detectProfileContradictions(profile),
     },
     items: rawInputs.map((raw, i) => buildAuditItem(raw, matches[i])),
     closestName,

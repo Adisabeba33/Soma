@@ -16,7 +16,9 @@ import {
   type TasteProfileState,
 } from "@/lib/profile-state";
 import type { ParsedMenuItem } from "@/lib/parse-menu";
+import type { ProfileContradiction } from "@/lib/profile-contradictions";
 import type { MenuQuality, StrainMatch } from "@/lib/types";
+import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
 
 type Phase = "loading" | "profile" | "input" | "results";
 type Rec = StrainMatch & { id?: string };
@@ -25,6 +27,9 @@ export function TasteMatchClient() {
   const searchParams = useSearchParams();
   const [phase, setPhase] = useState<Phase>("loading");
   const [profile, setProfile] = useState<TasteProfileState>(EMPTY_PROFILE);
+  const [contradictions, setContradictions] = useState<ProfileContradiction[]>(
+    [],
+  );
   const [strains, setStrains] = useState<string[]>([]);
   const [parsedItems, setParsedItems] = useState<ParsedMenuItem[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
@@ -44,6 +49,7 @@ export function TasteMatchClient() {
       .then((d) => {
         const result = profileFromApi(d.profile);
         setProfile(result.state);
+        setContradictions(d.contradictions ?? []);
         setPhase(result.exists ? "input" : "profile");
       })
       .catch(() => setPhase("profile"));
@@ -70,7 +76,9 @@ export function TasteMatchClient() {
         body: JSON.stringify(state),
       });
       if (!res.ok) throw new Error();
+      const data = await res.json().catch(() => ({}));
       setProfile(state);
+      setContradictions(data.contradictions ?? []);
       setPhase("input");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch {
@@ -195,8 +203,12 @@ export function TasteMatchClient() {
             Add the strains available to you. SŌMA will score each one against
             your profile and tell you what is worth your money.
           </p>
+          <ProfileContradictionBanner contradictions={contradictions} />
           <div className="mt-8">
-            <TasteProfileSummary state={profile} />
+            <TasteProfileSummary
+              state={profile}
+              contradictions={contradictions}
+            />
           </div>
           <div className="mt-8">
             <StrainInput
@@ -263,7 +275,10 @@ export function TasteMatchClient() {
           </div>
 
           <div className="mt-8">
-            <TasteProfileSummary state={profile} />
+            <TasteProfileSummary
+              state={profile}
+              contradictions={contradictions}
+            />
           </div>
 
           {menuQuality && menuQuality.totalParsed > 0 && (

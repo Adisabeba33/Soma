@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
 import { asArray, asText } from "@/lib/api";
+import { detectProfileContradictions } from "@/lib/profile-contradictions";
+import type { TasteProfileInput } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
@@ -11,7 +13,10 @@ export async function GET() {
     where: { userId },
     orderBy: { updatedAt: "desc" },
   });
-  return NextResponse.json({ profile });
+  const contradictions = profile
+    ? detectProfileContradictions(profile as unknown as TasteProfileInput)
+    : [];
+  return NextResponse.json({ profile, contradictions });
 }
 
 async function upsertProfile(req: NextRequest) {
@@ -42,7 +47,10 @@ async function upsertProfile(req: NextRequest) {
     ? await prisma.tasteProfile.update({ where: { id: existing.id }, data })
     : await prisma.tasteProfile.create({ data: { ...data, userId } });
 
-  return NextResponse.json({ profile });
+  const contradictions = detectProfileContradictions(
+    profile as unknown as TasteProfileInput,
+  );
+  return NextResponse.json({ profile, contradictions });
 }
 
 export const POST = upsertProfile;

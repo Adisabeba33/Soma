@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
+import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
 import {
   EMPTY_PROFILE,
   profileFromApi,
   type TasteProfileState,
 } from "@/lib/profile-state";
+import type { ProfileContradiction } from "@/lib/profile-contradictions";
 
 export default function ProfilePage() {
   const [initial, setInitial] = useState<TasteProfileState | null>(null);
@@ -15,6 +17,9 @@ export default function ProfilePage() {
   const [submitting, setSubmitting] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [contradictions, setContradictions] = useState<ProfileContradiction[]>(
+    [],
+  );
 
   useEffect(() => {
     fetch("/api/profile")
@@ -23,6 +28,7 @@ export default function ProfilePage() {
         const result = profileFromApi(d.profile);
         setInitial(result.state);
         setExists(result.exists);
+        setContradictions(d.contradictions ?? []);
       })
       .catch(() => setInitial({ ...EMPTY_PROFILE }));
   }, []);
@@ -38,6 +44,8 @@ export default function ProfilePage() {
         body: JSON.stringify(state),
       });
       if (!res.ok) throw new Error();
+      const data = await res.json().catch(() => ({}));
+      setContradictions(data.contradictions ?? []);
       setSaved(true);
       setExists(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -67,6 +75,8 @@ export default function ProfilePage() {
           Profile saved.
         </p>
       )}
+
+      <ProfileContradictionBanner contradictions={contradictions} />
 
       <div className="mt-10">
         {initial === null ? (

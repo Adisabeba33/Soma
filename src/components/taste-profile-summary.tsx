@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { labelFor } from "@/lib/vocab";
+import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
+import type { ProfileContradiction } from "@/lib/profile-contradictions";
 import type { TasteProfileState } from "@/lib/profile-state";
 
 function Row({ label, values }: { label: string; values: string[] }) {
@@ -17,9 +19,11 @@ function Row({ label, values }: { label: string; values: string[] }) {
 export function TasteProfileSummary({
   state,
   showEdit = true,
+  contradictions = [],
 }: {
   state: TasteProfileState;
   showEdit?: boolean;
+  contradictions?: ProfileContradiction[];
 }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
@@ -60,6 +64,7 @@ export function TasteProfileSummary({
           ]}
         />
       </div>
+      <ProfileContradictionBanner contradictions={contradictions} compact />
     </div>
   );
 }
