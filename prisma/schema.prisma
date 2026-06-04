@@ -1,0 +1,157 @@
+// SOMA - Sensory Sommelier for Cannabis
+// PostgreSQL schema for users, taste profiles, analysis sessions,
+// recommendations and the feedback loop.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tasteProfiles    TasteProfile[]
+  analysisSessions AnalysisSession[]
+  feedback         Feedback[]
+  unknownStrains   UnknownStrain[]
+  compareAudits    CompareAudit[]
+}
+
+model TasteProfile {
+  id                 String   @id @default(uuid())
+  userId             String
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  favoriteStrains    String[]
+  dislikedStrains    String[]
+  likedTraits        String[]
+  dislikedTraits     String[]
+  preferredAromas    String[]
+  preferredFlavors   String[]
+  preferredEffects   String[]
+  texturePreferences String[]
+  qualityPriorities  String[]
+  referenceStrain    String?
+  lookingFor         String?  @default("similar") // "similar" replacement or "new" experience
+  notes              String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  analysisSessions AnalysisSession[]
+
+  @@index([userId])
+}
+
+model AnalysisSession {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tasteProfileId String?
+  tasteProfile   TasteProfile? @relation(fields: [tasteProfileId], references: [id], onDelete: SetNull)
+  inputType      String   // manual | paste | screenshot
+  rawInput       String
+  saved          Boolean  @default(false)
+  title          String?
+  engine         String   @default("builtin") // builtin | openai
+  parsedItems    Json?    // ParsedMenuItem[] captured from the menu parser
+  parserWarnings String[] @default([]) // distinct warning strings surfaced by the parser
+  menuQuality    Json?    // { totalParsed, unclearRows, unknownStrains, avgConfidence }
+  createdAt      DateTime @default(now())
+
+  recommendations Recommendation[]
+  unknownStrains  UnknownStrain[]
+
+  @@index([userId])
+}
+
+model Recommendation {
+  id                 String   @id @default(uuid())
+  sessionId          String
+  session            AnalysisSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  strainName         String
+  resolvedName       String
+  knownStrain        Boolean  @default(true)
+  category           String   // Best Match | Closest Alternative | Worth Trying | Risky | Avoid
+  matchScore         Int      // sensory match (0–99)
+  confidence         String   // sensory confidence: low | medium | high
+  aromaMatch         Int
+  flavorMatch        Int
+  effectMatch        Int
+  whyItFits          String
+  riskNotes          String
+  explanation        String
+  feedbackNote       String?
+  // Second axis — see src/lib/purchase-confidence.ts. Nullable so old rows
+  // stay valid; readers default to all-"unknown".
+  purchaseConfidence Json?
+  createdAt          DateTime @default(now())
+
+  feedback Feedback[]
+
+  @@index([sessionId])
+}
+
+model Feedback {
+  id               String   @id @default(uuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recommendationId String
+  recommendation   Recommendation @relation(fields: [recommendationId], references: [id], onDelete: Cascade)
+  purchased        Boolean?
+  liked            Boolean?
+  rating           Int?
+  notes            String?
+  createdAt        DateTime @default(now())
+
+  @@index([userId])
+  @@index([recommendationId])
+}
+
+// Real-world expansion queue. Anything the engine had to infer (i.e. not in
+// the seed dataset) is logged here so we can grow the seed list based on
+// what actually shows up on dispensary menus. Deduped per user on
+// (normalizedName, growerKey) so a recurring "Gelato" doesn't blow up the
+// table — repeats bump `occurrences` and `lastSeenAt` instead.
+model UnknownStrain {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionId      String?
+  session        AnalysisSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  rawName        String
+  normalizedName String
+  grower         String?
+  growerKey      String   @default("")
+  rawLine        String?
+  occurrences    Int      @default(1)
+  firstSeenAt    DateTime @default(now())
+  lastSeenAt     DateTime @default(now())
+  createdAt      DateTime @default(now())
+
+  @@unique([userId, normalizedName, growerKey])
+  @@index([userId])
+  @@index([normalizedName])
+  @@index([lastSeenAt])
+}
+
+// Compare audit log. Every successful /api/compare run writes one row
+// with the full snapshot (profile, parsed items, behavioural mode,
+// recommendations, contradictions). Persists to the same Postgres as the
+// rest of the app so it survives serverless deploys (Vercel filesystem
+// is ephemeral). Owner-only via /api/audit/export.
+model CompareAudit {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  runAt     DateTime @default(now())
+  snapshot  Json
+
+  @@index([userId])
+  @@index([runAt])
+}
