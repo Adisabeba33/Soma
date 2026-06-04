@@ -140,11 +140,44 @@ export function buildAuditEntry(
   };
 }
 
-// Fire-and-forget write. Never throws — audit failure must not break
-// the compare response. Returns the written path or null when disabled
-// or on filesystem error.
-export function writeCompareAudit(entry: CompareAuditEntry): string | null {
+// Fire-and-forget write. Default backend is Postgres so audits survive
+// serverless deploys (Vercel filesystem is ephemeral). Set
+// COMPARE_AUDIT_BACKEND=file to write to compare-audit/*.json instead
+// (useful for local grep/jq workflows). Set COMPARE_AUDIT=off to disable
+// audit writes entirely. Never throws — audit failure must not break
+// the compare response.
+export async function writeCompareAudit(
+  entry: CompareAuditEntry,
+): Promise<string | null> {
   if (process.env.COMPARE_AUDIT === "off") return null;
+
+  if (process.env.COMPARE_AUDIT_BACKEND === "file") {
+    return writeCompareAuditToFile(entry);
+  }
+  return writeCompareAuditToDb(entry);
+}
+
+async function writeCompareAuditToDb(
+  entry: CompareAuditEntry,
+): Promise<string | null> {
+  try {
+    const { prisma } = await import("./prisma");
+    const row = await prisma.compareAudit.create({
+      data: {
+        userId: entry.userId,
+        runAt: new Date(entry.runAt),
+        snapshot: entry as unknown as object as never,
+      },
+      select: { id: true },
+    });
+    return row.id;
+  } catch (err) {
+    console.error("compare audit DB write failed", err);
+    return null;
+  }
+}
+
+function writeCompareAuditToFile(entry: CompareAuditEntry): string | null {
   try {
     const dir = join(process.cwd(), "compare-audit");
     mkdirSync(dir, { recursive: true });
@@ -154,7 +187,7 @@ export function writeCompareAudit(entry: CompareAuditEntry): string | null {
     writeFileSync(path, JSON.stringify(entry, null, 2) + "\n");
     return path;
   } catch (err) {
-    console.error("compare audit write failed", err);
+    console.error("compare audit file write failed", err);
     return null;
   }
 }

@@ -21,6 +21,7 @@ model User {
   analysisSessions AnalysisSession[]
   feedback         Feedback[]
   unknownStrains   UnknownStrain[]
+  compareAudits    CompareAudit[]
 }
 
 model TasteProfile {
@@ -137,4 +138,20 @@ model UnknownStrain {
   @@index([userId])
   @@index([normalizedName])
   @@index([lastSeenAt])
+}
+
+// Compare audit log. Every successful /api/compare run writes one row
+// with the full snapshot (profile, parsed items, behavioural mode,
+// recommendations, contradictions). Persists to the same Postgres as the
+// rest of the app so it survives serverless deploys (Vercel filesystem
+// is ephemeral). Owner-only via /api/audit/export.
+model CompareAudit {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  runAt     DateTime @default(now())
+  snapshot  Json
+
+  @@index([userId])
+  @@index([runAt])
 }

@@ -59,7 +59,9 @@ export async function POST(req: NextRequest) {
     item.matchScore > best.matchScore ? item : best,
   );
 
-  // Fire-and-forget audit log. Disabled with COMPARE_AUDIT=off env var.
+  // Fire-and-forget audit log. Default backend is Postgres so it works
+  // on Vercel. Disabled with COMPARE_AUDIT=off. The promise is not
+  // awaited — audit must never block or break the compare response.
   try {
     const entry = buildAuditEntry(
       userId,
@@ -68,7 +70,9 @@ export async function POST(req: NextRequest) {
       matches,
       closest.strainName,
     );
-    writeCompareAudit(entry);
+    writeCompareAudit(entry).catch((err) =>
+      console.error("compare audit failed", err),
+    );
   } catch (err) {
     console.error("compare audit failed", err);
   }
