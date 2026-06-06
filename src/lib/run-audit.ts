@@ -25,7 +25,12 @@ import {
   detectProfileContradictions,
   type ProfileContradiction,
 } from "./profile-contradictions";
-import { reconciledDislikes, resolveStrain } from "./taste-engine";
+import {
+  ENGINE_VERSION,
+  reconciledDislikes,
+  resolveStrain,
+} from "./taste-engine";
+import { VOCAB_VERSION } from "./vocab";
 import type { ParsedMenuItem } from "./parse-menu";
 import type {
   MenuQuality,
@@ -91,6 +96,11 @@ export interface RunAuditEntry {
     // Structured records, one per detected contradiction. Always
     // present — empty array means "no contradictions detected."
     contradictions: ProfileContradiction[];
+    // Version markers — let audit readers pivot on era without git
+    // archaeology. vocabVersion bumps when sensory tokens change,
+    // engineVersion bumps when the scoring formula changes.
+    vocabVersion: string;
+    engineVersion: string;
   };
   items: RunAuditItem[];
   closestName: string;
@@ -154,6 +164,8 @@ export function buildAuditEntry(args: BuildAuditEntryArgs): RunAuditEntry {
       targetFamily: inferProfileFamily(args.profile),
       reconciledDislikes: reconciledDislikes(args.profile),
       contradictions: detectProfileContradictions(args.profile),
+      vocabVersion: VOCAB_VERSION,
+      engineVersion: ENGINE_VERSION,
     },
     items: args.rawInputs.map((raw, i) => buildAuditItem(raw, args.matches[i])),
     closestName: args.closestName,

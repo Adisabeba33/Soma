@@ -2,6 +2,12 @@
 // Taste Match Engine all draw from these canonical option sets so that
 // preferences and strain attributes line up exactly.
 
+// Audit log marker — bump when the vocab tokens or labels change in a way
+// that affects how older audit entries should be interpreted (additive,
+// renamed, subdivided, etc). Audit readers pivot on this to apply
+// translation maps or filter to a single vocab era.
+export const VOCAB_VERSION = "v1";
+
 export interface Option {
   value: string;
   label: string;

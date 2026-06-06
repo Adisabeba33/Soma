@@ -146,6 +146,30 @@ describe("buildAuditEntry — Taste Match run", () => {
     assert.equal(entry.taste.parsedItems[0].grower, "Jungle Boys");
   });
 
+  it("modeSnapshot carries vocab + engine version markers", () => {
+    const p = profile({ favoriteStrains: ["Jack Herer"] });
+    const matches = [scoreStrain("Tangie", p)];
+    const entry = buildAuditEntry({
+      source: "taste-match",
+      userId: "u",
+      profile: p,
+      rawInputs: ["Tangie"],
+      matches,
+      closestName: "Tangie",
+      taste: {
+        sessionId: "s",
+        inputType: "manual",
+        parsedItems: null,
+        menuQuality: null,
+        engine: "builtin",
+      },
+    });
+    assert.equal(typeof entry.modeSnapshot.vocabVersion, "string");
+    assert.equal(typeof entry.modeSnapshot.engineVersion, "string");
+    assert.ok(entry.modeSnapshot.vocabVersion.length > 0);
+    assert.ok(entry.modeSnapshot.engineVersion.length > 0);
+  });
+
   it("modeSnapshot reflects sparse profile honestly (no fake targets)", () => {
     const p = profile();
     const matches = [scoreStrain("GG4", p)];
