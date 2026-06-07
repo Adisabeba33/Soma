@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ChipSelect, TagInput } from "@/components/ui/selectors";
+import { ChipSelect, SingleSelect, TagInput } from "@/components/ui/selectors";
 import {
   AROMAS,
   DISLIKED_TRAITS,
@@ -14,6 +14,7 @@ import {
   QUALITY_PRIORITIES,
   TEXTURE_PREFERENCES,
 } from "@/lib/vocab";
+import { PRIMARY_AROMAS, PRIMARY_EFFECTS, USE_TIMES } from "@/lib/profile-target";
 import { POPULAR_STRAINS, type TasteProfileState } from "@/lib/profile-state";
 import { cn } from "@/lib/utils";
 
@@ -88,6 +89,18 @@ export function TasteProfileForm({
 
       <Section
         index={2}
+        title="If you could keep only one, which is it?"
+        hint="Your single anchor strain — the one you'd never give up. We weight this above everything else."
+      >
+        <Input
+          value={state.referenceStrain}
+          onChange={(e) => set("referenceStrain", e.target.value)}
+          placeholder="e.g. GG4"
+        />
+      </Section>
+
+      <Section
+        index={3}
         title="What did you like about them?"
         hint="The traits that made those picks feel good."
       >
@@ -99,7 +112,98 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={3}
+        index={4}
+        title="Which aromas do you reach for?"
+        hint="Pick everything that appeals — the nose you want when the jar opens."
+      >
+        <ChipSelect
+          options={AROMAS}
+          value={state.preferredAromas}
+          onChange={(v) => set("preferredAromas", v)}
+        />
+      </Section>
+
+      <Section
+        index={5}
+        title="One jar stops you dead. What does it smell like?"
+        hint="Pick one. This is your primary aroma — it carries extra weight."
+      >
+        <SingleSelect
+          options={PRIMARY_AROMAS}
+          value={state.primaryAroma}
+          onChange={(v) => set("primaryAroma", v)}
+        />
+      </Section>
+
+      <Section index={6} title="And on the palate?">
+        <ChipSelect
+          options={FLAVORS}
+          value={state.preferredFlavors}
+          onChange={(v) => set("preferredFlavors", v)}
+        />
+      </Section>
+
+      <Section
+        index={7}
+        title="What effect are you looking for?"
+        hint="Pick everything that fits — head and body."
+      >
+        <ChipSelect
+          options={EFFECTS}
+          value={state.preferredEffects}
+          onChange={(v) => set("preferredEffects", v)}
+        />
+      </Section>
+
+      <Section
+        index={8}
+        title="A perfect session — in one word, how do you feel?"
+        hint="Pick one. This is the outcome that matters most to you."
+      >
+        <SingleSelect
+          options={PRIMARY_EFFECTS}
+          value={state.primaryEffect}
+          onChange={(v) => set("primaryEffect", v)}
+        />
+      </Section>
+
+      <Section
+        index={9}
+        title="When do you usually reach for it?"
+        hint="Pick one. This tells us where in the day you live — and steers day vs night picks."
+      >
+        <SingleSelect
+          options={USE_TIMES}
+          value={state.useTime}
+          onChange={(v) => set("useTime", v)}
+        />
+      </Section>
+
+      <Section
+        index={10}
+        title="How heavy do you like the body?"
+        hint="Slide to your sweet spot."
+      >
+        <div className="max-w-md">
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={5}
+            value={state.bodyFeel ?? 50}
+            onChange={(e) => set("bodyFeel", Number(e.target.value))}
+            className="w-full accent-accent"
+            aria-label="Body weight preference"
+          />
+          <div className="mt-1 flex justify-between text-xs text-muted-foreground">
+            <span>Clear &amp; light</span>
+            <span>Heavy, couch-lock</span>
+          </div>
+        </div>
+      </Section>
+
+      <Section
+        index={11}
         title="What disappointed you in past pickups?"
         hint="Honest dealbreakers. Some of these come down to freshness and storage rather than the strain itself — SŌMA accounts for that."
       >
@@ -111,39 +215,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={4}
-        title="Which aromas do you reach for?"
-        hint="The nose you want when the jar opens."
-      >
-        <ChipSelect
-          options={AROMAS}
-          value={state.preferredAromas}
-          onChange={(v) => set("preferredAromas", v)}
-        />
-      </Section>
-
-      <Section index={5} title="And on the palate?">
-        <ChipSelect
-          options={FLAVORS}
-          value={state.preferredFlavors}
-          onChange={(v) => set("preferredFlavors", v)}
-        />
-      </Section>
-
-      <Section
-        index={6}
-        title="What effect are you looking for?"
-        hint="How you want to feel — head and body."
-      >
-        <ChipSelect
-          options={EFFECTS}
-          value={state.preferredEffects}
-          onChange={(v) => set("preferredEffects", v)}
-        />
-      </Section>
-
-      <Section
-        index={7}
+        index={12}
         title="How should the flower feel?"
         hint="Texture and cure preferences."
       >
@@ -155,7 +227,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={8}
+        index={13}
         title="What matters most to you?"
         hint="Your quality priorities — what you judge a purchase on."
       >
@@ -166,10 +238,7 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section
-        index={9}
-        title="Are you replacing a favourite, or exploring?"
-      >
+      <Section index={14} title="Are you replacing a favourite, or exploring?">
         <div className="grid gap-3 sm:grid-cols-2">
           {(
             [
@@ -216,17 +285,10 @@ export function TasteProfileForm({
             );
           })}
         </div>
-        <div className="mt-3">
-          <Input
-            value={state.referenceStrain}
-            onChange={(e) => set("referenceStrain", e.target.value)}
-            placeholder="Reference strain (optional) — e.g. GG4"
-          />
-        </div>
       </Section>
 
       <Section
-        index={10}
+        index={15}
         title="Strains to steer away from"
         hint="Optional. Anything you already know is not for you."
       >
@@ -238,7 +300,7 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section index={11} title="Anything else?" hint="Optional free notes.">
+      <Section index={16} title="Anything else?" hint="Optional free notes.">
         <Textarea
           rows={3}
           value={state.notes}
@@ -254,11 +316,7 @@ export function TasteProfileForm({
       )}
 
       <div className="flex items-center justify-end gap-3 border-t border-border pt-6">
-        <Button
-          size="lg"
-          disabled={submitting}
-          onClick={() => onSubmit(state)}
-        >
+        <Button size="lg" disabled={submitting} onClick={() => onSubmit(state)}>
           {submitting ? "Saving…" : submitLabel}
         </Button>
       </div>

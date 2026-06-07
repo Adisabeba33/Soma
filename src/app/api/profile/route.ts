@@ -3,7 +3,23 @@ import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
 import { asArray, asText } from "@/lib/api";
 import { detectProfileContradictions } from "@/lib/profile-contradictions";
+import {
+  isPrimaryAroma,
+  isPrimaryEffect,
+  isUseTime,
+} from "@/lib/profile-target";
 import type { TasteProfileInput } from "@/lib/types";
+
+const asEnum = <T extends string>(
+  value: unknown,
+  guard: (v: unknown) => v is T,
+): T | null => (guard(value) ? value : null);
+
+// bodyFeel is a 0–100 slider; clamp and round, null when absent.
+const asBodyFeel = (value: unknown): number | null => {
+  if (typeof value !== "number" || Number.isNaN(value)) return null;
+  return Math.max(0, Math.min(100, Math.round(value)));
+};
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +51,10 @@ async function upsertProfile(req: NextRequest) {
     qualityPriorities: asArray(body.qualityPriorities),
     referenceStrain: asText(body.referenceStrain, 120),
     lookingFor: asText(body.lookingFor, 20) === "new" ? "new" : "similar",
+    primaryAroma: asEnum(body.primaryAroma, isPrimaryAroma),
+    primaryEffect: asEnum(body.primaryEffect, isPrimaryEffect),
+    useTime: asEnum(body.useTime, isUseTime),
+    bodyFeel: asBodyFeel(body.bodyFeel),
     notes: asText(body.notes, 2000),
   };
 

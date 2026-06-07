@@ -11,15 +11,12 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { effectArchetypeOf, inferProfileArchetype } from "./effect-archetype";
+import { effectArchetypeOf } from "./effect-archetype";
 import type { EffectArchetype } from "./effect-archetype";
-import { effectTextureOf, inferProfileTexture } from "./effect-texture";
+import { effectTextureOf } from "./effect-texture";
 import type { EffectTexture } from "./effect-texture";
-import {
-  behavioralFamilyOf,
-  hasClusteredFavorites,
-  inferProfileFamily,
-} from "./behavioral-family";
+import { behavioralFamilyOf, hasClusteredFavorites } from "./behavioral-family";
+import { resolveProfileTarget } from "./profile-target";
 import type { BehavioralFamily } from "./behavioral-family";
 import {
   detectProfileContradictions,
@@ -90,6 +87,10 @@ export interface RunAuditEntry {
     targetArchetype: EffectArchetype | null;
     targetTexture: EffectTexture | null;
     targetFamily: BehavioralFamily | null;
+    // How the target was decided: "forced" (from the primaryAroma/
+    // primaryEffect/useTime answers) or "inferred" (legacy, from
+    // favourites/preferences).
+    targetSource: "forced" | "inferred";
     // Dislikes silenced because the user's own favourites would
     // themselves trigger them — surfaces self-contradicting profiles.
     reconciledDislikes: string[];
@@ -150,6 +151,7 @@ export interface BuildAuditEntryArgs {
 }
 
 export function buildAuditEntry(args: BuildAuditEntryArgs): RunAuditEntry {
+  const target = resolveProfileTarget(args.profile);
   const entry: RunAuditEntry = {
     runAt: new Date().toISOString(),
     schemaVersion: 2,
@@ -159,9 +161,10 @@ export function buildAuditEntry(args: BuildAuditEntryArgs): RunAuditEntry {
     rawInputs: args.rawInputs,
     modeSnapshot: {
       trustMode: hasClusteredFavorites(args.profile),
-      targetArchetype: inferProfileArchetype(args.profile),
-      targetTexture: inferProfileTexture(args.profile),
-      targetFamily: inferProfileFamily(args.profile),
+      targetArchetype: target.archetype,
+      targetTexture: target.texture,
+      targetFamily: target.family,
+      targetSource: target.source,
       reconciledDislikes: reconciledDislikes(args.profile),
       contradictions: detectProfileContradictions(args.profile),
       vocabVersion: VOCAB_VERSION,

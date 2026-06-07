@@ -37,6 +37,13 @@ export interface TasteProfileInput {
   qualityPriorities: string[];
   referenceStrain?: string | null;
   lookingFor?: string | null;
+  // Forced-choice dimensions — see src/lib/profile-target.ts. Nullable so
+  // older profiles stay valid; when present they pin the scoring target
+  // directly instead of relying on inference from favourites.
+  primaryAroma?: string | null;
+  primaryEffect?: string | null;
+  useTime?: string | null;
+  bodyFeel?: number | null;
   notes?: string | null;
 }
 

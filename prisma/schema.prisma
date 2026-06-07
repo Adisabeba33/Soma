@@ -39,6 +39,12 @@ model TasteProfile {
   qualityPriorities  String[]
   referenceStrain    String?
   lookingFor         String?  @default("similar") // "similar" replacement or "new" experience
+  // Forced-choice dimensions (see src/lib/profile-target.ts). Nullable so
+  // existing rows stay valid; drive the scoring target directly when present.
+  primaryAroma       String?  // gas | earthfunk | citrus | sweet | fruit | pineherb
+  primaryEffect      String?  // calm | knockout | social | lifted | sharp
+  useTime            String?  // morning | daytime | evening | bed
+  bodyFeel           Int?     // 0 (clear/light) .. 100 (heavy/couch-lock)
   notes              String?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
