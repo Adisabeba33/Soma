@@ -23,6 +23,52 @@ function profile(overrides: Partial<TasteProfileInput> = {}): TasteProfileInput 
   };
 }
 
+describe("buildAuditEntry — raw label stays glued to its own match", () => {
+  // Regression: Taste Match sorts/dedups recommendations, so rawInputs[i]
+  // did NOT line up with matches[i]. The audit zipped them by index and
+  // swapped raw labels (Cookie Dough showed canonical Tahoe OG and vice
+  // versa). Build items from the matches themselves so each raw is glued to
+  // the strain it was actually scored from.
+  const p = profile({
+    favoriteStrains: ["GG4"],
+    preferredAromas: ["gassy", "earthy"],
+    preferredEffects: ["relaxed"],
+  });
+
+  it("each item is self-consistent even when matches are pre-sorted", () => {
+    const rawInputs = ["cookie dough", "Tahoe OG", "UK cheese"];
+    // Mimic the engine: score then sort by matchScore desc — a different
+    // order from rawInputs.
+    const matches = rawInputs
+      .map((r) => scoreStrain(r, p))
+      .sort((a, b) => b.matchScore - a.matchScore);
+
+    const entry = buildAuditEntry({
+      source: "taste-match",
+      userId: "u1",
+      profile: p,
+      rawInputs,
+      matches,
+      closestName: matches[0].strainName,
+    });
+
+    // Order follows matches (sorted), and every item's raw must reproduce
+    // its own canonical + score — i.e. raw and match are never swapped.
+    for (const item of entry.items) {
+      const rescored = scoreStrain(item.raw, p);
+      assert.equal(
+        item.canonical,
+        rescored.resolvedName,
+        `raw "${item.raw}" must keep its own canonical`,
+      );
+      assert.equal(item.matchScore, rescored.matchScore);
+    }
+    // The Tahoe OG input keeps Tahoe OG as its canonical (not a neighbour).
+    const tahoe = entry.items.find((i) => i.raw === "Tahoe OG");
+    assert.equal(tahoe?.canonical, "Tahoe OG");
+  });
+});
+
 describe("buildAuditItem — per-strain snapshot", () => {
   const p = profile({
     favoriteStrains: ["Northern Lights", "Bubba Kush"],
