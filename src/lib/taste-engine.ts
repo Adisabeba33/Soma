@@ -36,6 +36,13 @@ import type {
 } from "./types";
 import { BATCH_QUALITY_TRAITS, labelFor } from "./vocab";
 
+// Audit log marker — bump when the scoring formula, layer mechanics or
+// bonus magnitudes change in a way that makes old score numbers
+// incomparable with new ones. The input side (profile, parsedItems) is
+// always replayable through the new engine; this version tag lets audit
+// analysis filter to a single engine era.
+export const ENGINE_VERSION = "v1";
+
 const NEUTRAL = 52;
 
 const clamp = (n: number, min: number, max: number) =>
