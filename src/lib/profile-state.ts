@@ -6,6 +6,7 @@ export interface TasteProfileState {
   preferredAromas: string[];
   preferredFlavors: string[];
   preferredEffects: string[];
+  dislikedEffects: string[];
   texturePreferences: string[];
   qualityPriorities: string[];
   referenceStrain: string;
@@ -26,6 +27,7 @@ export const EMPTY_PROFILE: TasteProfileState = {
   preferredAromas: [],
   preferredFlavors: [],
   preferredEffects: [],
+  dislikedEffects: [],
   texturePreferences: [],
   qualityPriorities: [],
   referenceStrain: "",
@@ -45,6 +47,7 @@ interface RawProfile {
   preferredAromas?: string[] | null;
   preferredFlavors?: string[] | null;
   preferredEffects?: string[] | null;
+  dislikedEffects?: string[] | null;
   texturePreferences?: string[] | null;
   qualityPriorities?: string[] | null;
   referenceStrain?: string | null;
@@ -71,6 +74,7 @@ export function profileFromApi(raw: RawProfile | null | undefined): {
       preferredAromas: raw.preferredAromas ?? [],
       preferredFlavors: raw.preferredFlavors ?? [],
       preferredEffects: raw.preferredEffects ?? [],
+      dislikedEffects: raw.dislikedEffects ?? [],
       texturePreferences: raw.texturePreferences ?? [],
       qualityPriorities: raw.qualityPriorities ?? [],
       referenceStrain: raw.referenceStrain ?? "",

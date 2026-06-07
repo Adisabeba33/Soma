@@ -22,7 +22,7 @@ export function ProfileContradictionBanner({
           Engine reconciled {contradictions.length} contradiction
           {contradictions.length === 1 ? "" : "s"} in your profile —{" "}
           {contradictions.map((c) => `“${c.trigger}”`).join(", ")} silenced
-          because your favourites carry the same trait.
+          because your favourites already carry it.
         </span>
       </p>
     );

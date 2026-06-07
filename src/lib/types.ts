@@ -33,6 +33,10 @@ export interface TasteProfileInput {
   preferredAromas: string[];
   preferredFlavors: string[];
   preferredEffects: string[];
+  // Effects the user actively wants to avoid (symmetric with preferredEffects).
+  // Optional on the input contract so older test fixtures and unmigrated DB
+  // reads stay valid; engine treats absent as []. Same vocab as EFFECTS.
+  dislikedEffects?: string[];
   texturePreferences: string[];
   qualityPriorities: string[];
   referenceStrain?: string | null;

@@ -38,7 +38,12 @@ import { BATCH_QUALITY_TRAITS, labelFor } from "./vocab";
 // primary-aroma boost and the half-damper. Scores from profiles that use
 // the forced-choice questions are not comparable to v2, so audits are
 // tagged "v3" from this deploy on.
-export const ENGINE_VERSION = "v3";
+// v3 → v4: dislikedEffects added as an explicit input dimension —
+// strains carrying a disliked effect incur the same conflict penalty as
+// trait dislikes, with the same favourite-driven reconciliation. Profiles
+// that filled in disliked effects can no longer be compared head-to-head
+// with v3 audits, so this deploy tags audits "v4".
+export const ENGINE_VERSION = "v4";
 
 const NEUTRAL = 52;
 
@@ -291,7 +296,7 @@ function referenceSimilarity(
 
 function dislikedConflicts(
   strain: StrainProfile,
-  disliked: string[],
+  profile: TasteProfileInput,
   favorites: StrainProfile[],
 ): string[] {
   // Reconcile self-contradicting profiles. If any of the user's
@@ -301,7 +306,13 @@ function dislikedConflicts(
   // the label. Without this, the engine penalises the user's own
   // family for the very trait their favourites carry, anchor-floor
   // saves the favourites but family-aligned non-anchors collapse.
-  const reconciled = disliked.filter((d) => !favoriteTriggers(d, favorites));
+  const reconciledTraits = profile.dislikedTraits.filter(
+    (d) => !favoriteTriggers(d, favorites),
+  );
+  const dislikedEffects = profile.dislikedEffects ?? [];
+  const reconciledEffects = dislikedEffects.filter(
+    (e) => !favorites.some((f) => f.effects.includes(e)),
+  );
 
   const conflicts: string[] = [];
   const has = (...tags: string[]) =>
@@ -313,7 +324,7 @@ function dislikedConflicts(
         strain.traits.includes(t),
     );
 
-  for (const d of reconciled) {
+  for (const d of reconciledTraits) {
     if (
       d === "sharp-citrus" &&
       (strain.aromas.includes("citrus") || strain.flavors.includes("citrus"))
@@ -329,6 +340,17 @@ function dislikedConflicts(
     }
     if (d === "too-heavy" && has("couch-lock", "heavy-body", "body-heavy", "sleepy")) {
       conflicts.push("a heavy, sedating body that can feel like too much");
+    }
+  }
+
+  // Effect dislikes are explicit (vocab-aligned), so no heuristic mapping —
+  // each disliked effect carried by the strain becomes a direct conflict.
+  // Same penalty magnitude as trait conflicts (15pt each, capped at 42).
+  for (const e of reconciledEffects) {
+    if (strain.effects.includes(e)) {
+      conflicts.push(
+        `${labelFor(e).toLowerCase()}, which you said you want to avoid`,
+      );
     }
   }
   return conflicts;
@@ -371,12 +393,20 @@ function favoriteTriggers(disliked: string, favorites: StrainProfile[]): boolean
 
 // Lists the dislikes that were silenced by reconciliation for this
 // profile. Surfaced in the compare audit log so we can see at a glance
-// when the engine read a profile as self-contradicting.
+// when the engine read a profile as self-contradicting. Flat list across
+// the two axes (trait tokens like "too-heavy" + effect tokens like
+// "couch-lock") — the vocabularies don't collide.
 export function reconciledDislikes(profile: TasteProfileInput): string[] {
   const favorites = profile.favoriteStrains
     .map((f) => findStrain(f))
     .filter((s): s is StrainProfile => Boolean(s));
-  return profile.dislikedTraits.filter((d) => favoriteTriggers(d, favorites));
+  const silencedTraits = profile.dislikedTraits.filter((d) =>
+    favoriteTriggers(d, favorites),
+  );
+  const silencedEffects = (profile.dislikedEffects ?? []).filter((e) =>
+    favorites.some((f) => f.effects.includes(e)),
+  );
+  return [...silencedTraits, ...silencedEffects];
 }
 
 function categorize(
@@ -530,11 +560,7 @@ export function scoreStrain(
   const resolvedFavorites = profile.favoriteStrains
     .map((f) => findStrain(f))
     .filter((s): s is StrainProfile => Boolean(s));
-  const conflicts = dislikedConflicts(
-    strain,
-    profile.dislikedTraits,
-    resolvedFavorites,
-  );
+  const conflicts = dislikedConflicts(strain, profile, resolvedFavorites);
 
   // Disliked detection — resolve aliases through findStrain so that flagging
   // "GG4" also catches "Gorilla Glue #4" and vice versa.

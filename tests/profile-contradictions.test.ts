@@ -100,3 +100,58 @@ describe("detectProfileContradictions", () => {
     assert.deepEqual(c, []);
   });
 });
+
+describe("detectProfileContradictions — dislikedEffects axis", () => {
+  it("flags couch-lock when favourites directly deliver it", () => {
+    const c = detectProfileContradictions(
+      profile({
+        favoriteStrains: ["Bubba Kush"],
+        dislikedEffects: ["couch-lock"],
+      }),
+    );
+    assert.equal(c.length, 1);
+    assert.equal(c[0].kind, "disliked-effect-vs-favorite");
+    assert.equal(c[0].trigger, "couch-lock");
+    assert.ok(c[0].evidenceFavorites.includes("Bubba Kush"));
+    assert.match(c[0].description, /couch-lock/i);
+    assert.match(c[0].resolution, /silenced/i);
+  });
+
+  it("does NOT flag couch-lock when favourites are bright sativas", () => {
+    const c = detectProfileContradictions(
+      profile({
+        favoriteStrains: ["Jack Herer", "Durban Poison"],
+        dislikedEffects: ["couch-lock"],
+      }),
+    );
+    assert.deepEqual(c, []);
+  });
+
+  it("returns trait + effect contradictions side-by-side", () => {
+    const c = detectProfileContradictions(
+      profile({
+        favoriteStrains: ["Bubba Kush"],
+        dislikedTraits: ["too-heavy"],
+        dislikedEffects: ["couch-lock"],
+      }),
+    );
+    assert.equal(c.length, 2);
+    const kinds = c.map((x) => x.kind).sort();
+    assert.deepEqual(kinds, [
+      "disliked-effect-vs-favorite",
+      "disliked-trait-vs-favorite",
+    ]);
+  });
+
+  it("ignores effects the favourites do not actually carry", () => {
+    // Bubba Kush carries couch-lock but NOT energetic. The dislike of
+    // "energetic" stands — no contradiction.
+    const c = detectProfileContradictions(
+      profile({
+        favoriteStrains: ["Bubba Kush"],
+        dislikedEffects: ["energetic"],
+      }),
+    );
+    assert.deepEqual(c, []);
+  });
+});
