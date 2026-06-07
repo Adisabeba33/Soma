@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { Plus, X } from "lucide-react";
+import { useMemo, useState } from "react";
+import { AlertTriangle, Check, Plus, X } from "lucide-react";
 import type { Option } from "@/lib/vocab";
+import { isKnownStrain, resolveCanonical } from "@/lib/known-strains";
 import { cn } from "@/lib/utils";
 
 export function ChipSelect({
@@ -45,16 +46,22 @@ export function ChipSelect({
   );
 }
 
+// validateStrains: when true, each tag is checked against the seed
+// catalog and rendered green (known) or amber (unknown / inferred).
+// An inline note appears under the input when at least one unknown
+// strain is present, explaining the lower-confidence behaviour.
 export function TagInput({
   value,
   onChange,
   placeholder,
   suggestions = [],
+  validateStrains = false,
 }: {
   value: string[];
   onChange: (next: string[]) => void;
   placeholder?: string;
   suggestions?: string[];
+  validateStrains?: boolean;
 }) {
   const [draft, setDraft] = useState("");
 
@@ -75,25 +82,79 @@ export function TagInput({
     (s) => !value.some((v) => v.toLowerCase() === s.toLowerCase()),
   );
 
+  // Memoise known/unknown classification for the current tags so we
+  // don't re-run findStrain() on every re-render of the input.
+  const tagState = useMemo(() => {
+    if (!validateStrains) return null;
+    return value.map((tag) => {
+      const known = isKnownStrain(tag);
+      const canonical = known ? resolveCanonical(tag) : null;
+      return {
+        tag,
+        known,
+        // Show "Matched to X" hint when user typed an alias that
+        // resolves to a different canonical name.
+        aliasOf:
+          canonical && canonical.toLowerCase() !== tag.toLowerCase()
+            ? canonical
+            : null,
+      };
+    });
+  }, [value, validateStrains]);
+
+  const unknownCount = tagState?.filter((t) => !t.known).length ?? 0;
+
   return (
     <div className="space-y-2.5">
       <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-card p-2">
-        {value.map((tag) => (
-          <span
-            key={tag}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-muted px-2.5 py-1 text-sm"
-          >
-            {tag}
-            <button
-              type="button"
-              onClick={() => remove(tag)}
-              className="text-muted-foreground hover:text-foreground"
-              aria-label={`Remove ${tag}`}
+        {value.map((tag, i) => {
+          const state = tagState?.[i];
+          const known = state?.known ?? null;
+          return (
+            <span
+              key={tag}
+              className={cn(
+                "inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-sm",
+                known === null
+                  ? "bg-muted"
+                  : known
+                    ? "bg-accent/10 text-accent ring-1 ring-accent/30"
+                    : "bg-brass/15 text-brass ring-1 ring-brass/40",
+              )}
+              title={
+                known === null
+                  ? undefined
+                  : known
+                    ? state?.aliasOf
+                      ? `In catalog — matched to ${state.aliasOf}`
+                      : "In our catalog"
+                    : "Not in our catalog — recommendations will be inferred from the name"
+              }
             >
-              <X className="h-3.5 w-3.5" />
-            </button>
-          </span>
-        ))}
+              {known === true && (
+                <Check className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              )}
+              {known === false && (
+                <AlertTriangle
+                  className="h-3.5 w-3.5 shrink-0"
+                  aria-hidden
+                />
+              )}
+              {tag}
+              <button
+                type="button"
+                onClick={() => remove(tag)}
+                className={cn(
+                  "hover:opacity-80",
+                  known === null ? "text-muted-foreground" : "",
+                )}
+                aria-label={`Remove ${tag}`}
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            </span>
+          );
+        })}
         <input
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
@@ -110,6 +171,21 @@ export function TagInput({
           className="h-8 min-w-[8rem] flex-1 bg-transparent px-1 text-sm outline-none placeholder:text-muted-foreground"
         />
       </div>
+
+      {validateStrains && unknownCount > 0 && (
+        <p className="flex items-start gap-2 rounded-lg bg-brass/10 px-3 py-2 text-xs leading-relaxed text-foreground/80">
+          <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brass" />
+          <span>
+            {unknownCount === 1
+              ? "One strain isn't in SŌMA's reference set yet"
+              : `${unknownCount} strains aren't in SŌMA's reference set yet`}
+            — we'll do our best, but recommendations for{" "}
+            {unknownCount === 1 ? "it" : "them"} will be inferred from the
+            name and carry lower confidence.
+          </span>
+        </p>
+      )}
+
       {openSuggestions.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {openSuggestions.slice(0, 10).map((s) => (

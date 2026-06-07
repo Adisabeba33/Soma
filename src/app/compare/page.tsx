@@ -71,6 +71,7 @@ export default function ComparePage() {
           onChange={setStrains}
           placeholder="Add a strain and press Enter"
           suggestions={POPULAR_STRAINS}
+          validateStrains
         />
         <div className="mt-4 flex items-center gap-3">
           <Button

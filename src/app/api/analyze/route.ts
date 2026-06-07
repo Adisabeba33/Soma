@@ -13,6 +13,8 @@ import {
 } from "@/lib/api";
 import { analyze } from "@/lib/taste-engine";
 import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
+import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
+import type { TasteProfileInput } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
@@ -95,6 +97,38 @@ export async function POST(req: NextRequest) {
   logUnknownStrains(userId, session.id, result.recommendations, parsedItems).catch(
     (err) => console.error("logUnknownStrains failed", err),
   );
+
+  // Fire-and-forget audit log. Default backend is Postgres (RunAudit
+  // table) so it works on Vercel. Mode 1 carries extra context under
+  // `taste`: sessionId, inputType, parsedItems, menuQuality, engine.
+  // Disabled with RUN_AUDIT=off. Never blocks the response.
+  try {
+    const closest =
+      result.recommendations.reduce(
+        (best, r) => (r.matchScore > (best?.matchScore ?? -1) ? r : best),
+        result.recommendations[0],
+      ) ?? result.recommendations[0];
+    const entry = buildAuditEntry({
+      source: "taste-match",
+      userId,
+      profile: profile as unknown as TasteProfileInput,
+      rawInputs: strains,
+      matches: result.recommendations,
+      closestName: closest?.strainName ?? "",
+      taste: {
+        sessionId: session.id,
+        inputType,
+        parsedItems: parsedItems.length > 0 ? parsedItems : null,
+        menuQuality,
+        engine: result.engine,
+      },
+    });
+    writeRunAudit(entry).catch((err) =>
+      console.error("taste-match audit failed", err),
+    );
+  } catch (err) {
+    console.error("taste-match audit failed", err);
+  }
 
   const recommendations = result.recommendations.map((r) => ({
     ...r,
