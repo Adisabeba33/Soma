@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
-import { asArray, getFeedbackSignals } from "@/lib/api";
+import {
+  asArray,
+  getFeedbackSignals,
+  logUnknownStrains,
+} from "@/lib/api";
 import { resolveStrain, scoreStrain, useCaseFor } from "@/lib/taste-engine";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
 import type { ComparisonItem, StrainMatch } from "@/lib/types";
@@ -57,6 +61,13 @@ export async function POST(req: NextRequest) {
 
   const closest = items.reduce((best, item) =>
     item.matchScore > best.matchScore ? item : best,
+  );
+
+  // Fire-and-forget on the unknown-strain queue. Compare doesn't create
+  // an AnalysisSession, so sessionId is null — the row is still recorded
+  // so the seed-expansion queue sees Compare inputs too.
+  logUnknownStrains(userId, null, matches, []).catch((err) =>
+    console.error("logUnknownStrains (compare) failed", err),
   );
 
   // Fire-and-forget audit log. Default backend is Postgres so it works

@@ -129,7 +129,7 @@ export function flattenParserWarnings(items: ParsedMenuItem[]): string[] {
 // rather than create new rows. rawName is preserved exactly as received.
 export async function logUnknownStrains(
   userId: string,
-  sessionId: string,
+  sessionId: string | null,
   matches: StrainMatch[],
   items: ParsedMenuItem[],
 ): Promise<void> {
