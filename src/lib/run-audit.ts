@@ -170,7 +170,14 @@ export function buildAuditEntry(args: BuildAuditEntryArgs): RunAuditEntry {
       vocabVersion: VOCAB_VERSION,
       engineVersion: ENGINE_VERSION,
     },
-    items: args.rawInputs.map((raw, i) => buildAuditItem(raw, args.matches[i])),
+    // Each match carries its own raw input (strainName). Build items from
+    // the matches directly rather than zipping rawInputs by index — the
+    // engine sorts/dedups recommendations, so rawInputs[i] does NOT line up
+    // with matches[i] (that mismatch swapped raw labels in Taste Match
+    // audits). rawInputs is still recorded verbatim at the top level.
+    items: args.matches.map((match) =>
+      buildAuditItem(match.strainName, match),
+    ),
     closestName: args.closestName,
   };
   if (args.taste) entry.taste = args.taste;
