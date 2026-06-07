@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { CompareBasketTray } from "@/components/compare-basket-tray";
-import { SensorySigil } from "@/components/sensory-sigil";
+import { SensoryRadar } from "@/components/sensory-radar";
 import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
 import { knownAsNames } from "@/lib/strain-identity";
@@ -243,10 +243,10 @@ function CatalogRow({
             isExpanded && "rotate-180",
           )}
         />
-        <SensorySigil
+        <SensoryRadar
           strain={strain}
           size={56}
-          className="mt-0.5 h-14 w-14 shrink-0 rounded-xl"
+          className="mt-0.5 h-14 w-14 shrink-0"
         />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
