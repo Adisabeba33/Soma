@@ -6,7 +6,7 @@ const STEPS = [
   {
     icon: Leaf,
     title: "Build your taste profile",
-    body: "A short sensory questionnaire — favourite strains, the aromas and effects you reach for, and the things that have let you down before.",
+    body: "Either answer the short sensory questionnaire, or just name a few strains you've already tried — SŌMA reads the profile back from them.",
   },
   {
     icon: ListChecks,
@@ -38,17 +38,59 @@ export default function HomePage() {
           profile and tells you whether a strain on the menu is right for{" "}
           <span className="italic">you</span> — before you spend a cent.
         </p>
-        <div className="mt-9 flex flex-wrap items-center gap-4">
-          <Link
-            href="/taste-match"
-            className={buttonClass("primary", "lg")}
-          >
-            Start Taste Match
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link href="/about" className={buttonClass("ghost", "lg")}>
-            How it works
-          </Link>
+
+        <div className="mt-10">
+          <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+            Two ways to start
+          </p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <Link
+              href="/taste-match"
+              className="group rounded-2xl border border-accent bg-accent/5 p-6 text-left transition-colors hover:bg-accent/10"
+            >
+              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-accent">
+                <Leaf className="h-3.5 w-3.5" />
+                Questionnaire
+              </div>
+              <h3 className="mt-3 font-display text-xl font-semibold tracking-tight">
+                Take the full questionnaire
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Sixteen sensory questions. Builds the most thorough profile —
+                works even if you can't name strains yet.
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+                Start Taste Match
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+
+            <Link
+              href="/onboarding/experience"
+              className="group rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
+            >
+              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-brass">
+                <Sparkles className="h-3.5 w-3.5" />
+                From experience
+              </div>
+              <h3 className="mt-3 font-display text-xl font-semibold tracking-tight">
+                Name strains you've tried
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                List 2–5 strains you've loved, liked or disliked. SŌMA reads
+                your profile back from them — you confirm before saving.
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
+                Try Experience Match
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          </div>
+          <div className="mt-5">
+            <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground">
+              How it works →
+            </Link>
+          </div>
         </div>
       </section>
 
