@@ -78,6 +78,11 @@ export function TagInput({
 
   const remove = (v: string) => onChange(value.filter((x) => x !== v));
 
+  const clearAll = () => {
+    onChange([]);
+    setDraft("");
+  };
+
   const openSuggestions = suggestions.filter(
     (s) => !value.some((v) => v.toLowerCase() === s.toLowerCase()),
   );
@@ -170,6 +175,18 @@ export function TagInput({
           placeholder={value.length ? "" : placeholder}
           className="h-8 min-w-[8rem] flex-1 bg-transparent px-1 text-sm outline-none placeholder:text-muted-foreground"
         />
+        {value.length > 0 && (
+          <button
+            type="button"
+            onClick={clearAll}
+            className="inline-flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            aria-label="Clear all strains"
+            title="Clear all"
+          >
+            <X className="h-3.5 w-3.5" />
+            Clear all
+          </button>
+        )}
       </div>
 
       {validateStrains && unknownCount > 0 && (

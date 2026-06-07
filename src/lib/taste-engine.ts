@@ -41,7 +41,11 @@ import { BATCH_QUALITY_TRAITS, labelFor } from "./vocab";
 // incomparable with new ones. The input side (profile, parsedItems) is
 // always replayable through the new engine; this version tag lets audit
 // analysis filter to a single engine era.
-export const ENGINE_VERSION = "v1";
+// v1 → v2: areAdjacent made symmetric (garlic-funk ↔ smooth-expressive),
+// which lifts gassy garlic-funk scores against smooth-expressive targets.
+// Old v1 numbers are no longer directly comparable, so audits written from
+// here on are tagged "v2".
+export const ENGINE_VERSION = "v2";
 
 const NEUTRAL = 52;
 
