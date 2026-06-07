@@ -166,6 +166,18 @@ export function TasteProfileForm({
 
       <Section
         index={8}
+        title="Any effects you want to avoid?"
+        hint="Pick everything that ruins a session for you — couch-lock, paranoia, head-heavy spin. SŌMA penalises picks that carry these and silences the dislike if your favourites already deliver it (you're allowed to contradict yourself)."
+      >
+        <ChipSelect
+          options={EFFECTS}
+          value={state.dislikedEffects}
+          onChange={(v) => set("dislikedEffects", v)}
+        />
+      </Section>
+
+      <Section
+        index={9}
         title="When do you usually reach for it?"
         hint="Pick one. This steers day vs night picks."
       >
@@ -177,7 +189,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={9}
+        index={10}
         title="What disappointed you in past pickups?"
         hint="Honest dealbreakers. Some of these come down to freshness and storage rather than the strain itself — SŌMA accounts for that."
       >
@@ -188,7 +200,7 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section index={10} title="Are you replacing a favourite, or exploring?">
+      <Section index={11} title="Are you replacing a favourite, or exploring?">
         <div className="grid gap-3 sm:grid-cols-2">
           {(
             [
@@ -238,7 +250,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={11}
+        index={12}
         title="Strains to steer away from"
         hint="Optional. Anything you already know is not for you."
       >
@@ -250,7 +262,7 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section index={12} title="Anything else?" hint="Optional free notes.">
+      <Section index={13} title="Anything else?" hint="Optional free notes.">
         <Textarea
           rows={3}
           value={state.notes}

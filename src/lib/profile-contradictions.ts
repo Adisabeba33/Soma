@@ -1,12 +1,15 @@
 // Profile contradiction detector — surfaces inconsistencies between
-// what the user labels (preferences, disliked traits) and what their
-// favourites empirically demonstrate they enjoy.
+// what the user labels (preferences, disliked traits/effects) and what
+// their favourites empirically demonstrate they enjoy.
 //
-// Today: type #1 only — disliked-trait vs favourite-trait. The user
-// marks "too-heavy" as disliked but their favourites are heavy indicas.
-// The engine reconciles this silently in scoring (lived experience >
-// label), but the user should see what we noticed and what we're doing
-// about it.
+// Currently two kinds:
+//   - disliked-trait-vs-favorite: user marks "too-heavy" as disliked
+//     but favourites carry heavy-body / couch-lock.
+//   - disliked-effect-vs-favorite: user picks "couch-lock" as an
+//     effect to avoid but a favourite directly delivers couch-lock.
+//
+// Engine reconciles both silently in scoring (lived experience > label),
+// but the user should see what we noticed and what we're doing about it.
 //
 // Each Contradiction carries enough context that:
 //   - the UI can render an honest banner
@@ -15,9 +18,12 @@
 
 import { findStrain } from "./strain-data";
 import { reconciledDislikes } from "./taste-engine";
+import { labelFor } from "./vocab";
 import type { StrainProfile, TasteProfileInput } from "./types";
 
-export type ContradictionKind = "disliked-trait-vs-favorite";
+export type ContradictionKind =
+  | "disliked-trait-vs-favorite"
+  | "disliked-effect-vs-favorite";
 
 export interface ProfileContradiction {
   kind: ContradictionKind;
@@ -52,30 +58,57 @@ const DISLIKE_HUMAN: Record<string, { label: string; carrier: string }> = {
 export function detectProfileContradictions(
   profile: TasteProfileInput,
 ): ProfileContradiction[] {
-  const silenced = reconciledDislikes(profile);
-  if (silenced.length === 0) return [];
+  const silenced = new Set(reconciledDislikes(profile));
+  if (silenced.size === 0) return [];
 
   const resolvedFavs = profile.favoriteStrains
     .map((f) => findStrain(f))
     .filter((s): s is StrainProfile => Boolean(s));
 
   const out: ProfileContradiction[] = [];
-  for (const trigger of silenced) {
-    const meta = DISLIKE_HUMAN[trigger];
+
+  // Trait-axis contradictions (e.g. "too-heavy" silenced because favourites
+  // are heavy indicas). Carrier description comes from DISLIKE_HUMAN — the
+  // trigger token doesn't appear on the strain directly, so we have to spell
+  // out which sensory features make a favourite "trigger" that dislike.
+  for (const d of profile.dislikedTraits) {
+    if (!silenced.has(d)) continue;
+    const meta = DISLIKE_HUMAN[d];
     if (!meta) continue;
     const evidence = resolvedFavs
-      .filter((f) => favoriteCarriesDislike(trigger, f))
+      .filter((f) => favoriteCarriesDislike(d, f))
       .map((f) => f.name);
     if (evidence.length === 0) continue;
     out.push({
       kind: "disliked-trait-vs-favorite",
-      trigger,
+      trigger: d,
       description: `You marked “${meta.label}” as disliked, but ${evidence.length === 1 ? "your favourite" : "your favourites"} ${humanList(evidence)} ${evidence.length === 1 ? "carries" : "carry"} ${meta.carrier}.`,
       evidenceFavorites: evidence,
       resolution: `SŌMA is treating your favourites as the stronger signal — “${meta.label}” is silenced for scoring so similar strains aren't unfairly penalised. To restore the dislike, either remove it from the questionnaire or remove the contradicting favourite.`,
       severity: "info",
     });
   }
+
+  // Effect-axis contradictions. Tokens come straight from the EFFECTS vocab
+  // so the "carrier" is the effect itself — favourite directly delivers
+  // exactly the effect the user said they want to avoid.
+  for (const e of profile.dislikedEffects ?? []) {
+    if (!silenced.has(e)) continue;
+    const evidence = resolvedFavs
+      .filter((f) => f.effects.includes(e))
+      .map((f) => f.name);
+    if (evidence.length === 0) continue;
+    const label = labelFor(e).toLowerCase();
+    out.push({
+      kind: "disliked-effect-vs-favorite",
+      trigger: e,
+      description: `You marked “${label}” as an effect to avoid, but ${evidence.length === 1 ? "your favourite" : "your favourites"} ${humanList(evidence)} directly ${evidence.length === 1 ? "delivers" : "deliver"} it.`,
+      evidenceFavorites: evidence,
+      resolution: `SŌMA is treating your favourites as the stronger signal — “${label}” is silenced for scoring so similar strains aren't unfairly penalised. To restore the dislike, either remove it from the questionnaire or remove the contradicting favourite.`,
+      severity: "info",
+    });
+  }
+
   return out;
 }
 

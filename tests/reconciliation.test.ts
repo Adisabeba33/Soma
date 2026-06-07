@@ -156,3 +156,68 @@ describe("integration — reconciliation does not soften honest dislikes", () =>
     );
   });
 });
+
+describe("dislikedEffects — explicit effect dislikes", () => {
+  it("silences couch-lock when favourites directly deliver it", () => {
+    const r = reconciledDislikes(
+      profile({
+        favoriteStrains: ["Bubba Kush"],
+        dislikedEffects: ["couch-lock"],
+      }),
+    );
+    assert.deepEqual(r, ["couch-lock"]);
+  });
+
+  it("does NOT silence couch-lock when favourites are stimulant sativas", () => {
+    const r = reconciledDislikes(
+      profile({
+        favoriteStrains: ["Jack Herer", "Durban Poison"],
+        dislikedEffects: ["couch-lock"],
+      }),
+    );
+    assert.deepEqual(r, []);
+  });
+
+  it("penalises strain that carries the disliked effect", () => {
+    const dayProfile = profile({
+      favoriteStrains: ["Super Lemon Haze"],
+      preferredEffects: ["uplifted", "focused", "energetic"],
+      dislikedEffects: ["couch-lock"],
+    });
+    const heavy = scoreStrain("Bubba Kush", dayProfile);
+    assert.ok(
+      heavy.conflicts.some((c) => c.toLowerCase().includes("couch")),
+      `expected couch-lock conflict on Bubba Kush, got ${JSON.stringify(heavy.conflicts)}`,
+    );
+  });
+
+  it("trait + effect dislikes accumulate as separate conflicts", () => {
+    const p = profile({
+      preferredEffects: ["uplifted"],
+      dislikedTraits: ["too-heavy"],
+      dislikedEffects: ["couch-lock"],
+    });
+    const r = scoreStrain("Bubba Kush", p);
+    // Bubba is heavy-body + couch-lock → both penalties fire (no
+    // contradicting favourites, so neither dislike is silenced).
+    assert.ok(
+      r.conflicts.length >= 2,
+      `expected ≥2 conflicts (trait + effect), got ${JSON.stringify(r.conflicts)}`,
+    );
+  });
+
+  it("self-contradicting profile: anchor favourite holds despite stated dislike", () => {
+    // User loves Bubba Kush AND says they want to avoid couch-lock.
+    // Engine silences the dislike, Bubba still anchors at 94–96.
+    const p = profile({
+      favoriteStrains: ["Bubba Kush"],
+      dislikedEffects: ["couch-lock"],
+    });
+    const r = scoreStrain("Bubba Kush", p);
+    assert.ok(
+      r.matchScore >= 94 && r.matchScore <= 96,
+      `Bubba anchor expected 94–96 with silenced dislike, got ${r.matchScore}`,
+    );
+    assert.deepEqual(r.conflicts, []);
+  });
+});

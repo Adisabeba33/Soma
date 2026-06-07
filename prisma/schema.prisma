@@ -35,6 +35,9 @@ model TasteProfile {
   preferredAromas    String[]
   preferredFlavors   String[]
   preferredEffects   String[]
+  // Effects to actively avoid (symmetric with preferredEffects). Default
+  // empty so existing rows stay valid without a backfill migration.
+  dislikedEffects    String[] @default([])
   texturePreferences String[]
   qualityPriorities  String[]
   referenceStrain    String?
