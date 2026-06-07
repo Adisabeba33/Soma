@@ -63,6 +63,10 @@ export async function POST(req: NextRequest) {
     item.matchScore > best.matchScore ? item : best,
   );
 
+  // Rank results highest match first. Input order is meaningless to the
+  // user — they want to see the best fit at the top, like Taste Match.
+  items.sort((a, b) => b.matchScore - a.matchScore);
+
   // Fire-and-forget on the unknown-strain queue. Compare doesn't create
   // an AnalysisSession, so sessionId is null — the row is still recorded
   // so the seed-expansion queue sees Compare inputs too.
