@@ -47,6 +47,7 @@ async function upsertProfile(req: NextRequest) {
     preferredAromas: asArray(body.preferredAromas),
     preferredFlavors: asArray(body.preferredFlavors),
     preferredEffects: asArray(body.preferredEffects),
+    dislikedEffects: asArray(body.dislikedEffects),
     texturePreferences: asArray(body.texturePreferences),
     qualityPriorities: asArray(body.qualityPriorities),
     referenceStrain: asText(body.referenceStrain, 120),
