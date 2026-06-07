@@ -49,8 +49,7 @@ export async function enhanceWithOpenAI(
       preferred_aromas: labelList(profile.preferredAromas),
       preferred_flavors: labelList(profile.preferredFlavors),
       preferred_effects: labelList(profile.preferredEffects),
-      quality_priorities: labelList(profile.qualityPriorities),
-      looking_for: profile.lookingFor ?? "similar",
+      disliked_effects: labelList(profile.dislikedEffects ?? []),
       notes: profile.notes ?? "",
     },
     recommendations: result.recommendations.map((r) => ({

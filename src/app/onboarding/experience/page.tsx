@@ -118,18 +118,6 @@ export default function ExperienceOnboardingPage() {
             onRemove={(v) => removeFromAxis("favoriteStrains", v)}
             kind="strain"
           />
-          {edited.referenceStrain && (
-            <PreviewBlock
-              label="If you could keep only one"
-              chips={[
-                { value: edited.referenceStrain, label: edited.referenceStrain },
-              ]}
-              onRemove={() =>
-                setEdited({ ...edited, referenceStrain: "" })
-              }
-              kind="strain"
-            />
-          )}
           <PreviewBlock
             label="Aromas you reach for"
             chips={edited.preferredAromas.map((v) => ({ value: v, label: labelFor(v) }))}

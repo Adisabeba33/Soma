@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ChipSelect, SingleSelect, TagInput } from "@/components/ui/selectors";
 import {
@@ -13,17 +12,18 @@ import {
 } from "@/lib/vocab";
 import { PRIMARY_AROMAS, PRIMARY_EFFECTS, USE_TIMES } from "@/lib/profile-target";
 import { POPULAR_STRAINS, type TasteProfileState } from "@/lib/profile-state";
-import { cn } from "@/lib/utils";
 
 function Section({
   index,
   title,
   hint,
+  optional = false,
   children,
 }: {
   index: number;
   title: string;
   hint?: string;
+  optional?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -33,9 +33,16 @@ function Section({
           {String(index).padStart(2, "0")}
         </span>
         <div className="min-w-0 flex-1">
-          <h3 className="font-display text-lg font-semibold tracking-tight">
-            {title}
-          </h3>
+          <div className="flex items-baseline gap-2">
+            <h3 className="font-display text-lg font-semibold tracking-tight">
+              {title}
+            </h3>
+            {optional && (
+              <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                Optional
+              </span>
+            )}
+          </div>
           {hint && (
             <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
               {hint}
@@ -81,7 +88,7 @@ export function TasteProfileForm({
       <Section
         index={1}
         title="Which strains have you loved?"
-        hint="Add the flower that has genuinely worked for you. SŌMA uses these as anchors for your sensory profile."
+        hint="Add the flower that has genuinely worked for you. SŌMA uses these as anchors for your sensory profile — the first one is treated as your primary reference."
       >
         <TagInput
           value={state.favoriteStrains}
@@ -94,18 +101,6 @@ export function TasteProfileForm({
 
       <Section
         index={2}
-        title="If you could keep only one, which is it?"
-        hint="Your single anchor strain — the one you'd never give up. We weight this above everything else."
-      >
-        <Input
-          value={state.referenceStrain}
-          onChange={(e) => set("referenceStrain", e.target.value)}
-          placeholder="e.g. GG4"
-        />
-      </Section>
-
-      <Section
-        index={3}
         title="What did you like about them?"
         hint="The traits that made those picks feel good."
       >
@@ -117,7 +112,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={4}
+        index={3}
         title="Which aromas & flavours do you reach for?"
         hint="Smell and taste together — pick everything that appeals."
       >
@@ -129,7 +124,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={5}
+        index={4}
         title="One jar stops you dead. What does it smell like?"
         hint="Pick one. This is your primary note — it carries extra weight."
       >
@@ -141,7 +136,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={6}
+        index={5}
         title="What effect are you looking for?"
         hint="Pick everything that fits — head and body."
       >
@@ -153,7 +148,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={7}
+        index={6}
         title="A perfect session — in one word, how do you feel?"
         hint="Pick one. This is the outcome that matters most to you."
       >
@@ -165,9 +160,10 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={8}
+        index={7}
         title="Any effects you want to avoid?"
-        hint="Pick everything that ruins a session for you — couch-lock, paranoia, head-heavy spin. SŌMA penalises picks that carry these and silences the dislike if your favourites already deliver it (you're allowed to contradict yourself)."
+        optional
+        hint="Pick anything that ruins a session for you — couch-lock, paranoia, head-heavy spin. SŌMA penalises picks that carry these and silences the dislike if your favourites already deliver it (you're allowed to contradict yourself)."
       >
         <ChipSelect
           options={EFFECTS}
@@ -177,7 +173,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={9}
+        index={8}
         title="When do you usually reach for it?"
         hint="Pick one. This steers day vs night picks."
       >
@@ -189,8 +185,9 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={10}
+        index={9}
         title="What disappointed you in past pickups?"
+        optional
         hint="Honest dealbreakers. Some of these come down to freshness and storage rather than the strain itself — SŌMA accounts for that."
       >
         <ChipSelect
@@ -200,59 +197,11 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section index={11} title="Are you replacing a favourite, or exploring?">
-        <div className="grid gap-3 sm:grid-cols-2">
-          {(
-            [
-              {
-                value: "similar",
-                title: "Replace a favourite",
-                desc: "Find the closest thing to a strain I already love.",
-              },
-              {
-                value: "new",
-                title: "Explore nearby",
-                desc: "Something new that still lands in my comfort zone.",
-              },
-            ] as const
-          ).map((opt) => {
-            const active = state.lookingFor === opt.value;
-            return (
-              <button
-                type="button"
-                key={opt.value}
-                onClick={() => set("lookingFor", opt.value)}
-                className={cn(
-                  "rounded-xl border p-4 text-left transition-colors",
-                  active
-                    ? "border-accent bg-accent/5"
-                    : "border-border hover:border-accent/40",
-                )}
-              >
-                <span className="flex items-center gap-2 font-medium">
-                  <span
-                    className={cn(
-                      "h-3.5 w-3.5 rounded-full border",
-                      active
-                        ? "border-accent bg-accent"
-                        : "border-muted-foreground",
-                    )}
-                  />
-                  {opt.title}
-                </span>
-                <span className="mt-1 block text-sm text-muted-foreground">
-                  {opt.desc}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </Section>
-
       <Section
-        index={12}
+        index={10}
         title="Strains to steer away from"
-        hint="Optional. Anything you already know is not for you."
+        optional
+        hint="Anything you already know is not for you."
       >
         <TagInput
           value={state.dislikedStrains}
@@ -262,7 +211,7 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section index={13} title="Anything else?" hint="Optional free notes.">
+      <Section index={11} title="Anything else?" optional hint="Free notes.">
         <Textarea
           rows={3}
           value={state.notes}
