@@ -186,7 +186,17 @@ const ADJACENT: Record<EffectArchetype, EffectArchetype[]> = {
 
 export function areAdjacent(a: EffectArchetype, b: EffectArchetype): boolean {
   if (a === b) return true;
-  return ADJACENT[a]?.includes(b) ?? false;
+  // Adjacency is a symmetric relation — "these two feel close enough that
+  // a mismatch shouldn't punish" holds regardless of which side is the
+  // target. The table is hand-maintained and can drift out of symmetry
+  // (e.g. garlic-funk lists smooth-expressive but not vice-versa), so we
+  // check both directions rather than trusting a single entry. Without
+  // this, a gassy garlic-funk strain scored against a smooth-expressive
+  // target gets its effect contribution dampened, while the reverse pair
+  // does not — an inconsistency the user feels as unfairly low scores.
+  return (
+    (ADJACENT[a]?.includes(b) ?? false) || (ADJACENT[b]?.includes(a) ?? false)
+  );
 }
 
 // Derive the user's target archetype. Returns null when the profile gives

@@ -92,6 +92,39 @@ describe("areAdjacent", () => {
   it("self-adjacency is true (an archetype matches itself)", () => {
     assert.ok(areAdjacent("deep-sleeper", "deep-sleeper"));
   });
+
+  it("is symmetric — direction of the pair never changes the verdict", () => {
+    // Regression: garlic-funk listed smooth-expressive as adjacent but not
+    // vice-versa, so a gassy garlic-funk strain scored against a
+    // smooth-expressive target was wrongly dampened while the reverse pair
+    // was not. Adjacency is a symmetric relation by definition.
+    assert.equal(
+      areAdjacent("smooth-expressive", "garlic-funk"),
+      areAdjacent("garlic-funk", "smooth-expressive"),
+    );
+    assert.ok(areAdjacent("smooth-expressive", "garlic-funk"));
+
+    const ALL = [
+      "clean-creative-daytime",
+      "sharp-stimulant",
+      "floaty-cerebral",
+      "social-bright",
+      "introspective-calm",
+      "smooth-expressive",
+      "dessert-couch-lock",
+      "garlic-funk",
+      "deep-sleeper",
+    ] as const;
+    for (const a of ALL) {
+      for (const b of ALL) {
+        assert.equal(
+          areAdjacent(a, b),
+          areAdjacent(b, a),
+          `adjacency must be symmetric for ${a} ↔ ${b}`,
+        );
+      }
+    }
+  });
 });
 
 describe("inferProfileArchetype", () => {
