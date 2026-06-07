@@ -46,12 +46,37 @@ const EFFECT_FILTERS = [
   "euphoric",
 ] as const;
 
-export function CatalogClient({ entries }: { entries: CatalogEntry[] }) {
+export interface CatalogMatch {
+  score: number;
+  category: string;
+}
+
+const CATEGORY_TONE: Record<string, string> = {
+  "Best Match": "text-accent",
+  "Closest Alternative": "text-brass",
+  "Worth Trying": "text-foreground",
+  Risky: "text-[#b4791f]",
+  Avoid: "text-[#a23b2c]",
+};
+
+export function CatalogClient({
+  entries,
+  matches = {},
+  hasProfile = false,
+}: {
+  entries: CatalogEntry[];
+  matches?: Record<string, CatalogMatch>;
+  hasProfile?: boolean;
+}) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
   const [aromaFilters, setAromaFilters] = useState<Set<string>>(new Set());
   const [effectFilters, setEffectFilters] = useState<Set<string>>(new Set());
   const [expanded, setExpanded] = useState<string | null>(null);
+  // Default to ranking by the user's match when we have a profile.
+  const [sortBy, setSortBy] = useState<"match" | "name">(
+    hasProfile ? "match" : "name",
+  );
 
   // Deep-link seed (e.g. from a "Nearby in sensory space" link).
   useEffect(() => {
@@ -61,7 +86,7 @@ export function CatalogClient({ entries }: { entries: CatalogEntry[] }) {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return entries.filter((e) => {
+    const list = entries.filter((e) => {
       if (q) {
         const haystack = [
           e.strain.name.toLowerCase(),
@@ -79,7 +104,15 @@ export function CatalogClient({ entries }: { entries: CatalogEntry[] }) {
       }
       return true;
     });
-  }, [entries, query, aromaFilters, effectFilters]);
+    if (hasProfile && sortBy === "match") {
+      return [...list].sort(
+        (a, b) =>
+          (matches[b.strain.name]?.score ?? -1) -
+          (matches[a.strain.name]?.score ?? -1),
+      );
+    }
+    return list;
+  }, [entries, query, aromaFilters, effectFilters, hasProfile, sortBy, matches]);
 
   function toggleAroma(value: string) {
     setAromaFilters((prev) => {
@@ -139,18 +172,62 @@ export function CatalogClient({ entries }: { entries: CatalogEntry[] }) {
           <span>
             {filtered.length} of {entries.length} strains
           </span>
-          {anyFilter && (
-            <button
-              type="button"
-              onClick={clearAll}
-              className="inline-flex items-center gap-1 text-xs hover:text-foreground"
-            >
-              <X className="h-3.5 w-3.5" />
-              Clear filters
-            </button>
-          )}
+          <div className="flex items-center gap-3">
+            {hasProfile && (
+              <div className="inline-flex items-center gap-1 text-xs">
+                <span className="text-muted-foreground">Sort</span>
+                <button
+                  type="button"
+                  onClick={() => setSortBy("match")}
+                  className={cn(
+                    "rounded-full px-2 py-0.5",
+                    sortBy === "match"
+                      ? "bg-accent/10 text-accent"
+                      : "hover:text-foreground",
+                  )}
+                >
+                  Your match
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSortBy("name")}
+                  className={cn(
+                    "rounded-full px-2 py-0.5",
+                    sortBy === "name"
+                      ? "bg-accent/10 text-accent"
+                      : "hover:text-foreground",
+                  )}
+                >
+                  Name
+                </button>
+              </div>
+            )}
+            {anyFilter && (
+              <button
+                type="button"
+                onClick={clearAll}
+                className="inline-flex items-center gap-1 text-xs hover:text-foreground"
+              >
+                <X className="h-3.5 w-3.5" />
+                Clear filters
+              </button>
+            )}
+          </div>
         </div>
       </div>
+
+      {!hasProfile && (
+        <Link
+          href="/profile"
+          className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-accent/30 bg-accent/5 px-4 py-3 text-sm text-foreground hover:border-accent"
+        >
+          <span>
+            Build your taste profile to see your{" "}
+            <strong className="text-accent">match %</strong> on every strain.
+          </span>
+          <span className="shrink-0 text-accent">→</span>
+        </Link>
+      )}
 
       {filtered.length === 0 ? (
         <p className="mt-10 rounded-xl border border-dashed border-border p-10 text-center text-sm text-muted-foreground">
@@ -162,6 +239,7 @@ export function CatalogClient({ entries }: { entries: CatalogEntry[] }) {
             <CatalogRow
               key={entry.strain.name}
               entry={entry}
+              match={matches[entry.strain.name]}
               isExpanded={expanded === entry.strain.name}
               onToggle={() =>
                 setExpanded(
@@ -220,10 +298,12 @@ function FilterGroup({
 
 function CatalogRow({
   entry,
+  match,
   isExpanded,
   onToggle,
 }: {
   entry: CatalogEntry;
+  match?: CatalogMatch;
   isExpanded: boolean;
   onToggle: () => void;
 }) {
@@ -276,6 +356,22 @@ function CatalogRow({
             ))}
           </div>
         </div>
+
+        {match && (
+          <div className="shrink-0 text-right leading-none">
+            <span
+              className={cn(
+                "font-display text-2xl font-semibold",
+                CATEGORY_TONE[match.category] ?? "text-foreground",
+              )}
+            >
+              {match.score}%
+            </span>
+            <span className="mt-1 block text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+              your match
+            </span>
+          </div>
+        )}
       </button>
 
       {isExpanded && <CatalogDetail entry={entry} />}

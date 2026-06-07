@@ -1,6 +1,15 @@
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 import { buildCatalog } from "@/lib/catalog";
-import { CatalogClient } from "./catalog-client";
+import { prisma } from "@/lib/prisma";
+import { SOMA_UID_COOKIE } from "@/lib/user";
+import { getFeedbackSignals } from "@/lib/api";
+import { scoreStrain } from "@/lib/taste-engine";
+import { STRAINS } from "@/lib/strain-data";
+import type { TasteProfileInput } from "@/lib/types";
+import { CatalogClient, type CatalogMatch } from "./catalog-client";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Catalog — SŌMA",
@@ -8,8 +17,40 @@ export const metadata = {
     "Every strain SOMA knows about. Sensory data, aliases, archetype and nearest matches — the same source the Taste Match Engine reads.",
 };
 
-export default function CatalogPage() {
+// Read-only cookie lookup. We never set the cookie here (that's only legal
+// in a route handler / server action) — a first-time visitor simply has no
+// profile yet, so no per-strain match is shown.
+async function loadMatches(): Promise<{
+  matches: Record<string, CatalogMatch>;
+  hasProfile: boolean;
+}> {
+  const store = await cookies();
+  const userId = store.get(SOMA_UID_COOKIE)?.value;
+  if (!userId) return { matches: {}, hasProfile: false };
+
+  const profile = await prisma.tasteProfile.findFirst({
+    where: { userId },
+    orderBy: { updatedAt: "desc" },
+  });
+  if (!profile) return { matches: {}, hasProfile: false };
+
+  const feedback = await getFeedbackSignals(userId);
+  const matches: Record<string, CatalogMatch> = {};
+  for (const strain of STRAINS) {
+    const m = scoreStrain(
+      strain.name,
+      profile as unknown as TasteProfileInput,
+      feedback,
+    );
+    matches[strain.name] = { score: m.matchScore, category: m.category };
+  }
+  return { matches, hasProfile: true };
+}
+
+export default async function CatalogPage() {
   const entries = buildCatalog();
+  const { matches, hasProfile } = await loadMatches();
+
   return (
     <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
       <p className="text-xs uppercase tracking-[0.24em] text-brass">Catalog</p>
@@ -25,7 +66,11 @@ export default function CatalogPage() {
       </p>
 
       <Suspense fallback={null}>
-        <CatalogClient entries={entries} />
+        <CatalogClient
+          entries={entries}
+          matches={matches}
+          hasProfile={hasProfile}
+        />
       </Suspense>
     </div>
   );
