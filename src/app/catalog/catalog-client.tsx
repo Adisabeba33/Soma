@@ -3,12 +3,26 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { ChevronDown, Search, Sparkles, X } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  GitCompareArrows,
+  Search,
+  Sparkles,
+  X,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { CompareBasketTray } from "@/components/compare-basket-tray";
 import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
 import { knownAsNames } from "@/lib/strain-identity";
+import {
+  BASKET_EVENT,
+  addToBasket,
+  isInBasket,
+  removeFromBasket,
+} from "@/lib/compare-basket";
 import type { CatalogEntry } from "@/lib/catalog";
 
 const AROMA_FILTERS = [
@@ -157,6 +171,8 @@ export function CatalogClient({ entries }: { entries: CatalogEntry[] }) {
           ))}
         </ul>
       )}
+
+      <CompareBasketTray />
     </div>
   );
 }
@@ -381,7 +397,7 @@ function CatalogDetail({ entry }: { entry: CatalogEntry }) {
         which is captured here.
       </p>
 
-      <div className="mt-5 border-t border-border pt-4">
+      <div className="mt-5 flex flex-wrap gap-2 border-t border-border pt-4">
         <Link
           href={`/taste-match?strain=${encodeURIComponent(strain.name)}`}
           className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:opacity-90"
@@ -389,8 +405,51 @@ function CatalogDetail({ entry }: { entry: CatalogEntry }) {
           <Sparkles className="h-4 w-4" />
           Use in Taste Match
         </Link>
+        <AddToCompareButton name={strain.name} />
       </div>
     </div>
+  );
+}
+
+function AddToCompareButton({ name }: { name: string }) {
+  const [inBasket, setInBasket] = useState(false);
+
+  useEffect(() => {
+    setInBasket(isInBasket(name));
+    const handler = () => setInBasket(isInBasket(name));
+    window.addEventListener(BASKET_EVENT, handler);
+    return () => window.removeEventListener(BASKET_EVENT, handler);
+  }, [name]);
+
+  const toggle = () => {
+    if (inBasket) removeFromBasket(name);
+    else addToBasket(name);
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-pressed={inBasket}
+      className={cn(
+        "inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-medium transition-colors",
+        inBasket
+          ? "border-accent/40 bg-accent/10 text-accent hover:bg-accent/15"
+          : "border-border bg-transparent text-foreground hover:bg-muted",
+      )}
+    >
+      {inBasket ? (
+        <>
+          <Check className="h-4 w-4" />
+          In Compare basket
+        </>
+      ) : (
+        <>
+          <GitCompareArrows className="h-4 w-4" />
+          Add to Compare
+        </>
+      )}
+    </button>
   );
 }
 

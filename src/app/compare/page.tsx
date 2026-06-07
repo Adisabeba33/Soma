@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { GitCompareArrows } from "lucide-react";
 import { TagInput } from "@/components/ui/selectors";
 import { Button, buttonClass } from "@/components/ui/button";
 import { ScoreBar } from "@/components/match-meter";
 import { POPULAR_STRAINS } from "@/lib/profile-state";
+import { clearBasket, getBasket } from "@/lib/compare-basket";
 import { labelFor } from "@/lib/vocab";
 import { cn } from "@/lib/utils";
 import type { Category, ComparisonItem } from "@/lib/types";
@@ -26,6 +27,20 @@ export default function ComparePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [needProfile, setNeedProfile] = useState(false);
+
+  // Hydrate from the catalog "Compare basket" once on mount: append any
+  // queued names that aren't already in the input, then drain the basket
+  // so the next visit starts clean.
+  useEffect(() => {
+    const queued = getBasket();
+    if (queued.length === 0) return;
+    setStrains((prev) => {
+      const seen = new Set(prev.map((s) => s.toLowerCase()));
+      const add = queued.filter((s) => !seen.has(s.toLowerCase()));
+      return add.length === 0 ? prev : [...prev, ...add];
+    });
+    clearBasket();
+  }, []);
 
   async function compare() {
     setLoading(true);
