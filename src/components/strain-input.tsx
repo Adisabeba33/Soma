@@ -91,6 +91,7 @@ export function StrainInput({
             value={strains}
             onChange={onChange}
             placeholder="Type a strain and press Enter"
+            validateStrains
           />
         </div>
       </div>

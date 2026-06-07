@@ -82,6 +82,7 @@ export function TasteProfileForm({
           onChange={(v) => set("favoriteStrains", v)}
           placeholder="Type a strain and press Enter"
           suggestions={POPULAR_STRAINS}
+          validateStrains
         />
       </Section>
 
@@ -233,6 +234,7 @@ export function TasteProfileForm({
           value={state.dislikedStrains}
           onChange={(v) => set("dislikedStrains", v)}
           placeholder="Type a strain and press Enter"
+          validateStrains
         />
       </Section>
 

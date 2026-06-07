@@ -7,7 +7,11 @@ import type { StrainMatch } from "./types";
 
 export interface UnknownStrainPayload {
   userId: string;
-  sessionId: string;
+  // null when the call originates from /api/compare — Compare doesn't
+  // create an AnalysisSession row, but we still want the strain typed
+  // by the user counted in the expansion queue. UnknownStrain.sessionId
+  // is nullable in the schema for exactly this case.
+  sessionId: string | null;
   rawName: string;
   normalizedName: string;
   grower: string | null;
@@ -20,7 +24,7 @@ export interface UnknownStrainPayload {
 // without standing up Prisma.
 export function buildUnknownStrainPayloads(
   userId: string,
-  sessionId: string,
+  sessionId: string | null,
   matches: StrainMatch[],
   items: ParsedMenuItem[],
 ): UnknownStrainPayload[] {
