@@ -50,18 +50,14 @@ export function TasteProfileSummary({
           label="Effects"
           values={state.preferredEffects.map(labelFor)}
         />
+        <Row
+          label="Avoid effects"
+          values={state.dislikedEffects.map(labelFor)}
+        />
         <Row label="Likes" values={state.likedTraits.map(labelFor)} />
         <Row
           label="Avoids"
           values={state.dislikedTraits.map(labelFor)}
-        />
-        <Row
-          label="Goal"
-          values={[
-            state.lookingFor === "new"
-              ? "Exploring nearby"
-              : "Replacing a favourite",
-          ]}
         />
       </div>
       <ProfileContradictionBanner contradictions={contradictions} compact />
