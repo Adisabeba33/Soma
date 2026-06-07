@@ -8,22 +8,14 @@
 
 import { findStrain, normalizeStrainName, STRAINS } from "./strain-data";
 import { evaluatePurchase } from "./purchase-confidence";
-import {
-  areAdjacent,
-  effectArchetypeOf,
-  inferProfileArchetype,
-} from "./effect-archetype";
-import {
-  effectTextureOf,
-  inferProfileTexture,
-  textureContribution,
-} from "./effect-texture";
+import { areAdjacent, effectArchetypeOf } from "./effect-archetype";
+import { effectTextureOf, textureContribution } from "./effect-texture";
 import {
   behavioralFamilyOf,
   familyBonus,
   hasClusteredFavorites,
-  inferProfileFamily,
 } from "./behavioral-family";
+import { primaryAromaTokens, resolveProfileTarget } from "./profile-target";
 import type {
   AnalysisResult,
   Category,
@@ -41,13 +33,18 @@ import { BATCH_QUALITY_TRAITS, labelFor } from "./vocab";
 // incomparable with new ones. The input side (profile, parsedItems) is
 // always replayable through the new engine; this version tag lets audit
 // analysis filter to a single engine era.
-// v1 → v2: areAdjacent made symmetric (garlic-funk ↔ smooth-expressive),
-// which lifts gassy garlic-funk scores against smooth-expressive targets.
-// Old v1 numbers are no longer directly comparable, so audits written from
-// here on are tagged "v2".
-export const ENGINE_VERSION = "v2";
+// v1 → v2: areAdjacent made symmetric (garlic-funk ↔ smooth-expressive).
+// v2 → v3: forced-choice target (primaryAroma/primaryEffect/useTime) plus
+// primary-aroma boost and the half-damper. Scores from profiles that use
+// the forced-choice questions are not comparable to v2, so audits are
+// tagged "v3" from this deploy on.
+export const ENGINE_VERSION = "v3";
 
 const NEUTRAL = 52;
+
+// Bounded boost added to a strain's aroma sub-score when its nose matches
+// the user's forced-choice primary aroma family.
+const PRIMARY_AROMA_BONUS = 10;
 
 const clamp = (n: number, min: number, max: number) =>
   Math.max(min, Math.min(max, n));
@@ -517,6 +514,19 @@ export function scoreStrain(
   const effect = setScore(strain.effects, profile.preferredEffects);
   const trait = setScore(strain.traits, profile.likedTraits);
   const ref = referenceSimilarity(strain, profile.favoriteStrains);
+
+  // Primary-aroma weighting. When the user named one aroma family as the
+  // thing that stops them (forced choice), a strain whose nose lands in
+  // that family gets a bounded aroma boost — the broad multi-select dilutes
+  // this signal, the forced choice restores it. Same boosted value feeds
+  // both the weighted sum and the archetype-bonus threshold below.
+  const primaryTokens = primaryAromaTokens(profile);
+  const matchesPrimaryAroma =
+    primaryTokens.length > 0 &&
+    strain.aromas.some((a) => primaryTokens.includes(a));
+  const aromaScore = matchesPrimaryAroma
+    ? Math.min(100, aroma.score + PRIMARY_AROMA_BONUS)
+    : aroma.score;
   const resolvedFavorites = profile.favoriteStrains
     .map((f) => findStrain(f))
     .filter((s): s is StrainProfile => Boolean(s));
@@ -583,8 +593,12 @@ export function scoreStrain(
   // a little above LA Kush Cake / Wedding Cake (dessert-couch-lock,
   // adjacent within nighttime-indica). Before this graduation, exact and
   // adjacent both produced 0 archetype bonus and collapsed in the score.
+  // Resolve the scoring target once. Forced-choice answers (primaryAroma /
+  // primaryEffect / useTime) pin it directly; otherwise we fall back to the
+  // legacy inference from favourites/preferences.
+  const target = resolveProfileTarget(profile);
   const strainArchetype = effectArchetypeOf(strain);
-  const targetArchetype = inferProfileArchetype(profile);
+  const targetArchetype = target.archetype;
   const archetypeMatch =
     targetArchetype !== null && targetArchetype === strainArchetype;
   const archetypeAdjacent =
@@ -593,12 +607,19 @@ export function scoreStrain(
     areAdjacent(targetArchetype, strainArchetype);
   const archetypeMismatch =
     targetArchetype !== null && !areAdjacent(targetArchetype, strainArchetype);
+  // Half-damper: a wrong-archetype strain normally has its effect
+  // contribution cut to 60%. But if its nose matches the user's *primary*
+  // aroma, the penalty is softened to 80% — the user explicitly said this
+  // smell pulls them in, so it should partially survive an archetype miss
+  // (a gassy heady strain on a gassy evening profile, say) rather than be
+  // fully punished.
+  const mismatchDamper = matchesPrimaryAroma ? 0.8 : 0.6;
   const effectContribution =
     archetypeMismatch && effect.matched.length > 0
-      ? effect.score * 0.6
+      ? effect.score * mismatchDamper
       : effect.score;
   const archetypeBonus = archetypeMatch
-    ? aroma.score >= 70 || flavor.score >= 70
+    ? aromaScore >= 70 || flavor.score >= 70
       ? 5
       : 3
     : archetypeAdjacent
@@ -611,7 +632,7 @@ export function scoreStrain(
   // bonus, cross-cluster mismatch dampener, adjacent textures neutral.
   // Sparse profile → null target → 0 contribution.
   const strainTexture = effectTextureOf(strain);
-  const targetTexture = inferProfileTexture(profile);
+  const targetTexture = target.texture;
   const textureMod = textureContribution(strainTexture, targetTexture);
 
   // Layer 3 — behavioural family. Pure function of (archetype, texture)
@@ -623,7 +644,7 @@ export function scoreStrain(
   // while Green-Crack-on-the-same-profile gets none (different family
   // → 0 bonus, gate fails).
   const strainFamily = behavioralFamilyOf(strain);
-  const targetFamily = inferProfileFamily(profile);
+  const targetFamily = target.family;
   const familyMod = familyBonus(strainFamily, targetFamily, {
     effectMatched: effect.matched.length,
     aromaMatched: aroma.matched.length,
@@ -652,7 +673,7 @@ export function scoreStrain(
 
   const raw =
     W.effect * effectContribution +
-    W.aroma * aroma.score +
+    W.aroma * aromaScore +
     W.flavor * flavor.score +
     W.trait * trait.score +
     W.ref * ref.score +

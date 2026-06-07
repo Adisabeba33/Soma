@@ -46,6 +46,42 @@ export function ChipSelect({
   );
 }
 
+// Single-choice chip row. Forced-choice questions in the profile use this:
+// exactly one value can be active, and clicking the active one clears it.
+export function SingleSelect({
+  options,
+  value,
+  onChange,
+}: {
+  options: Option[];
+  value: string;
+  onChange: (next: string) => void;
+}) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {options.map((o) => {
+        const active = value === o.value;
+        return (
+          <button
+            type="button"
+            key={o.value}
+            onClick={() => onChange(active ? "" : o.value)}
+            aria-pressed={active}
+            className={cn(
+              "rounded-full border px-3.5 py-1.5 text-sm transition-colors",
+              active
+                ? "border-accent bg-accent text-accent-foreground"
+                : "border-border bg-card text-muted-foreground hover:border-accent/40 hover:text-foreground",
+            )}
+          >
+            {o.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 // validateStrains: when true, each tag is checked against the seed
 // catalog and rendered green (known) or amber (unknown / inferred).
 // An inline note appears under the input when at least one unknown

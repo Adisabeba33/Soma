@@ -10,6 +10,11 @@ export interface TasteProfileState {
   qualityPriorities: string[];
   referenceStrain: string;
   lookingFor: "similar" | "new";
+  // Forced-choice dimensions. "" = not answered yet; bodyFeel null = no pick.
+  primaryAroma: string;
+  primaryEffect: string;
+  useTime: string;
+  bodyFeel: number | null;
   notes: string;
 }
 
@@ -25,6 +30,10 @@ export const EMPTY_PROFILE: TasteProfileState = {
   qualityPriorities: [],
   referenceStrain: "",
   lookingFor: "similar",
+  primaryAroma: "",
+  primaryEffect: "",
+  useTime: "",
+  bodyFeel: null,
   notes: "",
 };
 
@@ -40,6 +49,10 @@ interface RawProfile {
   qualityPriorities?: string[] | null;
   referenceStrain?: string | null;
   lookingFor?: string | null;
+  primaryAroma?: string | null;
+  primaryEffect?: string | null;
+  useTime?: string | null;
+  bodyFeel?: number | null;
   notes?: string | null;
 }
 
@@ -62,6 +75,10 @@ export function profileFromApi(raw: RawProfile | null | undefined): {
       qualityPriorities: raw.qualityPriorities ?? [],
       referenceStrain: raw.referenceStrain ?? "",
       lookingFor: raw.lookingFor === "new" ? "new" : "similar",
+      primaryAroma: raw.primaryAroma ?? "",
+      primaryEffect: raw.primaryEffect ?? "",
+      useTime: raw.useTime ?? "",
+      bodyFeel: typeof raw.bodyFeel === "number" ? raw.bodyFeel : null,
       notes: raw.notes ?? "",
     },
   };
