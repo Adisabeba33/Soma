@@ -112,6 +112,13 @@ export default function ComparePage() {
               closest to your taste profile.
             </p>
           )}
+          {/* Temporary testing aid — ranked order on one line. Remove later. */}
+          <p className="mt-3 rounded-lg bg-muted px-3 py-2 font-mono text-xs text-muted-foreground">
+            [debug] Ranked order:{" "}
+            {items
+              .map((item) => `${item.strainName} ${item.matchScore}%`)
+              .join(", ")}
+          </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((item) => {
               const isClosest = item.strainName === closestName;

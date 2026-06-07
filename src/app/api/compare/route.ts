@@ -59,6 +59,10 @@ export async function POST(req: NextRequest) {
     item.matchScore > best.matchScore ? item : best,
   );
 
+  // Rank results highest match first. Input order is meaningless to the
+  // user — they want to see the best fit at the top, like Taste Match.
+  items.sort((a, b) => b.matchScore - a.matchScore);
+
   // Fire-and-forget audit log. Default backend is Postgres so it works
   // on Vercel. Disabled with COMPARE_AUDIT=off. The promise is not
   // awaited — audit must never block or break the compare response.
