@@ -6,7 +6,7 @@
 // that affects how older audit entries should be interpreted (additive,
 // renamed, subdivided, etc). Audit readers pivot on this to apply
 // translation maps or filter to a single vocab era.
-export const VOCAB_VERSION = "v1";
+export const VOCAB_VERSION = "v2";
 
 export interface Option {
   value: string;
@@ -30,6 +30,9 @@ export const AROMAS: Option[] = [
   { value: "skunky", label: "Skunky" },
   { value: "cheese", label: "Cheese / funk" },
   { value: "creamy", label: "Creamy / vanilla" },
+  // v2: added so strains that tag vanilla aroma (Birthday Cake, Gelato
+  // Cake, LA Kush Cake, Moby Dick) are addressable in the questionnaire.
+  { value: "vanilla", label: "Vanilla" },
 ];
 
 export const FLAVORS: Option[] = [
@@ -49,6 +52,12 @@ export const FLAVORS: Option[] = [
   { value: "mint", label: "Mint" },
   { value: "grape", label: "Grape" },
   { value: "vanilla", label: "Vanilla" },
+  // v2: added so strains that tag diesel/floral/cheese on the palate
+  // are addressable in the questionnaire. Previously 18 strains carried
+  // these flavor tokens but users could not select them.
+  { value: "diesel", label: "Diesel" },
+  { value: "floral", label: "Floral" },
+  { value: "cheese", label: "Cheese / funk" },
 ];
 
 export const EFFECTS: Option[] = [
