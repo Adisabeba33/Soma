@@ -77,6 +77,34 @@ export const EFFECTS: Option[] = [
   { value: "head-high", label: "Cerebral head-high" },
 ];
 
+// Merged aroma + flavour palette. For cannabis, smell ≈ taste, so the
+// questionnaire asks once and feeds the selection into BOTH preferredAromas
+// and preferredFlavors. The scoring engine still keeps the two dimensions
+// separate; a token that doesn't exist on one side simply never matches
+// there. Union of AROMAS and FLAVORS, one clean label each.
+export const AROMA_FLAVOR: Option[] = [
+  { value: "gassy", label: "Gas / fuel" },
+  { value: "diesel", label: "Diesel" },
+  { value: "earthy", label: "Earthy" },
+  { value: "skunky", label: "Skunky" },
+  { value: "cheese", label: "Cheese / funk" },
+  { value: "woody", label: "Woody" },
+  { value: "pine", label: "Pine / forest" },
+  { value: "herbal", label: "Herbal" },
+  { value: "mint", label: "Mint" },
+  { value: "spicy", label: "Spicy / peppery" },
+  { value: "citrus", label: "Citrus" },
+  { value: "sweet", label: "Sweet" },
+  { value: "fruity", label: "Fruity" },
+  { value: "berry", label: "Berry" },
+  { value: "grape", label: "Grape" },
+  { value: "tropical", label: "Tropical" },
+  { value: "floral", label: "Floral" },
+  { value: "creamy", label: "Creamy" },
+  { value: "vanilla", label: "Vanilla" },
+  { value: "nutty", label: "Nutty" },
+];
+
 export const LIKED_TRAITS: Option[] = [
   { value: "gassy", label: "Gassy" },
   { value: "earthy", label: "Earthy" },

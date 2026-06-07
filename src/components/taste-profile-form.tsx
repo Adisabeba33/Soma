@@ -6,13 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ChipSelect, SingleSelect, TagInput } from "@/components/ui/selectors";
 import {
-  AROMAS,
+  AROMA_FLAVOR,
   DISLIKED_TRAITS,
   EFFECTS,
-  FLAVORS,
   LIKED_TRAITS,
-  QUALITY_PRIORITIES,
-  TEXTURE_PREFERENCES,
 } from "@/lib/vocab";
 import { PRIMARY_AROMAS, PRIMARY_EFFECTS, USE_TIMES } from "@/lib/profile-target";
 import { POPULAR_STRAINS, type TasteProfileState } from "@/lib/profile-state";
@@ -71,6 +68,14 @@ export function TasteProfileForm({
     value: TasteProfileState[K],
   ) => setState((prev) => ({ ...prev, [key]: value }));
 
+  // Aroma and flavour are one question for the user (smell ≈ taste). The
+  // selection feeds both engine dimensions.
+  const sensoryNotes = Array.from(
+    new Set([...state.preferredAromas, ...state.preferredFlavors]),
+  );
+  const setSensoryNotes = (v: string[]) =>
+    setState((prev) => ({ ...prev, preferredAromas: v, preferredFlavors: v }));
+
   return (
     <div className="space-y-7">
       <Section
@@ -113,20 +118,20 @@ export function TasteProfileForm({
 
       <Section
         index={4}
-        title="Which aromas do you reach for?"
-        hint="Pick everything that appeals — the nose you want when the jar opens."
+        title="Which aromas & flavours do you reach for?"
+        hint="Smell and taste together — pick everything that appeals."
       >
         <ChipSelect
-          options={AROMAS}
-          value={state.preferredAromas}
-          onChange={(v) => set("preferredAromas", v)}
+          options={AROMA_FLAVOR}
+          value={sensoryNotes}
+          onChange={setSensoryNotes}
         />
       </Section>
 
       <Section
         index={5}
         title="One jar stops you dead. What does it smell like?"
-        hint="Pick one. This is your primary aroma — it carries extra weight."
+        hint="Pick one. This is your primary note — it carries extra weight."
       >
         <SingleSelect
           options={PRIMARY_AROMAS}
@@ -135,16 +140,8 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section index={6} title="And on the palate?">
-        <ChipSelect
-          options={FLAVORS}
-          value={state.preferredFlavors}
-          onChange={(v) => set("preferredFlavors", v)}
-        />
-      </Section>
-
       <Section
-        index={7}
+        index={6}
         title="What effect are you looking for?"
         hint="Pick everything that fits — head and body."
       >
@@ -152,6 +149,18 @@ export function TasteProfileForm({
           options={EFFECTS}
           value={state.preferredEffects}
           onChange={(v) => set("preferredEffects", v)}
+        />
+      </Section>
+
+      <Section
+        index={7}
+        title="A perfect session — in one word, how do you feel?"
+        hint="Pick one. This is the outcome that matters most to you."
+      >
+        <SingleSelect
+          options={PRIMARY_EFFECTS}
+          value={state.primaryEffect}
+          onChange={(v) => set("primaryEffect", v)}
         />
       </Section>
 
@@ -169,20 +178,8 @@ export function TasteProfileForm({
 
       <Section
         index={9}
-        title="A perfect session — in one word, how do you feel?"
-        hint="Pick one. This is the outcome that matters most to you."
-      >
-        <SingleSelect
-          options={PRIMARY_EFFECTS}
-          value={state.primaryEffect}
-          onChange={(v) => set("primaryEffect", v)}
-        />
-      </Section>
-
-      <Section
-        index={10}
         title="When do you usually reach for it?"
-        hint="Pick one. This tells us where in the day you live — and steers day vs night picks."
+        hint="Pick one. This steers day vs night picks."
       >
         <SingleSelect
           options={USE_TIMES}
@@ -192,30 +189,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={11}
-        title="How heavy do you like the body?"
-        hint="Slide to your sweet spot."
-      >
-        <div className="max-w-md">
-          <input
-            type="range"
-            min={0}
-            max={100}
-            step={5}
-            value={state.bodyFeel ?? 50}
-            onChange={(e) => set("bodyFeel", Number(e.target.value))}
-            className="w-full accent-accent"
-            aria-label="Body weight preference"
-          />
-          <div className="mt-1 flex justify-between text-xs text-muted-foreground">
-            <span>Clear &amp; light</span>
-            <span>Heavy, couch-lock</span>
-          </div>
-        </div>
-      </Section>
-
-      <Section
-        index={12}
+        index={10}
         title="What disappointed you in past pickups?"
         hint="Honest dealbreakers. Some of these come down to freshness and storage rather than the strain itself — SŌMA accounts for that."
       >
@@ -226,31 +200,7 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section
-        index={13}
-        title="How should the flower feel?"
-        hint="Texture and cure preferences."
-      >
-        <ChipSelect
-          options={TEXTURE_PREFERENCES}
-          value={state.texturePreferences}
-          onChange={(v) => set("texturePreferences", v)}
-        />
-      </Section>
-
-      <Section
-        index={14}
-        title="What matters most to you?"
-        hint="Your quality priorities — what you judge a purchase on."
-      >
-        <ChipSelect
-          options={QUALITY_PRIORITIES}
-          value={state.qualityPriorities}
-          onChange={(v) => set("qualityPriorities", v)}
-        />
-      </Section>
-
-      <Section index={15} title="Are you replacing a favourite, or exploring?">
+      <Section index={11} title="Are you replacing a favourite, or exploring?">
         <div className="grid gap-3 sm:grid-cols-2">
           {(
             [
@@ -300,7 +250,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={16}
+        index={12}
         title="Strains to steer away from"
         hint="Optional. Anything you already know is not for you."
       >
@@ -312,7 +262,7 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section index={17} title="Anything else?" hint="Optional free notes.">
+      <Section index={13} title="Anything else?" hint="Optional free notes.">
         <Textarea
           rows={3}
           value={state.notes}
