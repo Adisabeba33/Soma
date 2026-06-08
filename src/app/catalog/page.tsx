@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import { cookies } from "next/headers";
-import { buildCatalog } from "@/lib/catalog";
+import { buildCatalog, type CatalogMatch } from "@/lib/catalog";
 import { prisma } from "@/lib/prisma";
 import { SOMA_UID_COOKIE } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
 import { scoreStrain } from "@/lib/taste-engine";
 import { STRAINS } from "@/lib/strain-data";
 import type { TasteProfileInput } from "@/lib/types";
-import { CatalogClient, type CatalogMatch } from "./catalog-client";
+import { CatalogClient } from "./catalog-client";
 
 export const dynamic = "force-dynamic";
 

@@ -87,3 +87,63 @@ export function buildCatalog(): CatalogEntry[] {
 export function catalogSize(): number {
   return STRAINS.length;
 }
+
+// A per-strain user match, surfaced on cards and the strain page. Lives here
+// (not in the client) so both server and client modules can share the type.
+export interface CatalogMatch {
+  score: number;
+  category: string;
+}
+
+// A derived, deterministic "Curated" index (0–100) used for the badge and the
+// default sort when the visitor has no taste profile yet. It is NOT a quality
+// rating of the flower — it reflects how richly SOMA has characterised the
+// strain: detail completeness, sensory richness and identity confidence. Pure
+// function of the entry, so the same strain always shows the same number.
+// Server-safe so the strain page can call it directly.
+export function curatedScore(entry: CatalogEntry): number {
+  const s = entry.strain;
+  const confBase =
+    entry.confidence === "high" ? 86 : entry.confidence === "medium" ? 78 : 70;
+  const richness =
+    s.aromas.length + s.flavors.length + s.effects.length + s.traits.length;
+  const richBonus = Math.max(-4, Math.min(8, Math.round((richness - 14) * 0.6)));
+  const idBonus = entry.identity
+    ? entry.identity.sourceConfidence === "high"
+      ? 6
+      : entry.identity.sourceConfidence === "medium"
+        ? 3
+        : 1
+    : 0;
+  return Math.max(60, Math.min(98, confBase + richBonus + idBonus));
+}
+
+// URL-safe slug for a strain name. "OG Kush" → "og-kush", "GG4" → "gg4".
+export function strainSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+// Reverse lookup used by the dedicated strain page (/catalog/[slug]).
+export function getCatalogEntryBySlug(slug: string): CatalogEntry | null {
+  return buildCatalog().find((e) => strainSlug(e.strain.name) === slug) ?? null;
+}
+
+// Similar strains enriched with their full profile, so the detail page can
+// render each one's own mini radar (similar[] only carries name + score).
+export interface SimilarStrainEntry extends SimilarStrain {
+  strain: StrainProfile;
+}
+
+export function similarWithProfiles(
+  similar: SimilarStrain[],
+): SimilarStrainEntry[] {
+  const out: SimilarStrainEntry[] = [];
+  for (const s of similar) {
+    const strain = STRAINS.find((x) => x.name === s.name);
+    if (strain) out.push({ ...s, strain });
+  }
+  return out;
+}
