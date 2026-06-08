@@ -5,14 +5,11 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import {
   Check,
-  ChevronDown,
-  GitCompareArrows,
+  ChevronRight,
   LayoutGrid,
   Rows3,
   Search,
   SlidersHorizontal,
-  Sparkles,
-  X,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -21,14 +18,8 @@ import { SensoryRadar } from "@/components/sensory-radar";
 import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
 import { AROMAS, EFFECTS, FLAVORS } from "@/lib/vocab";
-import { knownAsNames } from "@/lib/strain-identity";
-import {
-  BASKET_EVENT,
-  addToBasket,
-  isInBasket,
-  removeFromBasket,
-} from "@/lib/compare-basket";
-import type { CatalogEntry } from "@/lib/catalog";
+import { curatedScore, strainSlug } from "@/lib/catalog";
+import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 import type { StrainProfile } from "@/lib/types";
 
 // ── Filter vocab (drawn from the canonical sensory vocab so the catalog and
@@ -51,11 +42,6 @@ const AROMA_FILTERS = AROMAS;
 const FLAVOR_FILTERS = FLAVORS;
 const EFFECT_FILTERS = EFFECTS;
 
-export interface CatalogMatch {
-  score: number;
-  category: string;
-}
-
 const CATEGORY_TONE: Record<string, string> = {
   "Best Match": "text-accent",
   "Closest Alternative": "text-brass",
@@ -66,28 +52,6 @@ const CATEGORY_TONE: Record<string, string> = {
 
 type ViewMode = "list" | "grid";
 type SortMode = "curated" | "match" | "name";
-
-// A derived, deterministic "Curated" index (0–100) used for the badge and the
-// default sort when the visitor has no taste profile yet. It is NOT a quality
-// rating of the flower — it reflects how richly SOMA has characterised the
-// strain: detail completeness, sensory richness and identity confidence. Pure
-// function of the entry, so the same strain always shows the same number.
-export function curatedScore(entry: CatalogEntry): number {
-  const s = entry.strain;
-  const confBase =
-    entry.confidence === "high" ? 86 : entry.confidence === "medium" ? 78 : 70;
-  const richness =
-    s.aromas.length + s.flavors.length + s.effects.length + s.traits.length;
-  const richBonus = Math.max(-4, Math.min(8, Math.round((richness - 14) * 0.6)));
-  const idBonus = entry.identity
-    ? entry.identity.sourceConfidence === "high"
-      ? 6
-      : entry.identity.sourceConfidence === "medium"
-        ? 3
-        : 1
-    : 0;
-  return Math.max(60, Math.min(98, confBase + richBonus + idBonus));
-}
 
 export function CatalogClient({
   entries,
@@ -105,7 +69,6 @@ export function CatalogClient({
   const [aromaFilters, setAromaFilters] = useState<Set<string>>(new Set());
   const [flavorFilters, setFlavorFilters] = useState<Set<string>>(new Set());
   const [effectFilters, setEffectFilters] = useState<Set<string>>(new Set());
-  const [expanded, setExpanded] = useState<string | null>(null);
   const [view, setView] = useState<ViewMode>("list");
   // Default to ranking by the user's match when we have a profile, else the
   // curated index.
@@ -213,11 +176,6 @@ export function CatalogClient({
     aromaFilters.size > 0 ||
     flavorFilters.size > 0 ||
     effectFilters.size > 0;
-
-  const expandedEntry =
-    view === "grid" && expanded
-      ? filtered.find((e) => e.strain.name === expanded)
-      : undefined;
 
   return (
     <div className="mt-8 grid gap-6 lg:grid-cols-[232px_minmax(0,1fr)]">
@@ -438,52 +396,20 @@ export function CatalogClient({
                 entry={entry}
                 match={matches[entry.strain.name]}
                 score={scored.get(entry.strain.name) ?? 0}
-                isExpanded={expanded === entry.strain.name}
-                onToggle={() =>
-                  setExpanded(
-                    expanded === entry.strain.name ? null : entry.strain.name,
-                  )
-                }
               />
             ))}
           </ul>
         ) : (
-          <>
-            <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
-              {filtered.map((entry) => (
-                <CatalogCard
-                  key={entry.strain.name}
-                  entry={entry}
-                  match={matches[entry.strain.name]}
-                  score={scored.get(entry.strain.name) ?? 0}
-                  isActive={expanded === entry.strain.name}
-                  onToggle={() =>
-                    setExpanded(
-                      expanded === entry.strain.name ? null : entry.strain.name,
-                    )
-                  }
-                />
-              ))}
-            </ul>
-            {expandedEntry && (
-              <div className="mt-3 overflow-hidden rounded-2xl border border-border bg-card">
-                <div className="flex items-center justify-between gap-3 px-5 pt-4">
-                  <h3 className="font-display text-xl font-semibold tracking-tight">
-                    {expandedEntry.strain.name}
-                  </h3>
-                  <button
-                    type="button"
-                    onClick={() => setExpanded(null)}
-                    className="text-muted-foreground hover:text-foreground"
-                    aria-label="Close details"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-                <CatalogDetail entry={expandedEntry} />
-              </div>
-            )}
-          </>
+          <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
+            {filtered.map((entry) => (
+              <CatalogCard
+                key={entry.strain.name}
+                entry={entry}
+                match={matches[entry.strain.name]}
+                score={scored.get(entry.strain.name) ?? 0}
+              />
+            ))}
+          </ul>
         )}
       </div>
 
@@ -583,14 +509,10 @@ function CatalogRow({
   entry,
   match,
   score,
-  isExpanded,
-  onToggle,
 }: {
   entry: CatalogEntry;
   match?: CatalogMatch;
   score: number;
-  isExpanded: boolean;
-  onToggle: () => void;
 }) {
   const { strain } = entry;
   const badgeScore = match ? match.score : score;
@@ -600,11 +522,10 @@ function CatalogRow({
   const aliasPreview = (strain.aliases ?? []).slice(0, 3).join(" · ");
 
   return (
-    <li className="overflow-hidden rounded-2xl border border-border bg-card">
-      <button
-        type="button"
-        onClick={onToggle}
-        className="flex w-full items-stretch gap-4 p-4 text-left sm:gap-5 sm:p-5"
+    <li>
+      <Link
+        href={`/catalog/${strainSlug(strain.name)}`}
+        className="flex items-stretch gap-4 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-accent/50 sm:gap-5 sm:p-5"
       >
         <RadarTile
           strain={strain}
@@ -644,18 +565,11 @@ function CatalogRow({
         <div className="hidden w-36 shrink-0 flex-col items-center justify-between lg:flex">
           <SensoryRadar strain={strain} size={132} labels className="h-32 w-32" />
           <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-accent">
-            {isExpanded ? "Hide details" : "View details"}
-            <ChevronDown
-              className={cn(
-                "h-3.5 w-3.5 transition-transform",
-                isExpanded && "rotate-180",
-              )}
-            />
+            View details
+            <ChevronRight className="h-3.5 w-3.5" />
           </span>
         </div>
-      </button>
-
-      {isExpanded && <CatalogDetail entry={entry} />}
+      </Link>
     </li>
   );
 }
@@ -664,14 +578,10 @@ function CatalogCard({
   entry,
   match,
   score,
-  isActive,
-  onToggle,
 }: {
   entry: CatalogEntry;
   match?: CatalogMatch;
   score: number;
-  isActive: boolean;
-  onToggle: () => void;
 }) {
   const { strain } = entry;
   const badgeScore = match ? match.score : score;
@@ -681,15 +591,9 @@ function CatalogCard({
 
   return (
     <li>
-      <button
-        type="button"
-        onClick={onToggle}
-        className={cn(
-          "flex w-full flex-col overflow-hidden rounded-2xl border bg-card p-3 text-left transition-colors",
-          isActive
-            ? "border-accent ring-1 ring-accent"
-            : "border-border hover:border-accent/50",
-        )}
+      <Link
+        href={`/catalog/${strainSlug(strain.name)}`}
+        className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-3 transition-colors hover:border-accent/50"
       >
         <RadarTile
           strain={strain}
@@ -704,7 +608,7 @@ function CatalogCard({
         <p className="mt-0.5 text-xs capitalize text-muted-foreground">
           {strain.type} · {strain.potency}
         </p>
-      </button>
+      </Link>
     </li>
   );
 }
@@ -727,241 +631,6 @@ function TagRow({
       {values.map((v) => (
         <TagChip key={`${kind}-${v}`} kind={kind} value={v} />
       ))}
-    </div>
-  );
-}
-
-function CatalogDetail({ entry }: { entry: CatalogEntry }) {
-  const { strain, similar, identity, familyMembers } = entry;
-  const knownAs = knownAsNames(strain.aliases, identity);
-
-  return (
-    <div className="border-t border-border bg-muted/30 p-5">
-      {identity?.curatorNote && (
-        <figure className="mb-5 border-l-2 border-brass/50 pl-4">
-          <figcaption className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brass">
-            Curator&apos;s note
-          </figcaption>
-          <p className="mt-2 font-display text-[15px] italic leading-relaxed text-foreground/90">
-            {identity.curatorNote}
-          </p>
-        </figure>
-      )}
-
-      <div className="grid gap-5 sm:grid-cols-2">
-        <DetailColumn label="Aroma" values={strain.aromas} kind="aroma" />
-        <DetailColumn label="Flavor" values={strain.flavors} kind="flavor" />
-        <DetailColumn label="Effect" values={strain.effects} kind="effect" />
-        <DetailColumn label="Texture / cure" values={strain.traits} kind="trait" />
-      </div>
-
-      {knownAs.length > 0 && (
-        <PassportBlock label="Known as">
-          <p className="text-sm text-foreground">{knownAs.join(" · ")}</p>
-        </PassportBlock>
-      )}
-
-      {identity?.breeder && (
-        <PassportBlock label="Breeder">
-          <p className="text-sm text-foreground">{identity.breeder}</p>
-        </PassportBlock>
-      )}
-
-      {identity?.lineage &&
-        (identity.lineage.cross ||
-          (identity.lineage.parents && identity.lineage.parents.length > 0)) && (
-          <PassportBlock label="Lineage">
-            {identity.lineage.cross && (
-              <p className="text-sm text-foreground">{identity.lineage.cross}</p>
-            )}
-            {identity.lineage.parents &&
-              identity.lineage.parents.length > 0 &&
-              !identity.lineage.cross && (
-                <p className="text-sm text-foreground">
-                  {identity.lineage.parents.join(" × ")}
-                </p>
-              )}
-          </PassportBlock>
-        )}
-
-      {identity?.sensoryFamily && (
-        <PassportBlock label="Sensory family">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent">
-              {identity.sensoryFamily}
-            </span>
-            {familyMembers.length > 0 && (
-              <span className="text-xs text-muted-foreground">
-                also: {familyMembers.slice(0, 6).join(" · ")}
-                {familyMembers.length > 6 ? " …" : ""}
-              </span>
-            )}
-          </div>
-        </PassportBlock>
-      )}
-
-      {identity?.phenotypeNotes && identity.phenotypeNotes.length > 0 && (
-        <PassportBlock label="Phenotype notes">
-          <ul className="mt-1 space-y-1 text-sm text-foreground/90">
-            {identity.phenotypeNotes.map((note, i) => (
-              <li key={i} className="leading-relaxed">
-                — {note}
-              </li>
-            ))}
-          </ul>
-        </PassportBlock>
-      )}
-
-      {identity?.growerVariants && identity.growerVariants.length > 0 && (
-        <PassportBlock label="Grower variants">
-          <p className="text-sm text-foreground">
-            {identity.growerVariants.join(" · ")}
-          </p>
-        </PassportBlock>
-      )}
-
-      {strain.note && (
-        <PassportBlock label="Internal note">
-          <p className="text-sm leading-relaxed text-foreground/90">
-            {strain.note}
-          </p>
-        </PassportBlock>
-      )}
-
-      <PassportBlock label="Nearby in sensory space">
-        <ul className="flex flex-wrap gap-1.5">
-          {similar.map((s) => (
-            <li key={s.name}>
-              <Link
-                href={`/catalog?q=${encodeURIComponent(s.name)}`}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-foreground hover:border-accent hover:text-accent"
-              >
-                {s.name}
-                <span className="text-muted-foreground">
-                  {Math.round(s.score * 100)}%
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </PassportBlock>
-
-      <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
-        Sensory data: curated seed (hand-mapped); detail completeness is{" "}
-        <strong className="text-foreground">{entry.confidence}</strong>.{" "}
-        {identity ? (
-          <>
-            Identity data confidence is{" "}
-            <strong className="text-foreground">{identity.sourceConfidence}</strong>
-            .{" "}
-          </>
-        ) : (
-          <>No identity record yet — lineage, breeder and family aren&apos;t available for this strain.{" "}</>
-        )}
-        Batch quality still depends on grower, freshness and storage — none of
-        which is captured here.
-      </p>
-
-      <div className="mt-5 flex flex-wrap gap-2 border-t border-border pt-4">
-        <Link
-          href={`/taste-match?strain=${encodeURIComponent(strain.name)}`}
-          className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:opacity-90"
-        >
-          <Sparkles className="h-4 w-4" />
-          Use in Taste Match
-        </Link>
-        <AddToCompareButton name={strain.name} />
-      </div>
-    </div>
-  );
-}
-
-function AddToCompareButton({ name }: { name: string }) {
-  const [inBasket, setInBasket] = useState(false);
-
-  useEffect(() => {
-    setInBasket(isInBasket(name));
-    const handler = () => setInBasket(isInBasket(name));
-    window.addEventListener(BASKET_EVENT, handler);
-    return () => window.removeEventListener(BASKET_EVENT, handler);
-  }, [name]);
-
-  const toggle = () => {
-    if (inBasket) removeFromBasket(name);
-    else addToBasket(name);
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={toggle}
-      aria-pressed={inBasket}
-      className={cn(
-        "inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-medium transition-colors",
-        inBasket
-          ? "border-accent/40 bg-accent/10 text-accent hover:bg-accent/15"
-          : "border-border bg-transparent text-foreground hover:bg-muted",
-      )}
-    >
-      {inBasket ? (
-        <>
-          <Check className="h-4 w-4" />
-          In Compare basket
-        </>
-      ) : (
-        <>
-          <GitCompareArrows className="h-4 w-4" />
-          Add to Compare
-        </>
-      )}
-    </button>
-  );
-}
-
-function PassportBlock({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="mt-5">
-      <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-        {label}
-      </p>
-      <div className="mt-1">{children}</div>
-    </div>
-  );
-}
-
-function DetailColumn({
-  label,
-  values,
-  kind,
-}: {
-  label: string;
-  values: string[];
-  kind: "aroma" | "flavor" | "effect" | "trait";
-}) {
-  return (
-    <div>
-      <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-        {label}
-      </p>
-      {values.length === 0 ? (
-        <p className="mt-1 text-xs italic text-muted-foreground">
-          (no data)
-        </p>
-      ) : (
-        <ul className="mt-2 flex flex-wrap gap-1.5">
-          {values.map((v) => (
-            <li key={`${kind}-${v}`}>
-              <TagChip kind={kind} value={v} />
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 }
