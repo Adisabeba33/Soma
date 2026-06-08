@@ -8,7 +8,23 @@
 // identity record at all is also a valid state — getIdentity returns null
 // in that case.
 
+import type { StrainType } from "./types";
+
 export type IdentityConfidence = "low" | "medium" | "high";
+
+// Minimal grandparent-level passport for a parent that ISN'T in our own
+// catalog. When the parent strain (e.g. "Chem's Sister") has its own
+// catalog entry, the UI pulls its lineage and type from there directly —
+// no curation needed. When it doesn't, you can paint in just these two
+// fields by name and the parent card lights up the same way.
+export interface ParentDetail {
+  // Short grandparent lineage like "Chemdawg phenotype" or
+  // "Sour Diesel × Sour Bubble". Shown in parens under the parent name.
+  lineageBrief?: string;
+  // Sensory type readback shown under the parent name. Independent of
+  // the child strain's type.
+  type?: StrainType;
+}
 
 export interface StrainLineage {
   // Direct parents when reasonably documented. Empty / undefined when we
@@ -16,6 +32,13 @@ export interface StrainLineage {
   parents?: string[];
   // Free-form description like "Chem Sister × Sour Dubb × Chocolate Diesel".
   cross?: string;
+  // Optional overrides for parents that aren't in our own catalog. Keys
+  // must match a name from `parents`. UI priority is:
+  //   1. catalog lookup (parent has its own StrainProfile + identity)
+  //   2. parentDetails[name] from this record
+  //   3. nothing — just the parent's name
+  // So you only fill in here what the catalog can't give you for free.
+  parentDetails?: Record<string, ParentDetail>;
 }
 
 export interface StrainIdentity {

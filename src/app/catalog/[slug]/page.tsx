@@ -71,20 +71,26 @@ export default async function StrainPage({
   const match = await loadMatch(entry.strain.name);
   const similar = similarWithProfiles(entry.similar);
 
-  // Enrich each parent with what we already know about it: its own lineage
-  // cross (so a parent box can read "Animal Cookies (GSC × Fire OG)") and its
-  // sensory type. Auto-derived from our own catalog so the rich view grows
-  // automatically as the catalog grows — no extra curation field needed.
+  // Enrich each parent with what we already know about it. Lookup
+  // priority: our own catalog → identity.lineage.parentDetails fallback
+  // → just the name. That way you only have to paint in details for
+  // historical / non-catalog parents — anything in the catalog comes
+  // through automatically as the catalog grows.
+  const parentDetails = entry.identity?.lineage?.parentDetails ?? {};
   const lineageParents: LineageParent[] = (
     entry.identity?.lineage?.parents ?? []
   ).map((name) => {
     const known = STRAIN_NAMES.has(name);
     const parentIdentity = known ? getIdentity(name) : null;
+    const fallback = parentDetails[name];
     return {
       name,
       slug: known ? strainSlug(name) : null,
-      lineageBrief: parentIdentity?.lineage?.cross ?? null,
-      type: known ? STRAIN_TYPE_BY_NAME.get(name) ?? null : null,
+      lineageBrief:
+        parentIdentity?.lineage?.cross ?? fallback?.lineageBrief ?? null,
+      type: known
+        ? STRAIN_TYPE_BY_NAME.get(name) ?? null
+        : fallback?.type ?? null,
     };
   });
 
