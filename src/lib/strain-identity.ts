@@ -34,6 +34,13 @@ export interface StrainIdentity {
   // Phenotype / cut-level notes ("the Larry Bird pheno of Gelato 33",
   // "louder gas pheno"). Free-form, kept short.
   phenotypeNotes?: string[];
+  // Long-form curator's note — a sommelier-style description in prose:
+  // where the strain came from, how it reads in the nose and on the palate,
+  // the arc of the effect, both sides of it, and who it's for. Written from
+  // experience and the weight of reviews, kept honest (no medical claims,
+  // no invented potency numbers). One paragraph; optional like everything
+  // else here.
+  curatorNote?: string;
   // Growers who tend to bring the strain out well (informational, not a
   // batch-quality claim — that lives in a separate layer).
   growerVariants?: string[];
