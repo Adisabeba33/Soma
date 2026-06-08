@@ -737,6 +737,17 @@ function CatalogDetail({ entry }: { entry: CatalogEntry }) {
 
   return (
     <div className="border-t border-border bg-muted/30 p-5">
+      {identity?.curatorNote && (
+        <figure className="mb-5 border-l-2 border-brass/50 pl-4">
+          <figcaption className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brass">
+            Curator&apos;s note
+          </figcaption>
+          <p className="mt-2 font-display text-[15px] italic leading-relaxed text-foreground/90">
+            {identity.curatorNote}
+          </p>
+        </figure>
+      )}
+
       <div className="grid gap-5 sm:grid-cols-2">
         <DetailColumn label="Aroma" values={strain.aromas} kind="aroma" />
         <DetailColumn label="Flavor" values={strain.flavors} kind="flavor" />
