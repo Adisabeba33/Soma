@@ -19,6 +19,24 @@ export const IDENTITIES: StrainIdentity[] = [
     lineage: {
       parents: ["Chem's Sister", "Sour Dubb", "Chocolate Diesel"],
       cross: "Chem's Sister × Sour Dubb × Chocolate Diesel",
+      // None of GG4's parents are in our catalog — they're heritage
+      // 1990s strains, not consumer sorts. parentDetails paints in the
+      // grandparent passport without forcing us to create catalog
+      // entries for them.
+      parentDetails: {
+        "Chem's Sister": {
+          lineageBrief: "Chemdawg phenotype",
+          type: "hybrid",
+        },
+        "Sour Dubb": {
+          lineageBrief: "Sour Diesel × Sour Bubble",
+          type: "sativa",
+        },
+        "Chocolate Diesel": {
+          lineageBrief: "Chocolate Thai × Sour Diesel",
+          type: "sativa",
+        },
+      },
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: [
@@ -54,6 +72,12 @@ export const IDENTITIES: StrainIdentity[] = [
     lineage: {
       parents: ["Skywalker", "OG Kush"],
       cross: "Skywalker × OG Kush",
+      parentDetails: {
+        Skywalker: {
+          lineageBrief: "Blueberry × Mazar",
+          type: "indica",
+        },
+      },
     },
     sensoryFamily: "gas-og",
     sourceConfidence: "medium",
@@ -67,6 +91,12 @@ export const IDENTITIES: StrainIdentity[] = [
     lineage: {
       parents: ["Chemdawg 91", "Super Skunk"],
       cross: "Chemdawg 91 × Super Skunk (commonly cited)",
+      parentDetails: {
+        "Chemdawg 91": {
+          lineageBrief: "Chemdawg phenotype, 1991 cut",
+          type: "hybrid",
+        },
+      },
     },
     sensoryFamily: "diesel-chem",
     phenotypeNotes: ["The defining gassy-citrus sativa archetype"],
@@ -89,6 +119,16 @@ export const IDENTITIES: StrainIdentity[] = [
     lineage: {
       parents: ["Chemdawg 4", "Tres Dawg"],
       cross: "Chemdawg 4 × Tres Dawg",
+      parentDetails: {
+        "Chemdawg 4": {
+          lineageBrief: "Chemdawg phenotype #4",
+          type: "hybrid",
+        },
+        "Tres Dawg": {
+          lineageBrief: "Chemdawg × Afghani #1",
+          type: "indica",
+        },
+      },
     },
     sensoryFamily: "diesel-chem",
     sourceConfidence: "medium",
@@ -195,6 +235,12 @@ export const IDENTITIES: StrainIdentity[] = [
     lineage: {
       parents: ["Purple Urkle", "Big Bud"],
       cross: "Purple Urkle × Big Bud",
+      parentDetails: {
+        "Big Bud": {
+          lineageBrief: "Afghani × Skunk #1 × Northern Lights",
+          type: "indica",
+        },
+      },
     },
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Reference grape-and-floral indica"],
@@ -316,6 +362,12 @@ export const IDENTITIES: StrainIdentity[] = [
     lineage: {
       parents: ["Blueberry", "Haze"],
       cross: "Blueberry × Haze",
+      parentDetails: {
+        Haze: {
+          lineageBrief: "Original Haze landrace cross",
+          type: "sativa",
+        },
+      },
     },
     sensoryFamily: "sweet-haze",
     phenotypeNotes: ["Smooth-berry gateway sativa-leaning hybrid"],
