@@ -7,7 +7,10 @@ import {
   Check,
   ChevronDown,
   GitCompareArrows,
+  LayoutGrid,
+  Rows3,
   Search,
+  SlidersHorizontal,
   Sparkles,
   X,
 } from "lucide-react";
@@ -17,6 +20,7 @@ import { CompareBasketTray } from "@/components/compare-basket-tray";
 import { SensoryRadar } from "@/components/sensory-radar";
 import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
+import { AROMAS, EFFECTS, FLAVORS } from "@/lib/vocab";
 import { knownAsNames } from "@/lib/strain-identity";
 import {
   BASKET_EVENT,
@@ -25,26 +29,27 @@ import {
   removeFromBasket,
 } from "@/lib/compare-basket";
 import type { CatalogEntry } from "@/lib/catalog";
+import type { StrainProfile } from "@/lib/types";
 
-const AROMA_FILTERS = [
-  "gassy",
-  "earthy",
-  "citrus",
-  "sweet",
-  "skunky",
-  "creamy",
-  "fruity",
-  "pine",
+// ── Filter vocab (drawn from the canonical sensory vocab so the catalog and
+//    the questionnaire/engine always line up) ──────────────────────────────
+const TYPE_OPTIONS = ["all", "indica", "sativa", "hybrid"] as const;
+type TypeFilter = (typeof TYPE_OPTIONS)[number];
+
+// Potency, weakest → strongest. The Strength slider sets a *minimum* level:
+// index 0 = Any, 1..4 = that potency and above.
+const POTENCY_ORDER = ["mild", "moderate", "strong", "very-strong"] as const;
+const STRENGTH_LABELS = [
+  "Any",
+  "Mild +",
+  "Moderate +",
+  "Strong +",
+  "Very strong",
 ] as const;
 
-const EFFECT_FILTERS = [
-  "relaxed",
-  "sleepy",
-  "focused",
-  "creative",
-  "energetic",
-  "euphoric",
-] as const;
+const AROMA_FILTERS = AROMAS;
+const FLAVOR_FILTERS = FLAVORS;
+const EFFECT_FILTERS = EFFECTS;
 
 export interface CatalogMatch {
   score: number;
@@ -59,6 +64,31 @@ const CATEGORY_TONE: Record<string, string> = {
   Avoid: "text-[#a23b2c]",
 };
 
+type ViewMode = "list" | "grid";
+type SortMode = "curated" | "match" | "name";
+
+// A derived, deterministic "Curated" index (0–100) used for the badge and the
+// default sort when the visitor has no taste profile yet. It is NOT a quality
+// rating of the flower — it reflects how richly SOMA has characterised the
+// strain: detail completeness, sensory richness and identity confidence. Pure
+// function of the entry, so the same strain always shows the same number.
+export function curatedScore(entry: CatalogEntry): number {
+  const s = entry.strain;
+  const confBase =
+    entry.confidence === "high" ? 86 : entry.confidence === "medium" ? 78 : 70;
+  const richness =
+    s.aromas.length + s.flavors.length + s.effects.length + s.traits.length;
+  const richBonus = Math.max(-4, Math.min(8, Math.round((richness - 14) * 0.6)));
+  const idBonus = entry.identity
+    ? entry.identity.sourceConfidence === "high"
+      ? 6
+      : entry.identity.sourceConfidence === "medium"
+        ? 3
+        : 1
+    : 0;
+  return Math.max(60, Math.min(98, confBase + richBonus + idBonus));
+}
+
 export function CatalogClient({
   entries,
   matches = {},
@@ -70,12 +100,17 @@ export function CatalogClient({
 }) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
+  const [strengthMin, setStrengthMin] = useState(0);
   const [aromaFilters, setAromaFilters] = useState<Set<string>>(new Set());
+  const [flavorFilters, setFlavorFilters] = useState<Set<string>>(new Set());
   const [effectFilters, setEffectFilters] = useState<Set<string>>(new Set());
   const [expanded, setExpanded] = useState<string | null>(null);
-  // Default to ranking by the user's match when we have a profile.
-  const [sortBy, setSortBy] = useState<"match" | "name">(
-    hasProfile ? "match" : "name",
+  const [view, setView] = useState<ViewMode>("list");
+  // Default to ranking by the user's match when we have a profile, else the
+  // curated index.
+  const [sortBy, setSortBy] = useState<SortMode>(
+    hasProfile ? "match" : "curated",
   );
 
   // Deep-link seed (e.g. from a "Nearby in sensory space" link).
@@ -83,6 +118,12 @@ export function CatalogClient({
     const q = searchParams.get("q");
     if (q) setQuery(q);
   }, [searchParams]);
+
+  const scored = useMemo(
+    () =>
+      new Map(entries.map((e) => [e.strain.name, curatedScore(e)] as const)),
+    [entries],
+  );
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -94,204 +135,446 @@ export function CatalogClient({
         ];
         if (!haystack.some((h) => h.includes(q))) return false;
       }
+      if (typeFilter !== "all" && e.strain.type !== typeFilter) return false;
+      if (strengthMin > 0) {
+        const lvl = POTENCY_ORDER.indexOf(
+          e.strain.potency as (typeof POTENCY_ORDER)[number],
+        );
+        if (lvl < strengthMin - 1) return false;
+      }
       if (aromaFilters.size > 0) {
-        const has = e.strain.aromas.some((a) => aromaFilters.has(a));
-        if (!has) return false;
+        if (!e.strain.aromas.some((a) => aromaFilters.has(a))) return false;
+      }
+      if (flavorFilters.size > 0) {
+        if (!e.strain.flavors.some((f) => flavorFilters.has(f))) return false;
       }
       if (effectFilters.size > 0) {
-        const has = e.strain.effects.some((eff) => effectFilters.has(eff));
-        if (!has) return false;
+        if (!e.strain.effects.some((eff) => effectFilters.has(eff)))
+          return false;
       }
       return true;
     });
+
+    const sorted = [...list];
     if (hasProfile && sortBy === "match") {
-      return [...list].sort(
+      sorted.sort(
         (a, b) =>
           (matches[b.strain.name]?.score ?? -1) -
           (matches[a.strain.name]?.score ?? -1),
       );
+    } else if (sortBy === "curated") {
+      sorted.sort(
+        (a, b) =>
+          (scored.get(b.strain.name) ?? 0) - (scored.get(a.strain.name) ?? 0),
+      );
     }
-    return list;
-  }, [entries, query, aromaFilters, effectFilters, hasProfile, sortBy, matches]);
+    // "name" keeps the source order, which buildCatalog already sorts A→Z.
+    return sorted;
+  }, [
+    entries,
+    query,
+    typeFilter,
+    strengthMin,
+    aromaFilters,
+    flavorFilters,
+    effectFilters,
+    hasProfile,
+    sortBy,
+    matches,
+    scored,
+  ]);
 
-  function toggleAroma(value: string) {
-    setAromaFilters((prev) => {
-      const next = new Set(prev);
-      if (next.has(value)) next.delete(value);
-      else next.add(value);
-      return next;
-    });
+  function makeToggle(setter: typeof setAromaFilters) {
+    return (value: string) =>
+      setter((prev) => {
+        const next = new Set(prev);
+        if (next.has(value)) next.delete(value);
+        else next.add(value);
+        return next;
+      });
   }
-
-  function toggleEffect(value: string) {
-    setEffectFilters((prev) => {
-      const next = new Set(prev);
-      if (next.has(value)) next.delete(value);
-      else next.add(value);
-      return next;
-    });
-  }
+  const toggleAroma = makeToggle(setAromaFilters);
+  const toggleFlavor = makeToggle(setFlavorFilters);
+  const toggleEffect = makeToggle(setEffectFilters);
 
   function clearAll() {
     setQuery("");
+    setTypeFilter("all");
+    setStrengthMin(0);
     setAromaFilters(new Set());
+    setFlavorFilters(new Set());
     setEffectFilters(new Set());
   }
 
   const anyFilter =
-    query !== "" || aromaFilters.size > 0 || effectFilters.size > 0;
+    query !== "" ||
+    typeFilter !== "all" ||
+    strengthMin > 0 ||
+    aromaFilters.size > 0 ||
+    flavorFilters.size > 0 ||
+    effectFilters.size > 0;
+
+  const expandedEntry =
+    view === "grid" && expanded
+      ? filtered.find((e) => e.strain.name === expanded)
+      : undefined;
 
   return (
-    <div className="mt-10">
-      <div className="rounded-2xl border border-border bg-card p-5">
-        <div className="relative">
-          <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by name or alias (GG4, Pink Cookies…)"
-            className="pl-10"
-          />
-        </div>
-
-        <FilterGroup
-          label="Aroma"
-          options={AROMA_FILTERS}
-          selected={aromaFilters}
-          onToggle={toggleAroma}
-        />
-        <FilterGroup
-          label="Effect"
-          options={EFFECT_FILTERS}
-          selected={effectFilters}
-          onToggle={toggleEffect}
-        />
-
-        <div className="mt-4 flex items-center justify-between gap-3 border-t border-border pt-4 text-sm text-muted-foreground">
-          <span>
-            {filtered.length} of {entries.length} strains
-          </span>
-          <div className="flex items-center gap-3">
-            {hasProfile && (
-              <div className="inline-flex items-center gap-1 text-xs">
-                <span className="text-muted-foreground">Sort</span>
-                <button
-                  type="button"
-                  onClick={() => setSortBy("match")}
-                  className={cn(
-                    "rounded-full px-2 py-0.5",
-                    sortBy === "match"
-                      ? "bg-accent/10 text-accent"
-                      : "hover:text-foreground",
-                  )}
-                >
-                  Your match
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSortBy("name")}
-                  className={cn(
-                    "rounded-full px-2 py-0.5",
-                    sortBy === "name"
-                      ? "bg-accent/10 text-accent"
-                      : "hover:text-foreground",
-                  )}
-                >
-                  Name
-                </button>
-              </div>
-            )}
+    <div className="mt-8 grid gap-6 lg:grid-cols-[232px_minmax(0,1fr)]">
+      {/* ── Filter rail ─────────────────────────────────────────── */}
+      <aside className="lg:sticky lg:top-6 lg:self-start">
+        <div className="rounded-2xl border border-border bg-card p-4">
+          <div className="flex items-center justify-between">
+            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-foreground">
+              <SlidersHorizontal className="h-3.5 w-3.5 text-brass" />
+              Filters
+            </p>
             {anyFilter && (
               <button
                 type="button"
                 onClick={clearAll}
-                className="inline-flex items-center gap-1 text-xs hover:text-foreground"
+                className="text-xs text-muted-foreground hover:text-foreground"
               >
-                <X className="h-3.5 w-3.5" />
-                Clear filters
+                Reset
               </button>
             )}
           </div>
-        </div>
-      </div>
 
-      {!hasProfile && (
-        <Link
-          href="/profile"
-          className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-accent/30 bg-accent/5 px-4 py-3 text-sm text-foreground hover:border-accent"
-        >
-          <span>
-            Build your taste profile to see your{" "}
-            <strong className="text-accent">match %</strong> on every strain.
-          </span>
-          <span className="shrink-0 text-accent">→</span>
-        </Link>
-      )}
-
-      {filtered.length === 0 ? (
-        <p className="mt-10 rounded-xl border border-dashed border-border p-10 text-center text-sm text-muted-foreground">
-          Nothing matches those filters. Try removing one.
-        </p>
-      ) : (
-        <ul className="mt-6 space-y-3">
-          {filtered.map((entry) => (
-            <CatalogRow
-              key={entry.strain.name}
-              entry={entry}
-              match={matches[entry.strain.name]}
-              isExpanded={expanded === entry.strain.name}
-              onToggle={() =>
-                setExpanded(
-                  expanded === entry.strain.name ? null : entry.strain.name,
-                )
-              }
+          <div className="relative mt-4">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search…"
+              className="h-10 pl-9 text-sm"
             />
-          ))}
-        </ul>
-      )}
+          </div>
+
+          {/* Type */}
+          <FilterSection label="Type">
+            <div className="grid grid-cols-2 gap-1.5">
+              {TYPE_OPTIONS.map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setTypeFilter(t)}
+                  className={cn(
+                    "rounded-lg border px-2 py-1.5 text-xs capitalize transition-colors",
+                    typeFilter === t
+                      ? "border-accent bg-accent/10 text-accent"
+                      : "border-border text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </FilterSection>
+
+          {/* Strength */}
+          <FilterSection label="Strength">
+            <input
+              type="range"
+              min={0}
+              max={4}
+              step={1}
+              value={strengthMin}
+              onChange={(e) => setStrengthMin(Number(e.target.value))}
+              className="w-full accent-[hsl(var(--accent))]"
+              aria-label="Minimum strength"
+            />
+            <div className="mt-1 flex justify-between text-[10px] text-muted-foreground">
+              <span>Any</span>
+              <span className="font-medium text-foreground">
+                {STRENGTH_LABELS[strengthMin]}
+              </span>
+              <span>Very</span>
+            </div>
+          </FilterSection>
+
+          {/* Effect */}
+          <FilterSection label="Effect">
+            <ul className="space-y-1.5">
+              {EFFECT_FILTERS.map((opt) => {
+                const active = effectFilters.has(opt.value);
+                return (
+                  <li key={opt.value}>
+                    <button
+                      type="button"
+                      onClick={() => toggleEffect(opt.value)}
+                      className="flex w-full items-center gap-2 text-left text-xs text-muted-foreground hover:text-foreground"
+                    >
+                      <span
+                        className={cn(
+                          "flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded border transition-colors",
+                          active
+                            ? "border-accent bg-accent text-accent-foreground"
+                            : "border-border",
+                        )}
+                      >
+                        {active && <Check className="h-2.5 w-2.5" />}
+                      </span>
+                      <span className={cn(active && "text-foreground")}>
+                        {opt.label}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </FilterSection>
+
+          {/* Aroma */}
+          <FilterSection label="Aroma">
+            <ChipGrid
+              options={AROMA_FILTERS}
+              selected={aromaFilters}
+              onToggle={toggleAroma}
+            />
+          </FilterSection>
+
+          {/* Flavor */}
+          <FilterSection label="Flavor">
+            <ChipGrid
+              options={FLAVOR_FILTERS}
+              selected={flavorFilters}
+              onToggle={toggleFlavor}
+            />
+          </FilterSection>
+
+          <div className="mt-5 border-t border-border pt-4">
+            <p className="rounded-xl bg-accent px-4 py-2.5 text-center text-sm font-medium text-accent-foreground">
+              {filtered.length}{" "}
+              {filtered.length === 1 ? "result" : "results"}
+            </p>
+          </div>
+        </div>
+      </aside>
+
+      {/* ── Main column ─────────────────────────────────────────── */}
+      <div>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">
+              {filtered.length}
+            </span>{" "}
+            {filtered.length === 1 ? "strain" : "strains"} found
+          </p>
+
+          <div className="flex items-center gap-3">
+            {/* Sort */}
+            <label className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+              Sort by
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortMode)}
+                className="rounded-lg border border-border bg-card px-2 py-1 text-xs text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <option value="curated">Curated</option>
+                {hasProfile && <option value="match">Your match</option>}
+                <option value="name">Name (A–Z)</option>
+              </select>
+            </label>
+
+            {/* View toggle */}
+            <div className="inline-flex overflow-hidden rounded-lg border border-border">
+              <button
+                type="button"
+                onClick={() => setView("list")}
+                aria-pressed={view === "list"}
+                title="List view"
+                className={cn(
+                  "flex items-center gap-1.5 px-2.5 py-1.5 text-xs transition-colors",
+                  view === "list"
+                    ? "bg-accent/10 text-accent"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <Rows3 className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">List</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setView("grid")}
+                aria-pressed={view === "grid"}
+                title="Grid view"
+                className={cn(
+                  "flex items-center gap-1.5 border-l border-border px-2.5 py-1.5 text-xs transition-colors",
+                  view === "grid"
+                    ? "bg-accent/10 text-accent"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <LayoutGrid className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">Grid</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {!hasProfile && (
+          <Link
+            href="/profile"
+            className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-accent/30 bg-accent/5 px-4 py-3 text-sm text-foreground hover:border-accent"
+          >
+            <span>
+              Build your taste profile to see your{" "}
+              <strong className="text-accent">match %</strong> on every strain.
+            </span>
+            <span className="shrink-0 text-accent">→</span>
+          </Link>
+        )}
+
+        {filtered.length === 0 ? (
+          <p className="mt-10 rounded-xl border border-dashed border-border p-10 text-center text-sm text-muted-foreground">
+            Nothing matches those filters. Try removing one.
+          </p>
+        ) : view === "list" ? (
+          <ul className="mt-5 space-y-3">
+            {filtered.map((entry) => (
+              <CatalogRow
+                key={entry.strain.name}
+                entry={entry}
+                match={matches[entry.strain.name]}
+                score={scored.get(entry.strain.name) ?? 0}
+                isExpanded={expanded === entry.strain.name}
+                onToggle={() =>
+                  setExpanded(
+                    expanded === entry.strain.name ? null : entry.strain.name,
+                  )
+                }
+              />
+            ))}
+          </ul>
+        ) : (
+          <>
+            <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
+              {filtered.map((entry) => (
+                <CatalogCard
+                  key={entry.strain.name}
+                  entry={entry}
+                  match={matches[entry.strain.name]}
+                  score={scored.get(entry.strain.name) ?? 0}
+                  isActive={expanded === entry.strain.name}
+                  onToggle={() =>
+                    setExpanded(
+                      expanded === entry.strain.name ? null : entry.strain.name,
+                    )
+                  }
+                />
+              ))}
+            </ul>
+            {expandedEntry && (
+              <div className="mt-3 overflow-hidden rounded-2xl border border-border bg-card">
+                <div className="flex items-center justify-between gap-3 px-5 pt-4">
+                  <h3 className="font-display text-xl font-semibold tracking-tight">
+                    {expandedEntry.strain.name}
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() => setExpanded(null)}
+                    className="text-muted-foreground hover:text-foreground"
+                    aria-label="Close details"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+                <CatalogDetail entry={expandedEntry} />
+              </div>
+            )}
+          </>
+        )}
+      </div>
 
       <CompareBasketTray />
     </div>
   );
 }
 
-function FilterGroup({
+function FilterSection({
   label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="mt-5 border-t border-border pt-4">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+        {label}
+      </p>
+      <div className="mt-2.5">{children}</div>
+    </div>
+  );
+}
+
+function ChipGrid({
   options,
   selected,
   onToggle,
 }: {
-  label: string;
-  options: readonly string[];
+  options: readonly { value: string; label: string }[];
   selected: Set<string>;
   onToggle: (value: string) => void;
 }) {
   return (
-    <div className="mt-4">
-      <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-        {label}
-      </p>
-      <div className="mt-2 flex flex-wrap gap-1.5">
-        {options.map((opt) => {
-          const active = selected.has(opt);
-          return (
-            <button
-              key={opt}
-              type="button"
-              onClick={() => onToggle(opt)}
-              className={cn(
-                "rounded-full border px-3 py-1 text-xs transition-colors",
-                active
-                  ? "border-accent bg-accent/10 text-accent"
-                  : "border-border text-muted-foreground hover:text-foreground",
-              )}
-            >
-              {labelFor(opt)}
-            </button>
-          );
-        })}
-      </div>
+    <div className="flex flex-wrap gap-1.5">
+      {options.map((opt) => {
+        const active = selected.has(opt.value);
+        return (
+          <button
+            key={opt.value}
+            type="button"
+            onClick={() => onToggle(opt.value)}
+            className={cn(
+              "rounded-full border px-2.5 py-1 text-[11px] transition-colors",
+              active
+                ? "border-accent bg-accent/10 text-accent"
+                : "border-border text-muted-foreground hover:text-foreground",
+            )}
+          >
+            {opt.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// Radar-as-image tile — the sensory diagram stands in for the product photo,
+// with the score badge tucked into the corner.
+function RadarTile({
+  strain,
+  score,
+  tone,
+  size,
+  labels = false,
+  className,
+}: {
+  strain: StrainProfile;
+  score: number;
+  tone: string;
+  size: number;
+  labels?: boolean;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "relative flex items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-muted/70 via-card to-card",
+        className,
+      )}
+    >
+      <SensoryRadar strain={strain} size={size} labels={labels} />
+      <span
+        className={cn(
+          "absolute left-2 top-2 inline-flex items-center justify-center rounded-lg bg-background/85 px-1.5 py-0.5 font-display text-sm font-semibold leading-none shadow-sm backdrop-blur-sm",
+          tone,
+        )}
+      >
+        {score}
+      </span>
     </div>
   );
 }
@@ -299,15 +582,21 @@ function FilterGroup({
 function CatalogRow({
   entry,
   match,
+  score,
   isExpanded,
   onToggle,
 }: {
   entry: CatalogEntry;
   match?: CatalogMatch;
+  score: number;
   isExpanded: boolean;
   onToggle: () => void;
 }) {
   const { strain } = entry;
+  const badgeScore = match ? match.score : score;
+  const badgeTone = match
+    ? CATEGORY_TONE[match.category] ?? "text-foreground"
+    : "text-brass";
   const aliasPreview = (strain.aliases ?? []).slice(0, 3).join(" · ");
 
   return (
@@ -315,28 +604,25 @@ function CatalogRow({
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-start gap-4 p-5 text-left"
+        className="flex w-full items-stretch gap-4 p-4 text-left sm:gap-5 sm:p-5"
       >
-        <ChevronDown
-          className={cn(
-            "mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform",
-            isExpanded && "rotate-180",
-          )}
-        />
-        <SensoryRadar
+        <RadarTile
           strain={strain}
-          size={56}
-          className="mt-0.5 h-14 w-14 shrink-0"
+          score={badgeScore}
+          tone={badgeTone}
+          size={108}
+          className="hidden h-[120px] w-[120px] shrink-0 sm:flex"
         />
+
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h3 className="font-display text-xl font-semibold tracking-tight">
               {strain.name}
             </h3>
-            <Badge variant="outline">{strain.type}</Badge>
+            <Badge variant="outline" className="capitalize">
+              {strain.type}
+            </Badge>
             <Badge variant="muted">{strain.potency}</Badge>
-            <Badge variant="accent">curated</Badge>
-            <ConfidenceBadge confidence={entry.confidence} />
           </div>
           {aliasPreview && (
             <p className="mt-1 text-xs text-muted-foreground">
@@ -347,35 +633,101 @@ function CatalogRow({
           <p className="mt-2 text-sm text-muted-foreground">
             {entry.archetype}
           </p>
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {strain.aromas.slice(0, 5).map((a) => (
-              <TagChip key={`a-${a}`} kind="aroma" value={a} />
-            ))}
-            {strain.effects.slice(0, 4).map((e) => (
-              <TagChip key={`e-${e}`} kind="effect" value={e} />
-            ))}
+
+          <div className="mt-3 space-y-2">
+            <TagRow label="Effect" values={strain.effects.slice(0, 5)} kind="effect" />
+            <TagRow label="Aroma" values={strain.aromas.slice(0, 5)} kind="aroma" />
+            <TagRow label="Flavor" values={strain.flavors.slice(0, 5)} kind="flavor" />
           </div>
         </div>
 
-        {match && (
-          <div className="shrink-0 text-right leading-none">
-            <span
+        <div className="hidden w-36 shrink-0 flex-col items-center justify-between lg:flex">
+          <SensoryRadar strain={strain} size={132} labels className="h-32 w-32" />
+          <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-accent">
+            {isExpanded ? "Hide details" : "View details"}
+            <ChevronDown
               className={cn(
-                "font-display text-2xl font-semibold",
-                CATEGORY_TONE[match.category] ?? "text-foreground",
+                "h-3.5 w-3.5 transition-transform",
+                isExpanded && "rotate-180",
               )}
-            >
-              {match.score}%
-            </span>
-            <span className="mt-1 block text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-              your match
-            </span>
-          </div>
-        )}
+            />
+          </span>
+        </div>
       </button>
 
       {isExpanded && <CatalogDetail entry={entry} />}
     </li>
+  );
+}
+
+function CatalogCard({
+  entry,
+  match,
+  score,
+  isActive,
+  onToggle,
+}: {
+  entry: CatalogEntry;
+  match?: CatalogMatch;
+  score: number;
+  isActive: boolean;
+  onToggle: () => void;
+}) {
+  const { strain } = entry;
+  const badgeScore = match ? match.score : score;
+  const badgeTone = match
+    ? CATEGORY_TONE[match.category] ?? "text-foreground"
+    : "text-brass";
+
+  return (
+    <li>
+      <button
+        type="button"
+        onClick={onToggle}
+        className={cn(
+          "flex w-full flex-col overflow-hidden rounded-2xl border bg-card p-3 text-left transition-colors",
+          isActive
+            ? "border-accent ring-1 ring-accent"
+            : "border-border hover:border-accent/50",
+        )}
+      >
+        <RadarTile
+          strain={strain}
+          score={badgeScore}
+          tone={badgeTone}
+          size={150}
+          className="aspect-square w-full"
+        />
+        <h3 className="mt-3 truncate font-display text-base font-semibold tracking-tight">
+          {strain.name}
+        </h3>
+        <p className="mt-0.5 text-xs capitalize text-muted-foreground">
+          {strain.type} · {strain.potency}
+        </p>
+      </button>
+    </li>
+  );
+}
+
+function TagRow({
+  label,
+  values,
+  kind,
+}: {
+  label: string;
+  values: string[];
+  kind: "aroma" | "flavor" | "effect";
+}) {
+  if (values.length === 0) return null;
+  return (
+    <div className="flex flex-wrap items-center gap-1.5">
+      <span className="w-12 shrink-0 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+        {label}
+      </span>
+      {values.map((v) => (
+        <TagChip key={`${kind}-${v}`} kind={kind} value={v} />
+      ))}
+    </div>
   );
 }
 
@@ -569,29 +921,6 @@ function PassportBlock({
       </p>
       <div className="mt-1">{children}</div>
     </div>
-  );
-}
-
-function ConfidenceBadge({
-  confidence,
-}: {
-  confidence: "high" | "medium" | "low";
-}) {
-  const tone =
-    confidence === "high"
-      ? "bg-accent/10 text-accent"
-      : confidence === "medium"
-        ? "bg-brass/15 text-brass"
-        : "bg-[#a23b2c]/10 text-[#a23b2c]";
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
-        tone,
-      )}
-    >
-      detail: {confidence}
-    </span>
   );
 }
 

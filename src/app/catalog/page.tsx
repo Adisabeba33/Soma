@@ -52,17 +52,17 @@ export default async function CatalogPage() {
   const { matches, hasProfile } = await loadMatches();
 
   return (
-    <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
+    <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
       <p className="text-xs uppercase tracking-[0.24em] text-brass">Catalog</p>
       <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
         What SŌMA knows
       </h1>
       <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
         The full curated reference set the Taste Match Engine reads from.
-        Every entry is hand-mapped to canonical sensory vocab — no images,
-        no scraping, no third-party catalog. Use this view to see what we
-        know about each strain, where data is thin, and which strains sit
-        near each other in sensory space.
+        Every entry is hand-mapped to canonical sensory vocab — the diagram on
+        each card is that strain&apos;s own sensory radar, not a photo. Use this
+        view to see what we know about each strain, where data is thin, and
+        which strains sit near each other in sensory space.
       </p>
 
       <Suspense fallback={null}>
