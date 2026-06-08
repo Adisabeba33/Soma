@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
 import { knownAsNames } from "@/lib/strain-identity";
 import { strainSlug } from "@/lib/catalog";
+import { layoutParents } from "@/lib/genetics-layout";
 import {
   BASKET_EVENT,
   addToBasket,
@@ -337,12 +338,12 @@ function EffectBar({ label, value }: { label: string; value: number }) {
   );
 }
 
-// Wide-style genetics diagram. Two parents flank the strain with a leaf
-// glyph in the middle — third/fourth parents stack below the pair. Falls
-// back to a single-parent column for cuts / phenotypes. Below the diagram
-// a Genetic Makeup strip reads back the strain's categorical type today;
-// once indicaSativaSplit is curated (Phase B of this redesign), it'll
-// switch to a real percentage split.
+// Symmetric genetics diagram. layoutParents() decides which parents land
+// on the left vs right of the centre leaf — for 3+ parents the rule
+// clusters by type so 2 sativas always end up stacked on one side, the
+// odd one alone on the other. Each parent gets its own arrow pointing
+// inward; the centre stays clean (no arrows on it). Cross text and the
+// Genetic Makeup strip sit below.
 function Genetics({
   parents,
   cross,
@@ -354,27 +355,25 @@ function Genetics({
   child: string;
   childType: StrainType;
 }) {
-  const [first, second, ...rest] = parents;
+  const { left, right } = layoutParents(parents);
 
   return (
     <div>
       <div className="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
-        <ParentCard parent={first} align="end" />
-        <Center child={child} childType={childType} />
-        {second ? (
-          <ParentCard parent={second} align="start" />
-        ) : (
-          <div className="hidden sm:block" />
-        )}
-      </div>
-
-      {rest.length > 0 && (
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          {rest.map((p) => (
-            <ParentCard key={p.name} parent={p} align="start" />
+        <div className="flex flex-col gap-3">
+          {left.map((p) => (
+            <FlankRow key={p.name} parent={p} side="left" />
           ))}
         </div>
-      )}
+
+        <Center child={child} childType={childType} />
+
+        <div className="flex flex-col gap-3">
+          {right.map((p) => (
+            <FlankRow key={p.name} parent={p} side="right" />
+          ))}
+        </div>
+      </div>
 
       {cross && (
         <p className="mt-4 text-center text-xs text-muted-foreground">
@@ -387,19 +386,55 @@ function Genetics({
   );
 }
 
+// One parent + its inward arrow. Arrow only renders on desktop — on
+// mobile the column collapses to a stack and a horizontal arrow would
+// be visually misleading. `side` decides whether the arrow sits after
+// the card (left side, → toward centre) or before it (right side,
+// ← toward centre).
+function FlankRow({
+  parent,
+  side,
+}: {
+  parent: LineageParent;
+  side: "left" | "right";
+}) {
+  const arrow = (
+    <span
+      className="hidden shrink-0 text-lg text-brass sm:inline"
+      aria-hidden
+    >
+      {side === "left" ? "→" : "←"}
+    </span>
+  );
+  const card = (
+    <div className="min-w-0 flex-1">
+      <ParentCard parent={parent} />
+    </div>
+  );
+  return (
+    <div className="flex items-center gap-2">
+      {side === "left" ? (
+        <>
+          {card}
+          {arrow}
+        </>
+      ) : (
+        <>
+          {arrow}
+          {card}
+        </>
+      )}
+    </div>
+  );
+}
+
 const TYPE_LABEL: Record<StrainType, string> = {
   indica: "Indica",
   sativa: "Sativa",
   hybrid: "Hybrid",
 };
 
-function ParentCard({
-  parent,
-  align,
-}: {
-  parent: LineageParent;
-  align: "start" | "end";
-}) {
+function ParentCard({ parent }: { parent: LineageParent }) {
   const body = (
     <div
       className={cn(
@@ -432,17 +467,14 @@ function ParentCard({
     </div>
   );
 
-  // Align solo cards (single-parent case) to the centre on desktop.
-  const wrapper = cn("w-full sm:max-w-[260px]", align === "end" ? "sm:ml-auto" : "sm:mr-auto");
-
   if (parent.slug) {
     return (
-      <Link href={`/catalog/${parent.slug}`} className={wrapper}>
+      <Link href={`/catalog/${parent.slug}`} className="block w-full">
         {body}
       </Link>
     );
   }
-  return <div className={wrapper}>{body}</div>;
+  return <div className="block w-full">{body}</div>;
 }
 
 function Center({
@@ -454,21 +486,15 @@ function Center({
 }) {
   return (
     <div className="flex flex-col items-center px-2 text-center">
-      <span className="text-xl text-brass" aria-hidden>
-        →
-      </span>
-      <span className="my-2 inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card">
+      <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card">
         <Leaf className="h-6 w-6 text-accent" aria-hidden />
       </span>
-      <p className="font-display text-base font-semibold tracking-tight">
+      <p className="mt-2 font-display text-base font-semibold tracking-tight">
         {child}
       </p>
       <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
         {TYPE_LABEL[childType]}
       </p>
-      <span className="mt-2 text-xl text-brass" aria-hidden>
-        ←
-      </span>
     </div>
   );
 }
