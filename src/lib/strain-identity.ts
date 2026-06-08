@@ -44,9 +44,34 @@ export interface StrainIdentity {
   // Growers who tend to bring the strain out well (informational, not a
   // batch-quality claim — that lives in a separate layer).
   growerVariants?: string[];
+  // Approximate indica/sativa split as a curator estimate. Must sum to 100.
+  // This is a directional read, not a lab test on any specific batch —
+  // labelled as such in the UI. When absent, the diagram falls back to the
+  // categorical StrainProfile.type.
+  indicaSativaSplit?: { indica: number; sativa: number };
+  // Top dominant terpenes as a curator's typical-profile estimate. The UI
+  // makes explicit that these are typical values, not per-batch lab data:
+  // every batch reads differently depending on cultivation, cure and
+  // storage. Names should come from TERPENE_VOCAB in this module.
+  topTerpenes?: Array<{ name: TerpeneName; percent: number }>;
   // Honest signal about how reliable the rest of this record is.
   sourceConfidence: IdentityConfidence;
 }
+
+// The terpene families the catalog speaks. Kept tight on purpose — the
+// big six cover ~95% of what shows up in flower lab reports. Adding more
+// only when curation actually has the data.
+export const TERPENE_VOCAB = [
+  "Caryophyllene",
+  "Limonene",
+  "Myrcene",
+  "Pinene",
+  "Humulene",
+  "Linalool",
+  "Terpinolene",
+  "Ocimene",
+] as const;
+export type TerpeneName = (typeof TERPENE_VOCAB)[number];
 
 import { IDENTITIES } from "./strain-identity-data";
 import { normalizeStrainName } from "./strain-data";

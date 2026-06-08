@@ -168,6 +168,7 @@ export function StrainDetail({
                 cross={identity?.lineage?.cross}
                 child={strain.name}
                 childType={strain.type}
+                split={identity?.indicaSativaSplit}
               />
             </Section>
           )}
@@ -251,6 +252,12 @@ export function StrainDetail({
               )}
             </dl>
           </Section>
+
+          {identity?.topTerpenes && identity.topTerpenes.length > 0 && (
+            <Section title="Top Terpenes">
+              <TopTerpenes terpenes={identity.topTerpenes} />
+            </Section>
+          )}
 
           {similar.length > 0 && (
             <Section title="Similar strains">
@@ -348,11 +355,13 @@ function Genetics({
   cross,
   child,
   childType,
+  split,
 }: {
   parents: LineageParent[];
   cross?: string;
   child: string;
   childType: StrainType;
+  split?: { indica: number; sativa: number };
 }) {
   const [first, second, ...rest] = parents;
 
@@ -382,7 +391,7 @@ function Genetics({
         </p>
       )}
 
-      <GeneticMakeup type={childType} />
+      <GeneticMakeup type={childType} split={split} />
     </div>
   );
 }
@@ -473,13 +482,21 @@ function Center({
   );
 }
 
-// Categorical preview of the strain's makeup. For PR2: replaces with a
-// real percentage split (indica% vs sativa%) when indicaSativaSplit is
-// curated. For now: a single colored bar showing the categorical type —
-// hybrid renders as half-and-half so the visual shape stays consistent.
-function GeneticMakeup({ type }: { type: StrainType }) {
-  const indicaPct = type === "indica" ? 100 : type === "hybrid" ? 50 : 0;
-  const sativaPct = 100 - indicaPct;
+// Indica/sativa split readback. When indicaSativaSplit is curated for
+// the strain, shows the real per-strain percentage with the standard
+// curator caveat. When absent, falls back to a categorical bar derived
+// from StrainProfile.type (hybrid = half-and-half) so the visual shape
+// stays consistent across the catalog.
+function GeneticMakeup({
+  type,
+  split,
+}: {
+  type: StrainType;
+  split?: { indica: number; sativa: number };
+}) {
+  const hasCurated = Boolean(split);
+  const indicaPct = split?.indica ?? (type === "indica" ? 100 : type === "hybrid" ? 50 : 0);
+  const sativaPct = split?.sativa ?? 100 - indicaPct;
 
   return (
     <div className="mt-6 border-t border-border pt-5">
@@ -513,8 +530,48 @@ function GeneticMakeup({ type }: { type: StrainType }) {
         </span>
       </div>
       <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
-        Categorical split for now — derived from this strain&apos;s type.
-        Per-strain percentage data is being curated.
+        {hasCurated
+          ? "Curator estimate — actual cuts vary by phenotype and grower."
+          : "Categorical split for now — per-strain percentage data is being curated."}
+      </p>
+    </div>
+  );
+}
+
+// Top dominant terpenes panel. Each row reads the terpene name + its
+// percentage with a width-normalised bar (relative to the strain's own
+// max, so a 0.42% Caryophyllene doesn't look like a sliver). Caveat is
+// explicit: typical profile, not lab-measured per-batch.
+function TopTerpenes({
+  terpenes,
+}: {
+  terpenes: Array<{ name: string; percent: number }>;
+}) {
+  const max = Math.max(...terpenes.map((t) => t.percent));
+  return (
+    <div>
+      <ul className="space-y-2.5">
+        {terpenes.map((t) => (
+          <li key={t.name}>
+            <div className="flex items-baseline justify-between gap-2 text-sm">
+              <span className="text-foreground">{t.name}</span>
+              <span className="font-mono text-xs text-muted-foreground">
+                {t.percent.toFixed(2)}%
+              </span>
+            </div>
+            <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-muted">
+              <div
+                className="h-full rounded-full bg-accent"
+                style={{ width: `${Math.round((t.percent / max) * 100)}%` }}
+              />
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
+        Typical dominant terpenes — every batch reads differently
+        depending on grower, cure and storage. Treat as directional,
+        not lab-measured.
       </p>
     </div>
   );

@@ -27,6 +27,14 @@ export const IDENTITIES: StrainIdentity[] = [
     ],
     curatorNote:
       "Born from a happy accident — a Chem Sister that threw pollen across a room of Sour Dubb and Chocolate Diesel — GG4 became the strain that 'glued the scissors shut,' and the name stuck. Crack the jar and it's pure solvent: sharp diesel and coffee-tinged chocolate over damp earth, with almost no sweetness to soften the edge. The smoke is heavy and mouth-coating, and the high lands fast — a sinking, behind-the-eyes weight that pulls you into the couch within minutes. It's a closer, not a starter; most who reach for it want the body off-switch at the end of the day, and newer smokers routinely underestimate how flattening it can be. What keeps it a benchmark a decade on is consistency — even an average cut still speaks that unmistakable gas-and-glue language.",
+    indicaSativaSplit: { indica: 50, sativa: 50 },
+    topTerpenes: [
+      { name: "Caryophyllene", percent: 0.42 },
+      { name: "Limonene", percent: 0.31 },
+      { name: "Myrcene", percent: 0.24 },
+      { name: "Humulene", percent: 0.13 },
+      { name: "Pinene", percent: 0.09 },
+    ],
     sourceConfidence: "high",
   },
   {
@@ -40,6 +48,14 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: [
       "Foundation of every 'OG' descendant",
       "Pine-and-gas archetype",
+    ],
+    indicaSativaSplit: { indica: 55, sativa: 45 },
+    topTerpenes: [
+      { name: "Myrcene", percent: 0.40 },
+      { name: "Limonene", percent: 0.29 },
+      { name: "Caryophyllene", percent: 0.26 },
+      { name: "Linalool", percent: 0.10 },
+      { name: "Pinene", percent: 0.07 },
     ],
     sourceConfidence: "medium",
   },
@@ -72,6 +88,14 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["The defining gassy-citrus sativa archetype"],
     curatorNote:
       "Sour Diesel is the East Coast's calling card — a 90s NYC cut of contested parentage (Chemdawg 91 into Super Skunk is the story most growers tell) that defined what 'gassy sativa' even means. The nose is loud and unmistakable: cutting diesel and sour citrus rind with a skunky tail that fills a room the moment the bag opens. Where most heavy strains pull you down, Sour D lifts — a bright, talkative, faintly racy head-high that made it a daytime and creative-work favorite for two decades. The trade-off is real: it can tip toward jittery if you're anxiety-prone or take too much, and the flavor stays acrid rather than pleasant — more fuel than fruit. People don't reach for Sour Diesel to relax; they reach for it to get moving.",
+    indicaSativaSplit: { indica: 10, sativa: 90 },
+    topTerpenes: [
+      { name: "Caryophyllene", percent: 0.38 },
+      { name: "Limonene", percent: 0.30 },
+      { name: "Myrcene", percent: 0.20 },
+      { name: "Pinene", percent: 0.15 },
+      { name: "Humulene", percent: 0.09 },
+    ],
     sourceConfidence: "high",
   },
   {
@@ -121,6 +145,14 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "Permanent Marker",
     sensoryFamily: "garlic-funk",
     phenotypeNotes: ["Sharpie-on-paper savoury gas note"],
+    indicaSativaSplit: { indica: 60, sativa: 40 },
+    topTerpenes: [
+      { name: "Caryophyllene", percent: 0.38 },
+      { name: "Limonene", percent: 0.27 },
+      { name: "Myrcene", percent: 0.21 },
+      { name: "Linalool", percent: 0.14 },
+      { name: "Humulene", percent: 0.09 },
+    ],
     sourceConfidence: "low",
   },
 
@@ -164,6 +196,14 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: [
       "80s pheno bedrock — many modern indicas trace back to this line",
     ],
+    indicaSativaSplit: { indica: 90, sativa: 10 },
+    topTerpenes: [
+      { name: "Myrcene", percent: 0.51 },
+      { name: "Caryophyllene", percent: 0.32 },
+      { name: "Pinene", percent: 0.18 },
+      { name: "Humulene", percent: 0.10 },
+      { name: "Linalool", percent: 0.07 },
+    ],
     sourceConfidence: "high",
   },
   {
@@ -200,6 +240,14 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Reference grape-and-floral indica"],
     curatorNote:
       "Ken Estes introduced Granddaddy Purple in 2003 — a Purple Urkle × Big Bud cross — and it's stayed the reference point for what a purple indica should be. It looks the part, dense violet buds under a frost of trichomes, and it smells it too: grape candy and sweet berry over a dusty floral earthiness that reads almost like wine. The effect is unapologetically heavy — a warm, dreamy body weight that drifts toward sleep, which is why it lives on evening, pain and stubborn-insomnia shelves rather than anywhere productive. The caveat is presence over cleverness: this is a sit-down, wind-down strain, and pushing it in the afternoon usually ends in a nap. For the grape-and-couch archetype, it's still the one the others get measured against.",
+    indicaSativaSplit: { indica: 80, sativa: 20 },
+    topTerpenes: [
+      { name: "Myrcene", percent: 0.49 },
+      { name: "Pinene", percent: 0.28 },
+      { name: "Caryophyllene", percent: 0.21 },
+      { name: "Linalool", percent: 0.12 },
+      { name: "Humulene", percent: 0.08 },
+    ],
     sourceConfidence: "high",
   },
   {
@@ -243,6 +291,14 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pheno-hunted across many cuts",
       "Vanilla-sweet on the inhale",
     ],
+    indicaSativaSplit: { indica: 60, sativa: 40 },
+    topTerpenes: [
+      { name: "Limonene", percent: 0.38 },
+      { name: "Caryophyllene", percent: 0.31 },
+      { name: "Myrcene", percent: 0.22 },
+      { name: "Linalool", percent: 0.11 },
+      { name: "Humulene", percent: 0.08 },
+    ],
     sourceConfidence: "high",
   },
   {
@@ -272,6 +328,14 @@ export const IDENTITIES: StrainIdentity[] = [
     ],
     curatorNote:
       "Gelato came out of the Cookies/Sherbinski camp in the Bay Area, a Sunset Sherbet × Thin Mint GSC cross whose prized #33 pheno earned the 'Larry Bird' nickname. It's the dessert end of the spectrum done right: sweet cream and sherbet up front, a twist of citrus and berry, and a low note of gas underneath that keeps it from turning cloying. The high is balanced and euphoric — a bright, social lift that settles into easy body comfort without knocking you flat, which is exactly why it became the parent of half the modern menu. Be aware the name is everywhere now: numbered cuts vary widely, and plenty of 'Gelato' on shelves is sweetness without the backbone. A true cut is frosty, gassy-sweet, and unmistakably balanced.",
+    indicaSativaSplit: { indica: 55, sativa: 45 },
+    topTerpenes: [
+      { name: "Caryophyllene", percent: 0.40 },
+      { name: "Limonene", percent: 0.28 },
+      { name: "Linalool", percent: 0.21 },
+      { name: "Humulene", percent: 0.13 },
+      { name: "Myrcene", percent: 0.10 },
+    ],
     sourceConfidence: "high",
   },
   {
@@ -298,6 +362,14 @@ export const IDENTITIES: StrainIdentity[] = [
       "Candy-tropical sweetness",
       "White / Pink phenos vary by frost and finish",
     ],
+    indicaSativaSplit: { indica: 50, sativa: 50 },
+    topTerpenes: [
+      { name: "Caryophyllene", percent: 0.43 },
+      { name: "Limonene", percent: 0.35 },
+      { name: "Linalool", percent: 0.18 },
+      { name: "Humulene", percent: 0.11 },
+      { name: "Myrcene", percent: 0.08 },
+    ],
     sourceConfidence: "high",
   },
   {
@@ -321,6 +393,14 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Smooth-berry gateway sativa-leaning hybrid"],
     curatorNote:
       "Blue Dream is the gateway hybrid — a Santa Cruz cross of Blueberry and Haze that became California's best-seller precisely because it asks nothing of you. The aroma is gentle and approachable: ripe blueberry and sweet berry over a soft herbal haze, friendly rather than loud. The effect tells the same easy story — a clear, gently uplifting head-high with just enough body to stay comfortable, rarely overwhelming even at a generous dose. That mildness is also the knock against it among chasers: seasoned smokers sometimes call it boring, and it's grown so widely that quality swings hard between a vivid, berry-bright cut and a flat, generic one. As a daytime all-rounder almost anyone can handle, though, it's still hard to beat.",
+    indicaSativaSplit: { indica: 30, sativa: 70 },
+    topTerpenes: [
+      { name: "Myrcene", percent: 0.45 },
+      { name: "Pinene", percent: 0.31 },
+      { name: "Caryophyllene", percent: 0.22 },
+      { name: "Limonene", percent: 0.14 },
+      { name: "Humulene", percent: 0.08 },
+    ],
     sourceConfidence: "high",
   },
 
