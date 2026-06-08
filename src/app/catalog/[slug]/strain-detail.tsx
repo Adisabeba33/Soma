@@ -6,6 +6,7 @@ import {
   ArrowLeft,
   Check,
   GitCompareArrows,
+  Leaf,
   Sparkles,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -26,6 +27,7 @@ import type {
   CatalogMatch,
   SimilarStrainEntry,
 } from "@/lib/catalog";
+import type { StrainType } from "@/lib/types";
 
 const CATEGORY_TONE: Record<string, string> = {
   "Best Match": "text-accent",
@@ -38,6 +40,9 @@ const CATEGORY_TONE: Record<string, string> = {
 export interface LineageParent {
   name: string;
   slug: string | null;
+  // Auto-derived from our catalog when the parent is a known strain.
+  lineageBrief?: string | null;
+  type?: StrainType | null;
 }
 
 export function StrainDetail({
@@ -162,6 +167,7 @@ export function StrainDetail({
                 parents={lineageParents}
                 cross={identity?.lineage?.cross}
                 child={strain.name}
+                childType={strain.type}
               />
             </Section>
           )}
@@ -331,49 +337,185 @@ function EffectBar({ label, value }: { label: string; value: number }) {
   );
 }
 
+// Wide-style genetics diagram. Two parents flank the strain with a leaf
+// glyph in the middle — third/fourth parents stack below the pair. Falls
+// back to a single-parent column for cuts / phenotypes. Below the diagram
+// a Genetic Makeup strip reads back the strain's categorical type today;
+// once indicaSativaSplit is curated (Phase B of this redesign), it'll
+// switch to a real percentage split.
 function Genetics({
   parents,
   cross,
   child,
+  childType,
 }: {
   parents: LineageParent[];
   cross?: string;
   child: string;
+  childType: StrainType;
 }) {
+  const [first, second, ...rest] = parents;
+
   return (
     <div>
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        {parents.map((p, i) => (
-          <span key={p.name} className="flex items-center gap-2">
-            {p.slug ? (
-              <Link
-                href={`/catalog/${p.slug}`}
-                className="rounded-lg border border-border bg-muted/40 px-3 py-1.5 text-sm font-medium hover:border-accent hover:text-accent"
-              >
-                {p.name}
-              </Link>
-            ) : (
-              <span className="rounded-lg border border-border bg-muted/40 px-3 py-1.5 text-sm font-medium text-foreground">
-                {p.name}
-              </span>
-            )}
-            {i < parents.length - 1 && (
-              <span className="text-brass">×</span>
-            )}
-          </span>
-        ))}
+      <div className="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
+        <ParentCard parent={first} align="end" />
+        <Center child={child} childType={childType} />
+        {second ? (
+          <ParentCard parent={second} align="start" />
+        ) : (
+          <div className="hidden sm:block" />
+        )}
       </div>
-      <div className="my-2 flex justify-center">
-        <span className="text-muted-foreground">↓</span>
+
+      {rest.length > 0 && (
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          {rest.map((p) => (
+            <ParentCard key={p.name} parent={p} align="start" />
+          ))}
+        </div>
+      )}
+
+      {cross && (
+        <p className="mt-4 text-center text-xs text-muted-foreground">
+          {cross}
+        </p>
+      )}
+
+      <GeneticMakeup type={childType} />
+    </div>
+  );
+}
+
+const TYPE_LABEL: Record<StrainType, string> = {
+  indica: "Indica",
+  sativa: "Sativa",
+  hybrid: "Hybrid",
+};
+
+function ParentCard({
+  parent,
+  align,
+}: {
+  parent: LineageParent;
+  align: "start" | "end";
+}) {
+  const body = (
+    <div
+      className={cn(
+        "rounded-2xl border border-border bg-muted/30 p-4 text-center transition-colors",
+        parent.slug && "hover:border-accent",
+      )}
+    >
+      <p className="font-display text-lg font-semibold tracking-tight">
+        {parent.name}
+      </p>
+      {parent.lineageBrief && (
+        <p className="mt-1 text-xs text-muted-foreground">
+          ({parent.lineageBrief})
+        </p>
+      )}
+      {parent.type && (
+        <p
+          className={cn(
+            "mt-3 text-[11px] font-medium uppercase tracking-[0.14em]",
+            parent.type === "indica"
+              ? "text-accent"
+              : parent.type === "sativa"
+                ? "text-brass"
+                : "text-muted-foreground",
+          )}
+        >
+          {TYPE_LABEL[parent.type]}
+        </p>
+      )}
+    </div>
+  );
+
+  // Align solo cards (single-parent case) to the centre on desktop.
+  const wrapper = cn("w-full sm:max-w-[260px]", align === "end" ? "sm:ml-auto" : "sm:mr-auto");
+
+  if (parent.slug) {
+    return (
+      <Link href={`/catalog/${parent.slug}`} className={wrapper}>
+        {body}
+      </Link>
+    );
+  }
+  return <div className={wrapper}>{body}</div>;
+}
+
+function Center({
+  child,
+  childType,
+}: {
+  child: string;
+  childType: StrainType;
+}) {
+  return (
+    <div className="flex flex-col items-center px-2 text-center">
+      <span className="text-xl text-brass" aria-hidden>
+        →
+      </span>
+      <span className="my-2 inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card">
+        <Leaf className="h-6 w-6 text-accent" aria-hidden />
+      </span>
+      <p className="font-display text-base font-semibold tracking-tight">
+        {child}
+      </p>
+      <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+        {TYPE_LABEL[childType]}
+      </p>
+      <span className="mt-2 text-xl text-brass" aria-hidden>
+        ←
+      </span>
+    </div>
+  );
+}
+
+// Categorical preview of the strain's makeup. For PR2: replaces with a
+// real percentage split (indica% vs sativa%) when indicaSativaSplit is
+// curated. For now: a single colored bar showing the categorical type —
+// hybrid renders as half-and-half so the visual shape stays consistent.
+function GeneticMakeup({ type }: { type: StrainType }) {
+  const indicaPct = type === "indica" ? 100 : type === "hybrid" ? 50 : 0;
+  const sativaPct = 100 - indicaPct;
+
+  return (
+    <div className="mt-6 border-t border-border pt-5">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+        Genetic Makeup
+      </p>
+      <div className="mt-2 flex h-3 w-full overflow-hidden rounded-full bg-muted">
+        {indicaPct > 0 && (
+          <div
+            className="h-full bg-accent"
+            style={{ width: `${indicaPct}%` }}
+            aria-label={`Indica ${indicaPct}%`}
+          />
+        )}
+        {sativaPct > 0 && (
+          <div
+            className="h-full bg-brass"
+            style={{ width: `${sativaPct}%` }}
+            aria-label={`Sativa ${sativaPct}%`}
+          />
+        )}
       </div>
-      <div className="flex justify-center">
-        <span className="rounded-lg bg-accent px-3 py-1.5 text-sm font-semibold text-accent-foreground">
-          {child}
+      <div className="mt-2 flex justify-between text-xs">
+        <span className="inline-flex items-center gap-1.5 text-foreground">
+          <span className="h-2 w-2 rounded-full bg-accent" />
+          Indica {indicaPct > 0 ? `${indicaPct}%` : "—"}
+        </span>
+        <span className="inline-flex items-center gap-1.5 text-foreground">
+          Sativa {sativaPct > 0 ? `${sativaPct}%` : "—"}
+          <span className="h-2 w-2 rounded-full bg-brass" />
         </span>
       </div>
-      {cross && (
-        <p className="mt-3 text-center text-xs text-muted-foreground">{cross}</p>
-      )}
+      <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+        Categorical split for now — derived from this strain&apos;s type.
+        Per-strain percentage data is being curated.
+      </p>
     </div>
   );
 }
