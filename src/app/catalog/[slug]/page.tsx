@@ -8,16 +8,20 @@ import {
   type CatalogMatch,
 } from "@/lib/catalog";
 import { STRAINS } from "@/lib/strain-data";
+import { getIdentity } from "@/lib/strain-identity";
 import { prisma } from "@/lib/prisma";
 import { SOMA_UID_COOKIE } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
 import { scoreStrain } from "@/lib/taste-engine";
-import type { TasteProfileInput } from "@/lib/types";
+import type { StrainType, TasteProfileInput } from "@/lib/types";
 import { StrainDetail, type LineageParent } from "./strain-detail";
 
 export const dynamic = "force-dynamic";
 
 const STRAIN_NAMES = new Set(STRAINS.map((s) => s.name));
+const STRAIN_TYPE_BY_NAME = new Map<string, StrainType>(
+  STRAINS.map((s) => [s.name, s.type]),
+);
 
 export async function generateMetadata({
   params,
@@ -67,12 +71,22 @@ export default async function StrainPage({
   const match = await loadMatch(entry.strain.name);
   const similar = similarWithProfiles(entry.similar);
 
+  // Enrich each parent with what we already know about it: its own lineage
+  // cross (so a parent box can read "Animal Cookies (GSC × Fire OG)") and its
+  // sensory type. Auto-derived from our own catalog so the rich view grows
+  // automatically as the catalog grows — no extra curation field needed.
   const lineageParents: LineageParent[] = (
     entry.identity?.lineage?.parents ?? []
-  ).map((name) => ({
-    name,
-    slug: STRAIN_NAMES.has(name) ? strainSlug(name) : null,
-  }));
+  ).map((name) => {
+    const known = STRAIN_NAMES.has(name);
+    const parentIdentity = known ? getIdentity(name) : null;
+    return {
+      name,
+      slug: known ? strainSlug(name) : null,
+      lineageBrief: parentIdentity?.lineage?.cross ?? null,
+      type: known ? STRAIN_TYPE_BY_NAME.get(name) ?? null : null,
+    };
+  });
 
   return (
     <StrainDetail
