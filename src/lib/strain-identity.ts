@@ -72,6 +72,18 @@ export interface StrainIdentity {
   // Optional. When absent, the page just shows curatorNote with normal
   // typography.
   curatorQuote?: string;
+  // Catalog-card tagline. 2–4 words that capture the strain at a
+  // glance — sized like a movie-poster strap. Shown on the catalog
+  // collectible card so the gradient and the strain name carry the
+  // composition without competing with chip lists or full sentences.
+  // Examples:
+  //   GG4            → "Couch-bound legend"
+  //   OG Kush        → "The gas reference"
+  //   Runtz          → "Pure candy bag"
+  //   Northern Lights → "Old guard sedation"
+  // Optional. When absent, the card just shows the name and type —
+  // still reads cleanly, just without the catchy line.
+  tagline?: string;
   // Growers who tend to bring the strain out well (informational, not a
   // batch-quality claim — that lives in a separate layer).
   growerVariants?: string[];
