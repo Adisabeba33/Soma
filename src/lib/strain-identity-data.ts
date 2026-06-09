@@ -4803,4 +4803,278 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sherbet and cream over a gassy, earthy cookie funk.",
     sourceConfidence: "medium",
   },
+
+  // ── ROUND 11: PARENT-FILL + LANDRACES + CLASSICS ──
+  {
+    canonicalName: "MK Ultra",
+    breeder: "TH Seeds",
+    lineage: {
+      parents: ["OG Kush", "G13"],
+      cross: "OG Kush × G13",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Hypnotic heavy indica", "A parent of Cannatonic"],
+    curatorNote:
+      "MK Ultra is a TH Seeds cross of OG Kush and G13 — a Cup-winning indica named for its near-hypnotic potency. The nose is gassy and earthy: fuel and pine over a skunky, herbal base. The effect is heavy and dazing — a fast euphoric head that sinks into a couch-locking body, firmly a nightcap. It's dense, frosty and very strong, and it's a parent of the CBD foundation strain Cannatonic. For heavy, hypnotic OG-G13 genetics, MK Ultra is a classic.",
+    curatorQuote:
+      "Fuel and pine over a skunky, herbal base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Purple Skunk",
+    lineage: {
+      parents: ["Skunk #1"],
+      cross: "Skunk #1 purple phenotype",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Purple Skunk selection", "A parent of God Bud"],
+    curatorNote:
+      "Purple Skunk is a purple-hued selection of Skunk #1 — sweet grape over the classic skunk funk, and a parent of God Bud. The nose is sweet and fruity: grape and berry over a skunky, earthy base. The effect is balanced and happy — a relaxing, mood-lifting high with a comfortable body. It's frosty and colourful, a flavour-led skunk variant. For purple skunk genetics, this is a likeable parent line.",
+    curatorQuote:
+      "Grape and berry over a skunky, earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lavender",
+    marketNames: ["Lavender Kush"],
+    breeder: "Soma Seeds",
+    lineage: {
+      parents: ["Super Skunk", "Afghani"],
+      cross: "Super Skunk × Big Skunk Korean × Afghani Hawaiian",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Floral-spice indica", "A parent of Chile Verde"],
+    curatorNote:
+      "Lavender is a Soma Seeds indica — a Super Skunk, Korean Skunk and Afghani-Hawaiian blend — named for its genuinely floral, lavender-like nose. The smell is unusual and sweet: flowers and spice over a herbal, hashy base. The effect is relaxing and warm — a euphoric head sinking into a heavy body, evening-leaning. It's frosty, purple-tinged and potent, and it lends its floral funk to Chile Verde. For a genuinely floral indica, Lavender stands apart.",
+    curatorQuote:
+      "Flowers and spice over a herbal, hashy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Blue Power",
+    breeder: "Sin City Seeds",
+    lineage: {
+      parents: ["Master Kush", "Blueberry", "The White"],
+      cross: "Master Kush × The White × Blueberry × Sour Double",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Frosty blue hybrid", "A parent of Animal Mints and Apples and Bananas"],
+    curatorNote:
+      "Blue Power is a Sin City Seeds hybrid — a Master Kush, The White, Blueberry and Sour Double blend — frosty and sweet, and an important modern parent (Animal Mints, Apples and Bananas). The nose is sweet and fruity: blueberry and berry over a faint gas. The effect is balanced and relaxing — a euphoric head easing into a comfortable body. It's extremely frosty and potent, prized as breeding stock. For frosty blue-fruit genetics behind the cookie world, Blue Power is a key line.",
+    curatorQuote:
+      "Blueberry and berry over a faint gas.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sweet Tooth",
+    marketNames: ["Sweetooth"],
+    breeder: "Barney's Farm",
+    lineage: {
+      parents: ["Afghani", "Hawaiian"],
+      cross: "Afghani × Nepali × Hawaiian",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Candy-sweet mellow indica"],
+    curatorNote:
+      "Sweet Tooth is a Barney's Farm indica — an Afghani, Nepali and Hawaiian blend — a Cup winner famous for genuinely candy-sweet flavour. The nose is sweet and floral: berry and fruit over a soft, earthy base. The effect is mellow and happy — a relaxing, mood-lifting high that stays comfortable, moderate rather than crushing. It's frosty and approachable, a flavour-first classic. For candy-sweet indica genetics, Sweet Tooth is a likeable name.",
+    curatorQuote:
+      "Berry and fruit over a soft, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Pineapple",
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Tropical pineapple Skunk selection"],
+    curatorNote:
+      "Pineapple is a tropical, fruit-forward selection in the Skunk family — bright pineapple flavour over a sweet base, and a relative of Pineapple Express's nose. The smell is juicy and sweet: ripe pineapple and tropical fruit over a light earthy floor. The effect is uplifting and easy — a happy, creative head with a relaxed body, daytime-friendly. It's smooth and flavour-led, moderate in strength. For clean tropical-pineapple character, it's a cheerful pick.",
+    curatorQuote:
+      "Ripe pineapple and tropical fruit over a light earthy floor.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lemon Up",
+    breeder: "Cookies",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Bright Cookies lemon cut"],
+    curatorNote:
+      "Lemon Up is a Cookies-camp lemon cut — a bright, zesty citrus hybrid built around clean lemon flavour. The nose is fresh and sharp: lemon and citrus over a light sweet, earthy base. The effect is uplifting and focused — an energetic, happy head with a light body, daytime-leaning. It's terpy and frosty, flavour-forward rather than heavy. For clean lemon citrus from the Cookies world, Lemon Up is a zesty pick.",
+    curatorQuote:
+      "Lemon and citrus over a light sweet, earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Punto Rojo",
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Colombian highland landrace", "Red-haired soaring sativa"],
+    curatorNote:
+      "Punto Rojo is a Colombian highland landrace — a red-haired, long-flowering sativa from the same heritage that gave us Colombian Gold. The nose is earthy and sweet: spicy, grassy sweetness with a faint citrus. The effect is up and clear — an energetic, creative, almost psychedelic head with no body, a true heritage daytime sativa. It's moderate and pure, prized by landrace collectors. For old-world Colombian sativa, Punto Rojo is a classic source.",
+    curatorQuote:
+      "Spicy, grassy sweetness with a faint citrus.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Luang Prabang",
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Laotian landrace", "Bright electric sativa"],
+    curatorNote:
+      "Luang Prabang is a Laotian landrace from the highlands of northern Laos — a bright, electric equatorial sativa prized by Southeast Asian landrace hunters. The nose is sharp and clean: citrus and spice over an earthy, herbal base. The effect is fast and heady — an energetic, almost buzzy cerebral high with no body, a pure daytime landrace. It's long-flowering and moderate, a heritage rarity. For old-world Laotian sativa, Luang Prabang is a source.",
+    curatorQuote:
+      "Citrus and spice over an earthy, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Aceh",
+    marketNames: ["Atjeh"],
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Sumatran landrace", "Earthy-sweet tropical sativa"],
+    curatorNote:
+      "Aceh is a Sumatran landrace from the Aceh region of Indonesia — an earthy-sweet tropical sativa grown in the equatorial heat. The nose is warm and sweet: spicy, woody sweetness over a herbal base. The effect is uplifting and gentle — a happy, creative head with a faint relaxing edge, an unusual not-quite-pure-race landrace. It's smooth and moderate, prized for heritage. For old-world Indonesian sativa, Aceh is a source.",
+    curatorQuote:
+      "Spicy, woody sweetness over a herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Kilimanjaro",
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Tanzanian landrace", "Fierce, clean sativa"],
+    curatorNote:
+      "Kilimanjaro is a Tanzanian landrace from the slopes of its namesake mountain — locally called 'elephant flattener' for its fierce, clean energy. The nose is bright and earthy: citrus and spice over a sweet, grassy base. The effect is intensely up — an energetic, alert, almost relentless head with no body, a pure equatorial daytime sativa. It's hardy and moderate, prized by landrace collectors. For old-world East African sativa, Kilimanjaro is a striking source.",
+    curatorQuote:
+      "Citrus and spice over a sweet, grassy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Zamal",
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Réunion Island landrace", "Rare soaring tropical sativa"],
+    curatorNote:
+      "Zamal is a landrace from Réunion Island in the Indian Ocean — a rare, soaring tropical sativa with French-island heritage. The nose is clean and bright: citrus and herbs over an earthy, spicy base. The effect is fast and clear — an energetic, creative, heady high with no body, a pure equatorial daytime strain. It's long-flowering and moderate, a true rarity. For old-world island sativa genetics, Zamal is a collector's source.",
+    curatorQuote:
+      "Citrus and herbs over an earthy, spicy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grape Krush",
+    marketNames: ["Grape Crush"],
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Fizzy grape indica"],
+    curatorNote:
+      "Grape Krush is a sweet grape indica — fizzy grape-soda flavour over a relaxing body. The nose is sweet and fruity: grape and dark berry over an earthy base. The effect leans relaxing — a happy, calming high with a comfortable body, evening-friendly. It's frosty and flavour-led, an easy grape pick. For fizzy grape-candy character with a soft body, Grape Krush is a likeable indica.",
+    curatorQuote:
+      "Grape and dark berry over an earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "White Fire OG",
+    marketNames: ["WiFi OG", "WiFi"],
+    breeder: "OG Raskal Seeds",
+    lineage: {
+      parents: ["Fire OG", "The White"],
+      cross: "Fire OG × The White",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Frosty, gassy, balanced OG"],
+    curatorNote:
+      "White Fire OG (WiFi OG) is an OG Raskal cross of Fire OG and The White — the gas of Fire OG with The White's extreme frost. The nose is loud OG: fuel and pine over an earthy, lemony funk. The effect is balanced — a euphoric, creative head with a relaxing body, usable across the day unlike many heavy OGs. It's extremely frosty and potent, a connoisseur's gas hybrid. For a frosty, balanced cut of OG genetics, WiFi is a modern favourite.",
+    curatorQuote:
+      "Fuel and pine over an earthy, lemony funk.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Biscotti Sundae",
+    lineage: {
+      parents: ["Biscotti", "Sundae Driver"],
+      cross: "Biscotti × Sundae Driver",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Gassy cookie over creamy fruit"],
+    curatorNote:
+      "Biscotti Sundae crosses Biscotti with Sundae Driver — gassy, coffee-tinged cookie meeting smooth, creamy fruit. The nose is rich and layered: sweet cookie and gas over a creamy, fruity base. The effect is relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, in the polished dessert lane. For gassy cookie with a creamy lift, Biscotti Sundae is a smooth pick.",
+    curatorQuote:
+      "Sweet cookie and gas over a creamy, fruity base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Goji OG",
+    breeder: "Bodhi Seeds",
+    lineage: {
+      parents: ["Nepali OG", "Snow Lotus"],
+      cross: "Nepali OG × Snow Lotus",
+      parentDetails: {
+        "Nepali OG": { lineageBrief: "Nepalese × OG Kush", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Berry-licorice sativa-lean", "A Bodhi classic"],
+    curatorNote:
+      "Goji OG is a Bodhi Seeds cross of Nepali OG and Snow Lotus — a sativa-leaning hybrid with an unusual berry-and-licorice nose. The smell is sweet and complex: red berry and cherry-licorice over a piney, earthy base. The effect is up and warm — an uplifting, happy, energetic head with a relaxing body, daytime-friendly. It's terpy and potent, one of Bodhi's most beloved releases. For berry-licorice genetics with an OG lift, Goji OG is a modern classic.",
+    curatorQuote:
+      "Red berry and cherry-licorice over a piney, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "White Gushers",
+    lineage: {
+      parents: ["Gushers"],
+      cross: "Gushers phenotype (white, frost-selected)",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Frosty white Gushers pheno"],
+    curatorNote:
+      "White Gushers is a frost-selected, near-white phenotype of Gushers — the tropical candy of Gushers with extra trichome coverage. The nose is sweet and fruity: tropical candy and berry over a light gas. The effect is balanced and feel-good — a euphoric head with a relaxed body, sociable and potent. It's extremely frosty and flavour-forward, the prized cut of the Gushers line. For candy fruit with maximum frost, White Gushers is a standout.",
+    curatorQuote:
+      "Tropical candy and berry over a light gas.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Snow Lotus",
+    breeder: "Bodhi Seeds",
+    lineage: {
+      parents: ["Afgooey", "Blockhead"],
+      cross: "Afgooey × Blockhead",
+      parentDetails: {
+        "Blockhead": { lineageBrief: "Sweet Tooth × ... (Subcool line)", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Frosty, sweet breeding male", "Behind Goji OG and many Bodhi crosses"],
+    curatorNote:
+      "Snow Lotus is a Bodhi Seeds cross of Afgooey and Blockhead — a frosty, sweet-and-earthy plant that became one of Bodhi's most-used breeding males (it's behind Goji OG). The nose is sweet and earthy: berry and resin over a piney base. The effect is balanced and relaxing — a euphoric head with a comfortable body. It's resin-heavy and potent, prized for the frost and complexity it passes to its offspring. For Bodhi's foundational breeding genetics, Snow Lotus is a key line.",
+    curatorQuote:
+      "Berry and resin over a piney base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Blue Magoo",
+    marketNames: ["Blue Magoob"],
+    lineage: {
+      parents: ["Blueberry", "Major League Bud"],
+      cross: "DJ Short Blueberry × Major League Bud",
+      parentDetails: {
+        "Major League Bud": { lineageBrief: "William's Wonder × ... selection", type: "indica" },
+      },
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Sweet berry, gentle body"],
+    curatorNote:
+      "Blue Magoo is a Blueberry cross — DJ Short's Blueberry into Major League Bud — a sweet, berry-floral indica-lean with a gentle reputation. The nose is sweet and fruity: blueberry and floral berry over a soft earthy base. The effect is mellow and happy — a relaxing, mood-lifting body ease that stays comfortable, not crushing. It's frosty and smooth, flavour-first. For sweet berry character with a gentle body, Blue Magoo is a likeable pick.",
+    curatorQuote:
+      "Blueberry and floral berry over a soft earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sugar Black Rose",
+    breeder: "Delicious Seeds",
+    lineage: {
+      parents: ["Black Domina", "Critical Mass"],
+      cross: "Black Domina × Critical Mass",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Sweet-floral heavy indica"],
+    curatorNote:
+      "Sugar Black Rose is a Delicious Seeds indica — Black Domina crossed with Critical Mass — a sweet, floral-fruit cut on a heavy frame. The nose is sweet and floral: berry and rose-like florals over an earthy, hashy base. The effect is strongly relaxing — a euphoric head sinking into a heavy, sedating body, an evening strain. It's frosty, dense and potent, a flavourful heavyweight. For sweet-floral heavy indica genetics, Sugar Black Rose is a tasty pick.",
+    curatorQuote:
+      "Berry and rose-like florals over an earthy, hashy base.",
+    sourceConfidence: "medium",
+  },
 ];
