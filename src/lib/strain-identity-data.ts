@@ -961,4 +961,141 @@ export const IDENTITIES: StrainIdentity[] = [
       "Critical Mass is an Afghani × Skunk #1 cross — named for buds so dense and heavy they can snap their own branches. The nose is sweet and earthy: skunky, honey-ish sweetness over a damp earthy base, classic and mellow. The effect is heavily relaxing — a calm, sedating body high that eases tension and tips toward sleep, a straightforward evening indica. It's a big-yielding, moderate-to-strong indica, more about comfort than complexity. For dependable, sweet, heavy relaxation, Critical Mass is a reliable pick.",
     sourceConfidence: "medium",
   },
+
+  // ── Gelato / cake / dessert expansions ──
+  {
+    canonicalName: "Gelato 33",
+    marketNames: ["Gelato #33", "Larry Bird"],
+    breeder: "Cookies Fam / Sherbinski",
+    lineage: {
+      parents: ["Sunset Sherbet", "Thin Mint GSC"],
+      cross: "Sunset Sherbet × Thin Mint GSC",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["The original prized Gelato pheno"],
+    curatorNote:
+      "Gelato 33 — the 'Larry Bird' pheno — is the original prized cut of Gelato, a Sunset Sherbet × Thin Mint GSC selection from the Cookies/Sherbinski camp. The nose is the Gelato benchmark: sweet sherbet and cream with a citrus-berry twist over a low note of gas, balanced and inviting. The effect is the reason it parents half the menu — a bright, euphoric, social lift that settles into easy body relaxation without knocking you out. It's frosty, flavourful and remarkably well-rounded, equally at home in the afternoon or evening. As the cut that defined modern Gelato, #33 is the reference everything else chases.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Gelato 41",
+    marketNames: ["Gelato #41", "Bacio (sibling)"],
+    breeder: "Cookies Fam / Sherbinski",
+    lineage: {
+      parents: ["Sunset Sherbet", "Thin Mint GSC"],
+      cross: "Sunset Sherbet × Thin Mint GSC (gassier pheno)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Gassier Gelato sibling", "Parent of Jealousy"],
+    curatorNote:
+      "Gelato 41 is a sibling cut from the same Sunset Sherbet × Thin Mint GSC line as Gelato 33 — gassier and a touch heavier, and the parent of hype strains like Jealousy. The nose leans more fuel than its sweeter sibling: sherbet and creamy sweetness over a pronounced gassy funk. The effect is balanced-leaning-relaxed — a euphoric head over comfortable body weight, a little more sedating than #33. It's frosty and potent, a favourite base for breeders chasing gas-and-dessert crosses. For Gelato lovers who want more gas in the mix, 41 is the pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Birthday Cake",
+    marketNames: ["Birthday Cake Kush", "BDC"],
+    lineage: {
+      parents: ["Girl Scout Cookies", "Cherry Pie"],
+      cross: "GSC × Cherry Pie",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Vanilla cake-batter sweetness"],
+    curatorNote:
+      "Birthday Cake (Birthday Cake Kush) is a GSC × Cherry Pie cross — sweet, doughy and a little fruity, an easygoing dessert hybrid. The nose is sweet and vanilla-forward: cake batter and a hint of cherry over a soft earthy base, dessert without much gas. The effect is relaxing and happy — a calm, mood-lifting body ease that suits unwinding rather than productivity. It's moderate and approachable, more comfort than knockout at sensible doses. For people who want a gentle, sweet, vanilla-cake profile, Birthday Cake fits.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Gelato Cake",
+    lineage: {
+      parents: ["Wedding Cake", "Gelato 33"],
+      cross: "Wedding Cake × Gelato 33",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Creamy, gassy dessert indica"],
+    curatorNote:
+      "Gelato Cake is a cross of Wedding Cake and Gelato 33 — two dessert heavyweights folded into one frosty, creamy indica-leaning hybrid. The nose is rich and sweet: vanilla cake and cream over a gassy, earthy funk, dessert with weight. The effect is relaxing and euphoric — a warm, happy calm that settles into the body, an evening-leaning strain. It's potent and frosty, comfortable rather than racy, easy to enjoy too much. For lovers of creamy, gassy dessert indicas, Gelato Cake is a natural pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "LA Kush Cake",
+    marketNames: ["Kush Cake", "LA Kush Cake #11"],
+    lineage: {
+      parents: ["Kush Mints", "Wedding Cake"],
+      cross: "Kush Mints × Wedding Cake",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Minty-vanilla over heavy gas"],
+    curatorNote:
+      "LA Kush Cake is a Kush Mints × Wedding Cake cross — minty, gassy cookie sweetness on a heavy frame. The nose is cool and rich: mint, vanilla and cookie dough over an earthy gas, sweet and savoury at once. The effect is strongly relaxing — a euphoric head sinking into a heavy, calming body, firmly evening territory. It's potent and frosty, leaning sedating, a satisfying nightcap. For the mint-and-cake corner of the dessert world, LA Kush Cake is a rich, heavy option.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "London Pound Cake",
+    marketNames: ["London Poundcake 75", "LPC"],
+    breeder: "Cookies",
+    lineage: {
+      parents: ["Sunset Sherbet"],
+      cross: "Sunset Sherbet × undisclosed (Cookies line)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Dark berry, gassy dessert"],
+    curatorNote:
+      "London Pound Cake (London Poundcake 75) is a Cookies strain from the Sunset Sherbet line — dark, berry-forward and gassy, one of the moodier dessert profiles. The nose is rich and a little tart: grape and dark berry over a lemony, gassy funk, sweet but not candy. The effect is relaxing and euphoric — a calming body high with a happy head, an afternoon-into-evening strain. It's potent and frosty, balanced-leaning-indica, satisfying for flavour chasers. For people who like their dessert dark and gassy rather than sugary, London Pound Cake delivers.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lava Cake",
+    marketNames: ["Lava Cake #11"],
+    lineage: {
+      parents: ["Grape Pie", "Thin Mint GSC"],
+      cross: "Grape Pie × Thin Mint GSC",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Chocolate-and-berry dessert indica"],
+    curatorNote:
+      "Lava Cake is a Grape Pie × Thin Mint GSC cross — a sweet, chocolatey dessert indica with a frosty finish. The nose is rich and sweet: chocolate, berry and mint over an earthy, doughy base, indulgent and dessert-forward. The effect is relaxing and calming — a warm body ease with a gentle euphoric head, an evening strain more than a productive one. It's potent and comfortable, leaning sedating without being a total knockout. For lovers of chocolate-and-berry dessert indicas, Lava Cake is a cosy pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sundae Driver",
+    marketNames: ["Sunday Driver"],
+    breeder: "Cannarado Genetics",
+    lineage: {
+      parents: ["Fruity Pebbles OG", "Grape Pie"],
+      cross: "Fruity Pebbles OG × Grape Pie",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Smooth, creamy breeding parent"],
+    curatorNote:
+      "Sundae Driver is a Cannarado cross of Fruity Pebbles OG and Grape Pie — a smooth, creamy hybrid that became a popular breeding parent. The nose is sweet and creamy: sugary fruit and grape over a light gas, dessert-leaning and smooth. The effect is balanced and mellow — a calm, contented body ease with a clear-enough head, comfortable across the day. It's gentle and flavour-driven, more about smoothness and mood than raw power. For people who want a creamy, easygoing dessert hybrid, Sundae Driver is a reliable choice.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grease Monkey",
+    marketNames: ["Grease Monkey OG"],
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["GG4", "Cookies and Cream"],
+      cross: "Gorilla Glue #4 × Cookies and Cream",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Gassy glue funk over sweet, nutty cookie"],
+    curatorNote:
+      "Grease Monkey is an Exotic Genetix cross of GG4 (Gorilla Glue) and Cookies and Cream — gassy glue funk meets sweet, nutty cookie. The nose is heavy and rich: diesel and skunk over sweet vanilla and nut, gas with a dessert chaser. The effect is strongly relaxing — a euphoric head that sinks into a heavy, sedating body, firmly evening territory. It's potent and couch-leaning, the kind of strain that ends the night. For lovers of gas-and-dessert heavy hybrids, Grease Monkey is a satisfying, sleepy pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Jealousy",
+    marketNames: ["Jealousy Cake (sibling)"],
+    breeder: "Seed Junky / Powerzzzup",
+    lineage: {
+      parents: ["Gelato 41", "Sherbet"],
+      cross: "Gelato 41 × Sherbet",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Frosty gas-and-sherbet 'strain of the year'"],
+    curatorNote:
+      "Jealousy is a hype-era cross of Gelato 41 and Sherbet (a Seed Junky/Powerzzzup line) that topped 'strain of the year' lists — frosty, gassy and sweet. The nose is rich and complex: creamy sherbet and sweet fruit over a sharp, gassy funk, candy with a fuel edge. The effect is balanced and euphoric — an uplifting, sociable head over a relaxed body, versatile across the day. It's potent and very frosty, a flavour-forward modern exotic. For people chasing the current Gelato-gas hype done well, Jealousy is a standout.",
+    sourceConfidence: "medium",
+  },
 ];
