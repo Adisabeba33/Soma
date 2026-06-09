@@ -1606,4 +1606,143 @@ export const IDENTITIES: StrainIdentity[] = [
       "Zoap is a hype-era exotic — a balanced hybrid often traced to a Pink Guava / Rainbow Sherbet line — named for its clean, soapy-floral funk. The nose is distinctive: floral, soapy sweetness over a creamy, gassy base, bright and a little unusual. The effect is balanced and euphoric — an uplifting, sociable head over a relaxed body, versatile across the day. It's very frosty and colourful, a flavour- and bag-appeal-forward modern strain. For people who like that clean soap-floral funk, Zoap is a current favourite.",
     sourceConfidence: "low",
   },
+
+  // ── Modern exotics (part 2) + fruity / dessert ──
+  {
+    canonicalName: "Soap",
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Lighter, soapy-floral sibling of Zoap"],
+    curatorNote:
+      "Soap is a clean, soapy-floral exotic from the same hype lane as Zoap — a balanced hybrid built around an unusual bright, perfumed funk. The nose is distinctive: floral soap and creamy sweetness over a light gas, fresh and a little unusual. The effect is balanced and euphoric — an uplifting, sociable head over a relaxed body, easy across the day. It's frosty and colourful, a flavour- and looks-forward modern strain. For people who like that clean soap-floral profile, Soap delivers it in a lighter key.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Garanimals",
+    breeder: "Skunktek",
+    lineage: {
+      parents: ["Grape Pie", "Gelato"],
+      cross: "Grape Pie × Gelato",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Grape-and-cream dessert exotic"],
+    curatorNote:
+      "Garanimals is a Skunktek cross of Grape Pie and Gelato — grape-and-cream dessert with a frosty, exotic finish. The nose is sweet and fruity: grape and berry over creamy gelato and a light gas, dessert-forward. The effect is relaxing and euphoric — a happy head easing into comfortable body calm, evening-leaning. It's frosty and flavourful, an easy-to-like grape dessert exotic. For people who want grape-and-cream on a Gelato frame, Garanimals is a tasty pick.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "White Runtz",
+    marketNames: ["Runtz (white pheno)"],
+    breeder: "Cookies / Runtz Genetics",
+    lineage: {
+      parents: ["Zkittlez", "Gelato"],
+      cross: "Zkittlez × Gelato (white pheno)",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Near-white frost", "Prized Runtz phenotype"],
+    curatorNote:
+      "White Runtz is the frostiest, palest phenotype of Runtz — the Zkittlez × Gelato candy cross selected for a near-white trichome coat. The nose is pure confection: sugary tropical fruit and creamy sweetness with barely any funk, loud and candied. The effect is balanced and feel-good — a bright euphoric lift over comfortable body ease, social without being sedating. Like all Runtz it's heavily counterfeited, so a genuine frosty cut stands out from the imitations. For the candy-sweet, glittering end of Runtz, White Runtz is the prize pheno.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cheetah Piss",
+    breeder: "Cookies",
+    lineage: {
+      parents: ["Lemonnade", "Gelato 42", "London Pound Cake"],
+      cross: "Lemonnade × Gelato 42 × London Pound Cake",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Sharp, ammonia-tinged sour funk"],
+    curatorNote:
+      "Cheetah Piss is a Cookies strain — a cross of Lemonnade, Gelato 42 and London Pound Cake — with a name nodding to its sharp, ammonia-tinged funk. The nose is pungent and unusual: sour citrus and a sharp, almost ammonia-like funk over a creamy, gassy base, loud and divisive. The effect is balanced and uplifting — a euphoric, sociable head over a relaxed body, versatile and potent. It's frosty and very loud, a flavour-forward exotic for funk chasers. For people who want a sharp, sour, unusual profile, Cheetah Piss stands out.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Italian Ice",
+    breeder: "Cookies",
+    lineage: {
+      parents: ["Gelato 45", "Forbidden Fruit"],
+      cross: "Gelato 45 × Forbidden Fruit",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Creamy gelato with a cherry-citrus twist"],
+    curatorNote:
+      "Italian Ice is a Cookies cross of Gelato 45 and Forbidden Fruit — creamy gelato sweetness with a fruity, cherry-citrus twist. The nose is rich and sweet: cream and tropical fruit over a light gas, dessert-bright with a fruity edge. The effect is relaxing and euphoric — a happy head easing into comfortable body calm, afternoon into evening. It's frosty and flavourful, balanced-leaning-relaxed. For people who want gelato cream with a fruit lean, Italian Ice is a smooth, tasty pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grape Stomper",
+    marketNames: ["Sour Grapes"],
+    breeder: "Gage Green Genetics",
+    lineage: {
+      parents: ["Purple Elephant", "Chemdawg Sour Diesel"],
+      cross: "Purple Elephant × Chemdawg Sour Diesel",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Grape candy welded to sharp diesel", "A parent of Grape Pie"],
+    curatorNote:
+      "Grape Stomper (Sour Grapes) is a Gage Green cross of Purple Elephant and Chemdawg Sour Diesel — sweet grape candy welded to sharp diesel. The nose is the pairing made plain: sweet grape and berry over a pungent, sour diesel funk, candy meeting fuel. The effect is uplifting and euphoric — a bright, happy head with a relaxing body, balanced-leaning-sativa. It's potent and flavour-forward, for people who like grape with a gas backbone. For the grape-diesel lane, Grape Stomper is a classic example.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Banana OG",
+    lineage: {
+      parents: ["OG Kush", "Banana"],
+      cross: "OG Kush × Banana",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Sweet banana over a heavy OG frame", "Creeper potency"],
+    curatorNote:
+      "Banana OG is an OG Kush × Banana cross — sweet, ripe banana folded onto a heavy OG frame. The nose is its draw: sweet banana and tropical fruit over an earthy, gassy OG base, dessert meeting fuel. The effect is a creeping, heavy indica — a euphoric head that sinks into a strong, sedating body, firmly an evening strain. It's potent and known to sneak up, so it's a nightcap more than a daytime smoke. For lovers of sweet banana on a heavy OG frame, Banana OG is a satisfying, sleepy pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Banana Punch",
+    lineage: {
+      parents: ["Banana OG", "Purple Punch"],
+      cross: "Banana OG × Purple Punch",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Banana-and-grape candy indica"],
+    curatorNote:
+      "Banana Punch is a cross of Banana OG and Purple Punch — sweet banana and grape candy on a relaxing indica frame. The nose is rich and fruity: ripe banana and grape over a creamy, slightly gassy base, dessert-forward. The effect is relaxing and euphoric — a happy head easing into a calming, sedating body, evening-leaning. It's frosty and flavourful, easy to over-enjoy for its sweetness. For people who want banana-and-grape candy with body, Banana Punch is a tasty, mellow pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Clementine",
+    breeder: "Crockett Family Farms",
+    lineage: {
+      parents: ["Tangie", "Lemon Skunk"],
+      cross: "Tangie × Lemon Skunk",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Juicy orange-citrus sativa", "A parent of Mimosa"],
+    curatorNote:
+      "Clementine is a Crockett Family cross of Tangie and Lemon Skunk — a bright, juicy citrus sativa and a parent of Mimosa. The nose is vivid and sweet: orange and tangerine over a lemony, skunky base, clean and zesty. The effect is uplifting and energetic — a happy, motivating head with a light body, a daytime and creative sativa. It's flavour-forward and lively, an easy citrus pick-me-up. For people who want pure orange-citrus brightness with a lift, Clementine is a benchmark.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lemon Tree",
+    lineage: {
+      parents: ["Lemon Skunk", "Sour Diesel"],
+      cross: "Lemon Skunk × Sour Diesel",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Sharp lemon over diesel", "A parent of Melonade"],
+    curatorNote:
+      "Lemon Tree is a Lemon Skunk × Sour Diesel cross — sharp lemon over a gassy diesel base, and a parent of strains like Melonade. The nose is bright and pungent: fresh lemon and citrus over a sour diesel funk, zesty with a fuel edge. The effect is balanced and uplifting — a happy, relaxing high that lifts the mood without heavy sedation, versatile across the day. It's potent and flavour-forward, cleaner than straight diesel. For people who want lemon with a gas backbone, Lemon Tree is a flavourful, balanced pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grape Pie",
+    breeder: "Cannarado Genetics",
+    lineage: {
+      parents: ["Cherry Pie", "Grape Stomper"],
+      cross: "Cherry Pie × Grape Stomper",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Grape-and-pastry breeding parent", "Behind Sundae Driver & Lava Cake"],
+    curatorNote:
+      "Grape Pie is a Cannarado cross of Cherry Pie and Grape Stomper — sweet grape and berry on a dessert frame, and a parent of Sundae Driver and Lava Cake. The nose is sweet and fruity: grape and dark berry over a doughy, earthy base, dessert-forward. The effect is relaxing and happy — a calming body ease with a euphoric head, evening-leaning. It's frosty and flavourful, a popular breeding parent for grape dessert lines. For grape-and-pastry lovers, Grape Pie is a sweet, comfortable pick.",
+    sourceConfidence: "medium",
+  },
 ];
