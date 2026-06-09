@@ -5601,4 +5601,285 @@ export const IDENTITIES: StrainIdentity[] = [
       "Banana and honey over a light earthy floor.",
     sourceConfidence: "low",
   },
+
+  // ── ROUND 14: HAZE/CLASSIC PARENT-FILL + LANDRACES (catalog → 400) ──
+  {
+    canonicalName: "Neville's Haze",
+    marketNames: ["Nevil's Haze"],
+    breeder: "Greenhouse / Nevil",
+    lineage: {
+      parents: ["Haze", "Northern Lights #5"],
+      cross: "Haze × Northern Lights #5",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Towering, electric haze", "Behind Ghost Train Haze and Hawaiian Snow"],
+    curatorNote:
+      "Neville's Haze is Nevil Schoenmakers' towering haze — Haze crossed back into Northern Lights #5 for a more vigorous, even more electric sativa. The nose is sharp and clean: citrus and pine over a spicy, incense-like base. The effect is a long, soaring, almost overwhelming cerebral high — energetic and psychedelic with no body. It's a slow, demanding grow and very potent, the engine behind Ghost Train Haze and Hawaiian Snow. For maximum haze intensity, Neville's Haze is a legend.",
+    curatorQuote:
+      "Citrus and pine over a spicy, incense-like base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Death Star",
+    lineage: {
+      parents: ["Sour Diesel", "Sensi Star"],
+      cross: "Sour Diesel × Sensi Star",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Heavy diesel funk, deeply sedating"],
+    curatorNote:
+      "Death Star is a Sour Diesel × Sensi Star cross out of Ohio — sour fuel funk welded to a heavy, sedating body. The nose is loud and gassy: diesel and sour earth over a skunky base. The effect is strongly relaxing — a euphoric head sinking fast into a couch-locking body, firmly a nightcap. It's pungent, dense and very potent. For heavy diesel genetics with a knockout body, Death Star earns the name.",
+    curatorQuote:
+      "Diesel and sour earth over a skunky base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lemon Diesel",
+    lineage: {
+      parents: ["California Sour", "Lost Coast OG"],
+      cross: "California Sour × Lost Coast OG",
+      parentDetails: {
+        "California Sour": { lineageBrief: "Sour Diesel-leaning hybrid", type: "hybrid" },
+        "Lost Coast OG": { lineageBrief: "OG Kush phenotype", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Sharp lemon over diesel"],
+    curatorNote:
+      "Lemon Diesel is a California Sour × Lost Coast OG cross — sharp lemon citrus laid over a sour diesel base. The nose is bright and gassy: lemon and citrus over a fuel, earthy funk. The effect is balanced and lively — an uplifting, energetic head with a relaxing body, usable across the day. It's terpy and potent, cleaner than straight diesel. For lemon with a diesel backbone, Lemon Diesel is a zesty pick.",
+    curatorQuote:
+      "Lemon and citrus over a fuel, earthy funk.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Skunkberry",
+    lineage: {
+      parents: ["Skunk #1", "Blueberry"],
+      cross: "Skunk #1 × Blueberry",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Sweet berry over a skunky base"],
+    curatorNote:
+      "Skunkberry is a Skunk #1 × Blueberry cross — sweet berry fruit softening the classic skunk funk. The nose is sweet and fruity: blueberry and berry over a skunky, earthy base. The effect is relaxing and happy — a euphoric, calming high with a comfortable body, evening-leaning. It's frosty and smooth, an easy berry-skunk hybrid. For sweet berry over skunk, Skunkberry is a likeable pick.",
+    curatorQuote:
+      "Blueberry and berry over a skunky, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Blackwater",
+    lineage: {
+      parents: ["Mendo Purps", "SFV OG"],
+      cross: "Mendo Purps × SFV OG Kush",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Grape over gas, deeply relaxing"],
+    curatorNote:
+      "Blackwater is a Mendo Purps × SFV OG cross — sweet grape from the Purps side over San Fernando OG gas. The nose is sweet and fruity: grape and dark berry over an earthy, gassy base. The effect is heavily relaxing — a euphoric head sinking into a sedating body, firmly an evening strain. It's dense, frosty and potent, a grape-and-gas heavyweight. For purple-grape character on a heavy OG frame, Blackwater is a satisfying indica.",
+    curatorQuote:
+      "Grape and dark berry over an earthy, gassy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cherry Cookies",
+    lineage: {
+      parents: ["Cherry Pie", "Girl Scout Cookies"],
+      cross: "Cherry Pie × GSC",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Cherry fruit over a cookie base"],
+    curatorNote:
+      "Cherry Cookies crosses Cherry Pie with Girl Scout Cookies — sweet cherry fruit folded into a cookie base. The nose is sweet and fruity: cherry and berry over an earthy, doughy cookie funk. The effect is balanced and euphoric — a happy head with a relaxing body, versatile across the day. It's frosty and flavour-forward, an easy cherry dessert. For cherry-and-cookie character, Cherry Cookies is a tasty pick.",
+    curatorQuote:
+      "Cherry and berry over an earthy, doughy cookie funk.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Platinum GSC",
+    marketNames: ["Platinum Cookies"],
+    lineage: {
+      parents: ["Girl Scout Cookies"],
+      cross: "Girl Scout Cookies phenotype (Platinum)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Frosty Platinum GSC pheno"],
+    curatorNote:
+      "Platinum GSC (Platinum Cookies) is a frosty, silver-tinged phenotype of Girl Scout Cookies — sweeter and even more trichome-caked than the standard cut. The nose is sweet and earthy: candy cookie and fruit over a spicy, herbal base. The effect is relaxing and euphoric — a happy head settling into a comfortable, heavy body, evening-leaning. It's very frosty and potent, a prized GSC selection. For a frostier cut of the cookie genome, Platinum GSC is a strong pick.",
+    curatorQuote:
+      "Candy cookie and fruit over a spicy, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Mango Haze",
+    breeder: "Mr Nice Seeds",
+    lineage: {
+      parents: ["Haze", "Skunk Haze"],
+      cross: "Haze × KC33 × Skunk Haze",
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Sweet mango over a spicy haze"],
+    curatorNote:
+      "Mango Haze is a Mr Nice Seeds sativa — a Haze blend with a tropical, mango-sweet lean. The nose is sweet and fruity: ripe mango and tropical fruit over a spicy haze base. The effect is up and creative — an energetic, uplifting, clear head with a light body, a daytime strain. It's terpy and potent, one of the prettier haze flavours. For sweet mango on a classic haze frame, Mango Haze is a flavourful pick.",
+    curatorQuote:
+      "Ripe mango and tropical fruit over a spicy haze base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Highland Thai",
+    marketNames: ["Highland Thailand"],
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Highland Thai landrace"],
+    curatorNote:
+      "Highland Thai is a mountain-grown phenotype of the Thai landrace — a bright, soaring sativa from the cooler highlands of northern Thailand. The nose is clean and sharp: citrus and spice over an earthy, herbal base. The effect is a fast, electric cerebral high with no body, a pure equatorial daytime strain. It's long-flowering and moderate, a heritage rarity. For old-world highland Thai sativa, this is a collector's source.",
+    curatorQuote:
+      "Citrus and spice over an earthy, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Persian",
+    marketNames: ["Persian Landrace", "Iranian"],
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Iranian landrace", "Ancient hashish indica"],
+    curatorNote:
+      "Persian is an Iranian landrace indica — one of the oldest hashish plants, grown for millennia across the Persian plateau for charas and pressed hash. The nose is earthy and sweet: dry spice and sandalwood over a hashy base. The effect is calm and grounding — a mellow, relaxing body ease, moderate and traditional. It's dense, resin-rich and well-cured by nature, a foundational hash genetic. For old-world Persian hash genetics, this is a deep source.",
+    curatorQuote:
+      "Dry spice and sandalwood over a hashy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Manipuri",
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Northeast Indian landrace"],
+    curatorNote:
+      "Manipuri is a landrace from the state of Manipur in northeast India — a clean, spicy equatorial sativa from the hills near the Myanmar border. The nose is earthy and bright: spice and sweetness with a faint citrus. The effect is energetic and clear — an uplifting, creative head with no body, a pure daytime landrace. It's hardy and moderate, prized by collectors for its rarity. For old-world northeast Indian sativa, Manipuri is a source.",
+    curatorQuote:
+      "Spice and sweetness with a faint citrus.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lemon Thai",
+    lineage: {
+      parents: ["Thai", "Hawaiian"],
+      cross: "Thai × Hawaiian",
+    },
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Zesty lemon-mint heritage sativa"],
+    curatorNote:
+      "Lemon Thai is a 1970s heritage cross of Thai and Hawaiian genetics — a zesty, lemon-and-mint sativa that featured in early American cannabis lore. The nose is bright and clean: lemon and mint over a spicy, herbal base. The effect is up and creative — an energetic, clear, talkative head with little body, a daytime classic. It's terpy and moderate, a piece of cannabis history. For old-world lemon-Thai sativa, this is a flavourful heritage strain.",
+    curatorQuote:
+      "Lemon and mint over a spicy, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Arjan's Haze",
+    breeder: "Green House Seed Co.",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Sweet, spicy Greenhouse haze"],
+    curatorNote:
+      "Arjan's Haze is a Green House haze line named for founder Arjan Roskam — a sweet, spicy, energising sativa that won multiple Cups across its numbered cuts. The nose is bright and warm: citrus and spice over a sweet, herbal base. The effect is up and clear — an energetic, creative, focused head with a light body, a daytime strain. It's terpy and potent, a polished modern haze. For a sweet, refined haze, Arjan's Haze is a flavourful pick.",
+    curatorQuote:
+      "Citrus and spice over a sweet, herbal base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Hawaiian Snow",
+    breeder: "Green House Seed Co.",
+    lineage: {
+      parents: ["Hawaiian", "Haze"],
+      cross: "Hawaiian × Laos × Haze",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Frosty, soaring tropical haze"],
+    curatorNote:
+      "Hawaiian Snow is a Green House sativa — Hawaiian and Laotian genetics crossed into Haze — a frosty, soaring tropical haze that won multiple Cups. The nose is bright and sweet: citrus and tropical fruit over a spicy haze base. The effect is a long, energetic, creative cerebral high with little body, a powerful daytime sativa. It's frosty and very potent, unusually resinous for a haze. For a tropical, frost-caked haze, Hawaiian Snow is a standout.",
+    curatorQuote:
+      "Citrus and tropical fruit over a spicy haze base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cataract Kush",
+    marketNames: ["LA OG"],
+    breeder: "DNA Genetics",
+    lineage: {
+      parents: ["LA Confidential", "OG Kush"],
+      cross: "LA Confidential × OG Kush",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Heavy gas, deeply couch-locking"],
+    curatorNote:
+      "Cataract Kush is a DNA Genetics cross of LA Confidential and OG Kush — two heavy hitters combined for serious sedation. The nose is loud OG: fuel and pine over a damp, skunky earth. The effect is profoundly relaxing — a euphoric head sinking into a numbing, couch-locking body, firmly an evening and sleep strain. It's gassy, dense and very potent, not one for the unprepared. For a heavy, couch-locking gas-OG, Cataract Kush delivers.",
+    curatorQuote:
+      "Fuel and pine over a damp, skunky earth.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "AK-48",
+    breeder: "Nirvana Seeds",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Fast-flowering AK selection"],
+    curatorNote:
+      "AK-48 is a Nirvana selection in the AK-47 family, named for a roughly 48-day flowering time — a fast, mellow, sweet-and-skunky hybrid. The nose is sweet and earthy: skunky sweetness over a spicy, herbal base. The effect is balanced and easy — an uplifting, happy head with a relaxed body, sociable and approachable. It's smooth and moderate-to-strong, bred for speed and ease. For a quick, mellow AK-style hybrid, AK-48 is a friendly pick.",
+    curatorQuote:
+      "Skunky sweetness over a spicy, herbal base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lemon Kush",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Bright lemon over an earthy kush"],
+    curatorNote:
+      "Lemon Kush is a lemon-forward kush hybrid of contested lineage — bright citrus laid over an earthy, kushy body. The nose is fresh and sweet: lemon and citrus over an earthy, piney base. The effect is balanced and uplifting — a happy, energetic head with a relaxing body, versatile across the day. It's terpy and frosty, flavour-forward and potent. For clean lemon over a kush frame, Lemon Kush is a bright, easy pick.",
+    curatorQuote:
+      "Lemon and citrus over an earthy, piney base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Master Bubba",
+    lineage: {
+      parents: ["Master Kush", "Bubba Kush"],
+      cross: "Master Kush × Bubba Kush",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Coffee-and-hash heavy indica"],
+    curatorNote:
+      "Master Bubba crosses Master Kush with Bubba Kush — two hashy, coffee-noted indicas folded into one heavy cut. The nose is rich and earthy: coffee and hash over a sweet, spicy base. The effect is strongly relaxing — a warm, sedating body weight that drifts toward sleep, a textbook nightcap. It's dense, frosty and potent. For coffee-and-hash heavy indica genetics, Master Bubba is a cosy, sleepy pick.",
+    curatorQuote:
+      "Coffee and hash over a sweet, spicy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Snowcap",
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Frosty minty-citrus sativa"],
+    curatorNote:
+      "Snowcap is a frosty, minty-citrus sativa-lean — a bright, energising hybrid named for its snow-white trichome coat. The nose is clean and sharp: citrus and pine with a cool, minty edge. The effect is up and focused — an energetic, creative, clear head with a light body, a daytime strain. It's frosty and terpy, flavour-forward and potent. For a crisp, minty-citrus sativa, Snowcap is a refreshing pick.",
+    curatorQuote:
+      "Citrus and pine with a cool, minty edge.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Highland Guatemalan",
+    marketNames: ["Guatemalan"],
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Central American highland landrace"],
+    curatorNote:
+      "Highland Guatemalan is a Central American landrace from the highlands of Guatemala — a clean, spicy equatorial sativa with deep heritage. The nose is earthy and warm: spice and sweetness with a faint citrus. The effect is energetic and creative — an uplifting, social head with no body, a pure daytime landrace. It's hardy and moderate, prized by collectors for its rarity. For old-world Central American sativa, Highland Guatemalan is a source.",
+    curatorQuote:
+      "Spice and sweetness with a faint citrus.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Sour Grape",
+    marketNames: ["Sour Grapes"],
+    lineage: {
+      parents: ["Sour Diesel", "Granddaddy Purple"],
+      cross: "Sour Diesel × Granddaddy Purple",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Grape candy over a sour-diesel base"],
+    curatorNote:
+      "Sour Grape is a Sour Diesel × Granddaddy Purple cross — sweet grape candy laid over a sour-diesel funk. The nose is sweet and tangy: grape and berry over a gassy, sour base. The effect is balanced and easy — a euphoric, happy head with a relaxing body, versatile across the day. It's frosty and flavour-forward, gas and fruit at once. For grape candy with a sour-diesel edge, Sour Grape is a tasty pick.",
+    curatorQuote:
+      "Grape and berry over a gassy, sour base.",
+    sourceConfidence: "medium",
+  },
 ];
