@@ -5,22 +5,15 @@ import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { strainSlug } from "@/lib/catalog";
 import { paletteForFamily } from "@/lib/sensory-family-palette";
+import { strainImageBySlug } from "@/lib/strain-images";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 
-// Poster-style collectible card. The atmospheric gradient *is* the
-// composition — foreground stays minimal so the family colour gets to
-// carry the eye. Visible per card:
-//
-//   - match% pip top-left
-//   - strain name (large display)
-//   - type · potency (fine print)
-//   - tagline (2–4 words, italic accent — the headline)
-//   - chevron hinting at the detail page
-//
-// Aroma chips, effect glyphs and full curator quotes used to live here
-// in the first pass — they crowded the gradient and made every card
-// feel like a search result. The poster minimalism keeps the family
-// gradient visible so a row of cards reads as a collection at a glance.
+// Poster-style collectible card. When a generated atmospheric image
+// exists for the strain (public/strains/<slug>.webp, registered in the
+// manifest), it fills the whole card behind a dark bottom scrim. When
+// it doesn't, the family-coloured gradient stands in — same composition,
+// graceful fallback. Foreground is minimal in both cases: a match pip
+// top-left, then name + type + tagline at the bottom.
 export function CatalogCollectibleCard({
   entry,
   match,
@@ -35,21 +28,43 @@ export function CatalogCollectibleCard({
   const showMatch = Boolean(match);
   const badgeValue = match ? match.score : score;
   const badgeLabel = showMatch ? "MATCH" : "CURATED";
+  const slug = strainSlug(strain.name);
+  const imageSrc = strainImageBySlug(slug);
 
   return (
     <li className="relative">
       <Link
-        href={`/catalog/${strainSlug(strain.name)}`}
+        href={`/catalog/${slug}`}
         className={cn(
-          "flex aspect-[3/4] h-full flex-col justify-between overflow-hidden rounded-2xl border border-border/40 p-5 transition-all",
+          "relative flex aspect-[3/4] h-full flex-col justify-between overflow-hidden rounded-2xl border border-border/40 p-5 text-white transition-all",
           "hover:scale-[1.01] hover:border-accent/40 hover:shadow-lg",
-          palette.contentTone === "light" ? "text-white" : "text-foreground",
         )}
         style={{ background: palette.background }}
       >
-        {/* Top: match badge — leaves the rest of the upper card for
-            the gradient to breathe */}
-        <div>
+        {/* Atmospheric photo (when available) + scrim for legibility.
+            The gradient under it shows through if the image is missing. */}
+        {imageSrc && (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={imageSrc}
+              alt=""
+              aria-hidden
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.05) 38%, rgba(0,0,0,0.35) 70%, rgba(0,0,0,0.82) 100%)",
+              }}
+            />
+          </>
+        )}
+
+        {/* Top: match badge */}
+        <div className="relative">
           <div
             className="inline-flex h-12 w-12 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md"
             title={
@@ -67,20 +82,18 @@ export function CatalogCollectibleCard({
           </div>
         </div>
 
-        {/* Bottom: strain identity + tagline + chevron. Sits at the
-            bottom so the gradient has space at the top — the card reads
-            as background-first, label-second, like a vintage poster. */}
-        <div>
-          <h3 className="font-display text-2xl font-semibold leading-tight tracking-tight">
+        {/* Bottom: strain identity + tagline + chevron */}
+        <div className="relative">
+          <h3 className="font-display text-2xl font-semibold leading-tight tracking-tight drop-shadow-sm">
             {strain.name}
           </h3>
-          <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-white/55">
+          <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-white/65">
             {strain.type} · {strain.potency.replace("-", " ")}
           </p>
           <div className="mt-3 flex items-end justify-between gap-3">
             {identity?.tagline ? (
               <p
-                className="flex-1 font-display text-sm italic leading-snug"
+                className="flex-1 font-display text-sm italic leading-snug drop-shadow-sm"
                 style={{ color: palette.accent }}
               >
                 {identity.tagline}
@@ -89,7 +102,7 @@ export function CatalogCollectibleCard({
               <span className="flex-1" />
             )}
             <ChevronRight
-              className="h-4 w-4 shrink-0 text-white/55"
+              className="h-4 w-4 shrink-0 text-white/65"
               aria-hidden
             />
           </div>

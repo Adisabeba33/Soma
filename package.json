@@ -10,6 +10,7 @@
     "lint": "next lint",
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
+    "images:sync": "node scripts/sync-strain-images.mjs",
     "test": "tsx --test tests/*.test.ts",
     "stress": "tsx scripts/stress/run.ts",
     "postinstall": "prisma generate"
