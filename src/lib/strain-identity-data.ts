@@ -3732,4 +3732,272 @@ export const IDENTITIES: StrainIdentity[] = [
       "Tropical fruit and citrus over a light herbal base.",
     sourceConfidence: "low",
   },
+
+  // ── ROUND 7: DEEP PARENT-LINE FILL + CLASSICS ──
+  {
+    canonicalName: "Chocolate Diesel",
+    lineage: {
+      parents: ["Chocolate Thai", "Sour Diesel"],
+      cross: "Chocolate Thai × Sour Diesel",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Coffee-tinged diesel", "The third parent of GG4"],
+    curatorNote:
+      "Chocolate Diesel is a Chocolate Thai × Sour Diesel cross — sour fuel with a dark, coffee-and-cocoa undertone — and the third parent of GG4. The nose is loud and gassy: sharp diesel and sour earth with a faint chocolate sweetness. The effect is up and racy — an energetic, heady cerebral lift with little body, a daytime sativa. It's potent and very loud, and its gas runs through the Glue line. For diesel with a cocoa edge, Chocolate Diesel is a distinctive parent cut.",
+    curatorQuote:
+      "Sharp diesel and sour earth with a faint chocolate sweetness.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Shiva Skunk",
+    breeder: "Sensi Seeds",
+    lineage: {
+      parents: ["Northern Lights #5", "Skunk #1"],
+      cross: "Northern Lights #5 × Skunk #1",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Resin-heavy NL5 × Skunk", "A parent of Cinderella 99"],
+    curatorNote:
+      "Shiva Skunk is a Sensi Seeds cross of Northern Lights #5 and Skunk #1 — a resin-heavy indica that helped seed the modern catalogue (it's a parent of Cinderella 99). The nose is classic and sweet: skunky funk and pine over an earthy base. The effect is relaxing and weighty — a calm, body-leaning high that drifts toward sleep. It's dense, frosty and dependable, an 80s-90s building block. For old-school NL-and-skunk genetics, Shiva Skunk is a quiet workhorse.",
+    curatorQuote:
+      "Skunky funk and pine over an earthy base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Mendo Purps",
+    marketNames: ["Mendocino Purps", "Purps"],
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Mendocino purple clone-only", "Behind Mendo Montage and Grape Ape"],
+    curatorNote:
+      "Mendo Purps is a Mendocino County clone-only — a sweet, deeply purple indica whose exact origins were never recorded, and a foundation of the Northern California purple scene. The nose is sweet and fruity: grape and dark berry over a soft, earthy base. The effect is relaxing and pleasant — a happy, calming high that leans comfortable rather than couch-locking. It's dense, frosty and colourful, and its DNA runs through Mendo Montage and Grape Ape. For classic Mendo purple, this is a source cut.",
+    curatorQuote:
+      "Grape and dark berry over a soft, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Tres Dawg",
+    marketNames: ["Tres Dog"],
+    breeder: "Bodhi Seeds",
+    lineage: {
+      parents: ["Chemdawg"],
+      cross: "Chemdawg × (Afghani × Chemdawg) — triple Chem",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Triple-Chem indica", "Parent of Stardawg and Appalachia"],
+    curatorNote:
+      "Tres Dawg is a Bodhi Seeds indica — Chemdawg backcrossed through Afghani — a heavier, denser take on the chem funk. The nose is loud and gassy: diesel and sour earth with a piney edge. The effect leans relaxing — a euphoric head sinking into a weighty body, evening-friendly. It's sticky, potent and resin-heavy, and it parents both Stardawg and Appalachia. For a heavy, stable cut of the Chem family, Tres Dawg is a key line.",
+    curatorQuote:
+      "Diesel and sour earth with a piney edge.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Alien Kush",
+    breeder: "Alien Genetics",
+    lineage: {
+      parents: ["Las Vegas Purple Kush", "Alien Tech"],
+      cross: "Las Vegas Purple Kush × Alien Tech",
+      parentDetails: {
+        "Las Vegas Purple Kush": { lineageBrief: "purple Kush selection", type: "indica" },
+        "Alien Tech": { lineageBrief: "Alien Genetics OG line", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Earthy-gas OG kush", "A parent of Fruity Pebbles OG"],
+    curatorNote:
+      "Alien Kush is an Alien Genetics cross of Las Vegas Purple Kush and Alien Tech — an earthy, gassy OG-kush type that became important as a parent (it's part of Fruity Pebbles OG). The nose is classic and deep: earthy gas and pine with a herbal edge. The effect is relaxing and heavy — a euphoric head sinking into a comfortable body, evening-leaning. It's frosty and potent, and it lends OG weight to FPOG. For earthy OG-kush genetics, Alien Kush is a solid building block.",
+    curatorQuote:
+      "Earthy gas and pine with a herbal edge.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Green Ribbon",
+    lineage: {
+      parents: ["Trainwreck", "Trinity"],
+      cross: "Trainwreck × Trinity × Aloha White Widow",
+      parentDetails: {
+        "Trinity": { lineageBrief: "Pacific Northwest clone-only", type: "sativa" },
+      },
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Sweet pine-citrus sativa", "A parent of Fruity Pebbles OG"],
+    curatorNote:
+      "Green Ribbon is a NorCal sativa blend — Trainwreck and Trinity with Aloha White Widow — known for a clean, sweet pine-and-citrus nose. The smell is bright: sweet citrus and pine over a light herbal base. The effect is up and creative — an uplifting, energetic head with a relaxed body, daytime-leaning. It's terpy and potent, and it's the sativa half behind Fruity Pebbles OG. For clean, sweet sativa genetics, Green Ribbon is a flavourful parent.",
+    curatorQuote:
+      "Sweet citrus and pine over a light herbal base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Sour Bubble",
+    breeder: "BOG Seeds",
+    lineage: {
+      parents: ["Bubble Gum"],
+      cross: "Bubble Gum IBL",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Sour-gas Bubble Gum IBL", "A parent of Sour Dubb"],
+    curatorNote:
+      "Sour Bubble is a BOG Seeds inbred line of Bubble Gum — a sticky, sour-gas indica far from its sweet parent, and one half of Sour Dubb. The nose is loud: sharp diesel and sour funk over a faint berry sweetness. The effect is relaxing and potent — a euphoric head easing into a weighty body. It's extremely sticky and resin-heavy, prized by breeders for structure. For sour-gas genetics behind the Glue line, Sour Bubble matters.",
+    curatorQuote:
+      "Sharp diesel and sour funk over a faint berry sweetness.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Northern Lights #5",
+    marketNames: ["NL5", "NL #5"],
+    breeder: "Sensi Seeds",
+    lineage: {
+      parents: ["Afghani"],
+      cross: "Northern Lights #5 — Afghani × Thai phenotype",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["The prized NL pheno", "Parent of Shiva Skunk and Jack Herer"],
+    curatorNote:
+      "Northern Lights #5 is the most celebrated phenotype of Northern Lights — an Afghani-and-Thai cut that won early Cannabis Cups and seeded a huge share of modern genetics. The nose is sweet and resinous: pine and earth with a spicy sweetness. The effect is heavy and dreamy — a relaxing body stone that drifts toward sleep. It's dense, frosty and dependable, and it parents Shiva Skunk and Jack Herer. For NL at its most prized, #5 is the reference cut.",
+    curatorQuote:
+      "Pine and earth with a spicy sweetness.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Chocolate Thai",
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Cocoa-noted Thai landrace", "Parent of Chocolate Diesel and Chocolope"],
+    curatorNote:
+      "Chocolate Thai is a 1960s-70s Thai landrace named for an unusual cocoa-and-coffee note — a slow, airy sativa from a different era. The nose is earthy and sweet: cocoa and spice over a woody, herbal base. The effect is gentle and clear — a bright, creative, low-anxiety head with little body, classic old-school sativa. It's mild by modern standards but historically important, parenting Chocolate Diesel and Chocolope. For the source of cannabis 'chocolate' flavour, this landrace is it.",
+    curatorQuote:
+      "Cocoa and spice over a woody, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Skywalker",
+    breeder: "Dutch Passion",
+    lineage: {
+      parents: ["Mazar", "Blueberry"],
+      cross: "Mazar × Blueberry",
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Sweet berry indica-lean", "A parent of Skywalker OG"],
+    curatorNote:
+      "Skywalker is a Dutch Passion cross of Mazar and Blueberry — sweet berry over a hashy Afghan base, and the non-OG parent of Skywalker OG. The nose is sweet and fruity: blueberry and berry over an earthy, hashy floor. The effect is relaxing and happy — a euphoric head easing into a comfortable, heavy body, evening-leaning. It's dense, frosty and approachable. For sweet-berry indica genetics, Skywalker is a likeable parent line.",
+    curatorQuote:
+      "Blueberry and berry over an earthy, hashy floor.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Trinity",
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Pacific Northwest clone-only", "Behind Green Ribbon and Crystal Locomotive"],
+    curatorNote:
+      "Trinity is a Pacific Northwest clone-only sativa — a rare, lightly documented cut prized for a clean pine-and-citrus nose. The smell is bright and fresh: pine and lemon over a sweet, earthy base. The effect is up and clear — an uplifting, energetic head with a smooth body, daytime-friendly. It's terpy and smooth, and it shows up behind Green Ribbon and Crystal Locomotive. For clean NW sativa character, Trinity is a quiet parent line.",
+    curatorQuote:
+      "Pine and lemon over a sweet, earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lemon G",
+    marketNames: ["Lemon G13"],
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Ohio clone-only", "One of the loudest true-lemon cuts"],
+    curatorNote:
+      "Lemon G is an Ohio clone-only — an Athens-area cut whose exact lineage stayed local, famous for one of the cleanest, loudest lemon noses in cannabis. The smell is pure citrus: sharp lemon and zest over a light earthy base. The effect is up and clear — an energetic, focused, uplifting head, a daytime sativa. It's terpy and potent, prized purely for that lemon. For true-lemon flavour with a clone-only legend behind it, Lemon G is a connoisseur cut.",
+    curatorQuote:
+      "Sharp lemon and zest over a light earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Han-Solo Burger",
+    marketNames: ["Han Solo Burger"],
+    breeder: "Skunk Master Flex",
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Savoury cheese-gas burger cut", "A parent of Donny Burger"],
+    curatorNote:
+      "Han-Solo Burger is a Skunk Master Flex cut — a savoury, cheesy-gas strain in the GMO 'burger' family, and a parent of Donny Burger. The nose is pungent and savoury: cheese, gas and earth with a peppery edge, more umami than sweet. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, an evening strain. It's frosty, loud and potent, a connoisseur's funk cut. For savoury cheese-gas behind the burger line, Han-Solo delivers.",
+    curatorQuote:
+      "Cheese, gas and earth with a peppery edge, more umami than sweet.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lemonnade",
+    marketNames: ["Lemonade"],
+    breeder: "Cookies / Lemonnade",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Bright lemon, daytime-leaning"],
+    curatorNote:
+      "Lemonnade is the Cookies-affiliated lemon line — a bright, sweet citrus sativa-lean built around clean lemon flavour. The nose is fresh and zesty: lemon and citrus over a soft, sweet herbal base. The effect is uplifting and happy — an energetic, sociable head with a light body, daytime-friendly. It's terpy and flavour-forward, and it lends its lemon to crosses like Cheetah Piss. For clean, sweet lemon citrus, Lemonnade is a reliable pick.",
+    curatorQuote:
+      "Lemon and citrus over a soft, sweet herbal base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Garlic Juice",
+    breeder: "In House Genetics",
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Loud GMO-style savoury gas"],
+    curatorNote:
+      "Garlic Juice is an In House Genetics cut in the GMO savoury-funk family — loud garlic-and-gas with little sweetness. The nose is pungent: roasted garlic and diesel over an earthy, herbal base, unmistakably umami. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, firmly evening. It's frosty, potent and very loud, a connoisseur's funk strain. For garlic-gas intensity, Garlic Juice brings the volume.",
+    curatorQuote:
+      "Roasted garlic and diesel over an earthy, herbal base, unmistakably umami.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Gary Poppins",
+    lineage: {
+      parents: ["Gary Payton", "Sunset Sherbet"],
+      cross: "Gary Payton × Sunset Sherbet",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Gassy-mint with a creamy lift"],
+    curatorNote:
+      "Gary Poppins pairs Gary Payton's gassy mint with Sunset Sherbet's cream — a frosty modern exotic that softens GP's edge. The nose is layered: cool mint and gas over a sweet, creamy base. The effect is balanced and euphoric — an uplifting, creative head with a relaxed body, sociable and potent. It's very frosty and flavour-forward, keeping Gary Payton's bag appeal. For gassy-mint with a creamy lift, Gary Poppins is a tasty exotic.",
+    curatorQuote:
+      "Cool mint and gas over a sweet, creamy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Jelly Donutz",
+    marketNames: ["Jelly Donuts"],
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Berry-pastry sweetness over light gas"],
+    curatorNote:
+      "Jelly Donutz is a sweet berry-pastry exotic — jammy fruit over a doughy, lightly gassy base, built for dessert flavour. The nose is sweet and rich: mixed berry jam and sugar over a faint gas. The effect is relaxing and happy — a euphoric head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, an easy-drinking dessert cut. For berry-and-pastry sweetness, Jelly Donutz is a tasty pick.",
+    curatorQuote:
+      "Mixed berry jam and sugar over a faint gas.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Watermelon",
+    marketNames: ["Watermelon OG"],
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Sweet watermelon-candy, indica-lean"],
+    curatorNote:
+      "Watermelon is a sweet, fruit-forward indica-lean built around its namesake melon-candy flavour. The nose is sweet and juicy: watermelon and berry over a soft, earthy base, refreshing rather than gassy. The effect is mellow and happy — a relaxing, contented body ease with a clear head, comfortable for unwinding. It's frosty and flavour-led, moderate in its demands. For sweet melon-candy with an easy body, Watermelon is a gentle pick.",
+    curatorQuote:
+      "Watermelon and berry over a soft, earthy base, refreshing rather than gassy.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Crystal Locomotive",
+    lineage: {
+      parents: ["Trainwreck", "Trinity"],
+      cross: "Trainwreck × Trinity",
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Pine-citrus sativa", "A parent of Mendo Montage"],
+    curatorNote:
+      "Crystal Locomotive is a Trainwreck × Trinity cross — a frosty, pine-and-citrus sativa from the same NorCal pool as Green Ribbon. The nose is bright and clean: pine and lemon over a sweet, earthy base. The effect is up and energetic — an uplifting, creative head with a relaxed body, daytime-leaning. It's terpy and potent, and it's the sativa side behind Mendo Montage. For clean pine-citrus sativa genetics, Crystal Locomotive is a flavourful parent.",
+    curatorQuote:
+      "Pine and lemon over a sweet, earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Mazar",
+    marketNames: ["Mazar-i-Sharif", "Mazar I Sharif"],
+    breeder: "Dutch Passion (from Afghan landrace)",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Afghan hash landrace", "A parent of Skywalker"],
+    curatorNote:
+      "Mazar is an Afghan landrace from the Mazar-i-Sharif region — a dense, resin-heavy indica traditionally grown for hashish, refined into seed form by Dutch Passion. The nose is deep and earthy: sandalwood and incense over a sweet, spicy hash sweetness. The effect is heavily relaxing — a warm, sedating body weight that tips toward sleep, classic landrace indica. It's potent and hash-rich, and it's the Afghan half behind Skywalker. For traditional Afghan hash-plant genetics, Mazar is a source.",
+    curatorQuote:
+      "Sandalwood and incense over a sweet, spicy hash sweetness.",
+    sourceConfidence: "medium",
+  },
 ];
