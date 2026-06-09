@@ -36,10 +36,19 @@ function strain(name: string): StrainProfile {
 
 describe("sensoryFamilyBonus — unit behaviour", () => {
   it("returns 0 when candidate has no identity record", () => {
-    // Pick a strain very likely without identity — Pink Kush was added
-    // in PR #19 sensory-only.
-    const candidate = strain("Pink Kush");
-    assert.equal(getIdentity(candidate.name)?.sensoryFamily, undefined);
+    // Every real catalog strain now carries an identity record, so we
+    // fabricate a candidate with a name that has none to exercise the
+    // no-identity path directly.
+    const candidate: StrainProfile = {
+      name: "__no_identity_fixture__",
+      type: "hybrid",
+      aromas: ["gassy"],
+      flavors: ["gassy"],
+      effects: ["relaxed"],
+      traits: ["gassy"],
+      potency: "strong",
+    };
+    assert.equal(getIdentity(candidate.name), null);
     const favs = [strain("GG4")];
     assert.equal(sensoryFamilyBonus(candidate, favs), 0);
   });
