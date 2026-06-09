@@ -891,8 +891,14 @@ export function scoreStrain(
   // and at least one favourite carry an identity record.
   const sensoryMod = sensoryFamilyBonus(strain, resolvedFavorites);
 
-  const texture = textureScore(strain, profile.texturePreferences);
-  const quality = qualityScore(strain, profile.qualityPriorities);
+  // Defensive against legacy DB rows where these columns were not
+  // backfilled (the schema declares String[] but historic profiles in
+  // production may carry NULL — Postgres permits it on text[] columns
+  // without an explicit @default([]). Before PR #52 nobody read these
+  // fields so NULLs were silent; now they'd crash .map(). Always
+  // coerce to [] at this single seam.
+  const texture = textureScore(strain, profile.texturePreferences ?? []);
+  const quality = qualityScore(strain, profile.qualityPriorities ?? []);
 
   const raw =
     W.effect * effectContribution +
