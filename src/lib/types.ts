@@ -57,6 +57,12 @@ export interface StrainMatch {
   knownStrain: boolean;
   category: Category;
   matchScore: number;
+  // Pre-calibration internal score (no anchor floor, no 99 cap, no 88
+  // non-anchor ceiling). Carries decimal precision so ties at matchScore
+  // can be broken deterministically by what the engine actually thinks.
+  // Visible only as a sort tie-breaker and a small "#N of N" indicator
+  // when multiple items share the same displayed matchScore.
+  unclampedScore: number;
   confidence: Confidence;
   aromaMatch: number;
   flavorMatch: number;

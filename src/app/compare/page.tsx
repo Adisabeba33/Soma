@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { GitCompareArrows } from "lucide-react";
 import { TagInput } from "@/components/ui/selectors";
@@ -41,6 +41,35 @@ export default function ComparePage() {
     });
     clearBasket();
   }, []);
+
+  // When the calibration ceiling collapses several non-anchor scores to
+  // the same visible matchScore, the engine still differentiated them
+  // internally (via unclampedScore — used as sort tie-breaker above).
+  // tieRanks surfaces that: for each item that shares a matchScore with
+  // at least one other item, it records its position within the tied
+  // group plus the group size, so the card can render a small "#1 of 3"
+  // pill explaining the order.
+  const tieRanks = useMemo(() => {
+    const map = new Map<string, { rank: number; total: number }>();
+    let i = 0;
+    while (i < items.length) {
+      let j = i;
+      while (j < items.length && items[j].matchScore === items[i].matchScore) {
+        j++;
+      }
+      const groupSize = j - i;
+      if (groupSize > 1) {
+        for (let k = 0; k < groupSize; k++) {
+          map.set(items[i + k].strainName, {
+            rank: k + 1,
+            total: groupSize,
+          });
+        }
+      }
+      i = j;
+    }
+    return map;
+  }, [items]);
 
   async function compare() {
     setLoading(true);
@@ -132,7 +161,10 @@ export default function ComparePage() {
           <p className="mt-3 rounded-lg bg-muted px-3 py-2 font-mono text-xs text-muted-foreground">
             [debug] Ranked order:{" "}
             {items
-              .map((item) => `${item.strainName} ${item.matchScore}%`)
+              .map(
+                (item) =>
+                  `${item.strainName} ${item.matchScore}% (raw ${item.unclampedScore.toFixed(2)})`,
+              )
               .join(", ")}
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -171,6 +203,15 @@ export default function ComparePage() {
                     >
                       {item.category}
                     </span>
+                    {tieRanks.get(item.strainName) && (
+                      <span
+                        className="rounded-full border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground"
+                        title={`Internal score ${item.unclampedScore.toFixed(2)} — the engine ranks this #${tieRanks.get(item.strainName)?.rank} of ${tieRanks.get(item.strainName)?.total} strains tied at ${item.matchScore}%. The 88-point non-anchor ceiling compresses the visible score; the order here is the engine's actual judgment.`}
+                      >
+                        #{tieRanks.get(item.strainName)?.rank} of{" "}
+                        {tieRanks.get(item.strainName)?.total}
+                      </span>
+                    )}
                   </div>
                   <p className="mt-1 text-xs capitalize text-muted-foreground">
                     {item.strainType} · {item.potency.replace("-", " ")} ·{" "}
