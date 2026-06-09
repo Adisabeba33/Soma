@@ -21,6 +21,35 @@ const TONE: Record<Category, string> = {
   Avoid: "text-[#a23b2c]",
 };
 
+// Pre-built test clusters. Each one is 5 strains that exemplify a
+// recognisable sensory territory, so the owner (and curious users)
+// can run a "standard battery" Compare in one tap instead of typing
+// the same anchor sets every time. Click → replaces whatever's in
+// the TagInput. Strain names are canonical so TagInput's known-strain
+// validation lights them green.
+const COMPARE_PRESETS: Array<{ label: string; strains: string[] }> = [
+  {
+    label: "OG cluster",
+    strains: ["Face Off OG", "King Louis XIII", "Fire OG", "Tahoe OG", "Alien OG"],
+  },
+  {
+    label: "Gas school",
+    strains: ["GG4", "Sour Diesel", "Chemdawg", "GMO Cookies", "Stardawg"],
+  },
+  {
+    label: "Modern dessert",
+    strains: ["Wedding Cake", "Gelato", "Runtz", "Permanent Marker", "Sundae Driver"],
+  },
+  {
+    label: "Modern fruity",
+    strains: ["Zoap", "RS11", "White Hot Guava", "Pink Runtz", "Lemon Cherry Gelato"],
+  },
+  {
+    label: "Heavy indica",
+    strains: ["Northern Lights", "Bubba Kush", "Granddaddy Purple", "Master Yoda", "Hindu Kush"],
+  },
+];
+
 export default function ComparePage() {
   const [strains, setStrains] = useState<string[]>([]);
   const [items, setItems] = useState<ComparisonItem[]>([]);
@@ -144,13 +173,41 @@ export default function ComparePage() {
       </p>
 
       <div className="mt-8 max-w-xl">
-        <TagInput
-          value={strains}
-          onChange={setStrains}
-          placeholder="Add a strain and press Enter"
-          suggestions={POPULAR_STRAINS}
-          validateStrains
-        />
+        {/* Quick-start preset clusters. Tap → replaces TagInput with
+            the cluster's 5 strains so the standard test batteries are
+            one click each. Hover title lists the strains so the user
+            can preview what each preset loads. */}
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            Quick start
+          </p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {COMPARE_PRESETS.map((preset) => (
+              <button
+                key={preset.label}
+                type="button"
+                onClick={() => setStrains(preset.strains)}
+                title={preset.strains.join(" · ")}
+                className={cn(
+                  "rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground transition-colors",
+                  "hover:border-accent/40 hover:text-foreground",
+                )}
+              >
+                {preset.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-5">
+          <TagInput
+            value={strains}
+            onChange={setStrains}
+            placeholder="Add a strain and press Enter"
+            suggestions={POPULAR_STRAINS}
+            validateStrains
+          />
+        </div>
         <div className="mt-4 flex items-center gap-3">
           <Button
             onClick={compare}
