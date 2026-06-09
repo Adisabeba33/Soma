@@ -5,12 +5,14 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import {
   Check,
+  ChevronDown,
   ChevronRight,
   GitCompareArrows,
   LayoutGrid,
   Rows3,
   Search,
   SlidersHorizontal,
+  X,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -77,6 +79,10 @@ export function CatalogClient({
   const [flavorFilters, setFlavorFilters] = useState<Set<string>>(new Set());
   const [effectFilters, setEffectFilters] = useState<Set<string>>(new Set());
   const [view, setView] = useState<ViewMode>("list");
+  // Filters collapsed by default. Most visits don't need them — search +
+  // sort handle the common cases. The toggle below the search opens them
+  // when actually needed.
+  const [filtersOpen, setFiltersOpen] = useState(false);
   // Default to ranking by the user's match when we have a profile, else the
   // curated index.
   const [sortBy, setSortBy] = useState<SortMode>(
@@ -184,38 +190,73 @@ export function CatalogClient({
     flavorFilters.size > 0 ||
     effectFilters.size > 0;
 
-  return (
-    <div className="mt-8 grid gap-6 lg:grid-cols-[232px_minmax(0,1fr)]">
-      {/* ── Filter rail ─────────────────────────────────────────── */}
-      <aside className="lg:sticky lg:top-6 lg:self-start">
-        <div className="rounded-2xl border border-border bg-card p-4">
-          <div className="flex items-center justify-between">
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-foreground">
-              <SlidersHorizontal className="h-3.5 w-3.5 text-brass" />
-              Filters
-            </p>
-            {anyFilter && (
-              <button
-                type="button"
-                onClick={clearAll}
-                className="text-xs text-muted-foreground hover:text-foreground"
-              >
-                Reset
-              </button>
-            )}
-          </div>
+  // Count of active *non-query* filters — drives the badge on the
+  // "Filters" toggle so the user can see at a glance what's narrowing
+  // the results even when the rail is collapsed.
+  const activeFilterCount =
+    (typeFilter !== "all" ? 1 : 0) +
+    (strengthMin > 0 ? 1 : 0) +
+    aromaFilters.size +
+    flavorFilters.size +
+    effectFilters.size;
 
-          <div className="relative mt-4">
+  return (
+    <div className="mt-8 space-y-4">
+      {/* ── Top bar: search + filters toggle + sort + view ─────── */}
+      <div className="rounded-2xl border border-border bg-card p-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="relative min-w-0 flex-1">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search…"
+              placeholder="Search strains…"
               className="h-10 pl-9 text-sm"
             />
           </div>
+          <button
+            type="button"
+            onClick={() => setFiltersOpen((v) => !v)}
+            aria-expanded={filtersOpen}
+            className={cn(
+              "inline-flex h-10 shrink-0 items-center gap-1.5 rounded-lg border px-3 text-sm transition-colors",
+              filtersOpen
+                ? "border-accent bg-accent/10 text-accent"
+                : "border-border text-foreground hover:bg-muted",
+            )}
+          >
+            <SlidersHorizontal className="h-3.5 w-3.5" />
+            <span>Filters</span>
+            {activeFilterCount > 0 && (
+              <span className="ml-0.5 rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-semibold text-accent-foreground">
+                {activeFilterCount}
+              </span>
+            )}
+            <ChevronDown
+              className={cn(
+                "h-3.5 w-3.5 transition-transform",
+                filtersOpen && "rotate-180",
+              )}
+              aria-hidden
+            />
+          </button>
+          {anyFilter && (
+            <button
+              type="button"
+              onClick={clearAll}
+              className="inline-flex h-10 shrink-0 items-center gap-1 rounded-lg px-2 text-xs text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-3.5 w-3.5" />
+              Clear
+            </button>
+          )}
+        </div>
+      </div>
 
+      {/* ── Filter panel (collapsed by default) ─────────────────── */}
+      {filtersOpen && (
+        <div className="rounded-2xl border border-border bg-card p-4">
           {/* Type */}
           <FilterSection label="Type">
             <div className="grid grid-cols-2 gap-1.5">
@@ -308,16 +349,10 @@ export function CatalogClient({
             />
           </FilterSection>
 
-          <div className="mt-5 border-t border-border pt-4">
-            <p className="rounded-xl bg-accent px-4 py-2.5 text-center text-sm font-medium text-accent-foreground">
-              {filtered.length}{" "}
-              {filtered.length === 1 ? "result" : "results"}
-            </p>
-          </div>
         </div>
-      </aside>
+      )}
 
-      {/* ── Main column ─────────────────────────────────────────── */}
+      {/* ── Results header: count + sort + view toggle ───────────── */}
       <div>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-muted-foreground">

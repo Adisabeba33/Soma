@@ -13,6 +13,7 @@ function match(strainName: string, knownStrain: boolean): StrainMatch {
     knownStrain,
     category: "Worth Trying",
     matchScore: 60,
+    unclampedScore: 60,
     confidence: "low",
     aromaMatch: 0,
     flavorMatch: 0,
