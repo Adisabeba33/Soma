@@ -2730,4 +2730,340 @@ export const IDENTITIES: StrainIdentity[] = [
       "Floral, piney sweetness over a skunky, herbal base.",
     sourceConfidence: "low",
   },
+
+  // ── ROUND 4: NEW 2024–2026 DISPENSARY RELEASES ──
+  {
+    canonicalName: "White Truffle",
+    marketNames: ["WT", "White Truffle Gelato"],
+    breeder: "BeLeaf (Gorilla Butter cut; orig. Fresh Coast)",
+    lineage: {
+      parents: ["GG4", "Peanut Butter Breath"],
+      cross: "Gorilla Butter phenotype (GG4 × Peanut Butter Breath)",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Savoury truffle-and-mushroom funk over gas", "Bone-white frost on dark bud"],
+    curatorNote:
+      "White Truffle is a standout phenotype of Gorilla Butter — itself a cross of GG4 and Peanut Butter Breath — selected by BeLeaf around 2021 and now one of the defining savoury exotics. The nose is unusual and pungent: earthy truffle and mushroom funk over heavy gas, with almost none of the candy sweetness modern exotics chase. The effect is firmly indica-leaning — a euphoric head that sinks into a heavy, relaxing body, an evening strain. It's frosty, sticky and high-test, prized as much by hash makers as smokers. For a genuinely savoury, gassy profile off the candy path, White Truffle stands alone.",
+    curatorQuote:
+      "Earthy truffle and mushroom funk over heavy gas — almost no candy sweetness at all.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Animal Face",
+    marketNames: ["Animal Face #10"],
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Face Off OG", "Animal Mints"],
+      cross: "Face Off OG × Animal Mints",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Piney-fuel OG over cookie sweetness", "2022 Emerald Cup winner"],
+    curatorNote:
+      "Animal Face is a Seed Junky cross of Face Off OG and Animal Mints that took first at the 2022 Emerald Cup — piney OG fuel welded to cookie sweetness. The nose is sharp and gassy: pine and fuel over a sweet, doughy cookie base, loud and frosty. The effect is potent and balanced-leaning-up — a euphoric, creative head with a relaxed body, versatile across the day. It runs very strong, so a little goes a long way for newer smokers. For gassy cookies done at competition level, Animal Face is a benchmark.",
+    curatorQuote:
+      "Pine and fuel over a sweet, doughy cookie base — loud and frosty.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Project 4516",
+    marketNames: ["4516"],
+    breeder: "Grandiflora Genetics",
+    lineage: {
+      parents: ["Gelato 45", "Platinum Puff"],
+      cross: "Gelato #45 × Platinum Puff",
+      parentDetails: {
+        "Gelato 45": { lineageBrief: "Sunset Sherbet × Thin Mint GSC", type: "hybrid" },
+        "Platinum Puff": { lineageBrief: "Platinum OG × Grateful Puff", type: "indica" },
+      },
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Creamy gelato over earthy gas", "Trichome-caked, very potent"],
+    curatorNote:
+      "Project 4516 is a Grandiflora Genetics hybrid — Gelato #45 crossed with Platinum Puff — built for creamy dessert over a gassy, earthy base. The nose is rich: sweet gelato cream and berry cut by a fuel funk, frosty and dense. The effect leans relaxing and heavy — a euphoric head easing into real body weight, an afternoon-into-evening strain. It's high-test and trichome-caked, a connoisseur's dessert cut. For creamy-gas exotics with weight behind them, 4516 delivers.",
+    curatorQuote:
+      "Sweet gelato cream and berry cut by a fuel funk, frosty and dense.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Modified Grapes",
+    marketNames: ["Modified Grape"],
+    breeder: "Symbiotic Genetics",
+    lineage: {
+      parents: ["GMO Cookies", "Purple Punch"],
+      cross: "GMO × Purple Punch F2",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Garlic-gas funk over grape candy"],
+    curatorNote:
+      "Modified Grapes is a Symbiotic Genetics cross of GMO and Purple Punch — savoury garlic-gas funk meeting grape candy. The nose is pungent and unusual: garlic and diesel over sweet grape and berry, loud and divisive. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, firmly an evening strain. It's potent, frosty and not subtle, a connoisseur's funk cut. For people who want GMO's savoury punch with a grape sweetness, Modified Grapes is a standout.",
+    curatorQuote:
+      "Garlic and diesel over sweet grape and berry — loud and divisive.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Snowman",
+    marketNames: ["Snowman Cookies"],
+    breeder: "Cookies Fam / Berner",
+    lineage: {
+      parents: ["Girl Scout Cookies"],
+      cross: "Girl Scout Cookies phenotype",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Snow-white trichome coverage", "A parent of Gary Payton"],
+    curatorNote:
+      "Snowman is a prized phenotype of Girl Scout Cookies — selected by the Cookies Fam for extreme, snow-white trichome coverage — and a parent of Gary Payton. The nose is sweet and classic: vanilla cookie and earthy sweetness with a piney lift. The effect is balanced and bright — a euphoric, creative head with a relaxed body, sociable and versatile. It's frosty and potent, the GSC genome at its most resinous. For a frosty, sweet cookie cut with real pedigree, Snowman earns its name.",
+    curatorQuote:
+      "Vanilla cookie and earthy sweetness with a piney lift.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "The White",
+    marketNames: ["Triangle", "The White Triangle"],
+    breeder: "Clone-only (Krome / Florida)",
+    lineage: {
+      cross: "Unknown — Florida clone-only (Krome cut)",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Confectioners'-sugar frost", "Unusually faint nose"],
+    curatorNote:
+      "The White — once passed around as 'Triangle' for Florida's golden-triangle region — is a clone-only legend whose lineage was never documented, credited to a grower known as Krome. Its calling card is the look: buds so caked in trichomes they resemble confectioners' sugar, paired with an unusually faint nose. What scent there is reads earthy and piney, more kush than candy. The effect is a heavy, relaxing body high that leans toward sleep, an evening strain. Prized for resin and as breeding stock, The White is famous for frost rather than flavour.",
+    curatorQuote:
+      "Buds so caked in trichomes they resemble confectioners' sugar.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sherb Crasher",
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Sunset Sherbet", "Wedding Crasher"],
+      cross: "Sunset Sherbet × Wedding Crasher",
+      parentDetails: {
+        "Wedding Crasher": { lineageBrief: "Wedding Cake × Purple Punch", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Sherbet cream over grape-gas cake"],
+    curatorNote:
+      "Sherb Crasher is a Seed Junky cross of Sunset Sherbet and Wedding Crasher — creamy sherbet folded into grape-and-gas cake. The nose is sweet and layered: sherbet cream and berry over a grape, gassy funk. The effect is relaxing and euphoric — a happy head easing into comfortable body weight, evening-leaning. It's frosty, potent and dessert-forward, easy to like. For sherbet sweetness with a grape-gas backbone, Sherb Crasher is a tasty pick.",
+    curatorQuote:
+      "Sherbet cream and berry over a grape, gassy funk.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "E85",
+    breeder: "Grandiflora Genetics",
+    lineage: {
+      parents: ["Wedding Cake", "Project 4516"],
+      cross: "Wedding Cake × Project 4516",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Vanilla cake over sharp diesel", "Limited-drop hype strain"],
+    curatorNote:
+      "E85 is a Grandiflora Genetics hybrid — Wedding Cake crossed with their own Project 4516 — named for high-octane fuel and built to match. The nose is rich and gassy: vanilla cake sweetness over a sharp diesel funk, dessert with a fuel chaser. The effect is potent and balanced-leaning-relaxed — a euphoric head over a comfortable body, versatile but strong. It's frosty and loud, a limited-drop hype strain. For gassy dessert with real horsepower, E85 lives up to the name.",
+    curatorQuote:
+      "Vanilla cake sweetness over a sharp diesel funk — dessert with a fuel chaser.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sundae Sherbert",
+    breeder: "Cannarado Genetics",
+    lineage: {
+      parents: ["Sundae Driver", "Sunset Sherbet"],
+      cross: "Sundae Driver × Sunset Sherbet",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Creamy, fruity, easy-drinking dessert"],
+    curatorNote:
+      "Sundae Sherbert is a Cannarado cross of Sundae Driver and Sunset Sherbet — two dessert smoothies in one glass. The nose is sweet and creamy: fruity sherbet and grape over a soft, piney earth. The effect is balanced and mellow — a happy, relaxing ease with a clear-enough head, comfortable across the day. It's smooth, frosty and easy-drinking rather than heavy. For creamy, fruity dessert without a knockout, Sundae Sherbert is a gentle pick.",
+    curatorQuote:
+      "Fruity sherbet and grape over a soft, piney earth.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cherry MAC",
+    marketNames: ["Cherry MAC Pie"],
+    breeder: "MAC line (Capulator-derived)",
+    lineage: {
+      parents: ["MAC", "Cherry Pie"],
+      cross: "MAC × Cherry Pie (cherry-MAC line)",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Cherry fruit tempering MAC diesel funk", "A line, not a fixed cut"],
+    curatorNote:
+      "Cherry MAC is less one strain than a line — MAC crossed with a cherry-leaning parent, most often Cherry Pie — built to temper MAC's diesel funk with red fruit. The nose is bright and complex: sweet cherry and floral fruit over MAC's creamy, gassy funk. The effect is balanced and euphoric — an uplifting, creative head with a relaxed body, sociable and potent. It's frosty and resin-heavy, keeping MAC's bag appeal. For cherry fruit on a MAC frame, it's a flavourful exotic.",
+    curatorQuote:
+      "Sweet cherry and floral fruit over MAC's creamy, gassy funk.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Studio 54",
+    breeder: "Doja Pak / Deep East Farms",
+    lineage: {
+      parents: ["Sunset Sherbet", "OZ Kush"],
+      cross: "Sunset Sherbet × OZ Kush (#54 pheno)",
+      parentDetails: {
+        "OZ Kush": { lineageBrief: "Zkittlez × OG Kush line", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Guava-sherbet exotic", "Sibling cut of RS11"],
+    curatorNote:
+      "Studio 54 is a Doja Pak / Deep East Farms exotic — Sunset Sherbet crossed with OZ Kush and pheno-hunted by Wizard Trees — a sibling of the hyped RS11 from the same project. The nose is sweet and tropical: guava and sherbet cream over a light gas. The effect is balanced and euphoric — an uplifting head settling into easy body comfort, versatile across the day. It's glassy, colourful and very frosty, a top-shelf bag-appeal cut. For guava-sherbet exotics in the RS11 family, Studio 54 is a prize.",
+    curatorQuote:
+      "Guava and sherbet cream over a light gas.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Pink Picasso",
+    breeder: "Wonderbrett",
+    lineage: {
+      parents: ["Candyland", "OZ Kush"],
+      cross: "Candyland × OZ Kush",
+      parentDetails: {
+        "OZ Kush": { lineageBrief: "Zkittlez × OG Kush line", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Candy-grape boutique exotic", "Colour- and terp-selected"],
+    curatorNote:
+      "Pink Picasso is a Wonderbrett exotic — Candyland crossed with OZ Kush — a boutique LA cut known for colour and complex dessert terps. The nose is sweet and fruity: candy berry and grape over a soft floral base. The effect is bright and balanced — a euphoric, creative head with a relaxed body, sociable and potent. It's colourful, frosty and resin-heavy, built for looks as much as feel. For candy-grape exotics with craft pedigree, Pink Picasso stands out.",
+    curatorQuote:
+      "Candy berry and grape over a soft floral base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Power Sherbet",
+    marketNames: ["Power Sherb"],
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["Sunset Sherbet", "Cookies and Cream"],
+      cross: "Sunset Sherbet × Cookies and Cream IX3",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["GSC-family cream, indica-heavy"],
+    curatorNote:
+      "Power Sherbet — sold as Power Sherb — is an Exotic Genetix indica crossing Sunset Sherbet with Cookies and Cream IX3, both from the GSC family. The nose is sweet and creamy: sherbet and vanilla over a nutty, earthy base with a faint gas. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, an evening and end-of-day strain. It's frosty, potent and couch-leaning. For creamy GSC sweetness with real weight, Power Sherbet delivers.",
+    curatorQuote:
+      "Sherbet and vanilla over a nutty, earthy base with a faint gas.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "High Octane OG",
+    marketNames: ["Hi-Octane OG", "Octane", "Heirloom OG"],
+    breeder: "Clone-only Strains",
+    lineage: {
+      cross: "Clone-only OG — lineage contested",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Heavy fuel-and-pine OG", "Deeply sedating nightcap"],
+    curatorNote:
+      "High Octane OG (also passed as Heirloom OG) is a clone-only OG whose exact parents were never settled — variously tied to a Chemdawg/Lemon Thai/Hindu Kush build or a stack of West Coast OG cuts. What's consistent is the profile: heavy fuel and pine over damp earth, loud and unmistakably OG. The effect is a fast, sedating body weight that points straight at the couch and sleep. It's high-test and not subtle, an evening nightcap. For a heavy, gassy OG with old-school pedigree, High Octane delivers.",
+    curatorQuote:
+      "Heavy fuel and pine over damp earth — loud and unmistakably OG.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cherry Cake",
+    marketNames: ["Cherry Cake OG"],
+    breeder: "Purple Caper Seeds (one of several)",
+    lineage: {
+      parents: ["Cherry Pie", "Wedding Cake"],
+      cross: "Cherry Pie × Wedding Cake (Purple Caper; varies by breeder)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Cherry fruit on a cake-sweet base", "Several regional cuts share the name"],
+    curatorNote:
+      "Cherry Cake is a name several breeders share, so genetics vary — the most cited build, from Purple Caper, is Cherry Pie crossed with Wedding Cake. That pairing reads in the nose: sweet cherry and berry over a vanilla, cake-sweet base. The effect is relaxing and easygoing — a happy mood-lift settling into comfortable calm, fine from afternoon on. It's frosty and flavour-led, moderate in its demands. For cherry-and-cake sweetness in a balanced hybrid, Cherry Cake is a tasty pick.",
+    curatorQuote:
+      "Sweet cherry and berry over a vanilla, cake-sweet base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Hot Sauce",
+    breeder: "In House Genetics",
+    lineage: {
+      parents: ["Chile Verde", "Pancakes"],
+      cross: "Chile Verde × Pancakes",
+      parentDetails: {
+        "Chile Verde": { lineageBrief: "OG Kush × (Key Lime Pie × Lavender)", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Gassy and spicy rather than sweet"],
+    curatorNote:
+      "Hot Sauce is an In House Genetics cross of Chile Verde and Pancakes — an unusual pairing that lands gassy and spicy rather than sweet. The nose is pungent: sharp gas and pepper-spice over an earthy, herbal base. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, firmly an evening strain. It's frosty, potent and loud. For a spicy, gassy indica-leaning cut off the dessert path, Hot Sauce brings the heat.",
+    curatorQuote:
+      "Sharp gas and pepper-spice over an earthy, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Orange Daiquiri",
+    breeder: "Cannarado Genetics (pop. Jungle Boys)",
+    lineage: {
+      parents: ["Orange Cookies", "Grape Pie"],
+      cross: "Orange Cookies × Grape Pie",
+      parentDetails: {
+        "Orange Cookies": { lineageBrief: "Orange Juice × GSC", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Sweet orange over a piney, gassy base"],
+    curatorNote:
+      "Orange Daiquiri is a Cannarado cross of Orange Cookies and Grape Pie, popularised by Jungle Boys — bright citrus over a sweet, gassy dessert base. The nose is juicy and sweet: orange and tropical fruit with a piney, diesel edge underneath. The effect is uplifting and lively — a happy, energetic head with a relaxed body, a daytime-friendly hybrid. It's terpy and frosty, flavour-forward rather than sedating. For sweet orange citrus with a gassy backbone, Orange Daiquiri is a refreshing pick.",
+    curatorQuote:
+      "Orange and tropical fruit with a piney, diesel edge underneath.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Georgia Pie",
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Gelatti", "Kush Mints"],
+      cross: "Gelatti × Kush Mints",
+      parentDetails: {
+        "Gelatti": { lineageBrief: "Gelato × OGKB", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Peach-cobbler sweetness on a cookie frame"],
+    curatorNote:
+      "Georgia Pie is a Seed Junky cross of Gelatti and Kush Mints, named for the peach-cobbler sweetness it leans into. The nose is sweet and rich: ripe stone-fruit and sugar over a creamy, cookie base. The effect is relaxing and euphoric — a happy head easing into comfortable body weight, evening-leaning. It's frosty, potent and dessert-forward. For sweet peach-cobbler flavour on a cookie frame, Georgia Pie is a standout.",
+    curatorQuote:
+      "Ripe stone-fruit and sugar over a creamy, cookie base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Rainbow Belts",
+    breeder: "Archive Seed Bank",
+    lineage: {
+      parents: ["Zkittlez", "Moonbow"],
+      cross: "Zkittlez × Moonbow #112",
+      parentDetails: {
+        "Moonbow": { lineageBrief: "Zkittlez × Do-Si-Dos", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Pure candy, very little funk"],
+    curatorNote:
+      "Rainbow Belts is an Archive Seed Bank cross of Zkittlez and Moonbow — pure candy, built on the fruitiest side of the exotic shelf. The nose is sweet and loud: mixed berry and tropical candy with a grape tail, almost no funk. The effect is bright and feel-good — a euphoric, giggly head over an easy body, social and approachable. It's frosty, colourful and flavour-first. For sugar-sweet candy exotics, Rainbow Belts is a fan favourite.",
+    curatorQuote:
+      "Mixed berry and tropical candy with a grape tail, almost no funk.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Khalifa Kush",
+    marketNames: ["KK", "Wiz Khalifa OG"],
+    breeder: "Wiz Khalifa (private OG cut)",
+    lineage: {
+      parents: ["OG Kush"],
+      cross: "OG Kush phenotype",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Lemon-pine OG, heavy and dense"],
+    curatorNote:
+      "Khalifa Kush (KK) is rapper Wiz Khalifa's private OG Kush cut, an indica-leaning gas strain that went commercial through Cookies. The nose is sharp and classic: lemon-pine and fuel over a damp, earthy OG base. The effect is heavy and relaxing — a euphoric head sinking into a strong, sedating body, an evening strain. It's potent, dense and gassy, a name-brand OG. For a lemony, heavy OG with celebrity pedigree, Khalifa Kush delivers.",
+    curatorQuote:
+      "Lemon-pine and fuel over a damp, earthy OG base.",
+    sourceConfidence: "medium",
+  },
 ];
