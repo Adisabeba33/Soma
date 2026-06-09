@@ -5336,4 +5336,269 @@ export const IDENTITIES: StrainIdentity[] = [
       "Mixed berry and citrus candy over a clean base.",
     sourceConfidence: "low",
   },
+
+  // ── ROUND 13: PARENT-FILL + LANDRACES + CLASSICS ──
+  {
+    canonicalName: "Blackberry",
+    breeder: "Nirvana Seeds",
+    lineage: {
+      parents: ["Black Domina", "Raspberry Cough"],
+      cross: "Black Domina × Raspberry Cough",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Dark berry hybrid", "A parent of Blackberry Kush"],
+    curatorNote:
+      "Blackberry is a Nirvana cross of Black Domina and Raspberry Cough — dark, jammy berry over a heavy indica base, and a parent of Blackberry Kush. The nose is sweet and fruity: blackberry and grape over an earthy base. The effect is relaxing and warm — a euphoric head easing into a comfortable body, evening-leaning. It's frosty and flavour-forward, and it lends its dark fruit to Blackberry Kush. For sweet dark-berry genetics, Blackberry is a tasty parent line.",
+    curatorQuote:
+      "Blackberry and grape over an earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Raspberry Cough",
+    breeder: "Nirvana Seeds",
+    lineage: {
+      parents: ["ICE", "Cambodian"],
+      cross: "ICE × Cambodian",
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Bright berry sativa", "A parent of Blackberry"],
+    curatorNote:
+      "Raspberry Cough is a Nirvana cross of ICE and Cambodian — a bright, berry-sweet sativa with a clean lift, and the berry half of Blackberry. The nose is sweet and fruity: raspberry and berry over a light herbal base. The effect is uplifting and clear — an energetic, creative head with a relaxed body, daytime-leaning. It's smooth and flavour-led, moderate in strength. For sweet berry-sativa genetics, Raspberry Cough is a flavourful parent line.",
+    curatorQuote:
+      "Raspberry and berry over a light herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "B-52",
+    breeder: "Nirvana Seeds",
+    lineage: {
+      parents: ["Big Bud", "Skunk #1"],
+      cross: "Big Bud × Skunk #1",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Heavy-yielding skunky indica"],
+    curatorNote:
+      "B-52 is a Nirvana cross of Big Bud and Skunk #1 — a big-yielding, skunky indica built for resin and weight. The nose is sweet and earthy: skunky sweetness over a spicy, herbal base. The effect is relaxing and heavy — a euphoric head sinking into a comfortable body, evening-leaning. It's dense, potent and dependable, a commercial workhorse. For heavy skunk-indica genetics, B-52 is a solid classic.",
+    curatorQuote:
+      "Skunky sweetness over a spicy, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Power Plant",
+    breeder: "Dutch Passion",
+    lineage: {
+      cross: "South African sativa selection",
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Sharp South African sativa", "A parent of Cotton Candy Kush"],
+    curatorNote:
+      "Power Plant is a Dutch Passion sativa selected from South African genetics — a sharp, energetic plant that became a European staple and a parent of Cotton Candy Kush. The nose is earthy and sweet: spicy, woody sweetness over a herbal base. The effect is up and clear — an energetic, uplifting, creative head with a light body, a daytime strain. It's potent and reliable, more lift than weight. For clean, energetic sativa genetics, Power Plant is a dependable parent.",
+    curatorQuote:
+      "Spicy, woody sweetness over a herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Big Skunk Korean",
+    breeder: "Soma Seeds",
+    lineage: {
+      parents: ["Korean", "Skunk #1"],
+      cross: "Korean indica × Skunk #1",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Korean skunk cross", "A parent of Lavender"],
+    curatorNote:
+      "Big Skunk Korean is a Soma Seeds cross of a Korean landrace and Skunk #1 — an earthy, skunky indica used mainly for breeding (it's a parent of Lavender). The nose is earthy and sweet: skunky funk over a spicy, herbal base. The effect is relaxing and warm — a euphoric head easing into a comfortable body, evening-leaning. It's dense and frosty, valued for the body it passes on. For Korean-skunk genetics behind Lavender, this is a parent line.",
+    curatorQuote:
+      "Skunky funk over a spicy, herbal base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "White Rhino",
+    breeder: "Green House Seed Co.",
+    lineage: {
+      parents: ["White Widow"],
+      cross: "White Widow × a North American indica",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Frosty, heavy White Widow cross"],
+    curatorNote:
+      "White Rhino is a Green House cross of White Widow and a heavy North American indica — frostier and more sedating than its Widow parent. The nose is earthy and sweet: pine and wood over a light sweetness. The effect is strongly relaxing — a euphoric head sinking into a heavy, numbing body, an evening strain. It's dense, frost-caked and very potent, a Cup-winning classic. For a heavier, frostier take on White Widow, White Rhino delivers.",
+    curatorQuote:
+      "Pine and wood over a light sweetness.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Great White Shark",
+    marketNames: ["White Shark", "Peacemaker"],
+    breeder: "Green House Seed Co.",
+    lineage: {
+      parents: ["Super Skunk", "Brazilian", "South Indian"],
+      cross: "Super Skunk × Brazilian × South Indian",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Frost-caked Cup classic"],
+    curatorNote:
+      "Great White Shark is a Green House blend of Super Skunk, a Brazilian sativa and a South Indian indica — a multiple Cup winner famous for extreme frost. The nose is earthy and sweet: skunky funk and pine over a sweet, herbal base. The effect is balanced and strong — a euphoric head with a relaxing body, potent and well-rounded. It's dense, very frosty and dependable, a 90s Amsterdam staple. For a frost-caked, balanced classic, Great White Shark endures.",
+    curatorQuote:
+      "Skunky funk and pine over a sweet, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Jack Flash",
+    breeder: "Sensi Seeds",
+    lineage: {
+      parents: ["Jack Herer", "Super Skunk", "Haze"],
+      cross: "Jack Herer × Super Skunk × Haze",
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Clear spicy-citrus sativa"],
+    curatorNote:
+      "Jack Flash is a Sensi Seeds sativa — Jack Herer crossed with Super Skunk and Haze — built for a clear, fast, spicy-citrus high. The nose is bright and sharp: citrus and pine over a spicy, herbal base. The effect is up and clean — an energetic, creative, focused head with little body, a daytime strain. It's terpy and potent, a refined Jack-and-haze blend. For clear spicy-citrus sativa genetics, Jack Flash is a flavourful classic.",
+    curatorQuote:
+      "Citrus and pine over a spicy, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Pineapple Chunk",
+    breeder: "Barney's Farm",
+    lineage: {
+      parents: ["Pineapple", "Skunk #1", "UK Cheese"],
+      cross: "Pineapple × Skunk #1 × Cheese",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Sweet-tropical with a cheesy tail"],
+    curatorNote:
+      "Pineapple Chunk is a Barney's Farm blend of Pineapple, Skunk #1 and UK Cheese — sweet tropical fruit with a pungent, cheesy funk underneath. The nose is loud and layered: pineapple and tropical sweetness over a tangy cheese-skunk base. The effect is heavy and relaxing — a euphoric head sinking into a strong body, evening-leaning. It's dense, frosty and very potent. For sweet-tropical fruit with a funky, heavy body, Pineapple Chunk is a flavourful pick.",
+    curatorQuote:
+      "Pineapple and tropical sweetness over a tangy cheese-skunk base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sweet Skunk",
+    marketNames: ["Sweet Pink Grapefruit"],
+    lineage: {
+      parents: ["Skunk #1"],
+      cross: "Sweet Skunk #1 selection",
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Sweeter, fruitier Skunk cut"],
+    curatorNote:
+      "Sweet Skunk is a sweeter, fruitier selection of Skunk #1 — the classic funk softened with a citrus-fruit edge. The nose is sweet and tangy: fruit and citrus over a skunky, earthy base. The effect is uplifting and easy — a happy, sociable head with a relaxed body, daytime-friendly. It's smooth and approachable, moderate in strength. For a friendlier, sweeter cut of skunk genetics, Sweet Skunk is a likeable pick.",
+    curatorQuote:
+      "Fruit and citrus over a skunky, earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Kandahar",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Afghan landrace from Kandahar", "Heavy hash plant"],
+    curatorNote:
+      "Kandahar is an Afghan landrace from the southern province of the same name — a dense, resin-heavy indica traditionally grown for hashish. The nose is earthy and sweet: spice and sandalwood over a hashy, woody base. The effect is heavily relaxing — a warm, sedating body weight that drifts toward sleep, classic landrace indica. It's dense, frosty and potent, prized by purists and hash makers. For traditional Afghan hash genetics, Kandahar is a source.",
+    curatorQuote:
+      "Spice and sandalwood over a hashy, woody base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Mullumbimby Madness",
+    marketNames: ["Mullum Madness"],
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Australian sativa landrace", "NSW heritage strain"],
+    curatorNote:
+      "Mullumbimby Madness is an Australian sativa landrace from the Mullumbimby region of New South Wales — a bright, soaring heritage strain of the 70s-80s. The nose is sweet and earthy: honeyed sweetness and citrus over a faint spice. The effect is up and creative — an energetic, happy, almost psychedelic head with no body, a true daytime landrace. It's moderate and rare, a piece of Australian cannabis history. For old-world Aussie sativa, Mullumbimby Madness is a collector's source.",
+    curatorQuote:
+      "Honeyed sweetness and citrus over a faint spice.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Angola Roja",
+    marketNames: ["Angolan Red"],
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Angolan red landrace", "Hardy equatorial sativa"],
+    curatorNote:
+      "Angola Roja (Angolan Red) is a landrace from Angola — a hardy, red-haired equatorial sativa with deep African heritage. The nose is earthy and warm: spice and sweetness over a woody base. The effect is up and clear — an energetic, creative head with no body, a pure daytime landrace. It's resilient and moderate, prized by collectors for its rarity. For old-world Angolan sativa genetics, Angola Roja is a source.",
+    curatorQuote:
+      "Spice and sweetness over a woody base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Cambodian",
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Cambodian landrace", "A parent of Raspberry Cough"],
+    curatorNote:
+      "Cambodian is a Southeast Asian landrace from Cambodia — a clean, electric equatorial sativa used by breeders to add vigour and a bright high (it's a parent of Raspberry Cough). The nose is earthy and sweet: spice and citrus over a herbal base. The effect is fast and heady — an energetic, almost buzzy cerebral high with no body, a pure daytime landrace. It's long-flowering and moderate, a heritage rarity. For old-world Cambodian sativa, this is a source.",
+    curatorQuote:
+      "Spice and citrus over a herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Brazilian",
+    marketNames: ["Brazilian Sativa"],
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Brazilian sativa landrace", "Behind White Widow and Great White Shark"],
+    curatorNote:
+      "Brazilian is a South American sativa landrace — a sweet, energetic plant that crossed into both White Widow and Great White Shark via Amsterdam breeding. The nose is sweet and earthy: honeyed fruit and spice over a herbal base. The effect is up and social — an energetic, happy, creative head with little body, a heritage daytime sativa. It's moderate and clean, historically important to Dutch genetics. For old-world Brazilian sativa, this is a foundational source.",
+    curatorQuote:
+      "Honeyed fruit and spice over a herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "South Indian",
+    marketNames: ["South Indian Indica"],
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["South Indian indica landrace", "A parent of White Widow"],
+    curatorNote:
+      "South Indian is an indica landrace from the south of India — a hashy, resin-heavy plant that gave White Widow and Great White Shark their frost and body. The nose is earthy and sweet: spice and hash over a woody base. The effect is relaxing and weighty — a calm, grounding body ease that leans toward sleep, classic landrace indica. It's dense, resin-rich and moderate, a key Dutch breeding parent. For old-world South Indian indica, this is a source.",
+    curatorQuote:
+      "Spice and hash over a woody base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Korean",
+    marketNames: ["Korean Landrace"],
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Korean indica landrace", "Behind Big Skunk Korean"],
+    curatorNote:
+      "Korean is a rare East Asian landrace indica from the Korean peninsula — an earthy, calm plant used by Soma to build Big Skunk Korean (and so, indirectly, Lavender). The nose is earthy and mild: spice and sweetness over a herbal base. The effect is calm and relaxing — a mellow, grounding body ease, moderate and traditional. It's dense and well-cured by nature, a heritage rarity. For old-world Korean landrace genetics, this is a quiet source.",
+    curatorQuote:
+      "Spice and sweetness over a herbal base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Banana Daddy",
+    lineage: {
+      parents: ["Banana OG", "Granddaddy Purple"],
+      cross: "Banana OG × Granddaddy Purple",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Banana-and-grape heavy indica"],
+    curatorNote:
+      "Banana Daddy crosses Banana OG with Granddaddy Purple — sweet ripe banana over dark grape, on a heavy frame. The nose is rich and fruity: banana and grape over an earthy, gassy base. The effect is strongly relaxing — a euphoric head sinking into a heavy, sedating body, firmly an evening strain. It's frosty and very potent, a flavourful heavyweight. For banana-and-grape character with real weight, Banana Daddy is a satisfying pick.",
+    curatorQuote:
+      "Banana and grape over an earthy, gassy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Gushlato",
+    lineage: {
+      parents: ["Gushers", "Gelato"],
+      cross: "Gushers × Gelato",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Tropical candy over gelato cream"],
+    curatorNote:
+      "Gushlato crosses Gushers with Gelato — tropical fruit candy laid over gelato cream. The nose is sweet and fruity: tropical candy and berry over a creamy, lightly gassy base. The effect is relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, an easy-drinking dessert exotic. For candy fruit over cream, Gushlato is a tasty pick.",
+    curatorQuote:
+      "Tropical candy and berry over a creamy, lightly gassy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Honey Banana",
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Honeyed banana indica"],
+    curatorNote:
+      "Honey Banana is a honeyed banana indica-lean — sweet ripe banana over a soft, earthy-cream base. The nose is sweet and fruity: banana and honey over a light earthy floor. The effect is relaxing and happy — a calming body ease with a euphoric head, evening-leaning. It's frosty and flavour-forward, a cosy dessert cut. For sweet honey-banana character, it's a gentle, tasty pick.",
+    curatorQuote:
+      "Banana and honey over a light earthy floor.",
+    sourceConfidence: "low",
+  },
 ];
