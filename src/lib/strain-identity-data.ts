@@ -1745,4 +1745,119 @@ export const IDENTITIES: StrainIdentity[] = [
       "Grape Pie is a Cannarado cross of Cherry Pie and Grape Stomper — sweet grape and berry on a dessert frame, and a parent of Sundae Driver and Lava Cake. The nose is sweet and fruity: grape and dark berry over a doughy, earthy base, dessert-forward. The effect is relaxing and happy — a calming body ease with a euphoric head, evening-leaning. It's frosty and flavourful, a popular breeding parent for grape dessert lines. For grape-and-pastry lovers, Grape Pie is a sweet, comfortable pick.",
     sourceConfidence: "medium",
   },
+
+  // ── Fruity / dessert tail + classics ──
+  {
+    canonicalName: "Peach Rings",
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Sour-peach candy profile"],
+    curatorNote:
+      "Peach Rings is a candy-named fruity hybrid — built around sweet, sour-peach flavour reminiscent of the gummy sweet it's named for. The nose is bright and sugary: sour peach and tropical candy over a light creamy base, dessert-fruity. The effect is balanced and happy — an uplifting, relaxing high that lifts the mood without heavy sedation, easy across the day. It's flavour-first and approachable, more about taste and mood than raw power. For people chasing sweet-and-sour peach candy, Peach Rings delivers.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Passion Fruit",
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Tangy tropical sativa lean"],
+    curatorNote:
+      "Passion Fruit is a tropical sativa-leaning hybrid — built around sweet, tangy passion-fruit flavour over a light floral base. The nose is bright and exotic: passion fruit and tropical sweetness with a faint floral, earthy edge, juicy and clean. The effect is uplifting and gentle — a happy, mildly energetic head with a relaxed body, a daytime and social strain. It's moderate and flavour-driven, easy to enjoy. For people who want a tangy tropical-fruit lift, Passion Fruit is a refreshing pick.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Tropicana Cherry",
+    lineage: {
+      parents: ["Tropicana Cookies", "Cherry Cookies"],
+      cross: "Tropicana Cookies × Cherry Cookies",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Orange citrus meets dark cherry"],
+    curatorNote:
+      "Tropicana Cherry is a cross of Tropicana Cookies and Cherry Cookies — bright orange citrus meeting dark cherry on a cookie base. The nose is rich and fruity: orange and cherry over a creamy, slightly gassy cookie funk, sweet and layered. The effect is balanced and uplifting — a happy, euphoric head with a relaxing body, versatile across the day. It's frosty and flavour-forward, a colourful modern fruit hybrid. For people who want citrus-and-cherry depth, Tropicana Cherry stands out.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Pink Lemonade",
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Sweet pink-lemonade citrus"],
+    curatorNote:
+      "Pink Lemonade is a sweet citrus hybrid — built around a sugary pink-lemonade flavour, usually tied to a Lemon OG line. The nose is bright and sweet: candied lemon and berry over a light earthy base, dessert-citrus and clean. The effect is balanced and relaxing — a happy, gently uplifting head easing into comfortable body calm, easy across the day. It's flavour-forward and approachable, more about taste than potency. For people who want sweet lemon-berry citrus, Pink Lemonade is a refreshing pick.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Blueberry Muffin",
+    breeder: "Humboldt Seed Company",
+    lineage: {
+      parents: ["Blueberry", "Razzleberry"],
+      cross: "Blueberry × Razzleberry",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Baked-goods blueberry sweetness"],
+    curatorNote:
+      "Blueberry Muffin is a Humboldt Seed Co cross of Blueberry and Razzleberry — built to taste like a fresh-baked muffin, sweet berry over a doughy warmth. The nose is rich and sweet: ripe blueberry and baked-goods sweetness over a light earthy base, dessert-bright. The effect is relaxing and happy — a calming, mood-lifting body ease that leans comfortable rather than knockout. It's flavour-forward and approachable, an easy berry-dessert pick. For lovers of sweet blueberry-muffin flavour, it's a tasty, mellow choice.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Blueberry Cupcake",
+    lineage: {
+      parents: ["Blueberry Muffin", "Wedding Cake"],
+      cross: "Blueberry Muffin × Wedding Cake (commonly cited)",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Blueberry over a vanilla-cake base"],
+    curatorNote:
+      "Blueberry Cupcake is a dessert-berry hybrid — a blueberry-and-cake cross built around sweet berry over a vanilla, doughy base. The nose is sweet and rich: blueberry and cake batter over a light gas, dessert-forward. The effect is relaxing and euphoric — a happy head easing into comfortable body calm, evening-leaning. It's frosty and flavourful, easy to enjoy for its sweetness. For people who want blueberry on a cake frame, Blueberry Cupcake is a sweet, cosy pick.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Candyland",
+    breeder: "Ken Estes",
+    lineage: {
+      parents: ["Granddaddy Purple", "Bay Platinum Cookies"],
+      cross: "Granddaddy Purple × Bay Platinum Cookies",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Cup-winning sweet sativa-lean"],
+    curatorNote:
+      "Candyland is a Ken Estes cross of Granddaddy Purple and Bay Platinum Cookies — a Cup-winning sativa-leaning hybrid with sweet, candy flavour. The nose is sweet and earthy: sugary candy and berry over a spicy, earthy base, dessert with depth. The effect is uplifting and happy — an energetic, sociable head with a light body, a daytime and creative strain. It's moderate and pleasant, more about a bright lift than heavy sedation. For people who want sweet candy flavour with a sativa lift, Candyland is a tasty pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lemon Pound Cake",
+    marketNames: ["Lemon Poundcake"],
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Lemon cake over a creamy base"],
+    curatorNote:
+      "Lemon Pound Cake is a citrus-dessert hybrid — sweet lemon cake over a creamy, doughy base, in the pound-cake family of strains. The nose is bright and sweet: lemon and vanilla cake over a light gas, dessert-citrus and smooth. The effect is balanced and relaxing — a happy, gently uplifting head easing into comfortable calm, versatile across the day. It's flavour-forward and approachable. For people who want lemon-and-cake sweetness, Lemon Pound Cake is a pleasant pick.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Cotton Candy Kush",
+    marketNames: ["Cotton Candy"],
+    breeder: "Delicious Seeds",
+    lineage: {
+      parents: ["Lavender", "Power Plant"],
+      cross: "Lavender × Power Plant",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Spun-sugar, floral-sweet"],
+    curatorNote:
+      "Cotton Candy Kush is a Delicious Seeds cross of Lavender and Power Plant — built around a sweet, sugary, almost floral candy flavour. The nose is sweet and floral: spun-sugar sweetness and berry over a light floral, earthy base, dessert with a perfumed edge. The effect is relaxing and happy — a calming, mood-lifting body ease that leans comfortable, good for unwinding. It's moderate and flavour-driven, more about taste and calm than raw power. For people who want sweet, floral candy, Cotton Candy Kush is a soft, pleasant pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Gas Face",
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Fuel-forward, little sweetness"],
+    curatorNote:
+      "Gas Face is a heavy, fuel-forward hybrid — a gassy strain built to live up to its name, usually tied to an OG/diesel line. The nose is loud and pungent: sharp diesel and fuel over an earthy, skunky base, all gas with little sweetness. The effect is strongly relaxing — a euphoric head sinking into a heavy, sedating body, firmly evening territory. It's potent and not subtle, for gas lovers who want fuel over candy. For pure gas intensity, Gas Face delivers a heavy hit.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Purple Haze",
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Colourful retro sativa", "Hendrix namesake"],
+    curatorNote:
+      "Purple Haze is a classic purple sativa — immortalised by Jimi Hendrix and usually tied to a Purple Thai × Haze line — known for colourful buds and an energetic head. The nose is sweet and earthy: berry and grape over a spicy, herbal haze, sweet with a sativa edge. The effect is uplifting and creative — a bright, euphoric, energetic head with a light body, a daytime and creative sativa. It's moderate and nostalgic, more about a pleasant lift than overwhelming potency. For a colourful, energetic retro sativa, Purple Haze endures.",
+    sourceConfidence: "medium",
+  },
 ];
