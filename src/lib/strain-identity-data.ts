@@ -164,14 +164,29 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Donny Burger",
+    breeder: "Skunk Master Flex",
+    lineage: {
+      parents: ["GMO Cookies", "Han-Solo Burger"],
+      cross: "GMO × Han-Solo Burger",
+    },
     sensoryFamily: "garlic-funk",
-    sourceConfidence: "low",
+    phenotypeNotes: ["Savoury cheese-and-garlic gas"],
+    curatorNote:
+      "Donny Burger is a Skunk Master Flex strain — a GMO × Han-Solo Burger cross — that leans hard into savoury, cheesy gas. The nose is pungent and funky: garlic, cheese and sour fuel over an earthy base, loud in the GMO tradition rather than sweet. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, firmly evening territory. It's potent and not subtle, a connoisseur's funk strain more than a crowd-pleaser. For lovers of garlic-and-cheese gas, Donny Burger delivers the savoury end.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Permanent Marker",
-    sensoryFamily: "garlic-funk",
-    phenotypeNotes: ["Sharpie-on-paper savoury gas note"],
-    sourceConfidence: "low",
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Biscotti", "Jealousy", "Sherbert"],
+      cross: "Biscotti × Jealousy × Sherbert",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Sharpie-and-soap funk", "'Strain of the year' contender"],
+    curatorNote:
+      "Permanent Marker is a Seed Junky cross of Biscotti, Jealousy and Sherbert — a 'strain of the year' contender named for its loud, Sharpie-like funk. The nose is exactly that: a sharp, chemical marker-and-soap funk over a sweet, gassy base, unmistakable and a little divisive. The effect is balanced and euphoric — a happy, uplifting head over a relaxed body, versatile but potent. It's very frosty and loud, a flavour-forward modern exotic. For people who want that distinctive Sharpie-soap funk done well, Permanent Marker is the reference.",
+    sourceConfidence: "medium",
   },
 
   // ── Citrus / haze family ──
@@ -193,6 +208,9 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "Lemon Haze",
     lineage: { parents: ["Lemon Skunk", "Silver Haze"] },
     sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Lighter, friendlier cousin of Super Lemon Haze"],
+    curatorNote:
+      "Lemon Haze is a bright citrus sativa — a Lemon Skunk × Silver Haze cross — a lighter, more accessible cousin of Super Lemon Haze. The nose is fresh and zesty: lemon and citrus over a green, herbal haze, clean and lively. The effect is uplifting and energetic — a happy, talkative head with a light body, a daytime and social sativa. It can run a touch racy at high doses, but it's friendlier than the heaviest hazes. For an easy, lemony daytime lift, Lemon Haze is a reliable citrus sativa.",
     sourceConfidence: "medium",
   },
   {
@@ -453,6 +471,8 @@ export const IDENTITIES: StrainIdentity[] = [
       "Guava-forward gas hybrid",
       "Custom seed entry — limited public lineage data",
     ],
+    curatorNote:
+      "White Hot Guava is a guava-forward gas hybrid — a custom entry with limited public lineage, usually tied to a guava-and-gas line. The nose is its draw: sweet tropical guava over a sharp, gassy funk, candy-fruit with a fuel edge. The effect is balanced and euphoric — an uplifting head with a relaxed body, comfortable across the day. It's flavour-forward and frosty, more about the unusual guava note than raw power. For people chasing a sweet guava-and-gas profile, White Hot Guava is a distinctive pick.",
     sourceConfidence: "low",
   },
 
@@ -1356,6 +1376,111 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Coffee-and-melon flavour"],
     curatorNote:
       "Chocolope is a DNA Genetics sativa — a Chocolate Thai × Cannalope Haze cross — built to revive an old-school coffee-and-melon flavour. The nose is its signature: rich coffee and cocoa over sweet melon and earth, dessert-like but not sugary. The effect is a bright, dreamy cerebral high — uplifting, euphoric and energising, a strong daytime sativa. It's potent and clear-headed, good for mornings and creative work. For people who want a coffee-chocolate sativa with real lift, Chocolope is a flavourful classic.",
+    sourceConfidence: "medium",
+  },
+
+  // ── Skunk / cheese / classic hybrids ──
+  {
+    canonicalName: "Super Skunk",
+    breeder: "Sensi Seeds",
+    lineage: {
+      parents: ["Skunk #1", "Afghani"],
+      cross: "Skunk #1 × Afghani",
+    },
+    sensoryFamily: "skunk-funk",
+    phenotypeNotes: ["Amplified classic skunk funk"],
+    curatorNote:
+      "Super Skunk is a Sensi Seeds classic — a Skunk #1 × Afghani cross that amplified the original skunk funk with extra resin and weight. The nose is pungent and sweet: heavy skunk and earthy funk over a sweet, almost fruity base, loud and classic. The effect is relaxing and happy — a mellow, euphoric body-leaning high that suits unwinding, more indica than its Skunk parent. It's moderate-to-strong and dependable, a building block for countless hybrids. For lovers of that classic sweet-skunk funk with body, Super Skunk is a staple.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Lemon Skunk",
+    breeder: "DNA Genetics",
+    lineage: {
+      parents: ["Skunk #1"],
+      cross: "Two Skunk phenos selected for lemon",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Parent of Super Lemon Haze"],
+    curatorNote:
+      "Lemon Skunk is a DNA Genetics strain — two Skunk phenotypes selected for a standout lemon zest — and a parent of Super Lemon Haze. The nose is bright and tangy: fresh lemon and citrus over a sweet, skunky base, clean and lively. The effect is uplifting and happy — an energetic, mood-lifting head with a light body, a sociable daytime hybrid. It's moderate and flavour-forward, easy to enjoy and easy to handle. For a sweet, zesty lemon-skunk, Lemon Skunk is a bright, friendly pick.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "NYC Diesel",
+    marketNames: ["Soma's NYC Diesel", "NYCD"],
+    breeder: "Soma Seeds",
+    lineage: {
+      parents: ["Sour Diesel", "Afghani"],
+      cross: "Sour Diesel × Afghani (Hawaiian)",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Diesel softened with citrus-lime"],
+    curatorNote:
+      "NYC Diesel is a Soma Seeds classic — a Sour Diesel × Afghani cross — that softened the diesel with a bright citrus-lime sweetness. The nose is distinctive: sour diesel and grapefruit-lime over an earthy base, gassy with a fruity twist. The effect is uplifting and social — a chatty, energetic head with a relaxing body, a balanced sativa-leaning hybrid. It's potent and flavourful, less harsh than straight Sour D. For people who want diesel with a citrus sweetness, NYC Diesel is a flavourful classic.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "UK Cheese",
+    marketNames: ["Exodus Cheese", "Cheese"],
+    sensoryFamily: "skunk-funk",
+    phenotypeNotes: ["The original 'cheese' Skunk #1 pheno"],
+    curatorNote:
+      "UK Cheese (Exodus Cheese) is a famous Skunk #1 phenotype from England — the original 'cheese' cut, named for its pungent, dairy-funk aroma. The nose is unmistakable: sharp, tangy cheese and sour funk over an earthy skunk base, loud and savoury. The effect is balanced and happy — a relaxing, mood-lifting body-leaning high that stays mellow rather than racy. It's moderate and well-loved, a UK and European staple for decades. For lovers of that distinctive cheese funk, UK Cheese is the source.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Blue Cheese",
+    breeder: "Big Buddha Seeds",
+    lineage: {
+      parents: ["Blueberry", "UK Cheese"],
+      cross: "Blueberry × UK Cheese",
+    },
+    sensoryFamily: "skunk-funk",
+    phenotypeNotes: ["Sweet berry over tangy cheese"],
+    curatorNote:
+      "Blue Cheese is a Big Buddha Seeds cross of Blueberry and UK Cheese — sweet berry folded into that famous tangy cheese funk. The nose is the pairing made real: sweet blueberry over sharp, savoury cheese, sweet-and-funky at once. The effect is relaxing and mellow — a calming, happy body high that leans indica, comfortable for evenings. It's moderate and distinctive, beloved for its unusual sweet-savoury nose. For people who want berry-and-cheese funk, Blue Cheese is a one-of-a-kind classic.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "White Widow",
+    marketNames: ["Widow"],
+    breeder: "Green House / Ingemar (contested)",
+    lineage: {
+      parents: ["Brazilian Sativa", "South Indian Indica"],
+      cross: "Brazilian sativa × South Indian indica",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["1990s Dutch legend", "Blanket of white trichomes"],
+    curatorNote:
+      "White Widow is a 1990s Dutch legend — a Brazilian sativa × South Indian indica cross — named for the blanket of white trichomes that made it famous. The nose is earthy and sharp: pine, pepper and a faint floral funk over a woody base, classic and understated. The effect is balanced and energetic — a euphoric, sociable head with a relaxing body, a versatile all-rounder. It's moderate by modern standards but historically important, a coffeeshop staple and breeding parent. For a balanced, frosty, old-school hybrid, White Widow endures.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Strawberry Cough",
+    marketNames: ["Strawberry Cough OG"],
+    lineage: {
+      parents: ["Strawberry Fields", "Haze"],
+      cross: "Strawberry Fields × Haze (commonly cited)",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Sweet strawberry sativa"],
+    curatorNote:
+      "Strawberry Cough is a sativa of murky origin — usually tied to a Strawberry Fields × Haze line — famous for a sweet strawberry flavour and a high that can make you cough. The nose is sweet and fruity: ripe strawberry over a light earthy, skunky base, clean and dessert-bright. The effect is uplifting and clear — a happy, sociable, gently energetic head that suits daytime and easing stress. It's moderate and approachable, more about flavour and mood than raw power. For a sweet strawberry daytime sativa, Strawberry Cough is a friendly classic.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Moby Dick",
+    marketNames: ["Moby"],
+    breeder: "Dinafem",
+    lineage: {
+      parents: ["White Widow", "Haze"],
+      cross: "White Widow × Haze",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["High-yield, high-potency haze", "Vanilla-citrus nose"],
+    curatorNote:
+      "Moby Dick is a Dinafem heavyweight — a White Widow × Haze cross — one of the most potent and high-yielding sativas of its era. The nose is sweet and sharp: vanilla and citrus over a piney, incense-like haze, clean and intense. The effect is a strong, soaring cerebral high — euphoric, energetic and uplifting, a powerful daytime sativa. Its potency is the headline, so it can run heady or racy if overdone. For people who want a big, vanilla-citrus haze with real punch, Moby Dick delivers.",
     sourceConfidence: "medium",
   },
 ];
