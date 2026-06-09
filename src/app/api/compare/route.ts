@@ -59,13 +59,20 @@ export async function POST(req: NextRequest) {
     };
   });
 
-  const closest = items.reduce((best, item) =>
-    item.matchScore > best.matchScore ? item : best,
-  );
+  const closest = items.reduce((best, item) => {
+    if (item.matchScore !== best.matchScore) {
+      return item.matchScore > best.matchScore ? item : best;
+    }
+    return item.unclampedScore > best.unclampedScore ? item : best;
+  });
 
-  // Rank results highest match first. Input order is meaningless to the
-  // user — they want to see the best fit at the top, like Taste Match.
-  items.sort((a, b) => b.matchScore - a.matchScore);
+  // Rank results highest match first; tie-break on unclampedScore so
+  // multiple strains at the 88 ceiling stay in the engine's actual
+  // order rather than collapsing to insertion-order.
+  items.sort(
+    (a, b) =>
+      b.matchScore - a.matchScore || b.unclampedScore - a.unclampedScore,
+  );
 
   // Fire-and-forget on the unknown-strain queue. Compare doesn't create
   // an AnalysisSession, so sessionId is null — the row is still recorded

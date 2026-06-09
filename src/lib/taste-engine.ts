@@ -758,6 +758,12 @@ export function scoreStrain(
     familyMod +
     sensoryMod;
   const penalty = Math.min(42, conflicts.length * 15);
+  // Pre-calibration score with decimal precision. Same formula as the
+  // visible matchScore but without anchor floor, 99 base cap, or 88
+  // non-anchor ceiling. Used to break ties when multiple strains end up
+  // displaying the same matchScore — the engine differentiates them on
+  // the raw side but the calibration bands compress that signal away.
+  const unclampedScore = raw - penalty;
   let baseScore = Math.round(raw - penalty);
   if (isDisliked) baseScore = Math.min(baseScore, 18);
   // Favourite anchor lives in 94–96. Never 100, because grower, batch
@@ -836,6 +842,7 @@ export function scoreStrain(
     knownStrain: known,
     category,
     matchScore,
+    unclampedScore,
     confidence,
     aromaMatch: aroma.score,
     flavorMatch: flavor.score,
@@ -984,7 +991,13 @@ export function analyze(
     recommendations.push(scoreStrain(trimmed, profile, feedback));
   }
 
-  recommendations.sort((a, b) => b.matchScore - a.matchScore);
+  // Primary sort by visible matchScore; tie-breaker on unclampedScore so
+  // the calibration ceiling (88) doesn't collapse the engine's actual
+  // ordering of close non-anchor candidates.
+  recommendations.sort(
+    (a, b) =>
+      b.matchScore - a.matchScore || b.unclampedScore - a.unclampedScore,
+  );
 
   return {
     recommendations,

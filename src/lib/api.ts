@@ -221,6 +221,11 @@ export function dbRecToView(
     knownStrain: r.knownStrain,
     category: r.category as Category,
     matchScore: r.matchScore,
+    // Old DB rows don't carry the pre-calibration score (the column
+    // doesn't exist on Recommendation). Defaulting to matchScore is
+    // safe: tie-break sort degrades to insertion order, identical to
+    // pre-v6 behaviour.
+    unclampedScore: r.matchScore,
     confidence: r.confidence as Confidence,
     aromaMatch: r.aromaMatch,
     flavorMatch: r.flavorMatch,
