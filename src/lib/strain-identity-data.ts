@@ -1233,4 +1233,129 @@ export const IDENTITIES: StrainIdentity[] = [
       "Melonade is a Cannarado-style cross of Watermelon Zkittlez and Lemon Tree — a juicy, summery hybrid built on melon and citrus. The nose is bright and sweet: watermelon candy and lemon over a light earthy base, refreshing and clean. The effect is uplifting and energetic — a happy, lively head with a comfortable body, sativa-leaning and daytime-friendly. It's flavour-forward and easy, a warm-weather favourite. For people who want sweet melon-citrus brightness with a lift, Melonade is a refreshing choice.",
     sourceConfidence: "low",
   },
+
+  // ── Haze / sativa classics ──
+  {
+    canonicalName: "Amnesia Haze",
+    marketNames: ["Amnesia"],
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Citrus-forward Cup-winning haze"],
+    curatorNote:
+      "Amnesia Haze is a Cup-winning sativa — a haze-heavy blend of landrace genetics (Jamaican, South Asian and Haze lines) popular across Amsterdam coffeeshops. The nose is bright and complex: lemon and citrus over an earthy, spicy haze, clean and energetic. The effect is a strong, soaring cerebral high — uplifting, euphoric and energetic, a classic daytime and creative sativa. Like most big hazes it can run racy or heady at high doses, so it's not for the easily anxious. For people who want a bright, potent, long-running sativa lift, Amnesia Haze is a benchmark.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Super Silver Haze",
+    marketNames: ["SSH"],
+    breeder: "Green House Seed Co.",
+    lineage: {
+      parents: ["Skunk #1", "Northern Lights", "Haze"],
+      cross: "Skunk × Northern Lights × Haze",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Three-time Cup winner", "Parent of Super Lemon Haze"],
+    curatorNote:
+      "Super Silver Haze is a Green House classic — a Skunk × Northern Lights × Haze blend that won three straight Cannabis Cups in the late 90s. The nose is bright and skunky-sweet: lemon and citrus over a spicy, herbal haze, clean and lively. The effect is energetic and uplifting — a long-lasting, creative, talkative head-high with a light body, a daytime sativa staple. It's potent and motivating, the kind of strain for getting things done rather than winding down. As a foundational modern haze and parent of Super Lemon Haze, SSH is a reference sativa.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Ghost Train Haze",
+    marketNames: ["GTH"],
+    breeder: "Rare Dankness",
+    lineage: {
+      parents: ["Ghost OG", "Nevil's Wreck"],
+      cross: "Ghost OG × Nevil's Wreck",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["One of the most potent sativas tested", "Not a beginner's strain"],
+    curatorNote:
+      "Ghost Train Haze is a Rare Dankness powerhouse — a Ghost OG × Nevil's Wreck cross — famous for being one of the most potent sativas ever tested. The nose is sharp and floral: citrus and pine over an incense-like, slightly sour haze, clean and intense. The effect is a fast, soaring cerebral rush — euphoric, energetic and sometimes overwhelming, definitely not a beginner's sativa. Its potency is the whole story: too much tips quickly into racy or anxious territory. For experienced sativa lovers chasing maximum head-energy, Ghost Train Haze is the deep end.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Green Crack",
+    marketNames: ["Green Cush", "Cush", "Mango Crack"],
+    lineage: {
+      parents: ["Skunk #1"],
+      cross: "Skunk #1 descendant",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Pure daytime energiser", "Mango-citrus tang"],
+    curatorNote:
+      "Green Crack — a name Snoop Dogg is said to have coined — is a Skunk #1 descendant prized as a pure daytime energiser (some sellers soften it to 'Green Cush'). The nose is bright and tangy: sharp mango and citrus over a skunky, earthy base, clean and zesty. The effect is exactly the reputation — a sharp, energetic, focused buzz with little body, the closest thing to a cannabis espresso. It can run jittery if you're sensitive or overdo it, and it's a poor choice near bedtime. For a clean, motivating, get-up-and-go sativa, Green Crack is a go-to.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Trainwreck",
+    marketNames: ["'Wreck"],
+    lineage: {
+      parents: ["Mexican", "Thai", "Afghani"],
+      cross: "Mexican × Thai × Afghani",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Menthol-pine bite", "Parent of Pineapple Express"],
+    curatorNote:
+      "Trainwreck is a NorCal classic — Mexican and Thai sativas crossed with Afghani — named for a high that hits like a freight train. The nose is sharp and distinctive: lemon, pine and a spicy, almost menthol bite over earthy sweetness. The effect is a fast, racing cerebral rush — euphoric, energetic and creative, with enough body to keep it grounded. It's potent and quick, beloved for daytime energy but capable of tipping racy at high doses. As a parent of Pineapple Express and many others, Trainwreck is a foundational sativa.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Bruce Banner",
+    marketNames: ["Bruce Banner #3", "OG Banner"],
+    breeder: "Dr. Greenthumb / Original Sensible",
+    lineage: {
+      parents: ["OG Kush", "Strawberry Diesel"],
+      cross: "OG Kush × Strawberry Diesel",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Among the strongest by THC", "Strawberry-diesel nose"],
+    curatorNote:
+      "Bruce Banner — named for the Hulk's alter ego — is a cross of OG Kush and Strawberry Diesel, famous as one of the strongest strains by THC. The nose is sweet and gassy: strawberry and diesel over an earthy OG base, fruity with a fuel edge. The effect is fast and powerful — a euphoric, energetic cerebral rush that settles into a relaxed body, sativa-leaning but heavy-hitting. Its potency is the headline, so a little goes a long way for newer smokers. For people who want a strong, fast, fruity-gas sativa, Bruce Banner lives up to the name.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "AK-47",
+    marketNames: ["AK"],
+    breeder: "Serious Seeds",
+    lineage: {
+      parents: ["Colombian", "Mexican", "Thai", "Afghani"],
+      cross: "Colombian × Mexican × Thai × Afghani",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Mellow despite the name", "Sour floral funk"],
+    curatorNote:
+      "AK-47 is a Serious Seeds Cup winner — a blend of Colombian, Mexican, Thai and Afghani landraces — whose name belies a mellow, long-lasting high. The nose is complex: sweet floral and earthy funk with a sour, skunky edge, distinctive and a little spicy. The effect is a steady, relaxed-but-alert cerebral high — uplifting and mellow rather than racy, a sociable all-day hybrid. It's moderate and dependable, more even-keeled than its aggressive name suggests. For a reliable, mellow, sativa-leaning classic, AK-47 has earned decades of loyalty.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Maui Wowie",
+    marketNames: ["Maui Waui", "Maui"],
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Hawaiian landrace", "Tropical, easygoing"],
+    curatorNote:
+      "Maui Wowie is a Hawaiian landrace sativa — a 1960s-70s classic that became shorthand for tropical, easygoing island weed. The nose is sweet and tropical: pineapple and citrus over a light earthy base, sunny and clean. The effect is bright and gentle — an uplifting, creative, happy head with a relaxed body, a low-stress daytime sativa. It's moderate by modern standards, more about mood and flavour than overwhelming potency. For a mellow, tropical, feel-good sativa, Maui Wowie is a nostalgic favourite.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Acapulco Gold",
+    marketNames: ["Acapulco"],
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Legendary Mexican landrace", "Toffee-caramel nose"],
+    curatorNote:
+      "Acapulco Gold is a legendary Mexican landrace sativa — one of the most famous strains of the 1960s-70s, named for its golden, resinous buds. The nose is warm and inviting: toffee and burnt caramel over earthy pine and a hint of citrus, distinctive and rich. The effect is a clean, energetic euphoria — uplifting, happy and creative with little anxiety, a classic feel-good sativa. It's moderate and smooth, more about a bright, easy lift than raw power. As a piece of cannabis history and a genuinely pleasant sativa, Acapulco Gold endures.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Chocolope",
+    marketNames: ["D-Line", "Chocoloped"],
+    breeder: "DNA Genetics",
+    lineage: {
+      parents: ["Chocolate Thai", "Cannalope Haze"],
+      cross: "Chocolate Thai × Cannalope Haze",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Coffee-and-melon flavour"],
+    curatorNote:
+      "Chocolope is a DNA Genetics sativa — a Chocolate Thai × Cannalope Haze cross — built to revive an old-school coffee-and-melon flavour. The nose is its signature: rich coffee and cocoa over sweet melon and earth, dessert-like but not sugary. The effect is a bright, dreamy cerebral high — uplifting, euphoric and energising, a strong daytime sativa. It's potent and clear-headed, good for mornings and creative work. For people who want a coffee-chocolate sativa with real lift, Chocolope is a flavourful classic.",
+    sourceConfidence: "medium",
+  },
 ];
