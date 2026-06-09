@@ -4000,4 +4000,256 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sandalwood and incense over a sweet, spicy hash sweetness.",
     sourceConfidence: "medium",
   },
+
+  // ── ROUND 8: LANDRACE / HAZE ROOTS + MODERN EXOTICS ──
+  {
+    canonicalName: "Haze",
+    marketNames: ["Original Haze"],
+    breeder: "Haze Brothers / Sam the Skunkman",
+    lineage: {
+      cross: "Colombian × Mexican × Thai × South Indian landraces",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["The root sativa-haze", "Behind Blue Dream, SSH and Jack Herer"],
+    curatorNote:
+      "Haze is the original — a 1970s Santa Cruz blend of Colombian, Mexican, Thai and South Indian landraces that became the spine of nearly every modern sativa. The nose is bright and complex: citrus and incense over a spicy, earthy base. The effect is a long, soaring cerebral high — energetic, creative and almost psychedelic, with little body. It's slow to grow and not for the impatient, but its DNA runs through Blue Dream, Super Silver Haze and Jack Herer. For the source of haze genetics, this is it.",
+    curatorQuote:
+      "Citrus and incense over a spicy, earthy base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Ghost OG",
+    lineage: {
+      parents: ["OG Kush"],
+      cross: "OG Kush phenotype (Ghost cut)",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Bright, citrusy OG cut", "Parent of Ghost Train Haze and Banana Kush"],
+    curatorNote:
+      "Ghost OG is a celebrated phenotype of OG Kush — a brighter, more citrus-forward cut than most OGs, and a productive parent. The nose is classic gas with a lift: fuel and pine over a lemony, earthy base. The effect is balanced — a euphoric, happy head with a relaxing body, usable across the day. It's gassy, frosty and potent, and it's behind Ghost Train Haze and Banana Kush. For a brighter cut of OG genetics, Ghost OG is a key line.",
+    curatorQuote:
+      "Fuel and pine over a lemony, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Colombian Gold",
+    marketNames: ["Colombian"],
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Santa Marta landrace", "A parent of Skunk #1"],
+    curatorNote:
+      "Colombian Gold is a landrace from the Santa Marta mountains of Colombia — a sweet, energetic sativa that helped found modern genetics as a parent of Skunk #1. The nose is sweet and earthy: honeyed grass and citrus with a faint skunk. The effect is up and clear — an energetic, happy, creative head with little weight, a classic daytime sativa. It's mild by modern standards but historically huge. For old-world sativa sweetness at the root of Skunk, Colombian Gold is foundational.",
+    curatorQuote:
+      "Honeyed grass and citrus with a faint skunk.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Hawaiian",
+    marketNames: ["Hawaiian Sativa"],
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Tropical island landrace", "A parent of Pineapple Express"],
+    curatorNote:
+      "Hawaiian is the island landrace behind a generation of tropical strains — a sweet, fruity sativa grown in the Hawaiian sun, and a parent of Pineapple Express. The nose is bright and tropical: pineapple and citrus over a light, sweet base. The effect is uplifting and gentle — a happy, creative, low-stress head, an easy daytime sativa. It's moderate and mellow, more about mood and flavour than power. For sunny tropical-sativa genetics, Hawaiian is a source.",
+    curatorQuote:
+      "Pineapple and citrus over a light, sweet base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "California Orange",
+    marketNames: ["Cali O", "Cali Orange"],
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["1980s citrus classic", "A parent of Tangie and Orange Crush"],
+    curatorNote:
+      "California Orange (Cali O) is a 1980s citrus classic of murky origin — a balanced hybrid prized for clean orange flavour, and the parent that gave Tangie and Orange Crush their nose. The smell is exactly the name: sweet orange and tangerine over a soft, earthy base. The effect is uplifting and easy — a happy, sociable high with a relaxed body, comfortable across the day. It's moderate and approachable, a flavour-first throwback. For the source of citrus genetics, Cali O is foundational.",
+    curatorQuote:
+      "Sweet orange and tangerine over a soft, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Strawberry Fields",
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Sweet strawberry line", "A parent of Strawberry Cough"],
+    curatorNote:
+      "Strawberry Fields is a sweet, strawberry-leaning line best known as a parent of Strawberry Cough. The nose is bright and fruity: ripe strawberry and berry over a light earthy base. The effect is balanced and pleasant — a happy, relaxing high that lifts the mood without much weight. It's flavour-led and approachable, moderate in strength. For sweet strawberry genetics, Strawberry Fields is the parent cut.",
+    curatorQuote:
+      "Ripe strawberry and berry over a light earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Pink Panties",
+    breeder: "Sherbinski",
+    lineage: {
+      cross: "Burmese Kush phenotype",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Floral Burmese Kush pheno", "A parent of Sunset Sherbet"],
+    curatorNote:
+      "Pink Panties is a Sherbinski selection — a floral, sweet Burmese Kush phenotype that matters most as a parent of Sunset Sherbet (and so, indirectly, of Gelato). The nose is sweet and floral: berry and flowers over a soft, earthy base. The effect is relaxing and gentle — a happy, calming high that leans comfortable. It's frosty and pretty, a quiet but important parent line. For the floral side of the Sherbet genome, Pink Panties is the source.",
+    curatorQuote:
+      "Berry and flowers over a soft, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Nevil's Wreck",
+    marketNames: ["Nevils Wreck"],
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Pungent haze cut", "A parent of Ghost Train Haze"],
+    curatorNote:
+      "Nevil's Wreck is a pungent haze-leaning cut — a sharp, citrus-pine sativa that Rare Dankness used to build Ghost Train Haze. The nose is loud and clean: citrus and pine over a spicy, incense-like base. The effect is a fast, soaring cerebral rush — energetic and heady, potent enough to overwhelm. It's frosty and very strong, the sativa half behind one of the most potent strains around. For intense haze genetics, Nevil's Wreck is a key parent.",
+    curatorQuote:
+      "Citrus and pine over a spicy, incense-like base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Las Vegas Purple Kush",
+    marketNames: ["LVPK", "Vegas Purple Kush"],
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Purple Vegas indica", "A parent of Alien Kush"],
+    curatorNote:
+      "Las Vegas Purple Kush is a deeply purple Nevada indica — sweet, frosty and heavy, and a parent of Alien Kush. The nose is sweet and fruity: grape and berry over an earthy, hashy base. The effect is heavily relaxing — a warm, dreamy body weight that drifts toward sleep, a classic evening indica. It's dense, colourful and potent. For purple Kush genetics with a Vegas pedigree, LVPK is a solid parent line.",
+    curatorQuote:
+      "Grape and berry over an earthy, hashy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Acai",
+    marketNames: ["Acai Berry Gelato"],
+    breeder: "Sherbinski",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Dark berry over Gelato cream"],
+    curatorNote:
+      "Acai (Acai Berry Gelato) is a Sherbinski berry-forward gelato cut — dark, jammy fruit over a creamy base. The nose is rich and sweet: acai and dark berry over sherbet cream. The effect is relaxing and euphoric — a happy head easing into a comfortable body, evening-leaning. It's frosty and flavour-forward, and it shows up behind dark-fruit crosses like Black Cherry Gelato. For deep berry-gelato sweetness, Acai is a tasty cut.",
+    curatorQuote:
+      "Acai and dark berry over sherbet cream.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lamb's Bread",
+    marketNames: ["Lamb's Breath", "Lambsbread"],
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Jamaican landrace", "Bright, grassy, energising"],
+    curatorNote:
+      "Lamb's Bread (Lamb's Breath) is a Jamaican landrace famously favoured by Bob Marley — a bright, grassy sativa with an uplifting reputation. The nose is earthy and herbal: fresh grass and citrus over a faint skunk. The effect is up and clear — an energetic, creative, mood-lifting head with little body, a daytime classic. It's moderate and clean, more lift than weight. For old-world Jamaican sativa, Lamb's Bread is a piece of history.",
+    curatorQuote:
+      "Fresh grass and citrus over a faint skunk.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Panama Red",
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Panamanian landrace legend", "1970s soaring sativa"],
+    curatorNote:
+      "Panama Red is a Panamanian landrace and a genuine 1960s-70s legend — a slow-growing, near-pure sativa that defined an era before hybrids took over. The nose is earthy and sweet: spicy, woody sweetness over a herbal base. The effect is a clean, soaring, creative high with almost no body, a true daytime classic. It's rare now and moderate by modern potency, prized for heritage and a clear, social lift. For pure old-school sativa, Panama Red is a relic worth knowing.",
+    curatorQuote:
+      "Spicy, woody sweetness over a herbal base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Kali Mist",
+    breeder: "Serious Seeds",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Clean spicy-citrus haze hybrid"],
+    curatorNote:
+      "Kali Mist is a Serious Seeds haze hybrid — a clean, spicy-citrus sativa that won early Cups and earned a 'queen of sativas' reputation. The nose is sharp and fresh: citrus and spice over a herbal, earthy base. The effect is up and focused — an energetic, creative, clear head with little body, a daytime strain. It's potent and clean, beloved for a smooth, anxiety-light lift. For a refined, spicy-citrus sativa, Kali Mist is a connoisseur classic.",
+    curatorQuote:
+      "Citrus and spice over a herbal, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Pink Rozay",
+    breeder: "Cookies",
+    lineage: {
+      parents: ["Lemonchello", "London Pound Cake"],
+      cross: "Lemonchello 10 × LPC 75",
+      parentDetails: {
+        "Lemonchello": { lineageBrief: "The Original Z × Lemonnade", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Floral-berry Cookies dessert"],
+    curatorNote:
+      "Pink Rozay is a Cookies cross of Lemonchello and London Pound Cake — a floral, berry-sweet dessert with rosé-pink looks. The nose is sweet and floral: berry and flowers over a creamy, doughy base. The effect is relaxing and happy — a euphoric head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, an elegant Cookies cut. For floral-berry dessert sweetness, Pink Rozay is a pretty pick.",
+    curatorQuote:
+      "Berry and flowers over a creamy, doughy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Garlic Breath",
+    lineage: {
+      parents: ["GMO Cookies", "Mendo Breath"],
+      cross: "GMO × Mendo Breath (commonly cited)",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Savoury garlic-gas indica"],
+    curatorNote:
+      "Garlic Breath is a savoury, gassy indica in the GMO family — usually cited as GMO crossed with Mendo Breath — built around a pungent garlic funk. The nose is loud and umami: roasted garlic and gas over an earthy, hashy base. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, firmly evening. It's frosty, potent and very loud. For garlic-gas funk in a heavy indica, Garlic Breath delivers.",
+    curatorQuote:
+      "Roasted garlic and gas over an earthy, hashy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Tropicana Banana",
+    lineage: {
+      parents: ["Tropicana Cookies", "Banana"],
+      cross: "Tropicana Cookies × a banana cut",
+      parentDetails: {
+        "Banana": { lineageBrief: "banana-flavour selection", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Orange citrus over creamy banana"],
+    curatorNote:
+      "Tropicana Banana pairs Tropicana Cookies' bright orange with a creamy banana cut — citrus and tropical fruit in one juicy nose. The smell is sweet and zesty: orange and tangerine over ripe banana. The effect is uplifting and lively — a happy, creative head with a relaxed body, daytime-friendly. It's terpy and frosty, flavour-forward rather than heavy. For an orange-and-banana fruit profile, Tropicana Banana is a bright pick.",
+    curatorQuote:
+      "Orange and tangerine over ripe banana.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Biskante",
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Creamy cookie over a gassy base"],
+    curatorNote:
+      "Biskante is a Biscotti-leaning exotic — creamy cookie sweetness over a gassy, earthy base. The nose is rich and sweet: cookie and cream cut by a light gas. The effect is balanced and relaxing — a euphoric head easing into a comfortable body, versatile and potent. It's frosty and flavour-forward, in the polished Biscotti lane. For creamy cookie-gas dessert, Biskante is a smooth pick.",
+    curatorQuote:
+      "Cookie and cream cut by a light gas.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Sunset Mintz",
+    lineage: {
+      parents: ["Sunset Sherbet", "Kush Mints"],
+      cross: "Sunset Sherbet × Kush Mints",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Minty-sweet sherbet cross"],
+    curatorNote:
+      "Sunset Mintz pairs Sunset Sherbet's cream with Kush Mints' cool mint and gas — a frosty, minty-sweet exotic. The nose is layered: sweet sherbet and cream over a cool mint and light gas. The effect is balanced and relaxing — a euphoric head easing into a calm body, evening-leaning. It's frosty and flavour-forward, easy to like. For minty-sweet sherbet character, Sunset Mintz is a tasty pick.",
+    curatorQuote:
+      "Sweet sherbet and cream over a cool mint and light gas.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Apple Gelato",
+    lineage: {
+      parents: ["Apple Fritter", "Gelato"],
+      cross: "Apple Fritter × Gelato",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Sweet-apple over Gelato cream"],
+    curatorNote:
+      "Apple Gelato folds Apple Fritter's sweet-and-savoury pastry into Gelato's cream — green-apple dessert with a light gas. The nose is bright and sweet: green apple and sugar over a creamy, gassy base. The effect is balanced and feel-good — a euphoric, creative head with a relaxed body, sociable and potent. It's frosty and flavour-forward, an easy-drinking exotic. For apple-and-cream dessert character, Apple Gelato is a tasty pick.",
+    curatorQuote:
+      "Green apple and sugar over a creamy, gassy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Malawi",
+    marketNames: ["Malawi Gold"],
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["African landrace (Malawi Gold)", "Pure soaring sativa"],
+    curatorNote:
+      "Malawi (Malawi Gold) is a celebrated African landrace from the highlands of Malawi — a pure, long-flowering sativa known for resin and a clean, soaring high. The nose is earthy and sweet: spicy, woody sweetness with a faint citrus. The effect is energetic and creative — a clear, almost relentless cerebral lift with no body, a true heritage sativa. It's potent and pure, prized by collectors and hash makers alike. For old-world African sativa, Malawi is a landrace worth knowing.",
+    curatorQuote:
+      "Spicy, woody sweetness with a faint citrus.",
+    sourceConfidence: "medium",
+  },
 ];
