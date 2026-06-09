@@ -61,17 +61,21 @@ export function StrainDetail({
 }) {
   const { strain, identity } = entry;
   const knownAs = knownAsNames(strain.aliases, identity);
-  const radar = buildRadar(strain, { size: 10 });
+  const radar = buildRadar(strain);
   const badgeScore = match ? match.score : curatedScore;
   const badgeTone = match
     ? CATEGORY_TONE[match.category] ?? "text-foreground"
     : "text-brass";
 
-  const lead =
-    identity?.curatorNote?.split(/(?<=\.)\s/)[0] ??
-    entry.archetype ??
-    strain.note ??
-    "";
+  // Split the curator note into a hero "lead" (first sentence) and the
+  // remainder shown under "The Story", so the opening line isn't printed
+  // twice on the page. Falls back to the archetype/use-case line when there
+  // is no curator note yet.
+  const noteParts = identity?.curatorNote
+    ? splitLead(identity.curatorNote)
+    : null;
+  const lead = noteParts?.lead ?? entry.archetype ?? strain.note ?? "";
+  const story = noteParts?.rest ?? "";
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
@@ -154,10 +158,10 @@ export function StrainDetail({
       {/* ── Body ─────────────────────────────────────────────── */}
       <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="space-y-6">
-          {identity?.curatorNote && (
+          {story && (
             <Section title="The Story">
               <p className="font-display text-lg italic leading-relaxed text-foreground/90">
-                {identity.curatorNote}
+                {story}
               </p>
             </Section>
           )}
@@ -283,6 +287,13 @@ export function StrainDetail({
       </div>
     </div>
   );
+}
+
+// Split a curator note into its first sentence (hero lead) and the rest
+// (shown under "The Story"). Avoids printing the opening line twice.
+function splitLead(note: string): { lead: string; rest: string } {
+  const parts = note.split(/(?<=\.)\s+/);
+  return { lead: parts[0] ?? note, rest: parts.slice(1).join(" ").trim() };
 }
 
 function Section({
