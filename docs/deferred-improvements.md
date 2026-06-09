@@ -259,7 +259,136 @@ and didn't do is itself valuable context.
 
 ---
 
+### #8 — Multi-favourite weighting (sensory-family influence balanced across favourites)
+
+- **Found:** 2026-06-09
+- **Source:** External reviewer (live testing review, second pass)
+- **What:** When a user has multiple favourites that span sensory
+  families (e.g., GG4 + OG Kush + White Hot Guava), the OG/gas-og
+  weighting dominates because two of three favourites cluster there.
+  White Hot Guava's modern-exotic family ends up under-represented in
+  the scoring even though it's a stated anchor.
+  
+  Related but distinct from #2 (which is about behavioural-family
+  dominance over sensoryFamily): this one is about IMBALANCE between
+  the user's own favourites, not between different layer signals.
+
+- **Why deferred:** Picking the right weighting strategy needs more
+  observation data — there are competing intuitions ("each favourite
+  is independently valid" vs "favourites cluster organically; the
+  cluster IS the signal"). The current "max across favourites" for
+  similarity + the new position-weighting from PR #50 covers the
+  simpler "first favourite is the primary" case.
+
+- **Potential fix:**
+  - Option A: Calculate `sensoryFamilyBonus` from ALL favourites, not
+    just any-match — give partial credit when the candidate aligns
+    with the user's MINORITY favourite family.
+  - Option B: Treat the bonus per-favourite and aggregate the max,
+    but boost the boost when one favourite stands alone in its
+    family (compensating for being outnumbered).
+
+- **Estimated effort:** 3–4 hours
+
+- **Trigger to revisit:**
+  - 2+ weeks of `/stats` data showing many multi-family favourite
+    profiles (we don't know if this is common yet)
+  - The modern-exotic split from #1 also lands, which may dissolve
+    the issue at the source
+
+---
+
+### #9 — Aroma intensity preference (subtle / moderate / loud / offensive)
+
+- **Found:** 2026-06-09
+- **Source:** External reviewer (live testing review, second pass)
+- **What:** The questionnaire collects which aromas the user wants
+  (gassy, citrus, …) but not HOW LOUD they want them. A user who
+  selects `gassy` could mean a faintly gassy hybrid or a Gas Face
+  style "smell hits the room" loudness. Without an intensity axis the
+  engine can't separate Blue Dream from Gas Face when their other
+  tags overlap.
+
+- **Why deferred:** Adds a new questionnaire dimension AND a new
+  per-strain attribute (intensity is grower-and-pheno specific, not
+  just strain-intrinsic). Best done after observation confirms the
+  intensity confusion is a real source of bad recommendations.
+
+- **Potential fix:**
+  - New profile field `aromaIntensity?: "subtle" | "moderate" | "loud" | "offensive"`
+  - New optional `intensityLevel` on `StrainIdentity` (curator estimate)
+  - Engine penalty for large intensity mismatch (a "subtle" preferer
+    looking at GMO Cookies gets a few points knocked off)
+
+- **Estimated effort:** 4–6 hours code + ongoing curation
+
+- **Trigger to revisit:**
+  - We hit a user case where intensity mismatch produced a clearly
+    wrong recommendation that affected someone's purchase
+
+---
+
+### #10 — Novelty vs familiarity exploration mode
+
+- **Found:** 2026-06-09
+- **Source:** External reviewer (live testing review, second pass)
+- **What:** The engine answers "what is closest to my profile?" but a
+  user often wants "what is close to my profile but still new?". The
+  old `lookingFor: "similar" | "new"` field captured this intent but
+  it never made it into scoring — it was a label, not a signal. The
+  reviewer's framing is sharper: a 4-state spectrum from "closest"
+  → "surprise me", controlling how much the engine should explore
+  outside the user's known territory.
+
+- **Why deferred:**
+  - Requires a UI / questionnaire choice change AND a real scoring
+    change. Not a quick win.
+  - It's also unclear whether the right place to inject this is the
+    scoring layer or the post-scoring presentation layer (e.g., the
+    Compare result page could expose "show me the closest" vs "show
+    me one wild card").
+
+- **Potential fix:**
+  - Profile field: `explorationMode: "closest" | "near" | "compatible-new" | "surprise"`
+  - Engine: when set to compatible-new or surprise, add a bonus for
+    strains that are sensory-family ADJACENT to the favourites (not
+    exact match), and a small penalty for exact matches. Effectively
+    rotates the search axis.
+
+- **Estimated effort:** 5–7 hours
+
+- **Trigger to revisit:**
+  - We see users completing Taste Match and immediately running the
+    same profile against new menus expecting variety (the data will
+    show this pattern in `/stats`)
+
+---
+
 ## Resolved
 
-*(Move entries here with their resolving PR number when fixed. Empty
-for now — every open item above is genuinely deferred.)*
+### ✓ #5 — Texture participates in scoring (was open)
+
+Resolved in PR #50 (2026-06-09). The `texturePreferences` field
+previously collected from the questionnaire but ignored at scoring
+time now contributes 3% of the weighted sum via a `textureScore`
+helper. Mapping table in `taste-engine.ts` projects the texture
+vocab onto existing strain `traits` (e.g. `dense` → `dense-buds`),
+dropping labels with no sensible analogue (`fluffy`, `moist`) rather
+than scoring noise.
+
+### ✓ #6 — Quality priorities participate in scoring (was open)
+
+Resolved in PR #50 (2026-06-09). `qualityPriorities` (freshness,
+potency, aroma, sleep, focus, creativity, body-feel, head-feel,
+appearance, …) now contribute 2% via a `qualityScore` helper that
+projects each priority onto the closest trait or effect signal on
+the strain. Small slice on purpose — tiebreaker, not primary signal.
+
+### ✓ #7 — Favorite order explicit weighting (was open)
+
+Resolved in PR #50 (2026-06-09). `referenceSimilarity` now applies a
+position-weighting multiplier `[1.0, 0.95, 0.9, 0.85, 0.8]` during
+the best-of search across favourites. A candidate slightly closer to
+favourite #3 still reports against favourite #1 unless the gap is
+large. Reported `score` stays the RAW similarity to the winner, so
+"X sits closest to your taste" reads honestly.

@@ -60,7 +60,18 @@ import { BATCH_QUALITY_TRAITS, labelFor } from "./vocab";
 // got no sensory-cluster signal at all even though both clearly share
 // gas/funk character with GG4. Exact-match bonus also nudges up (+4 → +5).
 // Older v5 audits stay readable.
-export const ENGINE_VERSION = "v6";
+// v6 → v7: previously-dead profile fields finally pull weight in the
+// formula. texturePreferences and qualityPriorities were collected from
+// the questionnaire but ignored at scoring time; now they participate
+// at 3% and 2% of the weighted sum (small slices, tiebreakers rather
+// than primary signals). Also adds position-weighting on favorites in
+// referenceSimilarity — the first favourite is the strongest anchor,
+// each later position discounts by 5%, so a candidate that's slightly
+// closer to favourite #3 than to favourite #1 still reports against
+// #1 unless the gap is large. Effect, aroma, flavor, trait, and ref
+// weights nudged down a couple of points to make room. Older v6 audits
+// stay readable but the absolute score distribution shifts a little.
+export const ENGINE_VERSION = "v7";
 
 const NEUTRAL = 52;
 
@@ -281,6 +292,86 @@ function setScore(
   return { score: Math.round(26 + coverage * 74), matched };
 }
 
+// Texture preferences ("sticky", "dense", "frosty", …) map to traits the
+// engine already has on each StrainProfile. Some labels need a small
+// translation (e.g. "dense" → "dense-buds"). Anything without a sensible
+// trait analogue is dropped — the score reflects only mappable
+// preferences, so a user who only picks "fluffy" gets 0 contribution
+// rather than a spurious low score.
+const TEXTURE_TO_TRAIT: Record<string, string | null> = {
+  sticky: "sticky",
+  dense: "dense-buds",
+  frosty: "frosty",
+  moist: null, // "Moist / fresh" — no direct strain-intrinsic analogue
+  "well-cured": "well-cured",
+  fluffy: null, // antonym of dense; no positive trait
+};
+
+function textureScore(
+  strain: StrainProfile,
+  texturePreferences: string[],
+): { score: number; matched: string[] } {
+  const wanted = texturePreferences
+    .map((t) => TEXTURE_TO_TRAIT[t])
+    .filter((x): x is string => Boolean(x));
+  return setScore(strain.traits, wanted);
+}
+
+// Quality priorities ("freshness", "potency", "aroma", …) describe what
+// the user judges a purchase on. They don't map 1:1 to strain tags,
+// so we project each onto whichever existing trait or effect is the
+// closest proxy. The contribution is intentionally small (a few percent
+// of the weighted sum) — they're a tiebreaker, not a primary signal.
+const QUALITY_SIGNALS: Record<
+  string,
+  { traits?: string[]; effects?: string[] }
+> = {
+  freshness: { traits: ["well-cured"] },
+  moisture: { traits: ["well-cured"] },
+  aroma: { traits: ["loud-smell", "terpy"] },
+  taste: { traits: ["smooth", "terpy"] },
+  potency: { traits: ["potent"] },
+  "body-feel": { traits: ["heavy-body"] },
+  "head-feel": { effects: ["head-high", "euphoric"] },
+  sleep: { effects: ["sleepy", "couch-lock"] },
+  focus: { effects: ["focused"] },
+  creativity: { effects: ["creative"] },
+  appearance: { traits: ["frosty", "dense-buds"] },
+};
+
+function qualityScore(
+  strain: StrainProfile,
+  qualityPriorities: string[],
+): number {
+  if (qualityPriorities.length === 0) return NEUTRAL;
+  let hits = 0;
+  for (const priority of qualityPriorities) {
+    const signal = QUALITY_SIGNALS[priority];
+    if (!signal) continue;
+    const traitMatch = signal.traits?.some((t) => strain.traits.includes(t));
+    const effectMatch = signal.effects?.some((e) => strain.effects.includes(e));
+    if (traitMatch || effectMatch) hits += 1;
+  }
+  const coverage = hits / qualityPriorities.length;
+  return Math.round(26 + coverage * 74);
+}
+
+// Position-weighting on the favourite list. First favourite is the
+// strongest anchor (the strain the user most reliably represents their
+// taste with); each later position gets a small discount. Applied as a
+// multiplier on similarity during the best-of search — a candidate
+// that's slightly closer to favourite #3 than to favourite #1 still
+// reports against #1 if the gap is small enough. Reported score stays
+// the RAW similarity to the winner, so the user-visible "{strain} sits
+// closest to your taste" reading remains honest.
+const FAVORITE_POSITION_WEIGHTS = [1.0, 0.95, 0.9, 0.85, 0.8];
+
+function favoritePositionWeight(index: number): number {
+  return FAVORITE_POSITION_WEIGHTS[
+    Math.min(index, FAVORITE_POSITION_WEIGHTS.length - 1)
+  ];
+}
+
 function referenceSimilarity(
   strain: StrainProfile,
   favorites: string[],
@@ -290,15 +381,19 @@ function referenceSimilarity(
     .filter((s): s is StrainProfile => Boolean(s));
   if (resolved.length === 0) return { score: NEUTRAL, against: null };
 
-  let best = 0;
+  let bestWeighted = 0;
+  let bestRaw = 0;
   let against = resolved[0].name;
-  for (const fav of resolved) {
+  for (let i = 0; i < resolved.length; i++) {
+    const fav = resolved[i];
     if (normalizeStrainName(fav.name) === normalizeStrainName(strain.name)) {
       return { score: 100, against: fav.name };
     }
     const sim = similarity(strain, fav);
-    if (sim > best) {
-      best = sim;
+    const weighted = sim * favoritePositionWeight(i);
+    if (weighted > bestWeighted) {
+      bestWeighted = weighted;
+      bestRaw = sim;
       against = fav.name;
     }
   }
@@ -308,7 +403,7 @@ function referenceSimilarity(
   // not let that trigger the anchor floor via `ref.score === 100`.
   // Cap at 99 so anchor logic stays driven by explicit favourite
   // identity, not high similarity.
-  return { score: Math.min(99, Math.round(best * 100)), against };
+  return { score: Math.min(99, Math.round(bestRaw * 100)), against };
 }
 
 function dislikedConflicts(
@@ -762,11 +857,30 @@ export function scoreStrain(
   // strains can still win if they're genuinely exceptional on the
   // remaining signals; they just no longer auto-win on tag overlap alone.
   // Default mode (no clustered favourites) keeps the original weights so
-  // sparse/exploring profiles are not affected.
+  // sparse/exploring profiles are not affected. In both modes the
+  // texture and quality channels take a tiny slice so the previously
+  // collected-but-unused fields finally pull weight — small enough to
+  // be a tiebreaker, never a primary signal.
   const trustMode = hasClusteredFavorites(profile);
   const W = trustMode
-    ? { effect: 0.22, aroma: 0.18, flavor: 0.14, trait: 0.1, ref: 0.36 }
-    : { effect: 0.27, aroma: 0.23, flavor: 0.18, trait: 0.14, ref: 0.18 };
+    ? {
+        effect: 0.21,
+        aroma: 0.17,
+        flavor: 0.13,
+        trait: 0.1,
+        ref: 0.34,
+        texture: 0.03,
+        quality: 0.02,
+      }
+    : {
+        effect: 0.25,
+        aroma: 0.22,
+        flavor: 0.17,
+        trait: 0.13,
+        ref: 0.18,
+        texture: 0.03,
+        quality: 0.02,
+      };
 
   // Sensory-family bonus — orthogonal to the behavioural family used by
   // familyMod above. familyMod looks at effect-feel (nighttime-indica,
@@ -777,12 +891,17 @@ export function scoreStrain(
   // and at least one favourite carry an identity record.
   const sensoryMod = sensoryFamilyBonus(strain, resolvedFavorites);
 
+  const texture = textureScore(strain, profile.texturePreferences);
+  const quality = qualityScore(strain, profile.qualityPriorities);
+
   const raw =
     W.effect * effectContribution +
     W.aroma * aromaScore +
     W.flavor * flavor.score +
     W.trait * trait.score +
     W.ref * ref.score +
+    W.texture * texture.score +
+    W.quality * quality +
     archetypeBonus +
     textureMod +
     familyMod +
