@@ -473,6 +473,94 @@ and didn't do is itself valuable context.
 
 ---
 
+### #12 — Collectible cards system (verified, owned strains as artifacts)
+
+- **Found:** 2026-06-09
+- **Source:** Owner / strategic conversation while reviewing the
+  catalog UI redesign mockup. The card layout itself is a near-term
+  ship (Stage 1 below); this entry captures the larger product idea
+  the card aesthetic unlocks.
+- **What:** Turn each strain card from "a search result" into "an
+  artifact in the user's personal sensory archive". Three components
+  build on each other:
+
+  1. **Photo-verified ownership.** After running Compare or Taste
+     Match, the user can attach a photo of the physical product
+     (dispensary bag, jar label, package) to a strain. The image
+     persists alongside the verdict from #11, marking that strain as
+     `owned` on the user's profile.
+
+  2. **Personal collection view.** A page (likely `/profile` or
+     `/my/collection`) shows every strain the user has marked owned,
+     with their own verdict pill + photo. Reads like a sommelier
+     tasting log, not a list of search results.
+
+  3. **Rarity badges.** Per-strain badges based on properties already
+     in identity records:
+       - `Classic OG` for the gas-og / kush-classic anchors
+       - `Modern bx` for recent Cookies/Runtz-line releases
+       - `Regional exclusive` when grower / breeder is geographically
+         narrow
+       - `Rare phenotype` when curatorNote calls out a specific cut
+       - `Heritage genetics` for landraces and 80s/90s breeding stock
+     Badges aren't gamification for its own sake — they make the
+     archive feel curated, like a wine cellar entry vs a barcode.
+
+- **Why this is strategically aligned with SOMA's positioning:**
+  - Sommelier framing — "you've tried this, here's what it was, here's
+    the verdict you left" is exactly what the project was supposed to
+    feel like
+  - Engagement multiplier — collected strains give a reason to come
+    back beyond "what to buy next"
+  - **Strongest possible feedback signal** — a photo + verdict beats
+    any star rating or click. Combined with #11, this is the highest-
+    integrity data we can collect
+  - Solves the "0 users" cold start: people who would otherwise leave
+    after one Taste Match come back to log what they actually bought
+
+- **What we already have:**
+  - `FeedbackPill` from PR #59 — 4-state verdict per strain
+  - `StrainFeedback` table — userId / strainName / verdict already
+    persisted with the right unique key
+  - `getFeedbackSignals` reads it back into scoring
+  - Cards layout from the immediate Stage 1 PR (catalog redesign)
+  - sensoryFamily / lineage / curatorNote on every identity record —
+    enough metadata to derive most rarity badges programmatically
+
+- **What's missing:**
+  - Photo upload endpoint + storage (Vercel Blob, S3, or
+    Supabase Storage — same tier of decision)
+  - Schema extension on StrainFeedback (or new model) to carry the
+    photo reference and `owned` flag
+  - Collection page UI
+  - Rarity-badge derivation (mostly pure-function over existing data,
+    plus a small curator-defined override map)
+
+- **Honest scope:** This is a real product feature, not a one-PR ship.
+  Roughly:
+  - Stage A: photo attach on FeedbackPill, schema + storage — 4-6h
+  - Stage B: collection view on profile — 3-4h
+  - Stage C: rarity-badge logic + UI on cards — 4-6h
+  - Stage D: moderation surface (when other users' photos show in
+    aggregate views — distant future) — gated on social features
+
+- **Trigger to revisit:**
+  - Card-redesign Stage 1 ships and the owner wants to push the
+    "collectible" framing further
+  - We hit a moment where #11 is collecting decent verdict data but
+    users aren't returning often enough — photo-attach is a strong
+    return-reason
+  - A user explicitly asks "where do I keep track of what I've tried"
+
+- **Connection to other open items:**
+  - **#11 Observed Preference Learning** — this entry is the natural
+    extension. #11 collects a verdict; #12 attaches a verified
+    artifact to that verdict. Same `StrainFeedback` table.
+  - Card UI redesign (Stage 1, near-term PR) — sets up the visual
+    container this feature lives in.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
