@@ -1132,6 +1132,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["The original prized Gelato pheno"],
     curatorNote:
       "Gelato 33 — the 'Larry Bird' pheno — is the original prized cut of Gelato, a Sunset Sherbet × Thin Mint GSC selection from the Cookies/Sherbinski camp. The nose is the Gelato benchmark: sweet sherbet and cream with a citrus-berry twist over a low note of gas, balanced and inviting. The effect is the reason it parents half the menu — a bright, euphoric, social lift that settles into easy body relaxation without knocking you out. It's frosty, flavourful and remarkably well-rounded, equally at home in the afternoon or evening. As the cut that defined modern Gelato, #33 is the reference everything else chases.",
+    curatorQuote:
+      "Sweet sherbet and cream with a citrus-berry twist over a low note of gas, balanced and inviting.",
     sourceConfidence: "high",
   },
   {
@@ -1146,6 +1148,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Gassier Gelato sibling", "Parent of Jealousy"],
     curatorNote:
       "Gelato 41 is a sibling cut from the same Sunset Sherbet × Thin Mint GSC line as Gelato 33 — gassier and a touch heavier, and the parent of hype strains like Jealousy. The nose leans more fuel than its sweeter sibling: sherbet and creamy sweetness over a pronounced gassy funk. The effect is balanced-leaning-relaxed — a euphoric head over comfortable body weight, a little more sedating than #33. It's frosty and potent, a favourite base for breeders chasing gas-and-dessert crosses. For Gelato lovers who want more gas in the mix, 41 is the pick.",
+    curatorQuote:
+      "Sherbet and creamy sweetness over a pronounced gassy funk.",
     sourceConfidence: "medium",
   },
   {
@@ -1159,6 +1163,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Vanilla cake-batter sweetness"],
     curatorNote:
       "Birthday Cake (Birthday Cake Kush) is a GSC × Cherry Pie cross — sweet, doughy and a little fruity, an easygoing dessert hybrid. The nose is sweet and vanilla-forward: cake batter and a hint of cherry over a soft earthy base, dessert without much gas. The effect is relaxing and happy — a calm, mood-lifting body ease that suits unwinding rather than productivity. It's moderate and approachable, more comfort than knockout at sensible doses. For people who want a gentle, sweet, vanilla-cake profile, Birthday Cake fits.",
+    curatorQuote:
+      "Cake batter and a hint of cherry over a soft earthy base, dessert without much gas.",
     sourceConfidence: "medium",
   },
   {
@@ -1171,6 +1177,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Creamy, gassy dessert indica"],
     curatorNote:
       "Gelato Cake is a cross of Wedding Cake and Gelato 33 — two dessert heavyweights folded into one frosty, creamy indica-leaning hybrid. The nose is rich and sweet: vanilla cake and cream over a gassy, earthy funk, dessert with weight. The effect is relaxing and euphoric — a warm, happy calm that settles into the body, an evening-leaning strain. It's potent and frosty, comfortable rather than racy, easy to enjoy too much. For lovers of creamy, gassy dessert indicas, Gelato Cake is a natural pick.",
+    curatorQuote:
+      "Vanilla cake and cream over a gassy, earthy funk, dessert with weight.",
     sourceConfidence: "medium",
   },
   {
@@ -1184,6 +1192,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Minty-vanilla over heavy gas"],
     curatorNote:
       "LA Kush Cake is a Kush Mints × Wedding Cake cross — minty, gassy cookie sweetness on a heavy frame. The nose is cool and rich: mint, vanilla and cookie dough over an earthy gas, sweet and savoury at once. The effect is strongly relaxing — a euphoric head sinking into a heavy, calming body, firmly evening territory. It's potent and frosty, leaning sedating, a satisfying nightcap. For the mint-and-cake corner of the dessert world, LA Kush Cake is a rich, heavy option.",
+    curatorQuote:
+      "Mint, vanilla and cookie dough over an earthy gas, sweet and savoury at once.",
     sourceConfidence: "medium",
   },
   {
@@ -1198,6 +1208,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Dark berry, gassy dessert"],
     curatorNote:
       "London Pound Cake (London Poundcake 75) is a Cookies strain from the Sunset Sherbet line — dark, berry-forward and gassy, one of the moodier dessert profiles. The nose is rich and a little tart: grape and dark berry over a lemony, gassy funk, sweet but not candy. The effect is relaxing and euphoric — a calming body high with a happy head, an afternoon-into-evening strain. It's potent and frosty, balanced-leaning-indica, satisfying for flavour chasers. For people who like their dessert dark and gassy rather than sugary, London Pound Cake delivers.",
+    curatorQuote:
+      "Grape and dark berry over a lemony, gassy funk, sweet but not candy.",
     sourceConfidence: "medium",
   },
   {
@@ -1211,6 +1223,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Chocolate-and-berry dessert indica"],
     curatorNote:
       "Lava Cake is a Grape Pie × Thin Mint GSC cross — a sweet, chocolatey dessert indica with a frosty finish. The nose is rich and sweet: chocolate, berry and mint over an earthy, doughy base, indulgent and dessert-forward. The effect is relaxing and calming — a warm body ease with a gentle euphoric head, an evening strain more than a productive one. It's potent and comfortable, leaning sedating without being a total knockout. For lovers of chocolate-and-berry dessert indicas, Lava Cake is a cosy pick.",
+    curatorQuote:
+      "Chocolate, berry and mint over an earthy, doughy base, indulgent and dessert-forward.",
     sourceConfidence: "medium",
   },
   {
@@ -1225,6 +1239,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Smooth, creamy breeding parent"],
     curatorNote:
       "Sundae Driver is a Cannarado cross of Fruity Pebbles OG and Grape Pie — a smooth, creamy hybrid that became a popular breeding parent. The nose is sweet and creamy: sugary fruit and grape over a light gas, dessert-leaning and smooth. The effect is balanced and mellow — a calm, contented body ease with a clear-enough head, comfortable across the day. It's gentle and flavour-driven, more about smoothness and mood than raw power. For people who want a creamy, easygoing dessert hybrid, Sundae Driver is a reliable choice.",
+    curatorQuote:
+      "Sugary fruit and grape over a light gas, dessert-leaning and smooth.",
     sourceConfidence: "medium",
   },
   {
@@ -1239,6 +1255,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Gassy glue funk over sweet, nutty cookie"],
     curatorNote:
       "Grease Monkey is an Exotic Genetix cross of GG4 (Gorilla Glue) and Cookies and Cream — gassy glue funk meets sweet, nutty cookie. The nose is heavy and rich: diesel and skunk over sweet vanilla and nut, gas with a dessert chaser. The effect is strongly relaxing — a euphoric head that sinks into a heavy, sedating body, firmly evening territory. It's potent and couch-leaning, the kind of strain that ends the night. For lovers of gas-and-dessert heavy hybrids, Grease Monkey is a satisfying, sleepy pick.",
+    curatorQuote:
+      "Diesel and skunk over sweet vanilla and nut, gas with a dessert chaser.",
     sourceConfidence: "medium",
   },
   {
@@ -1253,6 +1271,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Frosty gas-and-sherbet 'strain of the year'"],
     curatorNote:
       "Jealousy is a hype-era cross of Gelato 41 and Sherbet (a Seed Junky/Powerzzzup line) that topped 'strain of the year' lists — frosty, gassy and sweet. The nose is rich and complex: creamy sherbet and sweet fruit over a sharp, gassy funk, candy with a fuel edge. The effect is balanced and euphoric — an uplifting, sociable head over a relaxed body, versatile across the day. It's potent and very frosty, a flavour-forward modern exotic. For people chasing the current Gelato-gas hype done well, Jealousy is a standout.",
+    curatorQuote:
+      "Creamy sherbet and sweet fruit over a sharp, gassy funk, candy with a fuel edge.",
     sourceConfidence: "medium",
   },
 
@@ -1268,6 +1288,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Bright pineapple over a piney base"],
     curatorNote:
       "Pineapple Express earned its fame from the 2008 movie, but the strain is a real Trainwreck × Hawaiian cross — bright tropical fruit on a sativa-leaning frame. The nose is exactly the name: ripe pineapple and tropical fruit over a piney, earthy base, sweet and lively. The effect is uplifting and energetic — a happy, talkative, mildly buzzy head with enough body to stay comfortable, a daytime and social strain. It's approachable and flavour-forward, not overwhelming, which is part of why it's so widely known. For an easy, juicy tropical sativa, Pineapple Express lives up to the hype.",
+    curatorQuote:
+      "Ripe pineapple and tropical fruit over a piney, earthy base, sweet and lively.",
     sourceConfidence: "medium",
   },
   {
@@ -1282,6 +1304,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Citrus-forward daytime hybrid"],
     curatorNote:
       "Mimosa is a Symbiotic Genetics cross of Clementine and Purple Punch — a brunch-cocktail name for a bright, citrus-forward hybrid. The nose is sweet and zesty: orange and tangerine over a berry-sweet base, juicy and clean. The effect is uplifting and energetic — a happy, motivating head that suits mornings and daytime, sativa-leaning but not racy. It's flavour-driven and sociable, a popular wake-and-bake pick. For people who want citrus brightness with a gentle lift, Mimosa is a daytime favourite.",
+    curatorQuote:
+      "Orange and tangerine over a berry-sweet base, juicy and clean.",
     sourceConfidence: "medium",
   },
   {
@@ -1296,6 +1320,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Genuinely fruity, resin-heavy"],
     curatorNote:
       "Strawberry Banana (Strawnana) is a Crockett Family cross — Banana Kush × a Strawberry Bubble Gum line — known for genuinely fruity flavour and heavy resin. The nose is sweet and ripe: strawberry and banana candy over a light earthy base, dessert-fruity and smooth. The effect is relaxing and happy — a euphoric, calming body high that leans indica without total couch-lock at moderate doses. It's potent and frosty, easy to enjoy for its flavour alone. For lovers of sweet, fruity, relaxing hybrids, Strawberry Banana is a tasty staple.",
+    curatorQuote:
+      "Strawberry and banana candy over a light earthy base, dessert-fruity and smooth.",
     sourceConfidence: "medium",
   },
   {
@@ -1309,6 +1335,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Creamy banana over a kush base"],
     curatorNote:
       "Banana Kush is a West Coast cross — usually Ghost OG × Skunk Haze — built around a creamy banana sweetness on a kush base. The nose is its signature: ripe banana and tropical sweetness over an earthy, skunky kush, smooth and dessert-like. The effect is relaxing and mellow — a calm, happy body ease with a clear-enough head, comfortable for afternoon into evening. It's moderate and approachable, more about flavour and chill than raw power. For a creamy, banana-sweet, easygoing strain, Banana Kush is a reliable pick.",
+    curatorQuote:
+      "Ripe banana and tropical sweetness over an earthy, skunky kush, smooth and dessert-like.",
     sourceConfidence: "medium",
   },
   {
@@ -1323,6 +1351,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Soft tropical-fruit indica"],
     curatorNote:
       "Papaya (Nirvana's Papaya) is an indica-leaning cross of Citral and Ice — named for its tropical, fruity nose. The nose is sweet and tropical: ripe papaya and mango over an earthy, peppery base, fruity but not candy. The effect is relaxing and calming — a mellow, contented body ease that eases tension and leans toward the couch in larger doses. It's moderate and comfortable, an unwind-and-relax strain more than a productive one. For people who want a soft tropical-fruit indica, Papaya is a gentle choice.",
+    curatorQuote:
+      "Ripe papaya and mango over an earthy, peppery base, fruity but not candy.",
     sourceConfidence: "medium",
   },
   {
@@ -1336,6 +1366,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Dark cherry meets bright citrus", "Frosty, dark buds"],
     curatorNote:
       "Forbidden Fruit is a Cherry Pie × Tangie cross — dark cherry meeting bright citrus in one of the more striking fruit profiles around. The nose is rich and layered: cherry, tangerine and tropical fruit over a piney, earthy base, sweet and complex. The effect is relaxing and euphoric — a happy head sinking into a calming body, an afternoon-into-evening strain that leans indica. It's potent and flavour-forward, beautiful to look at with its dark, frosty buds. For people who want cherry-and-citrus depth in a relaxing hybrid, Forbidden Fruit stands out.",
+    curatorQuote:
+      "Cherry, tangerine and tropical fruit over a piney, earthy base, sweet and complex.",
     sourceConfidence: "medium",
   },
   {
@@ -1350,6 +1382,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Orange citrus over a cookie base"],
     curatorNote:
       "Tropicana Cookies is an Oni Seed Co cross of GSC and Tangie — cookie richness folded into bright orange citrus. The nose is vivid and sweet: orange and tangerine over a creamy cookie base, juicy with a dessert backbone. The effect is uplifting and energetic — a happy, motivating head with a light body, sativa-leaning and daytime-friendly. It's flavour-forward and lively, a favourite for citrus chasers. For people who want orange brightness with cookie depth, Tropicana Cookies is a standout sativa-leaning hybrid.",
+    curatorQuote:
+      "Orange and tangerine over a creamy cookie base, juicy with a dessert backbone.",
     sourceConfidence: "medium",
   },
   {
@@ -1364,6 +1398,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Orange-and-vanilla cream"],
     curatorNote:
       "Orange Creamsicle is an MTG Seeds cross of Orange Crush and Juicy Fruit, and in a good cut it nails the frozen-treat flavour it's named for — bright orange over a vanilla-cream sweetness. The high is light and good-humoured: an easy mood-lift with a relaxed, unhurried body, fine for daytime. It's a flavour-first strain — the appeal is the citrus-and-cream nose more than any heavy punch. Sativa-leaning and polished, it has become a connoisseur citrus pick. For a dessert-citrus that actually tastes like the namesake, it's reliable and approachable.",
+    curatorQuote:
+      "Bright orange over a vanilla-cream sweetness — the frozen-treat flavour made real.",
     sourceConfidence: "medium",
   },
   {
@@ -1377,6 +1413,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Ripe mango on a kush frame", "Late-2000s West Coast cross, widely propagated"],
     curatorNote:
       "Mango Kush pairs a fragrant Mango cut with classic Hindu Kush — a late-2000s West-Coast cross that's since been propagated by so many growers that attribution runs murky. The draw is the nose — ripe mango and tropical fruit sitting over an earthy, piney kush base, sweet with a savoury undertone. The effect is gentle and physical: a calm, contented body ease that slides toward sleepy and hungry if you push the dose. It's a moderate, easygoing strain built around flavour rather than potency. For mango sweetness on a soft kush frame, it's an unfussy, likeable pick.",
+    curatorQuote:
+      "Ripe mango and tropical fruit sitting over an earthy, piney kush base, sweet with a savoury undertone.",
     sourceConfidence: "medium",
   },
   {
@@ -1389,6 +1427,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Watermelon-and-lemon summer hybrid"],
     curatorNote:
       "Melonade is a Cannarado cross of Watermelon Zkittlez and Lemon Tree, and it tastes exactly like that pairing reads — ripe watermelon candy splashed with sharp lemon. The nose is bright, juicy and clean, with almost none of the funk you'd get from a gassy hybrid. The high leans sativa: a lively, talkative lift that keeps the body comfortable and the head light, ideal for daytime. It's a summer strain through and through, bought for refreshment more than for weight. For sweet melon-and-citrus with an easy lift, it's a standout.",
+    curatorQuote:
+      "The nose is bright, juicy and clean, with almost none of the funk you'd get from a gassy hybrid.",
     sourceConfidence: "medium",
   },
 
@@ -1400,6 +1440,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Citrus-forward Cup-winning haze"],
     curatorNote:
       "Amnesia Haze is a Cup-winning sativa — a haze-heavy blend of landrace genetics (Jamaican, South Asian and Haze lines) popular across Amsterdam coffeeshops. The nose is bright and complex: lemon and citrus over an earthy, spicy haze, clean and energetic. The effect is a strong, soaring cerebral high — uplifting, euphoric and energetic, a classic daytime and creative sativa. Like most big hazes it can run racy or heady at high doses, so it's not for the easily anxious. For people who want a bright, potent, long-running sativa lift, Amnesia Haze is a benchmark.",
+    curatorQuote:
+      "Lemon and citrus over an earthy, spicy haze, clean and energetic.",
     sourceConfidence: "medium",
   },
   {
@@ -1414,6 +1456,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Three-time Cup winner", "Parent of Super Lemon Haze"],
     curatorNote:
       "Super Silver Haze is a Green House classic — a Skunk × Northern Lights × Haze blend that won three straight Cannabis Cups in the late 90s. The nose is bright and skunky-sweet: lemon and citrus over a spicy, herbal haze, clean and lively. The effect is energetic and uplifting — a long-lasting, creative, talkative head-high with a light body, a daytime sativa staple. It's potent and motivating, the kind of strain for getting things done rather than winding down. As a foundational modern haze and parent of Super Lemon Haze, SSH is a reference sativa.",
+    curatorQuote:
+      "Lemon and citrus over a spicy, herbal haze, clean and lively.",
     sourceConfidence: "high",
   },
   {
@@ -1428,6 +1472,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["One of the most potent sativas tested", "Not a beginner's strain"],
     curatorNote:
       "Ghost Train Haze is a Rare Dankness powerhouse — a Ghost OG × Nevil's Wreck cross — famous for being one of the most potent sativas ever tested. The nose is sharp and floral: citrus and pine over an incense-like, slightly sour haze, clean and intense. The effect is a fast, soaring cerebral rush — euphoric, energetic and sometimes overwhelming, definitely not a beginner's sativa. Its potency is the whole story: too much tips quickly into racy or anxious territory. For experienced sativa lovers chasing maximum head-energy, Ghost Train Haze is the deep end.",
+    curatorQuote:
+      "Citrus and pine over an incense-like, slightly sour haze, clean and intense.",
     sourceConfidence: "medium",
   },
   {
@@ -1441,6 +1487,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Pure daytime energiser", "Mango-citrus tang"],
     curatorNote:
       "Green Crack — a name Snoop Dogg is said to have coined — is a Skunk #1 descendant prized as a pure daytime energiser (some sellers soften it to 'Green Cush'). The nose is bright and tangy: sharp mango and citrus over a skunky, earthy base, clean and zesty. The effect is exactly the reputation — a sharp, energetic, focused buzz with little body, the closest thing to a cannabis espresso. It can run jittery if you're sensitive or overdo it, and it's a poor choice near bedtime. For a clean, motivating, get-up-and-go sativa, Green Crack is a go-to.",
+    curatorQuote:
+      "Sharp mango and citrus over a skunky, earthy base, clean and zesty.",
     sourceConfidence: "medium",
   },
   {
@@ -1454,6 +1502,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Menthol-pine bite", "Parent of Pineapple Express"],
     curatorNote:
       "Trainwreck is a NorCal classic — Mexican and Thai sativas crossed with Afghani — named for a high that hits like a freight train. The nose is sharp and distinctive: lemon, pine and a spicy, almost menthol bite over earthy sweetness. The effect is a fast, racing cerebral rush — euphoric, energetic and creative, with enough body to keep it grounded. It's potent and quick, beloved for daytime energy but capable of tipping racy at high doses. As a parent of Pineapple Express and many others, Trainwreck is a foundational sativa.",
+    curatorQuote:
+      "Lemon, pine and a spicy, almost menthol bite over earthy sweetness.",
     sourceConfidence: "medium",
   },
   {
@@ -1468,6 +1518,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Among the strongest by THC", "Strawberry-diesel nose"],
     curatorNote:
       "Bruce Banner — named for the Hulk's alter ego — is a cross of OG Kush and Strawberry Diesel, famous as one of the strongest strains by THC. The nose is sweet and gassy: strawberry and diesel over an earthy OG base, fruity with a fuel edge. The effect is fast and powerful — a euphoric, energetic cerebral rush that settles into a relaxed body, sativa-leaning but heavy-hitting. Its potency is the headline, so a little goes a long way for newer smokers. For people who want a strong, fast, fruity-gas sativa, Bruce Banner lives up to the name.",
+    curatorQuote:
+      "Strawberry and diesel over an earthy OG base, fruity with a fuel edge.",
     sourceConfidence: "medium",
   },
   {
@@ -1482,6 +1534,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Mellow despite the name", "Sour floral funk"],
     curatorNote:
       "AK-47 is a Serious Seeds Cup winner — a blend of Colombian, Mexican, Thai and Afghani landraces — whose name belies a mellow, long-lasting high. The nose is complex: sweet floral and earthy funk with a sour, skunky edge, distinctive and a little spicy. The effect is a steady, relaxed-but-alert cerebral high — uplifting and mellow rather than racy, a sociable all-day hybrid. It's moderate and dependable, more even-keeled than its aggressive name suggests. For a reliable, mellow, sativa-leaning classic, AK-47 has earned decades of loyalty.",
+    curatorQuote:
+      "Sweet floral and earthy funk with a sour, skunky edge, distinctive and a little spicy.",
     sourceConfidence: "high",
   },
   {
@@ -1491,6 +1545,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Hawaiian landrace", "Tropical, easygoing"],
     curatorNote:
       "Maui Wowie is a Hawaiian landrace sativa — a 1960s-70s classic that became shorthand for tropical, easygoing island weed. The nose is sweet and tropical: pineapple and citrus over a light earthy base, sunny and clean. The effect is bright and gentle — an uplifting, creative, happy head with a relaxed body, a low-stress daytime sativa. It's moderate by modern standards, more about mood and flavour than overwhelming potency. For a mellow, tropical, feel-good sativa, Maui Wowie is a nostalgic favourite.",
+    curatorQuote:
+      "Pineapple and citrus over a light earthy base, sunny and clean.",
     sourceConfidence: "medium",
   },
   {
@@ -1500,6 +1556,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Legendary Mexican landrace", "Toffee-caramel nose"],
     curatorNote:
       "Acapulco Gold is a legendary Mexican landrace sativa — one of the most famous strains of the 1960s-70s, named for its golden, resinous buds. The nose is warm and inviting: toffee and burnt caramel over earthy pine and a hint of citrus, distinctive and rich. The effect is a clean, energetic euphoria — uplifting, happy and creative with little anxiety, a classic feel-good sativa. It's moderate and smooth, more about a bright, easy lift than raw power. As a piece of cannabis history and a genuinely pleasant sativa, Acapulco Gold endures.",
+    curatorQuote:
+      "Toffee and burnt caramel over earthy pine and a hint of citrus, distinctive and rich.",
     sourceConfidence: "medium",
   },
   {
@@ -1514,6 +1572,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Coffee-and-melon flavour"],
     curatorNote:
       "Chocolope is a DNA Genetics sativa — a Chocolate Thai × Cannalope Haze cross — built to revive an old-school coffee-and-melon flavour. The nose is its signature: rich coffee and cocoa over sweet melon and earth, dessert-like but not sugary. The effect is a bright, dreamy cerebral high — uplifting, euphoric and energising, a strong daytime sativa. It's potent and clear-headed, good for mornings and creative work. For people who want a coffee-chocolate sativa with real lift, Chocolope is a flavourful classic.",
+    curatorQuote:
+      "Rich coffee and cocoa over sweet melon and earth, dessert-like but not sugary.",
     sourceConfidence: "medium",
   },
 
@@ -1529,6 +1589,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Amplified classic skunk funk"],
     curatorNote:
       "Super Skunk is a Sensi Seeds classic — a Skunk #1 × Afghani cross that amplified the original skunk funk with extra resin and weight. The nose is pungent and sweet: heavy skunk and earthy funk over a sweet, almost fruity base, loud and classic. The effect is relaxing and happy — a mellow, euphoric body-leaning high that suits unwinding, more indica than its Skunk parent. It's moderate-to-strong and dependable, a building block for countless hybrids. For lovers of that classic sweet-skunk funk with body, Super Skunk is a staple.",
+    curatorQuote:
+      "Heavy skunk and earthy funk over a sweet, almost fruity base, loud and classic.",
     sourceConfidence: "high",
   },
   {
@@ -1542,6 +1604,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Parent of Super Lemon Haze"],
     curatorNote:
       "Lemon Skunk is a DNA Genetics strain — two Skunk phenotypes selected for a standout lemon zest — and a parent of Super Lemon Haze. The nose is bright and tangy: fresh lemon and citrus over a sweet, skunky base, clean and lively. The effect is uplifting and happy — an energetic, mood-lifting head with a light body, a sociable daytime hybrid. It's moderate and flavour-forward, easy to enjoy and easy to handle. For a sweet, zesty lemon-skunk, Lemon Skunk is a bright, friendly pick.",
+    curatorQuote:
+      "Fresh lemon and citrus over a sweet, skunky base, clean and lively.",
     sourceConfidence: "high",
   },
   {
@@ -1556,6 +1620,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Diesel softened with citrus-lime"],
     curatorNote:
       "NYC Diesel is a Soma Seeds classic — a Sour Diesel × Afghani cross — that softened the diesel with a bright citrus-lime sweetness. The nose is distinctive: sour diesel and grapefruit-lime over an earthy base, gassy with a fruity twist. The effect is uplifting and social — a chatty, energetic head with a relaxing body, a balanced sativa-leaning hybrid. It's potent and flavourful, less harsh than straight Sour D. For people who want diesel with a citrus sweetness, NYC Diesel is a flavourful classic.",
+    curatorQuote:
+      "Sour diesel and grapefruit-lime over an earthy base, gassy with a fruity twist.",
     sourceConfidence: "medium",
   },
   {
@@ -1565,6 +1631,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["The original 'cheese' Skunk #1 pheno"],
     curatorNote:
       "UK Cheese (Exodus Cheese) is a famous Skunk #1 phenotype from England — the original 'cheese' cut, named for its pungent, dairy-funk aroma. The nose is unmistakable: sharp, tangy cheese and sour funk over an earthy skunk base, loud and savoury. The effect is balanced and happy — a relaxing, mood-lifting body-leaning high that stays mellow rather than racy. It's moderate and well-loved, a UK and European staple for decades. For lovers of that distinctive cheese funk, UK Cheese is the source.",
+    curatorQuote:
+      "The original 'cheese' cut, named for its pungent, dairy-funk aroma.",
     sourceConfidence: "high",
   },
   {
@@ -1578,6 +1646,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Sweet berry over tangy cheese"],
     curatorNote:
       "Blue Cheese is a Big Buddha Seeds cross of Blueberry and UK Cheese — sweet berry folded into that famous tangy cheese funk. The nose is the pairing made real: sweet blueberry over sharp, savoury cheese, sweet-and-funky at once. The effect is relaxing and mellow — a calming, happy body high that leans indica, comfortable for evenings. It's moderate and distinctive, beloved for its unusual sweet-savoury nose. For people who want berry-and-cheese funk, Blue Cheese is a one-of-a-kind classic.",
+    curatorQuote:
+      "Sweet blueberry over sharp, savoury cheese, sweet-and-funky at once.",
     sourceConfidence: "medium",
   },
   {
@@ -1592,6 +1662,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["1990s Dutch legend", "Blanket of white trichomes"],
     curatorNote:
       "White Widow is a 1990s Dutch legend — a Brazilian sativa × South Indian indica cross — named for the blanket of white trichomes that made it famous. The nose is earthy and sharp: pine, pepper and a faint floral funk over a woody base, classic and understated. The effect is balanced and energetic — a euphoric, sociable head with a relaxing body, a versatile all-rounder. It's moderate by modern standards but historically important, a coffeeshop staple and breeding parent. For a balanced, frosty, old-school hybrid, White Widow endures.",
+    curatorQuote:
+      "Pine, pepper and a faint floral funk over a woody base, classic and understated.",
     sourceConfidence: "high",
   },
   {
@@ -1605,6 +1677,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Sweet strawberry sativa"],
     curatorNote:
       "Strawberry Cough is a sativa of murky origin — usually tied to a Strawberry Fields × Haze line — famous for a sweet strawberry flavour and a high that can make you cough. The nose is sweet and fruity: ripe strawberry over a light earthy, skunky base, clean and dessert-bright. The effect is uplifting and clear — a happy, sociable, gently energetic head that suits daytime and easing stress. It's moderate and approachable, more about flavour and mood than raw power. For a sweet strawberry daytime sativa, Strawberry Cough is a friendly classic.",
+    curatorQuote:
+      "Ripe strawberry over a light earthy, skunky base, clean and dessert-bright.",
     sourceConfidence: "medium",
   },
   {
@@ -1619,6 +1693,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["High-yield, high-potency haze", "Vanilla-citrus nose"],
     curatorNote:
       "Moby Dick is a Dinafem heavyweight — a White Widow × Haze cross — one of the most potent and high-yielding sativas of its era. The nose is sweet and sharp: vanilla and citrus over a piney, incense-like haze, clean and intense. The effect is a strong, soaring cerebral high — euphoric, energetic and uplifting, a powerful daytime sativa. Its potency is the headline, so it can run heady or racy if overdone. For people who want a big, vanilla-citrus haze with real punch, Moby Dick delivers.",
+    curatorQuote:
+      "Vanilla and citrus over a piney, incense-like haze, clean and intense.",
     sourceConfidence: "medium",
   },
 
@@ -1633,6 +1709,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Pure creamy-sherbet dessert"],
     curatorNote:
       "Sherblato is a cross of Sherbet and Gelato — two of the sweetest names in the Cookies family folded together for a pure creamy-dessert profile. The nose is rich and sweet: sherbet, cream and berry over a light gas, candy-forward and smooth. The effect is balanced and euphoric — a happy, uplifting head that eases into relaxed body comfort, versatile across the day. It's frosty and flavour-driven, an easy-to-like modern dessert hybrid. For people who want the creamy Gelato-sherbet lane, Sherblato is a sweet, dependable pick.",
+    curatorQuote:
+      "Sherbet, cream and berry over a light gas, candy-forward and smooth.",
     sourceConfidence: "medium",
   },
   {
@@ -1646,6 +1724,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Stone-fruit Gelato cross"],
     curatorNote:
       "Peach Gelato is a Humboldt Seed Company cross of Peach Rings and Gelato 33 — stone fruit folded into Gelato's cream. Done right it smells of ripe peach and apricot over a creamy, lightly gassy base. The high is the Gelato family's calling card — an easy euphoric lift that settles into comfortable relaxation, good from late afternoon on. It's frosty and flavour-led, prized for the peach note over raw strength. For stone fruit on a Gelato frame, it's a tasty, gentle option.",
+    curatorQuote:
+      "Ripe peach and apricot over a creamy, lightly gassy base.",
     sourceConfidence: "medium",
   },
   {
@@ -1658,6 +1738,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Grape-leaning Gelato cross"],
     curatorNote:
       "Purple Gelato crosses Gelato 33 with Purple Punch, trading some of the cream for grape and a deep violet colour. Expect grape and dark berry over Gelato's sherbet base, with a light gas underneath. It leans toward the relaxing end of the family: a warm, happy ease better suited to evenings than mornings. The appeal is as much the look as the taste — frosty, colourful and dessert-sweet. For Gelato with a purple, grape-leaning twist, it's a pretty and likeable choice.",
+    curatorQuote:
+      "Grape and dark berry over Gelato's sherbet base, with a light gas underneath.",
     sourceConfidence: "medium",
   },
   {
@@ -1666,6 +1748,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Strawberry-forward Runtz selection"],
     curatorNote:
       "Strawberry Runtz is a strawberry-led pick in the candy Runtz family — pure confection, very little funk. The nose is ripe strawberry and sugared tropical fruit, the kind of sweet that reads as dessert before you even taste it. The high is bright and good-natured, an easy lift that keeps the body loose and social rather than couch-bound. Like the rest of the line it's about flavour and bag-appeal first; potency is pleasant rather than punishing. For a clean strawberry-candy nose, it delivers.",
+    curatorQuote:
+      "Ripe strawberry and sugared tropical fruit — sweet enough to read as dessert before you taste it.",
     sourceConfidence: "low",
   },
   {
@@ -1679,6 +1763,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Sherbet sweetness over gassy dessert"],
     curatorNote:
       "Candy Rain is a Cookies cross of Gelato and London Pound Cake — sweet sherbet meeting dark, gassy dessert. The nose is rich and layered: creamy berry and sweet candy over a gassy, doughy funk, dessert with depth. The effect is relaxing and euphoric — a happy head easing into comfortable body weight, an afternoon-into-evening strain. It's frosty and potent, balanced-leaning-indica. For people who want Gelato sweetness with London Pound Cake's gas, Candy Rain blends both well.",
+    curatorQuote:
+      "Creamy berry and sweet candy over a gassy, doughy funk, dessert with depth.",
     sourceConfidence: "medium",
   },
   {
@@ -1692,6 +1778,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Watermelon-berry candy", "A parent of Melonade"],
     curatorNote:
       "Watermelon Zkittlez is a Zkittlez cross — pairing the candy berry of Zkittlez with a juicy watermelon note — and a parent of Melonade. The nose is sweet and refreshing: watermelon candy and mixed berry over a clean, light base, summery and fruity. The effect is calm and contented — a relaxed, happy body ease that's easy to handle, more mood than knockout. It's flavour-forward like its Zkittlez parent, low on funk and high on candy. For sweet watermelon-berry flavour with an easy calm, it's a refreshing pick.",
+    curatorQuote:
+      "Watermelon candy and mixed berry over a clean, light base, summery and fruity.",
     sourceConfidence: "medium",
   },
   {
@@ -1706,6 +1794,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Candy grape over sharp diesel"],
     curatorNote:
       "Grape Gas — also sold as Grape Gasoline, Compound Genetics' cross of Grape Pie and Jet Fuel Gelato — welds candy grape to a sharp diesel funk, with the colour to match. On the nose, sweet grape and berry sit over a pungent, gassy base; it's loud in a way pure-candy strains aren't. The effect leans heavy: a warm euphoria that sinks into the body and points toward the evening. It's built for people who like their grape with a fuel edge rather than clean sweetness. Frosty, potent and unapologetically gassy.",
+    curatorQuote:
+      "On the nose, sweet grape and berry sit over a pungent, gassy base; it's loud in a way pure-candy strains aren't.",
     sourceConfidence: "medium",
   },
   {
@@ -1720,6 +1810,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Tropical candy over a gassy OG frame"],
     curatorNote:
       "Gushers (Fruit Gushers) is a Cookies cross of Gelato 41 and Triangle Kush — sweet tropical candy on a gassy, OG-leaning frame. The nose is sweet and fruity: tropical candy and berry over a light gas, dessert-bright with a funky edge. The effect is balanced-leaning-relaxed — a euphoric head over a comfortable, calming body, afternoon into evening. It's frosty and potent, a popular flavour-forward exotic. For people who want fruity candy with some gas backbone, Gushers is a tasty, well-known pick.",
+    curatorQuote:
+      "Tropical candy and berry over a light gas, dessert-bright with a funky edge.",
     sourceConfidence: "medium",
   },
   {
@@ -1734,6 +1826,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Fruit candy layered over savoury gas"],
     curatorNote:
       "Apples and Bananas is a Cookies/Compound collab — a complex cross of (Blue Power × Gelatti) and (GMO × Banana OG) — built to layer fruit over gas. The nose is rich and unusual: green apple and banana candy over a savoury, gassy funk, sweet-and-funky at once. The effect is balanced and euphoric — a happy, uplifting head over a relaxed body, versatile and potent. It's frosty and flavour-forward, one of the more distinctive modern exotics. For people who want fruit-and-gas complexity, Apples and Bananas stands out.",
+    curatorQuote:
+      "Green apple and banana candy over a savoury, gassy funk, sweet-and-funky at once.",
     sourceConfidence: "medium",
   },
   {
@@ -1748,6 +1842,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Guava-sherbet, extremely frosty"],
     curatorNote:
       "RS11 — Rainbow Sherbet #11 — is a Wizard Trees / Doja cut of Pink Guava and OZ Kush, one of the most hyped exotics of recent years. The nose is sweet and creamy: tropical guava and sherbet over a doughy, gassy base, candy with depth. The effect is balanced and relaxing — a euphoric head easing into comfortable body calm, afternoon into evening. It's extremely frosty and flavour-forward, a connoisseur's exotic. For people chasing the current top-shelf guava-sherbet hype, RS11 is a benchmark.",
+    curatorQuote:
+      "Tropical guava and sherbet over a doughy, gassy base, candy with depth.",
     sourceConfidence: "medium",
   },
   {
@@ -1762,6 +1858,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Clean soapy-floral funk", "Heavy bag appeal"],
     curatorNote:
       "Zoap is DEO Farms' Rainbow Sherbet × Pink Guava cross out of Oakland, and one of the strains that made 'soap' a flavour category. The signature is right there in the name: a clean, perfumed, almost soap-and-floral nose over creamy sweetness, unlike the gas or candy most exotics chase. The effect is upbeat and even — a sociable head with a loose, comfortable body that works through the day. Add glassy, colourful, frost-stacked buds and you get a strain sold as much on looks as on feel. For the soap-funk lane, Zoap is the name that started it.",
+    curatorQuote:
+      "A clean, perfumed, almost soap-and-floral nose over creamy sweetness, unlike the gas or candy most exotics chase.",
     sourceConfidence: "medium",
   },
 
@@ -1772,6 +1870,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Lighter, soapy-floral sibling of Zoap"],
     curatorNote:
       "Soap takes the same clean, perfumed funk that made Zoap famous and pours it into a lighter, brighter cut. The nose is floral and crisp — think fresh soap with a touch of cream — and only a faint gas underneath. The high is mellow and sociable, a gentle lift that keeps the body easy rather than weighed down. Like its sibling it trades on novelty and bag-appeal: the perfumed profile is the whole point. For people curious about the 'soap' flavour without Zoap's intensity, this is the gentler way in.",
+    curatorQuote:
+      "Floral and crisp — fresh soap with a touch of cream, only a faint gas underneath.",
     sourceConfidence: "low",
   },
   {
@@ -1785,6 +1885,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Grape-and-cream dessert exotic"],
     curatorNote:
       "Garanimals is a Skunktek cross of Grape Pie and Gelato — grape-jam sweetness folded into Gelato's cream, finished with heavy frost. The nose is grape and dark berry over a creamy, lightly gassy base, squarely in dessert territory. The effect leans relaxing: a contented, slightly heavy ease that suits the back half of the day. It's an easy-drinking grape dessert — flavour and frost ahead of brute strength. For the grape-and-cream corner of the Gelato world, it's a likeable, accessible pick.",
+    curatorQuote:
+      "The nose is grape and dark berry over a creamy, lightly gassy base, squarely in dessert territory.",
     sourceConfidence: "medium",
   },
   {
@@ -1799,6 +1901,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Near-white frost", "Prized Runtz phenotype"],
     curatorNote:
       "White Runtz is the frostiest, palest phenotype of Runtz — the Zkittlez × Gelato candy cross selected for a near-white trichome coat. The nose is pure confection: sugary tropical fruit and creamy sweetness with barely any funk, loud and candied. It smokes the way it smells — an easy, glowing euphoria that keeps you sociable and loose rather than couch-locked. Like everything wearing the Runtz name it's widely faked, so a genuinely frost-white, candy-loud cut is the tell. For the sweetest, most glittering end of the family, this is the prize pheno.",
+    curatorQuote:
+      "Sugary tropical fruit and creamy sweetness with barely any funk, loud and candied.",
     sourceConfidence: "medium",
   },
   {
@@ -1812,6 +1916,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Sharp, ammonia-tinged sour funk"],
     curatorNote:
       "Cheetah Piss is a Cookies strain — a cross of Lemonnade, Gelato 42 and London Pound Cake — with a name nodding to its sharp, ammonia-tinged funk. The nose is pungent and unusual: sour citrus and a sharp, almost ammonia-like funk over a creamy, gassy base, loud and divisive. The effect is balanced and uplifting — a euphoric, sociable head over a relaxed body, versatile and potent. It's frosty and very loud, a flavour-forward exotic for funk chasers. For people who want a sharp, sour, unusual profile, Cheetah Piss stands out.",
+    curatorQuote:
+      "Sour citrus and a sharp, almost ammonia-like funk over a creamy, gassy base, loud and divisive.",
     sourceConfidence: "medium",
   },
   {
@@ -1825,6 +1931,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Creamy gelato with a cherry-citrus twist"],
     curatorNote:
       "Italian Ice is a Cookies cross of Gelato 45 and Forbidden Fruit — creamy gelato sweetness with a fruity, cherry-citrus twist. The nose is rich and sweet: cream and tropical fruit over a light gas, dessert-bright with a fruity edge. The effect is relaxing and euphoric — a happy head easing into comfortable body calm, afternoon into evening. It's frosty and flavourful, balanced-leaning-relaxed. For people who want gelato cream with a fruit lean, Italian Ice is a smooth, tasty pick.",
+    curatorQuote:
+      "Cream and tropical fruit over a light gas, dessert-bright with a fruity edge.",
     sourceConfidence: "medium",
   },
   {
@@ -1839,6 +1947,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Grape candy welded to sharp diesel", "A parent of Grape Pie"],
     curatorNote:
       "Grape Stomper (Sour Grapes) is a Gage Green cross of Purple Elephant and Chemdawg Sour Diesel — sweet grape candy welded to sharp diesel. The nose is the pairing made plain: sweet grape and berry over a pungent, sour diesel funk, candy meeting fuel. The effect is uplifting and euphoric — a bright, happy head with a relaxing body, balanced-leaning-sativa. It's potent and flavour-forward, for people who like grape with a gas backbone. For the grape-diesel lane, Grape Stomper is a classic example.",
+    curatorQuote:
+      "Sweet grape and berry over a pungent, sour diesel funk, candy meeting fuel.",
     sourceConfidence: "medium",
   },
   {
@@ -1851,6 +1961,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Sweet banana over a heavy OG frame", "Creeper potency"],
     curatorNote:
       "Banana OG is an OG Kush × Banana cross — sweet, ripe banana folded onto a heavy OG frame. The nose is its draw: sweet banana and tropical fruit over an earthy, gassy OG base, dessert meeting fuel. The effect is a creeping, heavy indica — a euphoric head that sinks into a strong, sedating body, firmly an evening strain. It's potent and known to sneak up, so it's a nightcap more than a daytime smoke. For lovers of sweet banana on a heavy OG frame, Banana OG is a satisfying, sleepy pick.",
+    curatorQuote:
+      "Sweet banana and tropical fruit over an earthy, gassy OG base, dessert meeting fuel.",
     sourceConfidence: "medium",
   },
   {
