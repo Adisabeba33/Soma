@@ -655,4 +655,131 @@ export const IDENTITIES: StrainIdentity[] = [
       "Mochi (Mochi Gelato / Gelato 47) is a Sherbinski cut from the Sunset Sherbet × Thin Mint GSC line — the same parentage as Gelato, selected for a sweeter, creamier expression. The nose is dessert-forward: sweet cream, mint and berry over a light gas, smooth and inviting. The effect is balanced and relaxing — a euphoric lift that eases into comfortable body calm, good for late afternoon into evening. It's frosty and flavourful, leaning a touch indica, with the easy likability of the whole Gelato family. For the creamy-mint end of the Gelato world, Mochi is a refined pick.",
     sourceConfidence: "medium",
   },
+
+  // ── Gas / OG / diesel expansions ──
+  {
+    canonicalName: "King Louis XIII",
+    marketNames: ["King Louis", "King Louie", "King Louie XIII"],
+    lineage: {
+      parents: ["OG Kush", "LA Confidential"],
+      cross: "OG Kush × LA Confidential",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["One of the loudest pine-gas OG cuts"],
+    curatorNote:
+      "King Louis XIII (or King Louie) is a heavyweight OG — an OG Kush × LA Confidential cross that's all pine and fuel with a dark, resinous depth. The nose is intense and classic: sharp pine and gas over a damp, earthy forest floor, one of the loudest pine-OG profiles around. The effect is a fast, heavy indica — a sedating body weight that drops you into the couch and on toward sleep, firmly nighttime. It's potent and not subtle, so it's a poor daytime choice and an easy one to overdo. For pine-gas lovers who want OG at its most sedating, King Louis is a benchmark.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Platinum OG",
+    marketNames: ["Platinum Kush", "Platinum OG Kush"],
+    lineage: {
+      parents: ["Master Kush", "OG Kush"],
+      cross: "Master Kush × OG Kush (contested)",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Silvery 'platinum' trichome coat"],
+    curatorNote:
+      "Platinum OG is a frosty, heavy indica of contested parentage — usually cited as a Master Kush × OG Kush line — named for its silvery, trichome-platinum coat. The nose is classic heavy-OG: gas and earth with a sweet, skunky edge, dense rather than bright. The effect is strongly sedating — a thick body relaxation that settles fast and tips toward sleep, a straightforward evening strain. It's potent and couch-leaning, more about switching off than doing anything. For lovers of frosty, gassy, knock-out indicas, Platinum OG delivers exactly that.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Fire OG",
+    marketNames: ["Fire OG Kush"],
+    lineage: {
+      parents: ["OG Kush", "SFV OG"],
+      cross: "OG Kush × SFV OG",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Red-haired, fiery-looking buds", "Among the most potent OG cuts"],
+    curatorNote:
+      "Fire OG is one of the most potent OG cuts — an OG Kush × SFV OG cross with red-haired, fiery-looking buds that earned the name. The nose is loud OG: sharp fuel and pine with a lemony, earthy bite, classic gas through and through. The effect is heavy and creeping — a euphoric head that gives way to a strong, sedating body, an evening strain that rewards patience. It's high-test even by OG standards, so it earns respect from experienced smokers and humbles new ones. For the gas crowd chasing the strong end of OG, Fire OG is a favourite.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Face Off OG",
+    marketNames: ["Face Off"],
+    breeder: "Archive Seed Bank",
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Pungent gas OG", "Half of Do-Si-Dos' parentage"],
+    curatorNote:
+      "Face Off OG is an Archive Seed Bank OG cut — a pungent, gassy OG that became important mostly as a parent (it's half of Do-Si-Dos). The nose is heavy and chemical: sharp fuel, pine and a sour, almost antiseptic funk, loud and unmistakably OG. The effect is a strong, numbing body high with a hazy, sedating head — the 'face off' name fits the heavy, blanketing feel. It's firmly an evening, sit-down strain, potent enough to flatten the unprepared. For OG purists and breeders alike, Face Off earned its reputation as a building block.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Alien OG",
+    marketNames: ["Alien OG Kush", "AOG"],
+    lineage: {
+      parents: ["Tahoe OG", "Alien Kush"],
+      cross: "Tahoe OG × Alien Kush",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Lemony-pine OG with a spacey edge"],
+    curatorNote:
+      "Alien OG (Alien OG Kush) is a Tahoe OG × Alien Kush cross — a heavy, crystal-coated OG with a slightly otherworldly, lemony-pine twist. The nose is classic gas with a citrus edge: fuel and pine over earthy spice, sharp and resinous. The effect is potent and balanced-leaning-heavy — a fast, dreamy cerebral lift that settles into strong body relaxation, more night than day. It's strong and a touch psychedelic at higher doses, so it's not a casual daytime smoke. For OG lovers who want a lemony, spacey edge on the usual gas, Alien OG fits.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "SFV OG",
+    marketNames: ["San Fernando Valley OG", "SFV OG Kush"],
+    breeder: "Cali Connection",
+    lineage: {
+      parents: ["OG Kush"],
+      cross: "OG Kush phenotype (SFV cut)",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Defining San Fernando Valley gas profile", "Parent of Fire OG and Motorbreath"],
+    curatorNote:
+      "SFV OG — San Fernando Valley OG — is a Cali Connection OG Kush cut, one of the defining West Coast gas profiles and a parent of Fire OG and Motorbreath. The nose is pure SoCal OG: sharp fuel and pine with a lemony, earthy funk, clean and loud. The effect is a balanced OG high — an uplifting, focused head with a relaxing body that stays usable at moderate doses, a touch more functional than the heaviest OGs. It's potent but not purely sedating, which made it a popular all-rounder. For the classic San Fernando gas profile, SFV OG is the reference cut.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Headband",
+    marketNames: ["Headband OG", "707 Headband"],
+    lineage: {
+      parents: ["OG Kush", "Sour Diesel"],
+      cross: "OG Kush × Sour Diesel",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Named for the gentle pressure around the temples"],
+    curatorNote:
+      "Headband is an OG Kush × Sour Diesel cross named for the gentle pressure it leaves around the temples, like a band across the forehead. The nose is gassy and sour: diesel and fuel over a lemony, earthy OG base, loud and unmistakably of the gas family. The effect is the namesake — a long-lasting, relaxing body high with a clear, slightly pressured head, balanced enough for afternoon into evening. It's potent and long-running, more of a slow-burn relaxer than a knockout. For fans of diesel-OG hybrids, Headband is a classic.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Chem 91",
+    marketNames: ["Chemdawg 91", "Chem '91", "Chem 91 Skunk VA"],
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["The original 1991 Chemdawg phenotype"],
+    curatorNote:
+      "Chem 91 is one of the original Chemdawg cuts — the specific 1991 phenotype that helped found the entire Chem/diesel line. The nose is sharp and acrid: pungent diesel, sour funk and a metallic, chemical bite, the raw 'chem' smell at its source. The effect is heavy and cerebral — a fast, pressing head-rush over a weighty body, potent and a little overwhelming for the unprepared. It's loud, divisive and historically important, a connoisseur's cut more than a crowd-pleaser. For people chasing the roots of the diesel family, Chem 91 is where much of it begins.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Motorbreath",
+    marketNames: ["Motorbreath #15", "Motor Breath"],
+    breeder: "Pisces Genetics",
+    lineage: {
+      parents: ["Chemdog D", "SFV OG"],
+      cross: "Chemdog D × SFV OG Kush",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Brutally pungent fuel funk"],
+    curatorNote:
+      "Motorbreath is a Pisces Genetics cross of Chemdog D and SFV OG Kush — a brutally pungent gas strain whose name is the honest warning. The nose is intense: heavy diesel, fuel and a sour, almost rubbery funk over earthy OG, one of the loudest gas profiles on any shelf. The effect is strong and sedating — a heavy, relaxing body high with a dreamy head, firmly an evening strain. It's high-test and not subtle, so it's beloved by gas chasers and overwhelming to everyone else. For pure diesel-and-fuel intensity, Motorbreath is hard to beat.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sour OG",
+    marketNames: ["Sour OG Kush"],
+    lineage: {
+      parents: ["Sour Diesel", "OG Kush"],
+      cross: "Sour Diesel × OG Kush",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Sour-diesel lift over OG body"],
+    curatorNote:
+      "Sour OG is a Sour Diesel × OG Kush cross that blends two gas legends into one balanced hybrid. The nose is the best of both parents: sour diesel and lemon over OG's pine and earth, gassy and bright at once. The effect is even-handed — an uplifting, mood-lifting head over a relaxing body, usable across the day rather than purely sedating. It's potent but balanced, which made it a dependable all-rounder for gas lovers. For people who want Sour D's lift with OG's body, Sour OG is the natural meeting point.",
+    sourceConfidence: "medium",
+  },
 ];
