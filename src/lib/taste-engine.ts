@@ -16,6 +16,7 @@ import {
   hasClusteredFavorites,
 } from "./behavioral-family";
 import { primaryAromaTokens, resolveProfileTarget } from "./profile-target";
+import { getIdentity } from "./strain-identity";
 import type {
   AnalysisResult,
   Category,
@@ -43,7 +44,15 @@ import { BATCH_QUALITY_TRAITS, labelFor } from "./vocab";
 // trait dislikes, with the same favourite-driven reconciliation. Profiles
 // that filled in disliked effects can no longer be compared head-to-head
 // with v3 audits, so this deploy tags audits "v4".
-export const ENGINE_VERSION = "v4";
+// v4 → v5: sensoryFamily bonus — when the candidate strain shares a
+// curator-defined sensory family ("gas-og", "garlic-funk", etc.) with
+// any of the user's resolved favourites, a small flat bonus is added to
+// the raw score. Captures cluster identity that tag-Jaccard misses (a
+// gas-fan looking at OG Kush vs Tahoe OG would otherwise see scores
+// driven only by aroma/effect tag overlap). Bonus is bounded and only
+// fires when both sides have identity records, so the existing
+// archetype/texture/family layers continue to dominate.
+export const ENGINE_VERSION = "v5";
 
 const NEUTRAL = 52;
 
@@ -409,6 +418,38 @@ export function reconciledDislikes(profile: TasteProfileInput): string[] {
   return [...silencedTraits, ...silencedEffects];
 }
 
+// Bounded recognition bonus when the candidate's curator-defined sensory
+// family matches one of the user's resolved favourites. Captures cluster
+// identity ("gas-og", "garlic-funk", "kush-classic", …) that the raw
+// tag-Jaccard in referenceSimilarity misses: a GG4 fan looking at OG
+// Kush would otherwise see only the aroma/effect tag overlap and miss
+// the explicit expert assertion that both strains live in the same
+// gas-og lineage.
+//
+// Fires only when BOTH sides have identity records — most of the seed
+// catalog doesn't have identity yet, so the bonus stays inert there.
+// As identity coverage grows, the bonus lights up for more pairs.
+//
+// Magnitude tuned to sit between texture (±3) and archetype (+5):
+// noticeable enough to break ties inside the 4–88 non-anchor band, but
+// not large enough to override Layer 1/2/3 disagreement on effect feel.
+export const SENSORY_FAMILY_BONUS = 4;
+
+export function sensoryFamilyBonus(
+  candidate: StrainProfile,
+  resolvedFavorites: StrainProfile[],
+): number {
+  const candidateId = getIdentity(candidate.name);
+  if (!candidateId?.sensoryFamily) return 0;
+  for (const fav of resolvedFavorites) {
+    const favId = getIdentity(fav.name);
+    if (favId?.sensoryFamily === candidateId.sensoryFamily) {
+      return SENSORY_FAMILY_BONUS;
+    }
+  }
+  return 0;
+}
+
 function categorize(
   score: number,
   conflicts: number,
@@ -697,6 +738,15 @@ export function scoreStrain(
     ? { effect: 0.22, aroma: 0.18, flavor: 0.14, trait: 0.1, ref: 0.36 }
     : { effect: 0.27, aroma: 0.23, flavor: 0.18, trait: 0.14, ref: 0.18 };
 
+  // Sensory-family bonus — orthogonal to the behavioural family used by
+  // familyMod above. familyMod looks at effect-feel (nighttime-indica,
+  // daytime-functional, …); sensoryFamily looks at aroma/cluster
+  // identity (gas-og, garlic-funk, kush-classic, …). Both can fire on
+  // the same candidate without double-counting because they measure
+  // different signals — but the bonus only fires when both candidate
+  // and at least one favourite carry an identity record.
+  const sensoryMod = sensoryFamilyBonus(strain, resolvedFavorites);
+
   const raw =
     W.effect * effectContribution +
     W.aroma * aromaScore +
@@ -705,7 +755,8 @@ export function scoreStrain(
     W.ref * ref.score +
     archetypeBonus +
     textureMod +
-    familyMod;
+    familyMod +
+    sensoryMod;
   const penalty = Math.min(42, conflicts.length * 15);
   let baseScore = Math.round(raw - penalty);
   if (isDisliked) baseScore = Math.min(baseScore, 18);
