@@ -1483,4 +1483,127 @@ export const IDENTITIES: StrainIdentity[] = [
       "Moby Dick is a Dinafem heavyweight — a White Widow × Haze cross — one of the most potent and high-yielding sativas of its era. The nose is sweet and sharp: vanilla and citrus over a piney, incense-like haze, clean and intense. The effect is a strong, soaring cerebral high — euphoric, energetic and uplifting, a powerful daytime sativa. Its potency is the headline, so it can run heady or racy if overdone. For people who want a big, vanilla-citrus haze with real punch, Moby Dick delivers.",
     sourceConfidence: "medium",
   },
+
+  // ── Modern exotics (part 1) ──
+  {
+    canonicalName: "Sherblato",
+    lineage: {
+      parents: ["Sherbet", "Gelato"],
+      cross: "Sherbet × Gelato",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Pure creamy-sherbet dessert"],
+    curatorNote:
+      "Sherblato is a cross of Sherbet and Gelato — two of the sweetest names in the Cookies family folded together for a pure creamy-dessert profile. The nose is rich and sweet: sherbet, cream and berry over a light gas, candy-forward and smooth. The effect is balanced and euphoric — a happy, uplifting head that eases into relaxed body comfort, versatile across the day. It's frosty and flavour-driven, an easy-to-like modern dessert hybrid. For people who want the creamy Gelato-sherbet lane, Sherblato is a sweet, dependable pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Peach Gelato",
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Stone-fruit Gelato selection"],
+    curatorNote:
+      "Peach Gelato is a fruity Gelato selection — a peach-forward cross in the Gelato family — built around sweet stone-fruit over a creamy base. The nose is sweet and juicy: ripe peach and apricot over sherbet cream and a touch of gas, dessert-fruity and bright. The effect is balanced and relaxing — a happy, euphoric lift settling into easy body calm, comfortable for afternoon into evening. It's flavour-forward and frosty, more about the peach note than raw power. For lovers of stone-fruit on a Gelato frame, Peach Gelato is a tasty pick.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Purple Gelato",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Grape-leaning Gelato selection"],
+    curatorNote:
+      "Purple Gelato is a colourful Gelato cross — a purple-leaning selection that pairs the family's creamy sweetness with a grape-berry edge. The nose is sweet and fruity: berry and grape over sherbet cream and a light gas, dessert with a purple twist. The effect is relaxing and euphoric — a happy head sinking into comfortable body calm, evening-leaning. It's frosty and flavourful, easy to enjoy for its colour and taste. For people who want Gelato with a grape-purple lean, Purple Gelato is a pretty, sweet option.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Strawberry Runtz",
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Strawberry-forward Runtz selection"],
+    curatorNote:
+      "Strawberry Runtz is a fruity Runtz selection — a strawberry-forward cross in the candy Runtz family — built around sweet berry over creamy candy. The nose is sweet and ripe: strawberry and tropical candy with almost no funk, pure confection. The effect is balanced and feel-good — a bright euphoric lift over easy body relaxation, social and approachable. It's flavour-first and frosty, like the rest of the Runtz line. For people chasing sweet strawberry candy, Strawberry Runtz delivers.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Candy Rain",
+    breeder: "Cookies",
+    lineage: {
+      parents: ["Gelato", "London Pound Cake"],
+      cross: "Gelato × London Pound Cake",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Sherbet sweetness over gassy dessert"],
+    curatorNote:
+      "Candy Rain is a Cookies cross of Gelato and London Pound Cake — sweet sherbet meeting dark, gassy dessert. The nose is rich and layered: creamy berry and sweet candy over a gassy, doughy funk, dessert with depth. The effect is relaxing and euphoric — a happy head easing into comfortable body weight, an afternoon-into-evening strain. It's frosty and potent, balanced-leaning-indica. For people who want Gelato sweetness with London Pound Cake's gas, Candy Rain blends both well.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Watermelon Zkittlez",
+    marketNames: ["Watermelon Skittlez"],
+    lineage: {
+      parents: ["Zkittlez", "Watermelon"],
+      cross: "Zkittlez × Watermelon",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Watermelon-berry candy", "A parent of Melonade"],
+    curatorNote:
+      "Watermelon Zkittlez is a Zkittlez cross — pairing the candy berry of Zkittlez with a juicy watermelon note — and a parent of Melonade. The nose is sweet and refreshing: watermelon candy and mixed berry over a clean, light base, summery and fruity. The effect is calm and contented — a relaxed, happy body ease that's easy to handle, more mood than knockout. It's flavour-forward like its Zkittlez parent, low on funk and high on candy. For sweet watermelon-berry flavour with an easy calm, it's a refreshing pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grape Gas",
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Candy grape over sharp diesel"],
+    curatorNote:
+      "Grape Gas is a grape-and-fuel hybrid — a purple, gassy selection built to pair candy grape with a sharp diesel funk. The nose is the name: sweet grape and berry over a pungent, gassy base, candy meeting fuel. The effect is relaxing and euphoric — a happy head sinking into heavy body calm, evening-leaning and potent. It's frosty and flavour-forward, for people who like grape with a gas edge rather than pure sweetness. For the grape-gas lane, it's a bold, heavy option.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Gushers",
+    marketNames: ["Fruit Gushers", "White Gushers"],
+    breeder: "Cookies",
+    lineage: {
+      parents: ["Gelato 41", "Triangle Kush"],
+      cross: "Gelato 41 × Triangle Kush",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Tropical candy over a gassy OG frame"],
+    curatorNote:
+      "Gushers (Fruit Gushers) is a Cookies cross of Gelato 41 and Triangle Kush — sweet tropical candy on a gassy, OG-leaning frame. The nose is sweet and fruity: tropical candy and berry over a light gas, dessert-bright with a funky edge. The effect is balanced-leaning-relaxed — a euphoric head over a comfortable, calming body, afternoon into evening. It's frosty and potent, a popular flavour-forward exotic. For people who want fruity candy with some gas backbone, Gushers is a tasty, well-known pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Apples and Bananas",
+    marketNames: ["Apples & Bananas", "AB"],
+    breeder: "Cookies / Compound Genetics",
+    lineage: {
+      parents: ["Blue Power × Gelatti", "GMO × Banana OG"],
+      cross: "(Blue Power × Gelatti) × (GMO × Banana OG)",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Fruit candy layered over savoury gas"],
+    curatorNote:
+      "Apples and Bananas is a Cookies/Compound collab — a complex cross of (Blue Power × Gelatti) and (GMO × Banana OG) — built to layer fruit over gas. The nose is rich and unusual: green apple and banana candy over a savoury, gassy funk, sweet-and-funky at once. The effect is balanced and euphoric — a happy, uplifting head over a relaxed body, versatile and potent. It's frosty and flavour-forward, one of the more distinctive modern exotics. For people who want fruit-and-gas complexity, Apples and Bananas stands out.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "RS11",
+    marketNames: ["Rainbow Sherbet 11", "RS-11"],
+    breeder: "Wizard Trees / Doja Exclusive",
+    lineage: {
+      parents: ["Pink Guava", "OZ Kush"],
+      cross: "Pink Guava × OZ Kush",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Guava-sherbet, extremely frosty"],
+    curatorNote:
+      "RS11 — Rainbow Sherbet #11 — is a Wizard Trees / Doja cut of Pink Guava and OZ Kush, one of the most hyped exotics of recent years. The nose is sweet and creamy: tropical guava and sherbet over a doughy, gassy base, candy with depth. The effect is balanced and relaxing — a euphoric head easing into comfortable body calm, afternoon into evening. It's extremely frosty and flavour-forward, a connoisseur's exotic. For people chasing the current top-shelf guava-sherbet hype, RS11 is a benchmark.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Zoap",
+    marketNames: ["Soap (sibling)"],
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Clean soapy-floral funk", "Heavy bag appeal"],
+    curatorNote:
+      "Zoap is a hype-era exotic — a balanced hybrid often traced to a Pink Guava / Rainbow Sherbet line — named for its clean, soapy-floral funk. The nose is distinctive: floral, soapy sweetness over a creamy, gassy base, bright and a little unusual. The effect is balanced and euphoric — an uplifting, sociable head over a relaxed body, versatile across the day. It's very frosty and colourful, a flavour- and bag-appeal-forward modern strain. For people who like that clean soap-floral funk, Zoap is a current favourite.",
+    sourceConfidence: "low",
+  },
 ];
