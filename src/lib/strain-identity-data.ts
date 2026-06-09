@@ -3391,4 +3391,345 @@ export const IDENTITIES: StrainIdentity[] = [
       "Grape and berry over a doughy, vanilla base.",
     sourceConfidence: "medium",
   },
+
+  // ── ROUND 6: CLASSIC PARENT-LINE FILL + LEGENDS ──
+  {
+    canonicalName: "Cinderella 99",
+    marketNames: ["Cindy 99", "C99"],
+    breeder: "Brothers Grimm",
+    lineage: {
+      parents: ["Jack Herer", "Shiva Skunk"],
+      cross: "Jack Herer × Shiva Skunk",
+      parentDetails: {
+        "Shiva Skunk": { lineageBrief: "Northern Lights #5 × Skunk #1", type: "indica" },
+      },
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Tropical-fruit 'dream' sativa", "Parent of Cinex, Sour Apple and Space Queen"],
+    curatorNote:
+      "Cinderella 99 (Cindy 99) is a Brothers Grimm legend from the late 90s — a Jack Herer × Shiva Skunk cross famed for a tropical-fruit nose rare in its day. The smell is sweet and bright: pineapple and citrus over a light floral haze. The effect is a fast, dreamy cerebral lift — euphoric, energetic and creative, a true daytime sativa. It's potent and uplifting, and its sweet terps run through Cinex, Sour Apple and Space Queen. For fruity sativa genetics at the source, C99 is foundational.",
+    curatorQuote:
+      "Pineapple and citrus over a light floral haze.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Vortex",
+    breeder: "TGA Subcool Seeds",
+    lineage: {
+      parents: ["Apollo 13", "Space Queen"],
+      cross: "Apollo 13 × Space Queen",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Spun-citrus sativa", "A parent of Cinex"],
+    curatorNote:
+      "Vortex is a TGA/Subcool cross of Apollo 13 and Space Queen — a bright, sativa-leaning hybrid built around tropical citrus. The nose is zesty and sweet: lemon and tropical fruit over a light herbal base. The effect is energetic and clear — an uplifting, creative head with a focused edge, a daytime strain. It's terpy and potent, and it lends its citrus lift to Cinex. For a clean, spun-citrus sativa, Vortex is a flavourful classic.",
+    curatorQuote:
+      "Lemon and tropical fruit over a light herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Appalachia",
+    breeder: "Bodhi Seeds",
+    lineage: {
+      parents: ["Green Crack", "Tres Dawg"],
+      cross: "Green Crack × Tres Dawg",
+      parentDetails: {
+        "Tres Dawg": { lineageBrief: "Chemdawg × (Afghani × Chemdawg)", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Gassy, energetic chem cross", "A parent of Bay 11"],
+    curatorNote:
+      "Appalachia is a Bodhi Seeds cross of Green Crack and Tres Dawg — chem gas with an energetic, citrus lift. The nose is sharp and gassy: diesel and sour earth with a bright citrus edge. The effect is up and lively — an uplifting, happy head with enough body to stay grounded, daytime-leaning despite the gas. It's frosty and potent, and it passes its frost and lift to Bay 11. For energetic chem genetics, Appalachia is a solid parent line.",
+    curatorQuote:
+      "Diesel and sour earth with a bright citrus edge.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Mendo Montage",
+    marketNames: ["Montage"],
+    breeder: "Gage Green Genetics",
+    lineage: {
+      parents: ["Mendo Purps", "Crystal Locomotive"],
+      cross: "Mendo Purps × Crystal Locomotive",
+      parentDetails: {
+        "Mendo Purps": { lineageBrief: "Mendocino purple selection", type: "indica" },
+        "Crystal Locomotive": { lineageBrief: "Trainwreck × Trinity", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Sweet purple workhorse", "A parent of Mendo Breath"],
+    curatorNote:
+      "Mendo Montage is a Gage Green cross of Mendo Purps and Crystal Locomotive — a sweet, frosty purple line from Northern California. The nose is sweet and fruity: berry and grape over an earthy base. The effect is relaxing and pleasant — a happy, calming high that leans comfortable rather than knockout. It's frosty and resin-heavy, and it's the purple half behind Mendo Breath. For sweet purple genetics, Mendo Montage is a dependable parent.",
+    curatorQuote:
+      "Berry and grape over an earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cherry AK-47",
+    marketNames: ["Cherry AK"],
+    breeder: "Selective cut",
+    lineage: {
+      parents: ["Cherry", "AK-47"],
+      cross: "Cherry × AK-47",
+      parentDetails: {
+        "Cherry": { lineageBrief: "cherry-leaning selection", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Cherry-sweet AK selection", "A parent of Cherry Punch"],
+    curatorNote:
+      "Cherry AK-47 is a cherry-leaning selection of the classic AK-47 — sweet red fruit over AK's floral funk. The nose is sweet and fruity: cherry and berry over an earthy, skunky base. The effect is balanced and uplifting — a happy, sociable head with a relaxed body, mellow despite the AK name. It's terpy and approachable, and it carries the cherry into Cherry Punch. For sweet-cherry character on a mellow classic, Cherry AK is a likeable parent.",
+    curatorQuote:
+      "Cherry and berry over an earthy, skunky base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Fruity Pebbles OG",
+    marketNames: ["FPOG", "Fruity Pebbles"],
+    breeder: "Alien Genetics",
+    lineage: {
+      parents: ["Green Ribbon", "Granddaddy Purple", "Tahoe OG", "Alien Kush"],
+      cross: "(Green Ribbon × Granddaddy Purple) × (Tahoe OG × Alien Kush)",
+      parentDetails: {
+        "Green Ribbon": { lineageBrief: "Trainwreck × Trinity × Aloha White Widow", type: "hybrid" },
+        "Alien Kush": { lineageBrief: "Las Vegas Purple Kush × Alien Tech", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Cereal-sweet exotic", "A parent of Sundae Driver"],
+    curatorNote:
+      "Fruity Pebbles OG is an Alien Genetics exotic — a four-way blend of Green Ribbon, Granddaddy Purple, Tahoe OG and Alien Kush — named for its breakfast-cereal sweetness. The nose is loud and fruity: mixed berry and tropical candy over a faint earthy gas. The effect is balanced and happy — a euphoric, creative head with a relaxed body, sociable and potent. It's frosty and flavour-forward, and it's the fruity half behind Sundae Driver. For cereal-sweet exotic genetics, FPOG is a building block.",
+    curatorQuote:
+      "Mixed berry and tropical candy over a faint earthy gas.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Larry OG",
+    marketNames: ["Lemon Larry", "Lemon Larry OG"],
+    breeder: "Holy Grail / Liberty Reach",
+    lineage: {
+      parents: ["OG Kush", "SFV OG"],
+      cross: "OG Kush × SFV OG",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Lemony, gassy OG", "A parent of Purple Punch"],
+    curatorNote:
+      "Larry OG (Lemon Larry) is a lemony OG Kush × SFV OG cross — clean gas with a citrus lift. The nose is bright OG: lemon and pine over fuel and damp earth. The effect is balanced-leaning-relaxed — a euphoric head with a comfortable body, usable through the day. It's gassy, dense and potent, and it's the OG half behind Purple Punch. For a clean, lemony gas OG, Larry is a quiet classic.",
+    curatorQuote:
+      "Lemon and pine over fuel and damp earth.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Black Cherry Pie",
+    breeder: "Cherry Pie selection",
+    lineage: {
+      parents: ["Cherry Pie"],
+      cross: "Dark-fruit Cherry Pie phenotype",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Dark cherry pheno", "A parent of Black Cherry Punch"],
+    curatorNote:
+      "Black Cherry Pie is a dark-fruit phenotype of Cherry Pie, selected for deeper cherry and a richer, jammier nose. The smell is sweet and dark: black cherry and grape over an earthy, faintly gassy base. The effect leans relaxing — a euphoric head easing into a comfortable, heavy body, evening-friendly. It's frosty and flavour-forward, and it's the cherry behind Black Cherry Punch. For dark-cherry indica-lean character, it's a tasty parent cut.",
+    curatorQuote:
+      "Black cherry and grape over an earthy, faintly gassy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Key Lime Pie",
+    breeder: "Cookies (GSC pheno)",
+    lineage: {
+      parents: ["Girl Scout Cookies"],
+      cross: "Girl Scout Cookies phenotype (lime-forward)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Lime-and-earth GSC pheno", "A parent of Chile Verde"],
+    curatorNote:
+      "Key Lime Pie is a lime-leaning phenotype of Girl Scout Cookies — the GSC funk with a bright citrus-lime twist. The nose is sweet and zesty: lime and citrus over GSC's earthy, doughy base. The effect is balanced-leaning-relaxed — a euphoric head settling into a comfortable body, afternoon into evening. It's frosty and flavourful, and it lends its citrus to Chile Verde. For a lime-forward cookie cut, Key Lime Pie is a tasty GSC selection.",
+    curatorQuote:
+      "Lime and citrus over GSC's earthy, doughy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Champagne",
+    marketNames: ["Champagne Kush"],
+    breeder: "Sherbinski",
+    lineage: {
+      parents: ["Boggle Gum", "Burmese"],
+      cross: "Boggle Gum × Burmese",
+      parentDetails: {
+        "Boggle Gum": { lineageBrief: "bubblegum-leaning selection", type: "hybrid" },
+        "Burmese": { lineageBrief: "Burmese landrace", type: "indica" },
+      },
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Floral-fruit hybrid", "A parent of Rainbow Sherbet"],
+    curatorNote:
+      "Champagne is a Sherbinski hybrid of Boggle Gum and Burmese — a soft, floral-fruit strain that became important mostly as a parent (it's half of Rainbow Sherbet). The nose is sweet and floral: light berry and bubblegum over an earthy base. The effect is gentle and mellow — a happy, relaxing high that stays comfortable, moderate rather than overwhelming. It's smooth and flavour-led, and it passes its sweetness down to Rainbow Sherbet. For soft, floral-sweet genetics, Champagne is a pretty parent line.",
+    curatorQuote:
+      "Light berry and bubblegum over an earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "OGKB",
+    marketNames: ["OG Kush Breath", "OGKB 2.1"],
+    breeder: "Cookies (GSC pheno)",
+    lineage: {
+      parents: ["Girl Scout Cookies"],
+      cross: "Girl Scout Cookies phenotype (OG Kush Breath)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Heavy, gassy GSC pheno", "Parent of Gelatti, Do-Si-Dos and Mendo Breath"],
+    curatorNote:
+      "OGKB — OG Kush Breath — is one of the most important phenotypes of Girl Scout Cookies, a heavier, gassier cut that became a breeding cornerstone. The nose is earthy and rich: doughy cookie and gas over a faint sweetness, more savoury than candy. The effect is relaxing and heavy — a euphoric head sinking into a sedating body, evening-leaning. It's frosty and potent, and its DNA runs through Gelatti, Do-Si-Dos and Mendo Breath. For the heavy, gassy side of the cookie genome, OGKB is foundational.",
+    curatorQuote:
+      "Doughy cookie and gas over a faint sweetness, more savoury than candy.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Thin Mint GSC",
+    marketNames: ["Thin Mint", "Thin Mints"],
+    breeder: "Cookies Fam (GSC pheno)",
+    lineage: {
+      parents: ["Girl Scout Cookies"],
+      cross: "Girl Scout Cookies phenotype (Thin Mint)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["The minty GSC cut behind Gelato"],
+    curatorNote:
+      "Thin Mint GSC is the minty, frosty phenotype of Girl Scout Cookies — alongside Forum, the canonical GSC cut, and the parent of the entire Gelato line. The nose is sweet and cool: mint and vanilla cookie over an earthy sweetness. The effect is balanced and bright — a euphoric, happy head with a relaxed body, sociable and versatile. It's frosty and potent, and crossing it with Sunset Sherbet gave us Gelato. For the mint side of the cookie genome, Thin Mint is the reference.",
+    curatorQuote:
+      "Mint and vanilla cookie over an earthy sweetness.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Sour Dubb",
+    marketNames: ["Sour Dubble", "Sour Double"],
+    lineage: {
+      parents: ["Sour Diesel", "Sour Bubble"],
+      cross: "Sour Diesel × Sour Bubble",
+      parentDetails: {
+        "Sour Bubble": { lineageBrief: "Bubble Gum IBL", type: "indica" },
+      },
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Sour-diesel funk", "One of the parents of GG4"],
+    curatorNote:
+      "Sour Dubb (Sour Dubble) is a sour-diesel cross — Sour Diesel into Sour Bubble — and one of the three parents that gave us GG4. The nose is loud and gassy: sharp diesel and sour funk over a sweet, earthy base. The effect is balanced and potent — a euphoric, uplifting head with a relaxing body. It's sticky, gassy and resin-heavy, an important piece of modern gas genetics. For sour-diesel funk at the root of the Glue line, Sour Dubb matters.",
+    curatorQuote:
+      "Sharp diesel and sour funk over a sweet, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Chem's Sister",
+    marketNames: ["Chem Sister", "Chemdawg Sister"],
+    lineage: {
+      parents: ["Chemdawg"],
+      cross: "Chemdawg phenotype (female Chem seed)",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Sativa-leaning Chem cut", "One of the parents of GG4"],
+    curatorNote:
+      "Chem's Sister is a sativa-leaning female found in a pack of Chemdawg seeds — a cleaner, citrus-tinged take on the chem funk, and one of the three parents of GG4. The nose is sharp and bright: diesel and sour earth with a lemony lift. The effect is up and heady — a euphoric, talkative cerebral high with a light body. It's gassy, loud and potent, the sativa side of the Glue lineage. For a brighter cut of the Chem family, Chem's Sister is a key parent.",
+    curatorQuote:
+      "Diesel and sour earth with a lemony lift.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Bubble Gum",
+    marketNames: ["Bubblegum", "Indiana Bubblegum"],
+    breeder: "Serious Seeds (from an Indiana cut)",
+    lineage: {
+      cross: "Indiana Bubblegum line (origin private)",
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["True pink-bubblegum sweetness", "Mellow, even high"],
+    curatorNote:
+      "Bubble Gum is an Indiana classic, refined into stable seed form by Serious Seeds — famous for genuinely tasting like pink bubblegum. The nose is sweet and candy-bright: bubblegum and berry over a light floral base. The effect is mellow and cheerful — a happy, relaxed, gently euphoric high without extremes, moderate in strength. It's smooth and well-mannered, a flavour-first throwback. For true bubblegum sweetness, this is the reference.",
+    curatorQuote:
+      "Bubblegum and berry over a light floral base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Purple Kush",
+    marketNames: ["PK"],
+    lineage: {
+      parents: ["Hindu Kush", "Purple Afghani"],
+      cross: "Hindu Kush × Purple Afghani",
+      parentDetails: {
+        "Purple Afghani": { lineageBrief: "purple Afghani landrace", type: "indica" },
+      },
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Pure indica, grape-earth and heavy"],
+    curatorNote:
+      "Purple Kush is a pure indica — Hindu Kush crossed with Purple Afghani — out of the Oakland area, prized for colour and sedation. The nose is earthy and sweet: grape and dark berry over a sandalwood, hashy base. The effect is heavily relaxing — a warm, dreamy body weight that tips toward sleep, with little cerebral play. It's dense, frosty and potent, a textbook evening indica. For grape-earth heaviness with no surprises, Purple Kush is a dependable classic.",
+    curatorQuote:
+      "Grape and dark berry over a sandalwood, hashy base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Grape Soda",
+    breeder: "Cali Connection",
+    lineage: {
+      parents: ["Tahoe OG", "Granddaddy Purple"],
+      cross: "Tahoe OG × Granddaddy Purple",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Fizzy grape candy over OG weight"],
+    curatorNote:
+      "Grape Soda is a Cali Connection cross of Tahoe OG and Granddaddy Purple — fizzy grape candy laid over heavy OG. The nose is sweet and fruity: grape soda and berry over an earthy, gassy base. The effect is relaxing and warm — a happy head easing into a comfortable, heavy body, evening-leaning. It's frosty and potent, sweet with real weight. For grape-candy flavour on an OG frame, Grape Soda is a satisfying indica-lean.",
+    curatorQuote:
+      "Grape soda and berry over an earthy, gassy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Red Zushi",
+    breeder: "Ten Co / Gas House",
+    lineage: {
+      parents: ["Zkittlez", "Kush Mints"],
+      cross: "Zkittlez × Kush Mints (Zushi colour pheno)",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Red-hued Zushi colour pheno"],
+    curatorNote:
+      "Red Zushi is a colour-selected cut from the same Zkittlez × Kush Mints line as Blue Zushi — picked for red-purple buds and a fruitier lean. The nose is sweet and loud: berry and grape candy over a cool mint and faint gas. The effect leans relaxing — a euphoric head easing into a calm body, evening-friendly. It's very frosty and flavour-forward, part of the colourful Zushi family. For candy fruit with a minty tail and red bag appeal, Red Zushi delivers.",
+    curatorQuote:
+      "Berry and grape candy over a cool mint and faint gas.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "G13",
+    marketNames: ["G-13", "Government Indica"],
+    breeder: "Clone-only (origin contested)",
+    lineage: {
+      cross: "Clone-only Afghani-type indica (origin legend)",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Mythic 'government' indica", "Heavy, resinous"],
+    curatorNote:
+      "G13 is a clone-only legend wrapped in myth — the story claims a government lab selected the most potent Afghani indica, though no record confirms it. What's real is the flower: dense, resin-heavy buds with an earthy, pine-and-sweet nose. The effect is a heavy, relaxing body stone that drifts toward sleep, a classic evening indica. It's potent and frosty, prized as much for the legend as the smoke. For old-school heavy indica with a story, G13 endures.",
+    curatorQuote:
+      "Dense, resin-heavy buds with an earthy, pine-and-sweet nose.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Apollo 13",
+    marketNames: ["Apollo 13 BX"],
+    breeder: "Brothers Grimm",
+    lineage: {
+      parents: ["Genius"],
+      cross: "Genius × P75 (Princess select)",
+      parentDetails: {
+        "Genius": { lineageBrief: "Jack Herer phenotype select", type: "sativa" },
+      },
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Fast, fruity sativa", "A parent of Vortex"],
+    curatorNote:
+      "Apollo 13 is a Brothers Grimm sativa from the same camp as Cinderella 99 — a Genius-and-Princess select known for speed and a tangy fruit nose. The smell is sweet and zesty: tropical fruit and citrus over a light herbal base. The effect is fast and clear — an energetic, creative, uplifting head with little body, a daytime strain. It's terpy and potent, and it's the bright half behind Vortex. For a quick, fruity sativa, Apollo 13 is a classic parent line.",
+    curatorQuote:
+      "Tropical fruit and citrus over a light herbal base.",
+    sourceConfidence: "low",
+  },
 ];
