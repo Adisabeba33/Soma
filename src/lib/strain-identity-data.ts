@@ -516,4 +516,143 @@ export const IDENTITIES: StrainIdentity[] = [
       "Master Kush is an Amsterdam classic — a cross of two landrace lines (Hindu Kush and Skunk) that became a coffeeshop staple for decades. The nose is earthy and rich: hashy, incense-like musk with a faint citrus and pepper edge, understated but deep. The effect is a calm, clear-bodied relaxation — heavy enough to unwind on but less couch-locking than many modern indicas, which made it a dependable all-evening smoke. It won't dazzle terp-chasers and its potency is moderate by today's standards, but its balance is the point. For an old-school, hashy kush that relaxes without flattening, Master Kush still delivers.",
     sourceConfidence: "medium",
   },
+
+  // ── Modern hype / exotics ──
+  {
+    canonicalName: "Gary Payton",
+    marketNames: ["GP", "The Glove"],
+    breeder: "Cookies / Powerzzzup Genetics",
+    lineage: {
+      parents: ["The Y", "Snowman"],
+      cross: "The Y × Snowman",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Gassy-mint funk, very frosty"],
+    curatorNote:
+      "Gary Payton — named for the Hall-of-Fame point guard — is a Cookies/Powerzzzup collab crossing The Y (a GSC line) with Snowman, and one of the loudest hype strains of recent years. The nose is sharp and savoury-sweet: diesel and herbal funk over a cool mint-cookie edge, more gas than candy. The effect is balanced and clear-headed — an energetic, focused euphoria over a calm body that keeps it usable through the day, unusual for something this potent. It runs strong, though, so the 'functional' label only holds at a sensible dose. As a frosty, gassy, high-test hybrid, it earned its reputation beyond the marketing.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Kush Mints",
+    marketNames: ["Kushmints"],
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Bubba Kush", "Animal Mints"],
+      cross: "Bubba Kush × Animal Mints",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Mint-and-coffee kush", "Parent of newer hype crosses"],
+    curatorNote:
+      "Kush Mints is a Seed Junky cross of Bubba Kush and Animal Mints — minty cookie sweetness welded to heavy kush, and a parent of newer hype like Jealousy and Animal Face. The nose is cool and rich: mint and cookie dough over earthy coffee kush, sweet and savoury at once. The effect is potent and balanced-leaning-indica — a euphoric head over a heavy, calming body, comfortable for late day into evening. It's very frosty and strong, the kind of strain that creeps if you keep going. For the mint-and-kush crowd it's become a modern staple.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cereal Milk",
+    breeder: "Cookies / Powerzzzup Genetics",
+    lineage: {
+      parents: ["Y Life", "Snowman"],
+      cross: "Y Life (GSC × Cherry Pie) × Snowman",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Sweet milk-and-cereal flavour"],
+    curatorNote:
+      "Cereal Milk is a Cookies strain — a cross of Y Life (GSC × Cherry Pie) and Snowman — that nails the 'leftover milk in the bowl' flavour its name promises. The nose is sweet and creamy: sugary milk and berry over a light gas, smooth rather than loud. The effect is balanced and easygoing — a calm, happy lift that relaxes without flattening, suited to afternoons and low-key evenings. It's moderate and approachable for a hyped strain, more about flavour and mood than raw power. For people chasing that creamy, sweet dessert profile, Cereal Milk is a clean example.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Oreoz",
+    marketNames: ["Oreo Cookies", "Oreo"],
+    lineage: {
+      parents: ["Cookies and Cream", "Secret Weapon"],
+      cross: "Cookies and Cream × Secret Weapon",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Chocolate-and-gas, trichome-caked"],
+    curatorNote:
+      "Oreoz (Oreo Cookies) is a Cookies and Cream × Secret Weapon cross — chocolate-cookie sweetness over a gassy, diesel funk, and one of the frostiest strains you'll see. The nose is rich and indulgent: chocolate, vanilla cream and a sharp fuel edge, dessert with a gas chaser. The effect is heavy and euphoric — a strong, sedating body high with a happy head, firmly an evening strain. It's very potent and trichome-caked, easy to overdo, so it carries a nightcap reputation. For lovers of chocolate-and-gas dessert indicas, Oreoz is a standout.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "MAC",
+    marketNames: ["MAC 1", "Miracle Alien Cookies", "Capulator's MAC"],
+    breeder: "Capulator",
+    lineage: {
+      parents: ["Alien Cookies", "Starfighter × Columbian"],
+      cross: "Alien Cookies × (Starfighter × Columbian)",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Near-white frost", "Finicky to grow"],
+    curatorNote:
+      "MAC 1 — Miracle Alien Cookies, cut #1 — is Capulator's prized phenotype of Alien Cookies crossed with a Starfighter/Colombian line, famous for its frosty, almost white look. The nose is complex: creamy citrus and floral sweetness over a diesel-and-spice funk, refined rather than loud. The effect is balanced and bright — a euphoric, creative, uplifting head with a relaxed body, social and versatile. It's a notoriously finicky plant to grow, part of its connoisseur cachet and why genuine MAC 1 is prized. For a smooth, frosty, balanced hybrid, it's one of the modern greats.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Apple Fritter",
+    marketNames: ["Apple Fritters"],
+    breeder: "Lumpy's Flowers",
+    lineage: {
+      parents: ["Sour Apple", "Animal Cookies"],
+      cross: "Sour Apple × Animal Cookies",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Sweet pastry over cheesy gas"],
+    curatorNote:
+      "Apple Fritter is a Lumpy's Flowers strain — a Sour Apple × Animal Cookies cross — that became a favourite for its pastry-meets-gas profile. The nose is sweet and savoury: green apple and sugary pastry over a cheesy, gassy funk, instantly recognisable. The effect is potent and balanced-leaning-heavy — a euphoric, relaxing high that eases the body without total couch-lock at moderate doses. It's strong and frosty, the kind of hybrid that sneaks up if you push it. For the sweet-and-gas dessert lane, Apple Fritter is a deservedly popular pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Ice Cream Cake",
+    marketNames: ["ICC"],
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Wedding Cake", "Gelato 33"],
+      cross: "Wedding Cake × Gelato 33",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Cheesecake-and-cream, white frost"],
+    curatorNote:
+      "Ice Cream Cake is a Seed Junky cross of Wedding Cake and Gelato 33 — pure creamy dessert with a frosty, white finish. The nose is sweet and rich: vanilla, cheesecake and sweet cream over a light gas, very much a dessert profile. The effect is heavily relaxing — a warm, sedating body weight with a calm, happy head, a textbook evening and bedtime strain. It's potent and frosty, more couch than productivity, so it earns its nighttime reputation. For lovers of creamy, sweet, sit-down indicas, Ice Cream Cake is a go-to.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Peanut Butter Breath",
+    marketNames: ["PB Breath", "PBB"],
+    breeder: "ThugPug Genetics",
+    lineage: {
+      parents: ["Do-Si-Dos", "Mendo Breath"],
+      cross: "Do-Si-Dos × Mendo Breath",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Nutty, savoury, herbal funk"],
+    curatorNote:
+      "Peanut Butter Breath is a ThugPug cross of Do-Si-Dos and Mendo Breath — a genuinely unusual nutty, savoury profile that lives up to its name. The nose is earthy and rich: roasted nuts and herbal funk over a sweet, hashy base, more savoury than sweet. The effect is relaxing and dreamy — a slow, calming body high with a euphoric, slightly sedating head that drifts toward rest. It's potent and creeps, so it's an evening strain rather than a daytime one. For people who want something off the candy path, its nutty character stands out.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lemon Cherry Gelato",
+    marketNames: ["LCG", "Lemon Cherry"],
+    lineage: {
+      parents: ["Sunset Sherbet", "Girl Scout Cookies"],
+      cross: "Sunset Sherbet × GSC (cherry-citrus lean; contested)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Cherry-citrus over creamy gelato", "Heavily counterfeited name"],
+    curatorNote:
+      "Lemon Cherry Gelato (LCG) is a hyped exotic of contested parentage — usually traced to a Sunset Sherbet × GSC line with a citrus-cherry lean — popularised through the Bay Area exotic scene. The nose is bright and fruity: sweet cherry and citrus over a creamy gelato base, candy-forward with a gassy undertone. The effect is balanced and euphoric — a happy, uplifting head settling into relaxed body comfort, sociable without knocking you out. Like most hyped exotics it's heavily counterfeited, so lineage and quality vary widely between cuts. A real LCG is colourful, frosty and unmistakably fruity.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Mochi",
+    marketNames: ["Mochi Gelato", "Gelato 47"],
+    breeder: "Sherbinski",
+    lineage: {
+      parents: ["Sunset Sherbet", "Thin Mint GSC"],
+      cross: "Sunset Sherbet × Thin Mint GSC",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Creamy-mint Gelato sibling"],
+    curatorNote:
+      "Mochi (Mochi Gelato / Gelato 47) is a Sherbinski cut from the Sunset Sherbet × Thin Mint GSC line — the same parentage as Gelato, selected for a sweeter, creamier expression. The nose is dessert-forward: sweet cream, mint and berry over a light gas, smooth and inviting. The effect is balanced and relaxing — a euphoric lift that eases into comfortable body calm, good for late afternoon into evening. It's frosty and flavourful, leaning a touch indica, with the easy likability of the whole Gelato family. For the creamy-mint end of the Gelato world, Mochi is a refined pick.",
+    sourceConfidence: "medium",
+  },
 ];
