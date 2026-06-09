@@ -1098,4 +1098,139 @@ export const IDENTITIES: StrainIdentity[] = [
       "Jealousy is a hype-era cross of Gelato 41 and Sherbet (a Seed Junky/Powerzzzup line) that topped 'strain of the year' lists — frosty, gassy and sweet. The nose is rich and complex: creamy sherbet and sweet fruit over a sharp, gassy funk, candy with a fuel edge. The effect is balanced and euphoric — an uplifting, sociable head over a relaxed body, versatile across the day. It's potent and very frosty, a flavour-forward modern exotic. For people chasing the current Gelato-gas hype done well, Jealousy is a standout.",
     sourceConfidence: "medium",
   },
+
+  // ── Fruity / tropical ──
+  {
+    canonicalName: "Pineapple Express",
+    marketNames: ["Pineapple"],
+    lineage: {
+      parents: ["Trainwreck", "Hawaiian"],
+      cross: "Trainwreck × Hawaiian",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Bright pineapple over a piney base"],
+    curatorNote:
+      "Pineapple Express earned its fame from the 2008 movie, but the strain is a real Trainwreck × Hawaiian cross — bright tropical fruit on a sativa-leaning frame. The nose is exactly the name: ripe pineapple and tropical fruit over a piney, earthy base, sweet and lively. The effect is uplifting and energetic — a happy, talkative, mildly buzzy head with enough body to stay comfortable, a daytime and social strain. It's approachable and flavour-forward, not overwhelming, which is part of why it's so widely known. For an easy, juicy tropical sativa, Pineapple Express lives up to the hype.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Mimosa",
+    marketNames: ["Mimosa Orange Punch"],
+    breeder: "Symbiotic Genetics",
+    lineage: {
+      parents: ["Clementine", "Purple Punch"],
+      cross: "Clementine × Purple Punch",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Citrus-forward daytime hybrid"],
+    curatorNote:
+      "Mimosa is a Symbiotic Genetics cross of Clementine and Purple Punch — a brunch-cocktail name for a bright, citrus-forward hybrid. The nose is sweet and zesty: orange and tangerine over a berry-sweet base, juicy and clean. The effect is uplifting and energetic — a happy, motivating head that suits mornings and daytime, sativa-leaning but not racy. It's flavour-driven and sociable, a popular wake-and-bake pick. For people who want citrus brightness with a gentle lift, Mimosa is a daytime favourite.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Strawberry Banana",
+    marketNames: ["Strawnana", "Strawberry Banana Kush"],
+    breeder: "Crockett Family Farms",
+    lineage: {
+      parents: ["Banana Kush", "Strawberry Bubble Gum"],
+      cross: "Banana Kush × Strawberry Bubble Gum",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Genuinely fruity, resin-heavy"],
+    curatorNote:
+      "Strawberry Banana (Strawnana) is a Crockett Family cross — Banana Kush × a Strawberry Bubble Gum line — known for genuinely fruity flavour and heavy resin. The nose is sweet and ripe: strawberry and banana candy over a light earthy base, dessert-fruity and smooth. The effect is relaxing and happy — a euphoric, calming body high that leans indica without total couch-lock at moderate doses. It's potent and frosty, easy to enjoy for its flavour alone. For lovers of sweet, fruity, relaxing hybrids, Strawberry Banana is a tasty staple.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Banana Kush",
+    marketNames: ["Banana"],
+    lineage: {
+      parents: ["Ghost OG", "Skunk Haze"],
+      cross: "Ghost OG × Skunk Haze",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Creamy banana over a kush base"],
+    curatorNote:
+      "Banana Kush is a West Coast cross — usually Ghost OG × Skunk Haze — built around a creamy banana sweetness on a kush base. The nose is its signature: ripe banana and tropical sweetness over an earthy, skunky kush, smooth and dessert-like. The effect is relaxing and mellow — a calm, happy body ease with a clear-enough head, comfortable for afternoon into evening. It's moderate and approachable, more about flavour and chill than raw power. For a creamy, banana-sweet, easygoing strain, Banana Kush is a reliable pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Papaya",
+    marketNames: ["Papaya Punch (sibling)", "Nirvana Papaya"],
+    breeder: "Nirvana Seeds",
+    lineage: {
+      parents: ["Citral", "Ice"],
+      cross: "Citral #13 × Ice #2",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Soft tropical-fruit indica"],
+    curatorNote:
+      "Papaya (Nirvana's Papaya) is an indica-leaning cross of Citral and Ice — named for its tropical, fruity nose. The nose is sweet and tropical: ripe papaya and mango over an earthy, peppery base, fruity but not candy. The effect is relaxing and calming — a mellow, contented body ease that eases tension and leans toward the couch in larger doses. It's moderate and comfortable, an unwind-and-relax strain more than a productive one. For people who want a soft tropical-fruit indica, Papaya is a gentle choice.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Forbidden Fruit",
+    marketNames: ["Forbidden Fruit Cherry Pie"],
+    lineage: {
+      parents: ["Cherry Pie", "Tangie"],
+      cross: "Cherry Pie × Tangie",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Dark cherry meets bright citrus", "Frosty, dark buds"],
+    curatorNote:
+      "Forbidden Fruit is a Cherry Pie × Tangie cross — dark cherry meeting bright citrus in one of the more striking fruit profiles around. The nose is rich and layered: cherry, tangerine and tropical fruit over a piney, earthy base, sweet and complex. The effect is relaxing and euphoric — a happy head sinking into a calming body, an afternoon-into-evening strain that leans indica. It's potent and flavour-forward, beautiful to look at with its dark, frosty buds. For people who want cherry-and-citrus depth in a relaxing hybrid, Forbidden Fruit stands out.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Tropicana Cookies",
+    marketNames: ["Tropicanna Cookies", "Trop Cookies"],
+    breeder: "Oni Seed Co.",
+    lineage: {
+      parents: ["Girl Scout Cookies", "Tangie"],
+      cross: "GSC × Tangie",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Orange citrus over a cookie base"],
+    curatorNote:
+      "Tropicana Cookies is an Oni Seed Co cross of GSC and Tangie — cookie richness folded into bright orange citrus. The nose is vivid and sweet: orange and tangerine over a creamy cookie base, juicy with a dessert backbone. The effect is uplifting and energetic — a happy, motivating head with a light body, sativa-leaning and daytime-friendly. It's flavour-forward and lively, a favourite for citrus chasers. For people who want orange brightness with cookie depth, Tropicana Cookies is a standout sativa-leaning hybrid.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Orange Creamsicle",
+    marketNames: ["Creamsicle", "Orange Creamsickle"],
+    lineage: {
+      parents: ["Orange Crush", "Juicy Fruit"],
+      cross: "Orange Crush × Juicy Fruit",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Orange-and-vanilla cream"],
+    curatorNote:
+      "Orange Creamsicle is a sweet hybrid — usually an Orange Crush × Juicy Fruit line — built to taste like the frozen treat it's named for. The nose is creamy and citrus-sweet: orange and vanilla cream over a light fruity base, dessert-bright. The effect is balanced and happy — an uplifting, mood-lifting head with a relaxed body, comfortable across the day. It's flavour-driven and approachable, more about taste and mood than heavy potency. For people chasing a creamy orange-vanilla profile, Orange Creamsicle delivers.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Mango Kush",
+    marketNames: ["Mango"],
+    lineage: {
+      parents: ["Mango", "Hindu Kush"],
+      cross: "Mango × Hindu Kush (commonly cited)",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Ripe mango on a kush frame"],
+    curatorNote:
+      "Mango Kush is a tropical indica-leaning strain — commonly cited as a Mango and Hindu Kush cross — built around a ripe mango sweetness. The nose is fruity and sweet: mango and tropical fruit over an earthy, piney kush base, juicy with a savoury edge. The effect is relaxing and happy — a calm, contented body ease that can turn sleepy and hungry in larger doses. It's moderate and easygoing, a flavour-led unwind strain. For lovers of sweet mango on a relaxing kush frame, Mango Kush is a pleasant pick.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Melonade",
+    lineage: {
+      parents: ["Watermelon Zkittlez", "Lemon Tree"],
+      cross: "Watermelon Zkittlez × Lemon Tree",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Watermelon-and-lemon summer hybrid"],
+    curatorNote:
+      "Melonade is a Cannarado-style cross of Watermelon Zkittlez and Lemon Tree — a juicy, summery hybrid built on melon and citrus. The nose is bright and sweet: watermelon candy and lemon over a light earthy base, refreshing and clean. The effect is uplifting and energetic — a happy, lively head with a comfortable body, sativa-leaning and daytime-friendly. It's flavour-forward and easy, a warm-weather favourite. For people who want sweet melon-citrus brightness with a lift, Melonade is a refreshing choice.",
+    sourceConfidence: "low",
+  },
 ];
