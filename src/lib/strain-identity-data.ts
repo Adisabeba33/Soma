@@ -969,15 +969,16 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Cherry Punch",
+    breeder: "Symbiotic Genetics",
     lineage: {
-      parents: ["Cherry AK", "Purple Punch"],
-      cross: "Cherry AK × Purple Punch",
+      parents: ["Cherry AK-47", "Purple Punch"],
+      cross: "Cherry AK-47 × Purple Punch (F2)",
     },
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Bright cherry-candy sweetness"],
     curatorNote:
-      "Cherry Punch is a fruit-led hybrid, most often a Cherry AK crossed with Purple Punch, and the cherry is the whole pitch. The nose is bright cherry and berry over a soft floral, earthy base — sweet and clean rather than gassy. The high is even-handed: a cheerful mood-lift with enough relaxation to take the edge off, without much sedation at a sensible dose. It's an approachable, flavour-driven strain rather than a heavyweight. For a sweet cherry profile in a balanced package, it's an easy yes.",
-    sourceConfidence: "low",
+      "Cherry Punch is a Symbiotic Genetics cross of Cherry AK-47 and Purple Punch — the cherry is the whole pitch. The nose is bright cherry and berry over a soft floral, earthy base, sweet and clean rather than gassy. The high is even-handed: a cheerful mood-lift with enough relaxation to take the edge off, without much sedation at a sensible dose. It's an approachable, flavour-driven hybrid rather than a heavyweight. For a sweet cherry profile in a balanced package, it's an easy yes.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Hash Plant",
@@ -1242,6 +1243,7 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Orange Creamsicle",
     marketNames: ["Creamsicle", "Orange Creamsickle"],
+    breeder: "MTG Seeds",
     lineage: {
       parents: ["Orange Crush", "Juicy Fruit"],
       cross: "Orange Crush × Juicy Fruit",
@@ -1249,21 +1251,21 @@ export const IDENTITIES: StrainIdentity[] = [
     sensoryFamily: "tropical-fruit",
     phenotypeNotes: ["Orange-and-vanilla cream"],
     curatorNote:
-      "Orange Creamsicle chases the frozen-treat flavour its name promises and, in a good cut, lands it — bright orange over a vanilla-cream sweetness. Most growers trace it to an Orange Crush and Juicy Fruit pairing, though it's sold loosely enough that lineage varies. The high is light and good-humoured: an easy mood-lift with a relaxed, unhurried body, fine for daytime. It's a flavour-first strain — the appeal is the citrus-and-cream nose more than any heavy punch. For a dessert-citrus that actually tastes like the namesake, it's a reliable, approachable choice.",
-    sourceConfidence: "low",
+      "Orange Creamsicle is an MTG Seeds cross of Orange Crush and Juicy Fruit, and in a good cut it nails the frozen-treat flavour it's named for — bright orange over a vanilla-cream sweetness. The high is light and good-humoured: an easy mood-lift with a relaxed, unhurried body, fine for daytime. It's a flavour-first strain — the appeal is the citrus-and-cream nose more than any heavy punch. Sativa-leaning and polished, it has become a connoisseur citrus pick. For a dessert-citrus that actually tastes like the namesake, it's reliable and approachable.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Mango Kush",
     marketNames: ["Mango"],
     lineage: {
       parents: ["Mango", "Hindu Kush"],
-      cross: "Mango × Hindu Kush (commonly cited)",
+      cross: "Mango × Hindu Kush",
     },
     sensoryFamily: "tropical-fruit",
-    phenotypeNotes: ["Ripe mango on a kush frame"],
+    phenotypeNotes: ["Ripe mango on a kush frame", "Late-2000s West Coast cross, widely propagated"],
     curatorNote:
-      "Mango Kush leans indica and leans tropical, most often cited as a Mango crossed into Hindu Kush. The draw is the nose — ripe mango and tropical fruit sitting over an earthy, piney kush base, sweet with a savoury undertone. The effect is gentle and physical: a calm, contented body ease that slides toward sleepy and hungry if you push the dose. It's a moderate, easygoing strain built around flavour rather than potency. For mango sweetness on a soft kush frame, it's an unfussy, likeable pick.",
-    sourceConfidence: "low",
+      "Mango Kush pairs a fragrant Mango cut with classic Hindu Kush — a late-2000s West-Coast cross that's since been propagated by so many growers that attribution runs murky. The draw is the nose — ripe mango and tropical fruit sitting over an earthy, piney kush base, sweet with a savoury undertone. The effect is gentle and physical: a calm, contented body ease that slides toward sleepy and hungry if you push the dose. It's a moderate, easygoing strain built around flavour rather than potency. For mango sweetness on a soft kush frame, it's an unfussy, likeable pick.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Melonade",
@@ -1523,19 +1525,28 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Peach Gelato",
+    breeder: "Humboldt Seed Company",
+    lineage: {
+      parents: ["Peach Rings", "Gelato 33"],
+      cross: "Peach Rings × Gelato 33",
+    },
     sensoryFamily: "tropical-fruit",
-    phenotypeNotes: ["Stone-fruit Gelato selection"],
+    phenotypeNotes: ["Stone-fruit Gelato cross"],
     curatorNote:
-      "Peach Gelato is a fruit-forward selection in the Gelato family, picked for a stone-fruit nose rather than the usual sherbet sweetness. Done right it smells of ripe peach and apricot laid over Gelato's creamy base, with just a whisper of gas. The high is the family's calling card — an easy euphoric lift that settles into comfortable relaxation, good from late afternoon on. It's frosty and flavour-led, prized for the peach note over raw strength. For stone fruit on a Gelato frame, it's a tasty, gentle option.",
-    sourceConfidence: "low",
+      "Peach Gelato is a Humboldt Seed Company cross of Peach Rings and Gelato 33 — stone fruit folded into Gelato's cream. Done right it smells of ripe peach and apricot over a creamy, lightly gassy base. The high is the Gelato family's calling card — an easy euphoric lift that settles into comfortable relaxation, good from late afternoon on. It's frosty and flavour-led, prized for the peach note over raw strength. For stone fruit on a Gelato frame, it's a tasty, gentle option.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Purple Gelato",
+    lineage: {
+      parents: ["Gelato 33", "Purple Punch"],
+      cross: "Gelato 33 × Purple Punch",
+    },
     sensoryFamily: "dessert-cookies",
-    phenotypeNotes: ["Grape-leaning Gelato selection"],
+    phenotypeNotes: ["Grape-leaning Gelato cross"],
     curatorNote:
-      "Purple Gelato is a colour-selected Gelato cut that trades some of the cream for grape — violet-tinged buds with a berry-sweet nose. Expect grape and dark berry over Gelato's sherbet base, with a light gas underneath. It leans toward the relaxing end of the family: a warm, happy ease better suited to evenings than mornings. The appeal is as much the look as the taste — frosty, colourful and dessert-sweet. For Gelato with a purple, grape-leaning twist, it's a pretty and likeable choice.",
-    sourceConfidence: "low",
+      "Purple Gelato crosses Gelato 33 with Purple Punch, trading some of the cream for grape and a deep violet colour. Expect grape and dark berry over Gelato's sherbet base, with a light gas underneath. It leans toward the relaxing end of the family: a warm, happy ease better suited to evenings than mornings. The appeal is as much the look as the taste — frosty, colourful and dessert-sweet. For Gelato with a purple, grape-leaning twist, it's a pretty and likeable choice.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Strawberry Runtz",
@@ -1573,11 +1584,17 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Grape Gas",
+    marketNames: ["Grape Gasoline"],
+    breeder: "Compound Genetics",
+    lineage: {
+      parents: ["Grape Pie", "Jet Fuel Gelato"],
+      cross: "Grape Pie × Jet Fuel Gelato",
+    },
     sensoryFamily: "modern-exotic",
     phenotypeNotes: ["Candy grape over sharp diesel"],
     curatorNote:
-      "Grape Gas is exactly what the name sets up — candy grape welded to a sharp diesel funk, with the colour to match. On the nose, sweet grape and berry sit over a pungent, gassy base; it's loud in a way pure-candy strains aren't. The effect leans heavy: a warm euphoria that sinks into the body and points toward the evening. It's a strain for people who like their grape with a fuel edge rather than clean sweetness. Frosty, potent and unapologetically gassy.",
-    sourceConfidence: "low",
+      "Grape Gas — also sold as Grape Gasoline, Compound Genetics' cross of Grape Pie and Jet Fuel Gelato — welds candy grape to a sharp diesel funk, with the colour to match. On the nose, sweet grape and berry sit over a pungent, gassy base; it's loud in a way pure-candy strains aren't. The effect leans heavy: a warm euphoria that sinks into the body and points toward the evening. It's built for people who like their grape with a fuel edge rather than clean sweetness. Frosty, potent and unapologetically gassy.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Gushers",
@@ -1624,11 +1641,16 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Zoap",
     marketNames: ["Soap (sibling)"],
+    breeder: "DEO Farms",
+    lineage: {
+      parents: ["Rainbow Sherbet", "Pink Guava"],
+      cross: "Rainbow Sherbet × Pink Guava",
+    },
     sensoryFamily: "modern-exotic",
     phenotypeNotes: ["Clean soapy-floral funk", "Heavy bag appeal"],
     curatorNote:
-      "Zoap (from DEO Farms) is one of the strains that made 'soap' a flavour category — a balanced hybrid usually placed on a Pink Guava / Rainbow Sherbet line. The signature is right there in the name: a clean, perfumed, almost soap-and-floral nose over creamy sweetness, unlike the gas or candy most exotics chase. The effect is upbeat and even — a sociable head with a loose, comfortable body that works through the day. Add glassy, colourful, frost-stacked buds and you get a strain sold as much on looks as on feel. For the soap-funk lane, Zoap is the name that started it.",
-    sourceConfidence: "low",
+      "Zoap is DEO Farms' Rainbow Sherbet × Pink Guava cross out of Oakland, and one of the strains that made 'soap' a flavour category. The signature is right there in the name: a clean, perfumed, almost soap-and-floral nose over creamy sweetness, unlike the gas or candy most exotics chase. The effect is upbeat and even — a sociable head with a loose, comfortable body that works through the day. Add glassy, colourful, frost-stacked buds and you get a strain sold as much on looks as on feel. For the soap-funk lane, Zoap is the name that started it.",
+    sourceConfidence: "medium",
   },
 
   // ── Modern exotics (part 2) + fruity / dessert ──
@@ -1773,11 +1795,17 @@ export const IDENTITIES: StrainIdentity[] = [
   // ── Fruity / dessert tail + classics ──
   {
     canonicalName: "Peach Rings",
+    marketNames: ["Peach Ringz"],
+    breeder: "Dying Breed Seeds",
+    lineage: {
+      parents: ["Marionberry", "Eddy OG"],
+      cross: "Marionberry × Eddy OG",
+    },
     sensoryFamily: "tropical-fruit",
     phenotypeNotes: ["Sour-peach candy profile"],
     curatorNote:
-      "Peach Rings is named for the gummy sweet, and a good cut earns it — sour-peach candy with a sugary top note. The nose is bright and tart, tropical peach over a light creamy base, more candy than cannabis. The high is balanced and cheerful: a mood-lift that keeps you functional without much sedation, easy in the daytime. It's bought for the flavour; the potency is moderate and friendly. For a sweet-and-sour peach candy profile, it hits the brief.",
-    sourceConfidence: "low",
+      "Peach Rings — spelled Peach Ringz by its breeder, Dying Breed Seeds — is a Marionberry × Eddy OG cross that lives up to its gummy-candy name. The nose is bright and tart, sour peach and tropical sweetness over a light creamy base, more candy than cannabis. The high is balanced and cheerful: a mood-lift that keeps you functional without much sedation, easy in the daytime. It's bought for the flavour; the potency is moderate and friendly. For a sweet-and-sour peach candy profile, it hits the brief.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Passion Fruit",
@@ -1822,15 +1850,16 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Blueberry Cupcake",
+    breeder: "Humboldt Seed Company",
     lineage: {
       parents: ["Blueberry Muffin", "Wedding Cake"],
-      cross: "Blueberry Muffin × Wedding Cake (commonly cited)",
+      cross: "Blueberry Muffin × Wedding Cake",
     },
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Blueberry over a vanilla-cake base"],
     curatorNote:
-      "Blueberry Cupcake is a berry-dessert hybrid built around ripe blueberry over a vanilla, doughy sweetness — the cake half is as much in the flavour as the name. The nose is jammy blueberry and batter with only a faint gas underneath. The high is soft and comforting: a relaxed body ease and a quietly happy head, best suited to a slow evening. It's a sweet, gentle strain rather than a heavy hitter. For blueberry on a cake frame, it's a cosy, approachable choice.",
-    sourceConfidence: "low",
+      "Blueberry Cupcake is a Humboldt Seed Company cross of Blueberry Muffin and Wedding Cake — ripe blueberry over a vanilla, doughy sweetness, the cake half as much in the flavour as the name. The nose is jammy blueberry and batter with only a faint gas underneath. The high is soft and comforting: a relaxed body ease and a quietly happy head, best suited to a slow evening. It's a sweet, gentle strain rather than a heavy hitter. For blueberry on a cake frame, it's a cosy, approachable choice.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Candyland",
@@ -1896,6 +1925,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Cake Crasher",
+    breeder: "Seed Junky Genetics",
     lineage: {
       parents: ["Wedding Cake", "Wedding Crasher"],
       cross: "Wedding Cake × Wedding Crasher",
@@ -1903,8 +1933,8 @@ export const IDENTITIES: StrainIdentity[] = [
     sensoryFamily: "dessert-cookies",
     phenotypeNotes: ["Vanilla cake with a grape-gas edge"],
     curatorNote:
-      "Cake Crasher pairs the wedding-cake lineage's vanilla sweetness with a grape-leaning, gassy 'crasher' side. The nose is vanilla cake and grape over a clear gas note — dessert with some funk behind it. The effect settles in comfortably: a happy lift that melts into body weight, better suited to evenings. It's frosty and balanced toward the indica side, sweet without being one-note. For cake flavour with a gassy, grape twist, it's a satisfying choice.",
-    sourceConfidence: "low",
+      "Cake Crasher is a Seed Junky cross of Wedding Cake and Wedding Crasher — vanilla cake sweetness meeting the grape-leaning, gassy 'crasher' side. The nose is vanilla cake and grape over a clear gas note, dessert with some funk behind it. The effect settles in comfortably: a happy lift that melts into body weight, better suited to evenings. It's frosty and balanced toward the indica side, sweet without being one-note. For cake flavour with a gassy, grape twist, it's a satisfying choice.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Sticky Buns",
@@ -1921,16 +1951,16 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Pancakes",
-    breeder: "Cookies",
+    breeder: "Seed Junky Genetics / Cookies",
     lineage: {
-      parents: ["Kush Mints", "Jenny Kush"],
-      cross: "Kush Mints × Jenny Kush (commonly cited)",
+      parents: ["London Pound Cake", "Kush Mints"],
+      cross: "London Pound Cake #75 × Kush Mints #11 (commonly cited)",
     },
     sensoryFamily: "dessert-cookies",
     phenotypeNotes: ["Buttery, syrup-and-batter sweetness"],
     curatorNote:
-      "Pancakes leans on the breakfast-plate idea — buttery, syrup-sweet batter over a gassy cookie base. The nose is warm and sweet, vanilla and butter with an earthy gas underneath. The high is calm and good-natured: an easy body relaxation with a contented head, pointed at the evening. It's frosty and comforting rather than racy. For a sweet, buttery dessert profile, it's a cosy, low-drama pick.",
-    sourceConfidence: "low",
+      "Pancakes is a Seed Junky / Cookies hybrid, widely cited as London Pound Cake #75 crossed with Kush Mints #11 (the real cross was never officially published). It leans on the breakfast-plate idea — buttery, syrup-sweet batter over a minty, gassy cookie base. The nose is warm and sweet, vanilla and butter with an earthy gas and a cool mint edge underneath. The high is calm and good-natured: an easy body relaxation with a contented head, pointed at the evening. Frosty and comforting rather than racy, it's a cosy, low-drama dessert pick.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Jet Fuel",
@@ -2126,10 +2156,14 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Apple Runtz",
+    lineage: {
+      parents: ["Runtz", "Apple Fritter"],
+      cross: "Runtz × Apple Fritter (commonly cited; not breeder-verified)",
+    },
     sensoryFamily: "modern-exotic",
     phenotypeNotes: ["Green-apple Runtz selection"],
     curatorNote:
-      "Apple Runtz brings a green-apple twist to the candy Runtz family — sweet-tart apple laid over the line's creamy confection. The nose is bright: crisp green apple and sugared tropical fruit with barely any funk. The smoke is easy and upbeat, a light euphoria that keeps things sociable rather than sleepy. As with the rest of the Runtz crowd, flavour and frost lead the way over raw strength. For a sweet-and-sour apple candy profile, it's a fun, approachable pick.",
+      "Apple Runtz is widely described as Runtz crossed with Apple Fritter, though no breeder has published a verified recipe — so treat the lineage as the common story rather than gospel. Either way it brings a green-apple twist to the candy Runtz family: sweet-tart apple laid over the line's creamy confection. The nose is bright — crisp green apple and sugared tropical fruit with barely any funk. The smoke is easy and upbeat, a light euphoria that keeps things sociable rather than sleepy. As with the rest of the Runtz crowd, flavour and frost lead the way over raw strength. For a sweet-and-sour apple candy profile, it's a fun, approachable pick.",
     sourceConfidence: "low",
   },
   {
@@ -2142,11 +2176,16 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Layer Cake",
+    breeder: "Swamp Boys Seeds",
+    lineage: {
+      parents: ["Wedding Cake", "GMO Cookies", "Triangle Kush", "Skunk #1"],
+      cross: "Wedding Cake × GMO × (Triangle Kush × Skunk)",
+    },
     sensoryFamily: "dessert-cookies",
-    phenotypeNotes: ["Vanilla cake over heavy gas"],
+    phenotypeNotes: ["Vanilla cake over GMO garlic-gas"],
     curatorNote:
-      "Layer Cake stacks the wedding-cake lineage's vanilla sweetness on top of a heavy, gassy base — dessert with real fuel behind it. The nose is rich: vanilla cake and cream cut by a pronounced gas note. The high is a comfortable sink — a happy lift that gives way to body weight, pointed firmly at the evening. It's frosty, potent and indica-leaning, sweet without going soft. For cake flavour with serious gas, it's a rich, heavy choice.",
-    sourceConfidence: "low",
+      "Layer Cake is a Swamp Boys Seeds hybrid that stacks four cornerstones — Wedding Cake, GMO, Triangle Kush and Skunk — so vanilla-cake sweetness sits on top of a heavy garlic-and-gas funk. The nose is rich: cream and cake up front, savoury diesel and earth underneath. The high is a comfortable sink — a happy lift that gives way to body weight, pointed firmly at the evening. It's frosty, potent and indica-leaning, sweet without going soft. For cake flavour with serious GMO gas behind it, it's a rich, heavy choice.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Hippie Crasher",
@@ -2162,40 +2201,55 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Cherry Lemonade",
+    breeder: "Subcool's The Dank (TGA)",
+    lineage: {
+      parents: ["Cherry Pie OG", "Jack the Ripper"],
+      cross: "Cherry Pie OG × Jack the Ripper",
+    },
     sensoryFamily: "tropical-fruit",
-    phenotypeNotes: ["Bright cherry-and-lemon candy"],
+    phenotypeNotes: ["Cherry from Cherry Pie, citrus from Jack the Ripper"],
     curatorNote:
-      "Cherry Lemonade is built around its drink-stand namesake — sweet cherry and sharp lemon in equal measure. The nose is candy-bright and juicy, a sour-sweet snap of cherry and citrus with little funk. The high is cheerful and light: a mood-lift that keeps the body relaxed and the day moving. It's a flavour-first strain, moderate and forgiving in strength. For sweet cherry-and-lemon brightness, it's a refreshing, easy pick.",
-    sourceConfidence: "low",
+      "Cherry Lemonade is a Subcool's The Dank cross of Cherry Pie OG and Jack the Ripper — the Cherry Pie brings the cherry, Jack the Ripper the sharp lemon-citrus lift. The nose is candy-bright and juicy, a sour-sweet snap of cherry and citrus with little funk. The high is cheerful and light: a mood-lift that keeps the body relaxed and the day moving. It's a flavour-first strain, moderate and forgiving in strength. For sweet cherry-and-lemon brightness, it's a refreshing, easy pick.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Honey Bun",
+    breeder: "Cookies",
+    lineage: {
+      parents: ["Gelatti", "Honey B"],
+      cross: "Gelatti × Honey B",
+    },
     sensoryFamily: "dessert-cookies",
     phenotypeNotes: ["Honeyed pastry over frosty gas"],
     curatorNote:
-      "Honey Bun wraps honeyed-pastry sweetness around a heavy, frosty core. The nose is rich and dessert-like — honey and vanilla pastry over an earthy gas. The effect leans heavy and warm: a happy head that melts into real body weight, best kept for the evening. It's potent and indica-leaning, indulgent in both flavour and feel. For sweet pastry with a gassy backbone, it's a satisfying, sleepy choice.",
-    sourceConfidence: "low",
+      "Honey Bun is a Cookies hybrid of Gelatti and Honey B, wrapping honeyed-pastry sweetness around a heavy, frosty Gelato-line core. The nose is rich and dessert-like — honey and vanilla pastry over an earthy gas. The effect leans heavy and warm: a happy head that melts into real body weight, best kept for the evening. It's potent and indica-leaning, indulgent in both flavour and feel. For sweet pastry with a gassy backbone, it's a satisfying, sleepy choice.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Strawberry Shortcake",
+    lineage: {
+      parents: ["Juliet", "Strawberry Diesel"],
+      cross: "Juliet × Strawberry Diesel (Dark Horse cut; varies by breeder)",
+    },
     sensoryFamily: "dessert-cookies",
-    phenotypeNotes: ["Strawberry-and-cream dessert"],
+    phenotypeNotes: ["Strawberry-and-cream dessert", "Several unrelated cuts share the name"],
     curatorNote:
-      "Strawberry Shortcake leans dessert — ripe strawberry over a vanilla-cream cake base. The nose is sweet and fruity, berry and cream sitting on a doughy sweetness. The high is gentle and even: a small lift that settles into easy comfort, fine across the day. It's frosty and flavour-led, an approachable berry sweet. For strawberry-and-cream flavour, it's a tasty, undemanding pick.",
+      "Strawberry Shortcake is a name several breeders share, so genetics vary — the most documented version, from Dark Horse Genetics, is Juliet × Strawberry Diesel, which explains the strawberry-diesel sparkle in many cuts. Whichever cut you find, it leans dessert: ripe strawberry over a vanilla-cream, doughy sweetness. The high is gentle and even — a small lift that settles into easy comfort, fine across the day. It's frosty and flavour-led, an approachable berry sweet. For strawberry-and-cream flavour, it's a tasty, undemanding pick.",
     sourceConfidence: "low",
   },
   {
     canonicalName: "Pink Champagne",
-    marketNames: ["Phantom OG"],
+    marketNames: ["Phantom OG", "Ken's Kush", "Phantom"],
+    breeder: "Ken Estes",
     lineage: {
       parents: ["Granddaddy Purple", "Cherry Pie"],
-      cross: "Granddaddy Purple × Cherry Pie (commonly cited)",
+      cross: "Granddaddy Purple × Cherry Pie",
     },
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Colourful grape-and-cherry fruit"],
     curatorNote:
-      "Pink Champagne — also sold as Phantom OG — is a colourful, fruit-forward hybrid usually traced to a Granddaddy Purple × Cherry Pie cross. The nose is sweet and berry-led: grape and cherry over a light earthy base. The effect is soft and relaxing — a calming body ease with a quietly happy head, pointed at the evening. It's moderate in strength and easy to enjoy, prized partly for its frosty, pink-flecked looks. For sweet grape-and-cherry fruit with a relaxed body, it's a pretty, mellow pick.",
-    sourceConfidence: "low",
+      "Pink Champagne — also sold as Phantom OG or Ken's Kush — is a Bay Area Ken Estes hybrid, the same Grand Daddy Purp camp behind GDP itself, crossing Granddaddy Purple with Cherry Pie. The nose is sweet and berry-led: grape and cherry over a light earthy base. The effect is soft and relaxing — a calming body ease with a quietly happy head, pointed at the evening. It's moderate in strength and easy to enjoy, prized partly for its frosty, pink-flecked looks. For sweet grape-and-cherry fruit with a relaxed body, it's a pretty, mellow pick.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Black Cherry Punch",
@@ -2233,11 +2287,16 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Frosted Lemonade",
+    breeder: "GreenFire Genetics",
+    lineage: {
+      parents: ["91 Hollywood Pure Kush", "Evergladez"],
+      cross: "91 Hollywood Pure Kush × Evergladez (a Zkittlez line)",
+    },
     sensoryFamily: "citrus-haze",
-    phenotypeNotes: ["Creamy, sugary lemon"],
+    phenotypeNotes: ["Candy-citrus over a kushy base", "Name is sweeter than the genetics suggest"],
     curatorNote:
-      "Frosted Lemonade pours sugary lemon over a creamy, frost-stacked base — citrus dessert rather than sharp fuel. The nose is candied lemon and cream with only a whisper of gas. The high is bright but easy: a small, cheerful lift with a relaxed body, fine through the day. It's a flavour-and-frost strain, approachable in strength. For sweet, creamy lemonade flavour, it's a refreshing, undemanding pick.",
-    sourceConfidence: "low",
+      "Frosted Lemonade is a GreenFire Genetics cross of 91 Hollywood Pure Kush and Evergladez (a Zkittlez line) — so despite the citrusy name, it's really candy-and-kush with a light lemon lift rather than a sharp-fuel lemon. The nose is sweet and creamy, candied fruit and a soft citrus note over a frost-stacked kush base. The high is bright but easy: a small, cheerful lift with a relaxed body, fine through the day. It's a flavour-and-frost strain, approachable in strength. For sweet, creamy lemonade-leaning flavour, it's a refreshing, undemanding pick.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Sherbanger",
@@ -2269,11 +2328,16 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Lemonatti",
+    breeder: "Connected Cannabis Co.",
+    lineage: {
+      parents: ["Gelonade", "Biscotti"],
+      cross: "Gelonade × Biscotti",
+    },
     sensoryFamily: "dessert-cookies",
-    phenotypeNotes: ["Sharp lemon over a creamy cookie base"],
+    phenotypeNotes: ["Sharp lemon over a creamy Biscotti base"],
     curatorNote:
-      "Lemonatti puts a sharp lemon over a creamy, gassy Biscotti/Gelatti-style cookie base. The nose is bright and rich — lemon citrus on top, cookie and a light gas underneath, sweet and zesty at once. The effect is gentle and balanced: a small uplift that mellows into easy comfort across the day. It's frosty and refined, a citrus dessert rather than a heavy hitter. For lemon over a cookie base, it's a bright, tasty pick.",
-    sourceConfidence: "low",
+      "Lemonatti is Connected Cannabis Co.'s cross of Gelonade (Lemon Tree × Gelato 41) and Biscotti — sharp lemon laid over a creamy, gassy cookie base. The nose is bright and rich: lemon citrus on top, cookie and a light gas underneath, sweet and zesty at once. The effect is gentle and balanced: a small uplift that mellows into easy comfort across the day. It's frosty and refined, a citrus dessert rather than a heavy hitter. For lemon over a cookie base, it's a bright, tasty pick.",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Cinex",
