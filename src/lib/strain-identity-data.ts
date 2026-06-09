@@ -3066,4 +3066,329 @@ export const IDENTITIES: StrainIdentity[] = [
       "Lemon-pine and fuel over a damp, earthy OG base.",
     sourceConfidence: "medium",
   },
+
+  // ── ROUND 5: PARENT-LINE FILL + MORE 2024–2026 RELEASES ──
+  {
+    canonicalName: "Wedding Crasher",
+    breeder: "Symbiotic Genetics",
+    lineage: {
+      parents: ["Wedding Cake", "Purple Punch"],
+      cross: "Wedding Cake × Purple Punch",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Vanilla cake over grape candy", "A parent of Sherb Crasher and Hippie Crasher"],
+    curatorNote:
+      "Wedding Crasher is a Symbiotic Genetics cross of Wedding Cake and Purple Punch — vanilla-cake sweetness lifted by grape candy. The nose is bright and sweet: grape and berry over a soft vanilla, earthy base, more fruit than gas. The effect is unusually up for a Purple Punch cross — a happy, uplifting head with a relaxed body, good across the day. It's frosty and flavour-forward, and it shows up as a parent across the modern 'crasher' line. For sweet grape-and-vanilla without the couch, Wedding Crasher is a bright pick.",
+    curatorQuote:
+      "Grape and berry over a soft vanilla, earthy base — more fruit than gas.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Gelatti",
+    breeder: "Cookies / Connected",
+    lineage: {
+      parents: ["Gelato", "OGKB"],
+      cross: "Gelato × OGKB",
+      parentDetails: {
+        "OGKB": { lineageBrief: "OG Kush Breath — a GSC cut", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Creamy gas Gelato cross", "A parent of Georgia Pie and Sticky Buns"],
+    curatorNote:
+      "Gelatti is a Cookies/Connected cross of Gelato and OGKB — Gelato's cream married to a cookie-gas funk. The nose is sweet and rich: creamy gelato over an earthy, gassy base, smooth rather than loud. The effect is balanced and easy — a euphoric, relaxed high that settles the body without flattening the head. It's frosty, potent and versatile, which is why it parents so many modern dessert crosses (Georgia Pie, Sticky Buns). For creamy Gelato with a little gas, Gelatti is a reliable building block.",
+    curatorQuote:
+      "Creamy gelato over an earthy, gassy base, smooth rather than loud.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "OZ Kush",
+    marketNames: ["OZK"],
+    breeder: "OZ Kushman",
+    lineage: {
+      parents: ["Zkittlez", "OG Kush"],
+      cross: "Zkittlez × OG Kush",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Candy fruit over OG gas", "A parent of RS11, Studio 54 and Pink Picasso"],
+    curatorNote:
+      "OZ Kush is OZ Kushman's Zkittlez × OG Kush — candy fruit folded onto a gassy OG frame, and one of the quiet workhorses of the modern exotic scene. The nose is sweet and tropical with a fuel undertone: berry and tropical candy over earthy gas. The effect is balanced and euphoric — an uplifting head over a relaxed body, sociable and potent. It's frosty and resin-heavy, prized less for its own fame than for the heavyweights it parents (RS11, Studio 54, Pink Picasso). For candy-and-gas genetics at the source, OZ Kush is foundational.",
+    curatorQuote:
+      "Berry and tropical candy over earthy gas.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Moonbow",
+    marketNames: ["Moonbow #112"],
+    breeder: "Archive Seed Bank",
+    lineage: {
+      parents: ["Zkittlez", "Do-Si-Dos"],
+      cross: "Zkittlez × Do-Si-Dos",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Candy berry over a heavy Do-Si-Dos body", "A parent of Rainbow Belts"],
+    curatorNote:
+      "Moonbow is an Archive Seed Bank cross of Zkittlez and Do-Si-Dos — candy berry sweetness welded to a heavy, frosty indica body. The nose is sweet and fruity: mixed berry and grape over a faint gas, candy-forward. The effect leans relaxing — a euphoric head that eases into real body weight, more evening than day. It's frosty and potent, and it passes its candy nose down to Rainbow Belts. For sweet fruit with an indica backbone, Moonbow is a flavourful pick.",
+    curatorQuote:
+      "Mixed berry and grape over a faint gas, candy-forward.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Orange Cookies",
+    breeder: "Franchise Genetics",
+    lineage: {
+      parents: ["Orange Juice", "Girl Scout Cookies"],
+      cross: "Orange Juice × GSC",
+      parentDetails: {
+        "Orange Juice": { lineageBrief: "Orange-citrus selection", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Orange citrus on a GSC base", "A parent of Orange Daiquiri"],
+    curatorNote:
+      "Orange Cookies is a Franchise Genetics cross of Orange Juice and GSC — bright orange citrus laid over a cookie base. The nose is juicy and sweet: orange and tangerine over a creamy, earthy cookie funk. The effect is uplifting and happy — a sociable, lightly energetic head with a relaxed body, daytime-friendly. It's flavour-forward and approachable, and it carries the orange into crosses like Orange Daiquiri. For sweet citrus with cookie depth, Orange Cookies is a tasty hybrid.",
+    curatorQuote:
+      "Orange and tangerine over a creamy, earthy cookie funk.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Chile Verde",
+    breeder: "In House Genetics",
+    lineage: {
+      parents: ["OG Kush", "Key Lime Pie"],
+      cross: "OG Kush × (Key Lime Pie × Lavender)",
+      parentDetails: {
+        "Key Lime Pie": { lineageBrief: "GSC phenotype", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Gassy and spicy rather than sweet", "A parent of Hot Sauce"],
+    curatorNote:
+      "Chile Verde is an In House Genetics OG cross — OG Kush over a Key Lime Pie and Lavender base — that lands gassy and herbal-spicy. The nose is pungent: sharp gas and pepper-spice over an earthy, herbal floor. The effect is relaxing and heavy — a euphoric head sinking toward the body, an evening-leaning strain. It's frosty and potent, and it passes its gas-and-spice down to Hot Sauce. For a savoury, gassy OG off the candy path, Chile Verde delivers.",
+    curatorQuote:
+      "Sharp gas and pepper-spice over an earthy, herbal floor.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Gelato 45",
+    marketNames: ["Gelato #45"],
+    breeder: "Cookies Fam / Sherbinski",
+    lineage: {
+      parents: ["Sunset Sherbet", "Thin Mint GSC"],
+      cross: "Sunset Sherbet × Thin Mint GSC (gassier pheno)",
+      parentDetails: {
+        "Thin Mint GSC": { lineageBrief: "Peppermint GSC phenotype", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["A gassier Gelato pheno", "A parent of Project 4516"],
+    curatorNote:
+      "Gelato 45 is a gassier numbered cut from the same Sunset Sherbet × Thin Mint GSC line as the rest of Gelato — selected for more fuel under the cream. The nose is sweet and rich: sherbet cream and berry over a pronounced gas. The effect is balanced-leaning-relaxed — a euphoric head over a comfortable body, versatile and potent. It's very frosty, and it shows up as a parent of Project 4516. For Gelato with extra gas, #45 is a flavourful cut.",
+    curatorQuote:
+      "Sherbet cream and berry over a pronounced gas.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Platinum Puff",
+    breeder: "Grateful Farms / Grandiflora",
+    lineage: {
+      parents: ["Platinum OG", "Grateful Puff"],
+      cross: "Platinum OG × Grateful Puff",
+      parentDetails: {
+        "Grateful Puff": { lineageBrief: "GSC × OG line", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Heavy, frosty, gassy-sweet indica", "A parent of Project 4516"],
+    curatorNote:
+      "Platinum Puff is a heavy indica cross of Platinum OG and Grateful Puff — frosty, gassy and sweet, built for weight. The nose is dense: gas and damp earth with a sweet, skunky edge. The effect is strongly sedating — a euphoric head that sinks fast into a heavy body, firmly an evening strain. It's potent and couch-leaning, and it lends that weight to Project 4516. For a frosty, gassy knockout indica, Platinum Puff fits.",
+    curatorQuote:
+      "Gas and damp earth with a sweet, skunky edge.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Jet Fuel Gelato",
+    marketNames: ["Jet Fuel Gelato 41"],
+    breeder: "Compound Genetics",
+    lineage: {
+      parents: ["Jet Fuel", "Gelato 41"],
+      cross: "Jet Fuel × Gelato 41",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["High-octane diesel over gelato cream", "A parent of Grape Gas"],
+    curatorNote:
+      "Jet Fuel Gelato is a Compound Genetics cross of Jet Fuel and Gelato 41 — sharp diesel meeting gelato cream, all high-octane uplift. The nose is loud and gassy: heavy diesel and fuel over a sweet, creamy base. The effect is energetic and clear — a euphoric, focused head with a light body, more daytime than couch despite the heavy nose. It's potent and frosty, and it lends its gas to Grape Gas. For diesel with a sweet edge and a real lift, Jet Fuel Gelato delivers.",
+    curatorQuote:
+      "Heavy diesel and fuel over a sweet, creamy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Pink Guava",
+    breeder: "OZ Kushman",
+    lineage: {
+      cross: "OZ Kushman guava selection",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Tropical guava sweetness", "Behind RS11 and the soap-funk exotics"],
+    curatorNote:
+      "Pink Guava is an OZ Kushman guava selection — a clone-line whose exact recipe stays in-house, prized for a clean tropical-fruit nose. The smell is sweet and exotic: ripe guava and tropical fruit over a soft floral base, with little gas. The effect is balanced and easy — a euphoric, relaxed high that stays comfortable across the day. It matters as much for its descendants — it's behind RS11 and the soap-funk exotics — as for itself. For pure guava sweetness, Pink Guava is the source cut.",
+    curatorQuote:
+      "Ripe guava and tropical fruit over a soft floral base, with little gas.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Rainbow Sherbet",
+    marketNames: ["Rainbow Sherbert"],
+    breeder: "Sherbinski",
+    lineage: {
+      parents: ["Champagne", "Blackberry"],
+      cross: "Champagne #11 × Blackberry",
+      parentDetails: {
+        "Champagne": { lineageBrief: "Boggle Gum × Burmese", type: "hybrid" },
+        "Blackberry": { lineageBrief: "Black Domina × Raspberry Cough line", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Creamy fruit-sherbet", "Colourful, dessert-forward"],
+    curatorNote:
+      "Rainbow Sherbet is a Sherbinski cross of Champagne and Blackberry — creamy fruit-sherbet with colourful, candy-bright buds. The nose is sweet and creamy: mixed berry and fruit over a soft, ice-cream sweetness. The effect is happy and easy — a giggly, uplifting head over a relaxed body, sociable and gentle. It's frosty and flavour-led rather than heavy, prized for its colour and taste. For creamy berry-sherbet sweetness, Rainbow Sherbet is a cheerful pick.",
+    curatorQuote:
+      "Mixed berry and fruit over a soft, ice-cream sweetness.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Blue Zushi",
+    breeder: "Ten Co",
+    lineage: {
+      parents: ["Zkittlez", "Kush Mints"],
+      cross: "Zkittlez × Kush Mints #11",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Candy fruit with a minty gas tail", "Very frosty, 30%+ THC cuts"],
+    curatorNote:
+      "Blue Zushi is a Ten Co cross of Zkittlez and Kush Mints #11 — candy fruit up front, minty gas underneath, and frost for days. The nose is sweet and loud: berry and grape candy over a cool mint and light gas. The effect leans relaxing — a euphoric head easing into a calm, heavy body, evening-friendly. It's very potent and trichome-caked, part of the colourful 'Zushi' line. For candy fruit with a minty-gas backbone, Blue Zushi is a standout.",
+    curatorQuote:
+      "Berry and grape candy over a cool mint and light gas.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Super Boof",
+    marketNames: ["Superboof", "Blockberry"],
+    breeder: "Blockhead / Mobilejay",
+    lineage: {
+      parents: ["Black Cherry Punch", "Tropicana Cookies"],
+      cross: "Black Cherry Punch × Tropicana Cookies",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Cherry-citrus candy", "Leafly Strain of the Year 2024"],
+    curatorNote:
+      "Super Boof — first bred as 'Blockberry' by Blockhead, then renamed and popularised by Mobilejay — is a Black Cherry Punch × Tropicana Cookies cross that took Leafly's 2024 Strain of the Year. The nose is bright and fruity: dark cherry and orange citrus over a sweet, berry base. The effect is balanced and lively — a euphoric, happy head with enough body to stay comfortable, versatile across the day. It's frosty, very potent and easy to love. For cherry-citrus candy with award pedigree, Super Boof earns the hype.",
+    curatorQuote:
+      "Dark cherry and orange citrus over a sweet, berry base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Apple Tartz",
+    lineage: {
+      parents: ["Apple Fritter", "Runtz"],
+      cross: "Apple Fritter × Runtz",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Sweet apple-pastry over candy"],
+    curatorNote:
+      "Apple Tartz pairs Apple Fritter's sweet-and-savoury pastry with Runtz candy — green-apple dessert with a faint gas edge. The nose is bright and sweet: green apple and sugary pastry over a light fruity gas. The effect is balanced and feel-good — a euphoric, creative head with a relaxed body, sociable and approachable. It's frosty and flavour-forward, an easy-drinking modern exotic. For sweet apple-and-candy character, Apple Tartz is a tasty pick.",
+    curatorQuote:
+      "Green apple and sugary pastry over a light fruity gas.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lemon Cherry Push Pop",
+    marketNames: ["Push Pop"],
+    breeder: "Backpack Boyz (LCG line)",
+    lineage: {
+      parents: ["Lemon Cherry Gelato"],
+      cross: "Lemon Cherry Gelato selection",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Cherry-lemon candy", "Heavy bag appeal, hype name"],
+    curatorNote:
+      "Lemon Cherry Push Pop is a Lemon Cherry Gelato selection from the Backpack Boyz orbit — pure candy, named for the frozen sweet. The nose is bright and fruity: sweet cherry and lemon over a creamy gelato base, candy-forward. The effect is balanced and easy — a euphoric, happy head over a relaxed body, sociable and gentle. Like LCG it trades heavily on bag appeal and flavour, and like LCG it's widely imitated. For cherry-lemon candy in the hyped exotic lane, Push Pop is a sweet pick.",
+    curatorQuote:
+      "Sweet cherry and lemon over a creamy gelato base, candy-forward.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Pink Certz",
+    marketNames: ["Certz"],
+    breeder: "Compound Genetics",
+    lineage: {
+      parents: ["Grape Gas", "The Menthol"],
+      cross: "Grape Gasoline × The Menthol",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Grape gas with a menthol-mint snap"],
+    curatorNote:
+      "Pink Certz is a Compound Genetics cross of Grape Gasoline and The Menthol — grape candy and diesel cut by a cool menthol-mint edge. The nose is sweet and sharp: grape and berry over a gassy base with a fresh, minty top note. The effect is relaxing and euphoric — a happy head easing into a comfortable body, balanced but potent. It's very frosty and loud, a flavour-forward modern exotic. For grape gas with a menthol twist, Pink Certz stands out.",
+    curatorQuote:
+      "Grape and berry over a gassy base with a fresh, minty top note.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Guava",
+    marketNames: ["Guava Cake"],
+    breeder: "Cookies",
+    lineage: {
+      parents: ["Gelato"],
+      cross: "Gelato phenotype",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Tropical guava Gelato pheno"],
+    curatorNote:
+      "Guava is a Cookies-camp Gelato phenotype selected for a bright tropical-fruit nose rather than the usual sherbet. The smell is sweet and juicy: ripe guava and tropical fruit over Gelato's creamy base. The effect is balanced and easy — a euphoric, relaxed high that stays comfortable across the day. It's frosty and flavour-led, an approachable dessert cut. For tropical guava on a Gelato frame, it's a sweet, likeable pick.",
+    curatorQuote:
+      "Ripe guava and tropical fruit over Gelato's creamy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Black Cherry Gelato",
+    lineage: {
+      cross: "Black-cherry-leaning Gelato cross",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Dark cherry over Gelato cream", "Genetics vary by grower"],
+    curatorNote:
+      "Black Cherry Gelato is a dark-fruit Gelato cross whose exact parents vary by grower — what's consistent is the cherry. The nose is rich and sweet: dark cherry and berry over a creamy, faintly gassy base. The effect leans relaxing — a euphoric head easing into a calm, heavy body, evening-friendly. It's frosty and flavour-forward, a comfortable dessert indica-lean. For dark cherry on a Gelato base, it's a tasty, mellow pick.",
+    curatorQuote:
+      "Dark cherry and berry over a creamy, faintly gassy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "The Menthol",
+    breeder: "Compound Genetics",
+    lineage: {
+      cross: "Compound Genetics select (lineage undisclosed)",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Cool menthol over gas funk", "A parent of Pink Certz"],
+    curatorNote:
+      "The Menthol is a Compound Genetics cut whose recipe stays in-house — named for an unusual cooling, menthol-mint note over gas. The nose is distinctive: cool mint and herbal sharpness over an earthy, gassy funk, unlike most candy exotics. The effect is balanced and easy — a euphoric, relaxed high, potent but versatile. It's very frosty and loud, prized for the menthol character it passes to crosses like Pink Certz. For a genuinely minty, gassy profile, The Menthol is a one-off.",
+    curatorQuote:
+      "Cool mint and herbal sharpness over an earthy, gassy funk.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Wedding Pie",
+    breeder: "Cannarado Genetics",
+    lineage: {
+      parents: ["Wedding Cake", "Grape Pie"],
+      cross: "Wedding Cake × Grape Pie",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Grape-and-vanilla cake", "Relaxing, dessert-forward"],
+    curatorNote:
+      "Wedding Pie is a Cannarado cross of Wedding Cake and Grape Pie — vanilla cake sweetness over dark grape. The nose is rich and sweet: grape and berry over a doughy, vanilla base. The effect is relaxing and happy — a euphoric head settling into a comfortable, slightly heavy body, evening-leaning. It's frosty and flavour-forward, easy to enjoy. For grape-and-vanilla cake in a mellow package, Wedding Pie is a satisfying pick.",
+    curatorQuote:
+      "Grape and berry over a doughy, vanilla base.",
+    sourceConfidence: "medium",
+  },
 ];
