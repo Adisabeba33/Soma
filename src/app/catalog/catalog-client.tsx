@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { CatalogCollectibleCard } from "@/components/catalog-collectible-card";
 import { CompareBasketTray } from "@/components/compare-basket-tray";
 import { SensoryRadar } from "@/components/sensory-radar";
 import {
@@ -442,9 +443,9 @@ export function CatalogClient({
             ))}
           </ul>
         ) : (
-          <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
+          <ul className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.map((entry) => (
-              <CatalogCard
+              <CatalogCollectibleCard
                 key={entry.strain.name}
                 entry={entry}
                 match={matches[entry.strain.name]}
@@ -679,48 +680,8 @@ function CatalogRow({
   );
 }
 
-function CatalogCard({
-  entry,
-  match,
-  score,
-}: {
-  entry: CatalogEntry;
-  match?: CatalogMatch;
-  score: number;
-}) {
-  const { strain } = entry;
-  const badgeScore = match ? match.score : score;
-  const badgeTone = match
-    ? CATEGORY_TONE[match.category] ?? "text-foreground"
-    : "text-brass";
-
-  return (
-    <li className="relative">
-      <CompareToggle
-        name={strain.name}
-        className="absolute right-2 top-2 z-10"
-      />
-      <Link
-        href={`/catalog/${strainSlug(strain.name)}`}
-        className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-3 transition-colors hover:border-accent/50"
-      >
-        <RadarTile
-          strain={strain}
-          score={badgeScore}
-          tone={badgeTone}
-          size={150}
-          className="aspect-square w-full"
-        />
-        <h3 className="mt-3 truncate font-display text-base font-semibold tracking-tight">
-          {strain.name}
-        </h3>
-        <p className="mt-0.5 text-xs capitalize text-muted-foreground">
-          {strain.type} · {strain.potency}
-        </p>
-      </Link>
-    </li>
-  );
-}
+// Removed CatalogCard — Grid view now uses CatalogCollectibleCard
+// (atmospheric-gradient collectible layout).
 
 function TagRow({
   label,
