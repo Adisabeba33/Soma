@@ -4252,4 +4252,286 @@ export const IDENTITIES: StrainIdentity[] = [
       "Spicy, woody sweetness with a faint citrus.",
     sourceConfidence: "medium",
   },
+
+  // ── ROUND 9: MORE PARENT-FILL + LANDRACES + CLASSICS ──
+  {
+    canonicalName: "Jack the Ripper",
+    marketNames: ["JTR"],
+    breeder: "TGA Subcool Seeds",
+    lineage: {
+      parents: ["Jack's Cleaner", "Space Queen"],
+      cross: "Jack's Cleaner × Space Queen",
+      parentDetails: {
+        "Jack's Cleaner": { lineageBrief: "Jack Herer × NL5 Haze", type: "sativa" },
+      },
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Lemony haze sativa", "A parent of Cherry Lemonade"],
+    curatorNote:
+      "Jack the Ripper is a TGA/Subcool sativa — Jack's Cleaner crossed with Space Queen — built around a sharp lemon-and-spice nose. The smell is bright and pungent: lemon and pine over a spicy, herbal base. The effect is fast and heady — an energetic, creative cerebral rush with little body, a daytime strain. It's terpy and potent, and it's the citrus half behind Cherry Lemonade. For lemony haze genetics with a bite, Jack the Ripper is a flavourful parent.",
+    curatorQuote:
+      "Lemon and pine over a spicy, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Gelonade",
+    breeder: "Connected Cannabis Co.",
+    lineage: {
+      parents: ["Lemon Tree", "Gelato 41"],
+      cross: "Lemon Tree × Gelato 41",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Lemon over gelato cream", "A parent of Lemonatti"],
+    curatorNote:
+      "Gelonade is a Connected Cannabis Co. cross of Lemon Tree and Gelato 41 — sharp lemon laid over gelato cream. The nose is bright and rich: lemon and citrus over a creamy, lightly gassy base. The effect is uplifting and balanced — a happy, creative head with a relaxed body, versatile across the day. It's terpy and frosty, and it's the lemon half behind Lemonatti. For lemon-over-gelato character, Gelonade is a tasty parent line.",
+    curatorQuote:
+      "Lemon and citrus over a creamy, lightly gassy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lemonchello",
+    marketNames: ["Limoncello", "Lemonchello 10"],
+    breeder: "Cookies",
+    lineage: {
+      parents: ["The Original Z", "Lemonnade"],
+      cross: "The Original Z × Lemonnade",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Bright lemon candy", "A parent of Pink Rozay"],
+    curatorNote:
+      "Lemonchello (Limoncello) is a Cookies cross of The Original Z and Lemonnade — a bright, sweet lemon-candy hybrid. The nose is zesty and sweet: candied lemon and fruit over a creamy, earthy base. The effect is uplifting and easy — a happy, sociable head with a relaxed body, daytime-leaning. It's terpy and frosty, and it lends its lemon to Pink Rozay. For sweet lemon-candy character, Lemonchello is a flavourful parent.",
+    curatorQuote:
+      "Candied lemon and fruit over a creamy, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Thai",
+    marketNames: ["Thai Stick", "Thai Landrace"],
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Southeast Asian landrace", "A root of Haze and NL #5"],
+    curatorNote:
+      "Thai is the Southeast Asian landrace behind 'Thai stick' and a root of modern sativa genetics — part of both Haze and Northern Lights #5. The nose is bright and clean: citrus and spice over an earthy, herbal base. The effect is a clear, soaring, almost electric cerebral high with no body, classic equatorial sativa. It's slow to flower and moderate in potency, but historically immense. For old-world Thai sativa genetics, this landrace is foundational.",
+    curatorQuote:
+      "Citrus and spice over an earthy, herbal base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Mexican",
+    marketNames: ["Mexican Sativa", "Michoacán"],
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Mexican landrace", "A root of Haze, Skunk #1 and Trainwreck"],
+    curatorNote:
+      "Mexican is the landrace sativa from the highlands of Michoacán and Guerrero — a sweet, energetic plant that seeded Haze, Skunk #1 and Trainwreck. The nose is sweet and earthy: honeyed grass and citrus over a faint spice. The effect is up and social — an energetic, happy, creative head with little body, a daytime classic. It's mild by modern standards but historically central. For old-world Mexican sativa at the root of countless hybrids, this is a source.",
+    curatorQuote:
+      "Honeyed grass and citrus over a faint spice.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Forum Cookies",
+    marketNames: ["Forum Cut", "Forum GSC"],
+    breeder: "Cookies Fam (GSC pheno)",
+    lineage: {
+      parents: ["Girl Scout Cookies"],
+      cross: "Girl Scout Cookies phenotype (Forum cut)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["The gassier GSC cut", "Behind Wedding Cake and many dessert crosses"],
+    curatorNote:
+      "Forum Cookies is the Forum cut of Girl Scout Cookies — alongside Thin Mint, the canonical GSC phenotype, gassier and denser than most. The nose is rich and earthy: sweet cookie dough and gas over a spicy, herbal base. The effect is balanced-leaning-heavy — a euphoric head settling into a comfortable body, afternoon into evening. It's frosty and potent, and its DNA underpins Wedding Cake and a wave of dessert crosses. For the gassy side of the cookie genome, the Forum cut is essential.",
+    curatorQuote:
+      "Sweet cookie dough and gas over a spicy, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Orange Juice",
+    lineage: {
+      parents: ["California Orange"],
+      cross: "California Orange-leaning citrus selection",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Juicy orange citrus", "A parent of Orange Cookies"],
+    curatorNote:
+      "Orange Juice is a juicy, orange-forward citrus cut in the California Orange family — best known now as a parent of Orange Cookies. The nose is sweet and zesty: fresh orange and tangerine over a light earthy base. The effect is uplifting and happy — a sociable, lightly energetic head with a relaxed body, daytime-friendly. It's smooth and flavour-led, moderate in strength. For clean orange-citrus genetics, Orange Juice is a bright parent line.",
+    curatorQuote:
+      "Fresh orange and tangerine over a light earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "The Original Z",
+    marketNames: ["Original Zkittlez", "OGZ"],
+    lineage: {
+      parents: ["Zkittlez"],
+      cross: "Original Zkittlez cut",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["The original Zkittlez clone", "A parent of Lemonchello"],
+    curatorNote:
+      "The Original Z is the original clone-only cut of Zkittlez — the candy-fruit benchmark before the name spread everywhere, and a parent of Lemonchello. The nose is sweet and loud: mixed berry and tropical candy with a clean, sour-sweet edge. The effect is calm and contented — a relaxed, happy body ease that's hard to overdo. It's frosty and flavour-first, the genuine article behind a heavily-copied name. For true Zkittlez candy genetics, The Original Z is the source cut.",
+    curatorQuote:
+      "Mixed berry and tropical candy with a clean, sour-sweet edge.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Boggle Gum",
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Bubblegum-leaning cut", "A parent of Champagne"],
+    curatorNote:
+      "Boggle Gum is a sweet, bubblegum-leaning cut best known as a parent of Sherbinski's Champagne (and so, indirectly, Rainbow Sherbet). The nose is sweet and candy-bright: bubblegum and berry over a light floral base. The effect is gentle and happy — a relaxing, mood-lifting high that stays comfortable, moderate in strength. It's smooth and flavour-led, a quiet parent line. For sweet bubblegum genetics behind the sherbet world, Boggle Gum is a source.",
+    curatorQuote:
+      "Bubblegum and berry over a light floral base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Aloha White Widow",
+    marketNames: ["Aloha WW"],
+    lineage: {
+      parents: ["White Widow", "Hawaiian"],
+      cross: "White Widow × Hawaiian",
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Tropical White Widow cross", "A parent of Green Ribbon"],
+    curatorNote:
+      "Aloha White Widow is a White Widow × Hawaiian cross — the frosty resin of White Widow with a sweet, tropical lift. The nose is sweet and fruity: pineapple and tropical fruit over a piney, earthy base. The effect is balanced and up — a happy, creative head with a relaxed body, daytime-leaning. It's frosty and potent, and it's part of Green Ribbon's blend. For a tropical take on White Widow, Aloha is a flavourful parent line.",
+    curatorQuote:
+      "Pineapple and tropical fruit over a piney, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "White Russian",
+    breeder: "Serious Seeds",
+    lineage: {
+      parents: ["AK-47", "White Widow"],
+      cross: "AK-47 × White Widow",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Frosty, potent 90s classic"],
+    curatorNote:
+      "White Russian is a Serious Seeds cross of AK-47 and White Widow — a frost-caked, very potent hybrid that topped late-90s potency charts. The nose is earthy and sweet: pine and skunk over a sweet, herbal base. The effect is strong and balanced — a euphoric, heady high with a relaxing body, more punch than most of its era. It's dense, frosty and dependable, a coffeeshop classic. For a heavy, frosty old-school hybrid, White Russian endures.",
+    curatorQuote:
+      "Pine and skunk over a sweet, herbal base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Querkle",
+    breeder: "TGA Subcool Seeds",
+    lineage: {
+      parents: ["Purple Urkle", "Space Queen"],
+      cross: "Purple Urkle × Space Queen",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Sweet grape over a relaxing body"],
+    curatorNote:
+      "Querkle is a TGA/Subcool cross of Purple Urkle and Space Queen — sweet grape from the Urkle side with a fruity lift from Space Queen. The nose is sweet and fruity: grape and berry over a light earthy base. The effect leans relaxing — a happy, calming high with a comfortable body, evening-friendly. It's frosty and colourful, easy to enjoy. For sweet purple-grape genetics with a fruity edge, Querkle is a tasty hybrid.",
+    curatorQuote:
+      "Grape and berry over a light earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Jilly Bean",
+    breeder: "TGA Subcool Seeds",
+    lineage: {
+      parents: ["Orange Velvet", "Space Queen"],
+      cross: "Orange Velvet × Space Queen",
+      parentDetails: {
+        "Orange Velvet": { lineageBrief: "orange-citrus selection", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Orange-mango candy sativa-lean"],
+    curatorNote:
+      "Jilly Bean is a TGA/Subcool cross of Orange Velvet and Space Queen — a bright, jelly-bean-sweet citrus hybrid. The nose is sweet and fruity: orange and mango candy over a light earthy base. The effect is uplifting and happy — a creative, sociable head with a relaxed body, daytime-friendly. It's terpy and flavour-forward, an easy mood-lifter. For orange-mango candy character, Jilly Bean is a cheerful pick.",
+    curatorQuote:
+      "Orange and mango candy over a light earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Holy Grail Kush",
+    marketNames: ["HGK"],
+    breeder: "DNA Genetics / Reserva Privada",
+    lineage: {
+      parents: ["OG #18", "Kosher Kush"],
+      cross: "OG #18 × Kosher Kush",
+      parentDetails: {
+        "OG #18": { lineageBrief: "OG Kush phenotype #18", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Award-winning heavy gas-OG"],
+    curatorNote:
+      "Holy Grail Kush is a DNA Genetics cross of OG #18 and Kosher Kush — two heavyweight OGs combined into a Cannabis Cup winner. The nose is loud OG: fuel and pine over a damp, earthy funk with a lemony edge. The effect is strong and relaxing — a euphoric head sinking into a heavy body, evening-leaning. It's gassy, dense and very potent, a connoisseur's OG. For a heavy, decorated gas-OG, Holy Grail Kush lives up to the name.",
+    curatorQuote:
+      "Fuel and pine over a damp, earthy funk with a lemony edge.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Nepalese",
+    marketNames: ["Nepali", "Nepalese Highland"],
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Himalayan highland landrace", "Traditional charas plant"],
+    curatorNote:
+      "Nepalese is a Himalayan highland landrace traditionally grown for charas (hand-rubbed hash) — an earthy-sweet, long-flowering sativa. The nose is deep and warm: earthy spice and sweetness over a woody, incense-like base. The effect is uplifting and creative — a clear, happy head with a gently relaxing body, an unusual landrace that isn't pure race. It's resin-rich and smooth, prized for hash and heritage. For old-world Himalayan genetics, Nepalese is a classic.",
+    curatorQuote:
+      "Earthy spice and sweetness over a woody, incense-like base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Swazi Gold",
+    marketNames: ["Swazi"],
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Eswatini (Swaziland) landrace", "Clean equatorial sativa"],
+    curatorNote:
+      "Swazi Gold is an African landrace from the highlands of Eswatini (Swaziland) — a clean, energetic equatorial sativa famous for resilience and a bright high. The nose is earthy and sweet: spicy, grassy sweetness with a faint citrus. The effect is up and clear — an energetic, creative, social head with no body, a true daytime landrace. It's hardy and moderate, prized for heritage and a clean lift. For old-world African sativa, Swazi Gold is a source.",
+    curatorQuote:
+      "Spicy, grassy sweetness with a faint citrus.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Pakistani Chitral Kush",
+    marketNames: ["Chitral Kush", "PCK"],
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Chitral Valley landrace", "Pure hash-plant indica"],
+    curatorNote:
+      "Pakistani Chitral Kush (PCK) is a landrace from the Chitral Valley of the Hindu Kush — a pure, resin-heavy indica traditionally grown for hashish. The nose is deep and earthy: sandalwood and sweet spice over a hashy, woody base. The effect is heavily relaxing — a warm, grounding body weight that tips toward sleep, classic landrace indica. It's dense, frosty and potent, prized by purists and hash makers. For traditional Hindu Kush hash genetics, PCK is the source.",
+    curatorQuote:
+      "Sandalwood and sweet spice over a hashy, woody base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Marshmallow OG",
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Sweet, creamy OG indica"],
+    curatorNote:
+      "Marshmallow OG is a sweet, creamy take on the OG mould — vanilla-marshmallow softness over a gassy, earthy base. The nose is unusual for an OG: sweet cream and vanilla over fuel and earth. The effect is relaxing and heavy — a euphoric head sinking into a sedating body, an evening strain. It's frosty and potent, a comfortable, dessert-leaning OG. For sweet-creamy gas in a heavy indica, Marshmallow OG is a cosy pick.",
+    curatorQuote:
+      "Sweet cream and vanilla over fuel and earth.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Khalifa Mints",
+    lineage: {
+      parents: ["Khalifa Kush", "Kush Mints"],
+      cross: "Khalifa Kush × Kush Mints",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Gassy-mint, heavy OG-lean"],
+    curatorNote:
+      "Khalifa Mints crosses Wiz Khalifa's OG cut with Kush Mints — sharp OG gas welded to cool mint and cookie. The nose is loud and layered: lemon-pine gas over a cool mint and earthy base. The effect is heavy and relaxing — a euphoric head sinking into a strong body, evening-leaning. It's frosty, dense and very potent. For gassy-mint genetics with OG weight, Khalifa Mints is a heavy pick.",
+    curatorQuote:
+      "Lemon-pine gas over a cool mint and earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lemon Cherry Pie",
+    lineage: {
+      parents: ["Lemon Cherry Gelato", "Cherry Pie"],
+      cross: "Lemon Cherry Gelato × Cherry Pie (commonly cited)",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Cherry-lemon dessert in the LCG lane"],
+    curatorNote:
+      "Lemon Cherry Pie sits in the Lemon Cherry Gelato lane — a cherry-and-lemon dessert with the same hyped, candy-forward profile. The nose is bright and fruity: sweet cherry and lemon over a creamy, faintly gassy base. The effect is balanced and easy — a euphoric, happy head with a relaxed body, sociable and gentle. It's frosty and flavour-forward, trading on LCG's bag appeal. For cherry-lemon candy in the hyped lane, Lemon Cherry Pie is a sweet pick.",
+    curatorQuote:
+      "Sweet cherry and lemon over a creamy, faintly gassy base.",
+    sourceConfidence: "low",
+  },
 ];
