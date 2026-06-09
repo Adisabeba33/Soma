@@ -6,6 +6,7 @@ import { GitCompareArrows } from "lucide-react";
 import { TagInput } from "@/components/ui/selectors";
 import { Button, buttonClass } from "@/components/ui/button";
 import { ScoreBar } from "@/components/match-meter";
+import { FeedbackPill, type Verdict } from "@/components/feedback-pill";
 import { POPULAR_STRAINS } from "@/lib/profile-state";
 import { clearBasket, getBasket } from "@/lib/compare-basket";
 import { labelFor } from "@/lib/vocab";
@@ -27,6 +28,39 @@ export default function ComparePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [needProfile, setNeedProfile] = useState(false);
+  // Existing strain-level verdicts keyed by canonical strain name —
+  // hydrated once on mount so a returning user sees their prior pill
+  // selections highlighted instead of an empty row.
+  const [verdicts, setVerdicts] = useState<Record<string, Verdict>>({});
+
+  // Pull the user's existing strain verdicts so the pills land
+  // pre-filled when Compare results render.
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/strain-feedback")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { verdicts?: Array<{ strainName: string; verdict: string }> } | null) => {
+        if (cancelled || !data?.verdicts) return;
+        const next: Record<string, Verdict> = {};
+        for (const v of data.verdicts) {
+          if (
+            v.verdict === "loved" ||
+            v.verdict === "good" ||
+            v.verdict === "neutral" ||
+            v.verdict === "avoid"
+          ) {
+            next[v.strainName] = v.verdict;
+          }
+        }
+        setVerdicts(next);
+      })
+      .catch(() => {
+        // Hydration failure is non-fatal — pills just start empty.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Hydrate from the catalog "Compare basket" once on mount: append any
   // queued names that aren't already in the input, then drain the basket
@@ -240,6 +274,19 @@ export default function ComparePage() {
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                     {item.whyItFits}
                   </p>
+
+                  {/* Strain-level quick verdict. One tap upserts to
+                      StrainFeedback; engine learns immediately for
+                      the next scoreStrain call across this user. */}
+                  <div className="mt-4 border-t border-border pt-3">
+                    <FeedbackPill
+                      strainName={item.resolvedName || item.strainName}
+                      initial={
+                        verdicts[item.resolvedName || item.strainName] ?? null
+                      }
+                      source="compare"
+                    />
+                  </div>
                 </div>
               );
             })}
