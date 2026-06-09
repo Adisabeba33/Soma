@@ -5077,4 +5077,263 @@ export const IDENTITIES: StrainIdentity[] = [
       "Berry and rose-like florals over an earthy, hashy base.",
     sourceConfidence: "medium",
   },
+
+  // ── ROUND 12: PARENT-FILL + LANDRACES + CLASSICS ──
+  {
+    canonicalName: "Nepali OG",
+    lineage: {
+      parents: ["Nepalese", "OG Kush"],
+      cross: "Nepalese × OG Kush",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Earthy-gas hash-OG", "A parent of Goji OG"],
+    curatorNote:
+      "Nepali OG is a cross of a Nepalese landrace and OG Kush — old-world hash genetics married to West Coast gas, and a parent of Bodhi's Goji OG. The nose is earthy and gassy: fuel and pine over a spicy, hashy base. The effect is relaxing and warm — a euphoric head sinking into a comfortable body, evening-leaning. It's frosty and potent, and it lends its earthy depth to Goji OG. For hash-tinged OG genetics, Nepali OG is a flavourful parent line.",
+    curatorQuote:
+      "Fuel and pine over a spicy, hashy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Blockhead",
+    breeder: "TGA Subcool Seeds",
+    lineage: {
+      parents: ["Sweet Tooth"],
+      cross: "Sweet Tooth #3 × B-52 (Subcool line)",
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Sweet, frosty Subcool hybrid", "A parent of Snow Lotus"],
+    curatorNote:
+      "Blockhead is a TGA/Subcool hybrid built off Sweet Tooth — a frosty, sweet-and-earthy plant that became a useful breeding line (it's a parent of Bodhi's Snow Lotus). The nose is sweet and fruity: berry and candy over a piney, earthy base. The effect is balanced and happy — a euphoric, creative head with a relaxing body. It's terpy and resin-heavy, prized as breeding stock. For sweet, frosty hybrid genetics, Blockhead is a solid parent.",
+    curatorQuote:
+      "Berry and candy over a piney, earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Major League Bud",
+    marketNames: ["MLB"],
+    lineage: {
+      parents: ["Williams Wonder"],
+      cross: "William's Wonder-derived indica",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Heavy old-school indica", "A parent of Blue Magoo"],
+    curatorNote:
+      "Major League Bud is a heavy, William's Wonder-derived indica — a dense, resinous old-school cut best known as a parent of Blue Magoo. The nose is earthy and sweet: skunky sweetness over a woody base. The effect is strongly relaxing — a heavy body weight that drifts toward sleep, a classic nightcap. It's dense and potent, prized for the weight it passes to its offspring. For heavy indica breeding genetics, MLB is a quiet parent line.",
+    curatorQuote:
+      "Skunky sweetness over a woody base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Alien Tech",
+    breeder: "Alien Genetics",
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Gassy OG breeding line", "A parent of Alien Kush"],
+    curatorNote:
+      "Alien Tech is an Alien Genetics OG-leaning line — a gassy, earthy plant used mainly for breeding (it's half of Alien Kush). The nose is classic gas: fuel and pine over an earthy, herbal base. The effect is relaxing and heavy — a euphoric head sinking into a comfortable body, evening-leaning. It's frosty and potent, valued for the OG structure it passes on. For gassy OG breeding genetics, Alien Tech is a building block.",
+    curatorQuote:
+      "Fuel and pine over an earthy, herbal base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Skunk Haze",
+    lineage: {
+      parents: ["Skunk #1", "Haze"],
+      cross: "Skunk #1 × Haze",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Bright skunky-citrus haze", "A parent of Banana Kush"],
+    curatorNote:
+      "Skunk Haze is a Skunk #1 × Haze cross — the funk of Skunk lifted by haze's bright citrus, and a parent of Banana Kush. The nose is clean and sharp: citrus and spice over a skunky, earthy base. The effect is up and energetic — an uplifting, creative head with a light body, daytime-leaning. It's terpy and potent, and it's the sativa side behind Banana Kush. For bright skunk-haze genetics, this is a flavourful parent line.",
+    curatorQuote:
+      "Citrus and spice over a skunky, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Hells OG",
+    marketNames: ["Hell's OG"],
+    lineage: {
+      parents: ["OG Kush", "Blackberry"],
+      cross: "OG Kush × Blackberry",
+      parentDetails: {
+        "Blackberry": { lineageBrief: "Black Domina × Raspberry Cough line", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Heavy gas OG", "A parent of 9 Pound Hammer"],
+    curatorNote:
+      "Hells OG (Hell's OG) is an OG Kush × Blackberry cross — heavy OG gas with a faint dark-fruit edge, and a parent of 9 Pound Hammer. The nose is loud OG: fuel and pine over an earthy funk with a berry note underneath. The effect is strongly relaxing — a euphoric head sinking into a heavy body, firmly an evening strain. It's gassy, frosty and very potent, and it lends weight to 9 Pound Hammer. For heavy gas-OG genetics, Hells OG fits.",
+    curatorQuote:
+      "Fuel and pine over an earthy funk with a berry note underneath.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Gooberry",
+    lineage: {
+      parents: ["Afgooey", "Blueberry"],
+      cross: "Afgoo × Blueberry",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Sweet berry indica", "A parent of 9 Pound Hammer"],
+    curatorNote:
+      "Gooberry is an Afgoo × Blueberry cross — sweet berry over a sticky, resin-heavy Afghan body, and a parent of 9 Pound Hammer. The nose is sweet and fruity: blueberry and berry over an earthy base. The effect is heavily relaxing — a euphoric head sinking into a sedating body, evening-leaning. It's dense, frosty and potent, and it's the berry half behind 9 Pound Hammer. For sweet-berry indica genetics, Gooberry is a tasty parent line.",
+    curatorQuote:
+      "Blueberry and berry over an earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grapefruit",
+    lineage: {
+      parents: ["Cinderella 99"],
+      cross: "Cinderella 99-derived citrus selection",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Juicy pink-grapefruit sativa"],
+    curatorNote:
+      "Grapefruit is a Cinderella 99-derived citrus sativa — bright pink-grapefruit flavour over a sweet, tropical base. The nose is juicy and zesty: grapefruit and citrus over a sweet, light base. The effect is uplifting and happy — an energetic, creative head with a relaxed body, a sociable daytime strain. It's terpy and flavour-forward, an easy citrus pick-me-up. For clean grapefruit-citrus character, it's a cheerful sativa.",
+    curatorQuote:
+      "Grapefruit and citrus over a sweet, light base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cherry Bomb",
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Sweet cherry-candy hybrid"],
+    curatorNote:
+      "Cherry Bomb is a sweet, cherry-forward hybrid built around bright red-fruit flavour. The nose is candy-sweet: cherry and berry over a light earthy base. The effect is balanced and cheerful — a happy, uplifting head with a relaxed body, easy across the day. It's terpy and approachable, more flavour than weight. For sweet cherry-candy character in a balanced package, Cherry Bomb is a fun pick.",
+    curatorQuote:
+      "Cherry and berry over a light earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Holland's Hope",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["One of the first Dutch outdoor strains"],
+    curatorNote:
+      "Holland's Hope is one of the earliest Dutch outdoor strains — a hardy, mould-resistant Afghani selection bred for the cool, wet Dutch climate in the early 80s. The nose is earthy and sweet: spice and hash over a woody base. The effect is calm and relaxing — a mellow, grounding body ease, moderate rather than overwhelming. It's dense and dependable, a piece of Dutch cannabis history. For old-world Dutch outdoor genetics, Holland's Hope is a classic.",
+    curatorQuote:
+      "Spice and hash over a woody base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Vietnamese Black",
+    marketNames: ["Vietnam Black"],
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Vietnamese highland landrace", "Fierce, spicy sativa"],
+    curatorNote:
+      "Vietnamese Black is a highland landrace from Vietnam — a fierce, long-flowering equatorial sativa with dark stems and a spicy nose. The smell is earthy and warm: spice and sweetness over a woody base. The effect is intensely up — an energetic, heady, almost relentless cerebral high with no body, a true daytime landrace. It's a slow, demanding grow and moderate in potency, prized for heritage. For old-world Southeast Asian sativa, Vietnamese Black is a striking source.",
+    curatorQuote:
+      "Spice and sweetness over a woody base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Ethiopian Highland",
+    marketNames: ["Ethiopian"],
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["East African highland landrace", "Clean, spicy sativa"],
+    curatorNote:
+      "Ethiopian Highland is an East African landrace from the highlands of Ethiopia — a clean, spicy equatorial sativa with deep heritage. The nose is earthy and bright: spice and sweetness with a faint citrus. The effect is energetic and clear — an uplifting, creative, social head with no body, a pure daytime landrace. It's hardy and moderate, prized by collectors for its rarity. For old-world African sativa genetics, Ethiopian Highland is a source.",
+    curatorQuote:
+      "Spice and sweetness with a faint citrus.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sinai",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Egyptian Sinai landrace", "Traditional hashish indica"],
+    curatorNote:
+      "Sinai is a landrace from Egypt's Sinai Peninsula — a hardy, desert-adapted indica traditionally grown by Bedouin communities for hashish. The nose is earthy and sweet: dry spice and a hashy sweetness over a woody base. The effect is calm and relaxing — a mellow, grounding body ease, moderate and traditional. It's dense and resin-rich, a rare Middle Eastern landrace. For old-world Egyptian hash genetics, Sinai is a source.",
+    curatorQuote:
+      "Dry spice and a hashy sweetness over a woody base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Tiramisu",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Coffee-and-cream dessert"],
+    curatorNote:
+      "Tiramisu is a coffee-and-cream dessert cut named for the Italian sweet — sweet vanilla and cocoa over a nutty, earthy base. The nose is rich and sweet: cream and vanilla with a coffee-nut depth. The effect is relaxing and happy — a euphoric head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, a dessert strain through and through. For coffee-cream sweetness, Tiramisu is an indulgent pick.",
+    curatorQuote:
+      "Cream and vanilla with a coffee-nut depth.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Banana Cream",
+    marketNames: ["Banana Cream Cake"],
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Creamy banana dessert indica"],
+    curatorNote:
+      "Banana Cream is a creamy banana dessert indica-lean — sweet ripe banana over a vanilla, cream base. The nose is sweet and fruity: banana and tropical fruit over a soft cream. The effect is relaxing and happy — a calming body ease with a euphoric head, evening-leaning. It's frosty and flavour-forward, an easy dessert cut. For creamy banana-and-vanilla character, Banana Cream is a cosy pick.",
+    curatorQuote:
+      "Banana and tropical fruit over a soft cream.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Blue Cookies",
+    lineage: {
+      parents: ["Blueberry", "Girl Scout Cookies"],
+      cross: "Blueberry × GSC",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Sweet berry over a cookie base"],
+    curatorNote:
+      "Blue Cookies crosses Blueberry with Girl Scout Cookies — sweet berry fruit folded into a cookie base. The nose is sweet and fruity: blueberry and berry over an earthy, doughy cookie funk. The effect is relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. It's frosty and potent, a flavourful berry dessert. For blueberry-and-cookie character, Blue Cookies is a tasty pick.",
+    curatorQuote:
+      "Blueberry and berry over an earthy, doughy cookie funk.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Apple Jacks",
+    marketNames: ["Applejack"],
+    lineage: {
+      parents: ["Jack Herer", "White Widow"],
+      cross: "Jack Herer × White Widow",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Bright apple-citrus, very potent"],
+    curatorNote:
+      "Apple Jacks is a Jack Herer × White Widow cross — bright apple-and-citrus flavour on a very potent frame. The nose is sweet and zesty: green apple and citrus over a piney, earthy base. The effect is up and strong — an energetic, euphoric, creative head with enough body to stay grounded, a potent daytime hybrid. It's terpy and frosty, flavour-forward and high-test. For bright apple-citrus character with real punch, Apple Jacks delivers.",
+    curatorQuote:
+      "Green apple and citrus over a piney, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "White Tahoe Cookies",
+    marketNames: ["WTC"],
+    lineage: {
+      parents: ["Tahoe OG", "The White", "Girl Scout Cookies"],
+      cross: "Tahoe OG × The White × GSC",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Frosty, gassy cookie indica"],
+    curatorNote:
+      "White Tahoe Cookies blends Tahoe OG, The White and GSC — heavy OG gas, extreme frost and cookie sweetness in one cut. The nose is rich and gassy: sweet cookie and fuel over an earthy, herbal base. The effect is strongly relaxing — a euphoric head sinking into a heavy body, firmly an evening strain. It's extremely frosty and very potent, a dense dessert-OG. For frosty, gassy cookie genetics, White Tahoe Cookies is a heavy pick.",
+    curatorQuote:
+      "Sweet cookie and fuel over an earthy, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cheese Quake",
+    breeder: "TGA Subcool Seeds",
+    lineage: {
+      parents: ["UK Cheese", "Querkle"],
+      cross: "UK Cheese × Querkle",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Tangy cheese over sweet grape"],
+    curatorNote:
+      "Cheese Quake is a TGA/Subcool cross of UK Cheese and Querkle — tangy dairy funk meeting sweet purple grape. The nose is unusual and loud: cheese and sour funk over a sweet grape-berry base. The effect is balanced and relaxing — a euphoric head easing into a comfortable body, versatile across the day. It's frosty and flavour-forward, a savoury-sweet oddity. For cheese-and-grape character, Cheese Quake is a distinctive pick.",
+    curatorQuote:
+      "Cheese and sour funk over a sweet grape-berry base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Pez",
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Candy-sweet exotic"],
+    curatorNote:
+      "Pez is a candy-sweet exotic named for the dispenser sweet — bright, sugary fruit flavour with little funk. The nose is sweet and fruity: mixed berry and citrus candy over a clean base. The effect is happy and easy — a giggly, uplifting head over a relaxed body, social and gentle. It's frosty and flavour-first, a bag-appeal modern cut. For sugar-sweet candy character, Pez is a cheerful pick.",
+    curatorQuote:
+      "Mixed berry and citrus candy over a clean base.",
+    sourceConfidence: "low",
+  },
 ];
