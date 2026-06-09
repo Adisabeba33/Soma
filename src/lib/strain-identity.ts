@@ -110,3 +110,61 @@ export function identitiesInFamily(family: string): string[] {
     (i) => i.canonicalName,
   );
 }
+
+// Sensory-family adjacency. Two families are "adjacent" when their
+// signature smell territory overlaps enough that a fan of one will
+// recognise the other — gas-OG into diesel-chem and garlic-funk, for
+// example, all share fuel/funk character even though they're separate
+// clusters. Used by the engine to give a partial sensory bonus when the
+// candidate isn't an exact family match but lives in a neighbouring
+// territory. Without this the engine treats "different sensoryFamily"
+// the same way for "wedding cake vs diesel-chem" (truly different) and
+// "gas-og vs diesel-chem" (very close) — flattening real proximity.
+//
+// The table is intentionally symmetric: every entry "a in adjacent[b]"
+// is mirrored by "b in adjacent[a]". A test pins this so the two
+// directions can't drift out of sync.
+const ADJACENCY_PAIRS: ReadonlyArray<readonly [string, string]> = [
+  // ── Gas/fuel cluster — share heavy fuel, earth, chem character ──
+  ["gas-og", "diesel-chem"],
+  ["gas-og", "garlic-funk"],
+  ["gas-og", "kush-classic"],
+  ["diesel-chem", "garlic-funk"],
+
+  // ── Heavy indica cluster — share dense body, dark fruit/earth notes ──
+  ["kush-classic", "purple-berry"],
+
+  // ── Bright sativa cluster — share lemon/herbal/haze character ──
+  ["citrus-haze", "sweet-haze"],
+  ["citrus-haze", "pine-spice"],
+
+  // ── Dessert / modern cluster — share sweet, creamy, candy-fruit notes ──
+  ["dessert-cookies", "modern-exotic"],
+  ["dessert-cookies", "purple-berry"],
+];
+
+const ADJACENCY_MAP: Map<string, Set<string>> = (() => {
+  const m = new Map<string, Set<string>>();
+  for (const [a, b] of ADJACENCY_PAIRS) {
+    if (!m.has(a)) m.set(a, new Set());
+    if (!m.has(b)) m.set(b, new Set());
+    m.get(a)!.add(b);
+    m.get(b)!.add(a);
+  }
+  return m;
+})();
+
+// Returns true when the two sensory families share enough character for
+// the engine to award a partial bonus. Identity-symmetric and reflexive
+// across the same family is FALSE (use === for exact match): adjacency
+// is the "close but not the same" relation.
+export function isAdjacentSensoryFamily(a: string, b: string): boolean {
+  if (a === b) return false;
+  return ADJACENCY_MAP.get(a)?.has(b) ?? false;
+}
+
+// Exposed for tests so the adjacency contract can be audited without
+// reaching into module internals.
+export function adjacentFamilies(family: string): ReadonlySet<string> {
+  return ADJACENCY_MAP.get(family) ?? new Set();
+}

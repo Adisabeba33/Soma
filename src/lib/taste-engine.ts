@@ -16,7 +16,7 @@ import {
   hasClusteredFavorites,
 } from "./behavioral-family";
 import { primaryAromaTokens, resolveProfileTarget } from "./profile-target";
-import { getIdentity } from "./strain-identity";
+import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
 import type {
   AnalysisResult,
   Category,
@@ -52,7 +52,15 @@ import { BATCH_QUALITY_TRAITS, labelFor } from "./vocab";
 // driven only by aroma/effect tag overlap). Bonus is bounded and only
 // fires when both sides have identity records, so the existing
 // archetype/texture/family layers continue to dominate.
-export const ENGINE_VERSION = "v5";
+// v5 → v6: sensoryFamily adjacency — the bonus now also fires (at a
+// reduced magnitude) when candidate and favourite live in adjacent
+// sensory families (gas-og ↔ diesel-chem, citrus-haze ↔ sweet-haze, …).
+// Closes the "different family but same smell territory" gap an external
+// reviewer flagged: a GG4 fan looking at Sour Diesel or GMO previously
+// got no sensory-cluster signal at all even though both clearly share
+// gas/funk character with GG4. Exact-match bonus also nudges up (+4 → +5).
+// Older v5 audits stay readable.
+export const ENGINE_VERSION = "v6";
 
 const NEUTRAL = 52;
 
@@ -419,35 +427,57 @@ export function reconciledDislikes(profile: TasteProfileInput): string[] {
 }
 
 // Bounded recognition bonus when the candidate's curator-defined sensory
-// family matches one of the user's resolved favourites. Captures cluster
-// identity ("gas-og", "garlic-funk", "kush-classic", …) that the raw
-// tag-Jaccard in referenceSimilarity misses: a GG4 fan looking at OG
-// Kush would otherwise see only the aroma/effect tag overlap and miss
-// the explicit expert assertion that both strains live in the same
-// gas-og lineage.
+// family relates to one of the user's resolved favourites. Two tiers:
+//
+//   - Exact match  → SENSORY_FAMILY_BONUS_EXACT (+5)
+//   - Adjacent     → SENSORY_FAMILY_BONUS_ADJACENT (+3)
+//
+// "Adjacent" is the curator-asserted "different cluster but same smell
+// territory" relation defined in strain-identity.ts. Without it the
+// engine collapses "gas-og vs diesel-chem" (very close) into the same
+// "no bonus" bucket as "gas-og vs dessert-cookies" (truly different),
+// which under-rewards the old gas/diesel-chem school for a GG4 fan.
 //
 // Fires only when BOTH sides have identity records — most of the seed
 // catalog doesn't have identity yet, so the bonus stays inert there.
 // As identity coverage grows, the bonus lights up for more pairs.
 //
-// Magnitude tuned to sit between texture (±3) and archetype (+5):
+// Magnitudes are tuned to sit between texture (±3) and archetype (+5):
 // noticeable enough to break ties inside the 4–88 non-anchor band, but
 // not large enough to override Layer 1/2/3 disagreement on effect feel.
-export const SENSORY_FAMILY_BONUS = 4;
+// Exact > adjacent — the engine still respects the curator's assertion
+// that two strains live in the same cluster vs merely close ones.
+export const SENSORY_FAMILY_BONUS_EXACT = 5;
+export const SENSORY_FAMILY_BONUS_ADJACENT = 3;
+
+// Kept as an alias so older imports that named the v5 constant don't
+// break — points at the exact-match magnitude which is the canonical
+// reading of "the sensory family bonus."
+export const SENSORY_FAMILY_BONUS = SENSORY_FAMILY_BONUS_EXACT;
 
 export function sensoryFamilyBonus(
   candidate: StrainProfile,
   resolvedFavorites: StrainProfile[],
 ): number {
   const candidateId = getIdentity(candidate.name);
-  if (!candidateId?.sensoryFamily) return 0;
+  const candidateFamily = candidateId?.sensoryFamily;
+  if (!candidateFamily) return 0;
+  let best = 0;
   for (const fav of resolvedFavorites) {
-    const favId = getIdentity(fav.name);
-    if (favId?.sensoryFamily === candidateId.sensoryFamily) {
-      return SENSORY_FAMILY_BONUS;
+    const favFamily = getIdentity(fav.name)?.sensoryFamily;
+    if (!favFamily) continue;
+    if (favFamily === candidateFamily) {
+      // Exact match always wins — short-circuit.
+      return SENSORY_FAMILY_BONUS_EXACT;
+    }
+    if (
+      isAdjacentSensoryFamily(favFamily, candidateFamily) &&
+      best < SENSORY_FAMILY_BONUS_ADJACENT
+    ) {
+      best = SENSORY_FAMILY_BONUS_ADJACENT;
     }
   }
-  return 0;
+  return best;
 }
 
 function categorize(

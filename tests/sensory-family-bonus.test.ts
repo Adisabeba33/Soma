@@ -56,9 +56,11 @@ describe("sensoryFamilyBonus — unit behaviour", () => {
     assert.equal(sensoryFamilyBonus(candidate, favs), SENSORY_FAMILY_BONUS);
   });
 
-  it("does NOT fire when candidate and all favourites are in different families", () => {
-    // GG4 (gas-og) vs Northern Lights (kush-classic)
-    const candidate = strain("Northern Lights");
+  it("does NOT fire when candidate and all favourites are in distant families", () => {
+    // Pick a truly cross-cluster pair the adjacency table does NOT
+    // connect. Blue Dream (sweet-haze) vs GG4 (gas-og) — different
+    // worlds, no adjacency edge between them.
+    const candidate = strain("Blue Dream");
     const favs = [strain("GG4")];
     assert.equal(sensoryFamilyBonus(candidate, favs), 0);
   });
