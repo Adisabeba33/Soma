@@ -834,4 +834,131 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sour OG is a Sour Diesel × OG Kush cross that blends two gas legends into one balanced hybrid. The nose is the best of both parents: sour diesel and lemon over OG's pine and earth, gassy and bright at once. The effect is even-handed — an uplifting, mood-lifting head over a relaxing body, usable across the day rather than purely sedating. It's potent but balanced, which made it a dependable all-rounder for gas lovers. For people who want Sour D's lift with OG's body, Sour OG is the natural meeting point.",
     sourceConfidence: "medium",
   },
+
+  // ── Kush / indica / purple classics ──
+  {
+    canonicalName: "LA Confidential",
+    marketNames: ["LAC", "L.A. Confidential"],
+    breeder: "DNA Genetics",
+    lineage: {
+      parents: ["OG LA Affie", "California Indica"],
+      cross: "OG LA Affie × California Indica",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Clean, refined heavy indica"],
+    curatorNote:
+      "LA Confidential is DNA Genetics' flagship indica — an OG LA Affie × California Indica cross that won early Cannabis Cups and set a standard for clean, heavy relaxation. The nose is earthy and piney with a skunky, hashy depth, classic and understated rather than loud. The effect is a smooth, powerful body stone — deeply relaxing and a little sedating, the kind of indica people reach for to unwind or sleep. It's potent but clean, without the harshness some heavy indicas carry. For a refined, no-nonsense indica, LA Confidential remains a benchmark.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Kosher Kush",
+    marketNames: ["Jew Gold", "Kosher OG"],
+    breeder: "Reserva Privada / DNA Genetics",
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Award-winning sweet, heavy OG"],
+    curatorNote:
+      "Kosher Kush is a Reserva Privada / DNA Genetics OG cut — an unknown-parentage OG Kush descendant that won back-to-back Cannabis Cups. The nose is rich OG with a twist: gas and pine over earthy, almost fruity sweetness, heavier and sweeter than a straight OG. The effect is strongly relaxing — a euphoric head that sinks into a heavy, sedating body, firmly an evening and sleep strain. It's potent and couch-leaning, more about deep rest than productivity. For OG lovers who want the sweeter, heavier end of the family, Kosher Kush is a decorated pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Blackberry Kush",
+    marketNames: ["BBK", "Blackberry OG"],
+    lineage: {
+      parents: ["Afghani", "Blackberry"],
+      cross: "Afghani × Blackberry",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Dark berry over hashy kush"],
+    curatorNote:
+      "Blackberry Kush is a heavy indica — usually a cross of Afghani and a Blackberry line — prized for stacking dark berry sweetness on a hashy kush base. The nose is rich and fruity: sweet blackberry and grape over earthy, diesel-tinged hash, dessert with a savoury backbone. The effect is fast and sedating — a thick, relaxing body weight that tips quickly toward sleep, a textbook nightcap. It's potent and couch-leaning, more for evenings and rest than anything active. For berry-and-hash indica lovers, Blackberry Kush is a sweet, heavy classic.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Purple Urkle",
+    marketNames: ["Purple Urkel", "Urkle"],
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Mendocino purple selection", "A parent of Granddaddy Purple"],
+    curatorNote:
+      "Purple Urkle is a Northern California purple classic of murky origin — likely a Mendocino Purps selection — and a parent of Granddaddy Purple. The nose is deep and sweet: grape and dark berry over a skunky, earthy base, the template purple aroma. The effect is heavily relaxing — a warm, dreamy body weight that calms and tips toward sleep, a classic evening indica. It's couch-leaning and sedating, more about winding down than doing anything. As the grandparent of much of the purple line, Purple Urkle is a foundational grape indica.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "9 Pound Hammer",
+    marketNames: ["Nine Pound Hammer", "9LB Hammer"],
+    breeder: "TGA Subcool Seeds",
+    lineage: {
+      parents: ["Gooberry", "Hells OG", "Jack the Ripper"],
+      cross: "Gooberry × Hells OG × Jack the Ripper",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Fast, grape-sweet knockout"],
+    curatorNote:
+      "9 Pound Hammer is a TGA/Subcool cross — Gooberry × Hells OG × Jack the Ripper — built for fast, heavy, grape-sweet sedation. The nose is fruity and earthy: sweet grape and berry over a damp, earthy base, dessert-leaning. The effect is exactly the name — a fast, heavy body blow that drops you toward the couch and sleep, with little cerebral lift. It's a blunt instrument, potent and sedating, made for evenings, pain and insomnia rather than productivity. For people who want grape-sweet knockout, 9 Pound Hammer earns its name.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Slurricane",
+    marketNames: ["Slurricane #7"],
+    breeder: "In House Genetics",
+    lineage: {
+      parents: ["Do-Si-Dos", "Purple Punch"],
+      cross: "Do-Si-Dos × Purple Punch",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Grape-and-cream heavy indica"],
+    curatorNote:
+      "Slurricane is an In House Genetics cross of Do-Si-Dos and Purple Punch — a sweet, heavy indica that became a quiet modern favourite. The nose is rich and fruity: grape, berry and sweet cream over a gassy, earthy funk, dessert with weight behind it. The effect is strongly relaxing — a warm, euphoric calm that sinks into the body and lingers, an evening and end-of-day strain. It's potent and frosty, leaning sedating, easy to over-enjoy because of the sweetness. For lovers of grape-and-cream heavy indicas, Slurricane delivers.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Berry White",
+    marketNames: ["Berrywhite"],
+    lineage: {
+      parents: ["Blueberry", "White Widow"],
+      cross: "Blueberry × White Widow",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Sweet berry over White Widow resin"],
+    curatorNote:
+      "Berry White is a Blueberry × White Widow cross — named with a wink at Barry White — that blends sweet berry with resin-heavy potency. The nose is sweet and fruity: ripe blueberry and berry over a faint earthy, skunky base, smooth and inviting. The effect is relaxing and happy — a euphoric, calming body high that eases tension without total knockout at moderate doses. It's potent and balanced-leaning-indica, comfortable for late day into evening. For berry lovers who want some White Widow backbone, Berry White is a sweet, easy pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cherry Punch",
+    lineage: {
+      parents: ["Cherry AK", "Purple Punch"],
+      cross: "Cherry AK × Purple Punch",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Bright cherry-candy sweetness"],
+    curatorNote:
+      "Cherry Punch is a fruity hybrid — commonly a Cherry AK × Purple Punch cross — built around bright cherry sweetness. The nose is candy-forward: sweet cherry and berry over a light floral, earthy base, dessert-leaning and clean. The effect is balanced and uplifting — a happy, relaxing high that lifts the mood without heavy sedation at sensible doses. It's approachable and flavour-driven, more about mood and taste than raw power. For people chasing a sweet cherry profile in a balanced hybrid, Cherry Punch fits.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Hash Plant",
+    marketNames: ["Hashplant"],
+    lineage: {
+      parents: ["Northern Lights", "Afghani"],
+      cross: "Northern Lights × Afghani hash-plant line",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Resin-heavy traditional hash plant"],
+    curatorNote:
+      "Hash Plant is an old-school indica — a Northern Lights × Afghani hash-plant line — bred specifically for resin and that classic hashish character. The nose is earthy and sweet: incense, sandalwood and a spicy, hashy musk, deep and traditional. The effect is calm and weighty — a relaxing, grounding body stone without much racing thought, dependable rather than flashy. It's a resin-heavy, moderate-potency classic, prized for flavour and for making hash. For lovers of traditional, hashy indica, Hash Plant is a quiet staple.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Critical Mass",
+    marketNames: ["Critical"],
+    lineage: {
+      parents: ["Afghani", "Skunk #1"],
+      cross: "Afghani × Skunk #1",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Dense, branch-snapping yields"],
+    curatorNote:
+      "Critical Mass is an Afghani × Skunk #1 cross — named for buds so dense and heavy they can snap their own branches. The nose is sweet and earthy: skunky, honey-ish sweetness over a damp earthy base, classic and mellow. The effect is heavily relaxing — a calm, sedating body high that eases tension and tips toward sleep, a straightforward evening indica. It's a big-yielding, moderate-to-strong indica, more about comfort than complexity. For dependable, sweet, heavy relaxation, Critical Mass is a reliable pick.",
+    sourceConfidence: "medium",
+  },
 ];
