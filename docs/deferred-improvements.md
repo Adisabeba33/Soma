@@ -364,6 +364,115 @@ and didn't do is itself valuable context.
 
 ---
 
+### #11 — Observed Preference Learning (the highest-leverage open item)
+
+- **Found:** 2026-06-09
+- **Source:** External reviewer (multi-pass live testing, summary
+  observation: "this can be SOMA's single biggest accuracy
+  improvement without rebuilding the engine")
+- **What:** The current scoring relies on what the user *stated* —
+  questionnaire answers + listed Favourites. What's missing is what
+  the user *actually demonstrates*: strains they returned to,
+  confirmed as good picks, or that consistently rate high after they
+  bought them. Example: a profile with GG4 / OG Kush / White Hot
+  Guava as anchors, but the user reports repeatedly that Gary Payton
+  is one of their actual favourites in practice. The engine has no
+  way to fold "Gary Payton works for this person" back into future
+  scoring even though that's exactly the signal that would matter
+  most.
+  
+  This is structurally separate from the other deferred items
+  because it's an entirely new data axis ("revealed preference")
+  rather than tuning of an existing one. The framing the reviewer
+  reaches for is the right one: move from
+  
+  > "we match strains to your profile"
+  
+  to
+  
+  > "we know which strains you actually love."
+
+- **What we already have (infrastructure):** Roughly half the work
+  is already done quietly.
+  
+  - `Feedback` table in Prisma (`purchased`, `liked`, `rating`,
+    `notes` per Recommendation)
+  - `evaluateFeedback()` in `taste-engine.ts` — applies a bounded
+    `±12` adjustment to each score based on similarity-weighted
+    feedback signals
+  - `getFeedbackSignals()` reads feedback at scoring time
+  - `scoreStrain()` is already wired: every score reflects accumulated
+    feedback if any exists
+  - `/api/feedback` saves new entries
+  - `FeedbackControl` component (Yes/No purchased + Yes/No liked +
+    5-star rating) exists on the `/saved` page
+  
+  So when a user marks a saved recommendation as `liked: true`, the
+  signal already feeds back into future scoring. **Silently and
+  invisibly.**
+
+- **Why this hasn't moved the needle yet:** The UX never invites the
+  user to actually leave feedback. The only place it can be left
+  today is the `/saved` page after explicitly saving a session.
+  No prompt appears after a Compare or Taste Match run. The signal
+  is therefore mostly empty in production — the engine waits for
+  feedback that almost nobody is asked for.
+
+- **What's missing (UX):**
+  - Post-Compare prompt: "Did you try any of these? Tell us how it
+    went" with a 4-state quick-rate (Loved it / Good / Neutral /
+    Would not buy again) per strain
+  - Post-TasteMatch follow-up: same pattern on the result page
+  - Reminder loop: a return-visit nudge ("you compared 5 strains 4
+    days ago — anything stand out?")
+  - Visible profile evolution: a small panel on the profile page or
+    in `/stats` that reads "based on your feedback, Gary Payton has
+    joined your sensory territory" — turns the feedback loop from
+    invisible into a reason to keep contributing
+  - Maybe a "promote to Favourite" affordance once feedback for a
+    strain crosses a threshold
+
+- **What's missing (engine — if we want more than the current ±12
+  adjustment):**
+  - Stronger weighting once a strain has consistent
+    multi-touch positive feedback (treat it like a "soft favourite"
+    in `referenceSimilarity` with a smaller position weight than
+    explicit Favourites)
+  - Possibly a 4-state signal mapped to a numeric weight rather than
+    the current binary `liked: boolean`
+  - Calibration check: with real feedback flowing, the ±12 cap may
+    be too tight or too loose — measure once the data is real
+
+- **Potential fix (staged):**
+  1. **Stage 1 — Collect:** Inline 4-state quick-rate on Compare
+     results page + a follow-up prompt the next time the user returns.
+     Persists to the existing `Feedback` table (extend `liked:
+     boolean` to a `verdict: "loved" | "good" | "neutral" | "avoid"`
+     enum, falling back to the boolean for old rows).
+  2. **Stage 2 — Surface:** Add a small "your evolved profile" panel
+     so the user sees the signal isn't going into a void.
+  3. **Stage 3 — Tune:** Once enough feedback rows exist (≥ 500
+     across users), revisit the magnitude of the feedback adjustment
+     and the trust ramp.
+
+- **Estimated effort:**
+  - Stage 1: 6–8 hours (UI + schema migration + API tweaks + tests)
+  - Stage 2: 3–5 hours
+  - Stage 3: gated on data; effort TBD
+
+- **Trigger to revisit:**
+  - We're ready to ship a feature that actively asks users for
+    feedback (vs the current passive collection)
+  - Or when we want to move SOMA's positioning from "sensory guide"
+    to "sensory mirror"
+
+- **Priority note:** Of every open item in this journal, this is the
+  one with the largest upside per hour invested — partly because
+  the engine half is already done. When picking the next non-quick-
+  win to fund, **start here**.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
