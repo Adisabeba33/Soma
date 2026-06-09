@@ -59,6 +59,8 @@ export const IDENTITIES: StrainIdentity[] = [
       "Foundation of every 'OG' descendant",
       "Pine-and-gas archetype",
     ],
+    curatorNote:
+      "OG Kush is the genetic spine of the West Coast — a contested early-90s cut (Chemdawg into a Hindu Kush is the usual telling) whose name launched a thousand 'OGs.' The nose is the textbook reference: sharp pine and lemon-pledge over a backbone of fuel and damp earth, what most people actually mean when they say 'gas.' Effect-wise it's a deceptive hybrid — a heady, euphoric lift that slides into real body weight, social at first and couch-bound if you keep going. It's a benchmark precisely because it's everywhere in everything: half the modern menu carries its pine-and-fuel signature somewhere in the lineage. Newcomers sometimes find the flavour harsh, but for gas lovers it's the original and still the measuring stick.",
     sourceConfidence: "medium",
   },
   {
@@ -112,6 +114,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: [
       "Many sub-cuts (Chem 91, Chem D, Chem 4) with distinct profiles",
     ],
+    curatorNote:
+      "Chemdawg is the cult bag-seed that quietly rewired modern cannabis — the mythic parent behind both OG Kush and Sour Diesel, with an origin story (a Grateful Dead show, a bag of seeds) more legend than record. Crack it open and it's pure sharp chemical funk: acrid diesel, a metallic tang and sour earth — the 'chem' note an entire family is named after. The high is heavy and cerebral at once: a fast, pressing head-rush that settles into a weighty, slightly dazed body, more potent than its plain looks suggest. It comes in several cuts (Chem 91, Chem D, Chem 4) that aren't interchangeable, so 'Chemdawg' on a label tells you the family, not the exact phenotype. It's a connoisseur's strain — loud, divisive and foundational.",
     sourceConfidence: "medium",
   },
   {
@@ -175,6 +179,8 @@ export const IDENTITIES: StrainIdentity[] = [
     },
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Lemon-zest-forward phenos are the prized cuts"],
+    curatorNote:
+      "Super Lemon Haze is Green House's two-time Cannabis Cup winner — a Lemon Skunk × Super Silver Haze cross that took the haze and made it candy-bright. The nose is unmistakable: vivid lemon zest and sherbet over a green, skunky haze backbone, the kind of citrus that makes you smile before you even light it. The effect is energetic and chatty — a buzzy, creative, uptempo sativa lift that suits daytime, conversation and getting things done. The caveats are the usual haze ones: it can run racy or anxious in big doses, and a weak cut loses the lemon and just tastes generically green. Grown right, though, it's one of the most joyful citrus sativas on the shelf.",
     sourceConfidence: "high",
   },
   {
@@ -204,6 +210,8 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: [
       "80s pheno bedrock — many modern indicas trace back to this line",
     ],
+    curatorNote:
+      "Northern Lights is 1980s bedrock — a nearly pure Afghani indica that Sensi Seeds popularised and that quietly fathered a huge share of modern indicas. The nose is gentle and classic: sweet pine and dusty earth with a soft spicy-resin sweetness, never loud, always comforting. The effect is the definition of a heavy, dreamy body stone — warm, lazy and reliably sleepy, the strain people reach for to switch the day off. Its mildness of flavour is the trade-off: it won't dazzle terp-chasers, and it's been grown so long that cuts vary in punch. But for sheer dependable, sit-down relaxation, it's one of the most trusted names there is.",
     sourceConfidence: "high",
   },
   {
@@ -289,6 +297,8 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pheno-hunted across many cuts",
       "Vanilla-sweet on the inhale",
     ],
+    curatorNote:
+      "Wedding Cake — also sold as Triangle Mints or Pink Cookies — is Seed Junky's Triangle Kush × Animal Mints cross and one of the defining dessert hybrids of the last decade. The nose is rich and inviting: vanilla cake and sweet cream over a tangy, peppery gas that keeps the sweetness grounded. The effect is heavy-leaning and euphoric — a warm, happy lift that melts into deep body relaxation, an evening strain more than a productive one. It's potent and frosty, a pheno-hunter's favourite, though the name is now so common that quality swings hard between a true gassy-vanilla cut and a flat, sugary one. For the cake-and-couch crowd, it's a reference point.",
     sourceConfidence: "high",
   },
   {
@@ -301,6 +311,8 @@ export const IDENTITIES: StrainIdentity[] = [
     },
     sensoryFamily: "dessert-cookies",
     phenotypeNotes: ["Thin Mint and Forum cuts are the canonical phenos"],
+    curatorNote:
+      "Girl Scout Cookies (GSC) is the Bay Area cross — OG Kush × Durban Poison — that kicked off the entire modern dessert era; without it there's no Gelato, no Wedding Cake, no Cookies empire. The nose is sweet and complex: dessert-y vanilla and mint over an earthy OG funk, with the Thin Mint and Forum cuts the canonical phenos. The high is famously strong and well-rounded — a euphoric, giggly head paired with a heavy, enveloping body that newcomers routinely underestimate. That potency is the double edge: a little goes a long way, and overdoing GSC is a quick route to the couch. It earned its status honestly, both as a smoke and as the genetic parent of half the shelf.",
     sourceConfidence: "high",
   },
   {
@@ -344,6 +356,8 @@ export const IDENTITIES: StrainIdentity[] = [
       "Candy-tropical sweetness",
       "White / Pink phenos vary by frost and finish",
     ],
+    curatorNote:
+      "Runtz is the candy-bag flagship of the exotic era — a Zkittlez × Gelato cross from the Runtz/Cookies camp that turned 'looks like candy, tastes like candy' into a whole aesthetic. The nose is pure confection: sugary tropical fruit and creamy sweetness with barely any funk, loud in a fruity rather than gassy way. The effect is balanced and feel-good — a bright euphoric lift over comfortable body ease, social without being sedating. Its fame is also its curse: 'Runtz' is one of the most counterfeited names on the market, and a lot of it is sweetness without the frost or the balance. A real White or Pink cut is glittering, candied and unmistakably exotic.",
     sourceConfidence: "high",
   },
   {
@@ -352,6 +366,8 @@ export const IDENTITIES: StrainIdentity[] = [
     breeder: "Terphogz / 3rd Gen Family",
     lineage: { parents: ["Grape Ape", "Grapefruit"] },
     sensoryFamily: "modern-exotic",
+    curatorNote:
+      "Zkittlez is the strain that taught a generation to chase fruit — a Terphogz creation (Grape Ape × Grapefruit lineage) whose name is the honest review: it really does taste like a handful of Skittles. The nose is bright and mouth-watering: mixed berry, grape and tropical candy with a clean, almost sour-sweet edge and very little gas. Despite the sativa-sounding fruit, the effect leans calm and contented — a relaxed, happy, low-ceiling body ease that's hard to overdo, good for unwinding without a knockout. The trade-off is power: it's more about flavour and mood than raw potency, which purists sometimes hold against it. As a terpene showcase, though, it's one of the cleanest, most addictive flavours in the catalogue.",
     sourceConfidence: "high",
   },
 
@@ -390,6 +406,8 @@ export const IDENTITIES: StrainIdentity[] = [
       "Named after activist Jack Herer",
       "Pine/spice sativa benchmark",
     ],
+    curatorNote:
+      "Named for the activist who wrote 'The Emperor Wears No Clothes,' Jack Herer is Sensi Seeds' tribute strain — a Haze × Northern Lights #5 × Shiva Skunk blend that became the benchmark spicy-pine sativa. The nose is bright and resinous: pine, peppery spice and a lemony incense note that reads clean and almost medicinal. The effect is the reason it's a classic — clear, focused and gently uplifting, a working-day sativa that sharpens rather than scatters. It's well-behaved by haze standards, less likely to tip anxious, which is why it's so often the daytime default people recommend. Many 'Jack' cuts exist and lean differently, but the through-line is always that clear pine-and-spice clarity.",
     sourceConfidence: "high",
   },
   {
@@ -401,6 +419,8 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pure sativa landrace",
       "Anise / black licorice undertone",
     ],
+    curatorNote:
+      "Durban Poison is a pure South African landrace, one of the few classic sativas that never needed crossing to earn its reputation. The nose is distinctive and clean: sweet pine and a sharp anise / black-licorice note that sets it apart from anything in the gas or candy world. The effect is the espresso of cannabis — clear, bright, energetic and focused, with almost no body weight, which is exactly why it's a morning and get-things-done staple. It's also the sativa half of Girl Scout Cookies, so its DNA runs through the modern dessert line despite tasting nothing like it. For people who find most strains too sedating, Durban is the reliable up.",
     sourceConfidence: "high",
   },
 
