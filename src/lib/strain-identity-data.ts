@@ -1808,4 +1808,130 @@ export const IDENTITIES: StrainIdentity[] = [
       "Purple Haze is a classic purple sativa — immortalised by Jimi Hendrix and usually tied to a Purple Thai × Haze line — known for colourful buds and an energetic head. The nose is sweet and earthy: berry and grape over a spicy, herbal haze, sweet with a sativa edge. The effect is uplifting and creative — a bright, euphoric, energetic head with a light body, a daytime and creative sativa. It's moderate and nostalgic, more about a pleasant lift than overwhelming potency. For a colourful, energetic retro sativa, Purple Haze endures.",
     sourceConfidence: "medium",
   },
+
+  // ── Final batch: remaining OG / dessert / classics ──
+  {
+    canonicalName: "Triple Double OG",
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Heavy, fuel-forward OG"],
+    curatorNote:
+      "Triple Double OG is a heavy, fuel-forward OG hybrid — a gassy, OG-leaning strain built for potency over subtlety. The nose is loud and classic: sharp fuel and pine over a damp, earthy base, all gas. The effect is strongly relaxing — a euphoric head sinking into a heavy, sedating body, firmly an evening strain. It's potent and couch-leaning, more about deep relaxation than anything active. For OG and gas lovers who want a heavy nightcap, Triple Double OG fits.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Cake Crasher",
+    lineage: {
+      parents: ["Wedding Cake", "Wedding Crasher"],
+      cross: "Wedding Cake × Wedding Crasher",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Vanilla cake with a grape-gas edge"],
+    curatorNote:
+      "Cake Crasher is a dessert cross in the wedding-cake family — pairing sweet vanilla cake with a gassy, grape-leaning crasher line. The nose is rich and sweet: vanilla cake and grape over a gassy funk, dessert with depth. The effect is relaxing and euphoric — a happy head easing into comfortable body weight, evening-leaning. It's frosty and flavourful, balanced-leaning-indica. For people who want cake sweetness with a gassy edge, Cake Crasher is a satisfying pick.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Sticky Buns",
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Kush Mints", "Gelatti"],
+      cross: "Kush Mints × Gelatti",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Cinnamon-pastry over minty gas"],
+    curatorNote:
+      "Sticky Buns is a Seed Junky cross of Kush Mints and Gelatti — sweet, doughy pastry over a gassy, minty base. The nose is rich and sweet: cinnamon-bun pastry and vanilla over an earthy gas, dessert-forward with funk. The effect is relaxing and euphoric — a happy head sinking into comfortable body calm, evening-leaning. It's very frosty and potent, a flavour-forward dessert exotic. For people who want pastry-and-gas sweetness, Sticky Buns is a rich, indulgent pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Pancakes",
+    breeder: "Cookies",
+    lineage: {
+      parents: ["Kush Mints", "Jenny Kush"],
+      cross: "Kush Mints × Jenny Kush (commonly cited)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Buttery, syrup-and-batter sweetness"],
+    curatorNote:
+      "Pancakes is a dessert hybrid in the cookies family — built around sweet, buttery, syrup-and-batter flavour over a gassy base. The nose is rich and sweet: buttery pancake and vanilla over an earthy gas, dessert-forward. The effect is relaxing and happy — a calming body ease with a euphoric head, evening-leaning. It's frosty and flavourful, comfortable rather than racy. For people who want sweet, buttery dessert flavour, Pancakes is a cosy pick.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Jet Fuel",
+    marketNames: ["Jet Fuel G6", "G6"],
+    breeder: "303 Seeds",
+    lineage: {
+      parents: ["Aspen OG", "High Country Diesel"],
+      cross: "Aspen OG × High Country Diesel",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Loud fuel with a daytime lift"],
+    curatorNote:
+      "Jet Fuel (G6) is a 303 Seeds cross of Aspen OG and High Country Diesel — a sharp, fuel-forward sativa-leaning hybrid that lives up to its name. The nose is loud and gassy: heavy diesel and fuel over an earthy, pine base, all gas with little sweetness. The effect is fast and energetic — an uplifting, heady rush with a light body, more daytime than sedating despite the heavy nose. It's potent and clear, beloved by diesel lovers who want energy rather than couch. For pure fuel with a lift, Jet Fuel delivers.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Space Queen",
+    lineage: {
+      parents: ["Romulan", "Cinderella 99"],
+      cross: "Romulan × Cinderella 99",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Fruity, creative sativa-lean"],
+    curatorNote:
+      "Space Queen is a Romulan × Cinderella 99 cross — a fruity, sativa-leaning hybrid with a sweet-and-funky nose. The nose is bright and fruity: pineapple, apple and a sweet vanilla edge over a light earthy base, juicy and clean. The effect is uplifting and energetic — a euphoric, creative, slightly heady high with a relaxed body, a daytime and creative strain. It's potent and flavour-forward, lively rather than sedating. For people who want a fruity, creative sativa, Space Queen is a bright pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "MAC and Cheese",
+    marketNames: ["Mac and Cheese", "Mac & Cheese"],
+    lineage: {
+      parents: ["MAC", "UK Cheese"],
+      cross: "MAC × Cheese (commonly cited)",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Creamy MAC meets tangy cheese funk"],
+    curatorNote:
+      "MAC and Cheese is an exotic cross pairing MAC (Miracle Alien Cookies) with a cheese line — creamy, frosty exotic meeting tangy funk. The nose is rich and unusual: creamy citrus and floral MAC sweetness over a sharp, cheesy funk, sweet-and-savoury. The effect is balanced and euphoric — an uplifting, sociable head over a relaxed body, versatile and potent. It's very frosty and flavour-forward, a distinctive modern exotic. For people who want MAC's refinement with a savoury cheese edge, MAC and Cheese stands out.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Orange Bud",
+    breeder: "Dutch Passion",
+    lineage: {
+      parents: ["Skunk #1"],
+      cross: "Stabilised Skunk #1 selection",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["1980s Dutch citrus-skunk classic"],
+    curatorNote:
+      "Orange Bud is a Dutch Passion classic — a stabilised Skunk selection from the 1980s — named for its orange pistils and citrus-sweet nose. The nose is bright and sweet: orange and citrus over a skunky, earthy base, clean and classic. The effect is balanced and happy — an uplifting, mood-lifting high with a relaxed body, a versatile all-rounder. It's moderate and dependable, an old-school flavour-forward skunk. For a sweet citrus-skunk classic, Orange Bud has endured for decades.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sour Tangie",
+    breeder: "DNA Genetics",
+    lineage: {
+      parents: ["Sour Diesel", "Tangie"],
+      cross: "Sour Diesel × Tangie",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Orange citrus welded to sharp diesel"],
+    curatorNote:
+      "Sour Tangie is a DNA Genetics cross of Sour Diesel and Tangie — bright orange citrus welded to sharp diesel funk. The nose is the pairing made plain: fresh tangerine and orange over a sour diesel base, zesty with a fuel edge. The effect is uplifting and energetic — a creative, talkative, heady sativa lift with a light body, a daytime strain. It's potent and flavour-forward, cleaner and brighter than straight Sour D. For people who want citrus with a diesel backbone, Sour Tangie is a vivid pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Platinum Kush",
+    marketNames: ["Platinum OG Kush"],
+    lineage: {
+      parents: ["Master Kush", "OG Kush"],
+      cross: "Master Kush × OG Kush (contested)",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Silvery, frosty heavy indica"],
+    curatorNote:
+      "Platinum Kush is a frosty, heavy indica — a Master Kush × OG Kush-style line known for its silvery trichome coat. The nose is earthy and sweet: hashy kush and gas over a faint fruity sweetness, dense rather than bright. The effect is strongly sedating — a thick, relaxing body weight that settles fast and tips toward sleep, a straightforward evening strain. It's potent and couch-leaning, more about switching off than doing anything. For lovers of frosty, hashy, knock-out indicas, Platinum Kush delivers.",
+    sourceConfidence: "low",
+  },
 ];
