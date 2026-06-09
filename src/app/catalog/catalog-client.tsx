@@ -13,12 +13,14 @@ import {
   Search,
   SlidersHorizontal,
   X,
+  Zap,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { CatalogCollectibleCard } from "@/components/catalog-collectible-card";
 import { CompareBasketTray } from "@/components/compare-basket-tray";
-import { SensoryRadar } from "@/components/sensory-radar";
+import { effectIconFor } from "@/components/effect-icon";
+import { paletteForFamily } from "@/lib/sensory-family-palette";
 import {
   BASKET_EVENT,
   addToBasket,
@@ -30,7 +32,6 @@ import { labelFor } from "@/lib/vocab";
 import { AROMAS, EFFECTS, FLAVORS } from "@/lib/vocab";
 import { curatedScore, strainSlug } from "@/lib/catalog";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
-import type { StrainProfile } from "@/lib/types";
 
 // ── Filter vocab (drawn from the canonical sensory vocab so the catalog and
 //    the questionnaire/engine always line up) ──────────────────────────────
@@ -51,14 +52,6 @@ const STRENGTH_LABELS = [
 const AROMA_FILTERS = AROMAS;
 const FLAVOR_FILTERS = FLAVORS;
 const EFFECT_FILTERS = EFFECTS;
-
-const CATEGORY_TONE: Record<string, string> = {
-  "Best Match": "text-accent",
-  "Closest Alternative": "text-brass",
-  "Worth Trying": "text-foreground",
-  Risky: "text-[#b4791f]",
-  Avoid: "text-[#a23b2c]",
-};
 
 type ViewMode = "list" | "grid";
 type SortMode = "curated" | "match" | "name";
@@ -570,43 +563,12 @@ function CompareToggle({
   );
 }
 
-// Radar-as-image tile — the sensory diagram stands in for the product photo,
-// with the score badge tucked into the corner.
-function RadarTile({
-  strain,
-  score,
-  tone,
-  size,
-  labels = false,
-  className,
-}: {
-  strain: StrainProfile;
-  score: number;
-  tone: string;
-  size: number;
-  labels?: boolean;
-  className?: string;
-}) {
-  return (
-    <div
-      className={cn(
-        "relative flex items-center justify-center overflow-hidden rounded-xl border border-border bg-gradient-to-br from-muted/70 via-card to-card",
-        className,
-      )}
-    >
-      <SensoryRadar strain={strain} size={size} labels={labels} />
-      <span
-        className={cn(
-          "absolute left-2 top-2 inline-flex items-center justify-center rounded-lg bg-background/85 px-1.5 py-0.5 font-display text-sm font-semibold leading-none shadow-sm backdrop-blur-sm",
-          tone,
-        )}
-      >
-        {score}
-      </span>
-    </div>
-  );
-}
-
+// Editorial list row — mirrors the collectible-card design language:
+// a mini gradient poster on the left (family palette + match pip), and
+// a structured info column on the right. Layout follows the owner's
+// mockup: badges row, big display name, "aka" line, a lightning-led
+// archetype one-liner, effect glyphs with labels, and (on wider
+// screens) AROMA / FLAVOR chip groups in a bordered right rail.
 function CatalogRow({
   entry,
   match,
@@ -616,11 +578,10 @@ function CatalogRow({
   match?: CatalogMatch;
   score: number;
 }) {
-  const { strain } = entry;
-  const badgeScore = match ? match.score : score;
-  const badgeTone = match
-    ? CATEGORY_TONE[match.category] ?? "text-foreground"
-    : "text-brass";
+  const { strain, identity } = entry;
+  const palette = paletteForFamily(identity?.sensoryFamily ?? null);
+  const badgeValue = match ? match.score : score;
+  const badgeLabel = match ? "MATCH" : "CURATED";
   const aliasPreview = (strain.aliases ?? []).slice(0, 3).join(" · ");
 
   return (
@@ -633,44 +594,105 @@ function CatalogRow({
         href={`/catalog/${strainSlug(strain.name)}`}
         className="flex items-stretch gap-4 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-accent/50 sm:gap-5 sm:p-5"
       >
-        <RadarTile
-          strain={strain}
-          score={badgeScore}
-          tone={badgeTone}
-          size={108}
-          className="hidden h-[120px] w-[120px] shrink-0 sm:flex"
-        />
+        {/* Mini poster tile — same family gradient as the grid card,
+            so List and Grid read as two densities of one collection. */}
+        <div
+          className="relative w-[88px] shrink-0 self-stretch overflow-hidden rounded-xl border border-border/40 sm:w-[112px]"
+          style={{ background: palette.background }}
+        >
+          <span className="absolute left-2 top-2 inline-flex h-9 w-9 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md">
+            <span className="font-display text-xs font-semibold leading-none">
+              {badgeValue}
+            </span>
+            <span className="text-[6px] uppercase tracking-[0.14em] text-muted-foreground">
+              {badgeLabel}
+            </span>
+          </span>
+          {identity?.tagline && (
+            <span
+              className="absolute bottom-2 left-2 right-2 font-display text-[10px] italic leading-tight"
+              style={{ color: palette.accent }}
+            >
+              {identity.tagline}
+            </span>
+          )}
+        </div>
 
+        {/* Main info column */}
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h3 className="font-display text-xl font-semibold tracking-tight">
-              {strain.name}
-            </h3>
+          <div className="flex flex-wrap items-center gap-1.5">
             <Badge variant="outline" className="capitalize">
               {strain.type}
             </Badge>
-            <Badge variant="muted">{strain.potency}</Badge>
+            <Badge variant="muted">{strain.potency.replace("-", " ")}</Badge>
           </div>
+          <h3 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight">
+            {strain.name}
+          </h3>
           {aliasPreview && (
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-0.5 truncate text-xs text-muted-foreground">
               aka {aliasPreview}
               {(strain.aliases?.length ?? 0) > 3 ? " …" : ""}
             </p>
           )}
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-2 inline-flex items-start gap-1.5 text-sm font-medium italic text-brass">
+            <Zap className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
             {entry.archetype}
           </p>
 
-          <div className="mt-3 space-y-2">
-            <TagRow label="Effect" values={strain.effects.slice(0, 5)} kind="effect" />
-            <TagRow label="Aroma" values={strain.aromas.slice(0, 5)} kind="aroma" />
-            <TagRow label="Flavor" values={strain.flavors.slice(0, 5)} kind="flavor" />
+          {/* Effect glyphs with labels */}
+          <div className="mt-3">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              Effect
+            </p>
+            <ul className="mt-1.5 flex flex-wrap gap-x-4 gap-y-2">
+              {strain.effects.slice(0, 4).map((e) => {
+                const Icon = effectIconFor(e);
+                return (
+                  <li
+                    key={`effect-${e}`}
+                    className="flex flex-col items-center gap-1 text-[10px] text-muted-foreground"
+                  >
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-muted/40">
+                      <Icon className="h-4 w-4" aria-hidden />
+                    </span>
+                    {labelFor(e)}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          {/* Aroma / Flavor chips inline on mobile (right rail hides) */}
+          <div className="mt-3 space-y-2 md:hidden">
+            <TagRow label="Aroma" values={strain.aromas.slice(0, 4)} kind="aroma" />
+            <TagRow label="Flavor" values={strain.flavors.slice(0, 3)} kind="flavor" />
           </div>
         </div>
 
-        <div className="hidden w-36 shrink-0 flex-col items-center justify-between lg:flex">
-          <SensoryRadar strain={strain} size={132} labels className="h-32 w-32" />
-          <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-accent">
+        {/* Right rail: Aroma / Flavor groups (desktop) */}
+        <div className="hidden w-44 shrink-0 flex-col gap-4 border-l border-border pl-4 pt-8 md:flex">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              Aroma
+            </p>
+            <div className="mt-1.5 flex flex-wrap gap-1">
+              {strain.aromas.slice(0, 4).map((a) => (
+                <TagChip key={`a-${a}`} kind="aroma" value={a} />
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              Flavor
+            </p>
+            <div className="mt-1.5 flex flex-wrap gap-1">
+              {strain.flavors.slice(0, 3).map((f) => (
+                <TagChip key={`f-${f}`} kind="flavor" value={f} />
+              ))}
+            </div>
+          </div>
+          <span className="mt-auto inline-flex items-center gap-1 text-xs font-medium text-accent">
             View details
             <ChevronRight className="h-3.5 w-3.5" />
           </span>
