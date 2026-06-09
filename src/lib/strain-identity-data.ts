@@ -67,6 +67,8 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "Tahoe OG",
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Heavy pine-gas OG cut, body-forward"],
+    curatorNote:
+      "Tahoe OG is one of the heavyweight OG cuts — a Northern California phenotype prized for leaning harder into body than head than its SoCal cousins. The nose is classic gas-OG with extra weight: sharp fuel and pine over a thick, earthy musk, dense and a little medicinal. Where some OGs keep you social, Tahoe is a fast sledgehammer — a heavy, warming body wave that arrives quickly and points straight at the couch and the pillow. People keep it for nights, pain and insomnia rather than productivity, and it has a reputation for ending evenings earlier than planned. For the gas crowd who want the indica end of OG, it's a go-to.",
     sourceConfidence: "medium",
   },
   {
@@ -82,6 +84,8 @@ export const IDENTITIES: StrainIdentity[] = [
       },
     },
     sensoryFamily: "gas-og",
+    curatorNote:
+      "Skywalker OG is the indica-heavy OG built for sedation — a Skywalker × OG Kush cross that keeps the fuel and adds weight. The nose blends OG's pine and gas with a sweeter, herbal-spice undertone, a touch fruitier than a straight OG cut. The effect is the draw: a quick, dreamy heaviness that wraps the body and quiets the head, firmly an evening and end-of-day strain. It can be genuinely sleepy at higher doses, so it's not one for staying productive, and lighter smokers should respect the potency. For OG lovers chasing the deepest body end of the family, Skywalker delivers.",
     sourceConfidence: "medium",
   },
 
@@ -135,6 +139,8 @@ export const IDENTITIES: StrainIdentity[] = [
       },
     },
     sensoryFamily: "diesel-chem",
+    curatorNote:
+      "Stardawg is a modern Chem standout — a Chemdawg 4 × Tres Dawg cross whose frosty, 'stardust' trichome coat gave it the name. The nose is sharp and classic chem: diesel and sour earth with a piney, chemical bite, loud and unmistakably of the Chemdawg line. The effect leans bright and cerebral for a chem strain — an uplifting, talkative head-buzz with moderate body, more daytime-friendly than its heavier relatives. The flavour stays firmly in fuel-and-funk territory, so it's a strain for gas lovers rather than the candy crowd. As a cleaner, frostier take on the Chem family, it's well-regarded.",
     sourceConfidence: "medium",
   },
 
@@ -197,6 +203,8 @@ export const IDENTITIES: StrainIdentity[] = [
       cross: "California Orange × Skunk",
     },
     sensoryFamily: "citrus-haze",
+    curatorNote:
+      "Tangie is DNA Genetics' citrus showpiece — a California Orange × Skunk cross that became the reference for tangerine-bright cannabis. The nose is exactly what the name promises: fresh tangerine and orange peel, zesty and sweet, with just a whisper of skunk underneath. The effect is uplifting and creative — a bright, buzzy, sociable head-high that suits daytime and conversation, sativa-leaning without being frantic. It's a flavour-first strain; the citrus is the whole point, and a dull cut that loses the orange loses most of its appeal. For people chasing pure, juicy citrus, Tangie is the benchmark.",
     sourceConfidence: "high",
   },
 
@@ -219,12 +227,16 @@ export const IDENTITIES: StrainIdentity[] = [
     marketNames: ["Bubba"],
     sensoryFamily: "kush-classic",
     phenotypeNotes: ["Coffee / earthy heavy-indica reference"],
+    curatorNote:
+      "Bubba Kush is a classic American indica of murky early-2000s origin, beloved for a flavour profile you rarely find elsewhere. The nose is its signature: rich coffee and dark chocolate over sweet hashy earth, almost dessert-like in a savoury way. The effect is heavy and tranquil — a thick, relaxing body weight that quiets everything down and tips toward sleep, a textbook nightcap. It's not a productive or cerebral strain, and that's the point: people reach for Bubba to stop, not to start. For coffee-and-cocoa indica lovers, it remains a comforting reference.",
     sourceConfidence: "medium",
   },
   {
     canonicalName: "Hindu Kush",
     sensoryFamily: "kush-classic",
     phenotypeNotes: ["Pure indica landrace from the Hindu Kush range"],
+    curatorNote:
+      "Hindu Kush is a pure indica landrace from the mountains its name comes from — old-world genetics that helped seed the entire Kush family. The nose is earthy and sweet: sandalwood and incense over a dusty, hashy musk, the smell of classic hashish for a reason. The effect is calm and weighty — a relaxed, grounding body stone without much racing thought, even and dependable rather than dramatic. As a landrace it's hardy and consistent, and its resin made it a traditional hash plant for centuries. For purists who want indica at its origin, it's the source material.",
     sourceConfidence: "high",
   },
   {
@@ -232,6 +244,8 @@ export const IDENTITIES: StrainIdentity[] = [
     marketNames: ["Afghan", "Afghan Kush"],
     sensoryFamily: "kush-classic",
     phenotypeNotes: ["Foundational indica landrace"],
+    curatorNote:
+      "Afghani is one of the foundational indica landraces — the broad-leaf, resin-heavy plant that sits in the family tree of countless modern strains. The nose is deep and sweet: earthy musk, incense and a hashy sweetness, classic and unmistakably old-school. The effect is profoundly relaxing — a heavy, warm body calm that settles in and stays, the template for what 'indica' came to mean. It's prized as much for its genetics and resin as for the smoke itself, a building block more than a showpiece. For deep, traditional body relaxation, it's the ancestor everything else borrows from.",
     sourceConfidence: "high",
   },
 
@@ -263,6 +277,8 @@ export const IDENTITIES: StrainIdentity[] = [
       cross: "Larry OG × Granddaddy Purple",
     },
     sensoryFamily: "purple-berry",
+    curatorNote:
+      "Purple Punch is a dessert indica — a Larry OG × Granddaddy Purple cross that stacks grape candy on top of its purple heritage. The nose is sweet and fruity: grape soda and blueberry candy with a vanilla-tart edge, more candy shop than cannabis funk. The effect is a one-two punch of euphoria then heavy relaxation — a warm, happy lift that quickly turns drowsy, which is why it's an after-dinner and bedtime favourite. It's easy to like and easy to overdo; the sweetness hides the sedation until it lands. For the grape-and-couch crowd who want it sweeter than GDP, Purple Punch fits.",
     sourceConfidence: "medium",
   },
 
@@ -280,6 +296,8 @@ export const IDENTITIES: StrainIdentity[] = [
       "The original 'skunk' aroma reference",
       "Genetic backbone of countless modern hybrids",
     ],
+    curatorNote:
+      "Skunk #1 is the strain that stabilised modern cannabis — Sam the Skunkman's Afghani × Acapulco Gold × Colombian Gold blend, one of the first truly consistent hybrids and the backbone of countless others. The nose is the original 'skunk': pungent, sweet-sour funk with an earthy, almost rubbery edge that the word itself now describes. The effect is balanced and approachable — a happy, relaxed, gently euphoric hybrid high without extremes, the reason it became a global standard. By today's potency standards it's moderate, and that even-handedness is exactly its character. As living history and a reliable everyday smoke, Skunk #1 still earns its place.",
     sourceConfidence: "high",
   },
 
@@ -339,6 +357,8 @@ export const IDENTITIES: StrainIdentity[] = [
       cross: "Gelato 25 × South Florida OG",
     },
     sensoryFamily: "dessert-cookies",
+    curatorNote:
+      "Biscotti is a darker, gassier corner of the Cookies family — a Gelato 25 × South Florida OG cross that trades candy sweetness for dessert-meets-fuel. The nose is rich and a little savoury: sweet cookie and coffee over a pronounced gassy, peppery funk, more grown-up than the fruity exotics. The effect is relaxed and euphoric with real body weight — a calm, heavy ease that suits late afternoon into evening rather than getting things done. It's potent and frosty, a favourite for people who find pure-candy strains too one-note. For the cookies-and-gas end of the dessert spectrum, Biscotti is a standout.",
     sourceConfidence: "medium",
   },
 
