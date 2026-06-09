@@ -3,35 +3,24 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { labelFor } from "@/lib/vocab";
 import { strainSlug } from "@/lib/catalog";
 import { paletteForFamily } from "@/lib/sensory-family-palette";
-import { effectIconFor } from "./effect-icon";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 
-// Collection-style strain card. Atmospheric background derived from the
-// strain's curator-defined sensoryFamily (no per-strain artwork yet —
-// PR queue: AI image generation, top anchors first). Foreground reads
-// like a wine-cellar label rather than a search result:
+// Poster-style collectible card. The atmospheric gradient *is* the
+// composition — foreground stays minimal so the family colour gets to
+// carry the eye. Visible per card:
 //
-//   ┌────────────────────┐
-//   │ 94 MATCH      🔖  │  ← match% pip + bookmark
-//   │                    │
-//   │  King Louis XIII   │  ← strain name
-//   │  Indica · Strong   │  ← type · potency
-//   │  Pine OG benchmark │  ← curator one-liner (archetype / curatorNote.lead)
-//   │  ⏤                 │
-//   │  [Pine][Earth][Gas]│  ← top 3 aromas
-//   │                    │
-//   │  ☁ Relaxed         │  ← top 3 effects with icons
-//   │  ☾ Sleepy          │
-//   │  ⚓ Heavy body      │
-//   │                    │
-//   │  "Even an average  │  ← curator quote (truncated)
-//   │   cut still…"     →│
-//   └────────────────────┘
+//   - match% pip top-left
+//   - strain name (large display)
+//   - type · potency (fine print)
+//   - tagline (2–4 words, italic accent — the headline)
+//   - chevron hinting at the detail page
 //
-// Click anywhere on the card → /catalog/[slug] for the full detail page.
+// Aroma chips, effect glyphs and full curator quotes used to live here
+// in the first pass — they crowded the gradient and made every card
+// feel like a search result. The poster minimalism keeps the family
+// gradient visible so a row of cards reads as a collection at a glance.
 export function CatalogCollectibleCard({
   entry,
   match,
@@ -41,39 +30,32 @@ export function CatalogCollectibleCard({
   match?: CatalogMatch;
   score: number;
 }) {
-  const { strain, identity, archetype } = entry;
+  const { strain, identity } = entry;
   const palette = paletteForFamily(identity?.sensoryFamily ?? null);
   const showMatch = Boolean(match);
   const badgeValue = match ? match.score : score;
-  const badgeLabel = match ? "MATCH" : "CURATED";
-
-  const aromas = strain.aromas.slice(0, 3);
-  const effects = strain.effects.slice(0, 3);
-  // One-liner under the type — curatorNote's first sentence if rich, else
-  // the inferred archetype, else the raw catalog note.
-  const oneLiner = identity?.curatorNote
-    ? firstSentence(identity.curatorNote)
-    : archetype || strain.note || "";
+  const badgeLabel = showMatch ? "MATCH" : "CURATED";
 
   return (
     <li className="relative">
       <Link
         href={`/catalog/${strainSlug(strain.name)}`}
         className={cn(
-          "flex h-full flex-col overflow-hidden rounded-2xl border border-border/40 p-4 transition-all",
+          "flex aspect-[3/4] h-full flex-col justify-between overflow-hidden rounded-2xl border border-border/40 p-5 transition-all",
           "hover:scale-[1.01] hover:border-accent/40 hover:shadow-lg",
           palette.contentTone === "light" ? "text-white" : "text-foreground",
         )}
         style={{ background: palette.background }}
       >
-        {/* Top row: match badge */}
-        <div className="flex items-start justify-between">
+        {/* Top: match badge — leaves the rest of the upper card for
+            the gradient to breathe */}
+        <div>
           <div
-            className="flex h-12 w-12 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md"
+            className="inline-flex h-12 w-12 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md"
             title={
               showMatch
-                ? `Your taste-match score for this strain`
-                : `Curator's quality score — match % appears once you build a profile`
+                ? "Your taste-match score for this strain"
+                : "Curator's quality score — match % appears once you build a profile"
             }
           >
             <span className="font-display text-base font-semibold leading-none">
@@ -85,89 +67,34 @@ export function CatalogCollectibleCard({
           </div>
         </div>
 
-        {/* Strain identity */}
-        <div className="mt-3">
-          <h3 className="font-display text-lg font-semibold leading-tight tracking-tight">
+        {/* Bottom: strain identity + tagline + chevron. Sits at the
+            bottom so the gradient has space at the top — the card reads
+            as background-first, label-second, like a vintage poster. */}
+        <div>
+          <h3 className="font-display text-2xl font-semibold leading-tight tracking-tight">
             {strain.name}
           </h3>
-          <p className="mt-0.5 text-xs capitalize text-white/70">
+          <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-white/55">
             {strain.type} · {strain.potency.replace("-", " ")}
           </p>
-          {oneLiner && (
-            <p
-              className="mt-2 text-xs leading-snug text-white/80"
-              style={{ color: palette.accent }}
-            >
-              {oneLiner}
-            </p>
-          )}
-        </div>
-
-        {/* Aroma chips */}
-        {aromas.length > 0 && (
-          <ul className="mt-3 flex flex-wrap gap-1.5">
-            {aromas.map((a) => (
-              <li
-                key={`aroma-${a}`}
-                className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] font-medium capitalize tracking-wide text-white/85 ring-1 ring-white/10"
+          <div className="mt-3 flex items-end justify-between gap-3">
+            {identity?.tagline ? (
+              <p
+                className="flex-1 font-display text-sm italic leading-snug"
+                style={{ color: palette.accent }}
               >
-                {labelFor(a)}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {/* Effect icons */}
-        {effects.length > 0 && (
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {effects.map((e) => {
-              const Icon = effectIconFor(e);
-              return (
-                <li
-                  key={`effect-${e}`}
-                  className="flex items-center gap-1 text-[10px] text-white/75"
-                >
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15">
-                    <Icon className="h-3 w-3" aria-hidden />
-                  </span>
-                  <span className="capitalize">{labelFor(e)}</span>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-
-        {/* Bottom: curator quote + arrow */}
-        {(identity?.curatorQuote || identity?.curatorNote) && (
-          <div className="mt-auto flex items-end justify-between gap-3 pt-4">
-            <p className="line-clamp-2 flex-1 text-[11px] italic leading-snug text-white/70">
-              {identity.curatorQuote ?? firstSentence(identity.curatorNote!)}
-            </p>
+                {identity.tagline}
+              </p>
+            ) : (
+              <span className="flex-1" />
+            )}
             <ChevronRight
-              className="h-4 w-4 shrink-0 text-white/60"
+              className="h-4 w-4 shrink-0 text-white/55"
               aria-hidden
             />
           </div>
-        )}
-        {!identity?.curatorQuote && !identity?.curatorNote && (
-          <div className="mt-auto flex justify-end pt-4">
-            <ChevronRight
-              className="h-4 w-4 shrink-0 text-white/60"
-              aria-hidden
-            />
-          </div>
-        )}
+        </div>
       </Link>
     </li>
   );
-}
-
-// First-sentence helper duplicated locally so the card stays standalone —
-// the strain detail page has its own splitLead() and we don't import
-// across the page/component boundary.
-function firstSentence(text: string): string {
-  const trimmed = text.trim();
-  if (!trimmed) return "";
-  const match = trimmed.match(/^.+?[.!?](?=\s|$)/);
-  return match ? match[0] : trimmed;
 }

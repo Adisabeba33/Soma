@@ -47,6 +47,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Born from a happy accident — a Chem Sister that threw pollen across a room of Sour Dubb and Chocolate Diesel — GG4 became the strain that 'glued the scissors shut,' and the name stuck. Crack the jar and it's pure solvent: sharp diesel and coffee-tinged chocolate over damp earth, with almost no sweetness to soften the edge. The smoke is heavy and mouth-coating, and the high lands fast — a sinking, behind-the-eyes weight that pulls you into the couch within minutes. It's a closer, not a starter; most who reach for it want the body off-switch at the end of the day, and newer smokers routinely underestimate how flattening it can be. What keeps it a benchmark a decade on is consistency — even an average cut still speaks that unmistakable gas-and-glue language.",
     curatorQuote:
       "Even an average cut still speaks that unmistakable gas-and-glue language.",
+    tagline: "Couch-bound legend",
     sourceConfidence: "high",
   },
   {
@@ -65,6 +66,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "OG Kush is the genetic spine of the West Coast — a contested early-90s cut (Chemdawg into a Hindu Kush is the usual telling) whose name launched a thousand 'OGs.' The nose is the textbook reference: sharp pine and lemon-pledge over a backbone of fuel and damp earth, what most people actually mean when they say 'gas.' Effect-wise it's a deceptive hybrid — a heady, euphoric lift that slides into real body weight, social at first and couch-bound if you keep going. It's a benchmark precisely because it's everywhere in everything: half the modern menu carries its pine-and-fuel signature somewhere in the lineage. Newcomers sometimes find the flavour harsh, but for gas lovers it's the original and still the measuring stick.",
     curatorQuote:
       "Half the modern menu carries its pine-and-fuel signature somewhere in the lineage.",
+    tagline: "The gas reference",
     sourceConfidence: "medium",
   },
   {
@@ -75,6 +77,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Tahoe OG is one of the heavyweight OG cuts — a Northern California phenotype prized for leaning harder into body than head than its SoCal cousins. The nose is classic gas-OG with extra weight: sharp fuel and pine over a thick, earthy musk, dense and a little medicinal. Where some OGs keep you social, Tahoe is a fast sledgehammer — a heavy, warming body wave that arrives quickly and points straight at the couch and the pillow. People keep it for nights, pain and insomnia rather than productivity, and it has a reputation for ending evenings earlier than planned. For the gas crowd who want the indica end of OG, it's a go-to.",
     curatorQuote:
       "Sharp fuel and pine over a thick, earthy musk, dense and a little medicinal.",
+    tagline: "Northern sledgehammer",
     sourceConfidence: "medium",
   },
   {
@@ -94,6 +97,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Skywalker OG is the indica-heavy OG built for sedation — a Skywalker × OG Kush cross that keeps the fuel and adds weight. The nose blends OG's pine and gas with a sweeter, herbal-spice undertone, a touch fruitier than a straight OG cut. The effect is the draw: a quick, dreamy heaviness that wraps the body and quiets the head, firmly an evening and end-of-day strain. It can be genuinely sleepy at higher doses, so it's not one for staying productive, and lighter smokers should respect the potency. For OG lovers chasing the deepest body end of the family, Skywalker delivers.",
     curatorQuote:
       "The nose blends OG's pine and gas with a sweeter, herbal-spice undertone, a touch fruitier than a straight OG cut.",
+    tagline: "Sedation hyperspace",
     sourceConfidence: "medium",
   },
 
@@ -118,6 +122,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sour Diesel is the East Coast's calling card — a 90s NYC cut of contested parentage (Chemdawg 91 into Super Skunk is the story most growers tell) that defined what 'gassy sativa' even means. The nose is loud and unmistakable: cutting diesel and sour citrus rind with a skunky tail that fills a room the moment the bag opens. Where most heavy strains pull you down, Sour D lifts — a bright, talkative, faintly racy head-high that made it a daytime and creative-work favorite for two decades. The trade-off is real: it can tip toward jittery if you're anxiety-prone or take too much, and the flavor stays acrid rather than pleasant — more fuel than fruit. People don't reach for Sour Diesel to relax; they reach for it to get moving.",
     curatorQuote:
       "People don't reach for Sour Diesel to relax — they reach for it to get moving.",
+    tagline: "Acid bright sativa",
     sourceConfidence: "high",
   },
   {
@@ -132,6 +137,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Chemdawg is the cult bag-seed that quietly rewired modern cannabis — the mythic parent behind both OG Kush and Sour Diesel, with an origin story (a Grateful Dead show, a bag of seeds) more legend than record. Crack it open and it's pure sharp chemical funk: acrid diesel, a metallic tang and sour earth — the 'chem' note an entire family is named after. The high is heavy and cerebral at once: a fast, pressing head-rush that settles into a weighty, slightly dazed body, more potent than its plain looks suggest. It comes in several cuts (Chem 91, Chem D, Chem 4) that aren't interchangeable, so 'Chemdawg' on a label tells you the family, not the exact phenotype. It's a connoisseur's strain — loud, divisive and foundational.",
     curatorQuote:
       "Crack it open and it's pure sharp chemical funk.",
+    tagline: "The chem origin",
     sourceConfidence: "medium",
   },
   {
@@ -155,6 +161,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Stardawg is a modern Chem standout — a Chemdawg 4 × Tres Dawg cross whose frosty, 'stardust' trichome coat gave it the name. The nose is sharp and classic chem: diesel and sour earth with a piney, chemical bite, loud and unmistakably of the Chemdawg line. The effect leans bright and cerebral for a chem strain — an uplifting, talkative head-buzz with moderate body, more daytime-friendly than its heavier relatives. The flavour stays firmly in fuel-and-funk territory, so it's a strain for gas lovers rather than the candy crowd. As a cleaner, frostier take on the Chem family, it's well-regarded.",
     curatorQuote:
       "Diesel and sour earth with a piney, chemical bite, loud and unmistakably of the Chemdawg line.",
+    tagline: "Bright chem signal",
     sourceConfidence: "medium",
   },
 
@@ -176,6 +183,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "GMO is what happens when Chemdawg's gas meets the richness of Girl Scout Cookies and something genuinely savory falls out — the garlic-and-onion note that earned the 'Garlic Cookies' nickname is real, not marketing. On the nose it reads almost umami: roasted garlic, cracked black pepper and chem funk over a faint cookie-dough sweetness, loud enough to embarrass most jars sitting next to it. The effect is the opposite of that sharp smell — deeply physical, slow and sedating, the kind of heavy that quietly erases an evening's plans. It's a connoisseur's indica: the people who love it love the funk specifically, while newcomers often find the savory profile divisive on a first try. Treat it as a nighttime strain and it rarely disappoints.",
     curatorQuote:
       "Loud enough to embarrass most jars sitting next to it.",
+    tagline: "Garlic chem heavy",
     sourceConfidence: "high",
   },
   {
@@ -191,6 +199,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Donny Burger is a Skunk Master Flex strain — a GMO × Han-Solo Burger cross — that leans hard into savoury, cheesy gas. The nose is pungent and funky: garlic, cheese and sour fuel over an earthy base, loud in the GMO tradition rather than sweet. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, firmly evening territory. It's potent and not subtle, a connoisseur's funk strain more than a crowd-pleaser. For lovers of garlic-and-cheese gas, Donny Burger delivers the savoury end.",
     curatorQuote:
       "Garlic, cheese and sour fuel over an earthy base, loud in the GMO tradition rather than sweet.",
+    tagline: "Savoury gas weight",
     sourceConfidence: "medium",
   },
   {
@@ -206,6 +215,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Permanent Marker is a Seed Junky cross of Biscotti, Jealousy and Sherbert — a 'strain of the year' contender named for its loud, Sharpie-like funk. The nose is exactly that: a sharp, chemical marker-and-soap funk over a sweet, gassy base, unmistakable and a little divisive. The effect is balanced and euphoric — a happy, uplifting head over a relaxed body, versatile but potent. It's very frosty and loud, a flavour-forward modern exotic. For people who want that distinctive Sharpie-soap funk done well, Permanent Marker is the reference.",
     curatorQuote:
       "A sharp, chemical marker-and-soap funk over a sweet, gassy base — unmistakable, and a little divisive.",
+    tagline: "Sharpie gas funk",
     sourceConfidence: "medium",
   },
 
@@ -266,6 +276,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Northern Lights is 1980s bedrock — a nearly pure Afghani indica that Sensi Seeds popularised and that quietly fathered a huge share of modern indicas. The nose is gentle and classic: sweet pine and dusty earth with a soft spicy-resin sweetness, never loud, always comforting. The effect is the definition of a heavy, dreamy body stone — warm, lazy and reliably sleepy, the strain people reach for to switch the day off. Its mildness of flavour is the trade-off: it won't dazzle terp-chasers, and it's been grown so long that cuts vary in punch. But for sheer dependable, sit-down relaxation, it's one of the most trusted names there is.",
     curatorQuote:
       "The strain people reach for to switch the day off.",
+    tagline: "Old guard sedation",
     sourceConfidence: "high",
   },
   {
@@ -277,6 +288,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Bubba Kush is a classic American indica of murky early-2000s origin, beloved for a flavour profile you rarely find elsewhere. The nose is its signature: rich coffee and dark chocolate over sweet hashy earth, almost dessert-like in a savoury way. The effect is heavy and tranquil — a thick, relaxing body weight that quiets everything down and tips toward sleep, a textbook nightcap. It's not a productive or cerebral strain, and that's the point: people reach for Bubba to stop, not to start. For coffee-and-cocoa indica lovers, it remains a comforting reference.",
     curatorQuote:
       "People reach for Bubba to stop, not to start.",
+    tagline: "Coffee couch",
     sourceConfidence: "medium",
   },
   {
@@ -322,6 +334,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Ken Estes introduced Granddaddy Purple in 2003 — a Purple Urkle × Big Bud cross — and it's stayed the reference point for what a purple indica should be. It looks the part, dense violet buds under a frost of trichomes, and it smells it too: grape candy and sweet berry over a dusty floral earthiness that reads almost like wine. The effect is unapologetically heavy — a warm, dreamy body weight that drifts toward sleep, which is why it lives on evening, pain and stubborn-insomnia shelves rather than anywhere productive. The caveat is presence over cleverness: this is a sit-down, wind-down strain, and pushing it in the afternoon usually ends in a nap. For the grape-and-couch archetype, it's still the one the others get measured against.",
     curatorQuote:
       "For the grape-and-couch archetype, it's still the one the others get measured against.",
+    tagline: "Grape royalty",
     sourceConfidence: "high",
   },
   {
@@ -377,6 +390,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Wedding Cake — also sold as Triangle Mints or Pink Cookies — is Seed Junky's Triangle Kush × Animal Mints cross and one of the defining dessert hybrids of the last decade. The nose is rich and inviting: vanilla cake and sweet cream over a tangy, peppery gas that keeps the sweetness grounded. The effect is heavy-leaning and euphoric — a warm, happy lift that melts into deep body relaxation, an evening strain more than a productive one. It's potent and frosty, a pheno-hunter's favourite, though the name is now so common that quality swings hard between a true gassy-vanilla cut and a flat, sugary one. For the cake-and-couch crowd, it's a reference point.",
     curatorQuote:
       "Vanilla cake and sweet cream over a tangy, peppery gas — the sweetness, grounded.",
+    tagline: "Cake before sleep",
     sourceConfidence: "high",
   },
   {
@@ -412,6 +426,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gelato came out of the Cookies/Sherbinski camp in the Bay Area, a Sunset Sherbet × Thin Mint GSC cross whose prized #33 pheno earned the 'Larry Bird' nickname. It's the dessert end of the spectrum done right: sweet cream and sherbet up front, a twist of citrus and berry, and a low note of gas underneath that keeps it from turning cloying. The high is balanced and euphoric — a bright, social lift that settles into easy body comfort without knocking you flat, which is exactly why it became the parent of half the modern menu. Be aware the name is everywhere now: numbered cuts vary widely, and plenty of 'Gelato' on shelves is sweetness without the backbone. A true cut is frosty, gassy-sweet, and unmistakably balanced.",
     curatorQuote:
       "A true cut is frosty, gassy-sweet, and unmistakably balanced.",
+    tagline: "The balanced exotic",
     sourceConfidence: "high",
   },
   {
@@ -446,6 +461,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Runtz is the candy-bag flagship of the exotic era — a Zkittlez × Gelato cross from the Runtz/Cookies camp that turned 'looks like candy, tastes like candy' into a whole aesthetic. The nose is pure confection: sugary tropical fruit and creamy sweetness with barely any funk, loud in a fruity rather than gassy way. The effect is balanced and feel-good — a bright euphoric lift over comfortable body ease, social without being sedating. Its fame is also its curse: 'Runtz' is one of the most counterfeited names on the market, and a lot of it is sweetness without the frost or the balance. A real White or Pink cut is glittering, candied and unmistakably exotic.",
     curatorQuote:
       "'Looks like candy, tastes like candy' became a whole aesthetic.",
+    tagline: "Pure candy bag",
     sourceConfidence: "high",
   },
   {
@@ -481,6 +497,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Blue Dream is the gateway hybrid — a Santa Cruz cross of Blueberry and Haze that became California's best-seller precisely because it asks nothing of you. The aroma is gentle and approachable: ripe blueberry and sweet berry over a soft herbal haze, friendly rather than loud. The effect tells the same easy story — a clear, gently uplifting head-high with just enough body to stay comfortable, rarely overwhelming even at a generous dose. That mildness is also the knock against it among chasers: seasoned smokers sometimes call it boring, and it's grown so widely that quality swings hard between a vivid, berry-bright cut and a flat, generic one. As a daytime all-rounder almost anyone can handle, though, it's still hard to beat.",
     curatorQuote:
       "California's best-seller, precisely because it asks nothing of you.",
+    tagline: "Gentle berry float",
     sourceConfidence: "high",
   },
 
@@ -551,6 +568,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Animal Mints is a Seed Junky creation — an Animal Cookies × Blue Power cross — and a parent of Wedding Cake, so it sits close to the heart of the modern dessert line. The nose is cool and rich: minty, cookie-dough sweetness over a gassy, earthy funk, the kind of profile that reads dessert and fuel at once. The effect is heavy and euphoric — a warm, happy head that sinks into full body relaxation, firmly evening territory rather than productive. It's potent and frosty, and like most cookie crosses the sweetness masks how flattening a big dose can be. For people who love the mint-and-gas corner of the dessert world, it's a benchmark.",
     curatorQuote:
       "Minty, cookie-dough sweetness over a gassy, earthy funk, the kind of profile that reads dessert and fuel at once.",
+    tagline: "Cool minted body",
     sourceConfidence: "medium",
   },
   {
@@ -680,6 +698,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gary Payton — named for the Hall-of-Fame point guard — is a Cookies/Powerzzzup collab crossing The Y (a GSC line) with Snowman, and one of the loudest hype strains of recent years. The nose is sharp and savoury-sweet: diesel and herbal funk over a cool mint-cookie edge, more gas than candy. The effect is balanced and clear-headed — an energetic, focused euphoria over a calm body that keeps it usable through the day, unusual for something this potent. It runs strong, though, so the 'functional' label only holds at a sensible dose. As a frosty, gassy, high-test hybrid, it earned its reputation beyond the marketing.",
     curatorQuote:
       "Diesel and herbal funk over a cool mint-cookie edge, more gas than candy.",
+    tagline: "Gassy social bright",
     sourceConfidence: "medium",
   },
   {
@@ -758,6 +777,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Apple Fritter is a Lumpy's Flowers strain — a Sour Apple × Animal Cookies cross — that became a favourite for its pastry-meets-gas profile. The nose is sweet and savoury: green apple and sugary pastry over a cheesy, gassy funk, instantly recognisable. The effect is potent and balanced-leaning-heavy — a euphoric, relaxing high that eases the body without total couch-lock at moderate doses. It's strong and frosty, the kind of hybrid that sneaks up if you push it. For the sweet-and-gas dessert lane, Apple Fritter is a deservedly popular pick.",
     curatorQuote:
       "Green apple and sugary pastry over a cheesy, gassy funk, instantly recognisable.",
+    tagline: "Warm pastry sedation",
     sourceConfidence: "medium",
   },
   {
@@ -774,6 +794,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Ice Cream Cake is a Seed Junky cross of Wedding Cake and Gelato 33 — pure creamy dessert with a frosty, white finish. The nose is sweet and rich: vanilla, cheesecake and sweet cream over a light gas, very much a dessert profile. The effect is heavily relaxing — a warm, sedating body weight with a calm, happy head, a textbook evening and bedtime strain. It's potent and frosty, more couch than productivity, so it earns its nighttime reputation. For lovers of creamy, sweet, sit-down indicas, Ice Cream Cake is a go-to.",
     curatorQuote:
       "Vanilla, cheesecake and sweet cream over a light gas, very much a dessert profile.",
+    tagline: "Sweet cream KO",
     sourceConfidence: "medium",
   },
   {
@@ -805,6 +826,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Lemon Cherry Gelato (LCG) is one of the most hyped — and most faked — names in the modern exotic scene, its parentage never cleanly documented but generally placed in the Sunset Sherbet / GSC orbit with a cherry-citrus lean. A genuine cut smells of sweet cherry and lemon zest over a creamy gelato base, with a faint gas underneath. The high is even and good-natured: an uplifting, social head that drifts into relaxed body comfort without flattening you. Because the name sells, quality swings wildly between cuts — colour, frost and a true cherry-lemon nose are the signs of the real thing. Buy it on the flower in front of you, not the label.",
     curatorQuote:
       "Sweet cherry and lemon zest over a creamy gelato base, with a faint gas underneath.",
+    tagline: "Tart cherry burst",
     sourceConfidence: "low",
   },
   {
@@ -821,6 +843,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Mochi (Mochi Gelato / Gelato 47) is a Sherbinski cut from the Sunset Sherbet × Thin Mint GSC line — the same parentage as Gelato, selected for a sweeter, creamier expression. The nose is dessert-forward: sweet cream, mint and berry over a light gas, smooth and inviting. The effect is balanced and relaxing — a euphoric lift that eases into comfortable body calm, good for late afternoon into evening. It's frosty and flavourful, leaning a touch indica, with the easy likability of the whole Gelato family. For the creamy-mint end of the Gelato world, Mochi is a refined pick.",
     curatorQuote:
       "Sweet cream, mint and berry over a light gas, smooth and inviting.",
+    tagline: "Soft cake exotic",
     sourceConfidence: "medium",
   },
 
@@ -838,6 +861,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "King Louis XIII (or King Louie) is a heavyweight OG — an OG Kush × LA Confidential cross that's all pine and fuel with a dark, resinous depth. The nose is intense and classic: sharp pine and gas over a damp, earthy forest floor, one of the loudest pine-OG profiles around. The effect is a fast, heavy indica — a sedating body weight that drops you into the couch and on toward sleep, firmly nighttime. It's potent and not subtle, so it's a poor daytime choice and an easy one to overdo. For pine-gas lovers who want OG at its most sedating, King Louis is a benchmark.",
     curatorQuote:
       "Sharp pine and gas over a damp, earthy forest floor, one of the loudest pine-OG profiles around.",
+    tagline: "Heavy pine throne",
     sourceConfidence: "medium",
   },
   {
@@ -868,6 +892,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Fire OG is one of the most potent OG cuts — an OG Kush × SFV OG cross with red-haired, fiery-looking buds that earned the name. The nose is loud OG: sharp fuel and pine with a lemony, earthy bite, classic gas through and through. The effect is heavy and creeping — a euphoric head that gives way to a strong, sedating body, an evening strain that rewards patience. It's high-test even by OG standards, so it earns respect from experienced smokers and humbles new ones. For the gas crowd chasing the strong end of OG, Fire OG is a favourite.",
     curatorQuote:
       "Sharp fuel and pine with a lemony, earthy bite, classic gas through and through.",
+    tagline: "Heavy gas flame",
     sourceConfidence: "medium",
   },
   {
@@ -880,6 +905,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Face Off OG is an Archive Seed Bank OG cut — a pungent, gassy OG that became important mostly as a parent (it's half of Do-Si-Dos). The nose is heavy and chemical: sharp fuel, pine and a sour, almost antiseptic funk, loud and unmistakably OG. The effect is a strong, numbing body high with a hazy, sedating head — the 'face off' name fits the heavy, blanketing feel. It's firmly an evening, sit-down strain, potent enough to flatten the unprepared. For OG purists and breeders alike, Face Off earned its reputation as a building block.",
     curatorQuote:
       "Sharp fuel, pine and a sour, almost antiseptic funk, loud and unmistakably OG.",
+    tagline: "Pure gas reference",
     sourceConfidence: "medium",
   },
   {
@@ -1241,6 +1267,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sundae Driver is a Cannarado cross of Fruity Pebbles OG and Grape Pie — a smooth, creamy hybrid that became a popular breeding parent. The nose is sweet and creamy: sugary fruit and grape over a light gas, dessert-leaning and smooth. The effect is balanced and mellow — a calm, contented body ease with a clear-enough head, comfortable across the day. It's gentle and flavour-driven, more about smoothness and mood than raw power. For people who want a creamy, easygoing dessert hybrid, Sundae Driver is a reliable choice.",
     curatorQuote:
       "Sugary fruit and grape over a light gas, dessert-leaning and smooth.",
+    tagline: "Smooth sweet ride",
     sourceConfidence: "medium",
   },
   {
@@ -1273,6 +1300,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Jealousy is a hype-era cross of Gelato 41 and Sherbet (a Seed Junky/Powerzzzup line) that topped 'strain of the year' lists — frosty, gassy and sweet. The nose is rich and complex: creamy sherbet and sweet fruit over a sharp, gassy funk, candy with a fuel edge. The effect is balanced and euphoric — an uplifting, sociable head over a relaxed body, versatile across the day. It's potent and very frosty, a flavour-forward modern exotic. For people chasing the current Gelato-gas hype done well, Jealousy is a standout.",
     curatorQuote:
       "Creamy sherbet and sweet fruit over a sharp, gassy funk, candy with a fuel edge.",
+    tagline: "Pure exotic perfume",
     sourceConfidence: "medium",
   },
 
@@ -1844,6 +1872,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "RS11 — Rainbow Sherbet #11 — is a Wizard Trees / Doja cut of Pink Guava and OZ Kush, one of the most hyped exotics of recent years. The nose is sweet and creamy: tropical guava and sherbet over a doughy, gassy base, candy with depth. The effect is balanced and relaxing — a euphoric head easing into comfortable body calm, afternoon into evening. It's extremely frosty and flavour-forward, a connoisseur's exotic. For people chasing the current top-shelf guava-sherbet hype, RS11 is a benchmark.",
     curatorQuote:
       "Tropical guava and sherbet over a doughy, gassy base, candy with depth.",
+    tagline: "Bright cherry bloom",
     sourceConfidence: "medium",
   },
   {
@@ -2222,6 +2251,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pancakes is a Seed Junky / Cookies hybrid, widely cited as London Pound Cake #75 crossed with Kush Mints #11 (the real cross was never officially published). It leans on the breakfast-plate idea — buttery, syrup-sweet batter over a minty, gassy cookie base. The nose is warm and sweet, vanilla and butter with an earthy gas and a cool mint edge underneath. The high is calm and good-natured: an easy body relaxation with a contented head, pointed at the evening. Frosty and comforting rather than racy, it's a cosy, low-drama dessert pick.",
     curatorQuote:
       "The nose is warm and sweet, vanilla and butter with an earthy gas and a cool mint edge underneath.",
+    tagline: "Warm syrup comfort",
     sourceConfidence: "medium",
   },
   {
@@ -2599,6 +2629,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Black Truffle is one of the savoury exotics — dark, frosty buds carrying an earthy, almost mushroom-and-truffle funk rather than candy. The nose is rich and savoury: gassy, earthy truffle over a faint berry sweetness, pungent and unusual. The effect leans relaxing and potent — a happy head that sinks into body weight, better kept for the evening. It's loud and frost-heavy, squarely for funk chasers. For a savoury, gassy profile well off the candy path, it stands out.",
     curatorQuote:
       "Gassy, earthy truffle over a faint berry sweetness, pungent and unusual.",
+    tagline: "Earth mushroom funk",
     sourceConfidence: "low",
   },
   {
