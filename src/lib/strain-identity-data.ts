@@ -403,4 +403,117 @@ export const IDENTITIES: StrainIdentity[] = [
     ],
     sourceConfidence: "low",
   },
+
+  // ── Dessert / purple / kush expansions ──
+  {
+    canonicalName: "Animal Mints",
+    marketNames: ["Animal Mint", "Mints"],
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Animal Cookies", "Blue Power"],
+      cross: "Animal Cookies × Blue Power",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Minty-gas cookie pheno", "Heavy frost, dense structure"],
+    curatorNote:
+      "Animal Mints is a Seed Junky creation — an Animal Cookies × Blue Power cross — and a parent of Wedding Cake, so it sits close to the heart of the modern dessert line. The nose is cool and rich: minty, cookie-dough sweetness over a gassy, earthy funk, the kind of profile that reads dessert and fuel at once. The effect is heavy and euphoric — a warm, happy head that sinks into full body relaxation, firmly evening territory rather than productive. It's potent and frosty, and like most cookie crosses the sweetness masks how flattening a big dose can be. For people who love the mint-and-gas corner of the dessert world, it's a benchmark.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Animal Cookies",
+    marketNames: ["Animal Cookie", "ABC"],
+    breeder: "Seed Junky / Cookies Fam (contested)",
+    lineage: {
+      parents: ["Girl Scout Cookies", "Granddaddy Purple"],
+      cross: "GSC × Granddaddy Purple",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Sweet-and-sour cookie funk", "Backbone of many newer crosses"],
+    curatorNote:
+      "Animal Cookies is the heavyweight cookie cut — a GSC × Granddaddy Purple cross that fattened the Cookies line and fathered Animal Mints, Do-Si-Dos and more. The nose is dense and sweet-sour: cookie dough and dark berry over a sour, gassy funk, richer and heavier than its GSC parent. The effect matches the smell — a thick, deeply relaxing body stone with a happy euphoric head, the kind of strain that ends an evening comfortably. It's strong and a touch sedating, more nightcap than daytime, and newer smokers should pace it. As a parent strain it's everywhere in the modern dessert family tree.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sunset Sherbet",
+    marketNames: ["Sherbet", "Sherbert"],
+    breeder: "Sherbinski",
+    lineage: {
+      parents: ["Girl Scout Cookies", "Pink Panties"],
+      cross: "GSC × Pink Panties",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Creamy-citrus dessert", "Half of Gelato's parentage"],
+    curatorNote:
+      "Sunset Sherbet is Sherbinski's GSC × Pink Panties cross — and, crossed with Thin Mint GSC, the parent of Gelato, which tells you exactly the lane it sits in. The nose is creamy and bright: sweet sherbet and berry over a candied citrus tang, with a soft cookie funk underneath. The effect is balanced and uplifting — a euphoric, mood-lifting head that eases into gentle body calm, sociable without knocking you out. It leans a touch indica overall, comfortable for late afternoon into evening, and its sweetness makes it very easy to over-enjoy. As the genetic bridge to Gelato, it's a quietly important strain in its own right.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Cherry Pie",
+    marketNames: ["Cherry Kush"],
+    lineage: {
+      parents: ["Granddaddy Purple", "Durban Poison"],
+      cross: "Granddaddy Purple × Durban Poison",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Tart cherry over earthy sweetness"],
+    curatorNote:
+      "Cherry Pie is a Granddaddy Purple × Durban Poison cross — the same Durban-and-purple pairing that sits behind Girl Scout Cookies, tilted toward fruit. The nose is its calling card: tart cherry and sweet berry over a dusty, earthy sweetness, dessert-like but not cloying. The effect is balanced and easygoing — a happy, relaxed lift with a clear enough head to stay functional, more afternoon than knockout. It's an approachable hybrid that suits a wide range of smokers, neither racy nor sedating at sensible doses. For people who want fruit and balance rather than gas or pure couch, Cherry Pie is a comfortable pick.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Do-Si-Dos",
+    marketNames: ["Dosidos", "Do Si Dos"],
+    breeder: "Archive Seed Bank (popularised)",
+    lineage: {
+      parents: ["OGKB (GSC)", "Face Off OG"],
+      cross: "OGKB (GSC pheno) × Face Off OG",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Cookie sweetness over heavy OG gas", "Very frosty"],
+    curatorNote:
+      "Do-Si-Dos is an OGKB (a Girl Scout Cookies pheno) × Face Off OG cross — cookies sweetness welded to heavy OG gas, and one of the frostiest strains on most shelves. The nose is rich and pungent: sweet cookie dough and floral funk over a thick layer of fuel and earth. The effect is firmly indica — a fast, heavy, deeply sedating body weight with a euphoric head that drifts toward sleep, a classic nightcap. It's potent enough that newcomers routinely underestimate it, so it earns its evening-only reputation. For lovers of gassy, frosty dessert indicas, Do-Si-Dos is a heavy hitter.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grape Ape",
+    marketNames: ["Grapes"],
+    breeder: "Apothecary Genetics / Barney's Farm",
+    lineage: {
+      parents: ["Mendocino Purps", "Skunk #1", "Afghani"],
+      cross: "Mendocino Purps × Skunk × Afghani",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Candy grape over earthy skunk", "Half of Zkittlez's parentage"],
+    curatorNote:
+      "Grape Ape is a purple classic — a Mendocino Purps × Skunk × Afghani blend best known now as half of Zkittlez's parentage. The nose is sweet and unmistakable: grape candy and berry over an earthy, skunky base, with the colour to match in dense violet buds. The effect is heavily relaxing — a warm, calming body weight that melts tension and tips toward sleep, a straightforward evening indica. It's not a cerebral or productive strain; the appeal is the grape flavour and the easy, sinking calm. For grape lovers who want classic purple heaviness, it's a reliable favourite.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Blueberry",
+    marketNames: ["Berry Blue"],
+    breeder: "DJ Short",
+    lineage: {
+      parents: ["Purple Thai", "Afghani"],
+      cross: "(Purple Thai × Thai) × Afghani",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["DJ Short heirloom line", "True blueberry sweetness"],
+    curatorNote:
+      "Blueberry is DJ Short's heirloom line from the 1970s–80s — a Thai-and-Afghani cross that became the reference for true berry flavour and a parent of Blue Dream. The nose is exactly the name: ripe blueberry and sweet berry over a soft earthy base, one of the most genuinely fruit-like profiles in cannabis. The effect is relaxed and happy — a gentle, warming body calm with a pleasant mood lift, comfortable rather than overpowering. It's an older, moderate-potency line, so it's more about flavour and ease than raw strength. For the blueberry flavour at its source, this is where it comes from.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Master Kush",
+    marketNames: ["Master Kush Skunk"],
+    breeder: "White Label / Dutch origin",
+    lineage: {
+      parents: ["Hindu Kush", "Skunk #1"],
+      cross: "Hindu Kush × Skunk (two landrace lines)",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Earthy-citrus hash note", "Old-school Amsterdam staple"],
+    curatorNote:
+      "Master Kush is an Amsterdam classic — a cross of two landrace lines (Hindu Kush and Skunk) that became a coffeeshop staple for decades. The nose is earthy and rich: hashy, incense-like musk with a faint citrus and pepper edge, understated but deep. The effect is a calm, clear-bodied relaxation — heavy enough to unwind on but less couch-locking than many modern indicas, which made it a dependable all-evening smoke. It won't dazzle terp-chasers and its potency is moderate by today's standards, but its balance is the point. For an old-school, hashy kush that relaxes without flattening, Master Kush still delivers.",
+    sourceConfidence: "medium",
+  },
 ];
