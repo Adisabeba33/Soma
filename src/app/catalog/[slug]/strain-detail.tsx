@@ -76,6 +76,11 @@ export function StrainDetail({
     : null;
   const lead = noteParts?.lead ?? entry.archetype ?? strain.note ?? "";
   const story = noteParts?.rest ?? "";
+  // Story is rendered as a stack of short paragraphs (one per sentence
+  // cluster) rather than a single block, so browsing across many strains
+  // doesn't feel like reading the same wall of text every time. The
+  // curatorQuote is a separate optional pull-quote shown above.
+  const storyParagraphs = story ? splitIntoParagraphs(story) : [];
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
@@ -158,11 +163,24 @@ export function StrainDetail({
       {/* ── Body ─────────────────────────────────────────────── */}
       <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="space-y-6">
-          {story && (
+          {(identity?.curatorQuote || storyParagraphs.length > 0) && (
             <Section title="The Story">
-              <p className="font-display text-lg italic leading-relaxed text-foreground/90">
-                {story}
-              </p>
+              {identity?.curatorQuote && (
+                <figure className="mb-6 border-l-2 border-brass pl-5">
+                  <blockquote className="font-display text-2xl italic leading-snug tracking-tight text-foreground">
+                    &ldquo;{identity.curatorQuote}&rdquo;
+                  </blockquote>
+                </figure>
+              )}
+              {storyParagraphs.length > 0 && (
+                <div className="space-y-4 font-display text-lg leading-relaxed text-foreground/90">
+                  {storyParagraphs.map((para, i) => (
+                    <p key={i} className="italic">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              )}
             </Section>
           )}
 
@@ -294,6 +312,32 @@ export function StrainDetail({
 function splitLead(note: string): { lead: string; rest: string } {
   const parts = note.split(/(?<=\.)\s+/);
   return { lead: parts[0] ?? note, rest: parts.slice(1).join(" ").trim() };
+}
+
+// Break the "rest" of a curator note into 2–3 short paragraphs so the
+// page reads more like a magazine column than a single block. We group
+// sentences into clusters: a curator note that lands as ~5 sentences
+// becomes roughly 3 paragraphs ([1-2], [3], [4-5]) — enough rhythm to
+// let the eye breathe without fragmenting the prose into one-line stubs.
+function splitIntoParagraphs(text: string): string[] {
+  const trimmed = text.trim();
+  if (!trimmed) return [];
+  // Treat ". " and ".\n" both as sentence boundaries.
+  const sentences = trimmed
+    .split(/(?<=\.)\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (sentences.length <= 1) return [trimmed];
+
+  // Group size — 2 sentences per paragraph for ≤6 sentences, otherwise
+  // closer to 3 per paragraph so very long notes don't sprout too many
+  // tiny columns.
+  const groupSize = sentences.length > 6 ? 3 : 2;
+  const out: string[] = [];
+  for (let i = 0; i < sentences.length; i += groupSize) {
+    out.push(sentences.slice(i, i + groupSize).join(" "));
+  }
+  return out;
 }
 
 function Section({

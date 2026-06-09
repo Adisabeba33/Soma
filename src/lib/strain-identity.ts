@@ -64,6 +64,14 @@ export interface StrainIdentity {
   // no invented potency numbers). One paragraph; optional like everything
   // else here.
   curatorNote?: string;
+  // Short, memorable pull-quote — one line distilled from the strain's
+  // story, rendered as a magazine-style pull-quote above the long note.
+  // Two patterns work well:
+  //   - "If someone asks what X is, this is one of the first references."
+  //   - A short sensory image: "The aroma enters the room before you do."
+  // Optional. When absent, the page just shows curatorNote with normal
+  // typography.
+  curatorQuote?: string;
   // Growers who tend to bring the strain out well (informational, not a
   // batch-quality claim — that lives in a separate layer).
   growerVariants?: string[];
