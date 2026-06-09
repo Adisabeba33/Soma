@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   Check,
   ChevronRight,
+  GitCompareArrows,
   LayoutGrid,
   Rows3,
   Search,
@@ -15,6 +16,12 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { CompareBasketTray } from "@/components/compare-basket-tray";
 import { SensoryRadar } from "@/components/sensory-radar";
+import {
+  BASKET_EVENT,
+  addToBasket,
+  getBasket,
+  removeFromBasket,
+} from "@/lib/compare-basket";
 import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
 import { AROMAS, EFFECTS, FLAVORS } from "@/lib/vocab";
@@ -468,6 +475,65 @@ function ChipGrid({
   );
 }
 
+// Quick "add to Compare" toggle. Rendered as a sibling OVER the card link
+// (not nested inside the <a>, which would be invalid) so a tap queues the
+// strain into the compare basket without opening the detail page. Compare
+// holds five at most, so it disables once the basket is full.
+function CompareToggle({
+  name,
+  className,
+}: {
+  name: string;
+  className?: string;
+}) {
+  const [inBasket, setInBasket] = useState(false);
+  const [full, setFull] = useState(false);
+
+  useEffect(() => {
+    const sync = () => {
+      const basket = getBasket();
+      const present = basket.some((s) => s.toLowerCase() === name.toLowerCase());
+      setInBasket(present);
+      setFull(!present && basket.length >= 5);
+    };
+    sync();
+    window.addEventListener(BASKET_EVENT, sync);
+    return () => window.removeEventListener(BASKET_EVENT, sync);
+  }, [name]);
+
+  return (
+    <button
+      type="button"
+      onClick={() => (inBasket ? removeFromBasket(name) : addToBasket(name))}
+      disabled={full}
+      aria-pressed={inBasket}
+      title={
+        full
+          ? "Compare holds five at most"
+          : inBasket
+            ? "Remove from compare"
+            : "Add to compare"
+      }
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium shadow-sm backdrop-blur-sm transition-colors",
+        inBasket
+          ? "border-accent bg-accent text-accent-foreground"
+          : full
+            ? "cursor-not-allowed border-border bg-background/85 text-muted-foreground/50"
+            : "border-border bg-background/85 text-muted-foreground hover:border-accent/60 hover:text-foreground",
+        className,
+      )}
+    >
+      {inBasket ? (
+        <Check className="h-3.5 w-3.5" />
+      ) : (
+        <GitCompareArrows className="h-3.5 w-3.5" />
+      )}
+      {inBasket ? "In compare" : "Compare"}
+    </button>
+  );
+}
+
 // Radar-as-image tile — the sensory diagram stands in for the product photo,
 // with the score badge tucked into the corner.
 function RadarTile({
@@ -522,7 +588,11 @@ function CatalogRow({
   const aliasPreview = (strain.aliases ?? []).slice(0, 3).join(" · ");
 
   return (
-    <li>
+    <li className="relative">
+      <CompareToggle
+        name={strain.name}
+        className="absolute right-3 top-3 z-10"
+      />
       <Link
         href={`/catalog/${strainSlug(strain.name)}`}
         className="flex items-stretch gap-4 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-accent/50 sm:gap-5 sm:p-5"
@@ -590,7 +660,11 @@ function CatalogCard({
     : "text-brass";
 
   return (
-    <li>
+    <li className="relative">
+      <CompareToggle
+        name={strain.name}
+        className="absolute right-2 top-2 z-10"
+      />
       <Link
         href={`/catalog/${strainSlug(strain.name)}`}
         className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-3 transition-colors hover:border-accent/50"
