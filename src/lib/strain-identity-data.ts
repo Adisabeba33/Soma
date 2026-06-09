@@ -4534,4 +4534,273 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sweet cherry and lemon over a creamy, faintly gassy base.",
     sourceConfidence: "low",
   },
+
+  // ── ROUND 10: PARENT-FILL + LANDRACES + CBD CLASSICS ──
+  {
+    canonicalName: "Jack's Cleaner",
+    breeder: "Tom Hill",
+    lineage: {
+      parents: ["Jack Herer"],
+      cross: "Jack Herer × NL5 Haze",
+    },
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Lemon-floor-cleaner haze", "A parent of Jack the Ripper"],
+    curatorNote:
+      "Jack's Cleaner is a Tom Hill sativa — Jack Herer crossed back into NL5 Haze — named for a nose so sharp it reads like lemon floor cleaner. The smell is intense and clean: lemon and pine over a spicy, herbal haze. The effect is a fast, soaring cerebral high — energetic and creative with little body, a daytime strain. It's terpy and potent, and it's the sativa behind Jack the Ripper. For loud lemon-haze genetics, Jack's Cleaner is a connoisseur parent line.",
+    curatorQuote:
+      "Lemon and pine over a spicy, herbal haze.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Orange Velvet",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Creamy orange-citrus cut", "A parent of Jilly Bean"],
+    curatorNote:
+      "Orange Velvet is a creamy, orange-forward cut best known as a parent of Jilly Bean. The nose is sweet and smooth: orange and tangerine over a soft, creamy base. The effect is uplifting and easy — a happy, sociable head with a relaxed body, daytime-friendly. It's smooth and flavour-led, moderate in strength. For creamy orange-citrus genetics, Orange Velvet is a pleasant parent line.",
+    curatorQuote:
+      "Orange and tangerine over a soft, creamy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "OG #18",
+    marketNames: ["OG Kush #18"],
+    breeder: "Reserva Privada / DNA Genetics",
+    lineage: {
+      parents: ["OG Kush"],
+      cross: "OG Kush phenotype #18",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["A prized numbered OG cut", "A parent of Holy Grail Kush"],
+    curatorNote:
+      "OG #18 is a prized numbered phenotype of OG Kush from Reserva Privada — a loud, frosty cut that became important breeding stock (it's half of Holy Grail Kush). The nose is classic OG: fuel and pine over a damp, earthy funk with a lemony lift. The effect is balanced-leaning-heavy — a euphoric head settling into a relaxing body. It's gassy, dense and very potent. For a select cut of OG genetics, #18 is a strong parent line.",
+    curatorQuote:
+      "Fuel and pine over a damp, earthy funk with a lemony lift.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Burmese Kush",
+    marketNames: ["Burmese"],
+    breeder: "TH Seeds",
+    lineage: {
+      cross: "Burmese landrace selection",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Burmese landrace cut", "Behind Pink Panties and Champagne"],
+    curatorNote:
+      "Burmese Kush is a TH Seeds selection from a Burmese landrace — a sweet, spicy indica that became a quiet parent across the Sherbinski world (Pink Panties, Champagne). The nose is earthy and sweet: spice and sandalwood over a woody base. The effect is relaxing and warm — a happy, calming high with a comfortable body, evening-leaning. It's dense and frosty, an old-world building block. For Burmese landrace genetics, this is a source cut.",
+    curatorQuote:
+      "Spice and sandalwood over a woody base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Romulan",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Pine-heavy North American indica", "A parent of Space Queen"],
+    curatorNote:
+      "Romulan is a pine-heavy North American indica of contested origin — a potent, sedating cut named for the Star Trek aliens, and a parent of Space Queen. The nose is sharp and green: pine and earth over a skunky, woody base. The effect is deeply relaxing — a heavy body stone that quiets the mind and drifts toward sleep. It's dense, frosty and strong, prized for numbing body relaxation. For heavy pine-indica genetics, Romulan is a classic parent line.",
+    curatorQuote:
+      "Pine and earth over a skunky, woody base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Big Bud",
+    lineage: {
+      parents: ["Afghani", "Skunk #1"],
+      cross: "Afghani × Skunk × Northern Lights",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Huge-yielding indica", "A parent of Granddaddy Purple"],
+    curatorNote:
+      "Big Bud is an Afghani/Skunk/Northern Lights blend famous for enormous, heavy colas — a commercial workhorse and a parent of Granddaddy Purple. The nose is sweet and earthy: skunky sweetness over a spicy, earthy base. The effect is relaxing and weighty — a calm, body-leaning high that eases toward sleep. It's a big-yielding, moderate-to-strong indica, more comfort than complexity. For classic heavy-indica genetics behind GDP, Big Bud is a building block.",
+    curatorQuote:
+      "Skunky sweetness over a spicy, earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sensi Star",
+    breeder: "Paradise Seeds",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Award-winning frosty indica", "Metallic-citrus nose"],
+    curatorNote:
+      "Sensi Star is a Paradise Seeds indica of undisclosed lineage — a multiple Cup winner known for a unique metallic-citrus nose and heavy frost. The smell is sharp and earthy: lemon and metal over a spicy, herbal base. The effect is strongly relaxing — a euphoric head sinking into a heavy, numbing body, an evening strain. It's dense, very frosty and potent, a connoisseur's indica. For a distinctive, award-decorated indica, Sensi Star endures.",
+    curatorQuote:
+      "Lemon and metal over a spicy, herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "God Bud",
+    breeder: "BC Bud Depot",
+    lineage: {
+      parents: ["Hawaiian"],
+      cross: "Hawaiian × Purple Skunk × God",
+      parentDetails: {
+        "Hawaiian": { lineageBrief: "Hawaiian landrace sativa", type: "sativa" },
+      },
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Sweet, heavy BC indica"],
+    curatorNote:
+      "God Bud is a BC Bud Depot classic — a Hawaiian, Purple Skunk and 'God' blend that won early Cups for its sweet nose and heavy body. The smell is sweet and fruity: berry and tropical sweetness over an earthy base. The effect is deeply relaxing — a euphoric head sinking into a sedating body, an evening and sleep strain. It's dense, frosty and potent, a Canadian heavyweight. For sweet, heavy BC-bud genetics, God Bud is a reliable classic.",
+    curatorQuote:
+      "Berry and tropical sweetness over an earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Harlequin",
+    lineage: {
+      parents: ["Colombian Gold", "Thai"],
+      cross: "Colombian Gold × Thai × Swiss landrace",
+    },
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["High-CBD sativa", "Clear, gentle, functional"],
+    curatorNote:
+      "Harlequin is one of the defining high-CBD strains — a Colombian Gold, Thai and Swiss landrace blend bred for a roughly balanced CBD:THC ratio. The nose is earthy and sweet: mango and citrus over a woody, herbal base. The effect is clear and gentle — relaxed and focused with little intoxication, the strain people reach for to stay functional. It's smooth and mild, prized for calm without the high. For a clear-headed CBD sativa, Harlequin is the benchmark.",
+    curatorQuote:
+      "Mango and citrus over a woody, herbal base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "ACDC",
+    marketNames: ["AC/DC"],
+    lineage: {
+      parents: ["Cannatonic"],
+      cross: "Cannatonic phenotype (high-CBD)",
+    },
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Very high CBD, near-zero high"],
+    curatorNote:
+      "ACDC is a high-CBD phenotype of Cannatonic with a CBD:THC ratio so lopsided there's almost no intoxication at all. The nose is mild and earthy: sweet, woody pine over a faint herbal base. The effect is barely a 'high' — a clear, calm, focused ease that leaves the head functional. It's smooth and gentle, one of the most-recommended therapeutic CBD cuts. For calm with essentially no high, ACDC is a go-to.",
+    curatorQuote:
+      "Sweet, woody pine over a faint herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cannatonic",
+    breeder: "Resin Seeds",
+    lineage: {
+      parents: ["MK Ultra", "G13"],
+      cross: "MK Ultra × G13 Haze",
+      parentDetails: {
+        "MK Ultra": { lineageBrief: "OG Kush × G13", type: "indica" },
+      },
+    },
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["The foundational CBD strain"],
+    curatorNote:
+      "Cannatonic is a Resin Seeds cross of MK Ultra and G13 Haze — the foundational high-CBD strain that parented ACDC and much of the therapeutic world. The nose is earthy and citrus-sweet: lemon and wood over a soft herbal base. The effect is mellow and clear — a relaxed, lightly uplifting calm with only mild intoxication. It's smooth and gentle, bred for balance rather than potency. As the source of so many CBD cuts, Cannatonic is a cornerstone.",
+    curatorQuote:
+      "Lemon and wood over a soft herbal base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Charlotte's Web",
+    marketNames: ["CW", "Hippie's Disappointment"],
+    breeder: "Stanley Brothers",
+    lineage: {
+      cross: "High-CBD industrial-hemp selection",
+    },
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Famous CBD hemp", "Almost no THC"],
+    curatorNote:
+      "Charlotte's Web is the Stanley Brothers' famous high-CBD hemp line — named for Charlotte Figi, whose story put CBD on the map, and so low in THC it's effectively non-intoxicating. The nose is earthy and clean: pine and wood over a herbal, faintly floral base. The effect is barely psychoactive — a calm, focused, grounding ease with no real high. It's smooth and mild, a therapeutic cultivar more than a recreational one. For CBD with essentially zero high, Charlotte's Web is the icon.",
+    curatorQuote:
+      "Pine and wood over a herbal, faintly floral base.",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Ringo's Gift",
+    lineage: {
+      parents: ["Harlequin", "ACDC"],
+      cross: "Harlequin × ACDC",
+    },
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["CBD-dominant blend", "Named for Lawrence Ringo"],
+    curatorNote:
+      "Ringo's Gift is a CBD-dominant cross of Harlequin and ACDC — named for CBD pioneer Lawrence Ringo, and built to push the ratio even further toward CBD. The nose is earthy and sweet: herbal pine and a light citrus over a woody base. The effect is gentle and clear — a relaxed, focused calm with minimal intoxication, functional and soothing. It's smooth and mild, a favourite for daytime therapeutic use. For a CBD-forward blend with a clear head, Ringo's Gift is a standout.",
+    curatorQuote:
+      "Herbal pine and a light citrus over a woody base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sour Tsunami",
+    lineage: {
+      parents: ["Sour Diesel", "NYC Diesel"],
+      cross: "Sour Diesel × NYC Diesel",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["One of the first CBD-rich strains"],
+    curatorNote:
+      "Sour Tsunami is a Lawrence Ringo creation — Sour Diesel crossed with NYC Diesel and selected over years for CBD — one of the first strains bred deliberately for it. The nose is gassy and bright: sour diesel and citrus over an earthy base. The effect is mild and clear — a relaxed, calm, lightly uplifting ease with little of the usual diesel rush. It's smooth and functional, a pioneering CBD cut with real flavour. For a gassy CBD strain, Sour Tsunami is a flavourful classic.",
+    curatorQuote:
+      "Sour diesel and citrus over an earthy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lebanese",
+    marketNames: ["Lebanese Landrace"],
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Bekaa Valley landrace", "Traditional red-hash plant"],
+    curatorNote:
+      "Lebanese is a landrace from the Bekaa Valley — a hardy, resin-rich indica traditionally harvested late and pressed into the famous red and blonde Lebanese hash. The nose is earthy and sweet: spice and dried fruit over a woody, hashy base. The effect is calm and relaxing — a mellow, grounding body ease, moderate rather than overwhelming. It's dense and well-cured by nature, prized for hash and heritage. For old-world Middle Eastern hash genetics, Lebanese is a source.",
+    curatorQuote:
+      "Spice and dried fruit over a woody, hashy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Moroccan",
+    marketNames: ["Ketama", "Moroccan Landrace"],
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Rif Mountains landrace", "Classic kif and hash plant"],
+    curatorNote:
+      "Moroccan is the Rif Mountains landrace behind centuries of kif and hash — a hardy, early indica grown across northern Morocco's Ketama region. The nose is earthy and sweet: herbal spice and a dry, hashy sweetness. The effect is calm and gently relaxing — a mellow, social body ease, moderate and traditional. It's grown for resin first, a cornerstone of the hashish world. For classic Moroccan hash genetics, this landrace is foundational.",
+    curatorQuote:
+      "Herbal spice and a dry, hashy sweetness.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Congolese",
+    marketNames: ["Congo"],
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Central African landrace", "Clean equatorial sativa"],
+    curatorNote:
+      "Congolese is a Central African landrace — a clean, energetic equatorial sativa used by breeders like Ace Seeds to add vigour and a bright high. The nose is earthy and sweet: spicy, incense-like sweetness with a faint citrus. The effect is up and clear — an energetic, creative, social head with no body, a true daytime landrace. It's hardy and moderate, prized for heritage and a relentless lift. For old-world African sativa, Congolese is a source.",
+    curatorQuote:
+      "Spicy, incense-like sweetness with a faint citrus.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Oaxacan",
+    marketNames: ["Oaxacan Highland"],
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Mexican highland landrace", "Sweet, soaring sativa"],
+    curatorNote:
+      "Oaxacan is a Mexican highland landrace from the mountains of Oaxaca — a sweet, soaring sativa that fed early American imports and Haze breeding. The nose is sweet and earthy: honeyed grass and citrus over a faint spice. The effect is up and creative — an energetic, happy, almost psychedelic head with no body, a heritage daytime strain. It's mild by modern standards but historically rich. For old-world Mexican highland sativa, Oaxacan is a classic source.",
+    curatorQuote:
+      "Honeyed grass and citrus over a faint spice.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Williams Wonder",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Fast, frosty Afghani-derived indica"],
+    curatorNote:
+      "Williams Wonder is an old-school, Afghani-derived indica famous in the 80s-90s for fast flowering, heavy resin and serious potency. The nose is earthy and sweet: skunky sweetness over a woody, hashy base. The effect is heavily relaxing — a warm, sedating body weight that drifts toward sleep, a classic nightcap. It's dense, frosty and strong, a breeder's favourite for speed and frost. For fast, heavy Afghani indica genetics, Williams Wonder is a quiet classic.",
+    curatorQuote:
+      "Skunky sweetness over a woody, hashy base.",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sherbacio",
+    lineage: {
+      parents: ["Sunset Sherbet", "Biscotti"],
+      cross: "Sunset Sherbet × Biscotti",
+    },
+    sensoryFamily: "modern-exotic",
+    phenotypeNotes: ["Creamy sherbet over a gassy cookie base"],
+    curatorNote:
+      "Sherbacio crosses Sunset Sherbet with Biscotti — creamy sherbet sweetness laid over a gassy, coffee-tinged cookie. The nose is rich and sweet: sherbet and cream over a gassy, earthy cookie funk. The effect is relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, in the polished Cookies/Sherbinski lane. For sherbet-and-cookie dessert character, Sherbacio is a smooth pick.",
+    curatorQuote:
+      "Sherbet and cream over a gassy, earthy cookie funk.",
+    sourceConfidence: "medium",
+  },
 ];
