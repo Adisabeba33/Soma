@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { commitUrl, getDeployInfo } from "@/lib/deploy-info";
 
 export const dynamic = "force-dynamic";
 
@@ -47,6 +48,9 @@ export default async function StatsPage() {
     prisma.analysisSession.count(),
   ]);
 
+  const deploy = getDeployInfo();
+  const sourceUrl = commitUrl(deploy);
+
   return (
     <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
       <p className="text-xs uppercase tracking-[0.24em] text-brass">
@@ -60,7 +64,75 @@ export default async function StatsPage() {
         Updated on every page reload. Refresh to see latest.
       </p>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+      {/* ── Deploy status: lets a non-technical owner confirm "yes, my
+            updates are actually live" by looking at version markers and
+            the latest commit message — sometimes UI changes aren't
+            visually obvious but the engine version or commit SHA prove
+            the deploy happened. ─────────────────────────────────────── */}
+      <h2 className="mt-12 font-display text-xl font-semibold">
+        Deploy status
+      </h2>
+      <div className="mt-4 rounded-2xl border border-border bg-card p-5">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <VersionField label="Engine version" value={deploy.engineVersion} accent />
+          <VersionField label="Vocab version" value={deploy.vocabVersion} />
+          <VersionField
+            label="Branch"
+            value={deploy.branch ?? (deploy.isLocal ? "(local dev)" : "—")}
+          />
+          <VersionField
+            label="Environment"
+            value={
+              deploy.vercelEnv ?? (deploy.isLocal ? "local development" : "—")
+            }
+          />
+        </div>
+
+        {deploy.commitShaShort && (
+          <div className="mt-5 border-t border-border pt-4">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+              Latest deployed commit
+            </p>
+            <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              {sourceUrl ? (
+                <a
+                  href={sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-sm font-semibold text-accent hover:underline"
+                >
+                  {deploy.commitShaShort}
+                </a>
+              ) : (
+                <span className="font-mono text-sm font-semibold text-foreground">
+                  {deploy.commitShaShort}
+                </span>
+              )}
+              {deploy.commitAuthor && (
+                <span className="text-xs text-muted-foreground">
+                  by {deploy.commitAuthor}
+                </span>
+              )}
+            </div>
+            {deploy.commitMessage && (
+              <p className="mt-2 text-sm text-foreground">
+                {deploy.commitMessage}
+              </p>
+            )}
+          </div>
+        )}
+
+        {deploy.isLocal && (
+          <p className="mt-4 rounded-lg bg-brass/10 px-3 py-2 text-xs leading-relaxed text-foreground/80">
+            Running locally — version markers reflect this checkout. The
+            commit panel only populates on a Vercel deployment, where the
+            Vercel-injected git env vars are available.
+          </p>
+        )}
+      </div>
+
+      <h2 className="mt-12 font-display text-xl font-semibold">Run counts</h2>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <BigStat label="Total runs" value={total} tone="accent" />
         <BigStat label="Last 7 days" value={last7} />
         <BigStat label="Today" value={todayCount} />
@@ -175,6 +247,31 @@ function SmallStat({ label, value }: { label: string; value: number }) {
       </p>
       <p className="mt-1 font-display text-2xl font-semibold tabular-nums">
         {value.toLocaleString()}
+      </p>
+    </div>
+  );
+}
+
+function VersionField({
+  label,
+  value,
+  accent,
+}: {
+  label: string;
+  value: string;
+  accent?: boolean;
+}) {
+  return (
+    <div>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+        {label}
+      </p>
+      <p
+        className={`mt-1 font-display text-xl font-semibold tabular-nums ${
+          accent ? "text-accent" : "text-foreground"
+        }`}
+      >
+        {value}
       </p>
     </div>
   );
