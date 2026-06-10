@@ -75,6 +75,11 @@ export const IDENTITIES: StrainIdentity[] = [
     whyItMatters:
       "OG Kush is the genetic spine of the West Coast — the strain whose name launched an entire 'OG' dynasty. It set the very definition of what people mean by 'gas,' and a huge share of the modern dessert-and-gas menu traces somewhere back to it. Few strains have been bred from more.",
     tagline: "The gas reference",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of the original West Coast gas benchmark — the foundational OG. A monumental Los Angeles canyon hillside at golden dusk: an old weathered concrete-and-chrome fuel depot half-swallowed by dense pine and dry earth, deep roots and rusted pipework woven together as if this place were the source everything else grew from. Sharp pine and fuel haze hangs in the warm air; damp earth and woody resin ground the scene. Palette deep and classic — pine green and fuel-petrol blue over earthy brown and weathered concrete, amber sun on the metal edges fading into a wine-dark dusk sky, a dense resinous sheen. Mood: a heady euphoric lift settling into real body weight — warm and social at first, heavy and rooted as it sinks. Cinematic, painterly, high-contrast, premium editorial poster. Keep the lower third calmer and darker for legible overlay text. The strain name may appear baked into the scene (e.g. cast into concrete or stencilled on metal); no overlaid captions, logos or watermarks; no people, products or cannabis leaves.",
+    artFileName: "og-kush.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
     // Foundational and well-known, but the Chemdawg × Hindu Kush cross is
     // "commonly cited, not verified."
