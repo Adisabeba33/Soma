@@ -5,6 +5,15 @@ experience** — not just aroma, but the time of day, mood, energy and
 weight of the strain. Images are generated separately and dropped in over
 time; this document is the contract so every batch stays consistent.
 
+**Guiding principle.** Every image must visualise the *full sensory and
+behavioural identity* of the strain it represents — its **atmosphere**, its
+**character**, and its **culture of behaviour** (how it makes people feel
+and act). We take everything the strain delivers to a person — smell,
+taste, the arc and texture of the high, its origin and reputation — and
+translate it into a single picture. The image *is* the strain's experience
+made visible. The art prompts that drive this (and how to write them) live
+in `docs/strain-artwork-intake.md`.
+
 Related: `docs/deferred-improvements.md` #12 (Collectible cards) — the
 product direction this artwork visually serves.
 
