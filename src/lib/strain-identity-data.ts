@@ -51,7 +51,7 @@ export const IDENTITIES: StrainIdentity[] = [
     sourceConfidence: "high",
     timeProfile: "night",
     artFileName: "gg4.webp",
-    artStatus: "none",
+    artStatus: "published",
     artVersion: 1,
   },
   {
