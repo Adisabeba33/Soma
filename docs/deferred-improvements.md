@@ -181,6 +181,14 @@ and didn't do is itself valuable context.
 
 ### #5 — Per-category source confidence (lineage / historical / community)
 
+> **✓ Resolved (2026-06-10).** Added optional `lineageConfidence` /
+> `historicalConfidence` on `StrainIdentity` with `lineageConfidenceOf` /
+> `historicalConfidenceOf` helpers that fall back to `sourceConfidence`. The
+> strain page surfaces a "Lineage confidence" caption in the Genetics
+> section only when it differs from the overall confidence (seeded on Sour
+> Diesel, OG Kush, Chemdawg — contested parentage, well-documented strains).
+> Community-consensus confidence stays deferred under #4 (needs real data).
+
 - **Found:** 2026-06-09
 - **Source:** External reviewer (curated strain page recommendation)
 - **What:** We have a single `sourceConfidence: low/medium/high` on
@@ -208,6 +216,12 @@ and didn't do is itself valuable context.
 ---
 
 ### #6 — "Why It Matters" educational sections
+
+> **✓ Resolved (2026-06-10).** Added optional `whyItMatters` on
+> `StrainIdentity`, rendered as its own "Why it matters" section below the
+> Story (only when present). Seeded the first historical anchors: GG4, Sour
+> Diesel, OG Kush, Chemdawg, Northern Lights. More anchors can be curated
+> over time onto the same field.
 
 - **Found:** 2026-06-09
 - **Source:** External reviewer (curated strain page recommendation)

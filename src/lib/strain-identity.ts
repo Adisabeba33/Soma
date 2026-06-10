@@ -72,6 +72,13 @@ export interface StrainIdentity {
   // Optional. When absent, the page just shows curatorNote with normal
   // typography.
   curatorQuote?: string;
+  // "Why it matters" — a short paragraph on the strain's cultural / genetic
+  // significance (e.g. "Northern Lights taught the 80s what indica was
+  // supposed to feel like; many modern indicas trace back to it"). Turns the
+  // page from a sensory guide into a sensory + history archive. Optional;
+  // renders as its own section below the Story, only when present. Reserve it
+  // for the genuinely significant anchors — not every strain needs one.
+  whyItMatters?: string;
   // Catalog-card tagline. 2–4 words that capture the strain at a
   // glance — sized like a movie-poster strap. Shown on the catalog
   // collectible card so the gradient and the strain name carry the
@@ -87,8 +94,16 @@ export interface StrainIdentity {
   // Growers who tend to bring the strain out well (informational, not a
   // batch-quality claim — that lives in a separate layer).
   growerVariants?: string[];
-  // Honest signal about how reliable the rest of this record is.
+  // Honest signal about how reliable the rest of this record is. Acts as the
+  // overall / identity-level confidence and the fallback for the per-category
+  // signals below.
   sourceConfidence: IdentityConfidence;
+  // Per-category confidence overrides, for honesty at finer grain — e.g. a
+  // strain whose lineage is contested but is otherwise well-documented
+  // (Sour Diesel: known cut, "commonly cited" parentage). When unset they
+  // fall back to sourceConfidence (see lineageConfidenceOf / historicalConfidenceOf).
+  lineageConfidence?: IdentityConfidence;
+  historicalConfidence?: IdentityConfidence;
 
   // ── Artwork layer (see src/lib/strain-art.ts and docs/strain-artwork.md) ──
   // Time-of-day mood override. When absent, it is DERIVED from the strain's
@@ -127,6 +142,21 @@ for (const identity of IDENTITIES) {
 
 export function getIdentity(canonicalName: string): StrainIdentity | null {
   return IDENTITY_INDEX.get(normalizeStrainName(canonicalName)) ?? null;
+}
+
+// Per-category confidence with fallback to the overall sourceConfidence.
+// Lets the UI be honest at finer grain ("we know the strain, the lineage is
+// contested") without forcing every record to fill in all four fields.
+export function lineageConfidenceOf(
+  identity: StrainIdentity,
+): IdentityConfidence {
+  return identity.lineageConfidence ?? identity.sourceConfidence;
+}
+
+export function historicalConfidenceOf(
+  identity: StrainIdentity,
+): IdentityConfidence {
+  return identity.historicalConfidence ?? identity.sourceConfidence;
 }
 
 // Display helper: merges parser aliases from StrainProfile with marketNames
