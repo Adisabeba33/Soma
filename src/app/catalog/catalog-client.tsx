@@ -598,15 +598,13 @@ function CatalogRow({
       >
         {/* Artwork column — flush to the card's left/top/bottom edges (no
             inner border or padding), so the image *is* the start of the
-            block and flows straight into the content. With published art
-            the whole 3:4 image shows uncropped: height = card height, width
-            follows the aspect ratio. Without art it's a fixed-width strip of
-            the time-of-day gradient. */}
+            block and flows straight into the content. A fixed-width left
+            panel that fills the full row height: the art is cropped to fill
+            (object-cover) rather than shown whole, because a full-height 3:4
+            portrait would blow the row up to a full screen and hide the
+            strain's own data. Without art it's the time-of-day gradient. */}
         <div
-          className={cn(
-            "relative shrink-0 self-stretch overflow-hidden",
-            !artSrc && "w-[104px] sm:w-[132px]",
-          )}
+          className="relative w-[150px] shrink-0 self-stretch overflow-hidden sm:w-[190px]"
           style={{ background: palette.background }}
         >
           {artSrc && (
@@ -617,7 +615,7 @@ function CatalogRow({
                 alt=""
                 aria-hidden
                 loading="lazy"
-                className="block h-full w-auto"
+                className="absolute inset-0 h-full w-full object-cover"
               />
               <div
                 className="absolute inset-0"
