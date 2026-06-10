@@ -130,7 +130,7 @@ export const IDENTITIES: StrainIdentity[] = [
     sourceConfidence: "high",
     timeProfile: "daytime",
     artFileName: "sour-diesel.webp",
-    artStatus: "none",
+    artStatus: "published",
     artVersion: 1,
   },
   {
