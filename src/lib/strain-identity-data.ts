@@ -5199,7 +5199,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) capturing the spirit of a heavy, gassy OG breeding line with an otherworldly streak. A derelict, overgrown research outpost at dusk on a strange frontier: weathered fuel tanks, chrome pipework and dark pine forest reclaiming cracked concrete, lit by a faint eerie green-gold glow leaking from within, petrol haze drifting through still evening air. Palette deep and resinous — fuel-petrol blue and pine-green over earthy brown, an uncanny alien teal-green light against an amber-into-wine-dark dusk sky, a frosted crystalline sheen on every surface. Mood: relaxing and heavy, quiet and grounded — a slow euphoric sink into stillness, evening-leaning and potent. Cinematic, painterly, high-contrast, premium editorial poster. Keep the lower third calmer and darker for legible overlay text. The strain name may appear baked into the scene (e.g. stencilled on a fuel tank or stamped into metal); no overlaid captions, logos or watermarks; no people, products or cannabis leaves.",
     artFileName: "alien-tech.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "low",
   },
