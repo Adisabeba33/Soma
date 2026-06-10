@@ -49,6 +49,10 @@ export const IDENTITIES: StrainIdentity[] = [
       "Even an average cut still speaks that unmistakable gas-and-glue language.",
     tagline: "Couch-bound legend",
     sourceConfidence: "high",
+    timeProfile: "night",
+    artFileName: "gg4.webp",
+    artStatus: "none",
+    artVersion: 1,
   },
   {
     canonicalName: "OG Kush",
@@ -124,6 +128,10 @@ export const IDENTITIES: StrainIdentity[] = [
       "People don't reach for Sour Diesel to relax — they reach for it to get moving.",
     tagline: "Acid bright sativa",
     sourceConfidence: "high",
+    timeProfile: "daytime",
+    artFileName: "sour-diesel.webp",
+    artStatus: "none",
+    artVersion: 1,
   },
   {
     canonicalName: "Chemdawg",
@@ -234,7 +242,14 @@ export const IDENTITIES: StrainIdentity[] = [
       "Super Lemon Haze is Green House's two-time Cannabis Cup winner — a Lemon Skunk × Super Silver Haze cross that took the haze and made it candy-bright. The nose is unmistakable: vivid lemon zest and sherbet over a green, skunky haze backbone, the kind of citrus that makes you smile before you even light it. The effect is energetic and chatty — a buzzy, creative, uptempo sativa lift that suits daytime, conversation and getting things done. The caveats are the usual haze ones: it can run racy or anxious in big doses, and a weak cut loses the lemon and just tastes generically green. Grown right, though, it's one of the most joyful citrus sativas on the shelf.",
     curatorQuote:
       "Vivid lemon zest and sherbet over a green, skunky haze backbone.",
+    tagline: "Bright morning lift",
     sourceConfidence: "high",
+    // Override: derives to "daytime" (daytime-functional family), but the
+    // candy-bright lemon lift reads as a morning strain.
+    timeProfile: "morning",
+    artFileName: "super-lemon-haze.webp",
+    artStatus: "none",
+    artVersion: 1,
   },
   {
     canonicalName: "Lemon Haze",
@@ -550,7 +565,12 @@ export const IDENTITIES: StrainIdentity[] = [
       "White Hot Guava is a custom, small-batch hybrid with little public lineage on record — what's consistent is the guava: a sweet, almost tinned-tropical fruit note riding on top of sharp fuel. On the nose it reads candy-and-gas, the guava softening an otherwise pungent diesel funk. The high sits in the middle — a clear, lightly euphoric lift with a loose, comfortable body that won't pin you down. It's bought for the flavour and the frost rather than for knockout potency. A novelty in the best sense: if you find a real cut, the guava note is genuinely hard to source elsewhere.",
     curatorQuote:
       "On the nose it reads candy-and-gas, the guava softening an otherwise pungent diesel funk.",
+    tagline: "Tropical evening hybrid",
     sourceConfidence: "low",
+    timeProfile: "sunset",
+    artFileName: "white-hot-guava.webp",
+    artStatus: "none",
+    artVersion: 1,
   },
 
   // ── Dessert / purple / kush expansions ──

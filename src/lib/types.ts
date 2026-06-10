@@ -1,6 +1,20 @@
 export type StrainType = "indica" | "sativa" | "hybrid";
 export type Potency = "mild" | "moderate" | "strong" | "very-strong";
 
+// Time-of-day mood for strain artwork. Drives the catalog card atmosphere
+// (light, fresh morning → deep, sedative night) and, once art is generated,
+// which vertical 3:4 WebP loads for the strain. Four categories on purpose —
+// they map cleanly onto the experiential arc of a strain (energy → wind-down)
+// and onto the existing behavioural-family classification.
+export type TimeProfile = "morning" | "daytime" | "sunset" | "night";
+
+// Lifecycle of a strain's generated artwork.
+//   none      — no art yet (default; the card shows the time-of-day gradient)
+//   prompt    — artPrompt written, image not generated yet
+//   generated — image produced, in review (file may exist but isn't shown)
+//   published — live: the WebP renders on the card and detail page
+export type ArtStatus = "none" | "prompt" | "generated" | "published";
+
 import type { PurchaseConfidence } from "./purchase-confidence";
 export type { PurchaseConfidence, PurchaseSignals, SignalLevel } from "./purchase-confidence";
 

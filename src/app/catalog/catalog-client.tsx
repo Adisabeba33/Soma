@@ -20,7 +20,8 @@ import { Badge } from "@/components/ui/badge";
 import { CatalogCollectibleCard } from "@/components/catalog-collectible-card";
 import { CompareBasketTray } from "@/components/compare-basket-tray";
 import { effectIconFor } from "@/components/effect-icon";
-import { paletteForFamily } from "@/lib/sensory-family-palette";
+import { paletteForTime } from "@/lib/sensory-family-palette";
+import { timeProfileOf, artImageSrc } from "@/lib/strain-art";
 import {
   BASKET_EVENT,
   addToBasket,
@@ -579,7 +580,8 @@ function CatalogRow({
   score: number;
 }) {
   const { strain, identity } = entry;
-  const palette = paletteForFamily(identity?.sensoryFamily ?? null);
+  const palette = paletteForTime(timeProfileOf(strain, identity));
+  const artSrc = artImageSrc(strain, identity);
   const badgeValue = match ? match.score : score;
   const badgeLabel = match ? "MATCH" : "CURATED";
   const aliasPreview = (strain.aliases ?? []).slice(0, 3).join(" · ");
@@ -594,13 +596,33 @@ function CatalogRow({
         href={`/catalog/${strainSlug(strain.name)}`}
         className="flex items-stretch gap-4 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-accent/50 sm:gap-5 sm:p-5"
       >
-        {/* Mini poster tile — same family gradient as the grid card,
-            so List and Grid read as two densities of one collection. */}
+        {/* Mini poster tile — same time-of-day gradient as the grid card
+            (or the published artwork), so List and Grid read as two
+            densities of one collection. */}
         <div
           className="relative w-[88px] shrink-0 self-stretch overflow-hidden rounded-xl border border-border/40 sm:w-[112px]"
           style={{ background: palette.background }}
         >
-          <span className="absolute left-2 top-2 inline-flex h-9 w-9 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md">
+          {artSrc && (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={artSrc}
+                alt=""
+                aria-hidden
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 55%, rgba(0,0,0,0) 80%)",
+                }}
+              />
+            </>
+          )}
+          <span className="absolute left-2 top-2 z-10 inline-flex h-9 w-9 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md">
             <span className="font-display text-xs font-semibold leading-none">
               {badgeValue}
             </span>
@@ -610,7 +632,7 @@ function CatalogRow({
           </span>
           {identity?.tagline && (
             <span
-              className="absolute bottom-2 left-2 right-2 font-display text-[10px] italic leading-tight"
+              className="absolute bottom-2 left-2 right-2 z-10 font-display text-[10px] italic leading-tight"
               style={{ color: palette.accent }}
             >
               {identity.tagline}
