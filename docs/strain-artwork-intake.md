@@ -1,17 +1,22 @@
 # Strain artwork intake — runbook
 
-Operational guide for the **image-intake** worker. The owner sends a
-generated strain image in chat; you convert it to the project's format and
-publish it onto that strain's cards. Repeat ~400 times.
+Operational guide for the **image-intake** worker. Two jobs:
+
+1. **Write the art prompt** for a strain — a vivid brief an artist/generator
+   turns into the image (see *Writing the art prompt* below).
+2. **Publish** the image the owner sends back: convert it to the project's
+   format and wire it onto that strain's cards.
+
+Repeat across ~400 strains.
 
 This is the *how-to*. The design spec (what the images should be, the
 metadata model, the lifecycle) lives in **`docs/strain-artwork.md`** — read
 it once before your first image.
 
-> Scope: this role is **only** artwork intake (convert + publish). Anything
-> beyond that — layout changes, new features, prompt writing — is the main
-> work, handled in the other chat. If an image surfaces a layout bug, note
-> it but don't fix it here.
+> Scope: this role is artwork — **prompt-writing + convert + publish**.
+> Anything beyond that — layout changes, new features, scoring/logic — is
+> the main work, handled in the other chat. If an image surfaces a layout
+> bug, note it but don't fix it here.
 
 ---
 
@@ -24,6 +29,71 @@ it once before your first image.
   or watermarks. (See `docs/strain-artwork.md` → Text policy.)
 - If an image clearly breaks these (a plain caption overlaid, a real brand
   logo), flag it to the owner before publishing rather than shipping it.
+
+---
+
+## Writing the art prompt
+
+**The core principle.** Every image must visualise the *full sensory and
+behavioural identity* of the strain it represents — its **atmosphere**, its
+**character**, and its **culture of behaviour** (how it makes people feel
+and act). We take everything the strain delivers to a person — smell,
+taste, the arc and texture of the high, its origin and reputation — and
+translate that into a single picture. The image is the strain's experience
+made visible, not a generic weed graphic.
+
+**Pull the brief from the strain's own data** (`src/lib/strain-data.ts` +
+its identity record in `src/lib/strain-identity-data.ts`):
+
+- `aromas` / `flavors` → the palette, materials, light (diesel + sour
+  citrus → acid yellow-green, petrol haze, chrome).
+- `effects` + `entry.archetype` → the energy and motion (energetic,
+  talkative, racy → kinetic, bright, restless; sedative → heavy, still,
+  dark).
+- `timeProfile` (morning / daytime / sunset / night) → the time of day and
+  overall lighting mood.
+- `sensoryFamily` → the world it lives in (gas-og, diesel-chem, citrus-haze…).
+- `curatorNote`, `tagline`, `lineage`/origin → the character and culture
+  (East-Coast NYC roots → industrial skyline; couch-lock legend → heavy
+  throne).
+
+**Structure** (this is the shape of the Sour Diesel brief):
+
+1. Format + intent — `Vertical 3:4 poster artwork (768×1024) capturing the
+   spirit of …`.
+2. The scene/subject that embodies the strain's character.
+3. Palette + light drawn from aroma/flavour.
+4. Mood + motion drawn from the effect/behaviour.
+5. Style — cinematic, painterly, premium editorial; high contrast.
+6. Composition note — *keep the lower third calmer/darker so the interface
+   can overlay the name legibly.*
+7. Negatives — see the text policy: a baked-in name in the scene is fine;
+   no UI-overlay captions, no brand logos/watermarks; no literal product
+   shots, people, or cannabis leaves.
+
+**Worked example — Sour Diesel** (diesel-chem, daytime, "Acid bright
+sativa"):
+
+> Vertical 3:4 poster artwork (768×1024) capturing the spirit of an
+> electric, fuel-bright sativa. A radiant early-morning industrial skyline
+> on the edge of a 1990s East-Coast city: weathered steel refinery towers,
+> fuel tanks and tangled pipework rising into an acid-bright sky, charged
+> with kinetic energy — hard golden sunlight cutting through a shimmering
+> haze of diesel vapour. Palette sour and electric: acid lemon-yellow and
+> citrus-green against cold chrome-blue steel and petrol shadow, sunrise
+> gold on the metal edges. A mist of citrus-oil spray and rising fumes gives
+> the air a racy shimmer. Mood: awake, restless, talkative, charged with
+> motion — bright daytime adrenaline. Cinematic, painterly, high-contrast,
+> premium editorial poster. Keep the lower third calmer and darker for
+> legible overlay text. The strain name may appear baked into the scene
+> (e.g. stencilled on a fuel tank); no overlaid captions, logos or
+> watermarks; no people, products or cannabis leaves.
+
+**Store it.** `buildArtPrompt(strain, identity)` in `src/lib/strain-art.ts`
+gives a default skeleton you can start from. When you've written a strain's
+prompt but the image doesn't exist yet, save it to the strain's `artPrompt`
+field and set `artStatus: "prompt"` — then it's recorded in the project and
+flips to `"published"` once the image lands (see Step 3).
 
 ---
 
