@@ -571,7 +571,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) capturing the spirit of a small-batch tropical-exotic hybrid where sweet guava rides on sharp fuel. A lush, overgrown glasshouse conservatory at golden dusk on the edge of an industrial harbour: heavy ripe guava and tropical fruit glowing among chrome-and-glass structures, with faint refinery pipework and a petrol shimmer dissolving into a wine-dark sunset sky. Palette warm and exotic — guava coral-pink, mango-gold and candy-sweet light against cool petrol-blue and chrome shadow, amber sun catching a frosted, resinous sheen on every surface. Mood: relaxed, gently euphoric, comfortable and unhurried — a soft, drifting evening warmth that lifts without pinning you down. Cinematic, painterly, high-contrast, premium editorial poster. Keep the lower third calmer and darker for legible overlay text. The strain name may appear baked into the scene (e.g. etched into the glass or stencilled on metal); no overlaid captions, logos or watermarks; no people, products or cannabis leaves.",
     artFileName: "white-hot-guava.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
   },
 
