@@ -6,7 +6,6 @@ import { useEffect, useMemo, useState } from "react";
 import {
   Check,
   ChevronDown,
-  ChevronRight,
   GitCompareArrows,
   LayoutGrid,
   Rows3,
@@ -693,39 +692,12 @@ function CatalogRow({
             </ul>
           </div>
 
-          {/* Aroma / Flavor chips inline on mobile (right rail hides) */}
-          <div className="mt-3 space-y-2 md:hidden">
+          {/* Aroma / Flavor chips — single column at every width, matching
+              the reference (no separate desktop rail). */}
+          <div className="mt-3 space-y-2">
             <TagRow label="Aroma" values={strain.aromas.slice(0, 4)} kind="aroma" />
             <TagRow label="Flavor" values={strain.flavors.slice(0, 3)} kind="flavor" />
           </div>
-        </div>
-
-        {/* Right rail: Aroma / Flavor groups (desktop) */}
-        <div className="hidden w-44 shrink-0 flex-col gap-4 border-l border-border p-4 pt-5 sm:p-5 md:flex">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              Aroma
-            </p>
-            <div className="mt-1.5 flex flex-wrap gap-1">
-              {strain.aromas.slice(0, 4).map((a) => (
-                <TagChip key={`a-${a}`} kind="aroma" value={a} />
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              Flavor
-            </p>
-            <div className="mt-1.5 flex flex-wrap gap-1">
-              {strain.flavors.slice(0, 3).map((f) => (
-                <TagChip key={`f-${f}`} kind="flavor" value={f} />
-              ))}
-            </div>
-          </div>
-          <span className="mt-auto inline-flex items-center gap-1 text-xs font-medium text-accent">
-            View details
-            <ChevronRight className="h-3.5 w-3.5" />
-          </span>
         </div>
       </Link>
     </li>
