@@ -590,7 +590,7 @@ function CatalogRow({
     <li className="relative">
       <CompareToggle
         name={strain.name}
-        className="absolute right-3 top-3 z-10"
+        className="absolute right-4 top-4 z-10"
       />
       <Link
         href={`/catalog/${strainSlug(strain.name)}`}
@@ -646,11 +646,15 @@ function CatalogRow({
 
         {/* Main info column */}
         <div className="min-w-0 flex-1 p-4 sm:p-5">
-          <div className="flex flex-wrap items-center gap-1.5">
+          {/* pr reserves room for the absolute Compare control top-right so
+              the potency badge never slides under it. */}
+          <div className="flex flex-wrap items-center gap-1.5 pr-28">
             <Badge variant="outline" className="capitalize">
               {strain.type}
             </Badge>
-            <Badge variant="muted">{strain.potency.replace("-", " ")}</Badge>
+            <Badge className="border-transparent bg-brass/15 capitalize text-brass">
+              {strain.potency.replace("-", " ")}
+            </Badge>
           </div>
           <h3 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight">
             {strain.name}
