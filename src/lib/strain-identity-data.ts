@@ -968,7 +968,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) capturing the spirit of a clean, loud San Fernando Valley gas-OG — the SoCal reference cut. A sun-baked hillside overlooking the sprawling San Fernando Valley at golden dusk: the valley grid hazing out below, palm silhouettes and dry chaparral in the foreground, a weathered chrome-and-fuel garage / refinery edge catching the last light, pine and lemon trees glinting through a faint petrol shimmer in the warm air. Palette warm and resinous — amber and lemon-gold sun on chrome and fuel-blue shadow, pine green and dusty earth deepening into a wine-dark dusk sky. Mood: uplifted, focused and warm yet relaxed — a clean, functional energy, alert but easy, not heavy or sedated. Cinematic, painterly, high-contrast, premium editorial poster. Keep the lower third calmer and darker for legible overlay text. The strain name may appear baked into the scene (e.g. stencilled on chrome or a hillside sign); no overlaid captions, logos or watermarks; no people, products or cannabis leaves.",
     artFileName: "sfv-og.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
