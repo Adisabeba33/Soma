@@ -959,6 +959,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "SFV OG — San Fernando Valley OG — is a Cali Connection OG Kush cut, one of the defining West Coast gas profiles and a parent of Fire OG and Motorbreath. The nose is pure SoCal OG: sharp fuel and pine with a lemony, earthy funk, clean and loud. The effect is a balanced OG high — an uplifting, focused head with a relaxing body that stays usable at moderate doses, a touch more functional than the heaviest OGs. It's potent but not purely sedating, which made it a popular all-rounder. For the classic San Fernando gas profile, SFV OG is the reference cut.",
     curatorQuote:
       "Sharp fuel and pine with a lemony, earthy funk, clean and loud.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of a clean, loud San Fernando Valley gas-OG — the SoCal reference cut. A sun-baked hillside overlooking the sprawling San Fernando Valley at golden dusk: the valley grid hazing out below, palm silhouettes and dry chaparral in the foreground, a weathered chrome-and-fuel garage / refinery edge catching the last light, pine and lemon trees glinting through a faint petrol shimmer in the warm air. Palette warm and resinous — amber and lemon-gold sun on chrome and fuel-blue shadow, pine green and dusty earth deepening into a wine-dark dusk sky. Mood: uplifted, focused and warm yet relaxed — a clean, functional energy, alert but easy, not heavy or sedated. Cinematic, painterly, high-contrast, premium editorial poster. Keep the lower third calmer and darker for legible overlay text. The strain name may appear baked into the scene (e.g. stencilled on chrome or a hillside sign); no overlaid captions, logos or watermarks; no people, products or cannabis leaves.",
+    artFileName: "sfv-og.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
