@@ -132,6 +132,9 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "sour-diesel.webp",
     artStatus: "published",
     artVersion: 1,
+    // Keep the "SOUR DIESEL" on the tank (right of centre) inside the
+    // narrow List crop.
+    artFocus: "90% 50%",
   },
   {
     canonicalName: "Chemdawg",
@@ -573,6 +576,9 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "white-hot-guava.webp",
     artStatus: "published",
     artVersion: 1,
+    // Keep the "WHITE HOT GUAVA" arch (left of centre) inside the narrow
+    // List crop.
+    artFocus: "40% 50%",
   },
 
   // ── Dessert / purple / kush expansions ──

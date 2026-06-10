@@ -110,6 +110,11 @@ export interface StrainIdentity {
   // logos, names, people, products and cannabis leaves — the UI overlays the
   // name and data, the image is pure atmosphere.
   artPrompt?: string;
+  // CSS object-position for cropping the image in tight frames (mainly the
+  // narrow List-view panel, which crops the sides). Lets art-integrated text
+  // baked into the image — e.g. the strain name on a tank — stay in view.
+  // Format like "90% 50%" (x y). Defaults to "50% 50%" (centre).
+  artFocus?: string;
 }
 
 import { IDENTITIES } from "./strain-identity-data";

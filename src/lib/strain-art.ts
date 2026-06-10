@@ -80,6 +80,12 @@ export function artVersionOf(identity?: StrainIdentity | null): number {
   return identity?.artVersion ?? 1;
 }
 
+// CSS object-position for the artwork. Defaults to centre. Used so a
+// baked-in name survives the narrow List-view crop (see artFocus).
+export function artFocusOf(identity?: StrainIdentity | null): string {
+  return identity?.artFocus ?? "50% 50%";
+}
+
 // Public URL of the strain's image, or null when no published art exists.
 // Served from /public/strains/, so a published "gg4.webp" resolves to
 // "/strains/gg4.webp".

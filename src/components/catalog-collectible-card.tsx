@@ -5,7 +5,7 @@ import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { strainSlug } from "@/lib/catalog";
 import { paletteForTime } from "@/lib/sensory-family-palette";
-import { timeProfileOf, artImageSrc } from "@/lib/strain-art";
+import { timeProfileOf, artImageSrc, artFocusOf } from "@/lib/strain-art";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 
 // Poster-style collectible card. The atmospheric gradient *is* the
@@ -62,6 +62,7 @@ export function CatalogCollectibleCard({
               aria-hidden
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: artFocusOf(identity) }}
             />
             {/* Bottom scrim keeps the overlaid name/tagline legible over any
                 image — the artwork itself carries no text. */}

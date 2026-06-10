@@ -15,7 +15,7 @@ import { RADAR_AXES, buildRadar } from "@/lib/sensory-radar";
 import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
 import { knownAsNames } from "@/lib/strain-identity";
-import { artImageSrc } from "@/lib/strain-art";
+import { artImageSrc, artFocusOf } from "@/lib/strain-art";
 import { strainSlug } from "@/lib/catalog";
 import { layoutParents } from "@/lib/genetics-layout";
 import {
@@ -113,6 +113,7 @@ export function StrainDetail({
                   src={artSrc}
                   alt={strain.name}
                   className="absolute inset-0 h-full w-full object-cover"
+                  style={{ objectPosition: artFocusOf(identity) }}
                 />
                 {/* Soft top scrim so the score badge stays legible */}
                 <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 to-transparent" />
