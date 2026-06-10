@@ -594,13 +594,19 @@ function CatalogRow({
       />
       <Link
         href={`/catalog/${strainSlug(strain.name)}`}
-        className="flex items-stretch gap-4 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-accent/50 sm:gap-5 sm:p-5"
+        className="flex items-stretch overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-accent/50"
       >
-        {/* Mini poster tile — same time-of-day gradient as the grid card
-            (or the published artwork), so List and Grid read as two
-            densities of one collection. */}
+        {/* Artwork column — flush to the card's left/top/bottom edges (no
+            inner border or padding), so the image *is* the start of the
+            block and flows straight into the content. With published art
+            the whole 3:4 image shows uncropped: height = card height, width
+            follows the aspect ratio. Without art it's a fixed-width strip of
+            the time-of-day gradient. */}
         <div
-          className="relative w-[88px] shrink-0 self-stretch overflow-hidden rounded-xl border border-border/40 sm:w-[112px]"
+          className={cn(
+            "relative shrink-0 self-stretch overflow-hidden",
+            !artSrc && "w-[104px] sm:w-[132px]",
+          )}
           style={{ background: palette.background }}
         >
           {artSrc && (
@@ -611,13 +617,13 @@ function CatalogRow({
                 alt=""
                 aria-hidden
                 loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover"
+                className="block h-full w-auto"
               />
               <div
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 55%, rgba(0,0,0,0) 80%)",
+                    "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.08) 55%, rgba(0,0,0,0) 80%)",
                 }}
               />
             </>
@@ -641,7 +647,7 @@ function CatalogRow({
         </div>
 
         {/* Main info column */}
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 p-4 sm:p-5">
           <div className="flex flex-wrap items-center gap-1.5">
             <Badge variant="outline" className="capitalize">
               {strain.type}
@@ -693,7 +699,7 @@ function CatalogRow({
         </div>
 
         {/* Right rail: Aroma / Flavor groups (desktop) */}
-        <div className="hidden w-44 shrink-0 flex-col gap-4 border-l border-border pl-4 pt-8 md:flex">
+        <div className="hidden w-44 shrink-0 flex-col gap-4 border-l border-border p-4 pt-5 sm:p-5 md:flex">
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
               Aroma
