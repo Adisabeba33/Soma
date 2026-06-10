@@ -603,7 +603,7 @@ function CatalogRow({
             portrait would blow the row up to a full screen and hide the
             strain's own data. Without art it's the time-of-day gradient. */}
         <div
-          className="relative w-[150px] shrink-0 self-stretch overflow-hidden sm:w-[190px]"
+          className="relative w-[124px] shrink-0 self-stretch overflow-hidden sm:w-[160px]"
           style={{ background: palette.background }}
         >
           {artSrc && (
@@ -718,8 +718,8 @@ function TagRow({
 }) {
   if (values.length === 0) return null;
   return (
-    <div className="flex flex-wrap items-center gap-1.5">
-      <span className="w-12 shrink-0 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+    <div className="flex min-w-0 flex-nowrap items-center gap-1 overflow-hidden">
+      <span className="w-9 shrink-0 text-[10px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
         {label}
       </span>
       {values.map((v) => (
@@ -747,7 +747,7 @@ function TagChip({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs",
+        "inline-flex shrink-0 items-center whitespace-nowrap rounded-full px-2 py-0.5 text-[11px]",
         tone,
       )}
     >
