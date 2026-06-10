@@ -97,33 +97,34 @@ export function StrainDetail({
       {/* ── Hero ─────────────────────────────────────────────── */}
       <div className="mt-5 overflow-hidden rounded-3xl border border-border bg-card">
         <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[280px_minmax(0,1fr)]">
-          {/* Radar-as-hero on an abstract, aroma-tinted ground. When the
-              strain has published artwork, that becomes the ground (with a
-              scrim) and the radar reads over it. */}
+          {/* Hero ground. With published artwork the image owns the tile and
+              the radar moves down to "Effects & experience"; without art the
+              radar sits here on an aroma-tinted gradient. */}
           <div
             className="relative flex aspect-square items-center justify-center overflow-hidden rounded-2xl border border-border"
             style={{
               background: `radial-gradient(120% 120% at 30% 20%, ${radar.fill}, hsl(var(--card)) 70%)`,
             }}
           >
-            {artSrc && (
+            {artSrc ? (
               <>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={artSrc}
-                  alt=""
-                  aria-hidden
+                  alt={strain.name}
                   className="absolute inset-0 h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black/30" />
+                {/* Soft top scrim so the score badge stays legible */}
+                <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 to-transparent" />
               </>
+            ) : (
+              <SensoryRadar
+                strain={strain}
+                size={240}
+                labels
+                className="relative z-10 h-[88%] w-[88%]"
+              />
             )}
-            <SensoryRadar
-              strain={strain}
-              size={240}
-              labels
-              className="relative z-10 h-[88%] w-[88%]"
-            />
             <span
               className={cn(
                 "absolute left-4 top-4 z-10 inline-flex flex-col items-center rounded-xl bg-background/85 px-2.5 py-1 shadow-sm backdrop-blur-sm",
@@ -212,6 +213,24 @@ export function StrainDetail({
           )}
 
           <Section title="Effects & experience">
+            {/* Radar relocated here once the hero shows artwork — same
+                aroma-tinted ground it had in the hero, now headlining the
+                axis bars that share its data. */}
+            {artSrc && (
+              <div
+                className="mb-6 flex justify-center rounded-2xl border border-border p-5"
+                style={{
+                  background: `radial-gradient(120% 120% at 30% 20%, ${radar.fill}, hsl(var(--card)) 70%)`,
+                }}
+              >
+                <SensoryRadar
+                  strain={strain}
+                  size={240}
+                  labels
+                  className="h-60 w-60 sm:h-64 sm:w-64"
+                />
+              </div>
+            )}
             <div className="grid gap-2.5 sm:grid-cols-2">
               {RADAR_AXES.map((ax, i) => (
                 <EffectBar
