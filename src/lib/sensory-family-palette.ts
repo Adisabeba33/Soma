@@ -11,6 +11,8 @@
 // family isn't in the table (e.g., a brand-new family value added by
 // the curator before this map is updated).
 
+import type { TimeProfile } from "./types";
+
 export interface FamilyPalette {
   // Linear/radial gradient applied via inline style — multi-stop so the
   // card has depth, not a flat slab.
@@ -113,4 +115,46 @@ const PALETTE: Record<string, FamilyPalette> = {
 export function paletteForFamily(family: string | null | undefined): FamilyPalette {
   if (!family) return FALLBACK;
   return PALETTE[family] ?? FALLBACK;
+}
+
+// ── Time-of-day palette ─────────────────────────────────────────────────
+// Drives the catalog card atmosphere by the strain's TimeProfile rather than
+// its smell family, so a row of cards reads as a spread of moods (light,
+// fresh morning → deep, sedative night) instead of a uniformly dark wall —
+// even before any artwork is generated. Each gradient runs from a lighter
+// top toward a deeper bottom, where the strain name / tagline sit, so the
+// contentTone stays legible at the foot of the card.
+const TIME_PALETTE: Record<TimeProfile, FamilyPalette> = {
+  // Dewy dawn — pale gold and fresh green, awake and clean.
+  morning: {
+    background:
+      "linear-gradient(165deg, #eef5ef 0%, #d4e7dd 45%, #aeccc2 100%)",
+    contentTone: "dark",
+    accent: "#2f6f5f",
+  },
+  // Open midday sky — bright, social, energetic blue.
+  daytime: {
+    background:
+      "linear-gradient(165deg, #dcebf7 0%, #aacfeb 45%, #7aaed6 100%)",
+    contentTone: "dark",
+    accent: "#1f5f8b",
+  },
+  // Golden hour — warm amber fading into a wine-dark dusk.
+  sunset: {
+    background:
+      "linear-gradient(160deg, #e6a85a 0%, #b75f3c 50%, #5a2740 100%)",
+    contentTone: "light",
+    accent: "#ffd9a0",
+  },
+  // Deep night — indigo into near-black, heavy and still.
+  night: {
+    background:
+      "linear-gradient(155deg, #1c2336 0%, #11131f 55%, #06070d 100%)",
+    contentTone: "light",
+    accent: "#8aa0c8",
+  },
+};
+
+export function paletteForTime(tp: TimeProfile): FamilyPalette {
+  return TIME_PALETTE[tp];
 }

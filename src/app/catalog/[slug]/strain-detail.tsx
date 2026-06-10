@@ -15,6 +15,7 @@ import { RADAR_AXES, buildRadar } from "@/lib/sensory-radar";
 import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
 import { knownAsNames } from "@/lib/strain-identity";
+import { artImageSrc } from "@/lib/strain-art";
 import { strainSlug } from "@/lib/catalog";
 import { layoutParents } from "@/lib/genetics-layout";
 import {
@@ -62,6 +63,7 @@ export function StrainDetail({
   const { strain, identity } = entry;
   const knownAs = knownAsNames(strain.aliases, identity);
   const radar = buildRadar(strain);
+  const artSrc = artImageSrc(strain, identity);
   const badgeScore = match ? match.score : curatedScore;
   const badgeTone = match
     ? CATEGORY_TONE[match.category] ?? "text-foreground"
@@ -95,22 +97,36 @@ export function StrainDetail({
       {/* ── Hero ─────────────────────────────────────────────── */}
       <div className="mt-5 overflow-hidden rounded-3xl border border-border bg-card">
         <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[280px_minmax(0,1fr)]">
-          {/* Radar-as-hero on an abstract, aroma-tinted ground */}
+          {/* Radar-as-hero on an abstract, aroma-tinted ground. When the
+              strain has published artwork, that becomes the ground (with a
+              scrim) and the radar reads over it. */}
           <div
             className="relative flex aspect-square items-center justify-center overflow-hidden rounded-2xl border border-border"
             style={{
               background: `radial-gradient(120% 120% at 30% 20%, ${radar.fill}, hsl(var(--card)) 70%)`,
             }}
           >
+            {artSrc && (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={artSrc}
+                  alt=""
+                  aria-hidden
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/30" />
+              </>
+            )}
             <SensoryRadar
               strain={strain}
               size={240}
               labels
-              className="h-[88%] w-[88%]"
+              className="relative z-10 h-[88%] w-[88%]"
             />
             <span
               className={cn(
-                "absolute left-4 top-4 inline-flex flex-col items-center rounded-xl bg-background/85 px-2.5 py-1 shadow-sm backdrop-blur-sm",
+                "absolute left-4 top-4 z-10 inline-flex flex-col items-center rounded-xl bg-background/85 px-2.5 py-1 shadow-sm backdrop-blur-sm",
                 badgeTone,
               )}
             >

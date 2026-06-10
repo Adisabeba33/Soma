@@ -4,7 +4,8 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { strainSlug } from "@/lib/catalog";
-import { paletteForFamily } from "@/lib/sensory-family-palette";
+import { paletteForTime } from "@/lib/sensory-family-palette";
+import { timeProfileOf, artImageSrc } from "@/lib/strain-art";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 
 // Poster-style collectible card. The atmospheric gradient *is* the
@@ -31,7 +32,12 @@ export function CatalogCollectibleCard({
   score: number;
 }) {
   const { strain, identity } = entry;
-  const palette = paletteForFamily(identity?.sensoryFamily ?? null);
+  const palette = paletteForTime(timeProfileOf(strain, identity));
+  const artSrc = artImageSrc(strain, identity);
+  // Over a published image the bottom scrim is dark, so text is always white
+  // there; otherwise it follows the gradient's contentTone.
+  const lightText = artSrc ? true : palette.contentTone === "light";
+  const mutedText = lightText ? "text-white/55" : "text-black/45";
   const showMatch = Boolean(match);
   const badgeValue = match ? match.score : score;
   const badgeLabel = showMatch ? "MATCH" : "CURATED";
@@ -41,15 +47,36 @@ export function CatalogCollectibleCard({
       <Link
         href={`/catalog/${strainSlug(strain.name)}`}
         className={cn(
-          "flex aspect-[3/4] h-full flex-col justify-between overflow-hidden rounded-2xl border border-border/40 p-5 transition-all",
+          "relative flex aspect-[3/4] h-full flex-col justify-between overflow-hidden rounded-2xl border border-border/40 p-5 transition-all",
           "hover:scale-[1.01] hover:border-accent/40 hover:shadow-lg",
-          palette.contentTone === "light" ? "text-white" : "text-foreground",
+          lightText ? "text-white" : "text-foreground",
         )}
         style={{ background: palette.background }}
       >
+        {artSrc && (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={artSrc}
+              alt=""
+              aria-hidden
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            {/* Bottom scrim keeps the overlaid name/tagline legible over any
+                image — the artwork itself carries no text. */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.18) 45%, rgba(0,0,0,0) 70%)",
+              }}
+            />
+          </>
+        )}
         {/* Top: match badge — leaves the rest of the upper card for
             the gradient to breathe */}
-        <div>
+        <div className="relative z-10">
           <div
             className="inline-flex h-12 w-12 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md"
             title={
@@ -70,11 +97,11 @@ export function CatalogCollectibleCard({
         {/* Bottom: strain identity + tagline + chevron. Sits at the
             bottom so the gradient has space at the top — the card reads
             as background-first, label-second, like a vintage poster. */}
-        <div>
+        <div className="relative z-10">
           <h3 className="font-display text-2xl font-semibold leading-tight tracking-tight">
             {strain.name}
           </h3>
-          <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-white/55">
+          <p className={cn("mt-1 text-[11px] uppercase tracking-[0.14em]", mutedText)}>
             {strain.type} · {strain.potency.replace("-", " ")}
           </p>
           <div className="mt-3 flex items-end justify-between gap-3">
@@ -89,7 +116,7 @@ export function CatalogCollectibleCard({
               <span className="flex-1" />
             )}
             <ChevronRight
-              className="h-4 w-4 shrink-0 text-white/55"
+              className={cn("h-4 w-4 shrink-0", mutedText)}
               aria-hidden
             />
           </div>

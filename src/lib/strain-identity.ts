@@ -8,7 +8,7 @@
 // identity record at all is also a valid state — getIdentity returns null
 // in that case.
 
-import type { StrainType } from "./types";
+import type { StrainType, TimeProfile, ArtStatus } from "./types";
 
 export type IdentityConfidence = "low" | "medium" | "high";
 
@@ -89,6 +89,27 @@ export interface StrainIdentity {
   growerVariants?: string[];
   // Honest signal about how reliable the rest of this record is.
   sourceConfidence: IdentityConfidence;
+
+  // ── Artwork layer (see src/lib/strain-art.ts and docs/strain-artwork.md) ──
+  // Time-of-day mood override. When absent, it is DERIVED from the strain's
+  // behavioural family (deriveTimeProfile) — so the whole catalog gets a
+  // sensible mood for free and only deliberate exceptions need a value here.
+  timeProfile?: TimeProfile;
+  // Image filename override. When absent it defaults to `${strainSlug}.webp`
+  // (e.g. GG4 → "gg4.webp"). Lives in /public/strains/.
+  artFileName?: string;
+  // Artwork lifecycle. Defaults to "none". The card/detail page only render
+  // the WebP when this is "published".
+  artStatus?: ArtStatus;
+  // Bumped each time the image is regenerated. Defaults to 1. Informational —
+  // lets us track which prompt/version a published image came from.
+  artVersion?: number;
+  // The generation prompt for this strain's image. A sensible default can be
+  // produced with buildArtPrompt(); store a hand-tuned override here when the
+  // default doesn't capture the strain. The prompt always forbids text,
+  // logos, names, people, products and cannabis leaves — the UI overlays the
+  // name and data, the image is pure atmosphere.
+  artPrompt?: string;
 }
 
 import { IDENTITIES } from "./strain-identity-data";
