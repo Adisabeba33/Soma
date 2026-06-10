@@ -748,7 +748,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) capturing the spirit of a loud, frosty, gas-and-mint hype hybrid with sharp, focused energy. A floodlit outdoor street basketball court at electric blue-gold dusk: chrome chain-link nets, a worn backboard and rain-slick painted asphalt, charged with kinetic motion — crisp light streaks and a cool vapour rolling low across the court. Palette cool and high-contrast — minty teal and frosted white against diesel-petrol shadow and warm amber floodlight, sunset bleeding into deep dusk blue, a crystalline frosted sheen on every edge. Mood: energetic, focused and social — fast, alert and confident, a clear-headed buzz rather than a sink. Cinematic, painterly, high-contrast, premium editorial poster. Keep the lower third calmer and darker for legible overlay text. The strain name may appear baked into the scene (e.g. stencilled on the asphalt or the backboard); no overlaid captions, logos or watermarks; no people, products or cannabis leaves.",
     artFileName: "gary-payton.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
