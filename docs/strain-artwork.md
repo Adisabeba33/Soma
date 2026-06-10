@@ -88,6 +88,7 @@ All optional; live in `src/lib/strain-identity-data.ts` next to `tagline`.
 | `artStatus` | lifecycle (below) | `none` |
 | `artVersion` | regeneration counter | `1` |
 | `artPrompt` | generation prompt override | built by `buildArtPrompt` |
+| `artFocus` | crop focus (`object-position`) so a baked-in name survives the narrow List crop | `"50% 50%"` |
 
 Note: the card "slogan" is the existing `tagline` field — no separate
 field. Examples: GG4 → "Couch-bound legend", Sour Diesel → "Acid bright

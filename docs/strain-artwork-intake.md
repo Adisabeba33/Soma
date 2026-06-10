@@ -155,6 +155,26 @@ artVersion: 1,            // bump to 2, 3… only when REGENERATING an image
 - `timeProfile` is **optional** — it's auto-derived from the strain's
   behavioural family. Only set/keep it if the owner wants a specific mood
   (e.g. Super Lemon Haze is pinned to `morning`). Don't touch it otherwise.
+- `artFocus` (**important when the image has a baked-in name**) — the List
+  view shows the art in a narrow, tall panel and crops the **sides**
+  (`object-cover`), so a name on the right/left of the image gets clipped.
+  Set `artFocus: "<x>% <y>%"` (CSS object-position) to pull the crop toward
+  the name. Only the **x** matters for the List crop. Tune it by eye —
+  simulate the panel crop and check the name is readable:
+
+  ```bash
+  node -e '
+  const sharp = require("sharp"), P = Number(process.env.P);   // x as 0..1
+  const H = 300, w = 124, sw = Math.round(768 * H / 1024);
+  sharp(process.env.SRC).resize({ height: H }).toBuffer().then(b =>
+    sharp(b).extract({ left: Math.round((sw - w) * P), top: 0, width: w, height: H })
+      .toFile("/tmp/focus_" + Math.round(P*100) + ".png"));
+  '   # SRC=public/strains/<slug>.webp  P=0.9  → view /tmp/focus_90.png
+  ```
+
+  Then store the chosen x as `artFocus: "90% 50%"`. Examples in the data:
+  Sour Diesel `"90% 50%"` (name on the right tank), White Hot Guava
+  `"40% 50%"` (name on the left arch). Default (omit) is centre.
 - **No identity record yet?** Most strains have one. If a strain is missing
   from this file, add a minimal record:
 

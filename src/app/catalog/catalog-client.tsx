@@ -20,7 +20,7 @@ import { CatalogCollectibleCard } from "@/components/catalog-collectible-card";
 import { CompareBasketTray } from "@/components/compare-basket-tray";
 import { effectIconFor } from "@/components/effect-icon";
 import { paletteForTime } from "@/lib/sensory-family-palette";
-import { timeProfileOf, artImageSrc } from "@/lib/strain-art";
+import { timeProfileOf, artImageSrc, artFocusOf } from "@/lib/strain-art";
 import {
   BASKET_EVENT,
   addToBasket,
@@ -615,6 +615,7 @@ function CatalogRow({
                 aria-hidden
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"
+                style={{ objectPosition: artFocusOf(identity) }}
               />
               <div
                 className="absolute inset-0"
