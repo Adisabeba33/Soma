@@ -47,6 +47,8 @@ export const IDENTITIES: StrainIdentity[] = [
       "Born from a happy accident — a Chem Sister that threw pollen across a room of Sour Dubb and Chocolate Diesel — GG4 became the strain that 'glued the scissors shut,' and the name stuck. Crack the jar and it's pure solvent: sharp diesel and coffee-tinged chocolate over damp earth, with almost no sweetness to soften the edge. The smoke is heavy and mouth-coating, and the high lands fast — a sinking, behind-the-eyes weight that pulls you into the couch within minutes. It's a closer, not a starter; most who reach for it want the body off-switch at the end of the day, and newer smokers routinely underestimate how flattening it can be. What keeps it a benchmark a decade on is consistency — even an average cut still speaks that unmistakable gas-and-glue language.",
     curatorQuote:
       "Even an average cut still speaks that unmistakable gas-and-glue language.",
+    whyItMatters:
+      "GG4 (Gorilla Glue #4) proved a happy accident could become a benchmark. Born from a pollination mistake, it swept back-to-back Cannabis Cups in the mid-2010s and became the reference point for sticky, gas-heavy hybrids — the cut people name-check when they talk about resin and couch-lock. A trademark clash with the glue brand forced the rename to 'GG4,' which only added to the legend.",
     tagline: "Couch-bound legend",
     sourceConfidence: "high",
     timeProfile: "night",
@@ -70,8 +72,13 @@ export const IDENTITIES: StrainIdentity[] = [
       "OG Kush is the genetic spine of the West Coast — a contested early-90s cut (Chemdawg into a Hindu Kush is the usual telling) whose name launched a thousand 'OGs.' The nose is the textbook reference: sharp pine and lemon-pledge over a backbone of fuel and damp earth, what most people actually mean when they say 'gas.' Effect-wise it's a deceptive hybrid — a heady, euphoric lift that slides into real body weight, social at first and couch-bound if you keep going. It's a benchmark precisely because it's everywhere in everything: half the modern menu carries its pine-and-fuel signature somewhere in the lineage. Newcomers sometimes find the flavour harsh, but for gas lovers it's the original and still the measuring stick.",
     curatorQuote:
       "Half the modern menu carries its pine-and-fuel signature somewhere in the lineage.",
+    whyItMatters:
+      "OG Kush is the genetic spine of the West Coast — the strain whose name launched an entire 'OG' dynasty. It set the very definition of what people mean by 'gas,' and a huge share of the modern dessert-and-gas menu traces somewhere back to it. Few strains have been bred from more.",
     tagline: "The gas reference",
     sourceConfidence: "medium",
+    // Foundational and well-known, but the Chemdawg × Hindu Kush cross is
+    // "commonly cited, not verified."
+    lineageConfidence: "low",
   },
   {
     canonicalName: "Tahoe OG",
@@ -126,8 +133,13 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sour Diesel is the East Coast's calling card — a 90s NYC cut of contested parentage (Chemdawg 91 into Super Skunk is the story most growers tell) that defined what 'gassy sativa' even means. The nose is loud and unmistakable: cutting diesel and sour citrus rind with a skunky tail that fills a room the moment the bag opens. Where most heavy strains pull you down, Sour D lifts — a bright, talkative, faintly racy head-high that made it a daytime and creative-work favorite for two decades. The trade-off is real: it can tip toward jittery if you're anxiety-prone or take too much, and the flavor stays acrid rather than pleasant — more fuel than fruit. People don't reach for Sour Diesel to relax; they reach for it to get moving.",
     curatorQuote:
       "People don't reach for Sour Diesel to relax — they reach for it to get moving.",
+    whyItMatters:
+      "Sour Diesel is the East Coast's defining contribution to modern cannabis — the strain that taught a generation what a 'gassy sativa' is. Through the 1990s and 2000s it was the calling card of New York and the daytime-energetic counterpoint to West Coast OG, and its loud diesel-and-citrus signature still echoes through countless modern crosses.",
     tagline: "Acid bright sativa",
     sourceConfidence: "high",
+    // The strain itself is well-documented, but the Chemdawg 91 × Super Skunk
+    // parentage is "commonly cited," not verified.
+    lineageConfidence: "low",
     timeProfile: "daytime",
     artFileName: "sour-diesel.webp",
     artStatus: "published",
@@ -148,8 +160,12 @@ export const IDENTITIES: StrainIdentity[] = [
       "Chemdawg is the cult bag-seed that quietly rewired modern cannabis — the mythic parent behind both OG Kush and Sour Diesel, with an origin story (a Grateful Dead show, a bag of seeds) more legend than record. Crack it open and it's pure sharp chemical funk: acrid diesel, a metallic tang and sour earth — the 'chem' note an entire family is named after. The high is heavy and cerebral at once: a fast, pressing head-rush that settles into a weighty, slightly dazed body, more potent than its plain looks suggest. It comes in several cuts (Chem 91, Chem D, Chem 4) that aren't interchangeable, so 'Chemdawg' on a label tells you the family, not the exact phenotype. It's a connoisseur's strain — loud, divisive and foundational.",
     curatorQuote:
       "Crack it open and it's pure sharp chemical funk.",
+    whyItMatters:
+      "Chemdawg is the quiet root of modern cannabis: the cult bag-seed — born of a Grateful Dead-show legend — that parented both OG Kush and Sour Diesel, and through them a huge share of today's menu. The entire 'chem' family is named after its sharp chemical funk.",
     tagline: "The chem origin",
     sourceConfidence: "medium",
+    // The strain is foundational, but its actual origin is contested cult lore.
+    lineageConfidence: "low",
   },
   {
     canonicalName: "Stardawg",
@@ -294,6 +310,8 @@ export const IDENTITIES: StrainIdentity[] = [
       "Northern Lights is 1980s bedrock — a nearly pure Afghani indica that Sensi Seeds popularised and that quietly fathered a huge share of modern indicas. The nose is gentle and classic: sweet pine and dusty earth with a soft spicy-resin sweetness, never loud, always comforting. The effect is the definition of a heavy, dreamy body stone — warm, lazy and reliably sleepy, the strain people reach for to switch the day off. Its mildness of flavour is the trade-off: it won't dazzle terp-chasers, and it's been grown so long that cuts vary in punch. But for sheer dependable, sit-down relaxation, it's one of the most trusted names there is.",
     curatorQuote:
       "The strain people reach for to switch the day off.",
+    whyItMatters:
+      "Northern Lights is 1980s bedrock — the nearly pure Afghani that taught the decade what indica was supposed to feel like. Sensi Seeds popularised it, and a large share of modern indicas trace back to its line; it's one of the foundational sedative cultivars the whole category was built on.",
     tagline: "Old guard sedation",
     sourceConfidence: "high",
   },

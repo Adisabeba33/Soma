@@ -14,7 +14,7 @@ import { SensoryRadar } from "@/components/sensory-radar";
 import { RADAR_AXES, buildRadar } from "@/lib/sensory-radar";
 import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
-import { knownAsNames } from "@/lib/strain-identity";
+import { knownAsNames, lineageConfidenceOf } from "@/lib/strain-identity";
 import { artImageSrc, artFocusOf } from "@/lib/strain-art";
 import { strainSlug } from "@/lib/catalog";
 import { layoutParents } from "@/lib/genetics-layout";
@@ -202,6 +202,14 @@ export function StrainDetail({
             </Section>
           )}
 
+          {identity?.whyItMatters && (
+            <Section title="Why it matters">
+              <p className="leading-relaxed text-foreground/90">
+                {identity.whyItMatters}
+              </p>
+            </Section>
+          )}
+
           {lineageParents.length > 0 && (
             <Section title="Genetics">
               <Genetics
@@ -210,6 +218,15 @@ export function StrainDetail({
                 child={strain.name}
                 childType={strain.type}
               />
+              {identity && lineageConfidenceOf(identity) !== identity.sourceConfidence && (
+                <p className="mt-3 text-xs text-muted-foreground">
+                  Lineage confidence:{" "}
+                  <strong className="text-foreground">
+                    {lineageConfidenceOf(identity)}
+                  </strong>{" "}
+                  — independent of how well-documented the strain itself is.
+                </p>
+              )}
             </Section>
           )}
 

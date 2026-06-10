@@ -5,6 +5,8 @@ import {
   getIdentity,
   identitiesInFamily,
   knownAsNames,
+  lineageConfidenceOf,
+  historicalConfidenceOf,
 } from "../src/lib/strain-identity";
 import { IDENTITIES } from "../src/lib/strain-identity-data";
 import { STRAINS } from "../src/lib/strain-data";
@@ -64,6 +66,49 @@ describe("identity record invariants", () => {
         `duplicate identity for ${id.canonicalName}`,
       );
       seen.add(id.canonicalName);
+    }
+  });
+});
+
+describe("per-category confidence", () => {
+  const CONF = new Set(["low", "medium", "high"]);
+
+  it("falls back to sourceConfidence when a category is unset", () => {
+    // Northern Lights has no lineageConfidence override.
+    const nl = getIdentity("Northern Lights");
+    assert.ok(nl);
+    assert.equal(nl.lineageConfidence, undefined);
+    assert.equal(lineageConfidenceOf(nl), nl.sourceConfidence);
+    assert.equal(historicalConfidenceOf(nl), nl.sourceConfidence);
+  });
+
+  it("uses the override when present (contested lineage)", () => {
+    const sd = getIdentity("Sour Diesel");
+    assert.ok(sd);
+    assert.equal(sd.sourceConfidence, "high");
+    assert.equal(lineageConfidenceOf(sd), "low");
+  });
+
+  it("every per-category override is a valid confidence", () => {
+    for (const id of IDENTITIES) {
+      for (const v of [id.lineageConfidence, id.historicalConfidence]) {
+        if (v !== undefined) {
+          assert.ok(CONF.has(v), `bad confidence on ${id.canonicalName}: ${v}`);
+        }
+      }
+    }
+  });
+});
+
+describe("whyItMatters", () => {
+  it("is present on the seeded historical anchors", () => {
+    for (const name of ["GG4", "Sour Diesel", "OG Kush", "Chemdawg", "Northern Lights"]) {
+      const id = getIdentity(name);
+      assert.ok(id, `${name} missing identity`);
+      assert.ok(
+        id.whyItMatters && id.whyItMatters.length > 0,
+        `${name} missing whyItMatters`,
+      );
     }
   });
 });
