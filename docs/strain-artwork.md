@@ -41,14 +41,18 @@ specific strain, set `timeProfile` on its record in
 ## Image generation rules
 
 - **Format:** WebP, vertical **3:4** (e.g. **768×1024**).
-- **No text or branding on the image** — no letters, numbers, logos,
-  watermarks or strain names. The site overlays the name and card data; the
-  image is pure atmosphere.
-- **No** people, products, packaging, cannabis leaves/buds, or smoke
-  clichés.
+- **Text policy (updated June 2026):** text *may* appear when it's **baked
+  artistically into the scene itself** — e.g. the strain name engraved on a
+  tank, carved in stone, painted on a wall as part of the artwork (see Sour
+  Diesel's refinery tank). What's **not** allowed is **UI-style text laid
+  over the top** — a floating slogan, caption, or the name dropped on as a
+  separate label. The app overlays the name and card data itself, so the
+  image must not duplicate that as an overlay. No brand logos or watermarks.
+- Cinematic scenes, creatures, cityscapes and industrial settings are
+  welcome (GG4's throne, Sour Diesel's refinery). Avoid literal product
+  shots, packaging, people, and cannabis leaves/buds; no smoke clichés.
 - The image should match the strain's `timeProfile` mood and, where it
-  helps, its `sensoryFamily` character — expressed through colour, light,
-  texture and abstract form only.
+  helps, its `sensoryFamily` character.
 
 `buildArtPrompt(strain, identity)` produces a default prompt embedding all
 of these constraints. Store a hand-tuned override in `artPrompt` on the

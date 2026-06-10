@@ -139,12 +139,13 @@ describe("paletteForTime", () => {
 });
 
 describe("buildArtPrompt", () => {
-  it("always forbids text and the obvious clichés", () => {
+  it("allows art-integrated text but forbids UI overlays and the clichés", () => {
     const strain = findStrain("GG4");
     assert.ok(strain);
     const prompt = buildArtPrompt(strain, getIdentity("GG4"));
-    assert.match(prompt, /no text/i);
-    assert.match(prompt, /no logos/i);
+    assert.match(prompt, /baked artistically into the scene/i);
+    assert.match(prompt, /overlay/i);
+    assert.match(prompt, /logos|watermark/i);
     assert.match(prompt, /no cannabis leaves/i);
     assert.match(prompt, /3:4/);
   });

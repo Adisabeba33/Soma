@@ -121,7 +121,7 @@ export function buildArtPrompt(
     "Atmospheric vertical 3:4 poster artwork (768x1024) evoking the full sensory experience of a cannabis strain.",
     `Mood: ${MOOD_BRIEF[tp]}.`,
     `Evoke ${family}${aromas ? ` — notes of ${aromas}` : ""}, expressed only through colour, light, texture and abstract form.`,
-    "Absolutely no text, no letters, no numbers, no logos, no watermark, no strain name.",
+    "Any text must be baked artistically into the scene itself (such as the strain name worked naturally into the artwork) — never UI-style overlay captions, floating slogans or added labels. No brand logos or watermarks.",
     "No people, no products, no packaging, no cannabis leaves or buds, no smoke clichés.",
     "Painterly, evocative, premium editorial feel. Keep the lower third visually calm so the interface can overlay the name and data legibly.",
   ].join(" ");
