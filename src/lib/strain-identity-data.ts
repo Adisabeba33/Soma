@@ -3185,7 +3185,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a heavy, lemony-pine evening OG indica named Khalifa Kush — 'Khalifa' meaning caliph, a ruler. A grand caliph's palace courtyard at sunset: scalloped Moorish arches, inlaid geometric mosaic, a still reflecting pool catching the gold-amber sky, brass lanterns glowing low. The warm air shimmers with a faint fuel haze drifting between the columns, and lemon-citrus and pine cut through the heavy dusk; the polished stone has an oily, resinous sheen where the last light pools. Palette regal and deep — amber and lemon-gold sunset over earthy ochre stone, brass and emerald tilework, sinking into a wine-dark indigo evening. Mood: royal, opulent, sedating — a euphoric head sinking into a strong, heavy body, an evening crown. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'KHALIFA KUSH' baked into the scene — carved and gilded into the palace stone above the central arch. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "khalifa-kush.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
