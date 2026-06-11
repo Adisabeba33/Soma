@@ -14,6 +14,7 @@ import {
   behavioralFamilyOf,
   familyBonus,
   hasClusteredFavorites,
+  type BehavioralFamily,
 } from "./behavioral-family";
 import { primaryAromaTokens, type ResolvedTarget } from "./profile-target";
 import { deriveTasteModes } from "./taste-modes";
@@ -725,6 +726,17 @@ function bumpConfidence(base: Confidence, boost: number): Confidence {
   return tiers[idx];
 }
 
+// Friendly name for the taste mode a candidate matched, surfaced in the
+// explanation only when the profile is genuinely multi-modal. Keeps the
+// behavioural-family key out of user-facing copy.
+const FAMILY_SIDE_LABEL: Record<BehavioralFamily, string> = {
+  "nighttime-indica": "your wind-down side",
+  "daytime-functional": "your daytime side",
+  "edgy-stimulant": "your high-energy side",
+  "contemplative-quiet": "your mellow side",
+  "exotic-modern-hybrid": "your exotic-hybrid side",
+};
+
 export function scoreStrain(
   rawName: string,
   profile: TasteProfileInput,
@@ -919,6 +931,7 @@ export function scoreStrain(
   // pre-change single-target computation and leaves their scores unchanged.
   const modes = deriveTasteModes(profile);
   let layers = layersForTarget(modes[0].target);
+  let selectedMode = modes[0];
   let bestModeValue =
     W.effect * layers.effectContribution +
     layers.archetypeBonus +
@@ -934,9 +947,20 @@ export function scoreStrain(
     if (value > bestModeValue) {
       bestModeValue = value;
       layers = cand;
+      selectedMode = modes[i];
     }
   }
   const { effectContribution, archetypeBonus, textureMod, familyMod } = layers;
+
+  // Explanation note for which taste mode matched — only when the profile is
+  // genuinely multi-modal AND the candidate actually earned target-driven
+  // recognition from the chosen mode (otherwise the mention would be noise).
+  const modeNote =
+    modes.length > 1 &&
+    (familyMod > 0 || archetypeBonus > 0) &&
+    selectedMode.family !== null
+      ? FAMILY_SIDE_LABEL[selectedMode.family]
+      : null;
 
   const raw =
     W.effect * effectContribution +
@@ -1013,6 +1037,7 @@ export function scoreStrain(
     favoriteAnchorName,
     favoriteMatchKind,
     favoriteSurface,
+    modeNote,
   );
   const riskNotes = buildRiskNotes(strain, known, conflicts, profile);
   const explanation = buildExplanation(
@@ -1064,6 +1089,7 @@ function buildWhyItFits(
   favoriteAnchorName: string | null,
   favoriteMatchKind: "canonical" | "alias",
   favoriteSurface: string | null,
+  modeNote: string | null,
 ): string {
   if (favoriteAnchorName) {
     const supporting: string[] = [];
@@ -1082,6 +1108,8 @@ function buildWhyItFits(
   }
 
   const points: string[] = [];
+  // Multi-modal: lead with which side of the user's taste this matched.
+  if (modeNote) points.push(modeNote);
   if (effect.matched.length)
     points.push(`the ${labelList(effect.matched)} effect you're after`);
   if (aroma.matched.length) points.push(`a ${labelList(aroma.matched)} nose`);

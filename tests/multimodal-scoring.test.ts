@@ -59,4 +59,17 @@ describe("multimodal scoring — serves both taste worlds", () => {
     assert.ok(day > 55, `daytime candidate too low: ${day}`);
     assert.ok(nightCand > 55, `nighttime candidate too low: ${nightCand}`);
   });
+
+  it("explanation names which taste side matched (multi-modal only)", () => {
+    const day = scoreStrain("Jack Herer", DUAL).whyItFits;
+    const night = scoreStrain("Bubba Kush", DUAL).whyItFits;
+    assert.match(day, /your daytime side/);
+    assert.match(night, /your wind-down side/);
+    // A single-mode profile gets no "side" note.
+    const single = scoreStrain(
+      "Jack Herer",
+      profile({ favoriteStrains: ["Super Lemon Haze"] }),
+    ).whyItFits;
+    assert.doesNotMatch(single, /side/);
+  });
 });
