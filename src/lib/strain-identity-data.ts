@@ -2254,7 +2254,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a pure-fuel gas-OG hybrid named Gas Face — all diesel, no candy. The interior of a vast, near-empty underground concrete parking structure at night: rows of square pillars receding into darkness under flickering sodium lights, a heavy fuel haze drifting low through the cold air, oily petrol-rainbow puddles spreading across the worn concrete floor and catching the lights. Palette raw and nocturnal — near-black concrete and cold diesel-petrol blue with sodium-amber pools of light and an oily iridescent sheen on the wet floor. Mood: heavy and direct — a quick euphoric rush dropping into deep, sedating stillness, firmly evening. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'GAS FACE' baked into the scene — stencilled on a concrete pillar. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "gas-face.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "low",
   },
