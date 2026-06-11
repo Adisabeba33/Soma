@@ -281,14 +281,40 @@ export function similarity(a: StrainProfile, b: StrainProfile): number {
   return Math.min(1, sim);
 }
 
+// Weight applied to a matched preferred tag that lands on one of the
+// strain's PRIMARY (dominant) tokens, vs 1.0 for a secondary token. See
+// deferred-improvements #3.
+const PRIMARY_TAG_WEIGHT = 1.5;
+
 function setScore(
   strainTags: string[],
   preferred: string[],
+  primaryTags?: string[],
 ): { score: number; matched: string[] } {
   if (preferred.length === 0) return { score: NEUTRAL, matched: [] };
   const tagSet = new Set(strainTags);
   const matched = preferred.filter((p) => tagSet.has(p));
-  const coverage = matched.length / preferred.length;
+  const primarySet =
+    primaryTags && primaryTags.length ? new Set(primaryTags) : null;
+
+  // No curated primaries → unweighted coverage, identical to pre-#3 scoring.
+  if (!primarySet) {
+    const coverage = matched.length / preferred.length;
+    return { score: Math.round(26 + coverage * 74), matched };
+  }
+
+  // Weighted coverage: a preferred tag that hits a primary token counts
+  // 1.5×, a secondary 1.0×, an unmatched preferred 1.0 in the denominator.
+  // coverage = matchedWeight / (matchedWeight + unmatched) stays in [0,1],
+  // reduces to the unweighted form when no match is primary, and reaches 1
+  // only on a full match — so weighting differentiates PARTIAL overlaps,
+  // which is exactly the gas-primary vs citrus-secondary case.
+  let matchedWeight = 0;
+  for (const m of matched) {
+    matchedWeight += primarySet.has(m) ? PRIMARY_TAG_WEIGHT : 1;
+  }
+  const unmatched = preferred.length - matched.length;
+  const coverage = matchedWeight / (matchedWeight + unmatched);
   return { score: Math.round(26 + coverage * 74), matched };
 }
 
@@ -705,9 +731,9 @@ export function scoreStrain(
 ): StrainMatch {
   const { strain, known } = resolveStrain(rawName);
 
-  const aroma = setScore(strain.aromas, profile.preferredAromas);
-  const flavor = setScore(strain.flavors, profile.preferredFlavors);
-  const effect = setScore(strain.effects, profile.preferredEffects);
+  const aroma = setScore(strain.aromas, profile.preferredAromas, strain.primaryAromas);
+  const flavor = setScore(strain.flavors, profile.preferredFlavors, strain.primaryFlavors);
+  const effect = setScore(strain.effects, profile.preferredEffects, strain.primaryEffects);
   const trait = setScore(strain.traits, profile.likedTraits);
   const ref = referenceSimilarity(strain, profile.favoriteStrains);
 
