@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { strainSlug } from "@/lib/catalog";
 import { paletteForTime } from "@/lib/sensory-family-palette";
 import { timeProfileOf, artImageSrc, artFocusOf } from "@/lib/strain-art";
+import { FitText } from "@/components/fit-text";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 
 // Poster-style collectible card. The atmospheric gradient *is* the
@@ -99,8 +100,8 @@ export function CatalogCollectibleCard({
             bottom so the gradient has space at the top — the card reads
             as background-first, label-second, like a vintage poster. */}
         <div className="relative z-10">
-          <h3 className="font-display text-2xl font-semibold leading-tight tracking-tight">
-            {strain.name}
+          <h3 className="font-display font-semibold leading-tight tracking-tight">
+            <FitText text={strain.name} maxPx={24} minPx={12} />
           </h3>
           <p className={cn("mt-1 text-[11px] uppercase tracking-[0.14em]", mutedText)}>
             {strain.type}
