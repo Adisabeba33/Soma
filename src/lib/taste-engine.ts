@@ -15,7 +15,8 @@ import {
   familyBonus,
   hasClusteredFavorites,
 } from "./behavioral-family";
-import { primaryAromaTokens, resolveProfileTarget } from "./profile-target";
+import { primaryAromaTokens, type ResolvedTarget } from "./profile-target";
+import { deriveTasteModes } from "./taste-modes";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
 import type {
   AnalysisResult,
@@ -811,65 +812,51 @@ export function scoreStrain(
   // a little above LA Kush Cake / Wedding Cake (dessert-couch-lock,
   // adjacent within nighttime-indica). Before this graduation, exact and
   // adjacent both produced 0 archetype bonus and collapsed in the score.
-  // Resolve the scoring target once. Forced-choice answers (primaryAroma /
-  // primaryEffect / useTime) pin it directly; otherwise we fall back to the
-  // legacy inference from favourites/preferences.
-  const target = resolveProfileTarget(profile);
+  // Behavioural target layers (archetype / texture / family). These are the
+  // only target-dependent parts of the score. We evaluate them per taste
+  // mode and credit the candidate by whichever mode it fits best — the
+  // max-over-modes selection runs once the weights are known (below). For
+  // ordinary single-mode profiles there is exactly one mode whose target
+  // equals resolveProfileTarget(profile), so the result is unchanged.
+  //
+  // Layer 1 archetype: raw effect tags collapse very different experiences
+  // (Green Crack's sharp spike reads like Jack Herer's clean daytime);
+  // archetypes split them. Bonus is graduated — exact + strong sensory +5,
+  // exact +3, adjacent +1, else 0. A cross-family archetype miss dampens the
+  // effect channel to 60% (80% — the half-damper — when the nose matches the
+  // user's primary aroma, which they said pulls them in). Layer 2 texture is
+  // a bounded ±3. Layer 3 family is recognition-only 0..+8, evidence-gated.
   const strainArchetype = effectArchetypeOf(strain);
-  const targetArchetype = target.archetype;
-  const archetypeMatch =
-    targetArchetype !== null && targetArchetype === strainArchetype;
-  const archetypeAdjacent =
-    targetArchetype !== null &&
-    targetArchetype !== strainArchetype &&
-    areAdjacent(targetArchetype, strainArchetype);
-  const archetypeMismatch =
-    targetArchetype !== null && !areAdjacent(targetArchetype, strainArchetype);
-  // Half-damper: a wrong-archetype strain normally has its effect
-  // contribution cut to 60%. But if its nose matches the user's *primary*
-  // aroma, the penalty is softened to 80% — the user explicitly said this
-  // smell pulls them in, so it should partially survive an archetype miss
-  // (a gassy heady strain on a gassy evening profile, say) rather than be
-  // fully punished.
-  const mismatchDamper = matchesPrimaryAroma ? 0.8 : 0.6;
-  const effectContribution =
-    archetypeMismatch && effect.matched.length > 0
-      ? effect.score * mismatchDamper
-      : effect.score;
-  const archetypeBonus = archetypeMatch
-    ? aromaScore >= 70 || flavor.score >= 70
-      ? 5
-      : 3
-    : archetypeAdjacent
-      ? 1
-      : 0;
-
-  // Layer 2 — effect texture. Within a single archetype (e.g.
-  // clean-creative-daytime), strains still feel very different: Jack
-  // Herer's lucid is not Trainwreck's chaotic. Bounded ±3pt: match
-  // bonus, cross-cluster mismatch dampener, adjacent textures neutral.
-  // Sparse profile → null target → 0 contribution.
   const strainTexture = effectTextureOf(strain);
-  const targetTexture = target.texture;
-  const textureMod = textureContribution(strainTexture, targetTexture);
-
-  // Layer 3 — behavioural family. Pure function of (archetype, texture)
-  // → 5 named universes (nighttime-indica, daytime-functional,
-  // exotic-modern-hybrid, edgy-stimulant, contemplative-quiet) or null.
-  // RECOGNITION-ONLY: 0 to +8 bonus, never negative — Layers 1 and 2
-  // already handle punishment. Bonus scales with evidence density so
-  // Purple-Punch-on-Northern-Lights-profile gets meaningful recognition
-  // while Green-Crack-on-the-same-profile gets none (different family
-  // → 0 bonus, gate fails).
   const strainFamily = behavioralFamilyOf(strain);
-  const targetFamily = target.family;
-  const familyMod = familyBonus(strainFamily, targetFamily, {
+  const mismatchDamper = matchesPrimaryAroma ? 0.8 : 0.6;
+  const familyEvidence = {
     effectMatched: effect.matched.length,
     aromaMatched: aroma.matched.length,
     flavorMatched: flavor.matched.length,
     refScore: ref.score,
     effectScore: effect.score,
-  });
+  };
+
+  const layersForTarget = (t: ResolvedTarget) => {
+    const tArch = t.archetype;
+    const match = tArch !== null && tArch === strainArchetype;
+    const adjacent =
+      tArch !== null && tArch !== strainArchetype && areAdjacent(tArch, strainArchetype);
+    const mismatch = tArch !== null && !areAdjacent(tArch, strainArchetype);
+    const effectContribution =
+      mismatch && effect.matched.length > 0 ? effect.score * mismatchDamper : effect.score;
+    const archetypeBonus = match
+      ? aromaScore >= 70 || flavor.score >= 70
+        ? 5
+        : 3
+      : adjacent
+        ? 1
+        : 0;
+    const textureMod = textureContribution(strainTexture, t.texture);
+    const familyMod = familyBonus(strainFamily, t.family, familyEvidence);
+    return { effectContribution, archetypeBonus, textureMod, familyMod };
+  };
 
   // Trust-favorites mode — fires when ≥ 2 of the user's resolved favourites
   // cluster in the same behavioural family. In that case the user has
@@ -925,6 +912,31 @@ export function scoreStrain(
   // coerce to [] at this single seam.
   const texture = textureScore(strain, profile.texturePreferences ?? []);
   const quality = qualityScore(strain, profile.qualityPriorities ?? []);
+
+  // Multi-modal selection: credit the candidate by the taste mode it fits
+  // best (highest target-driven value at the current weights). deriveTasteModes
+  // returns a single mode for ordinary profiles, so this collapses to the
+  // pre-change single-target computation and leaves their scores unchanged.
+  const modes = deriveTasteModes(profile);
+  let layers = layersForTarget(modes[0].target);
+  let bestModeValue =
+    W.effect * layers.effectContribution +
+    layers.archetypeBonus +
+    layers.textureMod +
+    layers.familyMod;
+  for (let i = 1; i < modes.length; i++) {
+    const cand = layersForTarget(modes[i].target);
+    const value =
+      W.effect * cand.effectContribution +
+      cand.archetypeBonus +
+      cand.textureMod +
+      cand.familyMod;
+    if (value > bestModeValue) {
+      bestModeValue = value;
+      layers = cand;
+    }
+  }
+  const { effectContribution, archetypeBonus, textureMod, familyMod } = layers;
 
   const raw =
     W.effect * effectContribution +
