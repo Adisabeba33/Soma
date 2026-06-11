@@ -1262,6 +1262,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gelato 33 — the 'Larry Bird' pheno — is the original prized cut of Gelato, a Sunset Sherbet × Thin Mint GSC selection from the Cookies/Sherbinski camp. The nose is the Gelato benchmark: sweet sherbet and cream with a citrus-berry twist over a low note of gas, balanced and inviting. The effect is the reason it parents half the menu — a bright, euphoric, social lift that settles into easy body relaxation without knocking you out. It's frosty, flavourful and remarkably well-rounded, equally at home in the afternoon or evening. As the cut that defined modern Gelato, #33 is the reference everything else chases.",
     curatorQuote:
       "Sweet sherbet and cream with a citrus-berry twist over a low note of gas, balanced and inviting.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet, frosty, well-rounded dessert hybrid named Gelato 33 — the benchmark gelato cut. Lush artisan gelato scoops heaped in a chilled case at golden hour, sherbet pinks and creamy violets swirled with citrus-orange and berry-purple, a frosted icy sheen sweating off the cold scoops, a soft drip catching warm sunset light. The air is sweet and creamy: sherbet and cream with a citrus-berry twist over a faint cool sweetness. Palette luscious and inviting — pastel sherbet pink, cream and violet with bright citrus-orange and berry pops, a frosty silver sheen under a warm amber-gold sunset glow. Mood: bright and social settling into easy relaxation — euphoric, balanced, frosty and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'GELATO 33' baked into the scene — hand-lettered on a gelateria chalkboard sign or stamped on a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "gelato-33.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "high",
   },
   {
