@@ -5244,6 +5244,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Nepali OG is a cross of a Nepalese landrace and OG Kush — old-world hash genetics married to West Coast gas, and a parent of Bodhi's Goji OG. The nose is earthy and gassy: fuel and pine over a spicy, hashy base. The effect is relaxing and warm — a euphoric head sinking into a comfortable body, evening-leaning. It's frosty and potent, and it lends its earthy depth to Goji OG. For hash-tinged OG genetics, Nepali OG is a flavourful parent line.",
     curatorQuote:
       "Fuel and pine over a spicy, hashy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an earthy, hash-tinged gas-OG hybrid named Nepali OG — old-world hash meets West Coast gas. A remote Himalayan monastery perched on a cliff at night beneath snow-capped peaks and a vast starry sky: strings of prayer flags sway in the cold air, warm butter-lamp light glows from the stone walls, fragrant smoke and a faint fuel haze drift through dark pines. Palette deep, warm-meets-cold — night indigo and snow-blue peaks with warm amber lamplight and pine green over earthy stone and a petrol shadow, a frosted sheen, fading into a starlit sky. Mood: relaxing and warm — a euphoric head sinking into a comfortable, grounded body, evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'NEPALI OG' baked into the scene — carved into a stone prayer wall. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "nepali-og.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
