@@ -4939,7 +4939,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a smooth, mild, gassy CBD diesel named Sour Tsunami. A towering ocean wave curling at dawn, its glassy barrel catching low golden light — sea spray hanging in the air shot through with a faint oily petrol-rainbow shimmer, sour citrus-gold glow rippling across the water's face, the curl smooth and powerful but unbroken. Sour diesel and citrus drift over a clean, earthy sea-salt base. Palette fresh and luminous — sour citrus-gold and lime-green over deep ocean teal and foam-white spray, a faint diesel shimmer threading the mist under a soft dawn sky. Mood: calm, clear, lightly uplifting — a relaxed, smooth ease with little rush, mellow and functional. Cinematic, painterly, high-contrast, premium editorial poster, fluid and atmospheric. The strain name 'SOUR TSUNAMI' baked into the scene — carved into a wet dark rock or weathered driftwood at the water's edge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "sour-tsunami.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
