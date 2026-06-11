@@ -1745,7 +1745,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for an uplifting, social diesel hybrid named NYC Diesel. A New York City street canyon at golden hour — towering Manhattan facades, a yellow cab cutting through, diesel exhaust and white subway-grate steam billowing up from the asphalt and catching low citrus-gold light; the wet street holds an oily petrol-rainbow sheen, and a bright grapefruit-lime glow cuts through the gassy haze. Sour diesel and citrus-lime hang in the warm city air over an earthy base. Palette electric and urban — sour grapefruit-lime green and citrus gold against diesel haze, taxi yellow and brownstone earth, petrol shimmer on wet asphalt under a warm dusk sky. Mood: chatty, energetic, social — an uplifting head over a relaxed body, a flavourful sativa-leaning hitter. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'NYC DIESEL' baked into the scene — set in a classic NYC subway-tile mosaic or stenciled on a street sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "nyc-diesel.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
