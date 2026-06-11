@@ -1455,7 +1455,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a sweet, fruity, relaxing indica-leaning hybrid named Strawberry Banana. Ripe strawberries and golden bananas heaped together on warm honeyed wood at late-afternoon golden hour — glistening red berries beaded with juice beside peeled, glossy banana, a soft sugared frost dusting their skins like trichomes, a slow drift of sweet candy steam in the warm light. The air is ripe and dessert-sweet: strawberry and banana candy over a light, soft earthy base. Palette warm and luscious — strawberry red and creamy banana yellow over honey-gold light and soft earthy brown, with a frosted sugary sheen and a mellow amber glow. Mood: relaxing and happy — a euphoric, calming body ease, smooth and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'STRAWBERRY BANANA' baked into the scene — branded into the wooden board or a small enamel fruit-crate tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "strawberry-banana.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
