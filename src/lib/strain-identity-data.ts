@@ -986,7 +986,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a heavy, spacey lemony-pine OG hybrid named Alien OG. A lone pine-covered hilltop at dusk beneath a vast, swirling cosmic sky — ribbons of green-gold aurora and distant wheeling stars, a soft otherworldly light hovering low over the treeline; lemon-citrus and pine scent the air with a faint fuel haze drifting through the resinous dark. Palette dreamy and deep — amber and lemon-gold dusk with pine green and a cosmic teal-violet aurora over earthy shadow, a frosted resinous sheen, fading into a wine-dark starlit sky. Mood: a fast, dreamy cerebral lift settling into strong body calm — potent, otherworldly, evening. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'ALIEN OG' baked into the scene — carved into a weathered hilltop stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "alien-og.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
