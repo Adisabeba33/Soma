@@ -202,7 +202,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty, bright chem strain named Stardawg. A vast night sky where the stars form the glittering shape of a great dog constellation, the brilliant Dog Star blazing at its heart — a fall of silver stardust frost drifting down like trichome glitter, settling over a dark ridge below; a thin diesel haze threads the lower air, catching starlight in faint petrol-rainbow shimmer. Sharp chem in the cold night — diesel and sour earth with a piney, chemical bite. Palette cosmic and frosty — deep indigo and chem-green nebula glow studded with silver-white stardust, an electric blue Dog Star, faint oily shimmer over earthy shadow. Mood: bright and cerebral — an uplifting, talkative head-buzz, the cleaner, frostier side of the Chem family. Cinematic, painterly, high-contrast, premium editorial poster, glittering and atmospheric. The strain name 'STARDAWG' baked into the scene — spelled in bright constellation stars or carved into the ridge stone below. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "stardawg.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
