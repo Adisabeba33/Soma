@@ -2905,6 +2905,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Animal Face is a Seed Junky cross of Face Off OG and Animal Mints that took first at the 2022 Emerald Cup — piney OG fuel welded to cookie sweetness. The nose is sharp and gassy: pine and fuel over a sweet, doughy cookie base, loud and frosty. The effect is potent and balanced-leaning-up — a euphoric, creative head with a relaxed body, versatile across the day. It runs very strong, so a little goes a long way for newer smokers. For gassy cookies done at competition level, Animal Face is a benchmark.",
     curatorQuote:
       "Pine and fuel over a sweet, doughy cookie base — loud and frosty.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a potent, frosty gas-cookie OG named Animal Face. A powerful wild wolf prowling out of a dark pine forest at dusk, its thick fur crusted in glittering silver frost like a trichome coat, breath steaming in the cold; a piney fuel haze drifts low between the trunks, catching the last amber light with a faint oily shimmer, the air loud with pine and gas over a sweet undertone. Palette deep and frosty — pine green and silver-white trichome frost over earthy shadow, an amber-gold dusk glow and faint petrol haze threading the trees. Mood: potent and balanced-leaning-up — a euphoric, creative head over a relaxed body, very strong and frosty. Cinematic, painterly, high-contrast, premium editorial poster, atmospheric and detailed. The strain name 'ANIMAL FACE' baked into the scene — carved into a weathered wooden forest sign or cut into mossy stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "animal-face.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "high",
   },
   {
