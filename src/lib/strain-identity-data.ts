@@ -3997,6 +3997,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sour Bubble is a BOG Seeds inbred line of Bubble Gum — a sticky, sour-gas indica far from its sweet parent, and one half of Sour Dubb. The nose is loud: sharp diesel and sour funk over a faint berry sweetness. The effect is relaxing and potent — a euphoric head easing into a weighty body. It's extremely sticky and resin-heavy, prized by breeders for structure. For sour-gas genetics behind the Glue line, Sour Bubble matters.",
     curatorQuote:
       "Sharp diesel and sour funk over a faint berry sweetness.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sticky, sour-gas indica named Sour Bubble. A single huge gum bubble blown taut in dim, gritty light — its surface a slick of oily petrol-rainbow iridescence, diesel sheen swirling pink-violet-green across the stretched film, on the trembling edge of bursting. Around it the air hangs heavy and resinous: a faint sour-berry haze and sharp fuel funk, the dark backdrop streaked with the same oily rainbow where light catches it. Palette moody and chemical — deep diesel blacks and bruised purples lit by petrol-slick rainbow highlights, a sour magenta-and-acid-green glow over berry shadow, sticky and wet-looking. Mood: loud, sticky, sedating — a euphoric head easing into a weighty body, an evening sour-gas hitter. Cinematic, painterly, high-contrast, premium editorial poster, glossy and resinous. The strain name 'SOUR BUBBLE' baked into the scene — stretched and warped across the curve of the bubble film. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sour-bubble.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
