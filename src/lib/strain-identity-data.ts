@@ -3888,7 +3888,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a heavy diesel-chem indica named Tres Dawg — literally 'three dogs.' Three muscular pitbulls dressed as old-school mafia bosses in sharp tailored pinstripe suits, sitting confidently around a dim back-room table at night, calmly smoking fat cigars; thick cigar smoke blends with a warm haze of diesel-petrol fumes drifting through amber lamplight. Setting: a moody noir speakeasy / garage back room — mahogany, leather, brass and weathered chrome, a faint oil-slick petrol-rainbow sheen on the floor. Palette deep and smoky — diesel-petrol blue and dark green over mahogany brown, brass and amber lamp glow fading into near-black shadow. Mood: relaxed, weighty and quietly powerful — calm, grounded, evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'TRES DAWG' baked into the scene — engraved on a brass nameplate, etched into glass, or carved into the table. Keep the lower third calmer and darker for legible overlay text. No human people, no logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "tres-dawg.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
