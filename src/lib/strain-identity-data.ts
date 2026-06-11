@@ -2757,7 +2757,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty mint-and-gas dessert hybrid named Triangle Mints — cool, sweet and savoury. A frosted mint garden at night with a triangular polished marble monument at its centre: cool mint-green bioluminescence threads through the plants, vanilla-cream mist drifts low, sugar-frost crystals glint on dark cocoa-brown earth, and a faint gassy haze hangs in the cold air. Palette deep and cool — night indigo and mint green with vanilla cream and frost white over dark cocoa brown, a crystalline frosted sheen everywhere. Mood: heavy and relaxing — a happy euphoric head sinking into deep body calm, evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'TRIANGLE MINTS' baked into the scene — carved into the triangular marble. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "triangle-mints.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
