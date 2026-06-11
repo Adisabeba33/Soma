@@ -92,6 +92,57 @@ describe("inferProfileFromDescription — body-feel & novelty", () => {
   });
 });
 
+describe("PR A — forward-scope negation (ISSUE-1)", () => {
+  it("keeps positives before a 'without' and only negates what follows", () => {
+    const p = parse("citrus and giggly without frying my brain");
+    assert.ok(p.preferredAromas.includes("citrus"));
+    assert.ok(p.preferredEffects.includes("giggly"));
+    assert.ok(p.dislikedEffects.includes("head-high")); // "frying my brain"
+    assert.ok(!p.preferredEffects.includes("head-high"));
+  });
+
+  it("recovers daytime aromas swallowed by a later negation", () => {
+    const p = parse(
+      "bright citrus and tropical that keeps me giggly without getting too heady",
+    );
+    assert.ok(p.preferredAromas.includes("citrus"));
+    assert.ok(p.preferredAromas.includes("tropical"));
+    assert.ok(p.preferredEffects.includes("giggly"));
+  });
+});
+
+describe("PR A — couch-lock matching (ISSUE-4)", () => {
+  it("matches couch phrasings and the hyphenated term", () => {
+    assert.ok(parse("melt into the couch").preferredEffects.includes("couch-lock"));
+    assert.ok(parse("pins me to the couch").preferredEffects.includes("couch-lock"));
+    assert.ok(parse("I avoid couch-lock").dislikedEffects.includes("couch-lock"));
+  });
+});
+
+describe("PR A — comparatives (ISSUE-7)", () => {
+  it("'more X than Y' keeps X, drops Y (not disliked)", () => {
+    const p = parse("more relaxing than energizing");
+    assert.ok(p.preferredEffects.includes("relaxed"));
+    assert.ok(!p.preferredEffects.includes("energetic"));
+    assert.ok(!p.dislikedEffects.includes("energetic"));
+  });
+});
+
+describe("PR A — slang & synonyms (ISSUE-3/3a)", () => {
+  it("maps very-high and sleep slang and 'social'", () => {
+    assert.ok(parse("gets me zooted").preferredEffects.includes("euphoric"));
+    assert.ok(parse("I just want to zonk out").preferredEffects.includes("sleepy"));
+    assert.ok(parse("keeps me social").preferredEffects.includes("happy"));
+  });
+});
+
+describe("PR A — time idioms (ISSUE-5)", () => {
+  it("recognises indirect/slang time phrases", () => {
+    assert.equal(parse("perfect after a long day").useTime, "evening");
+    assert.equal(parse("a wake and bake strain").useTime, "morning");
+  });
+});
+
 describe("inferProfileFromDescription — worked example", () => {
   it("parses a rich daytime/evening description", () => {
     const p = parse(

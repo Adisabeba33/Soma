@@ -27,7 +27,7 @@ saving, so a wrong first pass is recoverable, not fatal.
 
 ## Issues
 
-### 🔴 ISSUE-1 — Negation scope is whole-clause, not forward-scope
+### 🟢 ISSUE-1 (fixed, PR A) — Negation scope is whole-clause, not forward-scope
 - **Found via:** *"…keeps me social and giggly **without** frying my brain."*
 - **Observed:** `giggly` landed in `dislikedEffects`; `citrus` and
   `tropical` from the same clause were dropped entirely.
@@ -70,7 +70,7 @@ saving, so a wrong first pass is recoverable, not fatal.
     split into its own PR after ISSUE-1.
   - Decide whether disliked aromas are a hard penalty or a soft demotion.
 
-### 🔴 ISSUE-3 — Some intent words aren't in the trigger vocab
+### 🟢 ISSUE-3 (fixed, PR A) — Some intent words aren't in the trigger vocab
 - **Found via:** *"frying my brain"* (meant: avoid too-cerebral/heady);
   *"social"* (meant: wants a social/happy effect).
 - **Observed:** "frying my brain" matched nothing (so the thing the user
@@ -94,7 +94,7 @@ saving, so a wrong first pass is recoverable, not fatal.
     not preferred. Add the synonyms only together with the ISSUE-1 fix so
     they don't create false positives.
 
-### 🔴 ISSUE-4 — `couch-lock` trigger is too strict (recurring)
+### 🟢 ISSUE-4 (fixed, PR A) — `couch-lock` trigger is too strict (recurring)
 - **Found via:** *"melt **into the couch**"* (phrase 1) and *"**pins me to
   the couch**"* (phrase 2) — both missed.
 - **Observed:** Neither produced `couch-lock` (nor `body-heavy`).
@@ -112,7 +112,7 @@ saving, so a wrong first pass is recoverable, not fatal.
 - **Nuances / risks:** Bare `couch` is a strong, low-false-positive signal in
   this domain. Also feeds `bodyFeel` (heavy) — keep that mapping in sync.
 
-### 🔴 ISSUE-5 — Indirect / slang time expressions not recognised
+### 🟢 ISSUE-5 (fixed, PR A) — Indirect / slang time expressions not recognised
 - **Found via:** *"**after a long day**"* (→ evening) and *"**wake-and-bake**"*
   (→ morning) — both missed; `useTime` stayed blank from a *miss*, not from
   an intentional multi-modal conflict.
@@ -132,7 +132,7 @@ saving, so a wrong first pass is recoverable, not fatal.
   behaviour — but make sure both are at least *detected* so the conflict is
   real, not a silent miss).
 
-### 🔴 ISSUE-3a — More slang effect synonyms (extends ISSUE-3)
+### 🟢 ISSUE-3a (fixed, PR A) — More slang effect synonyms (extends ISSUE-3)
 - **Found via:** *"zonk out"* (→ sleepy) missed.
 - **Proposed fix:** add `zonk\w*`, `knock\w* out` (have), `pass\w* out`
   (have), `ko'?d`, `comatose` → `sleepy`; `couch` → see ISSUE-4.
@@ -158,7 +158,7 @@ saving, so a wrong first pass is recoverable, not fatal.
 - **Nuances / risks:** "not too potent" is negated → needs ISSUE-1
   forward-scope to land as *low* potency, not high.
 
-### 🔴 ISSUE-7 — Comparatives ("more X than Y") treated as two equal wants
+### 🟢 ISSUE-7 (fixed, PR A) — Comparatives ("more X than Y") treated as two equal wants
 - **Found via:** *"**more relaxing than energizing**"*.
 - **Observed:** both `relaxed` AND `energetic` added as wanted effects.
 - **Expected:** `relaxed` is the want; `energizing` is the de-emphasised
