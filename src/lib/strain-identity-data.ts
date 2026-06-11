@@ -2416,6 +2416,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Triangle Kush is a legendary Florida OG cut — the 'triangle' nods to the state's three cannabis hubs — and one of the most important parents in modern genetics, behind Wedding Cake and Triangle Mints. The nose is pure heavy OG: sharp fuel and pine over a damp, earthy funk, loud and classic. The effect is a strong, relaxing indica-leaning high — a euphoric head sinking into a heavy body, firmly evening territory. It's potent and couch-leaning, prized as much for breeding as for smoking. For OG purists and lovers of gassy, heavy genetics, Triangle Kush is foundational.",
     curatorQuote:
       "Sharp fuel and pine over a damp, earthy funk, loud and classic.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy Florida OG indica named Triangle Kush — the 'triangle' nods to the state's three cannabis hubs. A lone weathered triangular metal road sign standing at a misty Everglades crossroads at dusk, three tall cypress trees rising behind it in a clear triangle formation; a humid, fuel-amber haze hangs over still swamp water that throws back an oily petrol-rainbow sheen. Palette deep and classic — fuel-petrol blue and cypress-pine green over damp earthy brown, warm amber dusk light catching the haze and the water, fading into a wine-dark sky. Mood: strong and relaxing — a euphoric warmth sinking into a heavy, grounded stillness, firmly evening. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'TRIANGLE KUSH' baked into the scene — embossed on the triangular sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "triangle-kush.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
