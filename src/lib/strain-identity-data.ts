@@ -1091,6 +1091,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sour OG is a Sour Diesel × OG Kush cross that blends two gas legends into one balanced hybrid. The nose is the best of both parents: sour diesel and lemon over OG's pine and earth, gassy and bright at once. The effect is even-handed — an uplifting, mood-lifting head over a relaxing body, usable across the day rather than purely sedating. It's potent but balanced, which made it a dependable all-rounder for gas lovers. For people who want Sour D's lift with OG's body, Sour OG is the natural meeting point.",
     curatorQuote:
       "Sour diesel and lemon over OG's pine and earth, gassy and bright at once.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a balanced, gassy-bright diesel-OG hybrid named Sour OG. A sun-baked West Coast pine canyon at golden hour, rugged earthy ridges and dark pines under a fierce, electric sour-lemon sun; a gassy heat-haze shimmers up off the hot rock, the air rippling with petrol-rainbow distortion and a low fuel sheen pooling in the shadowed cracks. Sour diesel and lemon ride over OG's pine and earth, bright and gassy at once. Palette electric and warm — acid sour-lemon yellow and citrus gold over deep pine green and sun-baked ochre earth, a faint petrol shimmer rippling through the heat-haze. Mood: even-handed and lively — an uplifting, mood-lifting head over a relaxing body, an all-day gas all-rounder. Cinematic, painterly, high-contrast, premium editorial poster, sun-drenched and atmospheric. The strain name 'SOUR OG' baked into the scene — carved into a sun-bleached canyon rock face or a weathered wooden trail marker. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sour-og.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
 
