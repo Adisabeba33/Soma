@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Leaf, ListChecks, Sparkles } from "lucide-react";
+import { ArrowRight, Leaf, ListChecks, PenLine, Sparkles } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 
 const STEPS = [
@@ -41,9 +41,9 @@ export default function HomePage() {
 
         <div className="mt-10">
           <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-            Two ways to start
+            Three ways to start
           </p>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <div className="mt-4 grid gap-4 sm:grid-cols-3">
             <Link
               href="/taste-match"
               className="group rounded-2xl border border-accent bg-accent/5 p-6 text-left transition-colors hover:bg-accent/10"
@@ -82,6 +82,27 @@ export default function HomePage() {
               </p>
               <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
                 Try Experience Match
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+
+            <Link
+              href="/onboarding/describe"
+              className="group rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
+            >
+              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-brass">
+                <PenLine className="h-3.5 w-3.5" />
+                In your words
+              </div>
+              <h3 className="mt-3 font-display text-xl font-semibold tracking-tight">
+                Describe what you like
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                No strain names needed — say it in a sentence. SŌMA reads it
+                into a starting profile you confirm before saving.
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
+                Describe your taste
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Link>
