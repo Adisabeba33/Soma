@@ -165,6 +165,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Chemdawg is the cult bag-seed that quietly rewired modern cannabis — the mythic parent behind both OG Kush and Sour Diesel, with an origin story (a Grateful Dead show, a bag of seeds) more legend than record. Crack it open and it's pure sharp chemical funk: acrid diesel, a metallic tang and sour earth — the 'chem' note an entire family is named after. The high is heavy and cerebral at once: a fast, pressing head-rush that settles into a weighty, slightly dazed body, more potent than its plain looks suggest. It comes in several cuts (Chem 91, Chem D, Chem 4) that aren't interchangeable, so 'Chemdawg' on a label tells you the family, not the exact phenotype. It's a connoisseur's strain — loud, divisive and foundational.",
     curatorQuote:
       "Crack it open and it's pure sharp chemical funk.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a loud, foundational chem strain named Chemdawg. A lean, battle-scarred junkyard dog standing guard at night in a gritty back-lot, acrid chemical fumes and a sour-green diesel haze rolling low around its legs, metallic vapor catching cold sodium light; the wet asphalt holds an oily fuel-rainbow sheen, sharp and chemical. The air is pure funk — acrid diesel, a metallic tang and sour earth. Palette dark and chemical — toxic acid-green and sour yellow haze over diesel black and bruised metal, cold steel highlights and petrol-slick shimmer on wet ground. Mood: heavy and cerebral at once — a pressing head-rush sinking into a weighty, dazed body, loud and divisive. Cinematic, painterly, high-contrast, premium editorial poster, gritty and atmospheric. The strain name 'CHEMDAWG' baked into the scene — stenciled on a rusted back-lot wall or stamped on the dog's worn metal collar tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "chemdawg.webp",
+    artStatus: "published",
+    artVersion: 1,
     whyItMatters:
       "Chemdawg is the quiet root of modern cannabis: the cult bag-seed — born of a Grateful Dead-show legend — that parented both OG Kush and Sour Diesel, and through them a huge share of today's menu. The entire 'chem' family is named after its sharp chemical funk.",
     tagline: "The chem origin",
@@ -194,6 +199,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Diesel and sour earth with a piney, chemical bite, loud and unmistakably of the Chemdawg line.",
     tagline: "Bright chem signal",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, bright chem strain named Stardawg. A vast night sky where the stars form the glittering shape of a great dog constellation, the brilliant Dog Star blazing at its heart — a fall of silver stardust frost drifting down like trichome glitter, settling over a dark ridge below; a thin diesel haze threads the lower air, catching starlight in faint petrol-rainbow shimmer. Sharp chem in the cold night — diesel and sour earth with a piney, chemical bite. Palette cosmic and frosty — deep indigo and chem-green nebula glow studded with silver-white stardust, an electric blue Dog Star, faint oily shimmer over earthy shadow. Mood: bright and cerebral — an uplifting, talkative head-buzz, the cleaner, frostier side of the Chem family. Cinematic, painterly, high-contrast, premium editorial poster, glittering and atmospheric. The strain name 'STARDAWG' baked into the scene — spelled in bright constellation stars or carved into the ridge stone below. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "stardawg.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
 
@@ -1045,6 +1055,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Chem 91 is one of the original Chemdawg cuts — the specific 1991 phenotype that helped found the entire Chem/diesel line. The nose is sharp and acrid: pungent diesel, sour funk and a metallic, chemical bite, the raw 'chem' smell at its source. The effect is heavy and cerebral — a fast, pressing head-rush over a weighty body, potent and a little overwhelming for the unprepared. It's loud, divisive and historically important, a connoisseur's cut more than a crowd-pleaser. For people chasing the roots of the diesel family, Chem 91 is where much of it begins.",
     curatorQuote:
       "Pungent diesel, sour funk and a metallic, chemical bite, the raw 'chem' smell at its source.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for the original, foundational 1991 chem cut named Chem 91. A weathered vintage early-1990s muscle car idling at dusk in a thick cloud of diesel exhaust, chrome bumpers and grille catching the last sour-amber light; pungent fuel haze rolls off the tailpipe and pools on wet asphalt in an oily petrol-rainbow slick, a metallic, chemical glint cutting through the gritty gloom. Raw chem at its source — pungent diesel, sour funk and a metallic bite. Palette retro and heavy — faded chrome and gunmetal over sour-amber dusk and diesel black, toxic-green exhaust haze with a petrol-rainbow shimmer on the road. Mood: heavy and cerebral — a fast, pressing head-rush over a weighty body, loud, divisive and historic. Cinematic, painterly, high-contrast, premium editorial poster, gritty and atmospheric. The strain name 'CHEM 91' baked into the scene — stamped on a worn vintage 1991 license plate or stenciled on the chrome. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "chem-91.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -1076,6 +1091,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sour OG is a Sour Diesel × OG Kush cross that blends two gas legends into one balanced hybrid. The nose is the best of both parents: sour diesel and lemon over OG's pine and earth, gassy and bright at once. The effect is even-handed — an uplifting, mood-lifting head over a relaxing body, usable across the day rather than purely sedating. It's potent but balanced, which made it a dependable all-rounder for gas lovers. For people who want Sour D's lift with OG's body, Sour OG is the natural meeting point.",
     curatorQuote:
       "Sour diesel and lemon over OG's pine and earth, gassy and bright at once.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a balanced, gassy-bright diesel-OG hybrid named Sour OG. A sun-baked West Coast pine canyon at golden hour, rugged earthy ridges and dark pines under a fierce, electric sour-lemon sun; a gassy heat-haze shimmers up off the hot rock, the air rippling with petrol-rainbow distortion and a low fuel sheen pooling in the shadowed cracks. Sour diesel and lemon ride over OG's pine and earth, bright and gassy at once. Palette electric and warm — acid sour-lemon yellow and citrus gold over deep pine green and sun-baked ochre earth, a faint petrol shimmer rippling through the heat-haze. Mood: even-handed and lively — an uplifting, mood-lifting head over a relaxing body, an all-day gas all-rounder. Cinematic, painterly, high-contrast, premium editorial poster, sun-drenched and atmospheric. The strain name 'SOUR OG' baked into the scene — carved into a sun-bleached canyon rock face or a weathered wooden trail marker. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sour-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
 
@@ -1732,6 +1752,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "NYC Diesel is a Soma Seeds classic — a Sour Diesel × Afghani cross — that softened the diesel with a bright citrus-lime sweetness. The nose is distinctive: sour diesel and grapefruit-lime over an earthy base, gassy with a fruity twist. The effect is uplifting and social — a chatty, energetic head with a relaxing body, a balanced sativa-leaning hybrid. It's potent and flavourful, less harsh than straight Sour D. For people who want diesel with a citrus sweetness, NYC Diesel is a flavourful classic.",
     curatorQuote:
       "Sour diesel and grapefruit-lime over an earthy base, gassy with a fruity twist.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an uplifting, social diesel hybrid named NYC Diesel. A New York City street canyon at golden hour — towering Manhattan facades, a yellow cab cutting through, diesel exhaust and white subway-grate steam billowing up from the asphalt and catching low citrus-gold light; the wet street holds an oily petrol-rainbow sheen, and a bright grapefruit-lime glow cuts through the gassy haze. Sour diesel and citrus-lime hang in the warm city air over an earthy base. Palette electric and urban — sour grapefruit-lime green and citrus gold against diesel haze, taxi yellow and brownstone earth, petrol shimmer on wet asphalt under a warm dusk sky. Mood: chatty, energetic, social — an uplifting head over a relaxed body, a flavourful sativa-leaning hitter. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'NYC DIESEL' baked into the scene — set in a classic NYC subway-tile mosaic or stenciled on a street sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "nyc-diesel.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -2890,6 +2915,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Animal Face is a Seed Junky cross of Face Off OG and Animal Mints that took first at the 2022 Emerald Cup — piney OG fuel welded to cookie sweetness. The nose is sharp and gassy: pine and fuel over a sweet, doughy cookie base, loud and frosty. The effect is potent and balanced-leaning-up — a euphoric, creative head with a relaxed body, versatile across the day. It runs very strong, so a little goes a long way for newer smokers. For gassy cookies done at competition level, Animal Face is a benchmark.",
     curatorQuote:
       "Pine and fuel over a sweet, doughy cookie base — loud and frosty.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a potent, frosty gas-cookie OG named Animal Face. A powerful wild wolf prowling out of a dark pine forest at dusk, its thick fur crusted in glittering silver frost like a trichome coat, breath steaming in the cold; a piney fuel haze drifts low between the trunks, catching the last amber light with a faint oily shimmer, the air loud with pine and gas over a sweet undertone. Palette deep and frosty — pine green and silver-white trichome frost over earthy shadow, an amber-gold dusk glow and faint petrol haze threading the trees. Mood: potent and balanced-leaning-up — a euphoric, creative head over a relaxed body, very strong and frosty. Cinematic, painterly, high-contrast, premium editorial poster, atmospheric and detailed. The strain name 'ANIMAL FACE' baked into the scene — carved into a weathered wooden forest sign or cut into mossy stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "animal-face.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "high",
   },
   {
@@ -3512,6 +3542,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "The Menthol is a Compound Genetics cut whose recipe stays in-house — named for an unusual cooling, menthol-mint note over gas. The nose is distinctive: cool mint and herbal sharpness over an earthy, gassy funk, unlike most candy exotics. The effect is balanced and easy — a euphoric, relaxed high, potent but versatile. It's very frosty and loud, prized for the menthol character it passes to crosses like Pink Certz. For a genuinely minty, gassy profile, The Menthol is a one-off.",
     curatorQuote:
       "Cool mint and herbal sharpness over an earthy, gassy funk.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a cooling, frosty, gassy exotic named The Menthol. A dark surface sheathed in glittering mint-green ice crystals, a cold menthol vapor curling off it like an icy breath, frost feathering across frozen glass; beneath the chill an earthy, gassy funk smolders — a faint warm haze and oily petrol shimmer bleeding up through the cold, mint-sharp light against gassy shadow. Cool mint and herbal sharpness sit over an earthy, gassy funk. Palette icy and electric — cool mint and frost-white crystal with menthol cyan over a smoky earthy black, a faint petrol-rainbow shimmer warming the gassy depths. Mood: balanced and easy — a euphoric, relaxed high, very frosty and loud, cooling yet potent. Cinematic, painterly, high-contrast, premium editorial poster, crystalline and atmospheric. The strain name 'THE MENTHOL' baked into the scene — etched into frosted glass or frozen into the mint-green ice. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "the-menthol.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -3581,6 +3616,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Appalachia is a Bodhi Seeds cross of Green Crack and Tres Dawg — chem gas with an energetic, citrus lift. The nose is sharp and gassy: diesel and sour earth with a bright citrus edge. The effect is up and lively — an uplifting, happy head with enough body to stay grounded, daytime-leaning despite the gas. It's frosty and potent, and it passes its frost and lift to Bay 11. For energetic chem genetics, Appalachia is a solid parent line.",
     curatorQuote:
       "Diesel and sour earth with a bright citrus edge.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an energetic, gassy chem hybrid named Appalachia — after the blue-ridge mountains. Layered Appalachian ridgelines rolling to the horizon at bright early morning, forested slopes fading from green to hazy blue; a low diesel-tinged haze pools in the valleys and catches the rising sun in oily amber-gold streaks, citrus-bright light breaking sharp over the nearest ridge. Sour earth and fuel funk hang in the cool air with a zesty citrus edge. Palette crisp and energetic — fresh forest green and ridge-blue under a lemon-gold sunrise, with a sour amber haze and faint petrol shimmer threading the valleys. Mood: uplifting, lively, grounded — a happy energetic head with steady body, a daytime gas hitter. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'APPALACHIA' baked into the scene — carved into a weathered wooden ridge-trail sign or cut into the nearest rock face. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "appalachia.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -4911,6 +4951,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sour Tsunami is a Lawrence Ringo creation — Sour Diesel crossed with NYC Diesel and selected over years for CBD — one of the first strains bred deliberately for it. The nose is gassy and bright: sour diesel and citrus over an earthy base. The effect is mild and clear — a relaxed, calm, lightly uplifting ease with little of the usual diesel rush. It's smooth and functional, a pioneering CBD cut with real flavour. For a gassy CBD strain, Sour Tsunami is a flavourful classic.",
     curatorQuote:
       "Sour diesel and citrus over an earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a smooth, mild, gassy CBD diesel named Sour Tsunami. A towering ocean wave curling at dawn, its glassy barrel catching low golden light — sea spray hanging in the air shot through with a faint oily petrol-rainbow shimmer, sour citrus-gold glow rippling across the water's face, the curl smooth and powerful but unbroken. Sour diesel and citrus drift over a clean, earthy sea-salt base. Palette fresh and luminous — sour citrus-gold and lime-green over deep ocean teal and foam-white spray, a faint diesel shimmer threading the mist under a soft dawn sky. Mood: calm, clear, lightly uplifting — a relaxed, smooth ease with little rush, mellow and functional. Cinematic, painterly, high-contrast, premium editorial poster, fluid and atmospheric. The strain name 'SOUR TSUNAMI' baked into the scene — carved into a wet dark rock or weathered driftwood at the water's edge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sour-tsunami.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -5837,6 +5882,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Lemon Diesel is a California Sour × Lost Coast OG cross — sharp lemon citrus laid over a sour diesel base. The nose is bright and gassy: lemon and citrus over a fuel, earthy funk. The effect is balanced and lively — an uplifting, energetic head with a relaxing body, usable across the day. It's terpy and potent, cleaner than straight diesel. For lemon with a diesel backbone, Lemon Diesel is a zesty pick.",
     curatorQuote:
       "Lemon and citrus over a fuel, earthy funk.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a bright, zesty diesel hybrid named Lemon Diesel. Ripe lemons piled and sliced across slick wet chrome under hard midday sun — a thin film of fuel-rainbow sheen pooling beneath them on the oily metal, citrus mist and heat haze rising, lemon-yellow light cutting sharp against greasy shadow. The air is bright and gassy: zesty lemon citrus laid over a fuel, earthy funk. Palette electric and clean — vivid lemon yellow and acid-green over slick gunmetal chrome and petrol-rainbow shimmer, high-key sunlit highlights against oily diesel shadow. Mood: uplifting, energetic, lively — an alert citrus head over a relaxed body, an all-day zesty hitter. Cinematic, painterly, high-contrast, premium editorial poster, glossy and wet-looking. The strain name 'LEMON DIESEL' baked into the scene — stamped into the chrome or a worn metal plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "lemon-diesel.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
