@@ -5247,7 +5247,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for an earthy, hash-tinged gas-OG hybrid named Nepali OG — old-world hash meets West Coast gas. A remote Himalayan monastery perched on a cliff at night beneath snow-capped peaks and a vast starry sky: strings of prayer flags sway in the cold air, warm butter-lamp light glows from the stone walls, fragrant smoke and a faint fuel haze drift through dark pines. Palette deep, warm-meets-cold — night indigo and snow-blue peaks with warm amber lamplight and pine green over earthy stone and a petrol shadow, a frosted sheen, fading into a starlit sky. Mood: relaxing and warm — a euphoric head sinking into a comfortable, grounded body, evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'NEPALI OG' baked into the scene — carved into a stone prayer wall. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "nepali-og.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
