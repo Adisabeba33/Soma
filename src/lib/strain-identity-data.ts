@@ -2250,6 +2250,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gas Face is built for one thing — fuel. Lineage is loosely tied to the OG/diesel world, but the draw is the nose: sharp diesel and raw fuel over a skunky, earthy base, with almost no sweetness to round it off. The high is just as direct — a quick euphoric wash that drops into a heavy, sedating body, firmly an evening hit. It's potent and unsubtle, made for people who want gas over candy. If pure fuel is the goal, it earns the name.",
     curatorQuote:
       "Sharp diesel and raw fuel over a skunky, earthy base, with almost no sweetness to round it off.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a pure-fuel gas-OG hybrid named Gas Face — all diesel, no candy. A colossal weathered stone-and-chrome face, a monolithic carved visage half-sunk in a dark industrial wasteland at night, thick diesel-fuel vapour pouring from its mouth and hollow eyes and rolling low across oily, petrol-sheened ground. Palette raw and nocturnal — near-black night with cold diesel-petrol blue and skunky earthy brown, chrome glint and a low amber glow cutting through the fumes. Mood: heavy and direct — a quick euphoric rush dropping into a deep, sedating stillness, firmly evening. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'GAS FACE' baked into the scene — carved into the monolith's base. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "gas-face.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
