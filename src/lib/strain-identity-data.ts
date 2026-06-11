@@ -3641,6 +3641,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Larry OG (Lemon Larry) is a lemony OG Kush × SFV OG cross — clean gas with a citrus lift. The nose is bright OG: lemon and pine over fuel and damp earth. The effect is balanced-leaning-relaxed — a euphoric head with a comfortable body, usable through the day. It's gassy, dense and potent, and it's the OG half behind Purple Punch. For a clean, lemony gas OG, Larry is a quiet classic.",
     curatorQuote:
       "Lemon and pine over fuel and damp earth.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a clean, lemony gas-OG hybrid named Larry OG (Lemon Larry). A sun-faded California lemon grove at golden dusk: rows of lemon trees heavy with bright yellow fruit, a weathered wooden crate and a dirt track running through, a faint fuel haze and an oily petrol-sheen puddle catching the last light, dark pines at the orchard's edge. Palette bright and warm — lemon-yellow and gold with pine green over earthy brown and a petrol-blue shadow, amber dusk light, a frosted sheen, fading into a wine-dark sky. Mood: balanced and easy — a euphoric lift over a comfortable body, clean and relaxed. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'LARRY OG' baked into the scene — stencilled on the wooden crate or an orchard sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "larry-og.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
