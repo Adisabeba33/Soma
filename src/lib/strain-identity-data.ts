@@ -3829,7 +3829,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a bright, sativa-leaning citrus-chem cut named Chem's Sister — the lithe, lemony sister to Chemdawg's guard dog. A sleek, poised wildcat prowling through a sunlit back-lot at midday, lean and elegant where the dog was heavy; a bright lemon-gold light cuts through a thin sour-diesel haze, the cat's fur catching a faint silvery frost, an oily petrol-rainbow sheen shimmering on the warm asphalt. Sharp and bright in the air — diesel and sour earth with a lemony lift. Palette clean and electric — sour lemon-gold and citrus over cool gunmetal and chem-green haze, a sleek silver sheen with petrol-rainbow shimmer in the light. Mood: up and heady — a euphoric, talkative cerebral lift with a light body, gassy, loud and bright. Cinematic, painterly, high-contrast, premium editorial poster, sleek and atmospheric. The strain name 'CHEM'S SISTER' baked into the scene — stenciled on a sunlit back-lot wall or stamped on the cat's slim metal collar tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "chem-s-sister.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
