@@ -4910,6 +4910,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "ACDC is a high-CBD phenotype of Cannatonic with a CBD:THC ratio so lopsided there's almost no intoxication at all. The nose is mild and earthy: sweet, woody pine over a faint herbal base. The effect is barely a 'high' — a clear, calm, focused ease that leaves the head functional. It's smooth and gentle, one of the most-recommended therapeutic CBD cuts. For calm with essentially no high, ACDC is a go-to.",
     curatorQuote:
       "Sweet, woody pine over a faint herbal base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a near-zero-high, calming CBD pine cut named ACDC — its name an electric current, its effect serene. Soft blue-white electric arcs flowing calmly through a misty pine forest at dusk, gentle ribbons of current threading between the trunks like quiet lightning that soothes rather than strikes, a clean glow settling over the woody ground. Sweet, woody pine over a faint herbal base in the cool, still air. Palette cool and clean — electric blue and soft white current over deep pine green and woody shadow, a calm teal glow and gentle luminous mist. Mood: clear, calm, focused — a barely-there high, smooth, gentle and grounding. Cinematic, painterly, high-contrast, premium editorial poster, serene and atmospheric. The strain name 'ACDC' baked into the scene — traced in the glowing electric arc or carved into pine woodgrain. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no band imagery, no cannabis leaves, buds or packaging.",
+    artFileName: "acdc.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
