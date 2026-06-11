@@ -12,7 +12,6 @@ import {
   Search,
   SlidersHorizontal,
   X,
-  Zap,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -646,14 +645,10 @@ function CatalogRow({
 
         {/* Main info column */}
         <div className="min-w-0 flex-1 p-4 sm:p-5">
-          {/* pr reserves room for the absolute Compare control top-right so
-              the potency badge never slides under it. */}
+          {/* pr reserves room for the absolute Compare control top-right. */}
           <div className="flex flex-wrap items-center gap-1.5 pr-28">
             <Badge variant="outline" className="capitalize">
               {strain.type}
-            </Badge>
-            <Badge className="border-transparent bg-brass/15 capitalize text-brass">
-              {strain.potency.replace("-", " ")}
             </Badge>
           </div>
           <h3 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight">
@@ -665,10 +660,6 @@ function CatalogRow({
               {(strain.aliases?.length ?? 0) > 3 ? " …" : ""}
             </p>
           )}
-          <p className="mt-2 inline-flex items-start gap-1.5 text-sm font-medium italic text-brass">
-            <Zap className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
-            {entry.archetype}
-          </p>
 
           {/* Effect glyphs with labels */}
           <div className="mt-3">
