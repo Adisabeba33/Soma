@@ -676,7 +676,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a balanced, easygoing fruity hybrid named Cherry Pie. A freshly baked cherry pie cooling on a sun-warmed windowsill in late-afternoon light — golden lattice crust split open with glistening dark-red cherry filling spilling out, a thread of steam curling up, ripe cherries and berries scattered on weathered wood beside it. Warm afternoon sun streams in low and amber, dust motes drifting; the air is sweet with tart cherry and a soft dusty, earthy warmth. Palette inviting and homey — deep cherry red and berry over golden crust and amber afternoon light, dusty earthy browns and a touch of soft purple in the shadows. Mood: happy, relaxed, comfortable — a clear-headed, easygoing afternoon lift, neither racy nor sedating. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'CHERRY PIE' baked into the scene — branded into the wooden sill or a small enamel pie tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "cherry-pie.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
