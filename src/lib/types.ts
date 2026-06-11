@@ -50,6 +50,10 @@ export type Category =
 
 export type Confidence = "low" | "medium" | "high";
 
+// How hard-hitting the user wants it. Optional axis (see deferred #/cold-start
+// ISSUE-6); absent/"balanced" is a no-op in scoring.
+export type PotencyPreference = "mild" | "balanced" | "strong";
+
 export interface TasteProfileInput {
   favoriteStrains: string[];
   dislikedStrains: string[];
@@ -62,6 +66,10 @@ export interface TasteProfileInput {
   // Optional on the input contract so older test fixtures and unmigrated DB
   // reads stay valid; engine treats absent as []. Same vocab as EFFECTS.
   dislikedEffects?: string[];
+  // Aromas/flavours the user actively wants to avoid (symmetric with
+  // preferredAromas). Optional; engine treats absent as []. Same vocab as
+  // AROMAS/FLAVORS.
+  dislikedAromas?: string[];
   texturePreferences: string[];
   qualityPriorities: string[];
   referenceStrain?: string | null;
@@ -73,6 +81,10 @@ export interface TasteProfileInput {
   primaryEffect?: string | null;
   useTime?: string | null;
   bodyFeel?: number | null;
+  // Desired overall strength ("mild" | "balanced" | "strong"). Typed loosely
+  // (like primaryAroma) so raw DB rows assign cleanly; absent/"balanced"/an
+  // unknown value is a no-op in scoring.
+  potencyPreference?: string | null;
   notes?: string | null;
 }
 

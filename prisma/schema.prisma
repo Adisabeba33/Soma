@@ -38,6 +38,9 @@ model TasteProfile {
   // Effects to actively avoid (symmetric with preferredEffects). Default
   // empty so existing rows stay valid without a backfill migration.
   dislikedEffects    String[] @default([])
+  // Aromas/flavours to actively avoid (symmetric with preferredAromas).
+  // Default empty so existing rows stay valid without a backfill.
+  dislikedAromas     String[] @default([])
   texturePreferences String[]
   qualityPriorities  String[]
   referenceStrain    String?
@@ -48,6 +51,7 @@ model TasteProfile {
   primaryEffect      String?  // calm | knockout | social | lifted | sharp
   useTime            String?  // morning | daytime | evening | bed
   bodyFeel           Int?     // 0 (clear/light) .. 100 (heavy/couch-lock)
+  potencyPreference  String?  // mild | balanced | strong (how hard-hitting)
   notes              String?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt

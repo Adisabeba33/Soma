@@ -50,7 +50,7 @@ saving, so a wrong first pass is recoverable, not fatal.
   - Keep the existing `but`/`except` clause split — forward-scope is layered
     on top within each clause.
 
-### 🔴 ISSUE-2 — No "disliked aromas" channel
+### 🟢 ISSUE-2 (fixed, PR B) — No "disliked aromas" channel
 - **Found via:** *"Cannot stand anything floral or soapy."*
 - **Observed:** `floral` was silently excluded from preferred; nothing
   recorded as a negative. `soapy` isn't in the vocab so it's invisible.
@@ -139,7 +139,7 @@ saving, so a wrong first pass is recoverable, not fatal.
 - **Also (phrase 3 batch):** `zooted`, `blazed`, `ripped`, `stoned`,
   `blasted` → `euphoric`/`head-high` (very-high slang).
 
-### 🔴 ISSUE-6 — No potency / intensity preference channel
+### 🟢 ISSUE-6 (fixed, PR B) — No potency / intensity preference channel
 - **Found via:** *"something **strong** n fruity"* and *"**not too potent**,
   **mild**"*.
 - **Observed:** "strong" / "potent" / "mild" produce nothing. `bodyFeel` is

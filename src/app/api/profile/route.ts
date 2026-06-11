@@ -21,6 +21,9 @@ const asBodyFeel = (value: unknown): number | null => {
   return Math.max(0, Math.min(100, Math.round(value)));
 };
 
+const asPotency = (value: unknown): "mild" | "balanced" | "strong" | null =>
+  value === "mild" || value === "balanced" || value === "strong" ? value : null;
+
 export const dynamic = "force-dynamic";
 
 export async function GET() {
@@ -48,6 +51,7 @@ async function upsertProfile(req: NextRequest) {
     preferredFlavors: asArray(body.preferredFlavors),
     preferredEffects: asArray(body.preferredEffects),
     dislikedEffects: asArray(body.dislikedEffects),
+    dislikedAromas: asArray(body.dislikedAromas),
     texturePreferences: asArray(body.texturePreferences),
     qualityPriorities: asArray(body.qualityPriorities),
     referenceStrain: asText(body.referenceStrain, 120),
@@ -56,6 +60,7 @@ async function upsertProfile(req: NextRequest) {
     primaryEffect: asEnum(body.primaryEffect, isPrimaryEffect),
     useTime: asEnum(body.useTime, isUseTime),
     bodyFeel: asBodyFeel(body.bodyFeel),
+    potencyPreference: asPotency(body.potencyPreference),
     notes: asText(body.notes, 2000),
   };
 

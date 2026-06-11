@@ -17,6 +17,12 @@ import type { InferredProfile } from "@/lib/profile-from-experience";
 type Phase = "input" | "preview" | "saving";
 type DescribeResult = { profile: InferredProfile; sufficient: boolean };
 
+const POTENCY_OPTIONS = [
+  { value: "mild", label: "Mild" },
+  { value: "balanced", label: "Balanced" },
+  { value: "strong", label: "Strong" },
+];
+
 const EXAMPLES = [
   "Sweet fruity candy strains for the daytime — uplifting and social, nothing that knocks me out.",
   "Heavy gassy diesel for the evening, deep body relaxation before bed.",
@@ -134,7 +140,27 @@ export default function DescribeOnboardingPage() {
               tone="warning"
             />
           )}
+          {edited.dislikedAromas.length > 0 && (
+            <PreviewBlock
+              label="Aromas to avoid"
+              chips={edited.dislikedAromas.map((v) => ({ value: v, label: labelFor(v) }))}
+              onRemove={(v) => removeFromAxis("dislikedAromas", v)}
+              kind="vocab"
+              tone="warning"
+            />
+          )}
 
+          <ForcedChoicePreview
+            label="Strength"
+            value={edited.potencyPreference}
+            options={POTENCY_OPTIONS}
+            onChange={(v) =>
+              setEdited({
+                ...edited,
+                potencyPreference: v as typeof edited.potencyPreference,
+              })
+            }
+          />
           <ForcedChoicePreview
             label="Primary aroma"
             value={edited.primaryAroma}

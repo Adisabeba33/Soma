@@ -143,6 +143,25 @@ describe("PR A — time idioms (ISSUE-5)", () => {
   });
 });
 
+describe("PR B — disliked aromas (ISSUE-2)", () => {
+  it("routes negated smells to dislikedAromas, not preferred", () => {
+    const p = parse("sweet and fruity, cannot stand diesel or skunk");
+    assert.ok(p.dislikedAromas.includes("diesel"));
+    assert.ok(p.dislikedAromas.includes("skunky"));
+    assert.ok(p.preferredAromas.includes("sweet"));
+    assert.ok(!p.preferredAromas.includes("diesel"));
+  });
+});
+
+describe("PR B — potency preference (ISSUE-6)", () => {
+  it("reads strength language", () => {
+    assert.equal(parse("something strong, a real heavy hitter").potencyPreference, "strong");
+    assert.equal(parse("keep it mild and easy").potencyPreference, "mild");
+    assert.equal(parse("nothing too strong").potencyPreference, "mild");
+    assert.equal(parse("just something fruity").potencyPreference, "");
+  });
+});
+
 describe("inferProfileFromDescription — worked example", () => {
   it("parses a rich daytime/evening description", () => {
     const p = parse(
