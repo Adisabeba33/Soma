@@ -36,6 +36,17 @@ and didn't do is itself valuable context.
 
 ### #1 — `modern-exotic` sensoryFamily cluster is too broad
 
+> **✓ Resolved (2026-06-10).** Identity coverage reached 400/400 and
+> `modern-exotic` had ballooned to 60 strains, so the trigger was met. Split
+> it into `candy-exotic` (37, sweet/fruity/berry candy), `funky-exotic` (11,
+> gas/cheese/diesel funk), `gelato-exotic` (10, MAC/gelato/sherbet creamy-gas)
+> and moved the guava-tropical strains into the existing `tropical-fruit`.
+> Added sub-family adjacency (candy↔tropical-fruit, candy↔dessert-cookies,
+> gelato↔dessert-cookies, gelato↔candy, funky↔gas-og, funky↔garlic-funk) so
+> near neighbours still get the partial bonus. Reviewer's gap is closed: a
+> White Hot Guava (tropical-fruit) fan no longer gets a same-family bonus on
+> Permanent Marker (funky-exotic). Tests in `tests/modern-exotic-split.test.ts`.
+
 - **Found:** 2026-06-09
 - **Source:** External expert review (gas / White Hot Guava profile tests)
 - **What:** The `modern-exotic` family currently groups very different

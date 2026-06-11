@@ -241,7 +241,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Biscotti", "Jealousy", "Sherbert"],
       cross: "Biscotti × Jealousy × Sherbert",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Sharpie-and-soap funk", "'Strain of the year' contender"],
     curatorNote:
       "Permanent Marker is a Seed Junky cross of Biscotti, Jealousy and Sherbert — a 'strain of the year' contender named for its loud, Sharpie-like funk. The nose is exactly that: a sharp, chemical marker-and-soap funk over a sweet, gassy base, unmistakable and a little divisive. The effect is balanced and euphoric — a happy, uplifting head over a relaxed body, versatile but potent. It's very frosty and loud, a flavour-forward modern exotic. For people who want that distinctive Sharpie-soap funk done well, Permanent Marker is the reference.",
@@ -498,7 +498,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Zkittlez", "Gelato"],
       cross: "Zkittlez × Gelato",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: [
       "Candy-tropical sweetness",
       "White / Pink phenos vary by frost and finish",
@@ -515,7 +515,7 @@ export const IDENTITIES: StrainIdentity[] = [
     marketNames: ["Skittlez", "Skittles", "Island Zkittlez"],
     breeder: "Terphogz / 3rd Gen Family",
     lineage: { parents: ["Grape Ape", "Grapefruit"] },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     curatorNote:
       "Zkittlez is the strain that taught a generation to chase fruit — a Terphogz creation (Grape Ape × Grapefruit lineage) whose name is the honest review: it really does taste like a handful of Skittles. The nose is bright and mouth-watering: mixed berry, grape and tropical candy with a clean, almost sour-sweet edge and very little gas. Despite the sativa-sounding fruit, the effect leans calm and contented — a relaxed, happy, low-ceiling body ease that's hard to overdo, good for unwinding without a knockout. The trade-off is power: it's more about flavour and mood than raw potency, which purists sometimes hold against it. As a terpene showcase, though, it's one of the cleanest, most addictive flavours in the catalogue.",
     curatorQuote:
@@ -587,7 +587,7 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "White Hot Guava",
     marketNames: ["Hot Guava", "WHG"],
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "tropical-fruit",
     phenotypeNotes: [
       "Guava-forward gas hybrid",
       "Custom seed entry — limited public lineage data",
@@ -749,7 +749,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["The Y", "Snowman"],
       cross: "The Y × Snowman",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Gassy-mint funk, very frosty"],
     curatorNote:
       "Gary Payton — named for the Hall-of-Fame point guard — is a Cookies/Powerzzzup collab crossing The Y (a GSC line) with Snowman, and one of the loudest hype strains of recent years. The nose is sharp and savoury-sweet: diesel and herbal funk over a cool mint-cookie edge, more gas than candy. The effect is balanced and clear-headed — an energetic, focused euphoria over a calm body that keeps it usable through the day, unusual for something this potent. It runs strong, though, so the 'functional' label only holds at a sensible dose. As a frosty, gassy, high-test hybrid, it earned its reputation beyond the marketing.",
@@ -817,7 +817,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Alien Cookies", "Starfighter × Columbian"],
       cross: "Alien Cookies × (Starfighter × Columbian)",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Near-white frost", "Finicky to grow"],
     curatorNote:
       "MAC 1 — Miracle Alien Cookies, cut #1 — is Capulator's prized phenotype of Alien Cookies crossed with a Starfighter/Colombian line, famous for its frosty, almost white look. The nose is complex: creamy citrus and floral sweetness over a diesel-and-spice funk, refined rather than loud. The effect is balanced and bright — a euphoric, creative, uplifting head with a relaxed body, social and versatile. It's a notoriously finicky plant to grow, part of its connoisseur cachet and why genuine MAC 1 is prized. For a smooth, frosty, balanced hybrid, it's one of the modern greats.",
@@ -1361,7 +1361,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Gelato 41", "Sherbet"],
       cross: "Gelato 41 × Sherbet",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Frosty gas-and-sherbet 'strain of the year'"],
     curatorNote:
       "Jealousy is a hype-era cross of Gelato 41 and Sherbet (a Seed Junky/Powerzzzup line) that topped 'strain of the year' lists — frosty, gassy and sweet. The nose is rich and complex: creamy sherbet and sweet fruit over a sharp, gassy funk, candy with a fuel edge. The effect is balanced and euphoric — an uplifting, sociable head over a relaxed body, versatile across the day. It's potent and very frosty, a flavour-forward modern exotic. For people chasing the current Gelato-gas hype done well, Jealousy is a standout.",
@@ -1839,7 +1839,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Strawberry Runtz",
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Strawberry-forward Runtz selection"],
     curatorNote:
       "Strawberry Runtz is a strawberry-led pick in the candy Runtz family — pure confection, very little funk. The nose is ripe strawberry and sugared tropical fruit, the kind of sweet that reads as dessert before you even taste it. The high is bright and good-natured, an easy lift that keeps the body loose and social rather than couch-bound. Like the rest of the line it's about flavour and bag-appeal first; potency is pleasant rather than punishing. For a clean strawberry-candy nose, it delivers.",
@@ -1854,7 +1854,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Gelato", "London Pound Cake"],
       cross: "Gelato × London Pound Cake",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Sherbet sweetness over gassy dessert"],
     curatorNote:
       "Candy Rain is a Cookies cross of Gelato and London Pound Cake — sweet sherbet meeting dark, gassy dessert. The nose is rich and layered: creamy berry and sweet candy over a gassy, doughy funk, dessert with depth. The effect is relaxing and euphoric — a happy head easing into comfortable body weight, an afternoon-into-evening strain. It's frosty and potent, balanced-leaning-indica. For people who want Gelato sweetness with London Pound Cake's gas, Candy Rain blends both well.",
@@ -1885,7 +1885,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Grape Pie", "Jet Fuel Gelato"],
       cross: "Grape Pie × Jet Fuel Gelato",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Candy grape over sharp diesel"],
     curatorNote:
       "Grape Gas — also sold as Grape Gasoline, Compound Genetics' cross of Grape Pie and Jet Fuel Gelato — welds candy grape to a sharp diesel funk, with the colour to match. On the nose, sweet grape and berry sit over a pungent, gassy base; it's loud in a way pure-candy strains aren't. The effect leans heavy: a warm euphoria that sinks into the body and points toward the evening. It's built for people who like their grape with a fuel edge rather than clean sweetness. Frosty, potent and unapologetically gassy.",
@@ -1901,7 +1901,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Gelato 41", "Triangle Kush"],
       cross: "Gelato 41 × Triangle Kush",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Tropical candy over a gassy OG frame"],
     curatorNote:
       "Gushers (Fruit Gushers) is a Cookies cross of Gelato 41 and Triangle Kush — sweet tropical candy on a gassy, OG-leaning frame. The nose is sweet and fruity: tropical candy and berry over a light gas, dessert-bright with a funky edge. The effect is balanced-leaning-relaxed — a euphoric head over a comfortable, calming body, afternoon into evening. It's frosty and potent, a popular flavour-forward exotic. For people who want fruity candy with some gas backbone, Gushers is a tasty, well-known pick.",
@@ -1917,7 +1917,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Blue Power × Gelatti", "GMO × Banana OG"],
       cross: "(Blue Power × Gelatti) × (GMO × Banana OG)",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Fruit candy layered over savoury gas"],
     curatorNote:
       "Apples and Bananas is a Cookies/Compound collab — a complex cross of (Blue Power × Gelatti) and (GMO × Banana OG) — built to layer fruit over gas. The nose is rich and unusual: green apple and banana candy over a savoury, gassy funk, sweet-and-funky at once. The effect is balanced and euphoric — a happy, uplifting head over a relaxed body, versatile and potent. It's frosty and flavour-forward, one of the more distinctive modern exotics. For people who want fruit-and-gas complexity, Apples and Bananas stands out.",
@@ -1933,7 +1933,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Pink Guava", "OZ Kush"],
       cross: "Pink Guava × OZ Kush",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Guava-sherbet, extremely frosty"],
     curatorNote:
       "RS11 — Rainbow Sherbet #11 — is a Wizard Trees / Doja cut of Pink Guava and OZ Kush, one of the most hyped exotics of recent years. The nose is sweet and creamy: tropical guava and sherbet over a doughy, gassy base, candy with depth. The effect is balanced and relaxing — a euphoric head easing into comfortable body calm, afternoon into evening. It's extremely frosty and flavour-forward, a connoisseur's exotic. For people chasing the current top-shelf guava-sherbet hype, RS11 is a benchmark.",
@@ -1950,7 +1950,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Rainbow Sherbet", "Pink Guava"],
       cross: "Rainbow Sherbet × Pink Guava",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Clean soapy-floral funk", "Heavy bag appeal"],
     curatorNote:
       "Zoap is DEO Farms' Rainbow Sherbet × Pink Guava cross out of Oakland, and one of the strains that made 'soap' a flavour category. The signature is right there in the name: a clean, perfumed, almost soap-and-floral nose over creamy sweetness, unlike the gas or candy most exotics chase. The effect is upbeat and even — a sociable head with a loose, comfortable body that works through the day. Add glassy, colourful, frost-stacked buds and you get a strain sold as much on looks as on feel. For the soap-funk lane, Zoap is the name that started it.",
@@ -1962,7 +1962,7 @@ export const IDENTITIES: StrainIdentity[] = [
   // ── Modern exotics (part 2) + fruity / dessert ──
   {
     canonicalName: "Soap",
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Lighter, soapy-floral sibling of Zoap"],
     curatorNote:
       "Soap takes the same clean, perfumed funk that made Zoap famous and pours it into a lighter, brighter cut. The nose is floral and crisp — think fresh soap with a touch of cream — and only a faint gas underneath. The high is mellow and sociable, a gentle lift that keeps the body easy rather than weighed down. Like its sibling it trades on novelty and bag-appeal: the perfumed profile is the whole point. For people curious about the 'soap' flavour without Zoap's intensity, this is the gentler way in.",
@@ -1977,7 +1977,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Grape Pie", "Gelato"],
       cross: "Grape Pie × Gelato",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Grape-and-cream dessert exotic"],
     curatorNote:
       "Garanimals is a Skunktek cross of Grape Pie and Gelato — grape-jam sweetness folded into Gelato's cream, finished with heavy frost. The nose is grape and dark berry over a creamy, lightly gassy base, squarely in dessert territory. The effect leans relaxing: a contented, slightly heavy ease that suits the back half of the day. It's an easy-drinking grape dessert — flavour and frost ahead of brute strength. For the grape-and-cream corner of the Gelato world, it's a likeable, accessible pick.",
@@ -1993,7 +1993,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Zkittlez", "Gelato"],
       cross: "Zkittlez × Gelato (white pheno)",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Near-white frost", "Prized Runtz phenotype"],
     curatorNote:
       "White Runtz is the frostiest, palest phenotype of Runtz — the Zkittlez × Gelato candy cross selected for a near-white trichome coat. The nose is pure confection: sugary tropical fruit and creamy sweetness with barely any funk, loud and candied. It smokes the way it smells — an easy, glowing euphoria that keeps you sociable and loose rather than couch-locked. Like everything wearing the Runtz name it's widely faked, so a genuinely frost-white, candy-loud cut is the tell. For the sweetest, most glittering end of the family, this is the prize pheno.",
@@ -2008,7 +2008,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Lemonnade", "Gelato 42", "London Pound Cake"],
       cross: "Lemonnade × Gelato 42 × London Pound Cake",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Sharp, ammonia-tinged sour funk"],
     curatorNote:
       "Cheetah Piss is a Cookies strain — a cross of Lemonnade, Gelato 42 and London Pound Cake — with a name nodding to its sharp, ammonia-tinged funk. The nose is pungent and unusual: sour citrus and a sharp, almost ammonia-like funk over a creamy, gassy base, loud and divisive. The effect is balanced and uplifting — a euphoric, sociable head over a relaxed body, versatile and potent. It's frosty and very loud, a flavour-forward exotic for funk chasers. For people who want a sharp, sour, unusual profile, Cheetah Piss stands out.",
@@ -2023,7 +2023,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Gelato 45", "Forbidden Fruit"],
       cross: "Gelato 45 × Forbidden Fruit",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Creamy gelato with a cherry-citrus twist"],
     curatorNote:
       "Italian Ice is a Cookies cross of Gelato 45 and Forbidden Fruit — creamy gelato sweetness with a fruity, cherry-citrus twist. The nose is rich and sweet: cream and tropical fruit over a light gas, dessert-bright with a fruity edge. The effect is relaxing and euphoric — a happy head easing into comfortable body calm, afternoon into evening. It's frosty and flavourful, balanced-leaning-relaxed. For people who want gelato cream with a fruit lean, Italian Ice is a smooth, tasty pick.",
@@ -2235,7 +2235,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Lavender", "Power Plant"],
       cross: "Lavender × Power Plant",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Spun-sugar, floral-sweet"],
     curatorNote:
       "Cotton Candy Kush is a Delicious Seeds cross of Lavender and Power Plant — built around a sweet, sugary, almost floral candy flavour. The nose is sweet and floral: spun-sugar sweetness and berry over a light floral, earthy base, dessert with a perfumed edge. The effect is relaxing and happy — a calming, mood-lifting body ease that leans comfortable, good for unwinding. It's moderate and flavour-driven, more about taste and calm than raw power. For people who want sweet, floral candy, Cotton Candy Kush is a soft, pleasant pick.",
@@ -2363,7 +2363,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["MAC", "UK Cheese"],
       cross: "MAC × Cheese (commonly cited)",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Creamy MAC meets tangy cheese funk"],
     curatorNote:
       "MAC and Cheese folds the creamy, floral refinement of MAC into a sharp, tangy cheese funk — an unusual sweet-and-savoury pairing. The nose is creamy citrus and floral over a pungent, dairy-cheese funk, loud and a little divisive. The high is upbeat and balanced: a sociable, uplifting head with a relaxed body, and real potency behind it. It's frosty and flavour-forward, aimed at people who want MAC's polish with a savoury edge. A distinctive exotic for funk chasers rather than candy lovers.",
@@ -2547,7 +2547,7 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Pink Runtz",
     marketNames: ["Runtz (pink pheno)"],
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Candy-sweet pink Runtz phenotype"],
     curatorNote:
       "Pink Runtz is a candy-sweet phenotype of the Runtz family — a pink-hued cut prized for sugary, fruity flavour and heavy frost. The nose is pure confection: sweet berry and tropical candy with barely any funk, loud and sugary. The effect is balanced and feel-good — a bright euphoric lift over comfortable body ease, social without sedation. Like all Runtz it's widely counterfeited, so a true frosty pink cut stands out. For the candy-sweet end of Runtz, Pink Runtz is a prized pick.",
@@ -2561,7 +2561,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Runtz", "Apple Fritter"],
       cross: "Runtz × Apple Fritter (commonly cited; not breeder-verified)",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Green-apple Runtz selection"],
     curatorNote:
       "Apple Runtz is widely described as Runtz crossed with Apple Fritter, though no breeder has published a verified recipe — so treat the lineage as the common story rather than gospel. Either way it brings a green-apple twist to the candy Runtz family: sweet-tart apple laid over the line's creamy confection. The nose is bright — crisp green apple and sugared tropical fruit with barely any funk. The smoke is easy and upbeat, a light euphoria that keeps things sociable rather than sleepy. As with the rest of the Runtz crowd, flavour and frost lead the way over raw strength. For a sweet-and-sour apple candy profile, it's a fun, approachable pick.",
@@ -2571,7 +2571,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Obama Runtz",
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Candy-and-gas Runtz-orbit exotic"],
     curatorNote:
       "Obama Runtz is a hype-named member of the Runtz orbit, its exact lineage never settled but generally gassier and heavier than the pure-candy cuts. The nose mixes berry candy and grape with an earthy, gassy funk — sweet with a fuel edge. The effect leans relaxing: a warm, happy ease that settles into the body more than the head. It's a bag-appeal strain, bought for frost and flavour as much as anything. For Runtz character with a gassy lean, it's a popular choice.",
@@ -2600,7 +2600,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Kush Mints", "Wedding Crasher"],
       cross: "Kush Mints × Wedding Crasher",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Minty cookie over grape-gas"],
     curatorNote:
       "Hippie Crasher crosses Kush Mints with Wedding Crasher, marrying cool minty cookie to grape-and-gas funk. The nose is layered — mint and cookie up front, grape and fuel underneath, sweet and savoury at the same time. The effect is balanced and unhurried: a clear euphoric head that drifts into easy body comfort, good from afternoon on. It's very frosty and flavour-forward, the kind of cut connoisseurs hunt. For mint-and-grape gas done well, it's a tasty pick.",
@@ -2690,7 +2690,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Kush Mints 11", "Alien Cookies"],
       cross: "Kush Mints 11 × Alien Cookies",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Extremely potent and loud", "Sour, soapy-mint funk"],
     curatorNote:
       "Cap Junky is a hype-era heavyweight — a Capulator and Seed Junky collab crossing Kush Mints 11 and Alien Cookies — one of the loudest, most potent exotics of recent years. The nose is sharp and savoury-sweet: mint, gas and a sour, almost soapy funk over a creamy base, intense and unusual. The effect is fast and powerful — a euphoric, heady rush that settles into a heavy body, potent enough to humble experienced smokers. It's extremely frosty and very loud, a true connoisseur's exotic. For people chasing maximum potency and funk, Cap Junky is the deep end.",
@@ -3000,7 +3000,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["MAC", "Cherry Pie"],
       cross: "MAC × Cherry Pie (cherry-MAC line)",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Cherry fruit tempering MAC diesel funk", "A line, not a fixed cut"],
     curatorNote:
       "Cherry MAC is less one strain than a line — MAC crossed with a cherry-leaning parent, most often Cherry Pie — built to temper MAC's diesel funk with red fruit. The nose is bright and complex: sweet cherry and floral fruit over MAC's creamy, gassy funk. The effect is balanced and euphoric — an uplifting, creative head with a relaxed body, sociable and potent. It's frosty and resin-heavy, keeping MAC's bag appeal. For cherry fruit on a MAC frame, it's a flavourful exotic.",
@@ -3018,7 +3018,7 @@ export const IDENTITIES: StrainIdentity[] = [
         "OZ Kush": { lineageBrief: "Zkittlez × OG Kush line", type: "hybrid" },
       },
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Guava-sherbet exotic", "Sibling cut of RS11"],
     curatorNote:
       "Studio 54 is a Doja Pak / Deep East Farms exotic — Sunset Sherbet crossed with OZ Kush and pheno-hunted by Wizard Trees — a sibling of the hyped RS11 from the same project. The nose is sweet and tropical: guava and sherbet cream over a light gas. The effect is balanced and euphoric — an uplifting head settling into easy body comfort, versatile across the day. It's glassy, colourful and very frosty, a top-shelf bag-appeal cut. For guava-sherbet exotics in the RS11 family, Studio 54 is a prize.",
@@ -3036,7 +3036,7 @@ export const IDENTITIES: StrainIdentity[] = [
         "OZ Kush": { lineageBrief: "Zkittlez × OG Kush line", type: "hybrid" },
       },
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Candy-grape boutique exotic", "Colour- and terp-selected"],
     curatorNote:
       "Pink Picasso is a Wonderbrett exotic — Candyland crossed with OZ Kush — a boutique LA cut known for colour and complex dessert terps. The nose is sweet and fruity: candy berry and grape over a soft floral base. The effect is bright and balanced — a euphoric, creative head with a relaxed body, sociable and potent. It's colourful, frosty and resin-heavy, built for looks as much as feel. For candy-grape exotics with craft pedigree, Pink Picasso stands out.",
@@ -3155,7 +3155,7 @@ export const IDENTITIES: StrainIdentity[] = [
         "Moonbow": { lineageBrief: "Zkittlez × Do-Si-Dos", type: "hybrid" },
       },
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Pure candy, very little funk"],
     curatorNote:
       "Rainbow Belts is an Archive Seed Bank cross of Zkittlez and Moonbow — pure candy, built on the fruitiest side of the exotic shelf. The nose is sweet and loud: mixed berry and tropical candy with a grape tail, almost no funk. The effect is bright and feel-good — a euphoric, giggly head over an easy body, social and approachable. It's frosty, colourful and flavour-first. For sugar-sweet candy exotics, Rainbow Belts is a fan favourite.",
@@ -3222,7 +3222,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Zkittlez", "OG Kush"],
       cross: "Zkittlez × OG Kush",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Candy fruit over OG gas", "A parent of RS11, Studio 54 and Pink Picasso"],
     curatorNote:
       "OZ Kush is OZ Kushman's Zkittlez × OG Kush — candy fruit folded onto a gassy OG frame, and one of the quiet workhorses of the modern exotic scene. The nose is sweet and tropical with a fuel undertone: berry and tropical candy over earthy gas. The effect is balanced and euphoric — an uplifting head over a relaxed body, sociable and potent. It's frosty and resin-heavy, prized less for its own fame than for the heavyweights it parents (RS11, Studio 54, Pink Picasso). For candy-and-gas genetics at the source, OZ Kush is foundational.",
@@ -3238,7 +3238,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Zkittlez", "Do-Si-Dos"],
       cross: "Zkittlez × Do-Si-Dos",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Candy berry over a heavy Do-Si-Dos body", "A parent of Rainbow Belts"],
     curatorNote:
       "Moonbow is an Archive Seed Bank cross of Zkittlez and Do-Si-Dos — candy berry sweetness welded to a heavy, frosty indica body. The nose is sweet and fruity: mixed berry and grape over a faint gas, candy-forward. The effect leans relaxing — a euphoric head that eases into real body weight, more evening than day. It's frosty and potent, and it passes its candy nose down to Rainbow Belts. For sweet fruit with an indica backbone, Moonbow is a flavourful pick.",
@@ -3346,7 +3346,7 @@ export const IDENTITIES: StrainIdentity[] = [
     lineage: {
       cross: "OZ Kushman guava selection",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "tropical-fruit",
     phenotypeNotes: ["Tropical guava sweetness", "Behind RS11 and the soap-funk exotics"],
     curatorNote:
       "Pink Guava is an OZ Kushman guava selection — a clone-line whose exact recipe stays in-house, prized for a clean tropical-fruit nose. The smell is sweet and exotic: ripe guava and tropical fruit over a soft floral base, with little gas. The effect is balanced and easy — a euphoric, relaxed high that stays comfortable across the day. It matters as much for its descendants — it's behind RS11 and the soap-funk exotics — as for itself. For pure guava sweetness, Pink Guava is the source cut.",
@@ -3366,7 +3366,7 @@ export const IDENTITIES: StrainIdentity[] = [
         "Blackberry": { lineageBrief: "Black Domina × Raspberry Cough line", type: "hybrid" },
       },
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Creamy fruit-sherbet", "Colourful, dessert-forward"],
     curatorNote:
       "Rainbow Sherbet is a Sherbinski cross of Champagne and Blackberry — creamy fruit-sherbet with colourful, candy-bright buds. The nose is sweet and creamy: mixed berry and fruit over a soft, ice-cream sweetness. The effect is happy and easy — a giggly, uplifting head over a relaxed body, sociable and gentle. It's frosty and flavour-led rather than heavy, prized for its colour and taste. For creamy berry-sherbet sweetness, Rainbow Sherbet is a cheerful pick.",
@@ -3381,7 +3381,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Zkittlez", "Kush Mints"],
       cross: "Zkittlez × Kush Mints #11",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Candy fruit with a minty gas tail", "Very frosty, 30%+ THC cuts"],
     curatorNote:
       "Blue Zushi is a Ten Co cross of Zkittlez and Kush Mints #11 — candy fruit up front, minty gas underneath, and frost for days. The nose is sweet and loud: berry and grape candy over a cool mint and light gas. The effect leans relaxing — a euphoric head easing into a calm, heavy body, evening-friendly. It's very potent and trichome-caked, part of the colourful 'Zushi' line. For candy fruit with a minty-gas backbone, Blue Zushi is a standout.",
@@ -3397,7 +3397,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Black Cherry Punch", "Tropicana Cookies"],
       cross: "Black Cherry Punch × Tropicana Cookies",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Cherry-citrus candy", "Leafly Strain of the Year 2024"],
     curatorNote:
       "Super Boof — first bred as 'Blockberry' by Blockhead, then renamed and popularised by Mobilejay — is a Black Cherry Punch × Tropicana Cookies cross that took Leafly's 2024 Strain of the Year. The nose is bright and fruity: dark cherry and orange citrus over a sweet, berry base. The effect is balanced and lively — a euphoric, happy head with enough body to stay comfortable, versatile across the day. It's frosty, very potent and easy to love. For cherry-citrus candy with award pedigree, Super Boof earns the hype.",
@@ -3411,7 +3411,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Apple Fritter", "Runtz"],
       cross: "Apple Fritter × Runtz",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Sweet apple-pastry over candy"],
     curatorNote:
       "Apple Tartz pairs Apple Fritter's sweet-and-savoury pastry with Runtz candy — green-apple dessert with a faint gas edge. The nose is bright and sweet: green apple and sugary pastry over a light fruity gas. The effect is balanced and feel-good — a euphoric, creative head with a relaxed body, sociable and approachable. It's frosty and flavour-forward, an easy-drinking modern exotic. For sweet apple-and-candy character, Apple Tartz is a tasty pick.",
@@ -3427,7 +3427,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Lemon Cherry Gelato"],
       cross: "Lemon Cherry Gelato selection",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Cherry-lemon candy", "Heavy bag appeal, hype name"],
     curatorNote:
       "Lemon Cherry Push Pop is a Lemon Cherry Gelato selection from the Backpack Boyz orbit — pure candy, named for the frozen sweet. The nose is bright and fruity: sweet cherry and lemon over a creamy gelato base, candy-forward. The effect is balanced and easy — a euphoric, happy head over a relaxed body, sociable and gentle. Like LCG it trades heavily on bag appeal and flavour, and like LCG it's widely imitated. For cherry-lemon candy in the hyped exotic lane, Push Pop is a sweet pick.",
@@ -3486,7 +3486,7 @@ export const IDENTITIES: StrainIdentity[] = [
     lineage: {
       cross: "Compound Genetics select (lineage undisclosed)",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Cool menthol over gas funk", "A parent of Pink Certz"],
     curatorNote:
       "The Menthol is a Compound Genetics cut whose recipe stays in-house — named for an unusual cooling, menthol-mint note over gas. The nose is distinctive: cool mint and herbal sharpness over an earthy, gassy funk, unlike most candy exotics. The effect is balanced and easy — a euphoric, relaxed high, potent but versatile. It's very frosty and loud, prized for the menthol character it passes to crosses like Pink Certz. For a genuinely minty, gassy profile, The Menthol is a one-off.",
@@ -3614,7 +3614,7 @@ export const IDENTITIES: StrainIdentity[] = [
         "Alien Kush": { lineageBrief: "Las Vegas Purple Kush × Alien Tech", type: "hybrid" },
       },
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Cereal-sweet exotic", "A parent of Sundae Driver"],
     curatorNote:
       "Fruity Pebbles OG is an Alien Genetics exotic — a four-way blend of Green Ribbon, Granddaddy Purple, Tahoe OG and Alien Kush — named for its breakfast-cereal sweetness. The nose is loud and fruity: mixed berry and tropical candy over a faint earthy gas. The effect is balanced and happy — a euphoric, creative head with a relaxed body, sociable and potent. It's frosty and flavour-forward, and it's the fruity half behind Sundae Driver. For cereal-sweet exotic genetics, FPOG is a building block.",
@@ -3680,7 +3680,7 @@ export const IDENTITIES: StrainIdentity[] = [
         "Burmese": { lineageBrief: "Burmese landrace", type: "indica" },
       },
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Floral-fruit hybrid", "A parent of Rainbow Sherbet"],
     curatorNote:
       "Champagne is a Sherbinski hybrid of Boggle Gum and Burmese — a soft, floral-fruit strain that became important mostly as a parent (it's half of Rainbow Sherbet). The nose is sweet and floral: light berry and bubblegum over an earthy base. The effect is gentle and mellow — a happy, relaxing high that stays comfortable, moderate rather than overwhelming. It's smooth and flavour-led, and it passes its sweetness down to Rainbow Sherbet. For soft, floral-sweet genetics, Champagne is a pretty parent line.",
@@ -3813,7 +3813,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Zkittlez", "Kush Mints"],
       cross: "Zkittlez × Kush Mints (Zushi colour pheno)",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Red-hued Zushi colour pheno"],
     curatorNote:
       "Red Zushi is a colour-selected cut from the same Zkittlez × Kush Mints line as Blue Zushi — picked for red-purple buds and a fruitier lean. The nose is sweet and loud: berry and grape candy over a cool mint and faint gas. The effect leans relaxing — a euphoric head easing into a calm body, evening-friendly. It's very frosty and flavour-forward, part of the colourful Zushi family. For candy fruit with a minty tail and red bag appeal, Red Zushi delivers.",
@@ -4077,7 +4077,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Gary Payton", "Sunset Sherbet"],
       cross: "Gary Payton × Sunset Sherbet",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Gassy-mint with a creamy lift"],
     curatorNote:
       "Gary Poppins pairs Gary Payton's gassy mint with Sunset Sherbet's cream — a frosty modern exotic that softens GP's edge. The nose is layered: cool mint and gas over a sweet, creamy base. The effect is balanced and euphoric — an uplifting, creative head with a relaxed body, sociable and potent. It's very frosty and flavour-forward, keeping Gary Payton's bag appeal. For gassy-mint with a creamy lift, Gary Poppins is a tasty exotic.",
@@ -4088,7 +4088,7 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Jelly Donutz",
     marketNames: ["Jelly Donuts"],
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Berry-pastry sweetness over light gas"],
     curatorNote:
       "Jelly Donutz is a sweet berry-pastry exotic — jammy fruit over a doughy, lightly gassy base, built for dessert flavour. The nose is sweet and rich: mixed berry jam and sugar over a faint gas. The effect is relaxing and happy — a euphoric head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, an easy-drinking dessert cut. For berry-and-pastry sweetness, Jelly Donutz is a tasty pick.",
@@ -4099,7 +4099,7 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Watermelon",
     marketNames: ["Watermelon OG"],
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Sweet watermelon-candy, indica-lean"],
     curatorNote:
       "Watermelon is a sweet, fruit-forward indica-lean built around its namesake melon-candy flavour. The nose is sweet and juicy: watermelon and berry over a soft, earthy base, refreshing rather than gassy. The effect is mellow and happy — a relaxing, contented body ease with a clear head, comfortable for unwinding. It's frosty and flavour-led, moderate in its demands. For sweet melon-candy with an easy body, Watermelon is a gentle pick.",
@@ -4338,7 +4338,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Biskante",
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Creamy cookie over a gassy base"],
     curatorNote:
       "Biskante is a Biscotti-leaning exotic — creamy cookie sweetness over a gassy, earthy base. The nose is rich and sweet: cookie and cream cut by a light gas. The effect is balanced and relaxing — a euphoric head easing into a comfortable body, versatile and potent. It's frosty and flavour-forward, in the polished Biscotti lane. For creamy cookie-gas dessert, Biskante is a smooth pick.",
@@ -4352,7 +4352,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Sunset Sherbet", "Kush Mints"],
       cross: "Sunset Sherbet × Kush Mints",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Minty-sweet sherbet cross"],
     curatorNote:
       "Sunset Mintz pairs Sunset Sherbet's cream with Kush Mints' cool mint and gas — a frosty, minty-sweet exotic. The nose is layered: sweet sherbet and cream over a cool mint and light gas. The effect is balanced and relaxing — a euphoric head easing into a calm body, evening-leaning. It's frosty and flavour-forward, easy to like. For minty-sweet sherbet character, Sunset Mintz is a tasty pick.",
@@ -4366,7 +4366,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Apple Fritter", "Gelato"],
       cross: "Apple Fritter × Gelato",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Sweet-apple over Gelato cream"],
     curatorNote:
       "Apple Gelato folds Apple Fritter's sweet-and-savoury pastry into Gelato's cream — green-apple dessert with a light gas. The nose is bright and sweet: green apple and sugar over a creamy, gassy base. The effect is balanced and feel-good — a euphoric, creative head with a relaxed body, sociable and potent. It's frosty and flavour-forward, an easy-drinking exotic. For apple-and-cream dessert character, Apple Gelato is a tasty pick.",
@@ -4496,7 +4496,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Zkittlez"],
       cross: "Original Zkittlez cut",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["The original Zkittlez clone", "A parent of Lemonchello"],
     curatorNote:
       "The Original Z is the original clone-only cut of Zkittlez — the candy-fruit benchmark before the name spread everywhere, and a parent of Lemonchello. The nose is sweet and loud: mixed berry and tropical candy with a clean, sour-sweet edge. The effect is calm and contented — a relaxed, happy body ease that's hard to overdo. It's frosty and flavour-first, the genuine article behind a heavily-copied name. For true Zkittlez candy genetics, The Original Z is the source cut.",
@@ -4506,7 +4506,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Boggle Gum",
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Bubblegum-leaning cut", "A parent of Champagne"],
     curatorNote:
       "Boggle Gum is a sweet, bubblegum-leaning cut best known as a parent of Sherbinski's Champagne (and so, indirectly, Rainbow Sherbet). The nose is sweet and candy-bright: bubblegum and berry over a light floral base. The effect is gentle and happy — a relaxing, mood-lifting high that stays comfortable, moderate in strength. It's smooth and flavour-led, a quiet parent line. For sweet bubblegum genetics behind the sherbet world, Boggle Gum is a source.",
@@ -4659,7 +4659,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Lemon Cherry Gelato", "Cherry Pie"],
       cross: "Lemon Cherry Gelato × Cherry Pie (commonly cited)",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Cherry-lemon dessert in the LCG lane"],
     curatorNote:
       "Lemon Cherry Pie sits in the Lemon Cherry Gelato lane — a cherry-and-lemon dessert with the same hyped, candy-forward profile. The nose is bright and fruity: sweet cherry and lemon over a creamy, faintly gassy base. The effect is balanced and easy — a euphoric, happy head with a relaxed body, sociable and gentle. It's frosty and flavour-forward, trading on LCG's bag appeal. For cherry-lemon candy in the hyped lane, Lemon Cherry Pie is a sweet pick.",
@@ -4928,7 +4928,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Sunset Sherbet", "Biscotti"],
       cross: "Sunset Sherbet × Biscotti",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Creamy sherbet over a gassy cookie base"],
     curatorNote:
       "Sherbacio crosses Sunset Sherbet with Biscotti — creamy sherbet sweetness laid over a gassy, coffee-tinged cookie. The nose is rich and sweet: sherbet and cream over a gassy, earthy cookie funk. The effect is relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, in the polished Cookies/Sherbinski lane. For sherbet-and-cookie dessert character, Sherbacio is a smooth pick.",
@@ -4990,7 +4990,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Master Kush", "Blueberry", "The White"],
       cross: "Master Kush × The White × Blueberry × Sour Double",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Frosty blue hybrid", "A parent of Animal Mints and Apples and Bananas"],
     curatorNote:
       "Blue Power is a Sin City Seeds hybrid — a Master Kush, The White, Blueberry and Sour Double blend — frosty and sweet, and an important modern parent (Animal Mints, Apples and Bananas). The nose is sweet and fruity: blueberry and berry over a faint gas. The effect is balanced and relaxing — a euphoric head easing into a comfortable body. It's extremely frosty and potent, prized as breeding stock. For frosty blue-fruit genetics behind the cookie world, Blue Power is a key line.",
@@ -5151,7 +5151,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Gushers"],
       cross: "Gushers phenotype (white, frost-selected)",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Frosty white Gushers pheno"],
     curatorNote:
       "White Gushers is a frost-selected, near-white phenotype of Gushers — the tropical candy of Gushers with extra trichome coverage. The nose is sweet and fruity: tropical candy and berry over a light gas. The effect is balanced and feel-good — a euphoric head with a relaxed body, sociable and potent. It's extremely frosty and flavour-forward, the prized cut of the Gushers line. For candy fruit with maximum frost, White Gushers is a standout.",
@@ -5397,7 +5397,7 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Banana Cream",
     marketNames: ["Banana Cream Cake"],
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Creamy banana dessert indica"],
     curatorNote:
       "Banana Cream is a creamy banana dessert indica-lean — sweet ripe banana over a vanilla, cream base. The nose is sweet and fruity: banana and tropical fruit over a soft cream. The effect is relaxing and happy — a calming body ease with a euphoric head, evening-leaning. It's frosty and flavour-forward, an easy dessert cut. For creamy banana-and-vanilla character, Banana Cream is a cosy pick.",
@@ -5456,7 +5456,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["UK Cheese", "Querkle"],
       cross: "UK Cheese × Querkle",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Tangy cheese over sweet grape"],
     curatorNote:
       "Cheese Quake is a TGA/Subcool cross of UK Cheese and Querkle — tangy dairy funk meeting sweet purple grape. The nose is unusual and loud: cheese and sour funk over a sweet grape-berry base. The effect is balanced and relaxing — a euphoric head easing into a comfortable body, versatile across the day. It's frosty and flavour-forward, a savoury-sweet oddity. For cheese-and-grape character, Cheese Quake is a distinctive pick.",
@@ -5466,7 +5466,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Pez",
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Candy-sweet exotic"],
     curatorNote:
       "Pez is a candy-sweet exotic named for the dispenser sweet — bright, sugary fruit flavour with little funk. The nose is sweet and fruity: mixed berry and citrus candy over a clean base. The effect is happy and easy — a giggly, uplifting head over a relaxed body, social and gentle. It's frosty and flavour-first, a bag-appeal modern cut. For sugar-sweet candy character, Pez is a cheerful pick.",
@@ -5707,7 +5707,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Banana OG", "Granddaddy Purple"],
       cross: "Banana OG × Granddaddy Purple",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Banana-and-grape heavy indica"],
     curatorNote:
       "Banana Daddy crosses Banana OG with Granddaddy Purple — sweet ripe banana over dark grape, on a heavy frame. The nose is rich and fruity: banana and grape over an earthy, gassy base. The effect is strongly relaxing — a euphoric head sinking into a heavy, sedating body, firmly an evening strain. It's frosty and very potent, a flavourful heavyweight. For banana-and-grape character with real weight, Banana Daddy is a satisfying pick.",
@@ -5721,7 +5721,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Gushers", "Gelato"],
       cross: "Gushers × Gelato",
     },
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Tropical candy over gelato cream"],
     curatorNote:
       "Gushlato crosses Gushers with Gelato — tropical fruit candy laid over gelato cream. The nose is sweet and fruity: tropical candy and berry over a creamy, lightly gassy base. The effect is relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, an easy-drinking dessert exotic. For candy fruit over cream, Gushlato is a tasty pick.",
@@ -5731,7 +5731,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Honey Banana",
-    sensoryFamily: "modern-exotic",
+    sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Honeyed banana indica"],
     curatorNote:
       "Honey Banana is a honeyed banana indica-lean — sweet ripe banana over a soft, earthy-cream base. The nose is sweet and fruity: banana and honey over a light earthy floor. The effect is relaxing and happy — a calming body ease with a euphoric head, evening-leaning. It's frosty and flavour-forward, a cosy dessert cut. For sweet honey-banana character, it's a gentle, tasty pick.",
