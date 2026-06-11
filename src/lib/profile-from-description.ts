@@ -53,26 +53,26 @@ const SMELL_TRIGGERS: ReadonlyArray<[string, RegExp]> = [
 ];
 
 const EFFECT_TRIGGERS: ReadonlyArray<[string, RegExp]> = [
-  ["sleepy", /\b(sleep|sleepy|drowsy|tired|knock\w* ?(me )?out|knockout|pass\w* out|nod off|insomnia)\b/],
-  ["couch-lock", /\b(couch ?lock|couch ?locked|glued|stuck|sedat\w*|pinned|in ?the ?couch)\b/],
+  ["sleepy", /\b(sleep|sleepy|drowsy|tired|knock\w* ?(me )?out|knockout|pass\w* out|nod off|insomnia|zonk\w*|comatose|out cold)\b/],
+  ["couch-lock", /\b(couch[- ]?lock\w*|couch|glued|stuck|pin(s|ned)|sedat\w*)\b/],
   ["body-heavy", /\b(heavy|body high|body buzz|body load|in ?the ?body|physical)\b/],
   ["relaxed", /\b(relax\w*|chill|mellow|unwind|wind ?down|calm down|ease)\b/],
   ["calm", /\b(calm|calming|settled|peaceful|anxiety|stress)\b/],
-  ["euphoric", /\b(euphor\w*|bliss\w*|high as)\b/],
-  ["happy", /\b(happy|happiness|good ?mood|cheer\w*|joy)\b/],
+  ["euphoric", /\b(euphor\w*|bliss\w*|high as|zooted|blazed|stoned|ripped|blasted)\b/],
+  ["happy", /\b(happy|happiness|good ?mood|cheer\w*|joy|social|sociable|chatty|talkative)\b/],
   ["uplifted", /\b(uplift\w*|lifted|upbeat|elevat\w*)\b/],
   ["giggly", /\b(giggl\w*|laugh\w*)\b/],
   ["focused", /\b(focus\w*|productive|concentrat\w*|clarity|clear ?head\w*|sharp|dialed)\b/],
   ["creative", /\b(creativ\w*|artsy|inspired|ideas)\b/],
   ["energetic", /\b(energ\w*|active|get(ting)? going|motivat\w*|buzz\w*|wired)\b/],
   ["hungry", /\b(hungry|munchies|appetite|hunger)\b/],
-  ["head-high", /\b(cerebral|head ?high|heady|in ?my ?head|mental|trippy|psychedelic)\b/],
+  ["head-high", /\b(cerebral|head ?high|heady|in ?my ?head|mental|trippy|psychedelic|racy|paranoi\w*|fry\w* (?:my )?brain)\b/],
 ];
 
 const USE_TIME_TRIGGERS: ReadonlyArray<[UseTime, RegExp]> = [
-  ["morning", /\b(morning|wake ?up|sunrise|start ?the ?day)\b/],
-  ["daytime", /\b(day ?time|daytime|afternoon|midday|during ?the ?day|at ?work|social|active)\b/],
-  ["evening", /\b(evening|after ?work|wind ?down|unwind|sunset|dinner)\b/],
+  ["morning", /\b(morning|wake ?up|wake ?[-& ]?and[-& ]?bake|wake ?n ?bake|sunrise|first ?thing|start ?the ?day)\b/],
+  ["daytime", /\b(day ?time|daytime|afternoon|midday|during ?the ?day|at ?work|active)\b/],
+  ["evening", /\b(evening|after ?work|after ?a ?long ?day|end ?of ?(the )?day|wind ?down|unwind|decompress|nightcap|sunset|dinner)\b/],
   ["bed", /\b(night ?time|nighttime|at ?night|before ?bed|bed ?time|before ?sleep|fall ?asleep|insomnia|late ?night)\b/],
 ];
 
@@ -167,26 +167,41 @@ export function inferProfileFromDescription(input: string): InferredProfile {
   const primaryEffectCounts = new Map<string, number>();
 
   for (const clause of clauses(text)) {
-    const negated = NEGATION.test(clause);
+    // Forward-scope negation: a cue ("not / without / no / avoid …") negates
+    // everything from its position to the END of the clause — not the whole
+    // clause. So "social and giggly without frying my brain" keeps social +
+    // giggly positive and only negates "frying my brain".
+    const negMatch = clause.match(NEGATION);
+    const negIdx = negMatch?.index ?? -1;
+    const positivePart = negIdx === -1 ? clause : clause.slice(0, negIdx);
+    const negatedPart = negIdx === -1 ? "" : clause.slice(negIdx);
 
+    // Comparative ("more X than Y" / "X instead of Y"): the part AFTER
+    // than/instead-of is the de-emphasised side — drop it from the positive
+    // signal entirely (don't prefer it, but don't mark it disliked either).
+    const cmp = positivePart.match(/\b(than|instead of)\b/);
+    const positiveMain =
+      cmp?.index != null ? positivePart.slice(0, cmp.index) : positivePart;
+
+    // SMELLS — positive only. (Negated smells have no home yet — a disliked-
+    // aroma channel is tracked separately as ISSUE-2.)
     for (const [token, re] of SMELL_TRIGGERS) {
-      if (!re.test(clause)) continue;
-      if (negated) continue; // no disliked-aroma field; just don't prefer it
+      if (!re.test(positiveMain)) continue;
       if (AROMA_VALUES.has(token)) aromaSet.add(token);
       if (FLAVOR_VALUES.has(token)) flavorSet.add(token);
       const fam = AROMA_TO_PRIMARY[token];
       if (fam) aromaFamilyCounts.set(fam, (aromaFamilyCounts.get(fam) ?? 0) + 1);
     }
 
+    // EFFECTS — wanted from the positive head, avoided from the negated tail.
     for (const [token, re] of EFFECT_TRIGGERS) {
-      if (!re.test(clause)) continue;
       if (!EFFECT_VALUES.has(token)) continue;
-      if (negated) {
-        dislikedEffectSet.add(token);
-      } else {
+      if (re.test(positiveMain)) {
         effectSet.add(token);
         const pe = EFFECT_TO_PRIMARY[token];
         if (pe) primaryEffectCounts.set(pe, (primaryEffectCounts.get(pe) ?? 0) + 1);
+      } else if (negatedPart && re.test(negatedPart)) {
+        dislikedEffectSet.add(token);
       }
     }
   }
