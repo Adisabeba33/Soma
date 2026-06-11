@@ -4170,7 +4170,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a bright, citrus-forward gas-OG hybrid named Ghost OG. A fog-shrouded old stone manor on a pine hill at dusk: pale luminous spectral mist drifts like wisps between weathered iron gates and trees, lemon-gold dusk light breaking through, a faint fuel-and-pine haze hanging in the cold air. Palette luminous, cool-meets-warm — pale ghost-white and blue mist with lemon-gold dusk and pine green over petrol-earth shadow, a frosted sheen, fading into a wine-dark sky. Mood: balanced and bright — a euphoric, happy lift over an easy relaxing body, ethereal and calm. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'GHOST OG' baked into the scene — carved into a weathered stone gate or marker. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "ghost-og.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
