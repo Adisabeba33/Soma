@@ -2908,7 +2908,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a potent, frosty gas-cookie OG named Animal Face. A powerful wild wolf prowling out of a dark pine forest at dusk, its thick fur crusted in glittering silver frost like a trichome coat, breath steaming in the cold; a piney fuel haze drifts low between the trunks, catching the last amber light with a faint oily shimmer, the air loud with pine and gas over a sweet undertone. Palette deep and frosty — pine green and silver-white trichome frost over earthy shadow, an amber-gold dusk glow and faint petrol haze threading the trees. Mood: potent and balanced-leaning-up — a euphoric, creative head over a relaxed body, very strong and frosty. Cinematic, painterly, high-contrast, premium editorial poster, atmospheric and detailed. The strain name 'ANIMAL FACE' baked into the scene — carved into a weathered wooden forest sign or cut into mossy stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "animal-face.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "high",
   },
