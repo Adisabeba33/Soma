@@ -511,7 +511,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a candy-sweet, balanced feel-good exotic hybrid named Runtz — the candy-bag flagship. A glossy spill of glittering hard candy and sugar-dusted tropical fruit tumbling from a torn foil bag across a glassy surface — pastel pinks, purples, mints and creams catching bright studio light, each piece slick with a sugared, frosted sheen, a few translucent jewels glowing like gemstones. Loud fruity confection in the air — sugary tropical fruit and creamy sweetness, no gas. Palette playful and exotic — candy pink, lilac and mint over cream and pearl-white frost, glossy and high-key with bright pops of saturated fruit color. Mood: bright, social, feel-good — a euphoric lift over easy body comfort, fun without sedation. Cinematic, painterly, high-contrast, premium editorial poster, hyper-glossy and candied. The strain name 'RUNTZ' baked into the scene — printed boldly on the torn candy-bag foil. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "runtz.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "high",
   },
