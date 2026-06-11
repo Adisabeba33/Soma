@@ -5206,6 +5206,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "White Fire OG (WiFi OG) is an OG Raskal cross of Fire OG and The White — the gas of Fire OG with The White's extreme frost. The nose is loud OG: fuel and pine over an earthy, lemony funk. The effect is balanced — a euphoric, creative head with a relaxing body, usable across the day unlike many heavy OGs. It's extremely frosty and potent, a connoisseur's gas hybrid. For a frosty, balanced cut of OG genetics, WiFi is a modern favourite.",
     curatorQuote:
       "Fuel and pine over an earthy, lemony funk.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, gassy, balanced OG named White Fire OG. A ghostly white-blue flame burning impossibly cold over a dark, frost-crusted ridge at night — the fire the palest white-hot blue, throwing silver light across glittering trichome-frost on the pines below, fuel haze feeding the flame and shimmering with a faint petrol-rainbow edge. Loud OG in the cold air — fuel and pine over an earthy, lemony funk. Palette stark and electric — white-hot and icy blue flame over silver frost and deep pine-black, a touch of lemon-gold in the embers and faint oily shimmer in the haze. Mood: balanced and potent — a euphoric, creative head over a relaxing body, extremely frosty and gassy. Cinematic, painterly, high-contrast, premium editorial poster, dramatic and atmospheric. The strain name 'WHITE FIRE OG' baked into the scene — branded into the frosted ridge stone or seared in glowing embers. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "white-fire-og.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
