@@ -102,8 +102,11 @@ saving, so a wrong first pass is recoverable, not fatal.
 - **Root cause:** The regex only matches `couch ?lock|couch ?locked|glued|
   stuck|sedat\w*|pinned|in ?the ?couch`. It misses "into the couch",
   "to the couch", "pins" (vs "pinned"), "glued to the couch".
+- **Also (phrase 3):** the canonical hyphenated term **"couch-lock" itself
+  is missed** — `couch ?lock` matches "couch lock"/"couchlock" but not the
+  hyphenated "couch-lock". The hyphen must be allowed: `couch[- ]?lock`.
 - **Proposed fix:** Broaden to catch `couch` in a lock context, e.g.
-  `\bcouch ?lock\w*\b` OR `\b(into|to|on|in|glued ?to|stuck ?to|pin\w* ?(me )?(in|to)) ?the couch\b`, or simply treat the bare word `couch`
+  `\bcouch[- ]?lock\w*\b` OR `\b(into|to|on|in|glued ?to|stuck ?to|pin\w* ?(me )?(in|to)) ?the couch\b`, or simply treat the bare word `couch`
   (when not "couch surfing" etc.) as couch-lock — short descriptions rarely
   mention a couch for any other reason.
 - **Nuances / risks:** Bare `couch` is a strong, low-false-positive signal in
@@ -133,6 +136,42 @@ saving, so a wrong first pass is recoverable, not fatal.
 - **Found via:** *"zonk out"* (→ sleepy) missed.
 - **Proposed fix:** add `zonk\w*`, `knock\w* out` (have), `pass\w* out`
   (have), `ko'?d`, `comatose` → `sleepy`; `couch` → see ISSUE-4.
+- **Also (phrase 3 batch):** `zooted`, `blazed`, `ripped`, `stoned`,
+  `blasted` → `euphoric`/`head-high` (very-high slang).
+
+### 🔴 ISSUE-6 — No potency / intensity preference channel
+- **Found via:** *"something **strong** n fruity"* and *"**not too potent**,
+  **mild**"*.
+- **Observed:** "strong" / "potent" / "mild" produce nothing. `bodyFeel` is
+  about body-vs-head, not overall strength, so there's no home for "how
+  hard-hitting" the user wants it.
+- **Expected:** "strong/potent/heavy-hitting" → wants high potency;
+  "mild/light/easy/beginner" → wants low potency.
+- **Root cause:** No potency-preference field in the description output (the
+  questionnaire has `qualityPriorities` incl. "potency", but that's a
+  *what-I-judge-on* flag, not a target level).
+- **Proposed fix (options):**
+  - Light: map "strong/potent" → add `"potency"` to `qualityPriorities`
+    (signals they care about strength). Cheap, no schema change.
+  - Fuller: a real `potencyPreference: "mild" | "balanced" | "strong"` axis
+    on the profile + engine handling. Bigger — own PR, like ISSUE-2.
+- **Nuances / risks:** "not too potent" is negated → needs ISSUE-1
+  forward-scope to land as *low* potency, not high.
+
+### 🔴 ISSUE-7 — Comparatives ("more X than Y") treated as two equal wants
+- **Found via:** *"**more relaxing than energizing**"*.
+- **Observed:** both `relaxed` AND `energetic` added as wanted effects.
+- **Expected:** `relaxed` is the want; `energizing` is the de-emphasised
+  comparison — it should be dropped or down-weighted, not added as a peer.
+- **Root cause:** No handling of comparative structure ("more X than Y",
+  "X rather than Y", "X over Y", "X not so much Y"). Both sides match their
+  triggers and both land positive.
+- **Proposed fix:** Detect `more ___ than ___` / `___ rather than ___` /
+  `___ over ___` and treat the token(s) after `than/over/rather than` as
+  *de-emphasised* (exclude, or move toward dislikedEffects if clearly "not").
+- **Nuances / risks:** "more X than Y" means "prefer X"; it does NOT
+  necessarily mean "dislike Y" — safest is to just exclude Y from preferred,
+  not push it to disliked.
 
 ---
 
@@ -159,5 +198,18 @@ These should all parse cleanly after the batch fix; keep as test fixtures.
      couch-lock (couch), focused, creative}; disliked effects {hungry};
      useTime blank (evening "long day" + morning "wake-and-bake" conflict —
      but both should at least be *detected*); primaryEffect ambiguous.
+
+3. `"just gimme something strong n fruity, zaza exotic that gets me zooted"`
+   - Expect: aromas {fruity}; potency = strong (ISSUE-6); wanted effects
+     {euphoric/head-high} (zooted). ("zaza/exotic" may stay unmapped.)
+4. `"I prefer cerebral, energetic sativas with citrus and pine notes; I avoid
+   heavy indicas that cause couch-lock."`
+   - Expect: aromas {citrus, pine}; wanted {head-high, energetic}; disliked
+     {body-heavy, couch-lock} — note "couch-lock" hyphen must be caught
+     (ISSUE-4).
+5. `"more relaxing than energizing, lowkey not too potent, mild and smooth,
+   good for unwinding after work"`
+   - Expect: wanted {relaxed} (NOT energetic — ISSUE-7); potency = mild/low
+     (ISSUE-6); useTime evening; bodyFeel low.
 
 *(Add more tricky inputs here as we test them.)*
