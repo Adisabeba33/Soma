@@ -3278,7 +3278,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a savoury, gassy-and-spicy OG hybrid named Chile Verde — green chile, not candy. A Southwest cantina courtyard at night: thick ristras of glossy green chiles hang against a weathered adobe wall, a low gas-blue flame roasts peppers in the corner and sends fragrant smoke drifting through the warm night air, strung lanterns and an ember glow lighting the scene. Palette deep and savoury — night indigo and chile green with ember-amber and a gas-blue flame, earthy adobe brown, a frosty sheen and a faint petrol haze in the smoke. Mood: relaxing and heavy — a euphoric warmth sinking toward the body, evening-leaning and unhurried. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'CHILE VERDE' baked into the scene — hand-painted on the adobe wall or a wooden sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "chile-verde.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "low",
   },
