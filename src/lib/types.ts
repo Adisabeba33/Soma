@@ -28,6 +28,17 @@ export interface StrainProfile {
   traits: string[];
   potency: Potency;
   note?: string;
+  // Tag weighting (deferred-improvements #3). Optional subsets of aromas /
+  // flavors / effects marking the strain's DOMINANT character (e.g. GG4's
+  // nose is primarily `gassy`+`earthy`, with `pine`+`citrus` secondary).
+  // The engine weights a match on a primary token above a secondary one, so
+  // a fan of the gas-primary character scores higher on GG4 than a fan of its
+  // citrus secondary. Each must be a subset of the corresponding full array.
+  // When omitted, every tag is weighted equally (identical to pre-#3
+  // behaviour), so this is opt-in per strain and curated over time.
+  primaryAromas?: string[];
+  primaryFlavors?: string[];
+  primaryEffects?: string[];
 }
 
 export type Category =

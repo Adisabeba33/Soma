@@ -121,6 +121,18 @@ and didn't do is itself valuable context.
 
 ### #3 — Tag weighting (Primary / Secondary)
 
+> **◑ Engine shipped (2026-06-10), curation ongoing.** Added optional
+> `primaryAromas` / `primaryFlavors` / `primaryEffects` subsets on
+> `StrainProfile`. `setScore` now weights a matched preferred tag 1.5× when
+> it lands on a primary token (1.0× secondary), via a bounded coverage
+> formula `matchedWeight / (matchedWeight + unmatched)` that reduces exactly
+> to the old unweighted score when a strain has no primaries — so it's a
+> no-op until curated (existing calibration unchanged). Seeded the first ~10
+> reference strains (GG4, Sour Diesel, OG Kush, Chemdawg, Northern Lights,
+> Granddaddy Purple, Wedding Cake, Blue Dream, White Hot Guava, Super Lemon
+> Haze). **Remaining:** curate primaries onto the rest of the catalogue over
+> time — the field is optional, so this can be incremental.
+
 - **Found:** 2026-05 (earlier in this session)
 - **Source:** User idea + later external expert validation
 - **What:** Every aroma/flavor/effect tag on a strain is currently
