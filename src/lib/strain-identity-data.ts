@@ -4607,7 +4607,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a heavy, award-winning gas-OG hybrid named Holy Grail Kush. An ancient stone temple ruin deep in a pine forest at dusk: a luminous golden chalice — the grail — rests on a moss-grown stone altar, shafts of divine amber light breaking through broken arches, a fuel-and-pine haze drifting reverently through the cold air. Palette rich and sacred — amber and lemon-gold divine light with pine green over damp earthy stone and petrol-fuel shadow, a frosted resinous sheen, fading into a wine-dark dusk sky. Mood: strong and relaxing — a euphoric head sinking into a heavy body, reverent and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'HOLY GRAIL KUSH' baked into the scene — carved into the stone altar. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "holy-grail-kush.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
