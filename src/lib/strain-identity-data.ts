@@ -165,6 +165,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Chemdawg is the cult bag-seed that quietly rewired modern cannabis — the mythic parent behind both OG Kush and Sour Diesel, with an origin story (a Grateful Dead show, a bag of seeds) more legend than record. Crack it open and it's pure sharp chemical funk: acrid diesel, a metallic tang and sour earth — the 'chem' note an entire family is named after. The high is heavy and cerebral at once: a fast, pressing head-rush that settles into a weighty, slightly dazed body, more potent than its plain looks suggest. It comes in several cuts (Chem 91, Chem D, Chem 4) that aren't interchangeable, so 'Chemdawg' on a label tells you the family, not the exact phenotype. It's a connoisseur's strain — loud, divisive and foundational.",
     curatorQuote:
       "Crack it open and it's pure sharp chemical funk.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a loud, foundational chem strain named Chemdawg. A lean, battle-scarred junkyard dog standing guard at night in a gritty back-lot, acrid chemical fumes and a sour-green diesel haze rolling low around its legs, metallic vapor catching cold sodium light; the wet asphalt holds an oily fuel-rainbow sheen, sharp and chemical. The air is pure funk — acrid diesel, a metallic tang and sour earth. Palette dark and chemical — toxic acid-green and sour yellow haze over diesel black and bruised metal, cold steel highlights and petrol-slick shimmer on wet ground. Mood: heavy and cerebral at once — a pressing head-rush sinking into a weighty, dazed body, loud and divisive. Cinematic, painterly, high-contrast, premium editorial poster, gritty and atmospheric. The strain name 'CHEMDAWG' baked into the scene — stenciled on a rusted back-lot wall or stamped on the dog's worn metal collar tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "chemdawg.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     whyItMatters:
       "Chemdawg is the quiet root of modern cannabis: the cult bag-seed — born of a Grateful Dead-show legend — that parented both OG Kush and Sour Diesel, and through them a huge share of today's menu. The entire 'chem' family is named after its sharp chemical funk.",
     tagline: "The chem origin",
