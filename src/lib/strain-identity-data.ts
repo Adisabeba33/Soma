@@ -3885,6 +3885,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Tres Dawg is a Bodhi Seeds indica — Chemdawg backcrossed through Afghani — a heavier, denser take on the chem funk. The nose is loud and gassy: diesel and sour earth with a piney edge. The effect leans relaxing — a euphoric head sinking into a weighty body, evening-friendly. It's sticky, potent and resin-heavy, and it parents both Stardawg and Appalachia. For a heavy, stable cut of the Chem family, Tres Dawg is a key line.",
     curatorQuote:
       "Diesel and sour earth with a piney edge.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of a heavy, dense triple-Chem diesel indica. A weathered fuel depot sunk deep in dark pine forest at dusk: three towering steel tanks and stacked diesel drums wrapped in tangled pipework, thick fuel-and-earth haze settling between the trees, resin and oil glistening on rust and bark. Palette deep and rooted — diesel-petrol blue and dark pine green over earthy brown and rust, amber dusk light catching a heavy resinous sheen, fading into a wine-dark sky. Mood: relaxing and weighty — a euphoric head sinking into a dense, grounded body, still and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster. Keep the lower third calmer and darker for legible overlay text. The strain name may appear baked into the scene (e.g. stencilled on a tank or stamped into steel); no overlaid captions, logos or watermarks; no people, products or cannabis leaves.",
+    artFileName: "tres-dawg.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
