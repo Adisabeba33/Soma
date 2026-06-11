@@ -1058,7 +1058,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for the original, foundational 1991 chem cut named Chem 91. A weathered vintage early-1990s muscle car idling at dusk in a thick cloud of diesel exhaust, chrome bumpers and grille catching the last sour-amber light; pungent fuel haze rolls off the tailpipe and pools on wet asphalt in an oily petrol-rainbow slick, a metallic, chemical glint cutting through the gritty gloom. Raw chem at its source — pungent diesel, sour funk and a metallic bite. Palette retro and heavy — faded chrome and gunmetal over sour-amber dusk and diesel black, toxic-green exhaust haze with a petrol-rainbow shimmer on the road. Mood: heavy and cerebral — a fast, pressing head-rush over a weighty body, loud, divisive and historic. Cinematic, painterly, high-contrast, premium editorial poster, gritty and atmospheric. The strain name 'CHEM 91' baked into the scene — stamped on a worn vintage 1991 license plate or stenciled on the chrome. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "chem-91.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
