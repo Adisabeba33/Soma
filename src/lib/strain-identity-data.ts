@@ -3917,7 +3917,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty, earthy gas-OG kush hybrid named Alien Kush — purple-tinged and otherworldly. A frost-dusted clearing in a dark pine forest at dusk on an alien world: a strange smooth monolith half-buried in the earth, faint purple bioluminescence threading through the trees, a low fuel-and-earth haze drifting under a violet dusk sky where a pale second moon hangs. Palette deep, cold-meets-warm — amethyst purple and pine green over earthy brown and gas-petrol shadow, amber dusk warmth catching the frost, fading into a wine-dark violet sky; a crystalline frosted sheen on every surface. Mood: relaxing and heavy — a euphoric calm sinking into a comfortable, grounded body, evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster. The strain name may appear baked into the scene (e.g. etched into the monolith). Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "alien-kush.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
