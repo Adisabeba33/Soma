@@ -4941,7 +4941,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a calm, barely-psychoactive high-CBD hemp named Charlotte's Web. A delicate spider's web strung between pine boughs at soft dawn, every strand beaded with glistening morning dew that catches the first gentle light like tiny prisms; calm mist drifts through the quiet pine wood behind it, herbal and clean, a faint floral softness in the cool still air. Pine and wood over a herbal, faintly floral base. Palette serene and natural — soft sage green and dewy silver over warm pine wood and a pale gold dawn, gentle and luminous with delicate light. Mood: calm, focused, grounding — a clear, gentle ease with no real high, smooth and therapeutic. Cinematic, painterly, high-contrast, premium editorial poster, delicate and atmospheric. The strain name 'CHARLOTTE'S WEB' baked into the scene — carved into a weathered pine branch or woodgrain at the edge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "charlotte-s-web.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "high",
   },
