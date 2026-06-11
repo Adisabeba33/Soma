@@ -251,7 +251,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a loud, frosty modern-exotic hybrid named Permanent Marker — known for its sharp Sharpie-like funk. A bold night scene in a dark back-alley gallery: a single oversized chrome permanent marker stands like a monument, its glossy black-and-electric-blue ink still wet, dripping and glowing across a concrete wall in fresh strokes; chemical marker fumes and a faint petrol haze drift through the cold night air, a crystalline frost catching the light. Palette deep and graphic — near-black indigo night with electric marker-ink blue, violet and chrome, a frosted sheen and a touch of amber. Mood: balanced and euphoric — a happy, uplifting buzz over a relaxed body, bold and vivid, confidently nocturnal. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'PERMANENT MARKER' written in fresh permanent-marker ink on the wall (baked into the scene). Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "permanent-marker.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
