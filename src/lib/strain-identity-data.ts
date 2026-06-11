@@ -3535,7 +3535,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a cooling, frosty, gassy exotic named The Menthol. A dark surface sheathed in glittering mint-green ice crystals, a cold menthol vapor curling off it like an icy breath, frost feathering across frozen glass; beneath the chill an earthy, gassy funk smolders — a faint warm haze and oily petrol shimmer bleeding up through the cold, mint-sharp light against gassy shadow. Cool mint and herbal sharpness sit over an earthy, gassy funk. Palette icy and electric — cool mint and frost-white crystal with menthol cyan over a smoky earthy black, a faint petrol-rainbow shimmer warming the gassy depths. Mood: balanced and easy — a euphoric, relaxed high, very frosty and loud, cooling yet potent. Cinematic, painterly, high-contrast, premium editorial poster, crystalline and atmospheric. The strain name 'THE MENTHOL' baked into the scene — etched into frosted glass or frozen into the mint-green ice. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "the-menthol.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "low",
   },
