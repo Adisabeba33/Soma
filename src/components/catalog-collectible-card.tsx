@@ -103,7 +103,7 @@ export function CatalogCollectibleCard({
             {strain.name}
           </h3>
           <p className={cn("mt-1 text-[11px] uppercase tracking-[0.14em]", mutedText)}>
-            {strain.type} · {strain.potency.replace("-", " ")}
+            {strain.type}
           </p>
           <div className="mt-3 flex items-end justify-between gap-3">
             {identity?.tagline ? (
