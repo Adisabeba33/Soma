@@ -91,6 +91,12 @@ export interface StrainIdentity {
   // Optional. When absent, the card just shows the name and type —
   // still reads cleanly, just without the catchy line.
   tagline?: string;
+  // Shorter display name for the compact collectible (grid) card only — a
+  // known street/short name for strains whose full name is long (e.g. White
+  // Hot Guava → "Hot Guava"). The full canonical name is still used
+  // everywhere else (detail page, list, search). Curate only where the full
+  // name is awkward on the card; when absent the card uses the full name.
+  shortName?: string;
   // Growers who tend to bring the strain out well (informational, not a
   // batch-quality claim — that lives in a separate layer).
   growerVariants?: string[];

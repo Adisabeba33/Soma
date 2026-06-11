@@ -597,6 +597,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "On the nose it reads candy-and-gas, the guava softening an otherwise pungent diesel funk.",
     tagline: "Tropical evening hybrid",
+    shortName: "Hot Guava",
     sourceConfidence: "low",
     timeProfile: "sunset",
     artPrompt:
