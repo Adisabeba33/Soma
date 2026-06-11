@@ -3710,6 +3710,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sour Dubb (Sour Dubble) is a sour-diesel cross — Sour Diesel into Sour Bubble — and one of the three parents that gave us GG4. The nose is loud and gassy: sharp diesel and sour funk over a sweet, earthy base. The effect is balanced and potent — a euphoric, uplifting head with a relaxing body. It's sticky, gassy and resin-heavy, an important piece of modern gas genetics. For sour-diesel funk at the root of the Glue line, Sour Dubb matters.",
     curatorQuote:
       "Sharp diesel and sour funk over a sweet, earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of a loud, sticky sour-diesel funk — root genetics of the Glue line. A resin-slick industrial fuel yard at dusk: weathered chem drums and diesel barrels, tangled pipework and dripping amber oil pooling on cracked concrete, a sour acidic haze hanging thick in the warm air over a sweet, earthy ground. Palette loud and resinous — acid sour-yellow and skunky chartreuse against diesel-petrol blue and rust-brown, sticky amber highlights glistening on every surface, sunset bleeding into a wine-dark dusk sky. Mood: balanced and potent — an uplifting euphoric head over a relaxing, resin-heavy body, loud and a little raw. Cinematic, painterly, high-contrast, premium editorial poster. Keep the lower third calmer and darker for legible overlay text. The strain name may appear baked into the scene (e.g. stencilled on a barrel or chem drum); no overlaid captions, logos or watermarks; no people, products or cannabis leaves.",
+    artFileName: "sour-dubb.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
