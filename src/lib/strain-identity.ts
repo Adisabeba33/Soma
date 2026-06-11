@@ -220,9 +220,17 @@ const ADJACENCY_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["citrus-haze", "sweet-haze"],
   ["citrus-haze", "pine-spice"],
 
-  // ── Dessert / modern cluster — share sweet, creamy, candy-fruit notes ──
-  ["dessert-cookies", "modern-exotic"],
+  // ── Dessert / modern-exotic cluster ──
+  // modern-exotic was split into candy-/funky-/gelato-exotic (see
+  // deferred-improvements #1); adjacency now connects the sub-families to
+  // their nearest neighbours instead of one catch-all.
   ["dessert-cookies", "purple-berry"],
+  ["dessert-cookies", "gelato-exotic"], // cookies/cake ↔ creamy gelato
+  ["dessert-cookies", "candy-exotic"], // dessert sweetness ↔ candy sweetness
+  ["gelato-exotic", "candy-exotic"], // creamy-sweet ↔ candy-sweet
+  ["candy-exotic", "tropical-fruit"], // candy fruit ↔ tropical fruit
+  ["funky-exotic", "gas-og"], // modern gas-funk ↔ classic gas
+  ["funky-exotic", "garlic-funk"], // modern funk ↔ savory funk
 ];
 
 const ADJACENCY_MAP: Map<string, Set<string>> = (() => {

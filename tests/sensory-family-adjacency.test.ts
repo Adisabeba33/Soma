@@ -52,7 +52,10 @@ describe("isAdjacentSensoryFamily — table contract", () => {
       "sweet-haze",
       "pine-spice",
       "dessert-cookies",
-      "modern-exotic",
+      "tropical-fruit",
+      "candy-exotic",
+      "funky-exotic",
+      "gelato-exotic",
     ];
     for (const a of families) {
       for (const b of adjacentFamilies(a)) {
