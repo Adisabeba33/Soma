@@ -4962,6 +4962,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Ringo's Gift is a CBD-dominant cross of Harlequin and ACDC — named for CBD pioneer Lawrence Ringo, and built to push the ratio even further toward CBD. The nose is earthy and sweet: herbal pine and a light citrus over a woody base. The effect is gentle and clear — a relaxed, focused calm with minimal intoxication, functional and soothing. It's smooth and mild, a favourite for daytime therapeutic use. For a CBD-forward blend with a clear head, Ringo's Gift is a standout.",
     curatorQuote:
       "Herbal pine and a light citrus over a woody base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a gentle, clear-headed CBD-dominant blend named Ringo's Gift. A peaceful pine clearing at warm mid-morning, soft golden sunbeams streaming through the trees and forming glowing concentric rings of light in the herbal haze — a gift of warm calm light pooling on the woody forest floor, a faint citrus brightness and herbal pine softness in the still air. Herbal pine and light citrus over a woody base. Palette warm and serene — gentle gold and sage green over warm woody browns, luminous halos of soft sunlight and a clear citrus glow, calm and natural. Mood: gentle, focused, soothing — a relaxed, clear calm with minimal intoxication, functional and daytime-therapeutic. Cinematic, painterly, high-contrast, premium editorial poster, warm and atmospheric. The strain name 'RINGO'S GIFT' baked into the scene — carved into a weathered wooden trail post or woodgrain at the edge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "ringo-s-gift.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
