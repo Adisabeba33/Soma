@@ -4,28 +4,30 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Edit3, Sparkles } from "lucide-react";
-import { TagInput } from "@/components/ui/selectors";
 import { Button, buttonClass } from "@/components/ui/button";
 import {
   Field,
   PreviewBlock,
   ForcedChoicePreview,
 } from "@/components/profile-inference-ui";
-import { POPULAR_STRAINS } from "@/lib/profile-state";
 import { labelFor } from "@/lib/vocab";
 import { PRIMARY_AROMAS, PRIMARY_EFFECTS, USE_TIMES } from "@/lib/profile-target";
-import type { InferenceResult } from "@/lib/profile-from-experience";
+import type { InferredProfile } from "@/lib/profile-from-experience";
 
 type Phase = "input" | "preview" | "saving";
+type DescribeResult = { profile: InferredProfile; sufficient: boolean };
 
-export default function ExperienceOnboardingPage() {
+const EXAMPLES = [
+  "Sweet fruity candy strains for the daytime — uplifting and social, nothing that knocks me out.",
+  "Heavy gassy diesel for the evening, deep body relaxation before bed.",
+  "Citrus and pine, clear-headed and focused for work. Looking for something new.",
+];
+
+export default function DescribeOnboardingPage() {
   const router = useRouter();
-  const [loved, setLoved] = useState<string[]>([]);
-  const [liked, setLiked] = useState<string[]>([]);
-  const [disliked, setDisliked] = useState<string[]>([]);
+  const [text, setText] = useState("");
   const [phase, setPhase] = useState<Phase>("input");
-  const [result, setResult] = useState<InferenceResult | null>(null);
-  const [edited, setEdited] = useState<InferenceResult["profile"] | null>(null);
+  const [edited, setEdited] = useState<InferredProfile | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -33,24 +35,22 @@ export default function ExperienceOnboardingPage() {
     setSubmitting(true);
     setError(null);
     try {
-      const res = await fetch("/api/profile/from-experience", {
+      const res = await fetch("/api/profile/from-description", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ loved, liked, disliked }),
+        body: JSON.stringify({ text }),
       });
-      const data: InferenceResult = await res.json();
+      const data: DescribeResult = await res.json();
       if (!res.ok) {
-        setError("Couldn't read those strains. Try a different mix.");
+        setError("Couldn't read that. Try describing it a different way.");
         return;
       }
       if (!data.sufficient) {
         setError(
-          "Not enough recognised strains to build a profile. Add at least two strains we hold in the catalog, or use the questionnaire instead.",
+          "We couldn't pull a clear taste from that. Try naming smells (gassy, citrus, sweet), feelings (relaxed, focused, sleepy) and when you'd use it — or use the questionnaire instead.",
         );
-        setResult(data);
         return;
       }
-      setResult(data);
       setEdited(data.profile);
       setPhase("preview");
     } catch {
@@ -72,7 +72,7 @@ export default function ExperienceOnboardingPage() {
         body: JSON.stringify(edited),
       });
       if (!res.ok) throw new Error();
-      router.push("/taste-match?fromExperience=1");
+      router.push("/taste-match?fromDescribe=1");
     } catch {
       setError("Couldn't save the profile. Try again.");
       setPhase("preview");
@@ -81,47 +81,32 @@ export default function ExperienceOnboardingPage() {
     }
   }
 
-  function removeFromAxis(
-    axis: keyof InferenceResult["profile"],
-    value: string,
-  ) {
+  function removeFromAxis(axis: keyof InferredProfile, value: string) {
     if (!edited) return;
     const current = edited[axis];
     if (!Array.isArray(current)) return;
     setEdited({
       ...edited,
       [axis]: current.filter((v) => v !== value),
-    } as InferenceResult["profile"]);
+    } as InferredProfile);
   }
 
-  const positiveCount =
-    (result?.resolved.loved.length ?? 0) +
-    (result?.resolved.liked.length ?? 0);
-
-  if (phase === "preview" && edited && result) {
+  if (phase === "preview" && edited) {
     return (
       <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
         <p className="text-xs uppercase tracking-[0.24em] text-brass">
-          Experience Match
+          Describe your taste
         </p>
         <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
-          Here's what we read from your strains.
+          Here's what we read from your description.
         </h1>
         <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
-          SŌMA inferred this profile from {positiveCount} strain
-          {positiveCount === 1 ? "" : "s"} you named. Review what stuck — remove
-          anything that doesn't feel right, then save. You can always edit it
-          later on the profile page.
+          SŌMA turned your words into a starting profile. Review what stuck —
+          remove anything that doesn't feel right, adjust the forced choices,
+          then save. You can always edit it later on the profile page.
         </p>
 
         <div className="mt-8 space-y-5">
-          <PreviewBlock
-            label="Anchor strains"
-            hint="The reference points the engine treats as ground truth."
-            chips={edited.favoriteStrains.map((v) => ({ value: v, label: v }))}
-            onRemove={(v) => removeFromAxis("favoriteStrains", v)}
-            kind="strain"
-          />
           <PreviewBlock
             label="Aromas you reach for"
             chips={edited.preferredAromas.map((v) => ({ value: v, label: labelFor(v) }))}
@@ -147,14 +132,6 @@ export default function ExperienceOnboardingPage() {
               onRemove={(v) => removeFromAxis("dislikedEffects", v)}
               kind="vocab"
               tone="warning"
-            />
-          )}
-          {edited.likedTraits.length > 0 && (
-            <PreviewBlock
-              label="What you like in the flower"
-              chips={edited.likedTraits.map((v) => ({ value: v, label: labelFor(v) }))}
-              onRemove={(v) => removeFromAxis("likedTraits", v)}
-              kind="vocab"
             />
           )}
 
@@ -184,23 +161,6 @@ export default function ExperienceOnboardingPage() {
           />
         </div>
 
-        {result.unknown.loved.length +
-          result.unknown.liked.length +
-          result.unknown.disliked.length >
-          0 && (
-          <p className="mt-6 rounded-xl border border-brass/30 bg-brass/5 px-4 py-3 text-sm text-foreground/80">
-            We didn't recognise{" "}
-            {[
-              ...result.unknown.loved,
-              ...result.unknown.liked,
-              ...result.unknown.disliked,
-            ].join(", ")}{" "}
-            — they weren't in the catalog, so we couldn't pull sensory data
-            from them. The profile above is based on the recognised strains
-            only.
-          </p>
-        )}
-
         {error && (
           <p className="mt-4 rounded-xl bg-[#a23b2c]/10 px-4 py-3 text-sm text-[#a23b2c]">
             {error}
@@ -218,7 +178,7 @@ export default function ExperienceOnboardingPage() {
             className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
           >
             <Edit3 className="h-3.5 w-3.5" />
-            Back to edit strains
+            Back to edit description
           </button>
           <Link
             href="/profile"
@@ -234,56 +194,49 @@ export default function ExperienceOnboardingPage() {
   return (
     <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
       <p className="text-xs uppercase tracking-[0.24em] text-brass">
-        Experience Match
+        Describe your taste
       </p>
       <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
-        Build a profile from strains you've tried.
+        Just tell us what you like, in your own words.
       </h1>
       <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
-        Faster than the questionnaire. Name a few strains you've loved, liked
-        or actively disliked — SŌMA reads back the sensory profile they
-        imply, shows you what it inferred, and lets you fix it before
-        saving.
+        No strain names needed. Describe the smells, the feeling you want and
+        when you'd use it — SŌMA reads it into a starting profile, shows you
+        what it understood, and lets you fix it before saving.
       </p>
 
-      <div className="mt-10 space-y-7 rounded-2xl border border-border bg-card p-6">
+      <div className="mt-10 rounded-2xl border border-border bg-card p-6">
         <Field
-          label="Strains you loved"
-          hint="Your real anchors. 2–5 names is the sweet spot — fewer and the inference gets noisy, more and your strongest signal gets diluted."
+          label="Your description"
+          hint="Smells (gassy, citrus, sweet, fruity), feelings (relaxed, focused, sleepy, social), and when you'd reach for it (daytime, evening, before bed). Mention anything you want to avoid too."
           required
         >
-          <TagInput
-            value={loved}
-            onChange={setLoved}
-            placeholder="Type a strain and press Enter"
-            suggestions={POPULAR_STRAINS}
-            validateStrains
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={5}
+            placeholder="e.g. Sweet fruity candy strains for the daytime that keep me social and creative, nothing too heavy that knocks me out…"
+            className="w-full resize-y rounded-xl border border-border bg-background px-3.5 py-3 text-sm leading-relaxed text-foreground placeholder:text-muted-foreground/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
         </Field>
 
-        <Field
-          label="Strains you liked (optional)"
-          hint="Lighter signal than loved — worth picking but not your reference."
-        >
-          <TagInput
-            value={liked}
-            onChange={setLiked}
-            placeholder="Optional"
-            validateStrains
-          />
-        </Field>
-
-        <Field
-          label="Strains you actively disliked (optional)"
-          hint="Used to infer which effects to avoid. Skipped if it would contradict your loved strains."
-        >
-          <TagInput
-            value={disliked}
-            onChange={setDisliked}
-            placeholder="Optional"
-            validateStrains
-          />
-        </Field>
+        <div className="mt-4">
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+            Need a nudge? Try one of these
+          </p>
+          <div className="mt-2 flex flex-col gap-1.5">
+            {EXAMPLES.map((ex) => (
+              <button
+                key={ex}
+                type="button"
+                onClick={() => setText(ex)}
+                className="text-left text-sm text-accent hover:underline"
+              >
+                “{ex}”
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {error && (
@@ -295,24 +248,20 @@ export default function ExperienceOnboardingPage() {
       <div className="mt-7 flex flex-wrap items-center gap-3">
         <Button
           onClick={infer}
-          disabled={submitting || loved.length === 0}
+          disabled={submitting || text.trim().length === 0}
           size="lg"
         >
           <Sparkles className="h-4 w-4" />
           {submitting ? "Reading…" : "Read my taste"}
         </Button>
-        <Link
-          href="/profile"
-          className={buttonClass("ghost", "lg")}
-        >
+        <Link href="/profile" className={buttonClass("ghost", "lg")}>
           Use full questionnaire instead
         </Link>
       </div>
 
       <p className="mt-6 text-xs text-muted-foreground">
-        Inference works best when SŌMA recognises the strains you name —
-        check the colour of each tag (green = in catalog, amber = inferred
-        from name only).
+        This is a quick first pass — you'll get to review and edit everything
+        before it's saved.
       </p>
     </div>
   );
