@@ -5837,6 +5837,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Lemon Diesel is a California Sour × Lost Coast OG cross — sharp lemon citrus laid over a sour diesel base. The nose is bright and gassy: lemon and citrus over a fuel, earthy funk. The effect is balanced and lively — an uplifting, energetic head with a relaxing body, usable across the day. It's terpy and potent, cleaner than straight diesel. For lemon with a diesel backbone, Lemon Diesel is a zesty pick.",
     curatorQuote:
       "Lemon and citrus over a fuel, earthy funk.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a bright, zesty diesel hybrid named Lemon Diesel. Ripe lemons piled and sliced across slick wet chrome under hard midday sun — a thin film of fuel-rainbow sheen pooling beneath them on the oily metal, citrus mist and heat haze rising, lemon-yellow light cutting sharp against greasy shadow. The air is bright and gassy: zesty lemon citrus laid over a fuel, earthy funk. Palette electric and clean — vivid lemon yellow and acid-green over slick gunmetal chrome and petrol-rainbow shimmer, high-key sunlit highlights against oily diesel shadow. Mood: uplifting, energetic, lively — an alert citrus head over a relaxed body, an all-day zesty hitter. Cinematic, painterly, high-contrast, premium editorial poster, glossy and wet-looking. The strain name 'LEMON DIESEL' baked into the scene — stamped into the chrome or a worn metal plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "lemon-diesel.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
