@@ -3581,6 +3581,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Appalachia is a Bodhi Seeds cross of Green Crack and Tres Dawg — chem gas with an energetic, citrus lift. The nose is sharp and gassy: diesel and sour earth with a bright citrus edge. The effect is up and lively — an uplifting, happy head with enough body to stay grounded, daytime-leaning despite the gas. It's frosty and potent, and it passes its frost and lift to Bay 11. For energetic chem genetics, Appalachia is a solid parent line.",
     curatorQuote:
       "Diesel and sour earth with a bright citrus edge.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an energetic, gassy chem hybrid named Appalachia — after the blue-ridge mountains. Layered Appalachian ridgelines rolling to the horizon at bright early morning, forested slopes fading from green to hazy blue; a low diesel-tinged haze pools in the valleys and catches the rising sun in oily amber-gold streaks, citrus-bright light breaking sharp over the nearest ridge. Sour earth and fuel funk hang in the cool air with a zesty citrus edge. Palette crisp and energetic — fresh forest green and ridge-blue under a lemon-gold sunrise, with a sour amber haze and faint petrol shimmer threading the valleys. Mood: uplifting, lively, grounded — a happy energetic head with steady body, a daytime gas hitter. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'APPALACHIA' baked into the scene — carved into a weathered wooden ridge-trail sign or cut into the nearest rock face. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "appalachia.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
