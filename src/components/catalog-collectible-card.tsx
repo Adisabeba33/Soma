@@ -101,7 +101,7 @@ export function CatalogCollectibleCard({
             as background-first, label-second, like a vintage poster. */}
         <div className="relative z-10">
           <h3 className="font-display font-semibold leading-tight tracking-tight">
-            <FitText text={strain.name} maxPx={24} minPx={12} />
+            <FitText text={identity?.shortName ?? strain.name} maxPx={24} minPx={12} />
           </h3>
           <p className={cn("mt-1 text-[11px] uppercase tracking-[0.14em]", mutedText)}>
             {strain.type}
@@ -112,7 +112,7 @@ export function CatalogCollectibleCard({
                 className="flex-1 font-display text-sm italic leading-snug"
                 style={{ color: palette.accent }}
               >
-                {identity.tagline}
+                <FitText text={identity.tagline} maxPx={14} minPx={10} />
               </p>
             ) : (
               <span className="flex-1" />
