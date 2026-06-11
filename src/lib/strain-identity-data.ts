@@ -1655,6 +1655,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Bruce Banner — named for the Hulk's alter ego — is a cross of OG Kush and Strawberry Diesel, famous as one of the strongest strains by THC. The nose is sweet and gassy: strawberry and diesel over an earthy OG base, fruity with a fuel edge. The effect is fast and powerful — a euphoric, energetic cerebral rush that settles into a relaxed body, sativa-leaning but heavy-hitting. Its potency is the headline, so a little goes a long way for newer smokers. For people who want a strong, fast, fruity-gas sativa, Bruce Banner lives up to the name.",
     curatorQuote:
       "Strawberry and diesel over an earthy OG base, fruity with a fuel edge.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a fast, ultra-potent fruity-gas sativa named Bruce Banner — after the scientist who turns into raw, unstoppable power. An explosive eruption of green gamma energy bursting up through smashed, fractured concrete — jagged emerald lightning and a violent surge of toxic-green power tearing the ground apart, a diesel haze around it ignited with electric green and laced with a strawberry-red glow and faint petrol-rainbow shimmer. The air is sweet and gassy: strawberry and diesel over an earthy base, fruity with a fuel edge. Palette explosive and electric — radioactive emerald and acid green with crackling lightning, a hot strawberry-red core and diesel shadow, petrol shimmer in the haze. Mood: fast and overwhelming — a euphoric, energetic cerebral rush of raw power settling into a heavy body, sativa but hard-hitting. Cinematic, painterly, high-contrast, premium editorial poster, dynamic and explosive. The strain name 'BRUCE BANNER' baked into the scene — cracked and seared into the smashed concrete. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no comic characters, no cannabis leaves, buds or packaging.",
+    artFileName: "bruce-banner.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
