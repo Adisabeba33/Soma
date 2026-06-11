@@ -2419,7 +2419,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a heavy Florida OG indica named Triangle Kush — the 'triangle' nods to the state's three cannabis hubs. A lone weathered triangular metal road sign standing at a misty Everglades crossroads at dusk, three tall cypress trees rising behind it in a clear triangle formation; a humid, fuel-amber haze hangs over still swamp water that throws back an oily petrol-rainbow sheen. Palette deep and classic — fuel-petrol blue and cypress-pine green over damp earthy brown, warm amber dusk light catching the haze and the water, fading into a wine-dark sky. Mood: strong and relaxing — a euphoric warmth sinking into a heavy, grounded stillness, firmly evening. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'TRIANGLE KUSH' baked into the scene — embossed on the triangular sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "triangle-kush.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
