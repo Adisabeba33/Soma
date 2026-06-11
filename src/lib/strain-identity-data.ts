@@ -983,6 +983,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Alien OG (Alien OG Kush) is a Tahoe OG × Alien Kush cross — a heavy, crystal-coated OG with a slightly otherworldly, lemony-pine twist. The nose is classic gas with a citrus edge: fuel and pine over earthy spice, sharp and resinous. The effect is potent and balanced-leaning-heavy — a fast, dreamy cerebral lift that settles into strong body relaxation, more night than day. It's strong and a touch psychedelic at higher doses, so it's not a casual daytime smoke. For OG lovers who want a lemony, spacey edge on the usual gas, Alien OG fits.",
     curatorQuote:
       "Fuel and pine over earthy spice, sharp and resinous.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, spacey lemony-pine OG hybrid named Alien OG. A lone pine-covered hilltop at dusk beneath a vast, swirling cosmic sky — ribbons of green-gold aurora and distant wheeling stars, a soft otherworldly light hovering low over the treeline; lemon-citrus and pine scent the air with a faint fuel haze drifting through the resinous dark. Palette dreamy and deep — amber and lemon-gold dusk with pine green and a cosmic teal-violet aurora over earthy shadow, a frosted resinous sheen, fading into a wine-dark starlit sky. Mood: a fast, dreamy cerebral lift settling into strong body calm — potent, otherworldly, evening. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'ALIEN OG' baked into the scene — carved into a weathered hilltop stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "alien-og.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
