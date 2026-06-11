@@ -4728,6 +4728,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "OG #18 is a prized numbered phenotype of OG Kush from Reserva Privada — a loud, frosty cut that became important breeding stock (it's half of Holy Grail Kush). The nose is classic OG: fuel and pine over a damp, earthy funk with a lemony lift. The effect is balanced-leaning-heavy — a euphoric head settling into a relaxing body. It's gassy, dense and very potent. For a select cut of OG genetics, #18 is a strong parent line.",
     curatorQuote:
       "Fuel and pine over a damp, earthy funk with a lemony lift.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a prized, numbered gas-OG phenotype named OG #18 — a select reserve cut. A dim, premium reserve vault at dusk: a single spotlit stone pedestal bears a polished brass plate engraved 'OG #18', rows of arched stone alcoves receding into shadow behind it, a fuel-petrol haze and a faint pine mist drifting through amber light. Palette rich and select — amber and brass gold with pine green over stone grey and petrol-blue shadow, a frosted sheen, fading into deep dusk. Mood: balanced and heavy — a euphoric head settling into a relaxing body, reserved and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'OG #18' baked into the scene — engraved on the brass plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "og-18.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
