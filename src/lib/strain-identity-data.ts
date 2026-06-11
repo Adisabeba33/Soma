@@ -508,6 +508,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "'Looks like candy, tastes like candy' became a whole aesthetic.",
     tagline: "Pure candy bag",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a candy-sweet, balanced feel-good exotic hybrid named Runtz — the candy-bag flagship. A glossy spill of glittering hard candy and sugar-dusted tropical fruit tumbling from a torn foil bag across a glassy surface — pastel pinks, purples, mints and creams catching bright studio light, each piece slick with a sugared, frosted sheen, a few translucent jewels glowing like gemstones. Loud fruity confection in the air — sugary tropical fruit and creamy sweetness, no gas. Palette playful and exotic — candy pink, lilac and mint over cream and pearl-white frost, glossy and high-key with bright pops of saturated fruit color. Mood: bright, social, feel-good — a euphoric lift over easy body comfort, fun without sedation. Cinematic, painterly, high-contrast, premium editorial poster, hyper-glossy and candied. The strain name 'RUNTZ' baked into the scene — printed boldly on the torn candy-bag foil. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "runtz.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "high",
   },
   {
@@ -673,6 +678,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Cherry Pie is a Granddaddy Purple × Durban Poison cross — the same Durban-and-purple pairing that sits behind Girl Scout Cookies, tilted toward fruit. The nose is its calling card: tart cherry and sweet berry over a dusty, earthy sweetness, dessert-like but not cloying. The effect is balanced and easygoing — a happy, relaxed lift with a clear enough head to stay functional, more afternoon than knockout. It's an approachable hybrid that suits a wide range of smokers, neither racy nor sedating at sensible doses. For people who want fruit and balance rather than gas or pure couch, Cherry Pie is a comfortable pick.",
     curatorQuote:
       "Tart cherry and sweet berry over a dusty, earthy sweetness, dessert-like but not cloying.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a balanced, easygoing fruity hybrid named Cherry Pie. A freshly baked cherry pie cooling on a sun-warmed windowsill in late-afternoon light — golden lattice crust split open with glistening dark-red cherry filling spilling out, a thread of steam curling up, ripe cherries and berries scattered on weathered wood beside it. Warm afternoon sun streams in low and amber, dust motes drifting; the air is sweet with tart cherry and a soft dusty, earthy warmth. Palette inviting and homey — deep cherry red and berry over golden crust and amber afternoon light, dusty earthy browns and a touch of soft purple in the shadows. Mood: happy, relaxed, comfortable — a clear-headed, easygoing afternoon lift, neither racy nor sedating. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'CHERRY PIE' baked into the scene — branded into the wooden sill or a small enamel pie tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "cherry-pie.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -983,6 +993,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Alien OG (Alien OG Kush) is a Tahoe OG × Alien Kush cross — a heavy, crystal-coated OG with a slightly otherworldly, lemony-pine twist. The nose is classic gas with a citrus edge: fuel and pine over earthy spice, sharp and resinous. The effect is potent and balanced-leaning-heavy — a fast, dreamy cerebral lift that settles into strong body relaxation, more night than day. It's strong and a touch psychedelic at higher doses, so it's not a casual daytime smoke. For OG lovers who want a lemony, spacey edge on the usual gas, Alien OG fits.",
     curatorQuote:
       "Fuel and pine over earthy spice, sharp and resinous.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, spacey lemony-pine OG hybrid named Alien OG. A lone pine-covered hilltop at dusk beneath a vast, swirling cosmic sky — ribbons of green-gold aurora and distant wheeling stars, a soft otherworldly light hovering low over the treeline; lemon-citrus and pine scent the air with a faint fuel haze drifting through the resinous dark. Palette dreamy and deep — amber and lemon-gold dusk with pine green and a cosmic teal-violet aurora over earthy shadow, a frosted resinous sheen, fading into a wine-dark starlit sky. Mood: a fast, dreamy cerebral lift settling into strong body calm — potent, otherworldly, evening. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'ALIEN OG' baked into the scene — carved into a weathered hilltop stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "alien-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3177,6 +3192,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Khalifa Kush (KK) is rapper Wiz Khalifa's private OG Kush cut, an indica-leaning gas strain that went commercial through Cookies. The nose is sharp and classic: lemon-pine and fuel over a damp, earthy OG base. The effect is heavy and relaxing — a euphoric head sinking into a strong, sedating body, an evening strain. It's potent, dense and gassy, a name-brand OG. For a lemony, heavy OG with celebrity pedigree, Khalifa Kush delivers.",
     curatorQuote:
       "Lemon-pine and fuel over a damp, earthy OG base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, lemony-pine evening OG indica named Khalifa Kush — 'Khalifa' meaning caliph, a ruler. A grand caliph's palace courtyard at sunset: scalloped Moorish arches, inlaid geometric mosaic, a still reflecting pool catching the gold-amber sky, brass lanterns glowing low. The warm air shimmers with a faint fuel haze drifting between the columns, and lemon-citrus and pine cut through the heavy dusk; the polished stone has an oily, resinous sheen where the last light pools. Palette regal and deep — amber and lemon-gold sunset over earthy ochre stone, brass and emerald tilework, sinking into a wine-dark indigo evening. Mood: royal, opulent, sedating — a euphoric head sinking into a strong, heavy body, an evening crown. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'KHALIFA KUSH' baked into the scene — carved and gilded into the palace stone above the central arch. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "khalifa-kush.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
 
@@ -3636,6 +3656,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Larry OG (Lemon Larry) is a lemony OG Kush × SFV OG cross — clean gas with a citrus lift. The nose is bright OG: lemon and pine over fuel and damp earth. The effect is balanced-leaning-relaxed — a euphoric head with a comfortable body, usable through the day. It's gassy, dense and potent, and it's the OG half behind Purple Punch. For a clean, lemony gas OG, Larry is a quiet classic.",
     curatorQuote:
       "Lemon and pine over fuel and damp earth.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a clean, lemony gas-OG hybrid named Larry OG (Lemon Larry). A sun-faded California lemon grove at golden dusk: rows of lemon trees heavy with bright yellow fruit, a weathered wooden crate and a dirt track running through, a faint fuel haze and an oily petrol-sheen puddle catching the last light, dark pines at the orchard's edge. Palette bright and warm — lemon-yellow and gold with pine green over earthy brown and a petrol-blue shadow, amber dusk light, a frosted sheen, fading into a wine-dark sky. Mood: balanced and easy — a euphoric lift over a comfortable body, clean and relaxed. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'LARRY OG' baked into the scene — stencilled on the wooden crate or an orchard sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "larry-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3972,6 +3997,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sour Bubble is a BOG Seeds inbred line of Bubble Gum — a sticky, sour-gas indica far from its sweet parent, and one half of Sour Dubb. The nose is loud: sharp diesel and sour funk over a faint berry sweetness. The effect is relaxing and potent — a euphoric head easing into a weighty body. It's extremely sticky and resin-heavy, prized by breeders for structure. For sour-gas genetics behind the Glue line, Sour Bubble matters.",
     curatorQuote:
       "Sharp diesel and sour funk over a faint berry sweetness.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sticky, sour-gas indica named Sour Bubble. A single huge gum bubble blown taut in dim, gritty light — its surface a slick of oily petrol-rainbow iridescence, diesel sheen swirling pink-violet-green across the stretched film, on the trembling edge of bursting. Around it the air hangs heavy and resinous: a faint sour-berry haze and sharp fuel funk, the dark backdrop streaked with the same oily rainbow where light catches it. Palette moody and chemical — deep diesel blacks and bruised purples lit by petrol-slick rainbow highlights, a sour magenta-and-acid-green glow over berry shadow, sticky and wet-looking. Mood: loud, sticky, sedating — a euphoric head easing into a weighty body, an evening sour-gas hitter. Cinematic, painterly, high-contrast, premium editorial poster, glossy and resinous. The strain name 'SOUR BUBBLE' baked into the scene — stretched and warped across the curve of the bubble film. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sour-bubble.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -4162,6 +4192,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Ghost OG is a celebrated phenotype of OG Kush — a brighter, more citrus-forward cut than most OGs, and a productive parent. The nose is classic gas with a lift: fuel and pine over a lemony, earthy base. The effect is balanced — a euphoric, happy head with a relaxing body, usable across the day. It's gassy, frosty and potent, and it's behind Ghost Train Haze and Banana Kush. For a brighter cut of OG genetics, Ghost OG is a key line.",
     curatorQuote:
       "Fuel and pine over a lemony, earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a bright, citrus-forward gas-OG hybrid named Ghost OG. A fog-shrouded old stone manor on a pine hill at dusk: pale luminous spectral mist drifts like wisps between weathered iron gates and trees, lemon-gold dusk light breaking through, a faint fuel-and-pine haze hanging in the cold air. Palette luminous, cool-meets-warm — pale ghost-white and blue mist with lemon-gold dusk and pine green over petrol-earth shadow, a frosted sheen, fading into a wine-dark sky. Mood: balanced and bright — a euphoric, happy lift over an easy relaxing body, ethereal and calm. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'GHOST OG' baked into the scene — carved into a weathered stone gate or marker. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "ghost-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -4594,6 +4629,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Holy Grail Kush is a DNA Genetics cross of OG #18 and Kosher Kush — two heavyweight OGs combined into a Cannabis Cup winner. The nose is loud OG: fuel and pine over a damp, earthy funk with a lemony edge. The effect is strong and relaxing — a euphoric head sinking into a heavy body, evening-leaning. It's gassy, dense and very potent, a connoisseur's OG. For a heavy, decorated gas-OG, Holy Grail Kush lives up to the name.",
     curatorQuote:
       "Fuel and pine over a damp, earthy funk with a lemony edge.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, award-winning gas-OG hybrid named Holy Grail Kush. An ancient stone temple ruin deep in a pine forest at dusk: a luminous golden chalice — the grail — rests on a moss-grown stone altar, shafts of divine amber light breaking through broken arches, a fuel-and-pine haze drifting reverently through the cold air. Palette rich and sacred — amber and lemon-gold divine light with pine green over damp earthy stone and petrol-fuel shadow, a frosted resinous sheen, fading into a wine-dark dusk sky. Mood: strong and relaxing — a euphoric head sinking into a heavy body, reverent and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'HOLY GRAIL KUSH' baked into the scene — carved into the stone altar. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "holy-grail-kush.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -4708,6 +4748,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "OG #18 is a prized numbered phenotype of OG Kush from Reserva Privada — a loud, frosty cut that became important breeding stock (it's half of Holy Grail Kush). The nose is classic OG: fuel and pine over a damp, earthy funk with a lemony lift. The effect is balanced-leaning-heavy — a euphoric head settling into a relaxing body. It's gassy, dense and very potent. For a select cut of OG genetics, #18 is a strong parent line.",
     curatorQuote:
       "Fuel and pine over a damp, earthy funk with a lemony lift.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a prized, numbered gas-OG phenotype named OG #18 — a select reserve cut. A dim, premium reserve vault at dusk: a single spotlit stone pedestal bears a polished brass plate engraved 'OG #18', rows of arched stone alcoves receding into shadow behind it, a fuel-petrol haze and a faint pine mist drifting through amber light. Palette rich and select — amber and brass gold with pine green over stone grey and petrol-blue shadow, a frosted sheen, fading into deep dusk. Mood: balanced and heavy — a euphoric head settling into a relaxing body, reserved and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'OG #18' baked into the scene — engraved on the brass plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "og-18.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -5224,6 +5269,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Nepali OG is a cross of a Nepalese landrace and OG Kush — old-world hash genetics married to West Coast gas, and a parent of Bodhi's Goji OG. The nose is earthy and gassy: fuel and pine over a spicy, hashy base. The effect is relaxing and warm — a euphoric head sinking into a comfortable body, evening-leaning. It's frosty and potent, and it lends its earthy depth to Goji OG. For hash-tinged OG genetics, Nepali OG is a flavourful parent line.",
     curatorQuote:
       "Fuel and pine over a spicy, hashy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an earthy, hash-tinged gas-OG hybrid named Nepali OG — old-world hash meets West Coast gas. A remote Himalayan monastery perched on a cliff at night beneath snow-capped peaks and a vast starry sky: strings of prayer flags sway in the cold air, warm butter-lamp light glows from the stone walls, fragrant smoke and a faint fuel haze drift through dark pines. Palette deep, warm-meets-cold — night indigo and snow-blue peaks with warm amber lamplight and pine green over earthy stone and a petrol shadow, a frosted sheen, fading into a starlit sky. Mood: relaxing and warm — a euphoric head sinking into a comfortable, grounded body, evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'NEPALI OG' baked into the scene — carved into a stone prayer wall. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "nepali-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
