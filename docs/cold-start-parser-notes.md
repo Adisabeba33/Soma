@@ -94,6 +94,46 @@ saving, so a wrong first pass is recoverable, not fatal.
     not preferred. Add the synonyms only together with the ISSUE-1 fix so
     they don't create false positives.
 
+### 🔴 ISSUE-4 — `couch-lock` trigger is too strict (recurring)
+- **Found via:** *"melt **into the couch**"* (phrase 1) and *"**pins me to
+  the couch**"* (phrase 2) — both missed.
+- **Observed:** Neither produced `couch-lock` (nor `body-heavy`).
+- **Expected:** Any "…the couch" body-lock phrasing → `couch-lock`.
+- **Root cause:** The regex only matches `couch ?lock|couch ?locked|glued|
+  stuck|sedat\w*|pinned|in ?the ?couch`. It misses "into the couch",
+  "to the couch", "pins" (vs "pinned"), "glued to the couch".
+- **Proposed fix:** Broaden to catch `couch` in a lock context, e.g.
+  `\bcouch ?lock\w*\b` OR `\b(into|to|on|in|glued ?to|stuck ?to|pin\w* ?(me )?(in|to)) ?the couch\b`, or simply treat the bare word `couch`
+  (when not "couch surfing" etc.) as couch-lock — short descriptions rarely
+  mention a couch for any other reason.
+- **Nuances / risks:** Bare `couch` is a strong, low-false-positive signal in
+  this domain. Also feeds `bodyFeel` (heavy) — keep that mapping in sync.
+
+### 🔴 ISSUE-5 — Indirect / slang time expressions not recognised
+- **Found via:** *"**after a long day**"* (→ evening) and *"**wake-and-bake**"*
+  (→ morning) — both missed; `useTime` stayed blank from a *miss*, not from
+  an intentional multi-modal conflict.
+- **Observed:** `useTime: ""` with no time detected at all.
+- **Expected:** "after a long day" / "end of the day" / "nightcap" → evening
+  (or bed); "wake and bake" / "wake-and-bake" / "first thing" → morning.
+- **Root cause:** USE_TIME_TRIGGERS only covers literal time words. Common
+  idioms aren't listed; "wake-and-bake" doesn't contain "wake up", so the
+  morning regex misses it.
+- **Proposed fix:** Add idioms to USE_TIME_TRIGGERS:
+  - morning: `wake ?[-& ]?and[-& ]?bake`, `wake ?n ?bake`, `first ?thing`
+  - evening: `after ?a? ?long ?day`, `end ?of ?the ?day`, `after ?work`,
+    `nightcap`, `to ?decompress`
+  - bed: `before ?(i ?)?sleep`, `pass out`, `nightcap` (overlap — pick one)
+- **Nuances / risks:** Watch overlap (a phrase matching two times still
+  yields blank by the single-time rule, which is the desired multi-modal
+  behaviour — but make sure both are at least *detected* so the conflict is
+  real, not a silent miss).
+
+### 🔴 ISSUE-3a — More slang effect synonyms (extends ISSUE-3)
+- **Found via:** *"zonk out"* (→ sleepy) missed.
+- **Proposed fix:** add `zonk\w*`, `knock\w* out` (have), `pass\w* out`
+  (have), `ko'?d`, `comatose` → `sleepy`; `couch` → see ISSUE-4.
+
 ---
 
 ## Tested inputs (for regression once fixed)
@@ -110,5 +150,14 @@ These should all parse cleanly after the batch fix; keep as test fixtures.
      ideally the "frying my brain"/heady avoid); disliked aromas {floral};
      useTime blank (day+night conflict, multi-modal-safe); lookingFor "new";
      primaryAroma "gas".
+
+2. `"After a long day I just want to zonk out — something super gassy and
+   dank that pins me to the couch, ideally a fat sherbet dessert vibe too.
+   Wake-and-bake I would rather stay clear-headed and productive, give me
+   that creative flow, no munchies though."`
+   - Expect: aromas {gassy, earthy, sweet}; wanted effects {sleepy (zonk),
+     couch-lock (couch), focused, creative}; disliked effects {hungry};
+     useTime blank (evening "long day" + morning "wake-and-bake" conflict —
+     but both should at least be *detected*); primaryEffect ambiguous.
 
 *(Add more tricky inputs here as we test them.)*
