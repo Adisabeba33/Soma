@@ -673,6 +673,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Cherry Pie is a Granddaddy Purple × Durban Poison cross — the same Durban-and-purple pairing that sits behind Girl Scout Cookies, tilted toward fruit. The nose is its calling card: tart cherry and sweet berry over a dusty, earthy sweetness, dessert-like but not cloying. The effect is balanced and easygoing — a happy, relaxed lift with a clear enough head to stay functional, more afternoon than knockout. It's an approachable hybrid that suits a wide range of smokers, neither racy nor sedating at sensible doses. For people who want fruit and balance rather than gas or pure couch, Cherry Pie is a comfortable pick.",
     curatorQuote:
       "Tart cherry and sweet berry over a dusty, earthy sweetness, dessert-like but not cloying.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a balanced, easygoing fruity hybrid named Cherry Pie. A freshly baked cherry pie cooling on a sun-warmed windowsill in late-afternoon light — golden lattice crust split open with glistening dark-red cherry filling spilling out, a thread of steam curling up, ripe cherries and berries scattered on weathered wood beside it. Warm afternoon sun streams in low and amber, dust motes drifting; the air is sweet with tart cherry and a soft dusty, earthy warmth. Palette inviting and homey — deep cherry red and berry over golden crust and amber afternoon light, dusty earthy browns and a touch of soft purple in the shadows. Mood: happy, relaxed, comfortable — a clear-headed, easygoing afternoon lift, neither racy nor sedating. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'CHERRY PIE' baked into the scene — branded into the wooden sill or a small enamel pie tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "cherry-pie.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
