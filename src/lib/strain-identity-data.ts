@@ -3437,7 +3437,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a gassier numbered Gelato cut named Gelato 45 — Gelato with the fuel turned up. Scoops of creamy sherbet gelato in a brushed-steel gelato tin, the cold cream glistening under a pronounced oily petrol-rainbow gas sheen, a heavier fuel haze rising off it than a normal Gelato, berry-sherbet swirls and a frosted sheen catching cool light. Sherbet cream and berry over a pronounced gas. Palette creamy and electric — sherbet pink, cream and berry-violet slicked with a strong oily petrol-rainbow shimmer over brushed steel, a frosty silver sheen and gassy haze. Mood: balanced-leaning-relaxed — a euphoric head over a comfortable body, very frosty and gassy. Cinematic, painterly, high-contrast, premium editorial poster, glossy and atmospheric. The strain name 'GELATO 45' baked into the scene — stamped on the steel tin or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "gelato-45.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
