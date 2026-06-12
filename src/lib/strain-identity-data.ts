@@ -486,7 +486,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for the benchmark balanced dessert exotic named Gelato. A single tall, elegant swirl of artisan gelato rising from a chilled cup as the hero — creamy sherbet folds of pink and violet ribboned with citrus-orange and berry-purple, a glistening frosted sheen sweating off the cold swirl, set against a soft warm Italian piazza dusk glowing behind it. The air is sweet and creamy: cream and sherbet with a citrus-berry twist over a low, balancing note of gas. Palette refined and luscious — sherbet pink, cream and violet with bright citrus-orange and berry pops, a frosty silver sheen against a warm amber-rose dusk glow. Mood: bright and social settling into easy body comfort — euphoric, balanced, frosty and gassy-sweet. Cinematic, painterly, high-contrast, premium editorial poster, elegant and appetizing. The strain name 'GELATO' baked into the scene — hand-lettered on a small enamel cup tag or a gelateria sign behind. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "gelato.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "high",
   },
