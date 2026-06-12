@@ -949,6 +949,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Sharp pine and gas over a damp, earthy forest floor, one of the loudest pine-OG profiles around.",
     tagline: "Heavy pine throne",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavyweight, sedating pine-gas OG named King Louis XIII — after the French king. An ornate baroque golden throne sitting deep in a dark, misty pine forest at night, gilded scrollwork and crimson velvet catching low candlelight; a thick pine-and-fuel haze rolls across the damp, earthy forest floor and coils around the throne, an oily petrol-rainbow shimmer threading the resinous dark. Sharp pine and gas over a damp, earthy forest floor, loud and deep. Palette regal and heavy — antique gold and crimson over deep pine-black and earthy shadow, candle-amber glow and a faint petrol shimmer in the misty haze. Mood: fast and sedating — a heavy body weight that drops into the couch and toward sleep, firmly nighttime. Cinematic, painterly, high-contrast, premium editorial poster, opulent and atmospheric. The strain name 'KING LOUIS XIII' baked into the scene — engraved into the throne's crest or a brass plaque at its base. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "king-louis-xiii.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -980,6 +985,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Sharp fuel and pine with a lemony, earthy bite, classic gas through and through.",
     tagline: "Heavy gas flame",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for one of the most potent, heaviest OG gas cuts named Fire OG. A roaring orange-red flame erupting and twisting upward over a dark pine ridge at night, fed by a thick fuel haze that ignites at its edges — showers of glowing embers rising, the hot air rippling with a faint oily petrol-rainbow shimmer, pine silhouettes lit fiery against the black. Loud OG in the heat — sharp fuel and pine with a lemony, earthy bite. Palette blazing and deep — molten orange-red and ember-gold flame over diesel-black and pine shadow, a lemon-amber glow and faint petrol shimmer in the smoky haze. Mood: heavy and creeping — a euphoric head sinking into a strong, sedating body, a high-test evening strain. Cinematic, painterly, high-contrast, premium editorial poster, fiery and atmospheric. The strain name 'FIRE OG' baked into the scene — seared and glowing in the embers or branded into the ridge stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "fire-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -993,6 +1003,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Sharp fuel, pine and a sour, almost antiseptic funk, loud and unmistakably OG.",
     tagline: "Pure gas reference",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, blanketing, pungent gas OG named Face Off OG. A surreal, dramatic figure standing in heavy evening shadow as it peels its own face away from its head — lifting the front of its face off like a soft mask and holding that removed face in its hands, and beneath it, where the face was, a second smooth mask is revealed. A thick fuel-and-pine haze coils around the figure, an oily petrol-rainbow shimmer catching the low light, sharp and antiseptic in the gassy dark. Palette dark and dramatic — diesel-black and bruised shadow with sour antiseptic green, fuel-amber rim light and a faint petrol-rainbow sheen in the haze. Mood: heavy and numbing — a hazy, sedating blanket of an evening sit-down OG. Cinematic, painterly, high-contrast, surreal, premium editorial poster. The strain name 'FACE OFF OG' baked into the scene — carved into stone or stenciled on the wall behind the figure. Keep the lower third calmer and darker for legible overlay text. No logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "face-off-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -1951,6 +1966,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Grape Gas — also sold as Grape Gasoline, Compound Genetics' cross of Grape Pie and Jet Fuel Gelato — welds candy grape to a sharp diesel funk, with the colour to match. On the nose, sweet grape and berry sit over a pungent, gassy base; it's loud in a way pure-candy strains aren't. The effect leans heavy: a warm euphoria that sinks into the body and points toward the evening. It's built for people who like their grape with a fuel edge rather than clean sweetness. Frosty, potent and unapologetically gassy.",
     curatorQuote:
       "On the nose, sweet grape and berry sit over a pungent, gassy base; it's loud in a way pure-candy strains aren't.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, frosty grape-and-fuel exotic named Grape Gas — also called Grape Gasoline. A cluster of swollen deep-purple grapes glistening in moody light, slicked with an oily gasoline sheen — petrol-rainbow iridescence dripping off the fruit and pooling below, a sweet grape mist tangled with sharp fuel haze, a faint silver trichome frost dusting the skins. Sweet grape and berry sit over a pungent, gassy base, loud and unapologetic. Palette rich and electric — deep grape purple and berry-violet with an oily petrol-rainbow slick, frosted silver highlights over a dark moody shadow. Mood: heavy and warm — a sinking euphoria that points toward the evening, frosty, potent and gassy. Cinematic, painterly, high-contrast, premium editorial poster, glossy and atmospheric. The strain name 'GRAPE GAS' baked into the scene — stamped on a worn metal plate or embossed in the dark surface. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "grape-gas.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -2338,6 +2358,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Triple Double OG is a heavy, OG-leaning indica that puts potency ahead of nuance. The nose is loud, classic OG — sharp fuel and pine over damp earth, all gas and no candy. Expect a fast euphoric head that gives way to a weighted, sedating body and, eventually, the pillow. There's not much daytime in it; this is a nightcap. For OG and gas lovers chasing a simple, heavy knockout, it fits the bill.",
     curatorQuote:
       "Sharp fuel and pine over damp earth, all gas and no candy.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, fuel-forward knockout OG indica named Triple Double OG — its name a basketball stat. A deserted outdoor basketball court at night under buzzing floodlights, a worn ball resting at center as a thick fuel haze rolls low across the cracked asphalt; the wet ground holds an oily petrol-rainbow sheen, pine-and-fuel funk hanging heavy in the cold floodlit air, all gas and no candy. Palette dark and gritty — sodium-amber floodlight over diesel-black asphalt and chain-link shadow, sharp pine green and a petrol-rainbow shimmer on the wet court. Mood: heavy and sedating — a fast euphoric head sinking into a weighted body, a pure nightcap. Cinematic, painterly, high-contrast, premium editorial poster, gritty and atmospheric. The strain name 'TRIPLE DOUBLE OG' baked into the scene — lit up on a worn courtside scoreboard or stenciled on the asphalt. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "triple-double-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -2772,6 +2797,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Gassy, earthy truffle over a faint berry sweetness, pungent and unusual.",
     tagline: "Earth mushroom funk",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a savoury, frosty, gassy exotic named Black Truffle. A prized dark, knobbly black truffle resting on rich damp forest soil under dramatic low light — its rough surface dusted with glittering silver frost like trichomes, an earthy savoury haze curling around it laced with a faint oily petrol-rainbow shimmer, a hint of dark berry in the deep shadow. Gassy, earthy truffle over a faint berry sweetness, pungent and unusual. Palette dark and rich — deep earthy browns and truffle-black with frosted silver highlights, a faint petrol shimmer and a touch of berry-violet in the moody shadow. Mood: relaxing and potent — a happy head sinking into body weight, a loud, savoury evening pick. Cinematic, painterly, high-contrast, premium editorial poster, moody and atmospheric. The strain name 'BLACK TRUFFLE' baked into the scene — branded into a wooden crate or stamped on a small enamel tag beside it. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "black-truffle.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -3964,6 +3994,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Chocolate Diesel is a Chocolate Thai × Sour Diesel cross — sour fuel with a dark, coffee-and-cocoa undertone — and the third parent of GG4. The nose is loud and gassy: sharp diesel and sour earth with a faint chocolate sweetness. The effect is up and racy — an energetic, heady cerebral lift with little body, a daytime sativa. It's potent and very loud, and its gas runs through the Glue line. For diesel with a cocoa edge, Chocolate Diesel is a distinctive parent cut.",
     curatorQuote:
       "Sharp diesel and sour earth with a faint chocolate sweetness.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a racy, gassy diesel sativa with a cocoa edge named Chocolate Diesel. A glossy pour of molten dark chocolate and coffee cascading over a slick surface, its rich brown sheen laced with an oily petrol-rainbow shimmer where the light catches it — sour fuel haze and warm coffee steam curling up together, decadent and chemical at once. Sharp diesel and sour earth ride over a dark chocolate sweetness. Palette rich and electric — deep cocoa brown and espresso black with an oily petrol-rainbow slick, sour-amber fuel highlights and a glossy molten sheen. Mood: up and racy — an energetic, heady cerebral lift with little body, a loud daytime sativa. Cinematic, painterly, high-contrast, premium editorial poster, glossy and atmospheric. The strain name 'CHOCOLATE DIESEL' baked into the scene — embossed in the chocolate or stamped on a worn metal plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "chocolate-diesel.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -4449,6 +4484,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Biskante is a Biscotti-leaning exotic — creamy cookie sweetness over a gassy, earthy base. The nose is rich and sweet: cookie and cream cut by a light gas. The effect is balanced and relaxing — a euphoric head easing into a comfortable body, versatile and potent. It's frosty and flavour-forward, in the polished Biscotti lane. For creamy cookie-gas dessert, Biskante is a smooth pick.",
     curatorQuote:
       "Cookie and cream cut by a light gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a creamy, frosty cookie-gas dessert exotic named Biskante. Elegant golden cookies stacked and dipped into a glossy pour of cream on a polished marble counter in warm Italian café light — rich cream ribboning over caramel-gold cookie, a soft dusting of sugar frost, a thin curl of vapor catching a faint oily petrol-rainbow shimmer that hints at the gas underneath. Cookie and cream cut by a light gas over an earthy base. Palette refined and warm — creamy ivory and caramel-gold over pale marble, a frosty silver sheen and a faint petrol shimmer under a honeyed amber glow. Mood: balanced and relaxing — a euphoric head easing into a comfortable body, polished and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, elegant and appetizing. The strain name 'BISKANTE' baked into the scene — hand-lettered on a small enamel café tag or etched into the marble. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "biskante.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -4761,6 +4801,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Khalifa Mints crosses Wiz Khalifa's OG cut with Kush Mints — sharp OG gas welded to cool mint and cookie. The nose is loud and layered: lemon-pine gas over a cool mint and earthy base. The effect is heavy and relaxing — a euphoric head sinking into a strong body, evening-leaning. It's frosty, dense and very potent. For gassy-mint genetics with OG weight, Khalifa Mints is a heavy pick.",
     curatorQuote:
       "Lemon-pine gas over a cool mint and earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, frosty, gassy-mint OG named Khalifa Mints — 'Khalifa' meaning caliph, a ruler. A grand caliph's palace courtyard at night under cool mint-green and silver moonlight: scalloped Moorish arches and inlaid geometric tilework rimed in glittering frost, a still reflecting pool catching the icy glow, brass lanterns burning low. A cool minty vapor curls between the columns, threaded with a faint lemon-pine fuel haze and an oily petrol-rainbow shimmer. Lemon-pine gas rides over a cool mint and earthy base. Palette regal and icy — cool mint green and frost-silver over deep indigo night and earthy stone, brass accents and a faint petrol shimmer in the haze. Mood: heavy and relaxing — a euphoric head sinking into a strong body, an opulent evening crown. Cinematic, painterly, high-contrast, premium editorial poster, frosty and atmospheric. The strain name 'KHALIFA MINTS' baked into the scene — carved and gilded into the palace stone above the central arch. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "khalifa-mints.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -5265,6 +5310,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Biscotti Sundae crosses Biscotti with Sundae Driver — gassy, coffee-tinged cookie meeting smooth, creamy fruit. The nose is rich and layered: sweet cookie and gas over a creamy, fruity base. The effect is relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, in the polished dessert lane. For gassy cookie with a creamy lift, Biscotti Sundae is a smooth pick.",
     curatorQuote:
       "Sweet cookie and gas over a creamy, fruity base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, flavour-forward gassy-cookie dessert hybrid named Biscotti Sundae. A decadent ice cream sundae in a tall glass crowned with golden biscotti cookies, creamy swirls drizzled with fruity-berry sauce and a dusting of coffee-cocoa, a glistening frosted sheen sweating off the cold cream in warm late-afternoon light. The air is rich and layered: sweet cookie and a faint gas note over a creamy, fruity base. Palette luscious and warm — creamy ivory and caramel-gold biscotti with berry-red and cocoa-brown, a frosty silver sheen under a honeyed amber glow. Mood: relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'BISCOTTI SUNDAE' baked into the scene — hand-lettered on a small enamel dessert tag or the glass. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "biscotti-sundae.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
