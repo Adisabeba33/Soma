@@ -18,6 +18,7 @@ import {
 } from "./behavioral-family";
 import { primaryAromaTokens, type ResolvedTarget } from "./profile-target";
 import { deriveTasteModes } from "./taste-modes";
+import { lineageAffinity } from "./lineage-affinity";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
 import type {
   AnalysisResult,
@@ -962,6 +963,9 @@ export function scoreStrain(
   const texture = textureScore(strain, profile.texturePreferences ?? []);
   const quality = qualityScore(strain, profile.qualityPriorities ?? []);
   const potencyMod = potencyContribution(strain.potency, profile.potencyPreference);
+  // Lineage affinity (#13): bounded kinship bonus that surface tags miss.
+  // No-op (0) when the candidate has no curated lineage.
+  const lineageMod = lineageAffinity(strain.name, profile.favoriteStrains);
 
   // Multi-modal selection: credit the candidate by the taste mode it fits
   // best (highest target-driven value at the current weights). deriveTasteModes
@@ -1012,7 +1016,8 @@ export function scoreStrain(
     textureMod +
     familyMod +
     sensoryMod +
-    potencyMod;
+    potencyMod +
+    lineageMod;
   const penalty = Math.min(42, conflicts.length * 15);
   // Pre-calibration score with decimal precision. Same formula as the
   // visible matchScore but without anchor floor, 99 base cap, or 88
