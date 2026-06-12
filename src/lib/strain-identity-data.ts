@@ -4786,6 +4786,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Khalifa Mints crosses Wiz Khalifa's OG cut with Kush Mints — sharp OG gas welded to cool mint and cookie. The nose is loud and layered: lemon-pine gas over a cool mint and earthy base. The effect is heavy and relaxing — a euphoric head sinking into a strong body, evening-leaning. It's frosty, dense and very potent. For gassy-mint genetics with OG weight, Khalifa Mints is a heavy pick.",
     curatorQuote:
       "Lemon-pine gas over a cool mint and earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, frosty, gassy-mint OG named Khalifa Mints — 'Khalifa' meaning caliph, a ruler. A grand caliph's palace courtyard at night under cool mint-green and silver moonlight: scalloped Moorish arches and inlaid geometric tilework rimed in glittering frost, a still reflecting pool catching the icy glow, brass lanterns burning low. A cool minty vapor curls between the columns, threaded with a faint lemon-pine fuel haze and an oily petrol-rainbow shimmer. Lemon-pine gas rides over a cool mint and earthy base. Palette regal and icy — cool mint green and frost-silver over deep indigo night and earthy stone, brass accents and a faint petrol shimmer in the haze. Mood: heavy and relaxing — a euphoric head sinking into a strong body, an opulent evening crown. Cinematic, painterly, high-contrast, premium editorial poster, frosty and atmospheric. The strain name 'KHALIFA MINTS' baked into the scene — carved and gilded into the palace stone above the central arch. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "khalifa-mints.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
