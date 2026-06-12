@@ -20,6 +20,7 @@ model User {
   tasteProfiles    TasteProfile[]
   analysisSessions AnalysisSession[]
   feedback         Feedback[]
+  strainFeedback   StrainFeedback[]
   unknownStrains   UnknownStrain[]
   runAudits        RunAudit[]
 }
@@ -120,6 +121,31 @@ model Feedback {
 
   @@index([userId])
   @@index([recommendationId])
+}
+
+// Lightweight strain-level verdict, captured from quick-rate pills on
+// Compare results and (later) Taste Match results. The original
+// Feedback model is tied to a saved Recommendation row; this one is
+// keyed directly on the strain so a single tap right after a Compare
+// run can persist without first turning the result into a
+// Recommendation. Read by the engine's evaluateFeedback() loop so
+// every future scoreStrain call across this user reflects accumulated
+// verdicts. Latest-write-wins on (userId, strainName).
+//
+// verdict values: "loved" | "good" | "neutral" | "avoid"
+// source values:  informational, "compare" | "taste-match" | "catalog"
+model StrainFeedback {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  strainName String   // resolved canonical name
+  verdict    String
+  source     String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([userId, strainName])
+  @@index([userId])
 }
 
 // Real-world expansion queue. Anything the engine had to infer (i.e. not in

@@ -18,23 +18,70 @@ import type {
 
 // Confirmed likes/dislikes the user has logged, resolved into signals the
 // Taste Match Engine can fold into future scoring.
+//
+// Reads from two tables:
+//   - Feedback: tied to a saved Recommendation row (Taste Match
+//     session-grade verdicts captured on /saved)
+//   - StrainFeedback: keyed directly on the strain, captured from
+//     quick-rate pills on Compare and other surfaces
+// Both surface as the same FeedbackSignal shape so the engine's
+// evaluateFeedback() loop doesn't need to know which surface a verdict
+// came from. The 4-state strain verdict collapses to the binary
+// `liked` field the engine expects:
+//   "loved"   → liked=true,  rating=5
+//   "good"    → liked=true,  rating=4
+//   "neutral" → skipped (no useful signal)
+//   "avoid"   → liked=false, rating=1
+// Capped at 400 rows total (200 per source) so the loop stays bounded.
 export async function getFeedbackSignals(
   userId: string,
 ): Promise<FeedbackSignal[]> {
-  const rows = await prisma.feedback.findMany({
-    where: { userId, liked: { not: null } },
-    include: {
-      recommendation: { select: { resolvedName: true, strainName: true } },
-    },
-    orderBy: { createdAt: "desc" },
-    take: 200,
-  });
+  const [classic, strainLevel] = await Promise.all([
+    prisma.feedback.findMany({
+      where: { userId, liked: { not: null } },
+      include: {
+        recommendation: { select: { resolvedName: true, strainName: true } },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 200,
+    }),
+    prisma.strainFeedback.findMany({
+      where: { userId, verdict: { in: ["loved", "good", "avoid"] } },
+      orderBy: { updatedAt: "desc" },
+      take: 200,
+    }),
+  ]);
 
-  return rows.map((row) => ({
+  const fromClassic: FeedbackSignal[] = classic.map((row) => ({
     strainName: row.recommendation.resolvedName || row.recommendation.strainName,
     liked: row.liked === true,
     rating: row.rating,
   }));
+
+  const fromStrain: FeedbackSignal[] = strainLevel
+    .map((row): FeedbackSignal | null => {
+      switch (row.verdict) {
+        case "loved":
+          return { strainName: row.strainName, liked: true, rating: 5 };
+        case "good":
+          return { strainName: row.strainName, liked: true, rating: 4 };
+        case "avoid":
+          return { strainName: row.strainName, liked: false, rating: 1 };
+        default:
+          return null;
+      }
+    })
+    .filter((s): s is FeedbackSignal => s !== null);
+
+  // When the same strain has both a classic Recommendation-tied
+  // verdict and a strain-level quick verdict, the more recent one
+  // should win. Classic rows ship first in the array; replace by
+  // strain-level if we have one (StrainFeedback unique-key
+  // guarantees there's at most one per strain).
+  const merged = new Map<string, FeedbackSignal>();
+  for (const s of fromClassic) merged.set(s.strainName, s);
+  for (const s of fromStrain) merged.set(s.strainName, s);
+  return [...merged.values()];
 }
 
 export function asArray(value: unknown, max = 40): string[] {
