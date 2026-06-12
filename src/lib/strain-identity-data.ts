@@ -1441,7 +1441,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty, gassy-sweet 'strain of the year' exotic named Jealousy — playing on 'green with envy.' An ornate, faceted emerald-green perfume bottle glowing on a dark opulent surface, exotic emerald vapor swirling up from its stopper in lavish ribbons — the green smoke glittering with a frosty trichome sparkle and laced with an oily petrol-rainbow shimmer, sweet fruit and candy notes hanging in the rich air with a sharp gassy edge. Creamy sherbet and sweet fruit over a sharp, gassy funk. Palette luxe and envious — deep emerald and jewel-green with frosted silver sparkle, an oily petrol-rainbow sheen and gold accents over a dark, opulent shadow. Mood: balanced and euphoric — an uplifting, sociable head over a relaxed body, lavish and flavour-forward. Cinematic, painterly, high-contrast, premium editorial poster, opulent and atmospheric. The strain name 'JEALOUSY' baked into the scene — embossed on the perfume bottle or a gold plaque at its base. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "jealousy.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
