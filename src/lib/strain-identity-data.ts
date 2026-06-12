@@ -245,7 +245,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a heavy, savoury cheese-and-garlic gas strain named Donny Burger. A thick, juicy gourmet cheeseburger on a dark diner counter at night, molten cheese oozing down over a charred patty, roasted garlic and savoury smoke curling up under a neon-tinged glow; a faint oily petrol-rainbow shimmer threads the greasy haze, hinting at the sour-fuel funk beneath the savoury richness. Garlic, cheese and sour fuel over an earthy base, loud rather than sweet. Palette rich and moody — charred browns, melted cheddar-gold and sesame tan over a dark gritty counter, savoury smoke and a faint petrol shimmer under a low neon glow. Mood: heavy and relaxing — a euphoric head sinking into a sedating body, firmly evening. Cinematic, painterly, high-contrast, premium editorial poster, appetizing and atmospheric. The strain name 'DONNY BURGER' baked into the scene — lit on a worn diner sign or stamped on the burger wrapper. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "donny-burger.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
