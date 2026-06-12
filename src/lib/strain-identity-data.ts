@@ -5205,6 +5205,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Purple Skunk is a purple-hued selection of Skunk #1 — sweet grape over the classic skunk funk, and a parent of God Bud. The nose is sweet and fruity: grape and berry over a skunky, earthy base. The effect is balanced and happy — a relaxing, mood-lifting high with a comfortable body. It's frosty and colourful, a flavour-led skunk variant. For purple skunk genetics, this is a likeable parent line.",
     curatorQuote:
       "Grape and berry over a skunky, earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, fruity purple skunk variant named Purple Skunk. A striking skunk with deep purple-and-silver fur prowling at dusk through a grape-violet haze, its bold white stripe catching the low light, ripe grapes and berries scattered in the earthy underbrush around it, a skunky funk mist curling through the air with a glittering trichome-frost sparkle. Grape and berry over a skunky, earthy base. Palette rich and colourful — deep grape purple and berry-violet with silver-white fur highlights over an earthy dusk shadow, a frosty sparkle in the hazy air. Mood: balanced and happy — a relaxing, mood-lifting high with a comfortable body, frosty and colourful. Cinematic, painterly, high-contrast, premium editorial poster, atmospheric and detailed. The strain name 'PURPLE SKUNK' baked into the scene — carved into a weathered wooden sign or mossy stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "purple-skunk.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
