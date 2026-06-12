@@ -1069,6 +1069,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Headband is an OG Kush × Sour Diesel cross named for the gentle pressure it leaves around the temples, like a band across the forehead. The nose is gassy and sour: diesel and fuel over a lemony, earthy OG base, loud and unmistakably of the gas family. The effect is the namesake — a long-lasting, relaxing body high with a clear, slightly pressured head, balanced enough for afternoon into evening. It's potent and long-running, more of a slow-burn relaxer than a knockout. For fans of diesel-OG hybrids, Headband is a classic.",
     curatorQuote:
       "Diesel and fuel over a lemony, earthy OG base, loud and unmistakably of the gas family.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a long-running, relaxing diesel-OG hybrid named Headband — named for the gentle band of pressure it leaves around the temples. A glowing taut ring of electric light hovering in a dark, gassy void, encircling empty space where a head would be — faint concentric pressure-ripples radiating out from the band, a diesel fuel haze drifting through it shot with an oily petrol-rainbow shimmer and a lemon-amber glow. Diesel and fuel over a lemony, earthy OG base, loud and gassy. Palette dark and electric — a luminous white-gold band over diesel-black space, lemon-amber light and a faint petrol-rainbow shimmer in the haze, subtle ripples of cool blue pressure. Mood: balanced and long-lasting — a relaxing body weight under a clear, gently pressured head, afternoon into evening. Cinematic, painterly, high-contrast, premium editorial poster, atmospheric and a touch surreal. The strain name 'HEADBAND' baked into the scene — etched along the glowing band itself. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "headband.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
