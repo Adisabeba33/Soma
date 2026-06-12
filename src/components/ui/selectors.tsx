@@ -92,12 +92,17 @@ export function TagInput({
   placeholder,
   suggestions = [],
   validateStrains = false,
+  ordered = false,
 }: {
   value: string[];
   onChange: (next: string[]) => void;
   placeholder?: string;
   suggestions?: string[];
   validateStrains?: boolean;
+  // ordered: when true, each tag shows its 1-based rank ("1.", "2.", …) so the
+  // user can see the preference order they entered. Used for favourites, where
+  // position feeds the engine's rank weighting (most-loved first).
+  ordered?: boolean;
 }) {
   const [draft, setDraft] = useState("");
 
@@ -172,6 +177,17 @@ export function TagInput({
                     : "Not in our catalog — recommendations will be inferred from the name"
               }
             >
+              {ordered && (
+                <span
+                  className={cn(
+                    "shrink-0 font-display text-xs font-semibold tabular-nums",
+                    known === false ? "text-brass/70" : "text-muted-foreground",
+                  )}
+                  aria-hidden
+                >
+                  {i + 1}.
+                </span>
+              )}
               {known === true && (
                 <Check className="h-3.5 w-3.5 shrink-0" aria-hidden />
               )}
