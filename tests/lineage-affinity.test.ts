@@ -52,8 +52,10 @@ describe("lineageAffinity (#13)", () => {
     }
   });
 
-  it("the engine runs with the lineage bonus wired in", () => {
-    // Smoke: a lineage-kin candidate still produces a valid score.
+  it("the engine still produces a valid score (lineage module present, hook disabled)", () => {
+    // The lineageMod hook is intentionally NOT wired into scoring right now
+    // (see docs/deferred-improvements.md #13); the pure module + these tests
+    // stay for when it's reworked. Smoke-check the engine runs regardless.
     const r = scoreStrain("Larry OG", profile({ favoriteStrains: ["OG Kush"] }));
     assert.ok(r.matchScore >= 4 && r.matchScore <= 99);
   });

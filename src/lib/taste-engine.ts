@@ -18,7 +18,6 @@ import {
 } from "./behavioral-family";
 import { primaryAromaTokens, type ResolvedTarget } from "./profile-target";
 import { deriveTasteModes } from "./taste-modes";
-import { lineageAffinity } from "./lineage-affinity";
 import { familyMatches } from "./strain-families";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
 import type {
@@ -979,9 +978,11 @@ export function scoreStrain(
   const texture = textureScore(strain, profile.texturePreferences ?? []);
   const quality = qualityScore(strain, profile.qualityPriorities ?? []);
   const potencyMod = potencyContribution(strain.potency, profile.potencyPreference);
-  // Lineage affinity (#13): bounded kinship bonus that surface tags miss.
-  // No-op (0) when the candidate has no curated lineage.
-  const lineageMod = lineageAffinity(strain.name, profile.favoriteStrains);
+  // Lineage affinity (#13) is intentionally NOT wired into the score right
+  // now — see docs/deferred-improvements.md #13. Even restricted to direct
+  // parent/child it pushed a slice of OG/gas kin into the 88 ceiling and
+  // crowded the top of gas-forward profiles. The module + tests stay; the
+  // scoring hook is disabled until the magnitude/curation is reworked.
   // Family preference (#14): bounded seek/avoid nudge. No-op when unset.
   const familyPrefMod = familyPreferenceContribution(
     strain,
@@ -1039,7 +1040,6 @@ export function scoreStrain(
     familyMod +
     sensoryMod +
     potencyMod +
-    lineageMod +
     familyPrefMod;
   const penalty = Math.min(42, conflicts.length * 15);
   // Pre-calibration score with decimal precision. Same formula as the
