@@ -993,6 +993,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Sharp fuel, pine and a sour, almost antiseptic funk, loud and unmistakably OG.",
     tagline: "Pure gas reference",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, blanketing, pungent gas OG named Face Off OG. A surreal, dramatic figure standing in heavy evening shadow as it peels its own face away from its head — lifting the front of its face off like a soft mask and holding that removed face in its hands, and beneath it, where the face was, a second smooth mask is revealed. A thick fuel-and-pine haze coils around the figure, an oily petrol-rainbow shimmer catching the low light, sharp and antiseptic in the gassy dark. Palette dark and dramatic — diesel-black and bruised shadow with sour antiseptic green, fuel-amber rim light and a faint petrol-rainbow sheen in the haze. Mood: heavy and numbing — a hazy, sedating blanket of an evening sit-down OG. Cinematic, painterly, high-contrast, surreal, premium editorial poster. The strain name 'FACE OFF OG' baked into the scene — carved into stone or stenciled on the wall behind the figure. Keep the lower third calmer and darker for legible overlay text. No logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "face-off-og.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
