@@ -258,6 +258,7 @@ export default function ExperienceOnboardingPage() {
             placeholder="Type a strain and press Enter"
             suggestions={POPULAR_STRAINS}
             validateStrains
+            ordered
           />
         </Field>
 
