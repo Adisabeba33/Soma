@@ -600,12 +600,17 @@ and didn't do is itself valuable context.
 
 ### #13 — Lineage / genetics affinity layer
 
-> **🟡 Engine shipped on branch `claude/cold-start-pr-b` (PR #135), pending
-> `db:push` + merge.** `src/lib/lineage-affinity.ts` adds a bounded kinship
-> bonus (0..6) from curated lineage, wired into scoring as `lineageMod`
-> (no-op when the candidate has no lineage). Larry OG → +6 vs an OG Kush
-> favourite; Pink Kush stays 0 until its lineage is curated. **Remaining:**
-> curate lineage on the OG/gas anchors so it fires where it matters.
+> **🔴 Shipped then REVERTED (2026-06-12).** `src/lib/lineage-affinity.ts`
+> was wired into scoring as `lineageMod` (PR #135) but **over-fired**: walking
+> two levels of ancestry and counting shared ancestors meant ~84/400 strains
+> (common ancestors OG Kush / Chemdawg / Hindu Kush) got a bonus, crowding
+> gas-forward profiles' tops into the 88 ceiling. The scoring hook was
+> **disabled** (the module + tests stay; `lineageAffinity` tightened to
+> DIRECT parent/child only for the future). Note from the revert: even
+> direct-only barely moved the ≥88 count, because the OG/gas kin were already
+> at 88 from sensory+family — the real "too many at 88" is **ceiling
+> compression** (see #15), not lineage. Re-enable only with a small magnitude
+> + curation, and ideally alongside #15 spreading the top tier.
 
 - **Found:** 2026-06-12
 - **Source:** Owner's live testing of a GG4 + OG Kush + White Hot Guava

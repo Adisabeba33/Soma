@@ -31,35 +31,25 @@ function ancestorKeys(name: string, depth = 2): Set<string> {
   return out;
 }
 
-// Bounded affinity (0..LINEAGE_AFFINITY_MAX) from shared lineage between the
-// candidate and the user's favourites — kinship that surface tags miss.
-// Returns 0 when the candidate has no lineage beyond its own name.
+// Bounded affinity (0 or LINEAGE_AFFINITY_MAX) from DIRECT lineage between the
+// candidate and the user's favourites — i.e. one is a parent of the other.
+// Distant shared ancestors (OG Kush, Chemdawg, Hindu Kush, …) are deliberately
+// NOT counted: those are in the ancestry of a huge slice of the catalogue, so
+// rewarding them flagged ~20% of strains and pushed them into the 88 ceiling.
+// Returns 0 when there's no recorded parent/child link.
 export function lineageAffinity(candidate: string, favourites: string[]): number {
-  const candKeys = ancestorKeys(candidate);
-  if (candKeys.size <= 1) return 0; // no recorded lineage → no-op
+  // Candidate + its DIRECT parents only (depth 1).
+  const candParents = ancestorKeys(candidate, 1);
+  if (candParents.size <= 1) return 0; // no recorded parents → no-op
   const candSelf = normalizeStrainName(candidate);
 
-  let best = 0;
   for (const fav of favourites) {
     const favSelf = normalizeStrainName(fav);
     if (favSelf === candSelf) continue; // same strain — that's the anchor path
-    const favKeys = ancestorKeys(fav);
-
-    let shared = 0;
-    let directLink = false; // one is a parent/grandparent of the other
-    for (const k of candKeys) {
-      if (!favKeys.has(k)) continue;
-      shared += 1;
-      if (k === favSelf || k === candSelf) directLink = true;
-    }
-    if (shared === 0) continue;
-
-    // Direct parent/child line → full bonus; a shared ancestor (siblings,
-    // cousins) scales gently with how many ancestors they share.
-    const pts = directLink
-      ? LINEAGE_AFFINITY_MAX
-      : Math.min(LINEAGE_AFFINITY_MAX, 2 + shared);
-    best = Math.max(best, pts);
+    // The favourite is a parent of the candidate …
+    if (candParents.has(favSelf)) return LINEAGE_AFFINITY_MAX;
+    // … or the candidate is a parent of the favourite.
+    if (ancestorKeys(fav, 1).has(candSelf)) return LINEAGE_AFFINITY_MAX;
   }
-  return best;
+  return 0;
 }
