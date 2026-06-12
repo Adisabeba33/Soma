@@ -600,6 +600,13 @@ and didn't do is itself valuable context.
 
 ### #13 — Lineage / genetics affinity layer
 
+> **🟡 Engine shipped on branch `claude/cold-start-pr-b` (PR #135), pending
+> `db:push` + merge.** `src/lib/lineage-affinity.ts` adds a bounded kinship
+> bonus (0..6) from curated lineage, wired into scoring as `lineageMod`
+> (no-op when the candidate has no lineage). Larry OG → +6 vs an OG Kush
+> favourite; Pink Kush stays 0 until its lineage is curated. **Remaining:**
+> curate lineage on the OG/gas anchors so it fires where it matters.
+
 - **Found:** 2026-06-12
 - **Source:** Owner's live testing of a GG4 + OG Kush + White Hot Guava
   favourites profile (external expert read), reproduced against the engine.
@@ -669,6 +676,13 @@ and didn't do is itself valuable context.
 ---
 
 ### #14 — Family preference layer (seek / avoid by strain family)
+
+> **🟡 Shipped on branch `claude/cold-start-pr-b` (PR #135), pending
+> `db:push` + merge.** `src/lib/strain-families.ts` (named-family matcher:
+> sensoryFamily ∪ token ∪ name) + `preferredFamilies`/`avoidedFamilies`
+> columns + a bounded ±5 `familyPreferenceMod` + seek/avoid selectors in the
+> describe preview. Verified: Mint matches all 5 mint strains; avoid-mint
+> −5, seek-OG +5. No-op when unset.
 
 - **Found:** 2026-06-12
 - **Source:** Expert audit (Mint-family test) — distinguishes *sensory*
