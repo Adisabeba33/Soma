@@ -4482,7 +4482,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a creamy, frosty cookie-gas dessert exotic named Biskante. Elegant golden cookies stacked and dipped into a glossy pour of cream on a polished marble counter in warm Italian café light — rich cream ribboning over caramel-gold cookie, a soft dusting of sugar frost, a thin curl of vapor catching a faint oily petrol-rainbow shimmer that hints at the gas underneath. Cookie and cream cut by a light gas over an earthy base. Palette refined and warm — creamy ivory and caramel-gold over pale marble, a frosty silver sheen and a faint petrol shimmer under a honeyed amber glow. Mood: balanced and relaxing — a euphoric head easing into a comfortable body, polished and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, elegant and appetizing. The strain name 'BISKANTE' baked into the scene — hand-lettered on a small enamel café tag or etched into the marble. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "biskante.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "low",
   },
