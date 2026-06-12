@@ -4257,7 +4257,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a sweet berry-pastry dessert exotic named Jelly Donutz. A plump sugar-dusted jelly donut split open with glossy mixed-berry jam oozing out, golden fried dough crackling with a sparkling sugar-frost coating in warm bakery light, a curl of sweet steam carrying a faint oily petrol-rainbow shimmer that hints at the light gas. Mixed berry jam and sugar over a doughy, faintly gassy base. Palette warm and luscious — golden fried dough and powdered-sugar white with deep berry-red jam, a sparkling sugar-frost sheen and a faint petrol shimmer under a honeyed glow. Mood: relaxing and happy — a euphoric head easing into a comfortable body, sweet and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'JELLY DONUTZ' baked into the scene — hand-lettered on a bakery sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "jelly-donutz.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "low",
   },
