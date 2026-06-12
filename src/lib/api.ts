@@ -45,11 +45,20 @@ export async function getFeedbackSignals(
       orderBy: { createdAt: "desc" },
       take: 200,
     }),
-    prisma.strainFeedback.findMany({
-      where: { userId, verdict: { in: ["loved", "good", "avoid"] } },
-      orderBy: { updatedAt: "desc" },
-      take: 200,
-    }),
+    // Strain-level feedback is an additive layer. If its table hasn't been
+    // provisioned yet (deploy ran `next build` without a `prisma db push`),
+    // don't let a missing table take down the catalog — degrade to classic
+    // feedback only. See `db:push` in package.json.
+    prisma.strainFeedback
+      .findMany({
+        where: { userId, verdict: { in: ["loved", "good", "avoid"] } },
+        orderBy: { updatedAt: "desc" },
+        take: 200,
+      })
+      .catch((err) => {
+        console.error("getFeedbackSignals: strainFeedback query failed", err);
+        return [] as Awaited<ReturnType<typeof prisma.strainFeedback.findMany>>;
+      }),
   ]);
 
   const fromClassic: FeedbackSignal[] = classic.map((row) => ({
