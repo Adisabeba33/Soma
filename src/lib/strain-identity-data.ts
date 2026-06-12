@@ -5403,7 +5403,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty, sweet-and-earthy resin-heavy hybrid named Snow Lotus. A luminous white lotus flower blooming amid alpine snow at cold dawn, every petal rimed in glittering ice and a heavy resinous, trichome-like frost, soft berry-pink blush at the petal tips and dark pine boughs framing the still, snowy scene; a faint cold mist drifts low, a wet resin sheen catching the pale light. Berry and resin over a piney base, sweet and earthy. Palette serene and icy — frost-white and silver with soft berry pink and deep pine green over a pale blue-gold dawn, glittering ice sparkle and a resinous sheen. Mood: balanced and relaxing — a euphoric head with a comfortable body, frosty and complex. Cinematic, painterly, high-contrast, premium editorial poster, delicate and atmospheric. The strain name 'SNOW LOTUS' baked into the scene — carved into frosted stone or ice at the flower's base. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "snow-lotus.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "low",
   },
