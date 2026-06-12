@@ -3977,7 +3977,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty, fruity-mint candy exotic named Red Zushi — part of the colourful Zushi family. Glossy crimson-red candied gems and red-purple berries arranged on a sleek red Japanese lacquer surface, a cool mint vapor curling over them, a glittering trichome-frost dusting the candy; an oily petrol-rainbow shimmer threads the minty haze, hinting at the faint gas. Berry and grape candy over a cool mint and faint gas. Palette bold and elegant — deep crimson and ruby red with grape-purple and mint-green vapor, frost-silver sparkle and a faint petrol shimmer over glossy red lacquer. Mood: relaxing — a euphoric head easing into a calm body, evening-friendly, frosty and loud. Cinematic, painterly, high-contrast, premium editorial poster, sleek and atmospheric. The strain name 'RED ZUSHI' baked into the scene — embossed on the lacquer or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "red-zushi.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
