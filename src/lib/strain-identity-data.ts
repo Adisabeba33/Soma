@@ -3582,7 +3582,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty grape-gas exotic with a menthol snap named Pink Certz — its name a nod to pink candy mints. A glossy spill of pink candy mint lozenges scattered with deep-purple grapes, a cool menthol vapor curling off them in the chilled light, a glittering trichome-frost dusting the candy; an oily petrol-rainbow shimmer threads the minty haze, hinting at the grape-gas underneath. Grape and berry over a gassy base with a fresh, minty top note. Palette cool and candy — bubblegum pink and grape-purple with mint-green vapor and frost-silver sparkle, an oily petrol shimmer over a soft cool shadow. Mood: relaxing and euphoric — a happy head easing into a comfortable body, balanced, frosty and loud. Cinematic, painterly, high-contrast, premium editorial poster, glossy and atmospheric. The strain name 'PINK CERTZ' baked into the scene — printed on a candy-roll wrapper or stamped on a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "pink-certz.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
