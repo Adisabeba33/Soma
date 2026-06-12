@@ -48,6 +48,8 @@ export interface InferredProfile {
   useTime: UseTime | "";
   bodyFeel: number | null;
   potencyPreference: PotencyPreference | "";
+  preferredFamilies: string[];
+  avoidedFamilies: string[];
   lookingFor: "similar" | "new";
   notes: string;
 }
@@ -178,6 +180,8 @@ export function inferProfileFromExperience(
       useTime,
       bodyFeel,
       potencyPreference: "",
+      preferredFamilies: [],
+      avoidedFamilies: [],
       lookingFor: "similar",
       notes: "",
     },

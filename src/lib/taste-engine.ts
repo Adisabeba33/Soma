@@ -19,6 +19,7 @@ import {
 import { primaryAromaTokens, type ResolvedTarget } from "./profile-target";
 import { deriveTasteModes } from "./taste-modes";
 import { lineageAffinity } from "./lineage-affinity";
+import { familyMatches } from "./strain-families";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
 import type {
   AnalysisResult,
@@ -378,6 +379,21 @@ const POTENCY_RANK: Record<Potency, number> = {
   strong: 2,
   "very-strong": 3,
 };
+// Family preference (#14). Bounded buying-behaviour nudge: a strain in a
+// family the user seeks out gets +, one in a family they avoid gets − — never
+// enough to override sensory matching. No-op when both lists are empty.
+const FAMILY_PREF_BONUS = 5;
+function familyPreferenceContribution(
+  strain: StrainProfile,
+  preferred: string[] | undefined,
+  avoided: string[] | undefined,
+): number {
+  let mod = 0;
+  if (preferred?.some((k) => familyMatches(strain, k))) mod += FAMILY_PREF_BONUS;
+  if (avoided?.some((k) => familyMatches(strain, k))) mod -= FAMILY_PREF_BONUS;
+  return mod;
+}
+
 function potencyContribution(
   potency: Potency,
   pref: string | null | undefined,
@@ -966,6 +982,12 @@ export function scoreStrain(
   // Lineage affinity (#13): bounded kinship bonus that surface tags miss.
   // No-op (0) when the candidate has no curated lineage.
   const lineageMod = lineageAffinity(strain.name, profile.favoriteStrains);
+  // Family preference (#14): bounded seek/avoid nudge. No-op when unset.
+  const familyPrefMod = familyPreferenceContribution(
+    strain,
+    profile.preferredFamilies,
+    profile.avoidedFamilies,
+  );
 
   // Multi-modal selection: credit the candidate by the taste mode it fits
   // best (highest target-driven value at the current weights). deriveTasteModes
@@ -1017,7 +1039,8 @@ export function scoreStrain(
     familyMod +
     sensoryMod +
     potencyMod +
-    lineageMod;
+    lineageMod +
+    familyPrefMod;
   const penalty = Math.min(42, conflicts.length * 15);
   // Pre-calibration score with decimal precision. Same formula as the
   // visible matchScore but without anchor floor, 99 base cap, or 88

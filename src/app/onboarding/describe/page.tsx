@@ -9,6 +9,7 @@ import {
   Field,
   PreviewBlock,
   ForcedChoicePreview,
+  FamilyMultiSelect,
 } from "@/components/profile-inference-ui";
 import { labelFor } from "@/lib/vocab";
 import { PRIMARY_AROMAS, PRIMARY_EFFECTS, USE_TIMES } from "@/lib/profile-target";
@@ -16,6 +17,22 @@ import type { InferredProfile } from "@/lib/profile-from-experience";
 
 type Phase = "input" | "preview" | "saving";
 type DescribeResult = { profile: InferredProfile; sufficient: boolean };
+
+// Keep keys in sync with NAMED_FAMILIES in src/lib/strain-families.ts.
+const FAMILY_OPTIONS = [
+  { value: "og", label: "OG" },
+  { value: "kush", label: "Kush" },
+  { value: "chem", label: "Chem" },
+  { value: "diesel", label: "Diesel" },
+  { value: "gas", label: "Gas" },
+  { value: "garlic-funk", label: "Garlic / Funk" },
+  { value: "cheese", label: "Cheese" },
+  { value: "mint", label: "Mint" },
+  { value: "haze", label: "Haze" },
+  { value: "purple", label: "Purple" },
+  { value: "dessert", label: "Dessert" },
+  { value: "fruit", label: "Fruit-forward" },
+];
 
 const POTENCY_OPTIONS = [
   { value: "mild", label: "Mild" },
@@ -95,6 +112,18 @@ export default function DescribeOnboardingPage() {
       ...edited,
       [axis]: current.filter((v) => v !== value),
     } as InferredProfile);
+  }
+
+  function toggleFamily(
+    axis: "preferredFamilies" | "avoidedFamilies",
+    value: string,
+  ) {
+    if (!edited) return;
+    const current = edited[axis];
+    const next = current.includes(value)
+      ? current.filter((v) => v !== value)
+      : [...current, value];
+    setEdited({ ...edited, [axis]: next });
   }
 
   if (phase === "preview" && edited) {
@@ -184,6 +213,21 @@ export default function DescribeOnboardingPage() {
             onChange={(v) =>
               setEdited({ ...edited, useTime: v as typeof edited.useTime })
             }
+          />
+          <FamilyMultiSelect
+            label="Strain families you seek out"
+            hint="Buying habit, separate from smell — families you gravitate to."
+            options={FAMILY_OPTIONS}
+            selected={edited.preferredFamilies}
+            onToggle={(v) => toggleFamily("preferredFamilies", v)}
+          />
+          <FamilyMultiSelect
+            label="Strain families you usually avoid"
+            hint="Families you tend to skip even when the smell fits."
+            options={FAMILY_OPTIONS}
+            selected={edited.avoidedFamilies}
+            onToggle={(v) => toggleFamily("avoidedFamilies", v)}
+            tone="warning"
           />
         </div>
 

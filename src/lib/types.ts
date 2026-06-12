@@ -85,6 +85,11 @@ export interface TasteProfileInput {
   // (like primaryAroma) so raw DB rows assign cleanly; absent/"balanced"/an
   // unknown value is a no-op in scoring.
   potencyPreference?: string | null;
+  // Named strain families the user seeks out / usually avoids (see
+  // src/lib/strain-families.ts). Buying-behaviour signal, distinct from
+  // sensory match; optional, no-op when empty.
+  preferredFamilies?: string[];
+  avoidedFamilies?: string[];
   notes?: string | null;
 }
 

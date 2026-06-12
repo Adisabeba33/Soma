@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
 import { asArray, asText } from "@/lib/api";
 import { detectProfileContradictions } from "@/lib/profile-contradictions";
+import { isFamilyKey } from "@/lib/strain-families";
 import {
   isPrimaryAroma,
   isPrimaryEffect,
@@ -61,6 +62,8 @@ async function upsertProfile(req: NextRequest) {
     useTime: asEnum(body.useTime, isUseTime),
     bodyFeel: asBodyFeel(body.bodyFeel),
     potencyPreference: asPotency(body.potencyPreference),
+    preferredFamilies: asArray(body.preferredFamilies).filter(isFamilyKey),
+    avoidedFamilies: asArray(body.avoidedFamilies).filter(isFamilyKey),
     notes: asText(body.notes, 2000),
   };
 

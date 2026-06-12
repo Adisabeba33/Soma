@@ -123,6 +123,8 @@ function emptyProfile(notes: string): InferredProfile {
     useTime: "",
     bodyFeel: null,
     potencyPreference: "",
+    preferredFamilies: [],
+    avoidedFamilies: [],
     lookingFor: "similar",
     notes,
   };
