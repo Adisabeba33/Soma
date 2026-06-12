@@ -3974,6 +3974,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Red Zushi is a colour-selected cut from the same Zkittlez × Kush Mints line as Blue Zushi — picked for red-purple buds and a fruitier lean. The nose is sweet and loud: berry and grape candy over a cool mint and faint gas. The effect leans relaxing — a euphoric head easing into a calm body, evening-friendly. It's very frosty and flavour-forward, part of the colourful Zushi family. For candy fruit with a minty tail and red bag appeal, Red Zushi delivers.",
     curatorQuote:
       "Berry and grape candy over a cool mint and faint gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, fruity-mint candy exotic named Red Zushi — part of the colourful Zushi family. Glossy crimson-red candied gems and red-purple berries arranged on a sleek red Japanese lacquer surface, a cool mint vapor curling over them, a glittering trichome-frost dusting the candy; an oily petrol-rainbow shimmer threads the minty haze, hinting at the faint gas. Berry and grape candy over a cool mint and faint gas. Palette bold and elegant — deep crimson and ruby red with grape-purple and mint-green vapor, frost-silver sparkle and a faint petrol shimmer over glossy red lacquer. Mood: relaxing — a euphoric head easing into a calm body, evening-friendly, frosty and loud. Cinematic, painterly, high-contrast, premium editorial poster, sleek and atmospheric. The strain name 'RED ZUSHI' baked into the scene — embossed on the lacquer or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "red-zushi.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
