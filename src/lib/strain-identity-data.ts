@@ -5303,7 +5303,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty, flavour-forward gassy-cookie dessert hybrid named Biscotti Sundae. A decadent ice cream sundae in a tall glass crowned with golden biscotti cookies, creamy swirls drizzled with fruity-berry sauce and a dusting of coffee-cocoa, a glistening frosted sheen sweating off the cold cream in warm late-afternoon light. The air is rich and layered: sweet cookie and a faint gas note over a creamy, fruity base. Palette luscious and warm — creamy ivory and caramel-gold biscotti with berry-red and cocoa-brown, a frosty silver sheen under a honeyed amber glow. Mood: relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'BISCOTTI SUNDAE' baked into the scene — hand-lettered on a small enamel dessert tag or the glass. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "biscotti-sundae.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
