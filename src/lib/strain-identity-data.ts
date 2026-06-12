@@ -980,6 +980,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Sharp fuel and pine with a lemony, earthy bite, classic gas through and through.",
     tagline: "Heavy gas flame",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for one of the most potent, heaviest OG gas cuts named Fire OG. A roaring orange-red flame erupting and twisting upward over a dark pine ridge at night, fed by a thick fuel haze that ignites at its edges — showers of glowing embers rising, the hot air rippling with a faint oily petrol-rainbow shimmer, pine silhouettes lit fiery against the black. Loud OG in the heat — sharp fuel and pine with a lemony, earthy bite. Palette blazing and deep — molten orange-red and ember-gold flame over diesel-black and pine shadow, a lemon-amber glow and faint petrol shimmer in the smoky haze. Mood: heavy and creeping — a euphoric head sinking into a strong, sedating body, a high-test evening strain. Cinematic, painterly, high-contrast, premium editorial poster, fiery and atmospheric. The strain name 'FIRE OG' baked into the scene — seared and glowing in the embers or branded into the ridge stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "fire-og.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
