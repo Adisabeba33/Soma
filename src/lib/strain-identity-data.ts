@@ -242,6 +242,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Garlic, cheese and sour fuel over an earthy base, loud in the GMO tradition rather than sweet.",
     tagline: "Savoury gas weight",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, savoury cheese-and-garlic gas strain named Donny Burger. A thick, juicy gourmet cheeseburger on a dark diner counter at night, molten cheese oozing down over a charred patty, roasted garlic and savoury smoke curling up under a neon-tinged glow; a faint oily petrol-rainbow shimmer threads the greasy haze, hinting at the sour-fuel funk beneath the savoury richness. Garlic, cheese and sour fuel over an earthy base, loud rather than sweet. Palette rich and moody — charred browns, melted cheddar-gold and sesame tan over a dark gritty counter, savoury smoke and a faint petrol shimmer under a low neon glow. Mood: heavy and relaxing — a euphoric head sinking into a sedating body, firmly evening. Cinematic, painterly, high-contrast, premium editorial poster, appetizing and atmospheric. The strain name 'DONNY BURGER' baked into the scene — lit on a worn diner sign or stamped on the burger wrapper. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "donny-burger.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -1064,6 +1069,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Headband is an OG Kush × Sour Diesel cross named for the gentle pressure it leaves around the temples, like a band across the forehead. The nose is gassy and sour: diesel and fuel over a lemony, earthy OG base, loud and unmistakably of the gas family. The effect is the namesake — a long-lasting, relaxing body high with a clear, slightly pressured head, balanced enough for afternoon into evening. It's potent and long-running, more of a slow-burn relaxer than a knockout. For fans of diesel-OG hybrids, Headband is a classic.",
     curatorQuote:
       "Diesel and fuel over a lemony, earthy OG base, loud and unmistakably of the gas family.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a long-running, relaxing diesel-OG hybrid named Headband — named for the gentle band of pressure it leaves around the temples. A glowing taut ring of electric light hovering in a dark, gassy void, encircling empty space where a head would be — faint concentric pressure-ripples radiating out from the band, a diesel fuel haze drifting through it shot with an oily petrol-rainbow shimmer and a lemon-amber glow. Diesel and fuel over a lemony, earthy OG base, loud and gassy. Palette dark and electric — a luminous white-gold band over diesel-black space, lemon-amber light and a faint petrol-rainbow shimmer in the haze, subtle ripples of cool blue pressure. Mood: balanced and long-lasting — a relaxing body weight under a clear, gently pressured head, afternoon into evening. Cinematic, painterly, high-contrast, premium editorial poster, atmospheric and a touch surreal. The strain name 'HEADBAND' baked into the scene — etched along the glowing band itself. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "headband.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -1428,6 +1438,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Creamy sherbet and sweet fruit over a sharp, gassy funk, candy with a fuel edge.",
     tagline: "Pure exotic perfume",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, gassy-sweet 'strain of the year' exotic named Jealousy — playing on 'green with envy.' An ornate, faceted emerald-green perfume bottle glowing on a dark opulent surface, exotic emerald vapor swirling up from its stopper in lavish ribbons — the green smoke glittering with a frosty trichome sparkle and laced with an oily petrol-rainbow shimmer, sweet fruit and candy notes hanging in the rich air with a sharp gassy edge. Creamy sherbet and sweet fruit over a sharp, gassy funk. Palette luxe and envious — deep emerald and jewel-green with frosted silver sparkle, an oily petrol-rainbow sheen and gold accents over a dark, opulent shadow. Mood: balanced and euphoric — an uplifting, sociable head over a relaxed body, lavish and flavour-forward. Cinematic, painterly, high-contrast, premium editorial poster, opulent and atmospheric. The strain name 'JEALOUSY' baked into the scene — embossed on the perfume bottle or a gold plaque at its base. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "jealousy.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
 
@@ -2691,6 +2706,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Hippie Crasher crosses Kush Mints with Wedding Crasher, marrying cool minty cookie to grape-and-gas funk. The nose is layered — mint and cookie up front, grape and fuel underneath, sweet and savoury at the same time. The effect is balanced and unhurried: a clear euphoric head that drifts into easy body comfort, good from afternoon on. It's very frosty and flavour-forward, the kind of cut connoisseurs hunt. For mint-and-grape gas done well, it's a tasty pick.",
     curatorQuote:
       "Mint and cookie up front, grape and fuel underneath, sweet and savoury at the same time.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, mint-and-grape gas exotic named Hippie Crasher. A retro 1970s flower-power camper van parked at a warm desert sunset, its painted panels swirling with tie-dye in cool mint green and grape purple, beaded curtains and groovy chrome catching the golden light; a soft incense-and-fuel haze drifts around it, threaded with a faint oily petrol-rainbow shimmer, a glittering frost sparkle on the windows. Mint and cookie up front, grape and fuel underneath — sweet and savoury at once. Palette psychedelic and warm — swirling mint green and grape violet over a honey-amber sunset and dusty desert gold, chrome glints and a faint petrol shimmer in the hazy air. Mood: balanced and unhurried — a clear euphoric head drifting into easy body comfort, groovy and mellow. Cinematic, painterly, high-contrast, premium editorial poster, retro and atmospheric. The strain name 'HIPPIE CRASHER' baked into the scene — hand-painted in groovy 70s lettering on the van or a roadside wooden sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "hippie-crasher.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3317,6 +3337,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gelatti is a Cookies/Connected cross of Gelato and OGKB — Gelato's cream married to a cookie-gas funk. The nose is sweet and rich: creamy gelato over an earthy, gassy base, smooth rather than loud. The effect is balanced and easy — a euphoric, relaxed high that settles the body without flattening the head. It's frosty, potent and versatile, which is why it parents so many modern dessert crosses (Georgia Pie, Sticky Buns). For creamy Gelato with a little gas, Gelatti is a reliable building block.",
     curatorQuote:
       "Creamy gelato over an earthy, gassy base, smooth rather than loud.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a creamy, frosty cookie-gas dessert cross named Gelatti. A golden waffle cone piled high with creamy swirled gelato and crumbled cookie pieces, standing tall on a sunny Italian cobblestone street, a slow melt-drip catching warm afternoon light, a glistening frosted sheen on the cold cream; a faint curl of vapor carries an oily petrol-rainbow shimmer that hints at the gas underneath. Creamy gelato over an earthy, gassy base, smooth rather than loud. Palette warm and luscious — cream and caramel-gold with cookie-brown crumble over honeyed Italian street light, a frosty silver sheen and a faint petrol shimmer in the air. Mood: balanced and easy — a euphoric, relaxed high that settles the body, smooth and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'GELATTI' baked into the scene — hand-lettered on a gelateria sign or a small enamel cone tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "gelatti.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -4503,6 +4528,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sunset Mintz pairs Sunset Sherbet's cream with Kush Mints' cool mint and gas — a frosty, minty-sweet exotic. The nose is layered: sweet sherbet and cream over a cool mint and light gas. The effect is balanced and relaxing — a euphoric head easing into a calm body, evening-leaning. It's frosty and flavour-forward, easy to like. For minty-sweet sherbet character, Sunset Mintz is a tasty pick.",
     curatorQuote:
       "Sweet sherbet and cream over a cool mint and light gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, minty-sweet sherbet exotic named Sunset Mintz. A dreamy sherbet-toned sunset sky in soft pink, peach and cream melting down to a cool mint-green misty meadow below — the warm dessert-colored clouds meeting a frosty mint haze where they touch, a glittering trichome-frost sparkle drifting in the still air with a faint oily petrol-rainbow shimmer hinting at the light gas. Sweet sherbet and cream over a cool mint and light gas. Palette dreamy and two-toned — sherbet pink, peach and cream above, cool mint green and frost-silver below, with a faint petrol shimmer in the haze. Mood: balanced and relaxing — a euphoric head easing into a calm body, evening-leaning and serene. Cinematic, painterly, high-contrast, premium editorial poster, soft and atmospheric. The strain name 'SUNSET MINTZ' baked into the scene — carved into a weathered wooden sign or stone at the meadow's edge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sunset-mintz.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -4918,6 +4948,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sensi Star is a Paradise Seeds indica of undisclosed lineage — a multiple Cup winner known for a unique metallic-citrus nose and heavy frost. The smell is sharp and earthy: lemon and metal over a spicy, herbal base. The effect is strongly relaxing — a euphoric head sinking into a heavy, numbing body, an evening strain. It's dense, very frosty and potent, a connoisseur's indica. For a distinctive, award-decorated indica, Sensi Star endures.",
     curatorQuote:
       "Lemon and metal over a spicy, herbal base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an award-winning, heavy, frosty indica named Sensi Star. A single radiant crystalline star suspended in deep indigo night — faceted like a frost-coated metallic gem, glittering silver-white with a sharp lemon-gold glint and a cool chrome sheen across its edges, soft cosmic dust and a faint spicy-herbal haze drifting around it. Lemon and metal over a spicy, herbal base. Palette cosmic and metallic — frost-silver and chrome with a lemon-gold glint over deep indigo and violet night, glittering trichome-frost sparkle and a cool metallic shine. Mood: strongly relaxing — a euphoric head sinking into a heavy, numbing body, a dense evening indica. Cinematic, painterly, high-contrast, premium editorial poster, luminous and atmospheric. The strain name 'SENSI STAR' baked into the scene — etched into the star's metallic facets or the dark below. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sensi-star.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -5114,6 +5149,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sherbacio crosses Sunset Sherbet with Biscotti — creamy sherbet sweetness laid over a gassy, coffee-tinged cookie. The nose is rich and sweet: sherbet and cream over a gassy, earthy cookie funk. The effect is relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, in the polished Cookies/Sherbinski lane. For sherbet-and-cookie dessert character, Sherbacio is a smooth pick.",
     curatorQuote:
       "Sherbet and cream over a gassy, earthy cookie funk.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a creamy, frosty sherbet-cookie dessert exotic named Sherbacio. Smooth scoops of pastel sherbet — pistachio green and sherbet pink swirled with cream — quenelled in an elegant coupe with a golden biscotti cookie standing upright in it, a glistening frosted sheen sweating off the cold sorbet in soft cool light; a faint curl of vapor carries an oily petrol-rainbow shimmer hinting at the gassy cookie base. Sherbet and cream over a gassy, earthy cookie funk. Palette fresh and creamy — pastel pistachio green and sherbet pink with caramel-gold biscotti, a frosty silver sheen and a faint petrol shimmer over a soft pale glow. Mood: relaxing and euphoric — a happy head easing into a comfortable body, smooth and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, elegant and appetizing. The strain name 'SHERBACIO' baked into the scene — hand-lettered on a small enamel dessert tag or the coupe. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sherbacio.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
 
@@ -5176,6 +5216,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Blue Power is a Sin City Seeds hybrid — a Master Kush, The White, Blueberry and Sour Double blend — frosty and sweet, and an important modern parent (Animal Mints, Apples and Bananas). The nose is sweet and fruity: blueberry and berry over a faint gas. The effect is balanced and relaxing — a euphoric head easing into a comfortable body. It's extremely frosty and potent, prized as breeding stock. For frosty blue-fruit genetics behind the cookie world, Blue Power is a key line.",
     curatorQuote:
       "Blueberry and berry over a faint gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an extremely frosty, sweet blue-fruit hybrid named Blue Power. A cluster of plump frosted blueberries crackling with raw electric-blue energy — jagged power arcs and a charged blue surge leaping between the fruit, glittering trichome-frost riming their skins, a faint oily petrol-rainbow shimmer threading the charged dark. Blueberry and berry over a faint gas. Palette electric and cool — deep blueberry blue and indigo with crackling electric cyan-white, frosted silver sparkle and a faint petrol shimmer over a dark dramatic shadow. Mood: balanced and relaxing — a euphoric head easing into a comfortable body, frosty and potent. Cinematic, painterly, high-contrast, premium editorial poster, charged and atmospheric. The strain name 'BLUE POWER' baked into the scene — crackling in the electric arc or stamped on a dark metal plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "blue-power.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -5365,6 +5410,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Snow Lotus is a Bodhi Seeds cross of Afgooey and Blockhead — a frosty, sweet-and-earthy plant that became one of Bodhi's most-used breeding males (it's behind Goji OG). The nose is sweet and earthy: berry and resin over a piney base. The effect is balanced and relaxing — a euphoric head with a comfortable body. It's resin-heavy and potent, prized for the frost and complexity it passes to its offspring. For Bodhi's foundational breeding genetics, Snow Lotus is a key line.",
     curatorQuote:
       "Berry and resin over a piney base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, sweet-and-earthy resin-heavy hybrid named Snow Lotus. A luminous white lotus flower blooming amid alpine snow at cold dawn, every petal rimed in glittering ice and a heavy resinous, trichome-like frost, soft berry-pink blush at the petal tips and dark pine boughs framing the still, snowy scene; a faint cold mist drifts low, a wet resin sheen catching the pale light. Berry and resin over a piney base, sweet and earthy. Palette serene and icy — frost-white and silver with soft berry pink and deep pine green over a pale blue-gold dawn, glittering ice sparkle and a resinous sheen. Mood: balanced and relaxing — a euphoric head with a comfortable body, frosty and complex. Cinematic, painterly, high-contrast, premium editorial poster, delicate and atmospheric. The strain name 'SNOW LOTUS' baked into the scene — carved into frosted stone or ice at the flower's base. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "snow-lotus.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
