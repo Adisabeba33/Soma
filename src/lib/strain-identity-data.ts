@@ -3332,6 +3332,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gelatti is a Cookies/Connected cross of Gelato and OGKB — Gelato's cream married to a cookie-gas funk. The nose is sweet and rich: creamy gelato over an earthy, gassy base, smooth rather than loud. The effect is balanced and easy — a euphoric, relaxed high that settles the body without flattening the head. It's frosty, potent and versatile, which is why it parents so many modern dessert crosses (Georgia Pie, Sticky Buns). For creamy Gelato with a little gas, Gelatti is a reliable building block.",
     curatorQuote:
       "Creamy gelato over an earthy, gassy base, smooth rather than loud.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a creamy, frosty cookie-gas dessert cross named Gelatti. A golden waffle cone piled high with creamy swirled gelato and crumbled cookie pieces, standing tall on a sunny Italian cobblestone street, a slow melt-drip catching warm afternoon light, a glistening frosted sheen on the cold cream; a faint curl of vapor carries an oily petrol-rainbow shimmer that hints at the gas underneath. Creamy gelato over an earthy, gassy base, smooth rather than loud. Palette warm and luscious — cream and caramel-gold with cookie-brown crumble over honeyed Italian street light, a frosty silver sheen and a faint petrol shimmer in the air. Mood: balanced and easy — a euphoric, relaxed high that settles the body, smooth and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'GELATTI' baked into the scene — hand-lettered on a gelateria sign or a small enamel cone tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "gelatti.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
