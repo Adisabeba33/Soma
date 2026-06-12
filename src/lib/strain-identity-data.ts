@@ -5219,7 +5219,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for an extremely frosty, sweet blue-fruit hybrid named Blue Power. A cluster of plump frosted blueberries crackling with raw electric-blue energy — jagged power arcs and a charged blue surge leaping between the fruit, glittering trichome-frost riming their skins, a faint oily petrol-rainbow shimmer threading the charged dark. Blueberry and berry over a faint gas. Palette electric and cool — deep blueberry blue and indigo with crackling electric cyan-white, frosted silver sparkle and a faint petrol shimmer over a dark dramatic shadow. Mood: balanced and relaxing — a euphoric head easing into a comfortable body, frosty and potent. Cinematic, painterly, high-contrast, premium editorial poster, charged and atmospheric. The strain name 'BLUE POWER' baked into the scene — crackling in the electric arc or stamped on a dark metal plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "blue-power.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
