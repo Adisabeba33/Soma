@@ -3974,6 +3974,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Chocolate Diesel is a Chocolate Thai × Sour Diesel cross — sour fuel with a dark, coffee-and-cocoa undertone — and the third parent of GG4. The nose is loud and gassy: sharp diesel and sour earth with a faint chocolate sweetness. The effect is up and racy — an energetic, heady cerebral lift with little body, a daytime sativa. It's potent and very loud, and its gas runs through the Glue line. For diesel with a cocoa edge, Chocolate Diesel is a distinctive parent cut.",
     curatorQuote:
       "Sharp diesel and sour earth with a faint chocolate sweetness.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a racy, gassy diesel sativa with a cocoa edge named Chocolate Diesel. A glossy pour of molten dark chocolate and coffee cascading over a slick surface, its rich brown sheen laced with an oily petrol-rainbow shimmer where the light catches it — sour fuel haze and warm coffee steam curling up together, decadent and chemical at once. Sharp diesel and sour earth ride over a dark chocolate sweetness. Palette rich and electric — deep cocoa brown and espresso black with an oily petrol-rainbow slick, sour-amber fuel highlights and a glossy molten sheen. Mood: up and racy — an energetic, heady cerebral lift with little body, a loud daytime sativa. Cinematic, painterly, high-contrast, premium editorial poster, glossy and atmospheric. The strain name 'CHOCOLATE DIESEL' baked into the scene — embossed in the chocolate or stamped on a worn metal plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "chocolate-diesel.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
