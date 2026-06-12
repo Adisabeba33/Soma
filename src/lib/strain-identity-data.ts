@@ -2338,6 +2338,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Triple Double OG is a heavy, OG-leaning indica that puts potency ahead of nuance. The nose is loud, classic OG — sharp fuel and pine over damp earth, all gas and no candy. Expect a fast euphoric head that gives way to a weighted, sedating body and, eventually, the pillow. There's not much daytime in it; this is a nightcap. For OG and gas lovers chasing a simple, heavy knockout, it fits the bill.",
     curatorQuote:
       "Sharp fuel and pine over damp earth, all gas and no candy.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, fuel-forward knockout OG indica named Triple Double OG — its name a basketball stat. A deserted outdoor basketball court at night under buzzing floodlights, a worn ball resting at center as a thick fuel haze rolls low across the cracked asphalt; the wet ground holds an oily petrol-rainbow sheen, pine-and-fuel funk hanging heavy in the cold floodlit air, all gas and no candy. Palette dark and gritty — sodium-amber floodlight over diesel-black asphalt and chain-link shadow, sharp pine green and a petrol-rainbow shimmer on the wet court. Mood: heavy and sedating — a fast euphoric head sinking into a weighted body, a pure nightcap. Cinematic, painterly, high-contrast, premium editorial poster, gritty and atmospheric. The strain name 'TRIPLE DOUBLE OG' baked into the scene — lit up on a worn courtside scoreboard or stenciled on the asphalt. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "triple-double-og.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
