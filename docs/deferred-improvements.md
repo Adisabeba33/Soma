@@ -710,6 +710,42 @@ and didn't do is itself valuable context.
 
 ---
 
+### #15 — Use the 89–93 band for an "exceptional alternative" tier (IDEA, not designed yet)
+
+- **Found:** 2026-06-12
+- **Source:** Owner idea.
+- **What:** Today 89–93 is an intentional empty gap (favourites sit 94–96,
+  every non-favourite caps at 88 — see `docs/scoring-scale.md`). Idea: open
+  89–93 as a narrow **elite "almost your favourite"** tier, so a truly
+  exceptional non-favourite match can rise above the 88 crowd. 94–96 stays
+  reserved for actual saved favourites.
+- **Sketch (needs more reasoning + calibration math before building):**
+  - Strict, conjunctive gate so only a handful qualify — e.g. the raw score
+    already at the 88 ceiling **AND** `referenceSimilarity` very high
+    (≥ ~90) **AND** exact `sensoryFamily` match with a favourite **AND** zero
+    conflicts.
+  - Bounded promotion 88 → max 93 from convergent "exceptional" points
+    (ref ≥ 90/95, exact sensoryFamily, exact archetype or lineage affinity
+    from #13).
+  - e.g. Triangle Kush on a GG4 + OG Kush profile (ref 97) currently caps at
+    88 but arguably deserves ~92.
+- **Trade-off:** Deliberately softens the "a new strain never poses as
+  basically your favourite" promise — the non-favourite ceiling becomes 93
+  (for the elite few) instead of 88. 94–96 still reserved, so the
+  favourite-vs-rest gap survives as `94–96 vs ≤93`.
+- **Why deferred:** Calibration-sensitive (some 88s become 90–93). Needs the
+  gate thresholds and the promotion curve worked out and validated so it
+  stays rare and doesn't inflate. **Pure engine** (no new fields / no
+  `db:push`), shippable to main once designed.
+- **Open questions:** gate strictness (ref ≥ 90 vs ≥ 88); just let the number
+  into 89–93 (category stays "Best Match") vs add a distinct **"Top Match"**
+  category (touches the `Category` type + UI).
+- **Estimated effort:** 2–4 hours once the numbers are decided + tests.
+- **Trigger to revisit:** When we choose to invest in the band; revisit the
+  thresholds together first.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
