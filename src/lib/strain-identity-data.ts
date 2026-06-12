@@ -2754,7 +2754,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for an extremely potent, loud, frosty exotic named Cap Junky. A frost-caked metal crown bottle-cap blasting off in a violent burst at night — an explosive eruption of mint-green vapor and sour, soapy iridescent foam, the cap and spray rimed in glittering trichome frost, an oily petrol-rainbow shimmer streaking the chaotic gritty dark. Loud and savoury-sweet in the air: mint, gas and a sour, soapy funk over a creamy base. Palette intense and electric — frost-white and mint green with soapy iridescent rainbow and petrol shimmer over a dark gritty backdrop, sour acid-green pops and creamy highlights. Mood: fast and overwhelming — a euphoric, heady rush sinking into a heavy body, extremely frosty, loud and humbling. Cinematic, painterly, high-contrast, premium editorial poster, explosive and atmospheric. The strain name 'CAP JUNKY' baked into the scene — stamped across the metal bottle-cap. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "cap-junky.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
