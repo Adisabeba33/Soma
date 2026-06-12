@@ -4941,7 +4941,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for an award-winning, heavy, frosty indica named Sensi Star. A single radiant crystalline star suspended in deep indigo night — faceted like a frost-coated metallic gem, glittering silver-white with a sharp lemon-gold glint and a cool chrome sheen across its edges, soft cosmic dust and a faint spicy-herbal haze drifting around it. Lemon and metal over a spicy, herbal base. Palette cosmic and metallic — frost-silver and chrome with a lemon-gold glint over deep indigo and violet night, glittering trichome-frost sparkle and a cool metallic shine. Mood: strongly relaxing — a euphoric head sinking into a heavy, numbing body, a dense evening indica. Cinematic, painterly, high-contrast, premium editorial poster, luminous and atmospheric. The strain name 'SENSI STAR' baked into the scene — etched into the star's metallic facets or the dark below. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "sensi-star.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
