@@ -5400,6 +5400,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Snow Lotus is a Bodhi Seeds cross of Afgooey and Blockhead — a frosty, sweet-and-earthy plant that became one of Bodhi's most-used breeding males (it's behind Goji OG). The nose is sweet and earthy: berry and resin over a piney base. The effect is balanced and relaxing — a euphoric head with a comfortable body. It's resin-heavy and potent, prized for the frost and complexity it passes to its offspring. For Bodhi's foundational breeding genetics, Snow Lotus is a key line.",
     curatorQuote:
       "Berry and resin over a piney base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, sweet-and-earthy resin-heavy hybrid named Snow Lotus. A luminous white lotus flower blooming amid alpine snow at cold dawn, every petal rimed in glittering ice and a heavy resinous, trichome-like frost, soft berry-pink blush at the petal tips and dark pine boughs framing the still, snowy scene; a faint cold mist drifts low, a wet resin sheen catching the pale light. Berry and resin over a piney base, sweet and earthy. Palette serene and icy — frost-white and silver with soft berry pink and deep pine green over a pale blue-gold dawn, glittering ice sparkle and a resinous sheen. Mood: balanced and relaxing — a euphoric head with a comfortable body, frosty and complex. Cinematic, painterly, high-contrast, premium editorial poster, delicate and atmospheric. The strain name 'SNOW LOTUS' baked into the scene — carved into frosted stone or ice at the flower's base. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "snow-lotus.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
