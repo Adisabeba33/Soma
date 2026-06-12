@@ -5392,6 +5392,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "White Gushers is a frost-selected, near-white phenotype of Gushers — the tropical candy of Gushers with extra trichome coverage. The nose is sweet and fruity: tropical candy and berry over a light gas. The effect is balanced and feel-good — a euphoric head with a relaxed body, sociable and potent. It's extremely frosty and flavour-forward, the prized cut of the Gushers line. For candy fruit with maximum frost, White Gushers is a standout.",
     curatorQuote:
       "Tropical candy and berry over a light gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an extremely frosty, near-white candy phenotype named White Gushers. Glossy tropical fruit-candy gushers caked and rimed in a thick, glittering blanket of pure white trichome frost — the heavy snow-white frost dominating, soft tropical berry and fruit colors barely glowing through the ice, a faint oily petrol-rainbow shimmer in the cold sweet mist. Tropical candy and berry over a light gas, buried under maximum frost. Palette icy and pale — dominant frost-white and silver-white sparkle with muted pastel berry, magenta and mango glowing faintly beneath, a faint petrol shimmer over a soft cool shadow. Mood: balanced and feel-good — a euphoric head with a relaxed body, sociable and ultra-frosty. Cinematic, painterly, high-contrast, premium editorial poster, glittering and appetizing. The strain name 'WHITE GUSHERS' baked into the scene — hand-lettered on a small enamel dessert tag or etched into the frost. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "white-gushers.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
