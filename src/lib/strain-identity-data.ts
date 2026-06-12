@@ -483,6 +483,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "A true cut is frosty, gassy-sweet, and unmistakably balanced.",
     tagline: "The balanced exotic",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for the benchmark balanced dessert exotic named Gelato. A single tall, elegant swirl of artisan gelato rising from a chilled cup as the hero — creamy sherbet folds of pink and violet ribboned with citrus-orange and berry-purple, a glistening frosted sheen sweating off the cold swirl, set against a soft warm Italian piazza dusk glowing behind it. The air is sweet and creamy: cream and sherbet with a citrus-berry twist over a low, balancing note of gas. Palette refined and luscious — sherbet pink, cream and violet with bright citrus-orange and berry pops, a frosty silver sheen against a warm amber-rose dusk glow. Mood: bright and social settling into easy body comfort — euphoric, balanced, frosty and gassy-sweet. Cinematic, painterly, high-contrast, premium editorial poster, elegant and appetizing. The strain name 'GELATO' baked into the scene — hand-lettered on a small enamel cup tag or a gelateria sign behind. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "gelato.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "high",
   },
   {
@@ -1262,6 +1267,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gelato 33 — the 'Larry Bird' pheno — is the original prized cut of Gelato, a Sunset Sherbet × Thin Mint GSC selection from the Cookies/Sherbinski camp. The nose is the Gelato benchmark: sweet sherbet and cream with a citrus-berry twist over a low note of gas, balanced and inviting. The effect is the reason it parents half the menu — a bright, euphoric, social lift that settles into easy body relaxation without knocking you out. It's frosty, flavourful and remarkably well-rounded, equally at home in the afternoon or evening. As the cut that defined modern Gelato, #33 is the reference everything else chases.",
     curatorQuote:
       "Sweet sherbet and cream with a citrus-berry twist over a low note of gas, balanced and inviting.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet, frosty, well-rounded dessert hybrid named Gelato 33 — the benchmark gelato cut. Lush artisan gelato scoops heaped in a chilled case at golden hour, sherbet pinks and creamy violets swirled with citrus-orange and berry-purple, a frosted icy sheen sweating off the cold scoops, a soft drip catching warm sunset light. The air is sweet and creamy: sherbet and cream with a citrus-berry twist over a faint cool sweetness. Palette luscious and inviting — pastel sherbet pink, cream and violet with bright citrus-orange and berry pops, a frosty silver sheen under a warm amber-gold sunset glow. Mood: bright and social settling into easy relaxation — euphoric, balanced, frosty and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'GELATO 33' baked into the scene — hand-lettered on a gelateria chalkboard sign or stamped on a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "gelato-33.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "high",
   },
   {
@@ -1452,6 +1462,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Strawberry Banana (Strawnana) is a Crockett Family cross — Banana Kush × a Strawberry Bubble Gum line — known for genuinely fruity flavour and heavy resin. The nose is sweet and ripe: strawberry and banana candy over a light earthy base, dessert-fruity and smooth. The effect is relaxing and happy — a euphoric, calming body high that leans indica without total couch-lock at moderate doses. It's potent and frosty, easy to enjoy for its flavour alone. For lovers of sweet, fruity, relaxing hybrids, Strawberry Banana is a tasty staple.",
     curatorQuote:
       "Strawberry and banana candy over a light earthy base, dessert-fruity and smooth.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet, fruity, relaxing indica-leaning hybrid named Strawberry Banana. Ripe strawberries and golden bananas heaped together on warm honeyed wood at late-afternoon golden hour — glistening red berries beaded with juice beside peeled, glossy banana, a soft sugared frost dusting their skins like trichomes, a slow drift of sweet candy steam in the warm light. The air is ripe and dessert-sweet: strawberry and banana candy over a light, soft earthy base. Palette warm and luscious — strawberry red and creamy banana yellow over honey-gold light and soft earthy brown, with a frosted sugary sheen and a mellow amber glow. Mood: relaxing and happy — a euphoric, calming body ease, smooth and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'STRAWBERRY BANANA' baked into the scene — branded into the wooden board or a small enamel fruit-crate tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "strawberry-banana.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -1650,6 +1665,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Bruce Banner — named for the Hulk's alter ego — is a cross of OG Kush and Strawberry Diesel, famous as one of the strongest strains by THC. The nose is sweet and gassy: strawberry and diesel over an earthy OG base, fruity with a fuel edge. The effect is fast and powerful — a euphoric, energetic cerebral rush that settles into a relaxed body, sativa-leaning but heavy-hitting. Its potency is the headline, so a little goes a long way for newer smokers. For people who want a strong, fast, fruity-gas sativa, Bruce Banner lives up to the name.",
     curatorQuote:
       "Strawberry and diesel over an earthy OG base, fruity with a fuel edge.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a fast, ultra-potent fruity-gas sativa named Bruce Banner — after the scientist who turns into raw, unstoppable power. An explosive eruption of green gamma energy bursting up through smashed, fractured concrete — jagged emerald lightning and a violent surge of toxic-green power tearing the ground apart, a diesel haze around it ignited with electric green and laced with a strawberry-red glow and faint petrol-rainbow shimmer. The air is sweet and gassy: strawberry and diesel over an earthy base, fruity with a fuel edge. Palette explosive and electric — radioactive emerald and acid green with crackling lightning, a hot strawberry-red core and diesel shadow, petrol shimmer in the haze. Mood: fast and overwhelming — a euphoric, energetic cerebral rush of raw power settling into a heavy body, sativa but hard-hitting. Cinematic, painterly, high-contrast, premium editorial poster, dynamic and explosive. The strain name 'BRUCE BANNER' baked into the scene — cracked and seared into the smashed concrete. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no comic characters, no cannabis leaves, buds or packaging.",
+    artFileName: "bruce-banner.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -2736,6 +2756,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Cap Junky is a hype-era heavyweight — a Capulator and Seed Junky collab crossing Kush Mints 11 and Alien Cookies — one of the loudest, most potent exotics of recent years. The nose is sharp and savoury-sweet: mint, gas and a sour, almost soapy funk over a creamy base, intense and unusual. The effect is fast and powerful — a euphoric, heady rush that settles into a heavy body, potent enough to humble experienced smokers. It's extremely frosty and very loud, a true connoisseur's exotic. For people chasing maximum potency and funk, Cap Junky is the deep end.",
     curatorQuote:
       "Mint, gas and a sour, almost soapy funk over a creamy base, intense and unusual.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an extremely potent, loud, frosty exotic named Cap Junky. A frost-caked metal crown bottle-cap blasting off in a violent burst at night — an explosive eruption of mint-green vapor and sour, soapy iridescent foam, the cap and spray rimed in glittering trichome frost, an oily petrol-rainbow shimmer streaking the chaotic gritty dark. Loud and savoury-sweet in the air: mint, gas and a sour, soapy funk over a creamy base. Palette intense and electric — frost-white and mint green with soapy iridescent rainbow and petrol shimmer over a dark gritty backdrop, sour acid-green pops and creamy highlights. Mood: fast and overwhelming — a euphoric, heady rush sinking into a heavy body, extremely frosty, loud and humbling. Cinematic, painterly, high-contrast, premium editorial poster, explosive and atmospheric. The strain name 'CAP JUNKY' baked into the scene — stamped across the metal bottle-cap. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "cap-junky.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3821,6 +3846,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Chem's Sister is a sativa-leaning female found in a pack of Chemdawg seeds — a cleaner, citrus-tinged take on the chem funk, and one of the three parents of GG4. The nose is sharp and bright: diesel and sour earth with a lemony lift. The effect is up and heady — a euphoric, talkative cerebral high with a light body. It's gassy, loud and potent, the sativa side of the Glue lineage. For a brighter cut of the Chem family, Chem's Sister is a key parent.",
     curatorQuote:
       "Diesel and sour earth with a lemony lift.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a bright, sativa-leaning citrus-chem cut named Chem's Sister — the lithe, lemony sister to Chemdawg's guard dog. A sleek, poised wildcat prowling through a sunlit back-lot at midday, lean and elegant where the dog was heavy; a bright lemon-gold light cuts through a thin sour-diesel haze, the cat's fur catching a faint silvery frost, an oily petrol-rainbow sheen shimmering on the warm asphalt. Sharp and bright in the air — diesel and sour earth with a lemony lift. Palette clean and electric — sour lemon-gold and citrus over cool gunmetal and chem-green haze, a sleek silver sheen with petrol-rainbow shimmer in the light. Mood: up and heady — a euphoric, talkative cerebral lift with a light body, gassy, loud and bright. Cinematic, painterly, high-contrast, premium editorial poster, sleek and atmospheric. The strain name 'CHEM'S SISTER' baked into the scene — stenciled on a sunlit back-lot wall or stamped on the cat's slim metal collar tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "chem-s-sister.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -4890,6 +4920,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "ACDC is a high-CBD phenotype of Cannatonic with a CBD:THC ratio so lopsided there's almost no intoxication at all. The nose is mild and earthy: sweet, woody pine over a faint herbal base. The effect is barely a 'high' — a clear, calm, focused ease that leaves the head functional. It's smooth and gentle, one of the most-recommended therapeutic CBD cuts. For calm with essentially no high, ACDC is a go-to.",
     curatorQuote:
       "Sweet, woody pine over a faint herbal base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a near-zero-high, calming CBD pine cut named ACDC — its name an electric current, its effect serene. Soft blue-white electric arcs flowing calmly through a misty pine forest at dusk, gentle ribbons of current threading between the trunks like quiet lightning that soothes rather than strikes, a clean glow settling over the woody ground. Sweet, woody pine over a faint herbal base in the cool, still air. Palette cool and clean — electric blue and soft white current over deep pine green and woody shadow, a calm teal glow and gentle luminous mist. Mood: clear, calm, focused — a barely-there high, smooth, gentle and grounding. Cinematic, painterly, high-contrast, premium editorial poster, serene and atmospheric. The strain name 'ACDC' baked into the scene — traced in the glowing electric arc or carved into pine woodgrain. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no band imagery, no cannabis leaves, buds or packaging.",
+    artFileName: "acdc.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -4923,6 +4958,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Charlotte's Web is the Stanley Brothers' famous high-CBD hemp line — named for Charlotte Figi, whose story put CBD on the map, and so low in THC it's effectively non-intoxicating. The nose is earthy and clean: pine and wood over a herbal, faintly floral base. The effect is barely psychoactive — a calm, focused, grounding ease with no real high. It's smooth and mild, a therapeutic cultivar more than a recreational one. For CBD with essentially zero high, Charlotte's Web is the icon.",
     curatorQuote:
       "Pine and wood over a herbal, faintly floral base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a calm, barely-psychoactive high-CBD hemp named Charlotte's Web. A delicate spider's web strung between pine boughs at soft dawn, every strand beaded with glistening morning dew that catches the first gentle light like tiny prisms; calm mist drifts through the quiet pine wood behind it, herbal and clean, a faint floral softness in the cool still air. Pine and wood over a herbal, faintly floral base. Palette serene and natural — soft sage green and dewy silver over warm pine wood and a pale gold dawn, gentle and luminous with delicate light. Mood: calm, focused, grounding — a clear, gentle ease with no real high, smooth and therapeutic. Cinematic, painterly, high-contrast, premium editorial poster, delicate and atmospheric. The strain name 'CHARLOTTE'S WEB' baked into the scene — carved into a weathered pine branch or woodgrain at the edge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "charlotte-s-web.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "high",
   },
   {
@@ -4937,6 +4977,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Ringo's Gift is a CBD-dominant cross of Harlequin and ACDC — named for CBD pioneer Lawrence Ringo, and built to push the ratio even further toward CBD. The nose is earthy and sweet: herbal pine and a light citrus over a woody base. The effect is gentle and clear — a relaxed, focused calm with minimal intoxication, functional and soothing. It's smooth and mild, a favourite for daytime therapeutic use. For a CBD-forward blend with a clear head, Ringo's Gift is a standout.",
     curatorQuote:
       "Herbal pine and a light citrus over a woody base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a gentle, clear-headed CBD-dominant blend named Ringo's Gift. A peaceful pine clearing at warm mid-morning, soft golden sunbeams streaming through the trees and forming glowing concentric rings of light in the herbal haze — a gift of warm calm light pooling on the woody forest floor, a faint citrus brightness and herbal pine softness in the still air. Herbal pine and light citrus over a woody base. Palette warm and serene — gentle gold and sage green over warm woody browns, luminous halos of soft sunlight and a clear citrus glow, calm and natural. Mood: gentle, focused, soothing — a relaxed, clear calm with minimal intoxication, functional and daytime-therapeutic. Cinematic, painterly, high-contrast, premium editorial poster, warm and atmospheric. The strain name 'RINGO'S GIFT' baked into the scene — carved into a weathered wooden trail post or woodgrain at the edge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "ringo-s-gift.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -5201,6 +5246,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "White Fire OG (WiFi OG) is an OG Raskal cross of Fire OG and The White — the gas of Fire OG with The White's extreme frost. The nose is loud OG: fuel and pine over an earthy, lemony funk. The effect is balanced — a euphoric, creative head with a relaxing body, usable across the day unlike many heavy OGs. It's extremely frosty and potent, a connoisseur's gas hybrid. For a frosty, balanced cut of OG genetics, WiFi is a modern favourite.",
     curatorQuote:
       "Fuel and pine over an earthy, lemony funk.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, gassy, balanced OG named White Fire OG. A ghostly white-blue flame burning impossibly cold over a dark, frost-crusted ridge at night — the fire the palest white-hot blue, throwing silver light across glittering trichome-frost on the pines below, fuel haze feeding the flame and shimmering with a faint petrol-rainbow edge. Loud OG in the cold air — fuel and pine over an earthy, lemony funk. Palette stark and electric — white-hot and icy blue flame over silver frost and deep pine-black, a touch of lemon-gold in the embers and faint oily shimmer in the haze. Mood: balanced and potent — a euphoric, creative head over a relaxing body, extremely frosty and gassy. Cinematic, painterly, high-contrast, premium editorial poster, dramatic and atmospheric. The strain name 'WHITE FIRE OG' baked into the scene — branded into the frosted ridge stone or seared in glowing embers. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "white-fire-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {

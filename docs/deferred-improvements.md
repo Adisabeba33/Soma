@@ -598,6 +598,118 @@ and didn't do is itself valuable context.
 
 ---
 
+### #13 — Lineage / genetics affinity layer
+
+- **Found:** 2026-06-12
+- **Source:** Owner's live testing of a GG4 + OG Kush + White Hot Guava
+  favourites profile (external expert read), reproduced against the engine.
+- **What:** In a favourites-only profile (no explicit preferred tags), every
+  sensory sub-score is NEUTRAL (52), so differentiation is dominated by
+  `referenceSimilarity` (raw tag-Jaccard with the favourites) plus the small
+  sensory-family bonus. A strain that is *genetically* OG/gas kin but whose
+  **surface tags have drifted** gets under-rewarded, because lineage is shown
+  in the UI but **never scored**.
+  - Reproduced (GG4 + OG Kush + White Hot Guava):
+    Triangle Kush 77 (ref 97), Larry OG 75 (ref 85), Gary Payton 71 (ref 72),
+    Marshmallow OG 57, **Pink Kush 56 (ref 40)**, Garlic Breath 56.
+  - Pink Kush is gas-og (same family as the favourites, gets +5) but its
+    `floral, sweet, earthy, gassy` tags dilute the Jaccard, so it lands near
+    "doesn't fit". Larry OG (a direct OG Kush child) scores fine because its
+    tags *also* overlap — but the win is for the wrong reason (tags, not the
+    OG Kush parentage).
+  - Note: adding White Hot Guava (a third, cross-family favourite) lifted
+    Gary Payton 57 → 71 — the multi-modal model (idea 1) working as intended.
+    So several apparent anomalies dissolve with a full 3-favourite profile;
+    **Pink Kush is the clean residual case** for this layer.
+
+- **Why deferred:** A new scoring layer is calibration-sensitive, and it only
+  helps where lineage is curated — and lineage data is currently **sparse**
+  (Pink Kush, Triangle Kush, Marshmallow OG have *no* parents recorded). So
+  it pairs with curation, and shouldn't be rushed.
+
+- **Potential fix (phased, like the multi-modal work):**
+  1. `src/lib/lineage-affinity.ts` — pure: given a candidate and the user's
+     favourites, return a bounded affinity from shared parents / shared
+     grandparents / same direct line (via the identity `lineage` data).
+     No-op (0) when either side has no lineage. + tests.
+  2. Engine: add `lineageMod` to `raw` under a gate; no-op when 0, so
+     existing calibration is untouched.
+  3. Curate lineage for the OG/gas anchors so the layer actually fires
+     (Pink Kush → Hindu Kush / OG kin, Triangle Kush → OG line, etc.).
+
+- **Estimated effort:** 4–6 hours engine + ongoing lineage curation.
+
+- **Trigger to revisit:** This entry (owner flagged it). Build when we pick
+  up the next engine improvement; it's the "family/genetics" signal the
+  expert independently intuited.
+
+- **Follow-up audit (2026-06-12) — it's a design choice, NOT a data/ranking
+  bug.** A second expert report flagged Pink Kush as under-scored (43–55%)
+  and suspected (1) wrong metadata, (2) a relaxation penalty, (3) a scoring
+  bias. We re-ran with the full profile (favs GG4/OG Kush/White Hot Guava;
+  preferred aromas gassy,diesel,earthy,pine,skunky,nutty; effects relaxed,
+  calm,happy,giggly,uplifted) and the audit refuted all three:
+  - **Metadata correct:** Pink Kush = `floral,sweet,earthy,gassy` /
+    `relaxed,sleepy,body-heavy,euphoric,calm`, gas-og. Accurate for a sweet,
+    sedating kush — not mis-tagged.
+  - **No penalty:** `conflicts` is empty.
+  - **No anti-Pink-Kush bias:** in the recommended *pure-Kush* test it ranks
+    at the **top** of the non-favourites — OG Kush 94 (anchor), **Pink Kush
+    55**, Kosher Kush 54, Hindu Kush 50, Purple Kush 43.
+  - **55% is honest:** the profile asks for pine/diesel/skunky + happy/giggly/
+    uplifted; Pink Kush matches only gassy,earthy and relaxed,calm (it's
+    sedating, no upbeat lift), so gassier/pinier kushes legitimately rank
+    above it for this gas-forward profile.
+  So **don't "fix" Pink Kush data.** Whether it should reach 65–75 is exactly
+  the question this #13 layer decides: should OG/Kush *kinship* outweigh the
+  user's stated sensory preferences? That's a deliberate call, not a bug.
+  (Optional cosmetic: real Pink Kush sometimes shows pine — adding `pine`
+  would nudge it a couple of points, but won't reach 65–75.)
+
+---
+
+### #14 — Family preference layer (seek / avoid by strain family)
+
+- **Found:** 2026-06-12
+- **Source:** Expert audit (Mint-family test) — distinguishes *sensory*
+  preference (Type A) from *family / buying* preference (Type B).
+- **What:** The engine models what a user likes to **smell and feel** (Type
+  A) very well, but not what they tend to **avoid buying by family** (Type
+  B). Concrete case: the user said they avoid Mint-family strains, yet a
+  Mint-only test scored them 60–73% — correctly, on sensory overlap. Both are
+  true: the smell fits, but the user mentally skips that family. A small,
+  bounded family modifier would capture real dispensary behaviour without
+  touching the sensory core.
+- **Key data nuance (don't key this on `sensoryFamily` alone):** the user's
+  "families" are two kinds:
+  1. **Sensory clusters** = our `sensoryFamily` (Haze, Purple, Cheese,
+     Dessert, Garlic, Gas-OG, Diesel-Chem, Fruit/Candy). These map directly.
+  2. **Token / lineage families** that span several sensory families. The 5
+     Mint test strains live in funky-exotic / gas-og / gelato-exotic /
+     dessert-cookies — but **all carry the `mint` token**. So "avoid Mint"
+     cannot be expressed as a single sensoryFamily; likewise "OG line" /
+     "Chem line" are lineage, not a cluster.
+- **Potential fix:**
+  1. A curated **named-family matcher** — each named family (Mint, OG, Chem,
+     Haze, Purple, Cheese, Dessert, Fruit, Garlic/Funk, …) defined as a union
+     of: sensoryFamily membership ∪ an aroma/flavour token (e.g. `mint`) ∪ a
+     name/lineage pattern. (For OG/Chem lines this can reuse the #13 lineage
+     data.)
+  2. Profile: `preferredFamilies` / `avoidedFamilies` (named-family keys).
+  3. Engine: a **bounded** `familyPreferenceMod` (≈ ±4–6 pts, i.e. ±3–7%) —
+     additive, NEVER overrides sensory matching; no-op when empty.
+  4. UI: "Strain families you seek out / usually avoid" in the profile and
+     describe flows.
+- **Schema / DB:** new columns `preferredFamilies` / `avoidedFamilies` →
+  needs `npm run db:push` (same constraint as the disliked-aromas/potency
+  PR B). Could share that migration so the owner runs db:push once.
+- **Estimated effort:** 5–7 hours engine + UI + curating the named-family
+  matchers (one-time).
+- **Trigger to revisit:** This entry. Pairs naturally with #13 (lineage) for
+  the OG/Chem line families.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
