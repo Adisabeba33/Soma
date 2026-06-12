@@ -4479,6 +4479,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Biskante is a Biscotti-leaning exotic — creamy cookie sweetness over a gassy, earthy base. The nose is rich and sweet: cookie and cream cut by a light gas. The effect is balanced and relaxing — a euphoric head easing into a comfortable body, versatile and potent. It's frosty and flavour-forward, in the polished Biscotti lane. For creamy cookie-gas dessert, Biskante is a smooth pick.",
     curatorQuote:
       "Cookie and cream cut by a light gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a creamy, frosty cookie-gas dessert exotic named Biskante. Elegant golden cookies stacked and dipped into a glossy pour of cream on a polished marble counter in warm Italian café light — rich cream ribboning over caramel-gold cookie, a soft dusting of sugar frost, a thin curl of vapor catching a faint oily petrol-rainbow shimmer that hints at the gas underneath. Cookie and cream cut by a light gas over an earthy base. Palette refined and warm — creamy ivory and caramel-gold over pale marble, a frosty silver sheen and a faint petrol shimmer under a honeyed amber glow. Mood: balanced and relaxing — a euphoric head easing into a comfortable body, polished and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, elegant and appetizing. The strain name 'BISKANTE' baked into the scene — hand-lettered on a small enamel café tag or etched into the marble. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "biskante.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
