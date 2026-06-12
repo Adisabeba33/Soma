@@ -249,7 +249,7 @@ export default function ExperienceOnboardingPage() {
       <div className="mt-10 space-y-7 rounded-2xl border border-border bg-card p-6">
         <Field
           label="Strains you loved"
-          hint="Your real anchors. 2–5 names is the sweet spot — fewer and the inference gets noisy, more and your strongest signal gets diluted."
+          hint="Your real anchors, in order of preference — most-loved first (the order affects your matches). 2–5 names is the sweet spot: fewer and the inference gets noisy, more and your strongest signal gets diluted."
           required
         >
           <TagInput

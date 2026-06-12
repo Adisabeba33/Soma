@@ -75,7 +75,14 @@ import { BATCH_QUALITY_TRAITS, labelFor } from "./vocab";
 // #1 unless the gap is large. Effect, aroma, flavor, trait, and ref
 // weights nudged down a couple of points to make room. Older v6 audits
 // stay readable but the absolute score distribution shifts a little.
-export const ENGINE_VERSION = "v7";
+// v7 → v8: favourite RANK now affects the score consistently. The
+// referenceSimilarity score is the position-WEIGHTED closeness (not the raw
+// closeness to the best-weighted favourite), and the position slope is
+// steepened ([1, .9, .82, .75, .7]). A strain resembling the user's #1
+// favourite scores a little above one resembling their #4 — favourites are
+// read most-loved-first. Single-favourite profiles are unchanged (weight 1.0).
+// Multi-favourite score distributions shift; older v7 audits stay readable.
+export const ENGINE_VERSION = "v8";
 
 const NEUTRAL = 52;
 
@@ -424,15 +431,15 @@ function qualityScore(
   return Math.round(26 + coverage * 74);
 }
 
-// Position-weighting on the favourite list. First favourite is the
-// strongest anchor (the strain the user most reliably represents their
-// taste with); each later position gets a small discount. Applied as a
-// multiplier on similarity during the best-of search — a candidate
-// that's slightly closer to favourite #3 than to favourite #1 still
-// reports against #1 if the gap is small enough. Reported score stays
-// the RAW similarity to the winner, so the user-visible "{strain} sits
-// closest to your taste" reading remains honest.
-const FAVORITE_POSITION_WEIGHTS = [1.0, 0.95, 0.9, 0.85, 0.8];
+// Position-weighting on the favourite list — favourites are read in DESCENDING
+// preference (most-loved first). The first favourite is the strongest anchor;
+// each later position is discounted. Applied as a multiplier on similarity
+// during the best-of search, and the WEIGHTED value is what the reference
+// score reports — so a candidate that resembles your #1 favourite scores
+// higher than one that resembles your #4, consistently (not only when the
+// discount flips which favourite wins). The slope is deliberate-but-moderate:
+// rank matters, visibly, without swamping the sensory signal.
+const FAVORITE_POSITION_WEIGHTS = [1.0, 0.9, 0.82, 0.75, 0.7];
 
 function favoritePositionWeight(index: number): number {
   return FAVORITE_POSITION_WEIGHTS[
@@ -450,7 +457,6 @@ function referenceSimilarity(
   if (resolved.length === 0) return { score: NEUTRAL, against: null };
 
   let bestWeighted = 0;
-  let bestRaw = 0;
   let against = resolved[0].name;
   for (let i = 0; i < resolved.length; i++) {
     const fav = resolved[i];
@@ -461,17 +467,16 @@ function referenceSimilarity(
     const weighted = sim * favoritePositionWeight(i);
     if (weighted > bestWeighted) {
       bestWeighted = weighted;
-      bestRaw = sim;
       against = fav.name;
     }
   }
-  // Reserve 100 strictly for canonical-name match above. After
-  // behavioural-weighted similarity, non-favourite strains can climb
-  // very close to 1.0 (Purple Punch vs GDP, for example), and we must
-  // not let that trigger the anchor floor via `ref.score === 100`.
-  // Cap at 99 so anchor logic stays driven by explicit favourite
-  // identity, not high similarity.
-  return { score: Math.min(99, Math.round(bestRaw * 100)), against };
+  // Report the position-WEIGHTED closeness: a strain that resembles a
+  // lower-ranked favourite scores a little below one that resembles the
+  // top favourite. (bestRaw is no longer needed.)
+  // 100 is reserved strictly for the canonical-name match above — weighted
+  // similarity is always ≤ raw and capped at 99, so a non-favourite can't
+  // trigger the anchor floor via `ref.score === 100`.
+  return { score: Math.min(99, Math.round(bestWeighted * 100)), against };
 }
 
 function dislikedConflicts(

@@ -88,7 +88,7 @@ export function TasteProfileForm({
       <Section
         index={1}
         title="Which strains have you loved?"
-        hint="Add the flower that has genuinely worked for you. SŌMA uses these as anchors for your sensory profile — the first one is treated as your primary reference."
+        hint="Add the flower that has genuinely worked for you, in order of preference — your most-loved first. SŌMA uses these as anchors, and the order matters: a strain that resembles your #1 favourite scores a little above one that resembles a lower-ranked pick."
       >
         <TagInput
           value={state.favoriteStrains}
