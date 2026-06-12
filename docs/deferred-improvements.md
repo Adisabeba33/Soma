@@ -598,6 +598,53 @@ and didn't do is itself valuable context.
 
 ---
 
+### #13 — Lineage / genetics affinity layer
+
+- **Found:** 2026-06-12
+- **Source:** Owner's live testing of a GG4 + OG Kush + White Hot Guava
+  favourites profile (external expert read), reproduced against the engine.
+- **What:** In a favourites-only profile (no explicit preferred tags), every
+  sensory sub-score is NEUTRAL (52), so differentiation is dominated by
+  `referenceSimilarity` (raw tag-Jaccard with the favourites) plus the small
+  sensory-family bonus. A strain that is *genetically* OG/gas kin but whose
+  **surface tags have drifted** gets under-rewarded, because lineage is shown
+  in the UI but **never scored**.
+  - Reproduced (GG4 + OG Kush + White Hot Guava):
+    Triangle Kush 77 (ref 97), Larry OG 75 (ref 85), Gary Payton 71 (ref 72),
+    Marshmallow OG 57, **Pink Kush 56 (ref 40)**, Garlic Breath 56.
+  - Pink Kush is gas-og (same family as the favourites, gets +5) but its
+    `floral, sweet, earthy, gassy` tags dilute the Jaccard, so it lands near
+    "doesn't fit". Larry OG (a direct OG Kush child) scores fine because its
+    tags *also* overlap — but the win is for the wrong reason (tags, not the
+    OG Kush parentage).
+  - Note: adding White Hot Guava (a third, cross-family favourite) lifted
+    Gary Payton 57 → 71 — the multi-modal model (idea 1) working as intended.
+    So several apparent anomalies dissolve with a full 3-favourite profile;
+    **Pink Kush is the clean residual case** for this layer.
+
+- **Why deferred:** A new scoring layer is calibration-sensitive, and it only
+  helps where lineage is curated — and lineage data is currently **sparse**
+  (Pink Kush, Triangle Kush, Marshmallow OG have *no* parents recorded). So
+  it pairs with curation, and shouldn't be rushed.
+
+- **Potential fix (phased, like the multi-modal work):**
+  1. `src/lib/lineage-affinity.ts` — pure: given a candidate and the user's
+     favourites, return a bounded affinity from shared parents / shared
+     grandparents / same direct line (via the identity `lineage` data).
+     No-op (0) when either side has no lineage. + tests.
+  2. Engine: add `lineageMod` to `raw` under a gate; no-op when 0, so
+     existing calibration is untouched.
+  3. Curate lineage for the OG/gas anchors so the layer actually fires
+     (Pink Kush → Hindu Kush / OG kin, Triangle Kush → OG line, etc.).
+
+- **Estimated effort:** 4–6 hours engine + ongoing lineage curation.
+
+- **Trigger to revisit:** This entry (owner flagged it). Build when we pick
+  up the next engine improvement; it's the "family/genetics" signal the
+  expert independently intuited.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
