@@ -5975,7 +5975,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty, fruity-cream dessert exotic named Gushlato — Gushers candy crossed with Gelato. Glossy tropical fruit-candy gushers bursting open mid-air, vivid juice splashing in a dynamic spray over a swirl of creamy gelato below — tropical berry and mango-bright juice exploding against soft cream, a frosted sheen on the cold gelato, a faint oily petrol-rainbow shimmer in the sweet mist. Tropical candy and berry over a creamy, lightly gassy base. Palette vivid and luscious — bright tropical magenta, mango-orange and berry-purple juice over creamy ivory and gelato pastels, a frosty silver sheen with a faint petrol shimmer. Mood: relaxing and euphoric — a happy head easing into a comfortable body, fun and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, glossy and appetizing. The strain name 'GUSHLATO' baked into the scene — hand-lettered on a small enamel dessert tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "gushlato.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "low",
   },
