@@ -643,6 +643,29 @@ and didn't do is itself valuable context.
   up the next engine improvement; it's the "family/genetics" signal the
   expert independently intuited.
 
+- **Follow-up audit (2026-06-12) — it's a design choice, NOT a data/ranking
+  bug.** A second expert report flagged Pink Kush as under-scored (43–55%)
+  and suspected (1) wrong metadata, (2) a relaxation penalty, (3) a scoring
+  bias. We re-ran with the full profile (favs GG4/OG Kush/White Hot Guava;
+  preferred aromas gassy,diesel,earthy,pine,skunky,nutty; effects relaxed,
+  calm,happy,giggly,uplifted) and the audit refuted all three:
+  - **Metadata correct:** Pink Kush = `floral,sweet,earthy,gassy` /
+    `relaxed,sleepy,body-heavy,euphoric,calm`, gas-og. Accurate for a sweet,
+    sedating kush — not mis-tagged.
+  - **No penalty:** `conflicts` is empty.
+  - **No anti-Pink-Kush bias:** in the recommended *pure-Kush* test it ranks
+    at the **top** of the non-favourites — OG Kush 94 (anchor), **Pink Kush
+    55**, Kosher Kush 54, Hindu Kush 50, Purple Kush 43.
+  - **55% is honest:** the profile asks for pine/diesel/skunky + happy/giggly/
+    uplifted; Pink Kush matches only gassy,earthy and relaxed,calm (it's
+    sedating, no upbeat lift), so gassier/pinier kushes legitimately rank
+    above it for this gas-forward profile.
+  So **don't "fix" Pink Kush data.** Whether it should reach 65–75 is exactly
+  the question this #13 layer decides: should OG/Kush *kinship* outweigh the
+  user's stated sensory preferences? That's a deliberate call, not a bug.
+  (Optional cosmetic: real Pink Kush sometimes shows pine — adding `pine`
+  would nudge it a couple of points, but won't reach 65–75.)
+
 ---
 
 ## Resolved
