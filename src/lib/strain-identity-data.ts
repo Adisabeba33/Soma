@@ -5137,7 +5137,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a creamy, frosty sherbet-cookie dessert exotic named Sherbacio. Smooth scoops of pastel sherbet — pistachio green and sherbet pink swirled with cream — quenelled in an elegant coupe with a golden biscotti cookie standing upright in it, a glistening frosted sheen sweating off the cold sorbet in soft cool light; a faint curl of vapor carries an oily petrol-rainbow shimmer hinting at the gassy cookie base. Sherbet and cream over a gassy, earthy cookie funk. Palette fresh and creamy — pastel pistachio green and sherbet pink with caramel-gold biscotti, a frosty silver sheen and a faint petrol shimmer over a soft pale glow. Mood: relaxing and euphoric — a happy head easing into a comfortable body, smooth and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, elegant and appetizing. The strain name 'SHERBACIO' baked into the scene — hand-lettered on a small enamel dessert tag or the coupe. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "sherbacio.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
