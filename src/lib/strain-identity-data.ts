@@ -3335,7 +3335,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a creamy, frosty cookie-gas dessert cross named Gelatti. A golden waffle cone piled high with creamy swirled gelato and crumbled cookie pieces, standing tall on a sunny Italian cobblestone street, a slow melt-drip catching warm afternoon light, a glistening frosted sheen on the cold cream; a faint curl of vapor carries an oily petrol-rainbow shimmer that hints at the gas underneath. Creamy gelato over an earthy, gassy base, smooth rather than loud. Palette warm and luscious — cream and caramel-gold with cookie-brown crumble over honeyed Italian street light, a frosty silver sheen and a faint petrol shimmer in the air. Mood: balanced and easy — a euphoric, relaxed high that settles the body, smooth and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'GELATTI' baked into the scene — hand-lettered on a gelateria sign or a small enamel cone tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "gelatti.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
