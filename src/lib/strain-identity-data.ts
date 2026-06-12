@@ -952,7 +952,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a heavyweight, sedating pine-gas OG named King Louis XIII — after the French king. An ornate baroque golden throne sitting deep in a dark, misty pine forest at night, gilded scrollwork and crimson velvet catching low candlelight; a thick pine-and-fuel haze rolls across the damp, earthy forest floor and coils around the throne, an oily petrol-rainbow shimmer threading the resinous dark. Sharp pine and gas over a damp, earthy forest floor, loud and deep. Palette regal and heavy — antique gold and crimson over deep pine-black and earthy shadow, candle-amber glow and a faint petrol shimmer in the misty haze. Mood: fast and sedating — a heavy body weight that drops into the couch and toward sleep, firmly nighttime. Cinematic, painterly, high-contrast, premium editorial poster, opulent and atmospheric. The strain name 'KING LOUIS XIII' baked into the scene — engraved into the throne's crest or a brass plaque at its base. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "king-louis-xiii.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
