@@ -1961,6 +1961,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Grape Gas — also sold as Grape Gasoline, Compound Genetics' cross of Grape Pie and Jet Fuel Gelato — welds candy grape to a sharp diesel funk, with the colour to match. On the nose, sweet grape and berry sit over a pungent, gassy base; it's loud in a way pure-candy strains aren't. The effect leans heavy: a warm euphoria that sinks into the body and points toward the evening. It's built for people who like their grape with a fuel edge rather than clean sweetness. Frosty, potent and unapologetically gassy.",
     curatorQuote:
       "On the nose, sweet grape and berry sit over a pungent, gassy base; it's loud in a way pure-candy strains aren't.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, frosty grape-and-fuel exotic named Grape Gas — also called Grape Gasoline. A cluster of swollen deep-purple grapes glistening in moody light, slicked with an oily gasoline sheen — petrol-rainbow iridescence dripping off the fruit and pooling below, a sweet grape mist tangled with sharp fuel haze, a faint silver trichome frost dusting the skins. Sweet grape and berry sit over a pungent, gassy base, loud and unapologetic. Palette rich and electric — deep grape purple and berry-violet with an oily petrol-rainbow slick, frosted silver highlights over a dark moody shadow. Mood: heavy and warm — a sinking euphoria that points toward the evening, frosty, potent and gassy. Cinematic, painterly, high-contrast, premium editorial poster, glossy and atmospheric. The strain name 'GRAPE GAS' baked into the scene — stamped on a worn metal plate or embossed in the dark surface. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "grape-gas.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
