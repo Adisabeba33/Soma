@@ -2797,6 +2797,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Gassy, earthy truffle over a faint berry sweetness, pungent and unusual.",
     tagline: "Earth mushroom funk",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a savoury, frosty, gassy exotic named Black Truffle. A prized dark, knobbly black truffle resting on rich damp forest soil under dramatic low light — its rough surface dusted with glittering silver frost like trichomes, an earthy savoury haze curling around it laced with a faint oily petrol-rainbow shimmer, a hint of dark berry in the deep shadow. Gassy, earthy truffle over a faint berry sweetness, pungent and unusual. Palette dark and rich — deep earthy browns and truffle-black with frosted silver highlights, a faint petrol shimmer and a touch of berry-violet in the moody shadow. Mood: relaxing and potent — a happy head sinking into body weight, a loud, savoury evening pick. Cinematic, painterly, high-contrast, premium editorial poster, moody and atmospheric. The strain name 'BLACK TRUFFLE' baked into the scene — branded into a wooden crate or stamped on a small enamel tag beside it. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "black-truffle.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
