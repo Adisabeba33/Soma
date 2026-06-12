@@ -4254,6 +4254,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Jelly Donutz is a sweet berry-pastry exotic — jammy fruit over a doughy, lightly gassy base, built for dessert flavour. The nose is sweet and rich: mixed berry jam and sugar over a faint gas. The effect is relaxing and happy — a euphoric head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, an easy-drinking dessert cut. For berry-and-pastry sweetness, Jelly Donutz is a tasty pick.",
     curatorQuote:
       "Mixed berry jam and sugar over a faint gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet berry-pastry dessert exotic named Jelly Donutz. A plump sugar-dusted jelly donut split open with glossy mixed-berry jam oozing out, golden fried dough crackling with a sparkling sugar-frost coating in warm bakery light, a curl of sweet steam carrying a faint oily petrol-rainbow shimmer that hints at the light gas. Mixed berry jam and sugar over a doughy, faintly gassy base. Palette warm and luscious — golden fried dough and powdered-sugar white with deep berry-red jam, a sparkling sugar-frost sheen and a faint petrol shimmer under a honeyed glow. Mood: relaxing and happy — a euphoric head easing into a comfortable body, sweet and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'JELLY DONUTZ' baked into the scene — hand-lettered on a bakery sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "jelly-donutz.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
