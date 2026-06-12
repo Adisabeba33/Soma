@@ -115,12 +115,16 @@ function emptyProfile(notes: string): InferredProfile {
     preferredFlavors: [],
     preferredEffects: [],
     dislikedEffects: [],
+    dislikedAromas: [],
     texturePreferences: [],
     qualityPriorities: [],
     primaryAroma: "",
     primaryEffect: "",
     useTime: "",
     bodyFeel: null,
+    potencyPreference: "",
+    preferredFamilies: [],
+    avoidedFamilies: [],
     lookingFor: "similar",
     notes,
   };
@@ -163,6 +167,7 @@ export function inferProfileFromDescription(input: string): InferredProfile {
   const flavorSet = new Set<string>();
   const effectSet = new Set<string>();
   const dislikedEffectSet = new Set<string>();
+  const dislikedAromaSet = new Set<string>();
   const aromaFamilyCounts = new Map<string, number>();
   const primaryEffectCounts = new Map<string, number>();
 
@@ -183,14 +188,18 @@ export function inferProfileFromDescription(input: string): InferredProfile {
     const positiveMain =
       cmp?.index != null ? positivePart.slice(0, cmp.index) : positivePart;
 
-    // SMELLS — positive only. (Negated smells have no home yet — a disliked-
-    // aroma channel is tracked separately as ISSUE-2.)
+    // SMELLS — wanted from the positive head, avoided from the negated tail.
     for (const [token, re] of SMELL_TRIGGERS) {
-      if (!re.test(positiveMain)) continue;
-      if (AROMA_VALUES.has(token)) aromaSet.add(token);
-      if (FLAVOR_VALUES.has(token)) flavorSet.add(token);
-      const fam = AROMA_TO_PRIMARY[token];
-      if (fam) aromaFamilyCounts.set(fam, (aromaFamilyCounts.get(fam) ?? 0) + 1);
+      if (re.test(positiveMain)) {
+        if (AROMA_VALUES.has(token)) aromaSet.add(token);
+        if (FLAVOR_VALUES.has(token)) flavorSet.add(token);
+        const fam = AROMA_TO_PRIMARY[token];
+        if (fam) aromaFamilyCounts.set(fam, (aromaFamilyCounts.get(fam) ?? 0) + 1);
+      } else if (negatedPart && re.test(negatedPart)) {
+        if (AROMA_VALUES.has(token) || FLAVOR_VALUES.has(token)) {
+          dislikedAromaSet.add(token);
+        }
+      }
     }
 
     // EFFECTS — wanted from the positive head, avoided from the negated tail.
@@ -208,11 +217,16 @@ export function inferProfileFromDescription(input: string): InferredProfile {
 
   // A token can't be both wanted and unwanted — explicit dislike wins.
   for (const d of dislikedEffectSet) effectSet.delete(d);
+  for (const d of dislikedAromaSet) {
+    aromaSet.delete(d);
+    flavorSet.delete(d);
+  }
 
   profile.preferredAromas = [...aromaSet];
   profile.preferredFlavors = [...flavorSet];
   profile.preferredEffects = [...effectSet];
   profile.dislikedEffects = [...dislikedEffectSet];
+  profile.dislikedAromas = [...dislikedAromaSet];
 
   // Use-time: only set when a SINGLE time is indicated. Conflicting times
   // (a multi-mode describer) are left blank so the engine can stay
@@ -233,6 +247,21 @@ export function inferProfileFromDescription(input: string): InferredProfile {
   const light = /\b(light|clear ?head\w*|functional|not ?heavy|daytime|productive|energ\w*|clean)\b/.test(text);
   if (heavy && !light) profile.bodyFeel = 72;
   else if (light && !heavy) profile.bodyFeel = 30;
+
+  // Potency preference: how hard-hitting they want it. "not too strong" reads
+  // as mild; an unqualified "strong/potent" as strong.
+  const wantsMild =
+    /\b(mild|easy[- ]?going|easy|beginner|low ?key|lowkey|gentle|microdose|not ?too ?(strong|potent|heavy)|nothing ?too ?(strong|potent|heavy))\b/.test(
+      text,
+    );
+  const wantsStrong =
+    /\b(strong|potent|heavy[- ]?hit\w*|hard[- ]?hit\w*|pack\w* a punch|high ?tolerance)\b/.test(
+      text,
+    );
+  // Mild wins ties: its cues are more specific and include "(not) too
+  // strong", which also trips the bare-"strong" check below.
+  if (wantsMild) profile.potencyPreference = "mild";
+  else if (wantsStrong) profile.potencyPreference = "strong";
 
   // Looking-for: explicit appetite for novelty.
   if (/\b(new|different|surprise|explore|adventurous|something ?else|try ?something|branch ?out)\b/.test(text)) {

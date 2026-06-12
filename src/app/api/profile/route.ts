@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
 import { asArray, asText } from "@/lib/api";
 import { detectProfileContradictions } from "@/lib/profile-contradictions";
+import { isFamilyKey } from "@/lib/strain-families";
 import {
   isPrimaryAroma,
   isPrimaryEffect,
@@ -20,6 +21,9 @@ const asBodyFeel = (value: unknown): number | null => {
   if (typeof value !== "number" || Number.isNaN(value)) return null;
   return Math.max(0, Math.min(100, Math.round(value)));
 };
+
+const asPotency = (value: unknown): "mild" | "balanced" | "strong" | null =>
+  value === "mild" || value === "balanced" || value === "strong" ? value : null;
 
 export const dynamic = "force-dynamic";
 
@@ -48,6 +52,7 @@ async function upsertProfile(req: NextRequest) {
     preferredFlavors: asArray(body.preferredFlavors),
     preferredEffects: asArray(body.preferredEffects),
     dislikedEffects: asArray(body.dislikedEffects),
+    dislikedAromas: asArray(body.dislikedAromas),
     texturePreferences: asArray(body.texturePreferences),
     qualityPriorities: asArray(body.qualityPriorities),
     referenceStrain: asText(body.referenceStrain, 120),
@@ -56,6 +61,9 @@ async function upsertProfile(req: NextRequest) {
     primaryEffect: asEnum(body.primaryEffect, isPrimaryEffect),
     useTime: asEnum(body.useTime, isUseTime),
     bodyFeel: asBodyFeel(body.bodyFeel),
+    potencyPreference: asPotency(body.potencyPreference),
+    preferredFamilies: asArray(body.preferredFamilies).filter(isFamilyKey),
+    avoidedFamilies: asArray(body.avoidedFamilies).filter(isFamilyKey),
     notes: asText(body.notes, 2000),
   };
 

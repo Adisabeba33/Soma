@@ -19,7 +19,7 @@ import {
   type PrimaryEffect,
   type UseTime,
 } from "./profile-target";
-import type { StrainProfile } from "./types";
+import type { PotencyPreference, StrainProfile } from "./types";
 
 export interface ExperienceInput {
   loved: string[];
@@ -40,12 +40,16 @@ export interface InferredProfile {
   preferredFlavors: string[];
   preferredEffects: string[];
   dislikedEffects: string[];
+  dislikedAromas: string[];
   texturePreferences: string[];
   qualityPriorities: string[];
   primaryAroma: PrimaryAroma | "";
   primaryEffect: PrimaryEffect | "";
   useTime: UseTime | "";
   bodyFeel: number | null;
+  potencyPreference: PotencyPreference | "";
+  preferredFamilies: string[];
+  avoidedFamilies: string[];
   lookingFor: "similar" | "new";
   notes: string;
 }
@@ -168,12 +172,16 @@ export function inferProfileFromExperience(
       preferredFlavors,
       preferredEffects,
       dislikedEffects,
+      dislikedAromas: [],
       texturePreferences: [],
       qualityPriorities: [],
       primaryAroma,
       primaryEffect,
       useTime,
       bodyFeel,
+      potencyPreference: "",
+      preferredFamilies: [],
+      avoidedFamilies: [],
       lookingFor: "similar",
       notes: "",
     },

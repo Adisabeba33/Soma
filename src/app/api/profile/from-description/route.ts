@@ -17,10 +17,12 @@ function hasSignal(p: InferredProfile): boolean {
     p.preferredFlavors.length > 0 ||
     p.preferredEffects.length > 0 ||
     p.dislikedEffects.length > 0 ||
+    p.dislikedAromas.length > 0 ||
     p.useTime !== "" ||
     p.primaryAroma !== "" ||
     p.primaryEffect !== "" ||
-    p.bodyFeel !== null
+    p.bodyFeel !== null ||
+    p.potencyPreference !== ""
   );
 }
 

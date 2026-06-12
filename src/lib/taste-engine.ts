@@ -18,12 +18,15 @@ import {
 } from "./behavioral-family";
 import { primaryAromaTokens, type ResolvedTarget } from "./profile-target";
 import { deriveTasteModes } from "./taste-modes";
+import { lineageAffinity } from "./lineage-affinity";
+import { familyMatches } from "./strain-families";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
 import type {
   AnalysisResult,
   Category,
   Confidence,
   FeedbackSignal,
+  Potency,
   StrainMatch,
   StrainProfile,
   StrainType,
@@ -367,6 +370,44 @@ const QUALITY_SIGNALS: Record<
   appearance: { traits: ["frosty", "dense-buds"] },
 };
 
+// Potency preference (cold-start ISSUE-6). Bounded nudge: penalise a clear
+// strength mismatch, small reward on a clean match. Absent / "balanced" is a
+// no-op, so existing profiles are unaffected.
+const POTENCY_RANK: Record<Potency, number> = {
+  mild: 0,
+  moderate: 1,
+  strong: 2,
+  "very-strong": 3,
+};
+// Family preference (#14). Bounded buying-behaviour nudge: a strain in a
+// family the user seeks out gets +, one in a family they avoid gets − — never
+// enough to override sensory matching. No-op when both lists are empty.
+const FAMILY_PREF_BONUS = 5;
+function familyPreferenceContribution(
+  strain: StrainProfile,
+  preferred: string[] | undefined,
+  avoided: string[] | undefined,
+): number {
+  let mod = 0;
+  if (preferred?.some((k) => familyMatches(strain, k))) mod += FAMILY_PREF_BONUS;
+  if (avoided?.some((k) => familyMatches(strain, k))) mod -= FAMILY_PREF_BONUS;
+  return mod;
+}
+
+function potencyContribution(
+  potency: Potency,
+  pref: string | null | undefined,
+): number {
+  const rank = POTENCY_RANK[potency];
+  if (pref === "mild") {
+    return rank <= 1 ? (rank === 0 ? 2 : 0) : rank === 2 ? -3 : -6;
+  }
+  if (pref === "strong") {
+    return rank >= 2 ? (rank === 3 ? 2 : 0) : rank === 1 ? -3 : -6;
+  }
+  return 0; // "balanced", null, or unknown → no-op
+}
+
 function qualityScore(
   strain: StrainProfile,
   qualityPriorities: string[],
@@ -453,6 +494,10 @@ function dislikedConflicts(
   const reconciledEffects = dislikedEffects.filter(
     (e) => !favorites.some((f) => f.effects.includes(e)),
   );
+  const dislikedAromas = profile.dislikedAromas ?? [];
+  const reconciledAromas = dislikedAromas.filter(
+    (a) => !favorites.some((f) => f.aromas.includes(a) || f.flavors.includes(a)),
+  );
 
   const conflicts: string[] = [];
   const has = (...tags: string[]) =>
@@ -490,6 +535,15 @@ function dislikedConflicts(
     if (strain.effects.includes(e)) {
       conflicts.push(
         `${labelFor(e).toLowerCase()}, which you said you want to avoid`,
+      );
+    }
+  }
+  // Aroma dislikes are explicit (vocab-aligned) too — a strain carrying a
+  // smell/flavour the user avoids becomes a conflict, same magnitude.
+  for (const a of reconciledAromas) {
+    if (strain.aromas.includes(a) || strain.flavors.includes(a)) {
+      conflicts.push(
+        `a ${labelFor(a).toLowerCase()} character, which you said you want to avoid`,
       );
     }
   }
@@ -924,6 +978,16 @@ export function scoreStrain(
   // coerce to [] at this single seam.
   const texture = textureScore(strain, profile.texturePreferences ?? []);
   const quality = qualityScore(strain, profile.qualityPriorities ?? []);
+  const potencyMod = potencyContribution(strain.potency, profile.potencyPreference);
+  // Lineage affinity (#13): bounded kinship bonus that surface tags miss.
+  // No-op (0) when the candidate has no curated lineage.
+  const lineageMod = lineageAffinity(strain.name, profile.favoriteStrains);
+  // Family preference (#14): bounded seek/avoid nudge. No-op when unset.
+  const familyPrefMod = familyPreferenceContribution(
+    strain,
+    profile.preferredFamilies,
+    profile.avoidedFamilies,
+  );
 
   // Multi-modal selection: credit the candidate by the taste mode it fits
   // best (highest target-driven value at the current weights). deriveTasteModes
@@ -973,7 +1037,10 @@ export function scoreStrain(
     archetypeBonus +
     textureMod +
     familyMod +
-    sensoryMod;
+    sensoryMod +
+    potencyMod +
+    lineageMod +
+    familyPrefMod;
   const penalty = Math.min(42, conflicts.length * 15);
   // Pre-calibration score with decimal precision. Same formula as the
   // visible matchScore but without anchor floor, 99 base cap, or 88

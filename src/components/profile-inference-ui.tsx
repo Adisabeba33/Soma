@@ -99,6 +99,54 @@ export function PreviewBlock({
   );
 }
 
+export function FamilyMultiSelect({
+  label,
+  hint,
+  options,
+  selected,
+  onToggle,
+  tone = "neutral",
+}: {
+  label: string;
+  hint?: string;
+  options: { value: string; label: string }[];
+  selected: string[];
+  onToggle: (value: string) => void;
+  tone?: "neutral" | "warning";
+}) {
+  return (
+    <div className="rounded-xl border border-border bg-card p-4">
+      <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        {label}
+      </p>
+      {hint && <p className="mt-0.5 text-xs text-muted-foreground">{hint}</p>}
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {options.map((o) => {
+          const active = selected.includes(o.value);
+          return (
+            <button
+              type="button"
+              key={o.value}
+              onClick={() => onToggle(o.value)}
+              aria-pressed={active}
+              className={cn(
+                "rounded-full border px-3 py-1 text-xs transition-colors",
+                active
+                  ? tone === "warning"
+                    ? "border-brass bg-brass/15 text-brass"
+                    : "border-accent bg-accent text-accent-foreground"
+                  : "border-border bg-card text-muted-foreground hover:border-accent/40 hover:text-foreground",
+              )}
+            >
+              {o.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export function ForcedChoicePreview({
   label,
   value,
