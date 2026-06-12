@@ -2696,6 +2696,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Hippie Crasher crosses Kush Mints with Wedding Crasher, marrying cool minty cookie to grape-and-gas funk. The nose is layered — mint and cookie up front, grape and fuel underneath, sweet and savoury at the same time. The effect is balanced and unhurried: a clear euphoric head that drifts into easy body comfort, good from afternoon on. It's very frosty and flavour-forward, the kind of cut connoisseurs hunt. For mint-and-grape gas done well, it's a tasty pick.",
     curatorQuote:
       "Mint and cookie up front, grape and fuel underneath, sweet and savoury at the same time.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, mint-and-grape gas exotic named Hippie Crasher. A retro 1970s flower-power camper van parked at a warm desert sunset, its painted panels swirling with tie-dye in cool mint green and grape purple, beaded curtains and groovy chrome catching the golden light; a soft incense-and-fuel haze drifts around it, threaded with a faint oily petrol-rainbow shimmer, a glittering frost sparkle on the windows. Mint and cookie up front, grape and fuel underneath — sweet and savoury at once. Palette psychedelic and warm — swirling mint green and grape violet over a honey-amber sunset and dusty desert gold, chrome glints and a faint petrol shimmer in the hazy air. Mood: balanced and unhurried — a clear euphoric head drifting into easy body comfort, groovy and mellow. Cinematic, painterly, high-contrast, premium editorial poster, retro and atmospheric. The strain name 'HIPPIE CRASHER' baked into the scene — hand-painted in groovy 70s lettering on the van or a roadside wooden sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "hippie-crasher.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
