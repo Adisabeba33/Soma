@@ -668,6 +668,48 @@ and didn't do is itself valuable context.
 
 ---
 
+### #14 — Family preference layer (seek / avoid by strain family)
+
+- **Found:** 2026-06-12
+- **Source:** Expert audit (Mint-family test) — distinguishes *sensory*
+  preference (Type A) from *family / buying* preference (Type B).
+- **What:** The engine models what a user likes to **smell and feel** (Type
+  A) very well, but not what they tend to **avoid buying by family** (Type
+  B). Concrete case: the user said they avoid Mint-family strains, yet a
+  Mint-only test scored them 60–73% — correctly, on sensory overlap. Both are
+  true: the smell fits, but the user mentally skips that family. A small,
+  bounded family modifier would capture real dispensary behaviour without
+  touching the sensory core.
+- **Key data nuance (don't key this on `sensoryFamily` alone):** the user's
+  "families" are two kinds:
+  1. **Sensory clusters** = our `sensoryFamily` (Haze, Purple, Cheese,
+     Dessert, Garlic, Gas-OG, Diesel-Chem, Fruit/Candy). These map directly.
+  2. **Token / lineage families** that span several sensory families. The 5
+     Mint test strains live in funky-exotic / gas-og / gelato-exotic /
+     dessert-cookies — but **all carry the `mint` token**. So "avoid Mint"
+     cannot be expressed as a single sensoryFamily; likewise "OG line" /
+     "Chem line" are lineage, not a cluster.
+- **Potential fix:**
+  1. A curated **named-family matcher** — each named family (Mint, OG, Chem,
+     Haze, Purple, Cheese, Dessert, Fruit, Garlic/Funk, …) defined as a union
+     of: sensoryFamily membership ∪ an aroma/flavour token (e.g. `mint`) ∪ a
+     name/lineage pattern. (For OG/Chem lines this can reuse the #13 lineage
+     data.)
+  2. Profile: `preferredFamilies` / `avoidedFamilies` (named-family keys).
+  3. Engine: a **bounded** `familyPreferenceMod` (≈ ±4–6 pts, i.e. ±3–7%) —
+     additive, NEVER overrides sensory matching; no-op when empty.
+  4. UI: "Strain families you seek out / usually avoid" in the profile and
+     describe flows.
+- **Schema / DB:** new columns `preferredFamilies` / `avoidedFamilies` →
+  needs `npm run db:push` (same constraint as the disliked-aromas/potency
+  PR B). Could share that migration so the owner runs db:push once.
+- **Estimated effort:** 5–7 hours engine + UI + curating the named-family
+  matchers (one-time).
+- **Trigger to revisit:** This entry. Pairs naturally with #13 (lineage) for
+  the OG/Chem line families.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
