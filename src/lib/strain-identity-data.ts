@@ -4531,7 +4531,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty, minty-sweet sherbet exotic named Sunset Mintz. A dreamy sherbet-toned sunset sky in soft pink, peach and cream melting down to a cool mint-green misty meadow below — the warm dessert-colored clouds meeting a frosty mint haze where they touch, a glittering trichome-frost sparkle drifting in the still air with a faint oily petrol-rainbow shimmer hinting at the light gas. Sweet sherbet and cream over a cool mint and light gas. Palette dreamy and two-toned — sherbet pink, peach and cream above, cool mint green and frost-silver below, with a faint petrol shimmer in the haze. Mood: balanced and relaxing — a euphoric head easing into a calm body, evening-leaning and serene. Cinematic, painterly, high-contrast, premium editorial poster, soft and atmospheric. The strain name 'SUNSET MINTZ' baked into the scene — carved into a weathered wooden sign or stone at the meadow's edge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "sunset-mintz.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "low",
   },
