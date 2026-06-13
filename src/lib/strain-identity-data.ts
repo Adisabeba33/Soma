@@ -3138,7 +3138,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a gassy vanilla-cake dessert hybrid named E85 — after high-octane racing fuel. A bold yellow-and-black E85 racing fuel-grade badge mounted on slick chrome, a slice of creamy vanilla cake sitting beside it on the metal, fuel fumes and heat-haze rising with an oily petrol-rainbow sheen pooling on the chrome, a sugar-frost sparkle on the cake. Vanilla cake sweetness over a sharp diesel funk, dessert with a fuel chaser. Palette high-octane and rich — racing yellow and black with creamy vanilla-white cake and chrome, a petrol-rainbow shimmer and heat haze over a dark shadow. Mood: potent and balanced-leaning-relaxed — a euphoric head over a comfortable body, frosty and loud. Cinematic, painterly, high-contrast, premium editorial poster, glossy and atmospheric. The strain name 'E85' baked into the scene — printed boldly on the yellow fuel-grade badge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "e85.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
