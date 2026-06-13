@@ -5772,6 +5772,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Cheese Quake is a TGA/Subcool cross of UK Cheese and Querkle — tangy dairy funk meeting sweet purple grape. The nose is unusual and loud: cheese and sour funk over a sweet grape-berry base. The effect is balanced and relaxing — a euphoric head easing into a comfortable body, versatile across the day. It's frosty and flavour-forward, a savoury-sweet oddity. For cheese-and-grape character, Cheese Quake is a distinctive pick.",
     curatorQuote:
       "Cheese and sour funk over a sweet grape-berry base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a savoury-sweet cheese-and-grape exotic named Cheese Quake — playing on a quake. A massive wedge of tangy aged cheese splitting apart along a dramatic earthquake fissure, deep-purple grapes and berries spilling and tumbling out of the jagged crack, dust and a funky haze rising from the rupture, a glittering trichome-frost dusting the surfaces. Cheese and sour funk over a sweet grape-berry base. Palette bold and unusual — golden aged-cheese yellow and grape purple with berry-violet, a frosty silver sparkle and a dusty funk haze over a dramatic dark shadow. Mood: balanced and relaxing — a euphoric head easing into a comfortable body, savoury-sweet and loud. Cinematic, painterly, high-contrast, premium editorial poster, dramatic and appetizing. The strain name 'CHEESE QUAKE' baked into the scene — stamped on a wooden crate or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "cheese-quake.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
