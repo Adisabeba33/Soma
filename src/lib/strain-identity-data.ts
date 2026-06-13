@@ -114,6 +114,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "The nose blends OG's pine and gas with a sweeter, herbal-spice undertone, a touch fruitier than a straight OG cut.",
     tagline: "Sedation hyperspace",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an indica-heavy, sedating gas-OG named Skywalker OG — a dreamy hyperspace sky-walk theme. A glowing trail of light stepping up into the night sky above a sea of clouds, streaking hyperspace stars stretching to a vanishing point overhead, dark pine silhouettes far below; a fuel-pine haze drifts through the dreamy cosmic air with a faint oily petrol-rainbow shimmer. OG's pine and gas with a sweeter herbal-spice undertone. Palette dreamy and cosmic — deep indigo and violet night with streaking white-gold starlight, pine-green silhouettes and a faint petrol shimmer over cloud-silver. Mood: quick, dreamy heaviness — a body-wrapping calm that quiets the head, a deep evening sinker. Cinematic, painterly, high-contrast, premium editorial poster, dreamy and atmospheric. The strain name 'SKYWALKER OG' baked into the scene — carved into a floating sky-stone or etched along the light trail. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no recognizable franchise designs, no cannabis leaves, buds or packaging.",
+    artFileName: "skywalker-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
 
@@ -651,6 +656,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Minty, cookie-dough sweetness over a gassy, earthy funk, the kind of profile that reads dessert and fuel at once.",
     tagline: "Cool minted body",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, minty-gas cookie exotic named Animal Mints. A pile of golden animal-shaped cookies (animal crackers) dusted with a glittering mint-green sugar frost, a cool minty vapor curling over them, a faint oily petrol-rainbow shimmer threading the haze to hint at the gas, warm-meets-cool bakery light. Minty, cookie-dough sweetness over a gassy, earthy funk. Palette cosy and cool — golden cookie-brown and cream with mint-green sugar frost and a frosty silver sparkle, a faint petrol shimmer over a soft shadow. Mood: heavy and euphoric — a warm, happy head sinking into full body relaxation, frosty and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'ANIMAL MINTS' baked into the scene — hand-lettered on a cookie-box label or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "animal-mints.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -2439,6 +2449,11 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "The nose is warm and sweet, vanilla and butter with an earthy gas and a cool mint edge underneath.",
     tagline: "Warm syrup comfort",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a calm, comforting buttery-sweet dessert hybrid named Pancakes. A tall stack of golden fluffy pancakes with a glossy pour of maple syrup cascading down the sides and a melting pat of butter on top, warm morning kitchen light, a curl of sweet vanilla steam carrying a faint oily petrol-rainbow shimmer that hints at the earthy gas, a sugar-frost sparkle on the surface. Vanilla and butter with an earthy gas and a cool mint edge. Palette warm and cosy — golden pancake brown and amber maple syrup with creamy butter-yellow, a sugar-frost sparkle and a faint petrol shimmer under a honeyed glow. Mood: calm and good-natured — an easy body relaxation with a contented head, comforting and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'PANCAKES' baked into the scene — hand-lettered on a diner sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "pancakes.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -2668,6 +2683,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pink Runtz is a candy-sweet phenotype of the Runtz family — a pink-hued cut prized for sugary, fruity flavour and heavy frost. The nose is pure confection: sweet berry and tropical candy with barely any funk, loud and sugary. The effect is balanced and feel-good — a bright euphoric lift over comfortable body ease, social without sedation. Like all Runtz it's widely counterfeited, so a true frosty pink cut stands out. For the candy-sweet end of Runtz, Pink Runtz is a prized pick.",
     curatorQuote:
       "Sweet berry and tropical candy with barely any funk, loud and sugary.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a candy-sweet, frosty pink phenotype named Pink Runtz. A glossy spill of glittering pink hard candy and sugar-dusted pink berries tumbling across a glassy surface, every piece slick and jewel-bright in dominant bubblegum and rose pink, a sugary trichome-frost sparkle coating the candy, bright high-key studio light. Sweet berry and tropical candy, loud and sugary with barely any funk. Palette pink and playful — bubblegum pink, rose and candy-magenta with pearly white frost sparkle, glossy and high-key over a soft pink shadow. Mood: bright and feel-good — a euphoric lift over easy body comfort, social and fun. Cinematic, painterly, high-contrast, premium editorial poster, hyper-glossy and candied. The strain name 'PINK RUNTZ' baked into the scene — printed boldly on a pink candy-bag foil. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "pink-runtz.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3120,6 +3140,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "E85 is a Grandiflora Genetics hybrid — Wedding Cake crossed with their own Project 4516 — named for high-octane fuel and built to match. The nose is rich and gassy: vanilla cake sweetness over a sharp diesel funk, dessert with a fuel chaser. The effect is potent and balanced-leaning-relaxed — a euphoric head over a comfortable body, versatile but strong. It's frosty and loud, a limited-drop hype strain. For gassy dessert with real horsepower, E85 lives up to the name.",
     curatorQuote:
       "Vanilla cake sweetness over a sharp diesel funk — dessert with a fuel chaser.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a gassy vanilla-cake dessert hybrid named E85 — after high-octane racing fuel. A bold yellow-and-black E85 racing fuel-grade badge mounted on slick chrome, a slice of creamy vanilla cake sitting beside it on the metal, fuel fumes and heat-haze rising with an oily petrol-rainbow sheen pooling on the chrome, a sugar-frost sparkle on the cake. Vanilla cake sweetness over a sharp diesel funk, dessert with a fuel chaser. Palette high-octane and rich — racing yellow and black with creamy vanilla-white cake and chrome, a petrol-rainbow shimmer and heat haze over a dark shadow. Mood: potent and balanced-leaning-relaxed — a euphoric head over a comfortable body, frosty and loud. Cinematic, painterly, high-contrast, premium editorial poster, glossy and atmospheric. The strain name 'E85' baked into the scene — printed boldly on the yellow fuel-grade badge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "e85.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3218,6 +3243,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "High Octane OG (also passed as Heirloom OG) is a clone-only OG whose exact parents were never settled — variously tied to a Chemdawg/Lemon Thai/Hindu Kush build or a stack of West Coast OG cuts. What's consistent is the profile: heavy fuel and pine over damp earth, loud and unmistakably OG. The effect is a fast, sedating body weight that points straight at the couch and sleep. It's high-test and not subtle, an evening nightcap. For a heavy, gassy OG with old-school pedigree, High Octane delivers.",
     curatorQuote:
       "Heavy fuel and pine over damp earth — loud and unmistakably OG.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, sedating fuel-and-pine OG named High Octane OG — a high-octane racing theme. A sleek race car idling on a dark night track under hot floodlights, heat shimmer and fuel fumes pouring off it, the wet asphalt slicked with an oily petrol-rainbow sheen, a redline glow and a dark pine treeline beyond the barriers, fuel-pine haze hanging heavy in the air. Heavy fuel and pine over damp earth, loud and unmistakably OG. Palette dark and high-octane — gunmetal and racing-red with hot amber floodlight, a petrol-rainbow shimmer on the wet track and pine-green shadow. Mood: fast then sedating — a heavy body weight that points straight at the couch, a potent nightcap. Cinematic, painterly, high-contrast, premium editorial poster, gritty and atmospheric. The strain name 'HIGH OCTANE OG' baked into the scene — stenciled on the track or stamped on the car's nose. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "high-octane-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3252,6 +3282,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Hot Sauce is an In House Genetics cross of Chile Verde and Pancakes — an unusual pairing that lands gassy and spicy rather than sweet. The nose is pungent: sharp gas and pepper-spice over an earthy, herbal base. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, firmly an evening strain. It's frosty, potent and loud. For a spicy, gassy indica-leaning cut off the dessert path, Hot Sauce brings the heat.",
     curatorQuote:
       "Sharp gas and pepper-spice over an earthy, herbal base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a gassy, spicy indica-leaning cut named Hot Sauce. Glossy fiery-red chili peppers and a dramatic splash of red hot sauce caught mid-pour against a dark moody backdrop, a spicy heat-haze rising with a faint oily petrol-rainbow shimmer hinting at the gas, a glittering trichome-frost dusting the peppers. Sharp gas and pepper-spice over an earthy, herbal base. Palette fiery and dark — molten chili red and ember-orange over charred black and earthy shadow, a frosty silver sparkle and a faint petrol shimmer in the spicy haze. Mood: heavy and relaxing — a euphoric head sinking into a sedating body, loud and potent, an evening strain. Cinematic, painterly, high-contrast, premium editorial poster, dramatic and appetizing. The strain name 'HOT SAUCE' baked into the scene — printed on a hot-sauce bottle label or stamped on a small tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "hot-sauce.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3383,6 +3418,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "OZ Kush is OZ Kushman's Zkittlez × OG Kush — candy fruit folded onto a gassy OG frame, and one of the quiet workhorses of the modern exotic scene. The nose is sweet and tropical with a fuel undertone: berry and tropical candy over earthy gas. The effect is balanced and euphoric — an uplifting head over a relaxed body, sociable and potent. It's frosty and resin-heavy, prized less for its own fame than for the heavyweights it parents (RS11, Studio 54, Pink Picasso). For candy-and-gas genetics at the source, OZ Kush is foundational.",
     curatorQuote:
       "Berry and tropical candy over earthy gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty candy-and-gas exotic named OZ Kush — a playful nod to a magical land of Oz. A glowing emerald city rising on the horizon at the end of a golden winding path through candy-bright fields of berry and tropical color, a magical green-gold sky above; a fuel-gas haze drifts low across the path with a faint oily petrol-rainbow shimmer, a glittering trichome-frost sparkle in the air. Berry and tropical candy over earthy gas. Palette magical and vivid — emerald green and gold with candy berry-pink and tropical hues, a frosty sparkle and a faint petrol shimmer over a dreamy glow. Mood: balanced and euphoric — an uplifting head over a relaxed body, sociable and potent. Cinematic, painterly, high-contrast, premium editorial poster, whimsical and atmospheric. The strain name 'OZ KUSH' baked into the scene — carved into a roadside archway or a wooden trail sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no recognizable franchise designs, no cannabis leaves, buds or packaging.",
+    artFileName: "oz-kush.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -5707,6 +5747,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Tiramisu is a coffee-and-cream dessert cut named for the Italian sweet — sweet vanilla and cocoa over a nutty, earthy base. The nose is rich and sweet: cream and vanilla with a coffee-nut depth. The effect is relaxing and happy — a euphoric head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, a dessert strain through and through. For coffee-cream sweetness, Tiramisu is an indulgent pick.",
     curatorQuote:
       "Cream and vanilla with a coffee-nut depth.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a rich coffee-and-cream dessert cut named Tiramisu. A elegant slice of tiramisu on a dark plate, layered coffee-soaked ladyfingers and silky mascarpone cream with a generous cocoa-powder dusting on top, a curl of warm coffee steam and a faint oily petrol-rainbow shimmer in it hinting at the earthy depth, warm Italian café light. Cream and vanilla with a coffee-nut depth. Palette warm and indulgent — cocoa brown and espresso with creamy mascarpone ivory and caramel, a soft cocoa-dust frost and a faint petrol shimmer under a moody amber glow. Mood: relaxing and happy — a euphoric head easing into a comfortable body, indulgent and afternoon-into-evening. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'TIRAMISU' baked into the scene — hand-lettered on a café chalkboard or dusted in cocoa on the plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "tiramisu.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -6141,6 +6186,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Skunkberry is a Skunk #1 × Blueberry cross — sweet berry fruit softening the classic skunk funk. The nose is sweet and fruity: blueberry and berry over a skunky, earthy base. The effect is relaxing and happy — a euphoric, calming high with a comfortable body, evening-leaning. It's frosty and smooth, an easy berry-skunk hybrid. For sweet berry over skunk, Skunkberry is a likeable pick.",
     curatorQuote:
       "Blueberry and berry over a skunky, earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet berry-over-skunk hybrid named Skunkberry. A glistening cluster of plump blueberries and dark berries heaped in the foreground, dusted with a glittering trichome-frost, a dusky skunky haze drifting behind them where a small black-and-white skunk's striped silhouette lurks half-hidden in the earthy dusk shadow. Blueberry and berry over a skunky, earthy base. Palette deep and fruity — rich blueberry blue and berry-violet with frosted silver sparkle, a dusky earthy haze and the skunk's black-white stripe accent over an evening shadow. Mood: relaxing and happy — a euphoric, calming high with a comfortable body, frosty and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, atmospheric and appetizing. The strain name 'SKUNKBERRY' baked into the scene — carved into a wooden sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "skunkberry.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
