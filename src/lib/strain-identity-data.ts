@@ -2470,6 +2470,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Jet Fuel (G6) is a 303 Seeds cross of Aspen OG and High Country Diesel — a sharp, fuel-forward sativa-leaning hybrid that lives up to its name. The nose is loud and gassy: heavy diesel and fuel over an earthy, pine base, all gas with little sweetness. The effect is fast and energetic — an uplifting, heady rush with a light body, more daytime than sedating despite the heavy nose. It's potent and clear, beloved by diesel lovers who want energy rather than couch. For pure fuel with a lift, Jet Fuel delivers.",
     curatorQuote:
       "Heavy diesel and fuel over an earthy, pine base, all gas with little sweetness.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a fast, energetic, fuel-forward diesel sativa named Jet Fuel. A sleek jet streaking steeply upward into a bright sky, afterburners blazing with a fiery exhaust trail, a heavy fuel haze and heat-shimmer pouring off it laced with an oily petrol-rainbow sheen, vapor cones and speed streaks, a pine treeline far below. Heavy diesel and fuel over an earthy, pine base, all gas. Palette dynamic and energetic — steel grey and sky blue with hot afterburner orange and a petrol-rainbow shimmer in the fuel haze, pine-green far below. Mood: fast and energetic — an uplifting, heady rush with a light body, a daytime gas lift. Cinematic, painterly, high-contrast, premium editorial poster, dynamic and atmospheric. The strain name 'JET FUEL' baked into the scene — stenciled on the fuselage or a runway marking. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "jet-fuel.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
