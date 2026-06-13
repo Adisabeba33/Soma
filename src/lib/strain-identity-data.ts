@@ -2411,7 +2411,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a rich, frosty pastry-and-gas dessert exotic named Sticky Buns. A tray of glossy cinnamon sticky buns glistening with caramel-glaze drizzle and vanilla icing in warm bakery light, the swirls sticky and golden, a curl of sweet cinnamon steam carrying a faint oily petrol-rainbow shimmer that hints at the earthy gas beneath, a sugar-frost sparkle on the glaze. Cinnamon-bun pastry and vanilla over an earthy gas, dessert-forward with funk. Palette warm and luscious — golden caramel and cinnamon brown with creamy vanilla-white icing, a glossy sticky sheen and a faint petrol shimmer under a honeyed glow. Mood: relaxing and euphoric — a happy head sinking into comfortable body calm, indulgent and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'STICKY BUNS' baked into the scene — hand-lettered on a bakery sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "sticky-buns.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
