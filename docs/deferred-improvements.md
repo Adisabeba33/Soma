@@ -955,6 +955,32 @@ and didn't do is itself valuable context.
 
 ---
 
+### #19 — Voice input for the describe flow (speech → same parser)
+
+- **Found:** 2026-06-13
+- **Source:** Owner question — "are we talking voice or typed?" Decided: log as a
+  future idea; typed stays the current path.
+- **What:** Today `describe` is typed (a textarea → `/api/profile/from-description`).
+  Voice is **not a different brain** — it's a different *input method* that
+  produces the same text the parser already consumes:
+  `🎤 speech → speech-to-text → TEXT → (parser or LLM #17) → tags`. The "smarts"
+  live in the brain (regex today, LLM in #17), not in how the words arrive.
+- **Potential fix:**
+  - **Web Speech API** (`SpeechRecognition`) — browser-native, free, no server
+    dependency; a mic button that dictates into the existing textarea, then the
+    normal flow runs. Lowest cost, but support/quality vary by browser.
+  - **Whisper / hosted STT** — more accurate and consistent, but adds an external
+    runtime dependency (network policy + cost), like #17.
+- **Why deferred:** Pure additive UI on top of whatever brain we pick; no reason
+  to build it before the brain decision (#17). Pairs naturally with #17 — if we
+  add the LLM extractor, dictated text flows through it unchanged.
+- **Estimated effort:** ~half a day for a Web Speech mic button + transcript
+  preview; more if we go hosted STT.
+- **Trigger to revisit:** after the describe brain is settled (deterministic vs
+  LLM), or if users ask to speak rather than type.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
