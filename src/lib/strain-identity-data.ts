@@ -2137,7 +2137,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a sharp, sour, frosty funk exotic named Cheetah Piss. A sleek, spotted cheetah prowling at speed through a sharp acid-yellow haze at dusk, its coat catching a sour citrus-yellow glow, a pungent gassy mist swirling around it with a faint oily petrol-rainbow shimmer, a glittering trichome-frost sparkle in the air. Sour citrus and a sharp funk over a creamy, gassy base. Palette sharp and electric — acid lemon-yellow and sour chartreuse with the cheetah's tan-and-black spots, a frosty sparkle and a faint petrol shimmer over a dusky shadow. Mood: balanced and uplifting — a euphoric, sociable head over a relaxed body, loud and divisive. Cinematic, painterly, high-contrast, premium editorial poster, dynamic and atmospheric. The strain name 'CHEETAH PISS' baked into the scene — stenciled on a wall or stamped on a small metal tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "cheetah-piss.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
