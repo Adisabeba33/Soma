@@ -6186,6 +6186,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Skunkberry is a Skunk #1 × Blueberry cross — sweet berry fruit softening the classic skunk funk. The nose is sweet and fruity: blueberry and berry over a skunky, earthy base. The effect is relaxing and happy — a euphoric, calming high with a comfortable body, evening-leaning. It's frosty and smooth, an easy berry-skunk hybrid. For sweet berry over skunk, Skunkberry is a likeable pick.",
     curatorQuote:
       "Blueberry and berry over a skunky, earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet berry-over-skunk hybrid named Skunkberry. A glistening cluster of plump blueberries and dark berries heaped in the foreground, dusted with a glittering trichome-frost, a dusky skunky haze drifting behind them where a small black-and-white skunk's striped silhouette lurks half-hidden in the earthy dusk shadow. Blueberry and berry over a skunky, earthy base. Palette deep and fruity — rich blueberry blue and berry-violet with frosted silver sparkle, a dusky earthy haze and the skunk's black-white stripe accent over an evening shadow. Mood: relaxing and happy — a euphoric, calming high with a comfortable body, frosty and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, atmospheric and appetizing. The strain name 'SKUNKBERRY' baked into the scene — carved into a wooden sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "skunkberry.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
