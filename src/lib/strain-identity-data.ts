@@ -4266,7 +4266,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty, gassy-mint creamy exotic named Gary Poppins — a playful nod to the magical floating-umbrella nanny. A classic open umbrella drifting magically through a dreamy sky at golden hour, carried on the breeze with a vintage carpet bag floating beside it, soft mint-and-cream clouds parting around them; a faint oily petrol-rainbow shimmer threads the whimsical haze, a glittering trichome-frost sparkle in the air. Cool mint and gas over a sweet, creamy base. Palette dreamy and whimsical — soft mint green and cream with sherbet-gold sunset clouds, frost-silver sparkle and a faint petrol shimmer in the breezy sky. Mood: balanced and euphoric — an uplifting, creative head with a relaxed body, sociable and light. Cinematic, painterly, high-contrast, premium editorial poster, whimsical and atmospheric. The strain name 'GARY POPPINS' baked into the scene — lettered on the floating carpet bag or a drifting tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no recognizable characters, no cannabis leaves, buds or packaging.",
     artFileName: "gary-poppins.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "low",
   },
