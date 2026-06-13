@@ -2989,6 +2989,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "White Truffle is a standout phenotype of Gorilla Butter — itself a cross of GG4 and Peanut Butter Breath — selected by BeLeaf around 2021 and now one of the defining savoury exotics. The nose is unusual and pungent: earthy truffle and mushroom funk over heavy gas, with almost none of the candy sweetness modern exotics chase. The effect is firmly indica-leaning — a euphoric head that sinks into a heavy, relaxing body, an evening strain. It's frosty, sticky and high-test, prized as much by hash makers as smokers. For a genuinely savoury, gassy profile off the candy path, White Truffle stands alone.",
     curatorQuote:
       "Earthy truffle and mushroom funk over heavy gas — almost no candy sweetness at all.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a savoury, heavy, frost-caked gas indica named White Truffle. A prized pale white gourmet truffle resting on dark damp earth under dramatic low light, its knobbly surface buried under a thick bone-white blanket of glittering trichome frost, an earthy, savoury mushroom haze curling around it laced with an oily petrol-rainbow shimmer for the heavy gas. Earthy truffle and mushroom funk over heavy gas, almost no sweetness. Palette dark and savoury — bone-white and silver frost dominating over deep earthy black and brown, a faint petrol shimmer and cold pale highlight in the moody shadow. Mood: heavy and relaxing — a euphoric head sinking into a sedating body, a savoury evening indica. Cinematic, painterly, high-contrast, premium editorial poster, moody and atmospheric. The strain name 'WHITE TRUFFLE' baked into the scene — branded into a wooden crate or stamped on a small enamel tag beside it. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "white-truffle.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
