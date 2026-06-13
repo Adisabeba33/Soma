@@ -3571,7 +3571,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for an energetic, high-octane diesel-gelato hybrid named Jet Fuel Gelato. A swirl of creamy gelato in a brushed-steel dish slicked with a heavy oily petrol-rainbow fuel sheen, an energetic jet-exhaust vapor trail and heat-shimmer streaking off it across a bright daytime sky, a frosted sheen on the cold cream. Heavy diesel and fuel over a sweet, creamy base. Palette bright and high-octane — creamy ivory and sherbet pastel slicked with a strong petrol-rainbow shimmer over steel and sky-blue, a frosty sheen and energetic exhaust streaks. Mood: energetic and clear — a euphoric, focused head with a light body, a daytime gas lift. Cinematic, painterly, high-contrast, premium editorial poster, glossy and dynamic. The strain name 'JET FUEL GELATO' baked into the scene — stamped on the steel dish or a runway-style marking. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "jet-fuel-gelato.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
