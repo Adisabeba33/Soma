@@ -5612,6 +5612,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Hells OG (Hell's OG) is an OG Kush × Blackberry cross — heavy OG gas with a faint dark-fruit edge, and a parent of 9 Pound Hammer. The nose is loud OG: fuel and pine over an earthy funk with a berry note underneath. The effect is strongly relaxing — a euphoric head sinking into a heavy body, firmly an evening strain. It's gassy, frosty and very potent, and it lends weight to 9 Pound Hammer. For heavy gas-OG genetics, Hells OG fits.",
     curatorQuote:
       "Fuel and pine over an earthy funk with a berry note underneath.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, gassy evening OG named Hells OG — an infernal theme. A smoldering hellscape at night: cracked black volcanic rock split by glowing molten-red lava fissures, brimstone smoke and a fuel-pine haze rising and igniting at the edges, an oily petrol-rainbow shimmer flickering in the heat, a dark berry-purple glow bleeding through the smoke. Fuel and pine over an earthy funk with a berry note underneath. Palette infernal and heavy — molten lava red and ember-orange over charred black rock, brimstone smoke with a berry-violet undertone and a faint petrol shimmer. Mood: strongly relaxing — a euphoric head sinking into a heavy body, a potent evening sinker. Cinematic, painterly, high-contrast, premium editorial poster, fiery and atmospheric. The strain name 'HELLS OG' baked into the scene — seared and glowing in the molten cracks or branded into the black rock. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "hells-og.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
