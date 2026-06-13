@@ -659,7 +659,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty, minty-gas cookie exotic named Animal Mints. A pile of golden animal-shaped cookies (animal crackers) dusted with a glittering mint-green sugar frost, a cool minty vapor curling over them, a faint oily petrol-rainbow shimmer threading the haze to hint at the gas, warm-meets-cool bakery light. Minty, cookie-dough sweetness over a gassy, earthy funk. Palette cosy and cool — golden cookie-brown and cream with mint-green sugar frost and a frosty silver sparkle, a faint petrol shimmer over a soft shadow. Mood: heavy and euphoric — a warm, happy head sinking into full body relaxation, frosty and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'ANIMAL MINTS' baked into the scene — hand-lettered on a cookie-box label or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "animal-mints.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
