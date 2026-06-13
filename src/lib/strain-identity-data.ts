@@ -6421,7 +6421,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty grape-candy hybrid with a sour-diesel edge named Sour Grape. A cluster of plump deep-purple grapes bursting with an electric-sour splash of juice, tangy droplets spraying off them with a sour-green acid glow at the edges, a glittering trichome-frost dusting the skins; a faint oily petrol-rainbow shimmer threads the tangy mist, hinting at the sour-diesel base. Grape and berry over a gassy, sour base. Palette rich and electric — deep grape purple and berry-violet with zingy sour-green and acid highlights, a frosty silver sparkle and a faint petrol shimmer over a dark shadow. Mood: balanced and easy — a euphoric, happy head with a relaxing body, frosty and tangy. Cinematic, painterly, high-contrast, premium editorial poster, glossy and appetizing. The strain name 'SOUR GRAPE' baked into the scene — embossed on a worn metal plate or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "sour-grape.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
