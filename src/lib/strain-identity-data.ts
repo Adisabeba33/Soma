@@ -5615,7 +5615,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a heavy, gassy evening OG named Hells OG — an infernal theme. A smoldering hellscape at night: cracked black volcanic rock split by glowing molten-red lava fissures, brimstone smoke and a fuel-pine haze rising and igniting at the edges, an oily petrol-rainbow shimmer flickering in the heat, a dark berry-purple glow bleeding through the smoke. Fuel and pine over an earthy funk with a berry note underneath. Palette infernal and heavy — molten lava red and ember-orange over charred black rock, brimstone smoke with a berry-violet undertone and a faint petrol shimmer. Mood: strongly relaxing — a euphoric head sinking into a heavy body, a potent evening sinker. Cinematic, painterly, high-contrast, premium editorial poster, fiery and atmospheric. The strain name 'HELLS OG' baked into the scene — seared and glowing in the molten cracks or branded into the black rock. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "hells-og.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
