@@ -1528,6 +1528,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Papaya (Nirvana's Papaya) is an indica-leaning cross of Citral and Ice — named for its tropical, fruity nose. The nose is sweet and tropical: ripe papaya and mango over an earthy, peppery base, fruity but not candy. The effect is relaxing and calming — a mellow, contented body ease that eases tension and leans toward the couch in larger doses. It's moderate and comfortable, an unwind-and-relax strain more than a productive one. For people who want a soft tropical-fruit indica, Papaya is a gentle choice.",
     curatorQuote:
       "Ripe papaya and mango over an earthy, peppery base, fruity but not candy.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a soft, relaxing tropical-fruit indica named Papaya. A ripe papaya sliced open to reveal glistening deep-orange flesh and a cluster of dark seeds, a ripe mango resting beside it, juice beading on the cut fruit in warm tropical golden-hour light, soft palm shadows and a gentle haze in the background. Ripe papaya and mango over an earthy, peppery base, fruity but not candy. Palette warm and tropical — deep papaya orange and mango gold with soft green and earthy brown, a juicy sheen under a honeyed golden glow. Mood: relaxing and calming — a mellow, contented body ease, soft and unwinding. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'PAPAYA' baked into the scene — branded into a wooden board or a small enamel fruit tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "papaya.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
