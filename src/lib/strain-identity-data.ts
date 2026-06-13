@@ -5897,7 +5897,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frost-caked, balanced Cup-classic named Great White Shark. A powerful great white shark surging up through deep blue ocean water, breaking the surface in an explosion of glittering white foam and spray that reads like a coat of frost, shafts of light cutting down through the dark water, a cold herbal-pine mist over the churn. Skunky funk and pine over a sweet, herbal base. Palette deep and icy — dark ocean blue and slate with brilliant frost-white foam and spray, silver light shafts and a cold herbal glow. Mood: balanced and strong — a euphoric head with a relaxing body, potent and dense. Cinematic, painterly, high-contrast, premium editorial poster, dramatic and atmospheric. The strain name 'GREAT WHITE SHARK' baked into the scene — etched on a weathered metal buoy plate or stamped in the foam. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "great-white-shark.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
