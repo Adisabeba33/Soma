@@ -2408,6 +2408,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sticky Buns is a Seed Junky cross of Kush Mints and Gelatti — sweet, doughy pastry over a gassy, minty base. The nose is rich and sweet: cinnamon-bun pastry and vanilla over an earthy gas, dessert-forward with funk. The effect is relaxing and euphoric — a happy head sinking into comfortable body calm, evening-leaning. It's very frosty and potent, a flavour-forward dessert exotic. For people who want pastry-and-gas sweetness, Sticky Buns is a rich, indulgent pick.",
     curatorQuote:
       "Cinnamon-bun pastry and vanilla over an earthy gas, dessert-forward with funk.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a rich, frosty pastry-and-gas dessert exotic named Sticky Buns. A tray of glossy cinnamon sticky buns glistening with caramel-glaze drizzle and vanilla icing in warm bakery light, the swirls sticky and golden, a curl of sweet cinnamon steam carrying a faint oily petrol-rainbow shimmer that hints at the earthy gas beneath, a sugar-frost sparkle on the glaze. Cinnamon-bun pastry and vanilla over an earthy gas, dessert-forward with funk. Palette warm and luscious — golden caramel and cinnamon brown with creamy vanilla-white icing, a glossy sticky sheen and a faint petrol shimmer under a honeyed glow. Mood: relaxing and euphoric — a happy head sinking into comfortable body calm, indulgent and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'STICKY BUNS' baked into the scene — hand-lettered on a bakery sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sticky-buns.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3434,6 +3439,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gelato 45 is a gassier numbered cut from the same Sunset Sherbet × Thin Mint GSC line as the rest of Gelato — selected for more fuel under the cream. The nose is sweet and rich: sherbet cream and berry over a pronounced gas. The effect is balanced-leaning-relaxed — a euphoric head over a comfortable body, versatile and potent. It's very frosty, and it shows up as a parent of Project 4516. For Gelato with extra gas, #45 is a flavourful cut.",
     curatorQuote:
       "Sherbet cream and berry over a pronounced gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a gassier numbered Gelato cut named Gelato 45 — Gelato with the fuel turned up. Scoops of creamy sherbet gelato in a brushed-steel gelato tin, the cold cream glistening under a pronounced oily petrol-rainbow gas sheen, a heavier fuel haze rising off it than a normal Gelato, berry-sherbet swirls and a frosted sheen catching cool light. Sherbet cream and berry over a pronounced gas. Palette creamy and electric — sherbet pink, cream and berry-violet slicked with a strong oily petrol-rainbow shimmer over brushed steel, a frosty silver sheen and gassy haze. Mood: balanced-leaning-relaxed — a euphoric head over a comfortable body, very frosty and gassy. Cinematic, painterly, high-contrast, premium editorial poster, glossy and atmospheric. The strain name 'GELATO 45' baked into the scene — stamped on the steel tin or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "gelato-45.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3579,6 +3589,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pink Certz is a Compound Genetics cross of Grape Gasoline and The Menthol — grape candy and diesel cut by a cool menthol-mint edge. The nose is sweet and sharp: grape and berry over a gassy base with a fresh, minty top note. The effect is relaxing and euphoric — a happy head easing into a comfortable body, balanced but potent. It's very frosty and loud, a flavour-forward modern exotic. For grape gas with a menthol twist, Pink Certz stands out.",
     curatorQuote:
       "Grape and berry over a gassy base with a fresh, minty top note.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty grape-gas exotic with a menthol snap named Pink Certz — its name a nod to pink candy mints. A glossy spill of pink candy mint lozenges scattered with deep-purple grapes, a cool menthol vapor curling off them in the chilled light, a glittering trichome-frost dusting the candy; an oily petrol-rainbow shimmer threads the minty haze, hinting at the grape-gas underneath. Grape and berry over a gassy base with a fresh, minty top note. Palette cool and candy — bubblegum pink and grape-purple with mint-green vapor and frost-silver sparkle, an oily petrol shimmer over a soft cool shadow. Mood: relaxing and euphoric — a happy head easing into a comfortable body, balanced, frosty and loud. Cinematic, painterly, high-contrast, premium editorial poster, glossy and atmospheric. The strain name 'PINK CERTZ' baked into the scene — printed on a candy-roll wrapper or stamped on a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "pink-certz.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3969,6 +3984,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Red Zushi is a colour-selected cut from the same Zkittlez × Kush Mints line as Blue Zushi — picked for red-purple buds and a fruitier lean. The nose is sweet and loud: berry and grape candy over a cool mint and faint gas. The effect leans relaxing — a euphoric head easing into a calm body, evening-friendly. It's very frosty and flavour-forward, part of the colourful Zushi family. For candy fruit with a minty tail and red bag appeal, Red Zushi delivers.",
     curatorQuote:
       "Berry and grape candy over a cool mint and faint gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, fruity-mint candy exotic named Red Zushi — part of the colourful Zushi family. Glossy crimson-red candied gems and red-purple berries arranged on a sleek red Japanese lacquer surface, a cool mint vapor curling over them, a glittering trichome-frost dusting the candy; an oily petrol-rainbow shimmer threads the minty haze, hinting at the faint gas. Berry and grape candy over a cool mint and faint gas. Palette bold and elegant — deep crimson and ruby red with grape-purple and mint-green vapor, frost-silver sparkle and a faint petrol shimmer over glossy red lacquer. Mood: relaxing — a euphoric head easing into a calm body, evening-friendly, frosty and loud. Cinematic, painterly, high-contrast, premium editorial poster, sleek and atmospheric. The strain name 'RED ZUSHI' baked into the scene — embossed on the lacquer or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "red-zushi.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -4243,6 +4263,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gary Poppins pairs Gary Payton's gassy mint with Sunset Sherbet's cream — a frosty modern exotic that softens GP's edge. The nose is layered: cool mint and gas over a sweet, creamy base. The effect is balanced and euphoric — an uplifting, creative head with a relaxed body, sociable and potent. It's very frosty and flavour-forward, keeping Gary Payton's bag appeal. For gassy-mint with a creamy lift, Gary Poppins is a tasty exotic.",
     curatorQuote:
       "Cool mint and gas over a sweet, creamy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, gassy-mint creamy exotic named Gary Poppins — a playful nod to the magical floating-umbrella nanny. A classic open umbrella drifting magically through a dreamy sky at golden hour, carried on the breeze with a vintage carpet bag floating beside it, soft mint-and-cream clouds parting around them; a faint oily petrol-rainbow shimmer threads the whimsical haze, a glittering trichome-frost sparkle in the air. Cool mint and gas over a sweet, creamy base. Palette dreamy and whimsical — soft mint green and cream with sherbet-gold sunset clouds, frost-silver sparkle and a faint petrol shimmer in the breezy sky. Mood: balanced and euphoric — an uplifting, creative head with a relaxed body, sociable and light. Cinematic, painterly, high-contrast, premium editorial poster, whimsical and atmospheric. The strain name 'GARY POPPINS' baked into the scene — lettered on the floating carpet bag or a drifting tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no recognizable characters, no cannabis leaves, buds or packaging.",
+    artFileName: "gary-poppins.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -4254,6 +4279,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Jelly Donutz is a sweet berry-pastry exotic — jammy fruit over a doughy, lightly gassy base, built for dessert flavour. The nose is sweet and rich: mixed berry jam and sugar over a faint gas. The effect is relaxing and happy — a euphoric head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, an easy-drinking dessert cut. For berry-and-pastry sweetness, Jelly Donutz is a tasty pick.",
     curatorQuote:
       "Mixed berry jam and sugar over a faint gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet berry-pastry dessert exotic named Jelly Donutz. A plump sugar-dusted jelly donut split open with glossy mixed-berry jam oozing out, golden fried dough crackling with a sparkling sugar-frost coating in warm bakery light, a curl of sweet steam carrying a faint oily petrol-rainbow shimmer that hints at the light gas. Mixed berry jam and sugar over a doughy, faintly gassy base. Palette warm and luscious — golden fried dough and powdered-sugar white with deep berry-red jam, a sparkling sugar-frost sheen and a faint petrol shimmer under a honeyed glow. Mood: relaxing and happy — a euphoric head easing into a comfortable body, sweet and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'JELLY DONUTZ' baked into the scene — hand-lettered on a bakery sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "jelly-donutz.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -5185,6 +5215,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Purple Skunk is a purple-hued selection of Skunk #1 — sweet grape over the classic skunk funk, and a parent of God Bud. The nose is sweet and fruity: grape and berry over a skunky, earthy base. The effect is balanced and happy — a relaxing, mood-lifting high with a comfortable body. It's frosty and colourful, a flavour-led skunk variant. For purple skunk genetics, this is a likeable parent line.",
     curatorQuote:
       "Grape and berry over a skunky, earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, fruity purple skunk variant named Purple Skunk. A striking skunk with deep purple-and-silver fur prowling at dusk through a grape-violet haze, its bold white stripe catching the low light, ripe grapes and berries scattered in the earthy underbrush around it, a skunky funk mist curling through the air with a glittering trichome-frost sparkle. Grape and berry over a skunky, earthy base. Palette rich and colourful — deep grape purple and berry-violet with silver-white fur highlights over an earthy dusk shadow, a frosty sparkle in the hazy air. Mood: balanced and happy — a relaxing, mood-lifting high with a comfortable body, frosty and colourful. Cinematic, painterly, high-contrast, premium editorial poster, atmospheric and detailed. The strain name 'PURPLE SKUNK' baked into the scene — carved into a weathered wooden sign or mossy stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "purple-skunk.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -5392,6 +5427,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "White Gushers is a frost-selected, near-white phenotype of Gushers — the tropical candy of Gushers with extra trichome coverage. The nose is sweet and fruity: tropical candy and berry over a light gas. The effect is balanced and feel-good — a euphoric head with a relaxed body, sociable and potent. It's extremely frosty and flavour-forward, the prized cut of the Gushers line. For candy fruit with maximum frost, White Gushers is a standout.",
     curatorQuote:
       "Tropical candy and berry over a light gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an extremely frosty, near-white candy phenotype named White Gushers. Glossy tropical fruit-candy gushers caked and rimed in a thick, glittering blanket of pure white trichome frost — the heavy snow-white frost dominating, soft tropical berry and fruit colors barely glowing through the ice, a faint oily petrol-rainbow shimmer in the cold sweet mist. Tropical candy and berry over a light gas, buried under maximum frost. Palette icy and pale — dominant frost-white and silver-white sparkle with muted pastel berry, magenta and mango glowing faintly beneath, a faint petrol shimmer over a soft cool shadow. Mood: balanced and feel-good — a euphoric head with a relaxed body, sociable and ultra-frosty. Cinematic, painterly, high-contrast, premium editorial poster, glittering and appetizing. The strain name 'WHITE GUSHERS' baked into the scene — hand-lettered on a small enamel dessert tag or etched into the frost. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "white-gushers.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -5972,6 +6012,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gushlato crosses Gushers with Gelato — tropical fruit candy laid over gelato cream. The nose is sweet and fruity: tropical candy and berry over a creamy, lightly gassy base. The effect is relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, an easy-drinking dessert exotic. For candy fruit over cream, Gushlato is a tasty pick.",
     curatorQuote:
       "Tropical candy and berry over a creamy, lightly gassy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty, fruity-cream dessert exotic named Gushlato — Gushers candy crossed with Gelato. Glossy tropical fruit-candy gushers bursting open mid-air, vivid juice splashing in a dynamic spray over a swirl of creamy gelato below — tropical berry and mango-bright juice exploding against soft cream, a frosted sheen on the cold gelato, a faint oily petrol-rainbow shimmer in the sweet mist. Tropical candy and berry over a creamy, lightly gassy base. Palette vivid and luscious — bright tropical magenta, mango-orange and berry-purple juice over creamy ivory and gelato pastels, a frosty silver sheen with a faint petrol shimmer. Mood: relaxing and euphoric — a happy head easing into a comfortable body, fun and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, glossy and appetizing. The strain name 'GUSHLATO' baked into the scene — hand-lettered on a small enamel dessert tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "gushlato.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -6014,6 +6059,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Death Star is a Sour Diesel × Sensi Star cross out of Ohio — sour fuel funk welded to a heavy, sedating body. The nose is loud and gassy: diesel and sour earth over a skunky base. The effect is strongly relaxing — a euphoric head sinking fast into a couch-locking body, firmly a nightcap. It's pungent, dense and very potent. For heavy diesel genetics with a knockout body, Death Star earns the name.",
     curatorQuote:
       "Diesel and sour earth over a skunky base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, sedating diesel knockout named Death Star. A colossal dark metallic sphere looming menacingly in deep space — a planet-sized battle-orb of riveted gunmetal panels, an ominous glowing energy ring banding its equator, a sour-green and amber diesel-tinged nebula haze swirling around it shot with an oily petrol-rainbow shimmer. Diesel and sour earth over a skunky base, loud and gassy. Palette dark and ominous — gunmetal black and steel with a menacing sour-green and amber glow, a petrol-rainbow shimmer in the cosmic diesel haze over deep space shadow. Mood: strongly relaxing — a euphoric head sinking fast into a couch-locking body, a pure heavy nightcap. Cinematic, painterly, high-contrast, premium editorial poster, menacing and atmospheric. The strain name 'DEATH STAR' baked into the scene — etched into the metallic hull or stamped on a worn plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no recognizable franchise designs, no cannabis leaves, buds or packaging.",
+    artFileName: "death-star.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
