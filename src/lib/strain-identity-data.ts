@@ -117,7 +117,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for an indica-heavy, sedating gas-OG named Skywalker OG — a dreamy hyperspace sky-walk theme. A glowing trail of light stepping up into the night sky above a sea of clouds, streaking hyperspace stars stretching to a vanishing point overhead, dark pine silhouettes far below; a fuel-pine haze drifts through the dreamy cosmic air with a faint oily petrol-rainbow shimmer. OG's pine and gas with a sweeter herbal-spice undertone. Palette dreamy and cosmic — deep indigo and violet night with streaking white-gold starlight, pine-green silhouettes and a faint petrol shimmer over cloud-silver. Mood: quick, dreamy heaviness — a body-wrapping calm that quiets the head, a deep evening sinker. Cinematic, painterly, high-contrast, premium editorial poster, dreamy and atmospheric. The strain name 'SKYWALKER OG' baked into the scene — carved into a floating sky-stone or etched along the light trail. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no recognizable franchise designs, no cannabis leaves, buds or packaging.",
     artFileName: "skywalker-og.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
