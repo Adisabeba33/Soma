@@ -6054,6 +6054,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Death Star is a Sour Diesel × Sensi Star cross out of Ohio — sour fuel funk welded to a heavy, sedating body. The nose is loud and gassy: diesel and sour earth over a skunky base. The effect is strongly relaxing — a euphoric head sinking fast into a couch-locking body, firmly a nightcap. It's pungent, dense and very potent. For heavy diesel genetics with a knockout body, Death Star earns the name.",
     curatorQuote:
       "Diesel and sour earth over a skunky base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, sedating diesel knockout named Death Star. A colossal dark metallic sphere looming menacingly in deep space — a planet-sized battle-orb of riveted gunmetal panels, an ominous glowing energy ring banding its equator, a sour-green and amber diesel-tinged nebula haze swirling around it shot with an oily petrol-rainbow shimmer. Diesel and sour earth over a skunky base, loud and gassy. Palette dark and ominous — gunmetal black and steel with a menacing sour-green and amber glow, a petrol-rainbow shimmer in the cosmic diesel haze over deep space shadow. Mood: strongly relaxing — a euphoric head sinking fast into a couch-locking body, a pure heavy nightcap. Cinematic, painterly, high-contrast, premium editorial poster, menacing and atmospheric. The strain name 'DEATH STAR' baked into the scene — etched into the metallic hull or stamped on a worn plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no recognizable franchise designs, no cannabis leaves, buds or packaging.",
+    artFileName: "death-star.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
