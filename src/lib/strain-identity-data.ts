@@ -2683,6 +2683,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pink Runtz is a candy-sweet phenotype of the Runtz family — a pink-hued cut prized for sugary, fruity flavour and heavy frost. The nose is pure confection: sweet berry and tropical candy with barely any funk, loud and sugary. The effect is balanced and feel-good — a bright euphoric lift over comfortable body ease, social without sedation. Like all Runtz it's widely counterfeited, so a true frosty pink cut stands out. For the candy-sweet end of Runtz, Pink Runtz is a prized pick.",
     curatorQuote:
       "Sweet berry and tropical candy with barely any funk, loud and sugary.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a candy-sweet, frosty pink phenotype named Pink Runtz. A glossy spill of glittering pink hard candy and sugar-dusted pink berries tumbling across a glassy surface, every piece slick and jewel-bright in dominant bubblegum and rose pink, a sugary trichome-frost sparkle coating the candy, bright high-key studio light. Sweet berry and tropical candy, loud and sugary with barely any funk. Palette pink and playful — bubblegum pink, rose and candy-magenta with pearly white frost sparkle, glossy and high-key over a soft pink shadow. Mood: bright and feel-good — a euphoric lift over easy body comfort, social and fun. Cinematic, painterly, high-contrast, premium editorial poster, hyper-glossy and candied. The strain name 'PINK RUNTZ' baked into the scene — printed boldly on a pink candy-bag foil. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "pink-runtz.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
