@@ -3861,6 +3861,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Champagne is a Sherbinski hybrid of Boggle Gum and Burmese — a soft, floral-fruit strain that became important mostly as a parent (it's half of Rainbow Sherbet). The nose is sweet and floral: light berry and bubblegum over an earthy base. The effect is gentle and mellow — a happy, relaxing high that stays comfortable, moderate rather than overwhelming. It's smooth and flavour-led, and it passes its sweetness down to Rainbow Sherbet. For soft, floral-sweet genetics, Champagne is a pretty parent line.",
     curatorQuote:
       "Light berry and bubblegum over an earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a soft, floral-fruit, gentle hybrid named Champagne. An elegant crystal champagne flute fizzing with rising golden bubbles, caught in warm celebratory light — soft berry-pink petals and a faint bubblegum-sweet mist drifting around the glass, a delicate frosted chill sweating on the crystal, tiny effervescent sparkles glittering upward. Light berry and bubblegum over an earthy base, soft and floral. Palette elegant and warm — champagne gold and soft rose-pink with crystal highlights, a frosty sparkle and gentle floral glow over a soft warm shadow. Mood: gentle and mellow — a happy, relaxing high that stays comfortable, smooth and refined. Cinematic, painterly, high-contrast, premium editorial poster, elegant and atmospheric. The strain name 'CHAMPAGNE' baked into the scene — etched on the flute or an elegant label. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "champagne.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
