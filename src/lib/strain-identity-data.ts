@@ -3413,6 +3413,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "OZ Kush is OZ Kushman's Zkittlez × OG Kush — candy fruit folded onto a gassy OG frame, and one of the quiet workhorses of the modern exotic scene. The nose is sweet and tropical with a fuel undertone: berry and tropical candy over earthy gas. The effect is balanced and euphoric — an uplifting head over a relaxed body, sociable and potent. It's frosty and resin-heavy, prized less for its own fame than for the heavyweights it parents (RS11, Studio 54, Pink Picasso). For candy-and-gas genetics at the source, OZ Kush is foundational.",
     curatorQuote:
       "Berry and tropical candy over earthy gas.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty candy-and-gas exotic named OZ Kush — a playful nod to a magical land of Oz. A glowing emerald city rising on the horizon at the end of a golden winding path through candy-bright fields of berry and tropical color, a magical green-gold sky above; a fuel-gas haze drifts low across the path with a faint oily petrol-rainbow shimmer, a glittering trichome-frost sparkle in the air. Berry and tropical candy over earthy gas. Palette magical and vivid — emerald green and gold with candy berry-pink and tropical hues, a frosty sparkle and a faint petrol shimmer over a dreamy glow. Mood: balanced and euphoric — an uplifting head over a relaxed body, sociable and potent. Cinematic, painterly, high-contrast, premium editorial poster, whimsical and atmospheric. The strain name 'OZ KUSH' baked into the scene — carved into a roadside archway or a wooden trail sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no recognizable franchise designs, no cannabis leaves, buds or packaging.",
+    artFileName: "oz-kush.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
