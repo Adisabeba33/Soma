@@ -202,3 +202,26 @@ model RunAudit {
   @@index([runAt])
   @@index([source])
 }
+
+// Describe-intake telemetry. Every /api/profile/from-description submission
+// writes one row: the raw phrasing, the sensory/effect tokens the parser
+// resolved, and — most valuably — the content words that mapped to NOTHING
+// (`leftoverTerms`), which are the candidates for new synonyms. Drives
+// evidence-based growth of the describe parser (see docs/deferred-improvements
+// #18). Deliberately NOT tied to User: this is anonymous intake text, kept
+// aggregate-only. Persists to Postgres so it survives serverless deploys.
+model DescribeAudit {
+  id            String   @id @default(uuid())
+  rawText       String
+  // Tokens the parser understood (aromas/flavors/effects/time/etc).
+  matchedTokens String[] @default([])
+  // Content words that matched no trigger — the growth signal.
+  leftoverTerms String[] @default([])
+  // Did the description yield a usable profile at all.
+  hadSignal     Boolean  @default(false)
+  vocabVersion  String
+  createdAt     DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([hadSignal])
+}

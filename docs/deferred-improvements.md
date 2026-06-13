@@ -892,6 +892,19 @@ and didn't do is itself valuable context.
 
 ### #18 — Describe-input telemetry: log phrases + parser misses to grow the vocab
 
+> **✓ Implemented (2026-06-13).** Chose the dedicated-model route (cleaner for
+> the future, indexable, isolates anonymous intake text from engine-run audits).
+> Shipped: `DescribeAudit` Postgres model (no User FK — anonymous,
+> aggregate-only); `describeLeftoverTerms()` in `profile-from-description.ts`
+> (deterministic unrecognised-word extraction, reusing the same trigger tables);
+> `src/lib/describe-audit.ts` (`buildDescribeAuditEntry` + `writeDescribeAudit`,
+> mirroring run-audit's Postgres-default / file-fallback / off switches);
+> fire-and-forget hook in `/api/profile/from-description`; and `/api/stats` now
+> returns `describe: { total, misses, missRate, topUnrecognisedTerms }`. Needs a
+> `db:push` for the new model. **Still a process, not code:** the semi-automatic
+> review loop below (human approves which top leftover terms become triggers)
+> and an optional `/stats` UI surface for the term list (API-only for now).
+
 - **Found:** 2026-06-13
 - **Source:** Owner — "like the stats we built for compare, capture which
   words/phrases the describe parser picks up (and which it misses) and feed them

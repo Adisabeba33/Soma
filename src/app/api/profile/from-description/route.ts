@@ -5,6 +5,10 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { inferProfileFromDescription } from "@/lib/profile-from-description";
+import {
+  buildDescribeAuditEntry,
+  writeDescribeAudit,
+} from "@/lib/describe-audit";
 import type { InferredProfile } from "@/lib/profile-from-experience";
 
 export const dynamic = "force-dynamic";
@@ -32,6 +36,22 @@ export async function POST(req: NextRequest) {
   const text = typeof body.text === "string" ? body.text.slice(0, 2000) : "";
 
   const profile = inferProfileFromDescription(text);
+  const sufficient = hasSignal(profile);
 
-  return NextResponse.json({ profile, sufficient: hasSignal(profile) });
+  // Fire-and-forget intake telemetry — captures the phrasing and the words we
+  // failed to understand, to grow the parser from real misses (see
+  // docs/deferred-improvements.md #18). Never block or break the response.
+  // Skipped for empty input (nothing to learn from).
+  if (text.trim()) {
+    try {
+      const entry = buildDescribeAuditEntry(text, profile, sufficient);
+      writeDescribeAudit(entry).catch((err) =>
+        console.error("describe audit failed", err),
+      );
+    } catch (err) {
+      console.error("describe audit failed", err);
+    }
+  }
+
+  return NextResponse.json({ profile, sufficient });
 }

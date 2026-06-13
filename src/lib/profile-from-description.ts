@@ -152,6 +152,16 @@ const CONTEXT_TRIGGERS: ReadonlyArray<{
 
 const NEGATION = /\b(not|no|nothing|without|avoid|hate|hates|don'?t|doesn'?t|can'?t|cannot|never|dislike|less)\b/;
 
+// Weight / potency / novelty cue groups. Lifted to named constants so the
+// describe coverage pass (describeLeftoverTerms) recognises the same words the
+// inferring pass consumes — otherwise "strong" or "mild" would be flagged as
+// an unrecognised leftover term.
+const HEAVY_RE = /\b(heavy|body|couch|sedat\w*|knock\w*|pinned|in ?the ?body|physical|stone)\b/;
+const LIGHT_RE = /\b(light|clear ?head\w*|functional|not ?heavy|daytime|productive|energ\w*|clean)\b/;
+const MILD_RE = /\b(mild|easy[- ]?going|easy|beginner|low ?key|lowkey|gentle|microdose|not ?too ?(strong|potent|heavy)|nothing ?too ?(strong|potent|heavy))\b/;
+const STRONG_RE = /\b(strong|potent|heavy[- ]?hit\w*|hard[- ]?hit\w*|pack\w* a punch|high ?tolerance)\b/;
+const NOVELTY_RE = /\b(new|different|surprise|explore|adventurous|something ?else|try ?something|branch ?out)\b/;
+
 // Effect → forced-choice primaryEffect bucket.
 const EFFECT_TO_PRIMARY: Record<string, PrimaryEffect> = {
   sleepy: "knockout",
@@ -346,30 +356,83 @@ export function inferProfileFromDescription(input: string): InferredProfile {
   if (peWinner) profile.primaryEffect = peWinner as PrimaryEffect;
 
   // Body-feel: rough slider from explicit weight language.
-  const heavy = /\b(heavy|body|couch|sedat\w*|knock\w*|pinned|in ?the ?body|physical|stone)\b/.test(text);
-  const light = /\b(light|clear ?head\w*|functional|not ?heavy|daytime|productive|energ\w*|clean)\b/.test(text);
+  const heavy = HEAVY_RE.test(text);
+  const light = LIGHT_RE.test(text);
   if (heavy && !light) profile.bodyFeel = 72;
   else if (light && !heavy) profile.bodyFeel = 30;
 
   // Potency preference: how hard-hitting they want it. "not too strong" reads
-  // as mild; an unqualified "strong/potent" as strong.
-  const wantsMild =
-    /\b(mild|easy[- ]?going|easy|beginner|low ?key|lowkey|gentle|microdose|not ?too ?(strong|potent|heavy)|nothing ?too ?(strong|potent|heavy))\b/.test(
-      text,
-    );
-  const wantsStrong =
-    /\b(strong|potent|heavy[- ]?hit\w*|hard[- ]?hit\w*|pack\w* a punch|high ?tolerance)\b/.test(
-      text,
-    );
-  // Mild wins ties: its cues are more specific and include "(not) too
-  // strong", which also trips the bare-"strong" check below.
-  if (wantsMild) profile.potencyPreference = "mild";
-  else if (wantsStrong) profile.potencyPreference = "strong";
+  // as mild; an unqualified "strong/potent" as strong. Mild wins ties: its
+  // cues are more specific and include "(not) too strong", which also trips
+  // the bare-"strong" check.
+  if (MILD_RE.test(text)) profile.potencyPreference = "mild";
+  else if (STRONG_RE.test(text)) profile.potencyPreference = "strong";
 
   // Looking-for: explicit appetite for novelty.
-  if (/\b(new|different|surprise|explore|adventurous|something ?else|try ?something|branch ?out)\b/.test(text)) {
-    profile.lookingFor = "new";
-  }
+  if (NOVELTY_RE.test(text)) profile.lookingFor = "new";
 
   return profile;
+}
+
+// ── Describe-intake telemetry support (see docs/deferred-improvements #18) ──
+
+// Generic filler that carries no sensory/effect meaning. Removed before
+// computing leftover terms so the growth signal is just real candidate words.
+const DESCRIBE_STOPWORDS = new Set([
+  "the", "and", "for", "with", "without", "but", "just", "really", "very",
+  "something", "some", "stuff", "thing", "things", "want", "wanna", "looking",
+  "look", "like", "kind", "sort", "more", "less", "not", "nothing", "good",
+  "nice", "get", "getting", "feel", "feeling", "mood", "vibe", "vibes",
+  "smoke", "strain", "strains", "weed", "bud", "flower", "being", "after",
+  "before", "during", "when", "what", "which", "need", "prefer", "love",
+  "enjoy", "make", "makes", "can", "could", "would", "help", "helps", "day",
+  "time", "one", "out", "off", "too", "are", "was", "were", "does", "going",
+  "that", "this", "your", "you", "their", "them", "into", "from", "about",
+]);
+
+// Every trigger regex the parser consults — used only to mark which words a
+// description "used up", so the rest can be reported as unrecognised.
+const ALL_TRIGGER_REGEXES: readonly RegExp[] = [
+  ...SMELL_TRIGGERS.map(([, re]) => re),
+  ...EFFECT_TRIGGERS.map(([, re]) => re),
+  ...CONTEXT_TRIGGERS.map((c) => c.re),
+  ...USE_TIME_TRIGGERS.map(([, re]) => re),
+  HEAVY_RE, LIGHT_RE, MILD_RE, STRONG_RE, NOVELTY_RE,
+];
+
+// Words consumed by any trigger over the text (lowercased, split on
+// non-letters). A global clone of each regex collects every occurrence.
+function coveredWords(text: string): Set<string> {
+  const covered = new Set<string>();
+  for (const re of ALL_TRIGGER_REGEXES) {
+    const g = new RegExp(re.source, "gi");
+    let m: RegExpExecArray | null;
+    while ((m = g.exec(text)) !== null) {
+      for (const w of m[0].toLowerCase().split(/[^a-z]+/)) {
+        if (w) covered.add(w);
+      }
+      if (m.index === g.lastIndex) g.lastIndex++; // guard zero-length matches
+    }
+  }
+  return covered;
+}
+
+// Content words in a description that mapped to NOTHING — the candidates for
+// new synonyms. Deterministic; deduped; order preserved. This is the gold the
+// telemetry collects so the parser can be grown from real misses.
+export function describeLeftoverTerms(input: string): string[] {
+  const text = (input ?? "").toLowerCase();
+  if (!text.trim()) return [];
+  const covered = coveredWords(text);
+  const seen = new Set<string>();
+  const leftover: string[] = [];
+  for (const w of text.split(/[^a-z]+/)) {
+    if (w.length < 3) continue; // drop tiny words ("tv", "go") and empties
+    if (DESCRIBE_STOPWORDS.has(w)) continue;
+    if (covered.has(w)) continue;
+    if (seen.has(w)) continue;
+    seen.add(w);
+    leftover.push(w);
+  }
+  return leftover;
 }
