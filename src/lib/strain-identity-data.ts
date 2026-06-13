@@ -6162,7 +6162,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a sweet cherry-and-cookie dessert hybrid named Cherry Cookies. A stack of golden-baked cookies studded with glossy ripe cherries, rich cherry juice glistening and a cherry resting on top, warm bakery light catching the crumb and a sparkling sugar-frost dusting; a curl of sweet steam in the air. Cherry and berry over an earthy, doughy cookie funk. Palette warm and luscious — deep cherry red and berry with golden cookie-brown and cream, a sugar-frost sparkle under a honeyed glow. Mood: balanced and euphoric — a happy head with a relaxing body, sweet and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'CHERRY COOKIES' baked into the scene — hand-lettered on a bakery sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "cherry-cookies.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
