@@ -3277,6 +3277,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Hot Sauce is an In House Genetics cross of Chile Verde and Pancakes — an unusual pairing that lands gassy and spicy rather than sweet. The nose is pungent: sharp gas and pepper-spice over an earthy, herbal base. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, firmly an evening strain. It's frosty, potent and loud. For a spicy, gassy indica-leaning cut off the dessert path, Hot Sauce brings the heat.",
     curatorQuote:
       "Sharp gas and pepper-spice over an earthy, herbal base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a gassy, spicy indica-leaning cut named Hot Sauce. Glossy fiery-red chili peppers and a dramatic splash of red hot sauce caught mid-pour against a dark moody backdrop, a spicy heat-haze rising with a faint oily petrol-rainbow shimmer hinting at the gas, a glittering trichome-frost dusting the peppers. Sharp gas and pepper-spice over an earthy, herbal base. Palette fiery and dark — molten chili red and ember-orange over charred black and earthy shadow, a frosty silver sparkle and a faint petrol shimmer in the spicy haze. Mood: heavy and relaxing — a euphoric head sinking into a sedating body, loud and potent, an evening strain. Cinematic, painterly, high-contrast, premium editorial poster, dramatic and appetizing. The strain name 'HOT SAUCE' baked into the scene — printed on a hot-sauce bottle label or stamped on a small tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "hot-sauce.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
