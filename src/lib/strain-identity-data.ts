@@ -3160,6 +3160,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sundae Sherbert is a Cannarado cross of Sundae Driver and Sunset Sherbet — two dessert smoothies in one glass. The nose is sweet and creamy: fruity sherbet and grape over a soft, piney earth. The effect is balanced and mellow — a happy, relaxing ease with a clear-enough head, comfortable across the day. It's smooth, frosty and easy-drinking rather than heavy. For creamy, fruity dessert without a knockout, Sundae Sherbert is a gentle pick.",
     curatorQuote:
       "Fruity sherbet and grape over a soft, piney earth.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a creamy, fruity, easy-drinking dessert hybrid named Sundae Sherbert. A tall sundae glass piled with scoops of colourful fruity sherbet — orange, raspberry-pink and grape-purple — drizzled with glossy grape sauce, a frosted sheen sweating off the cold scoops in soft cool light, a faint sweet vapor with a whisper of petrol-rainbow shimmer for the soft earthy base. Fruity sherbet and grape over a soft, piney earth. Palette bright and creamy — sherbet orange, raspberry pink and grape purple with cream, a frosty silver sheen and a faint petrol shimmer over a soft glow. Mood: balanced and mellow — a happy, relaxing ease with a clear head, smooth and easy-drinking. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'SUNDAE SHERBERT' baked into the scene — hand-lettered on a small enamel dessert tag or the glass. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sundae-sherbert.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
