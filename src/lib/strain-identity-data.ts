@@ -4603,6 +4603,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pink Rozay is a Cookies cross of Lemonchello and London Pound Cake — a floral, berry-sweet dessert with rosé-pink looks. The nose is sweet and floral: berry and flowers over a creamy, doughy base. The effect is relaxing and happy — a euphoric head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, an elegant Cookies cut. For floral-berry dessert sweetness, Pink Rozay is a pretty pick.",
     curatorQuote:
       "Berry and flowers over a creamy, doughy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a floral, berry-sweet dessert hybrid named Pink Rozay — a nod to blush rosé wine. An elegant glass of blush-pink rosé glowing in soft warm light, delicate berries and rose petals drifting around the bowl of the glass, a gentle frosted chill sweating on the crystal, a creamy floral mist in the air. Berry and flowers over a creamy, doughy base. Palette elegant and soft — blush rosé pink and rose-petal red with creamy highlights and crystal glints, a frosty sparkle and floral glow over a soft warm shadow. Mood: relaxing and happy — a euphoric head easing into a comfortable body, elegant and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, refined and atmospheric. The strain name 'PINK ROZAY' baked into the scene — etched on the glass or an elegant label. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "pink-rozay.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
