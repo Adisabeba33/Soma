@@ -76,6 +76,80 @@ const USE_TIME_TRIGGERS: ReadonlyArray<[UseTime, RegExp]> = [
   ["bed", /\b(night ?time|nighttime|at ?night|before ?bed|bed ?time|before ?sleep|fall ?asleep|insomnia|late ?night)\b/],
 ];
 
+// Situation / activity language → the effects (and sometimes a time-of-day)
+// it implies. This is how people who DON'T know strain vocabulary actually
+// describe what they want: "movie night", "before the gym", "hanging with
+// friends" — not "uplifted" or "body-heavy". Each cue maps to one or more
+// EFFECT tokens; the optional `time` is voted only as a fallback when no
+// explicit time word is present. Cues are read from the POSITIVE part of a
+// clause only — we don't infer a *dislike* from a negated activity ("not for
+// the gym" doesn't mean "avoid energetic").
+const CONTEXT_TRIGGERS: ReadonlyArray<{
+  re: RegExp;
+  effects: string[];
+  time?: UseTime;
+}> = [
+  // Social / being around people.
+  {
+    re: /\b(party|parties|friends?|hang(ing)? ?out|hangout|social|kick ?back|get[- ]?together|night ?out|concert|festival|gathering|with ?people)\b/,
+    effects: ["happy", "giggly", "euphoric"],
+  },
+  // Exercise.
+  {
+    re: /\b(gym|work ?out|workout|exercise|lifting|lift ?weights|pre[- ]?work ?out|cardio|running|go ?for ?a ?run|jog\w*)\b/,
+    effects: ["energetic", "uplifted"],
+    time: "daytime",
+  },
+  // Outdoors / activity in nature.
+  {
+    re: /\b(hik\w*|outdoors?|nature|camp\w*|trail|beach|pool ?side|poolside)\b/,
+    effects: ["energetic", "uplifted", "happy"],
+    time: "daytime",
+  },
+  // Gaming.
+  {
+    re: /\b(video ?game\w*|gaming|gamer|play\w* ?games|controller|esports|locked ?in)\b/,
+    effects: ["focused", "happy"],
+  },
+  // Movie / screen wind-down.
+  {
+    re: /\b(movie\w*|netflix|binge\w*|cinema|watch\w* ?(?:a ?)?(?:show|film|movie|tv|series))\b/,
+    effects: ["relaxed", "body-heavy"],
+    time: "evening",
+  },
+  // Decompress after the day.
+  {
+    re: /\b(take ?the ?edge ?off|de[- ]?stress|destress|decompress|after ?a ?(?:long|stressful|hard|rough) ?day|chill ?out)\b/,
+    effects: ["relaxed", "calm"],
+    time: "evening",
+  },
+  // Romance / intimacy.
+  {
+    re: /\b(date ?night|romantic|romance|intimacy|intimate|making ?love|sensual)\b/,
+    effects: ["euphoric", "relaxed"],
+  },
+  // Yoga / meditation / mindfulness.
+  {
+    re: /\b(yoga|medita\w*|mindful\w*|stretch\w*|pilates|breath ?work|grounded)\b/,
+    effects: ["calm", "relaxed"],
+  },
+  // Chores / getting things done.
+  {
+    re: /\b(clean\w*|chores|housework|errands|tidy\w*|laundry|dishes|productive|get ?(?:stuff|things) ?done|to[- ]?do ?list)\b/,
+    effects: ["focused", "energetic"],
+  },
+  // Study / desk work / reading.
+  {
+    re: /\b(study\w*|homework|read\w* ?(?:a ?)?book|reading|work ?session|deep ?work)\b/,
+    effects: ["focused"],
+  },
+  // Creative / making art / music.
+  {
+    re: /\b(paint\w*|draw\w*|music|play\w* ?(?:guitar|piano)|\bart\b|making ?art|jam\w* ?out|produc\w* ?music)\b/,
+    effects: ["creative", "euphoric"],
+  },
+];
+
 const NEGATION = /\b(not|no|nothing|without|avoid|hate|hates|don'?t|doesn'?t|can'?t|cannot|never|dislike|less)\b/;
 
 // Effect → forced-choice primaryEffect bucket.
@@ -170,6 +244,9 @@ export function inferProfileFromDescription(input: string): InferredProfile {
   const dislikedAromaSet = new Set<string>();
   const aromaFamilyCounts = new Map<string, number>();
   const primaryEffectCounts = new Map<string, number>();
+  // Time-of-day implied by an activity ("movie" → evening), used only as a
+  // fallback when no explicit time word is present.
+  const contextTimeVotes = new Set<UseTime>();
 
   for (const clause of clauses(text)) {
     // Forward-scope negation: a cue ("not / without / no / avoid …") negates
@@ -213,6 +290,26 @@ export function inferProfileFromDescription(input: string): InferredProfile {
         dislikedEffectSet.add(token);
       }
     }
+
+    // CONTEXT / ACTIVITY — situational language ("party", "before the gym",
+    // "movie night") → the effects it implies. Positive part only; a context
+    // adds at most one vote per primary-effect bucket so it stays balanced
+    // against the direct effect words above (a single "party" shouldn't
+    // outweigh three explicit feelings).
+    for (const { re, effects, time } of CONTEXT_TRIGGERS) {
+      if (!re.test(positiveMain)) continue;
+      const bucketsVoted = new Set<string>();
+      for (const token of effects) {
+        if (!EFFECT_VALUES.has(token)) continue;
+        effectSet.add(token);
+        const pe = EFFECT_TO_PRIMARY[token];
+        if (pe && !bucketsVoted.has(pe)) {
+          bucketsVoted.add(pe);
+          primaryEffectCounts.set(pe, (primaryEffectCounts.get(pe) ?? 0) + 1);
+        }
+      }
+      if (time) contextTimeVotes.add(time);
+    }
   }
 
   // A token can't be both wanted and unwanted — explicit dislike wins.
@@ -232,7 +329,13 @@ export function inferProfileFromDescription(input: string): InferredProfile {
   // (a multi-mode describer) are left blank so the engine can stay
   // multi-modal rather than being forced onto one target.
   const times = USE_TIME_TRIGGERS.filter(([, re]) => re.test(text)).map(([t]) => t);
-  if (times.length === 1) profile.useTime = times[0];
+  if (times.length === 1) {
+    profile.useTime = times[0];
+  } else if (times.length === 0 && contextTimeVotes.size === 1) {
+    // No explicit time word, but a single activity implied one (movie →
+    // evening). Conflicting context votes stay blank, like explicit times.
+    profile.useTime = [...contextTimeVotes][0];
+  }
 
   // Primary aroma: the dominant smell family, when there's a clear winner.
   const famWinner = topByCount(aromaFamilyCounts);
