@@ -5722,6 +5722,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Tiramisu is a coffee-and-cream dessert cut named for the Italian sweet — sweet vanilla and cocoa over a nutty, earthy base. The nose is rich and sweet: cream and vanilla with a coffee-nut depth. The effect is relaxing and happy — a euphoric head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, a dessert strain through and through. For coffee-cream sweetness, Tiramisu is an indulgent pick.",
     curatorQuote:
       "Cream and vanilla with a coffee-nut depth.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a rich coffee-and-cream dessert cut named Tiramisu. A elegant slice of tiramisu on a dark plate, layered coffee-soaked ladyfingers and silky mascarpone cream with a generous cocoa-powder dusting on top, a curl of warm coffee steam and a faint oily petrol-rainbow shimmer in it hinting at the earthy depth, warm Italian café light. Cream and vanilla with a coffee-nut depth. Palette warm and indulgent — cocoa brown and espresso with creamy mascarpone ivory and caramel, a soft cocoa-dust frost and a faint petrol shimmer under a moody amber glow. Mood: relaxing and happy — a euphoric head easing into a comfortable body, indulgent and afternoon-into-evening. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'TIRAMISU' baked into the scene — hand-lettered on a café chalkboard or dusted in cocoa on the plate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "tiramisu.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
