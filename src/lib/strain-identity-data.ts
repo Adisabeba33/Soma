@@ -3221,7 +3221,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a heavy, sedating fuel-and-pine OG named High Octane OG — a high-octane racing theme. A sleek race car idling on a dark night track under hot floodlights, heat shimmer and fuel fumes pouring off it, the wet asphalt slicked with an oily petrol-rainbow sheen, a redline glow and a dark pine treeline beyond the barriers, fuel-pine haze hanging heavy in the air. Heavy fuel and pine over damp earth, loud and unmistakably OG. Palette dark and high-octane — gunmetal and racing-red with hot amber floodlight, a petrol-rainbow shimmer on the wet track and pine-green shadow. Mood: fast then sedating — a heavy body weight that points straight at the couch, a potent nightcap. Cinematic, painterly, high-contrast, premium editorial poster, gritty and atmospheric. The strain name 'HIGH OCTANE OG' baked into the scene — stenciled on the track or stamped on the car's nose. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "high-octane-og.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
