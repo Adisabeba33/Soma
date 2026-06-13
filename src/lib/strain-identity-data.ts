@@ -4488,7 +4488,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a sweet, mood-lifting strawberry hybrid named Strawberry Fields. A sunlit field of strawberry plants rolling to the horizon at golden hour, rows heavy with ripe glossy red strawberries glistening among green leaves and white blossoms, a warm hazy glow and soft light over the gentle hills. Ripe strawberry and berry over a light earthy base. Palette warm and fruity — strawberry red and leaf green over golden-hour amber and soft earthy brown, a sweet luminous haze. Mood: balanced and pleasant — a happy, relaxing high that lifts the mood, bright and approachable. Cinematic, painterly, high-contrast, premium editorial poster, lush and atmospheric. The strain name 'STRAWBERRY FIELDS' baked into the scene — carved into a weathered wooden field sign at the edge of the rows. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "strawberry-fields.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "low",
   },
