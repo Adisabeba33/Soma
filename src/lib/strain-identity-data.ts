@@ -511,6 +511,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Biscotti is a darker, gassier corner of the Cookies family — a Gelato 25 × South Florida OG cross that trades candy sweetness for dessert-meets-fuel. The nose is rich and a little savoury: sweet cookie and coffee over a pronounced gassy, peppery funk, more grown-up than the fruity exotics. The effect is relaxed and euphoric with real body weight — a calm, heavy ease that suits late afternoon into evening rather than getting things done. It's potent and frosty, a favourite for people who find pure-candy strains too one-note. For the cookies-and-gas end of the dessert spectrum, Biscotti is a standout.",
     curatorQuote:
       "Sweet cookie and coffee over a pronounced gassy, peppery funk, more grown-up than the fruity exotics.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a darker, gassier, grown-up cookie exotic named Biscotti. A few golden almond biscotti cookies leaning against a small cup of dark espresso on a moody dark surface, warm low café light catching the crumb and the coffee's crema, a curl of coffee steam carrying a faint oily petrol-rainbow shimmer that hints at the gassy, peppery funk, a sugar-frost sparkle on the cookies. Sweet cookie and coffee over a pronounced gassy, peppery funk. Palette rich and grown-up — golden biscotti and espresso brown with deep shadow, a frosty sparkle and a faint petrol shimmer under a moody amber glow. Mood: relaxed and euphoric with body weight — a calm, heavy ease, late-afternoon into evening. Cinematic, painterly, high-contrast, premium editorial poster, lush and atmospheric. The strain name 'BISCOTTI' baked into the scene — hand-lettered on a café chalkboard or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "biscotti.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
 
@@ -2129,6 +2134,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Cheetah Piss is a Cookies strain — a cross of Lemonnade, Gelato 42 and London Pound Cake — with a name nodding to its sharp, ammonia-tinged funk. The nose is pungent and unusual: sour citrus and a sharp, almost ammonia-like funk over a creamy, gassy base, loud and divisive. The effect is balanced and uplifting — a euphoric, sociable head over a relaxed body, versatile and potent. It's frosty and very loud, a flavour-forward exotic for funk chasers. For people who want a sharp, sour, unusual profile, Cheetah Piss stands out.",
     curatorQuote:
       "Sour citrus and a sharp, almost ammonia-like funk over a creamy, gassy base, loud and divisive.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sharp, sour, frosty funk exotic named Cheetah Piss. A sleek, spotted cheetah prowling at speed through a sharp acid-yellow haze at dusk, its coat catching a sour citrus-yellow glow, a pungent gassy mist swirling around it with a faint oily petrol-rainbow shimmer, a glittering trichome-frost sparkle in the air. Sour citrus and a sharp funk over a creamy, gassy base. Palette sharp and electric — acid lemon-yellow and sour chartreuse with the cheetah's tan-and-black spots, a frosty sparkle and a faint petrol shimmer over a dusky shadow. Mood: balanced and uplifting — a euphoric, sociable head over a relaxed body, loud and divisive. Cinematic, painterly, high-contrast, premium editorial poster, dynamic and atmospheric. The strain name 'CHEETAH PISS' baked into the scene — stenciled on a wall or stamped on a small metal tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "cheetah-piss.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -2470,6 +2480,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Jet Fuel (G6) is a 303 Seeds cross of Aspen OG and High Country Diesel — a sharp, fuel-forward sativa-leaning hybrid that lives up to its name. The nose is loud and gassy: heavy diesel and fuel over an earthy, pine base, all gas with little sweetness. The effect is fast and energetic — an uplifting, heady rush with a light body, more daytime than sedating despite the heavy nose. It's potent and clear, beloved by diesel lovers who want energy rather than couch. For pure fuel with a lift, Jet Fuel delivers.",
     curatorQuote:
       "Heavy diesel and fuel over an earthy, pine base, all gas with little sweetness.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a fast, energetic, fuel-forward diesel sativa named Jet Fuel. A sleek jet streaking steeply upward into a bright sky, afterburners blazing with a fiery exhaust trail, a heavy fuel haze and heat-shimmer pouring off it laced with an oily petrol-rainbow sheen, vapor cones and speed streaks, a pine treeline far below. Heavy diesel and fuel over an earthy, pine base, all gas. Palette dynamic and energetic — steel grey and sky blue with hot afterburner orange and a petrol-rainbow shimmer in the fuel haze, pine-green far below. Mood: fast and energetic — an uplifting, heady rush with a light body, a daytime gas lift. Cinematic, painterly, high-contrast, premium editorial poster, dynamic and atmospheric. The strain name 'JET FUEL' baked into the scene — stenciled on the fuselage or a runway marking. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "jet-fuel.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -2727,6 +2742,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Layer Cake is a Swamp Boys Seeds hybrid that stacks four cornerstones — Wedding Cake, GMO, Triangle Kush and Skunk — so vanilla-cake sweetness sits on top of a heavy garlic-and-gas funk. The nose is rich: cream and cake up front, savoury diesel and earth underneath. The high is a comfortable sink — a happy lift that gives way to body weight, pointed firmly at the evening. It's frosty, potent and indica-leaning, sweet without going soft. For cake flavour with serious GMO gas behind it, it's a rich, heavy choice.",
     curatorQuote:
       "Cream and cake up front, savoury diesel and earth underneath.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a rich, heavy vanilla-cake-over-gas dessert hybrid named Layer Cake. A tall slice of multi-layered vanilla cake standing in cross-section, neat stacked sponge and cream frosting layers glistening, a glossy drip down the side in warm light, a sugar-frost sparkle on top; a faint curl of savoury vapor carries an oily petrol-rainbow shimmer hinting at the garlic-diesel funk beneath the sweetness. Cream and cake up front, savoury diesel and earth underneath. Palette warm and rich — creamy vanilla-ivory and golden sponge with caramel, a frosty sparkle and a faint petrol shimmer over a moody shadow. Mood: a comfortable sink — a happy lift giving way to body weight, frosty and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'LAYER CAKE' baked into the scene — hand-lettered on a small enamel dessert tag or a cake board. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "layer-cake.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3160,6 +3180,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sundae Sherbert is a Cannarado cross of Sundae Driver and Sunset Sherbet — two dessert smoothies in one glass. The nose is sweet and creamy: fruity sherbet and grape over a soft, piney earth. The effect is balanced and mellow — a happy, relaxing ease with a clear-enough head, comfortable across the day. It's smooth, frosty and easy-drinking rather than heavy. For creamy, fruity dessert without a knockout, Sundae Sherbert is a gentle pick.",
     curatorQuote:
       "Fruity sherbet and grape over a soft, piney earth.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a creamy, fruity, easy-drinking dessert hybrid named Sundae Sherbert. A tall sundae glass piled with scoops of colourful fruity sherbet — orange, raspberry-pink and grape-purple — drizzled with glossy grape sauce, a frosted sheen sweating off the cold scoops in soft cool light, a faint sweet vapor with a whisper of petrol-rainbow shimmer for the soft earthy base. Fruity sherbet and grape over a soft, piney earth. Palette bright and creamy — sherbet orange, raspberry pink and grape purple with cream, a frosty silver sheen and a faint petrol shimmer over a soft glow. Mood: balanced and mellow — a happy, relaxing ease with a clear head, smooth and easy-drinking. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'SUNDAE SHERBERT' baked into the scene — hand-lettered on a small enamel dessert tag or the glass. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sundae-sherbert.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3264,6 +3289,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Cherry Cake is a name several breeders share, so genetics vary — the most cited build, from Purple Caper, is Cherry Pie crossed with Wedding Cake. That pairing reads in the nose: sweet cherry and berry over a vanilla, cake-sweet base. The effect is relaxing and easygoing — a happy mood-lift settling into comfortable calm, fine from afternoon on. It's frosty and flavour-led, moderate in its demands. For cherry-and-cake sweetness in a balanced hybrid, Cherry Cake is a tasty pick.",
     curatorQuote:
       "Sweet cherry and berry over a vanilla, cake-sweet base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a relaxing, easygoing cherry-and-cake dessert hybrid named Cherry Cake. A slice of vanilla cake topped with glossy ripe cherries and a glistening cherry-berry glaze dripping down the cream frosting, warm bakery light catching the soft crumb, a sugar-frost sparkle on top and a faint sweet vapor. Sweet cherry and berry over a vanilla, cake-sweet base. Palette warm and luscious — deep cherry red and berry over creamy vanilla-ivory and golden sponge, a sugar-frost sparkle under a honeyed glow. Mood: relaxing and easygoing — a happy mood-lift settling into comfortable calm, sweet and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'CHERRY CAKE' baked into the scene — hand-lettered on a small enamel dessert tag or a cake board. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "cherry-cake.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -3538,6 +3568,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Jet Fuel Gelato is a Compound Genetics cross of Jet Fuel and Gelato 41 — sharp diesel meeting gelato cream, all high-octane uplift. The nose is loud and gassy: heavy diesel and fuel over a sweet, creamy base. The effect is energetic and clear — a euphoric, focused head with a light body, more daytime than couch despite the heavy nose. It's potent and frosty, and it lends its gas to Grape Gas. For diesel with a sweet edge and a real lift, Jet Fuel Gelato delivers.",
     curatorQuote:
       "Heavy diesel and fuel over a sweet, creamy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an energetic, high-octane diesel-gelato hybrid named Jet Fuel Gelato. A swirl of creamy gelato in a brushed-steel dish slicked with a heavy oily petrol-rainbow fuel sheen, an energetic jet-exhaust vapor trail and heat-shimmer streaking off it across a bright daytime sky, a frosted sheen on the cold cream. Heavy diesel and fuel over a sweet, creamy base. Palette bright and high-octane — creamy ivory and sherbet pastel slicked with a strong petrol-rainbow shimmer over steel and sky-blue, a frosty sheen and energetic exhaust streaks. Mood: energetic and clear — a euphoric, focused head with a light body, a daytime gas lift. Cinematic, painterly, high-contrast, premium editorial poster, glossy and dynamic. The strain name 'JET FUEL GELATO' baked into the scene — stamped on the steel dish or a runway-style marking. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "jet-fuel-gelato.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -4465,6 +4500,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Strawberry Fields is a sweet, strawberry-leaning line best known as a parent of Strawberry Cough. The nose is bright and fruity: ripe strawberry and berry over a light earthy base. The effect is balanced and pleasant — a happy, relaxing high that lifts the mood without much weight. It's flavour-led and approachable, moderate in strength. For sweet strawberry genetics, Strawberry Fields is the parent cut.",
     curatorQuote:
       "Ripe strawberry and berry over a light earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet, mood-lifting strawberry hybrid named Strawberry Fields. A sunlit field of strawberry plants rolling to the horizon at golden hour, rows heavy with ripe glossy red strawberries glistening among green leaves and white blossoms, a warm hazy glow and soft light over the gentle hills. Ripe strawberry and berry over a light earthy base. Palette warm and fruity — strawberry red and leaf green over golden-hour amber and soft earthy brown, a sweet luminous haze. Mood: balanced and pleasant — a happy, relaxing high that lifts the mood, bright and approachable. Cinematic, painterly, high-contrast, premium editorial poster, lush and atmospheric. The strain name 'STRAWBERRY FIELDS' baked into the scene — carved into a weathered wooden field sign at the edge of the rows. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "strawberry-fields.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -5777,6 +5817,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Blue Cookies crosses Blueberry with Girl Scout Cookies — sweet berry fruit folded into a cookie base. The nose is sweet and fruity: blueberry and berry over an earthy, doughy cookie funk. The effect is relaxing and euphoric — a happy head easing into a comfortable body, afternoon into evening. It's frosty and potent, a flavourful berry dessert. For blueberry-and-cookie character, Blue Cookies is a tasty pick.",
     curatorQuote:
       "Blueberry and berry over an earthy, doughy cookie funk.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet blueberry-and-cookie dessert hybrid named Blue Cookies. A stack of golden cookies studded with plump blue-purple blueberries oozing glossy berry juice, a blueberry resting on top, warm bakery light catching the crumb with a sugar-frost sparkle and a soft blue-violet tint in the shadows. Blueberry and berry over an earthy, doughy cookie funk. Palette warm-meets-cool — golden cookie-brown and cream with deep blueberry blue and berry-violet, a sugar-frost sparkle under a honeyed glow. Mood: relaxing and euphoric — a happy head easing into a comfortable body, sweet and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'BLUE COOKIES' baked into the scene — hand-lettered on a bakery sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "blue-cookies.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -6418,6 +6463,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sour Grape is a Sour Diesel × Granddaddy Purple cross — sweet grape candy laid over a sour-diesel funk. The nose is sweet and tangy: grape and berry over a gassy, sour base. The effect is balanced and easy — a euphoric, happy head with a relaxing body, versatile across the day. It's frosty and flavour-forward, gas and fruit at once. For grape candy with a sour-diesel edge, Sour Grape is a tasty pick.",
     curatorQuote:
       "Grape and berry over a gassy, sour base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frosty grape-candy hybrid with a sour-diesel edge named Sour Grape. A cluster of plump deep-purple grapes bursting with an electric-sour splash of juice, tangy droplets spraying off them with a sour-green acid glow at the edges, a glittering trichome-frost dusting the skins; a faint oily petrol-rainbow shimmer threads the tangy mist, hinting at the sour-diesel base. Grape and berry over a gassy, sour base. Palette rich and electric — deep grape purple and berry-violet with zingy sour-green and acid highlights, a frosty silver sparkle and a faint petrol shimmer over a dark shadow. Mood: balanced and easy — a euphoric, happy head with a relaxing body, frosty and tangy. Cinematic, painterly, high-contrast, premium editorial poster, glossy and appetizing. The strain name 'SOUR GRAPE' baked into the scene — embossed on a worn metal plate or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sour-grape.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
 ];
