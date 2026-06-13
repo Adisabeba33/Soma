@@ -5800,7 +5800,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a sweet blueberry-and-cookie dessert hybrid named Blue Cookies. A stack of golden cookies studded with plump blue-purple blueberries oozing glossy berry juice, a blueberry resting on top, warm bakery light catching the crumb with a sugar-frost sparkle and a soft blue-violet tint in the shadows. Blueberry and berry over an earthy, doughy cookie funk. Palette warm-meets-cool — golden cookie-brown and cream with deep blueberry blue and berry-violet, a sugar-frost sparkle under a honeyed glow. Mood: relaxing and euphoric — a happy head easing into a comfortable body, sweet and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'BLUE COOKIES' baked into the scene — hand-lettered on a bakery sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "blue-cookies.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
