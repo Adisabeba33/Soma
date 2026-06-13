@@ -6275,7 +6275,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a heavy, couch-locking gas-OG named Cataract Kush — a cataract being a great rushing waterfall. A powerful waterfall crashing down into a dark pine gorge at dusk, thick heavy mist billowing up and rolling across the wet black rock, a fuel-and-pine haze threading the spray with a faint oily petrol-rainbow shimmer, the whole scene blurred and clouded by dense fog. Fuel and pine over a damp, skunky earth, loud and gassy. Palette dark and heavy — deep pine green and wet slate-black with billowing silver-grey mist, a faint petrol shimmer and cool blue gloom in the gorge. Mood: profoundly relaxing — a euphoric head sinking into a numbing, couch-locking body, a heavy sleep strain. Cinematic, painterly, high-contrast, premium editorial poster, moody and atmospheric. The strain name 'CATARACT KUSH' baked into the scene — carved into the wet gorge stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "cataract-kush.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
