@@ -2925,7 +2925,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a tangy, zesty, sativa-leaning fruit-gas hybrid named Sour Apple. A crisp, glossy green apple sliced open mid-splash, electric-sour juice spraying off it in bright droplets under hard daylight, beads of moisture glistening on the vivid skin; a faint oily petrol-rainbow shimmer threads the zesty mist, hinting at the gassy diesel base. Crisp green apple and citrus over a gassy diesel base. Palette electric and fresh — vivid acid green and lime with bright citrus-gold highlights, a faint petrol-rainbow shimmer over a clean, sunlit shadow. Mood: up and lively — an energetic, mood-lifting head with a comfortable body, a zesty daytime pick. Cinematic, painterly, high-contrast, premium editorial poster, glossy and appetizing. The strain name 'SOUR APPLE' baked into the scene — embossed on a worn metal plate or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "sour-apple.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
