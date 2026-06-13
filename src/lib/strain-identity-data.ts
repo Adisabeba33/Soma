@@ -1528,6 +1528,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Papaya (Nirvana's Papaya) is an indica-leaning cross of Citral and Ice — named for its tropical, fruity nose. The nose is sweet and tropical: ripe papaya and mango over an earthy, peppery base, fruity but not candy. The effect is relaxing and calming — a mellow, contented body ease that eases tension and leans toward the couch in larger doses. It's moderate and comfortable, an unwind-and-relax strain more than a productive one. For people who want a soft tropical-fruit indica, Papaya is a gentle choice.",
     curatorQuote:
       "Ripe papaya and mango over an earthy, peppery base, fruity but not candy.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a soft, relaxing tropical-fruit indica named Papaya. A ripe papaya sliced open to reveal glistening deep-orange flesh and a cluster of dark seeds, a ripe mango resting beside it, juice beading on the cut fruit in warm tropical golden-hour light, soft palm shadows and a gentle haze in the background. Ripe papaya and mango over an earthy, peppery base, fruity but not candy. Palette warm and tropical — deep papaya orange and mango gold with soft green and earthy brown, a juicy sheen under a honeyed golden glow. Mood: relaxing and calming — a mellow, contented body ease, soft and unwinding. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'PAPAYA' baked into the scene — branded into a wooden board or a small enamel fruit tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "papaya.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -1679,6 +1684,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Trainwreck is a NorCal classic — Mexican and Thai sativas crossed with Afghani — named for a high that hits like a freight train. The nose is sharp and distinctive: lemon, pine and a spicy, almost menthol bite over earthy sweetness. The effect is a fast, racing cerebral rush — euphoric, energetic and creative, with enough body to keep it grounded. It's potent and quick, beloved for daytime energy but capable of tipping racy at high doses. As a parent of Pineapple Express and many others, Trainwreck is a foundational sativa.",
     curatorQuote:
       "Lemon, pine and a spicy, almost menthol bite over earthy sweetness.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a fast, racing sativa named Trainwreck — a high that hits like a freight train. A powerful vintage freight locomotive thundering straight toward the viewer down the tracks at speed, headlamp blazing, billowing steam and a shower of sparks streaking past in dramatic motion blur, charging through a lemon-pine forest at golden dusk. Lemon, pine and a spicy, almost menthol bite over earthy sweetness. Palette dynamic and energetic — lemon-gold and pine green with hot spark-orange and a cool menthol-blue steam, motion-blurred light over an earthy dusk shadow. Mood: a fast, racing cerebral rush — euphoric, energetic and creative, grounded but quick. Cinematic, painterly, high-contrast, premium editorial poster, dynamic and atmospheric. The strain name 'TRAINWRECK' baked into the scene — stamped on the locomotive's nameplate or a trackside sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "trainwreck.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -2922,6 +2932,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sour Apple is a tangy, sativa-leaning hybrid — most often a Sour Diesel × Cinderella 99 cross, and the green-apple half of Apple Fritter's parentage. The nose is sour and bright: crisp green apple and citrus over a gassy diesel base. The high is up and lively — an energetic, mood-lifting head with a comfortable body, well suited to daytime. It's flavour-forward and zesty, gas and fruit at once. For sour-apple tang with a diesel edge, it's a sharp, cheerful pick.",
     curatorQuote:
       "Crisp green apple and citrus over a gassy diesel base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a tangy, zesty, sativa-leaning fruit-gas hybrid named Sour Apple. A crisp, glossy green apple sliced open mid-splash, electric-sour juice spraying off it in bright droplets under hard daylight, beads of moisture glistening on the vivid skin; a faint oily petrol-rainbow shimmer threads the zesty mist, hinting at the gassy diesel base. Crisp green apple and citrus over a gassy diesel base. Palette electric and fresh — vivid acid green and lime with bright citrus-gold highlights, a faint petrol-rainbow shimmer over a clean, sunlit shadow. Mood: up and lively — an energetic, mood-lifting head with a comfortable body, a zesty daytime pick. Cinematic, painterly, high-contrast, premium editorial poster, glossy and appetizing. The strain name 'SOUR APPLE' baked into the scene — embossed on a worn metal plate or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "sour-apple.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -2979,6 +2994,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "White Truffle is a standout phenotype of Gorilla Butter — itself a cross of GG4 and Peanut Butter Breath — selected by BeLeaf around 2021 and now one of the defining savoury exotics. The nose is unusual and pungent: earthy truffle and mushroom funk over heavy gas, with almost none of the candy sweetness modern exotics chase. The effect is firmly indica-leaning — a euphoric head that sinks into a heavy, relaxing body, an evening strain. It's frosty, sticky and high-test, prized as much by hash makers as smokers. For a genuinely savoury, gassy profile off the candy path, White Truffle stands alone.",
     curatorQuote:
       "Earthy truffle and mushroom funk over heavy gas — almost no candy sweetness at all.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a savoury, heavy, frost-caked gas indica named White Truffle. A prized pale white gourmet truffle resting on dark damp earth under dramatic low light, its knobbly surface buried under a thick bone-white blanket of glittering trichome frost, an earthy, savoury mushroom haze curling around it laced with an oily petrol-rainbow shimmer for the heavy gas. Earthy truffle and mushroom funk over heavy gas, almost no sweetness. Palette dark and savoury — bone-white and silver frost dominating over deep earthy black and brown, a faint petrol shimmer and cold pale highlight in the moody shadow. Mood: heavy and relaxing — a euphoric head sinking into a sedating body, a savoury evening indica. Cinematic, painterly, high-contrast, premium editorial poster, moody and atmospheric. The strain name 'WHITE TRUFFLE' baked into the scene — branded into a wooden crate or stamped on a small enamel tag beside it. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "white-truffle.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -3846,6 +3866,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Champagne is a Sherbinski hybrid of Boggle Gum and Burmese — a soft, floral-fruit strain that became important mostly as a parent (it's half of Rainbow Sherbet). The nose is sweet and floral: light berry and bubblegum over an earthy base. The effect is gentle and mellow — a happy, relaxing high that stays comfortable, moderate rather than overwhelming. It's smooth and flavour-led, and it passes its sweetness down to Rainbow Sherbet. For soft, floral-sweet genetics, Champagne is a pretty parent line.",
     curatorQuote:
       "Light berry and bubblegum over an earthy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a soft, floral-fruit, gentle hybrid named Champagne. An elegant crystal champagne flute fizzing with rising golden bubbles, caught in warm celebratory light — soft berry-pink petals and a faint bubblegum-sweet mist drifting around the glass, a delicate frosted chill sweating on the crystal, tiny effervescent sparkles glittering upward. Light berry and bubblegum over an earthy base, soft and floral. Palette elegant and warm — champagne gold and soft rose-pink with crystal highlights, a frosty sparkle and gentle floral glow over a soft warm shadow. Mood: gentle and mellow — a happy, relaxing high that stays comfortable, smooth and refined. Cinematic, painterly, high-contrast, premium editorial poster, elegant and atmospheric. The strain name 'CHAMPAGNE' baked into the scene — etched on the flute or an elegant label. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "champagne.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
@@ -5587,6 +5612,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Hells OG (Hell's OG) is an OG Kush × Blackberry cross — heavy OG gas with a faint dark-fruit edge, and a parent of 9 Pound Hammer. The nose is loud OG: fuel and pine over an earthy funk with a berry note underneath. The effect is strongly relaxing — a euphoric head sinking into a heavy body, firmly an evening strain. It's gassy, frosty and very potent, and it lends weight to 9 Pound Hammer. For heavy gas-OG genetics, Hells OG fits.",
     curatorQuote:
       "Fuel and pine over an earthy funk with a berry note underneath.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, gassy evening OG named Hells OG — an infernal theme. A smoldering hellscape at night: cracked black volcanic rock split by glowing molten-red lava fissures, brimstone smoke and a fuel-pine haze rising and igniting at the edges, an oily petrol-rainbow shimmer flickering in the heat, a dark berry-purple glow bleeding through the smoke. Fuel and pine over an earthy funk with a berry note underneath. Palette infernal and heavy — molten lava red and ember-orange over charred black rock, brimstone smoke with a berry-violet undertone and a faint petrol shimmer. Mood: strongly relaxing — a euphoric head sinking into a heavy body, a potent evening sinker. Cinematic, painterly, high-contrast, premium editorial poster, fiery and atmospheric. The strain name 'HELLS OG' baked into the scene — seared and glowing in the molten cracks or branded into the black rock. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "hells-og.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -5747,6 +5777,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Cheese Quake is a TGA/Subcool cross of UK Cheese and Querkle — tangy dairy funk meeting sweet purple grape. The nose is unusual and loud: cheese and sour funk over a sweet grape-berry base. The effect is balanced and relaxing — a euphoric head easing into a comfortable body, versatile across the day. It's frosty and flavour-forward, a savoury-sweet oddity. For cheese-and-grape character, Cheese Quake is a distinctive pick.",
     curatorQuote:
       "Cheese and sour funk over a sweet grape-berry base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a savoury-sweet cheese-and-grape exotic named Cheese Quake — playing on a quake. A massive wedge of tangy aged cheese splitting apart along a dramatic earthquake fissure, deep-purple grapes and berries spilling and tumbling out of the jagged crack, dust and a funky haze rising from the rupture, a glittering trichome-frost dusting the surfaces. Cheese and sour funk over a sweet grape-berry base. Palette bold and unusual — golden aged-cheese yellow and grape purple with berry-violet, a frosty silver sparkle and a dusty funk haze over a dramatic dark shadow. Mood: balanced and relaxing — a euphoric head easing into a comfortable body, savoury-sweet and loud. Cinematic, painterly, high-contrast, premium editorial poster, dramatic and appetizing. The strain name 'CHEESE QUAKE' baked into the scene — stamped on a wooden crate or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "cheese-quake.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -5864,6 +5899,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Great White Shark is a Green House blend of Super Skunk, a Brazilian sativa and a South Indian indica — a multiple Cup winner famous for extreme frost. The nose is earthy and sweet: skunky funk and pine over a sweet, herbal base. The effect is balanced and strong — a euphoric head with a relaxing body, potent and well-rounded. It's dense, very frosty and dependable, a 90s Amsterdam staple. For a frost-caked, balanced classic, Great White Shark endures.",
     curatorQuote:
       "Skunky funk and pine over a sweet, herbal base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a frost-caked, balanced Cup-classic named Great White Shark. A powerful great white shark surging up through deep blue ocean water, breaking the surface in an explosion of glittering white foam and spray that reads like a coat of frost, shafts of light cutting down through the dark water, a cold herbal-pine mist over the churn. Skunky funk and pine over a sweet, herbal base. Palette deep and icy — dark ocean blue and slate with brilliant frost-white foam and spray, silver light shafts and a cold herbal glow. Mood: balanced and strong — a euphoric head with a relaxing body, potent and dense. Cinematic, painterly, high-contrast, premium editorial poster, dramatic and atmospheric. The strain name 'GREAT WHITE SHARK' baked into the scene — etched on a weathered metal buoy plate or stamped in the foam. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "great-white-shark.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -6129,6 +6169,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Cherry Cookies crosses Cherry Pie with Girl Scout Cookies — sweet cherry fruit folded into a cookie base. The nose is sweet and fruity: cherry and berry over an earthy, doughy cookie funk. The effect is balanced and euphoric — a happy head with a relaxing body, versatile across the day. It's frosty and flavour-forward, an easy cherry dessert. For cherry-and-cookie character, Cherry Cookies is a tasty pick.",
     curatorQuote:
       "Cherry and berry over an earthy, doughy cookie funk.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet cherry-and-cookie dessert hybrid named Cherry Cookies. A stack of golden-baked cookies studded with glossy ripe cherries, rich cherry juice glistening and a cherry resting on top, warm bakery light catching the crumb and a sparkling sugar-frost dusting; a curl of sweet steam in the air. Cherry and berry over an earthy, doughy cookie funk. Palette warm and luscious — deep cherry red and berry with golden cookie-brown and cream, a sugar-frost sparkle under a honeyed glow. Mood: balanced and euphoric — a happy head with a relaxing body, sweet and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'CHERRY COOKIES' baked into the scene — hand-lettered on a bakery sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "cherry-cookies.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -6247,6 +6292,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Cataract Kush is a DNA Genetics cross of LA Confidential and OG Kush — two heavy hitters combined for serious sedation. The nose is loud OG: fuel and pine over a damp, skunky earth. The effect is profoundly relaxing — a euphoric head sinking into a numbing, couch-locking body, firmly an evening and sleep strain. It's gassy, dense and very potent, not one for the unprepared. For a heavy, couch-locking gas-OG, Cataract Kush delivers.",
     curatorQuote:
       "Fuel and pine over a damp, skunky earth.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a heavy, couch-locking gas-OG named Cataract Kush — a cataract being a great rushing waterfall. A powerful waterfall crashing down into a dark pine gorge at dusk, thick heavy mist billowing up and rolling across the wet black rock, a fuel-and-pine haze threading the spray with a faint oily petrol-rainbow shimmer, the whole scene blurred and clouded by dense fog. Fuel and pine over a damp, skunky earth, loud and gassy. Palette dark and heavy — deep pine green and wet slate-black with billowing silver-grey mist, a faint petrol shimmer and cool blue gloom in the gorge. Mood: profoundly relaxing — a euphoric head sinking into a numbing, couch-locking body, a heavy sleep strain. Cinematic, painterly, high-contrast, premium editorial poster, moody and atmospheric. The strain name 'CATARACT KUSH' baked into the scene — carved into the wet gorge stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "cataract-kush.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
