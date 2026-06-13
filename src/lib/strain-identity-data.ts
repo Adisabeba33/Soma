@@ -3289,6 +3289,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Cherry Cake is a name several breeders share, so genetics vary — the most cited build, from Purple Caper, is Cherry Pie crossed with Wedding Cake. That pairing reads in the nose: sweet cherry and berry over a vanilla, cake-sweet base. The effect is relaxing and easygoing — a happy mood-lift settling into comfortable calm, fine from afternoon on. It's frosty and flavour-led, moderate in its demands. For cherry-and-cake sweetness in a balanced hybrid, Cherry Cake is a tasty pick.",
     curatorQuote:
       "Sweet cherry and berry over a vanilla, cake-sweet base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a relaxing, easygoing cherry-and-cake dessert hybrid named Cherry Cake. A slice of vanilla cake topped with glossy ripe cherries and a glistening cherry-berry glaze dripping down the cream frosting, warm bakery light catching the soft crumb, a sugar-frost sparkle on top and a faint sweet vapor. Sweet cherry and berry over a vanilla, cake-sweet base. Palette warm and luscious — deep cherry red and berry over creamy vanilla-ivory and golden sponge, a sugar-frost sparkle under a honeyed glow. Mood: relaxing and easygoing — a happy mood-lift settling into comfortable calm, sweet and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'CHERRY CAKE' baked into the scene — hand-lettered on a small enamel dessert tag or a cake board. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "cherry-cake.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
