@@ -292,6 +292,24 @@ export function TasteMatchClient() {
             depends on the grower, freshness and storage.
           </p>
 
+          {/* Temporary testing aid — ranked order on one line, mirroring
+              Compare. Shows the rounded match next to the engine's raw score.
+              Remove later. */}
+          <p className="mt-6 rounded-lg bg-muted px-3 py-2 font-mono text-xs text-muted-foreground">
+            [debug] Ranked order:{" "}
+            {[...recommendations]
+              .sort(
+                (a, b) =>
+                  b.matchScore - a.matchScore ||
+                  b.unclampedScore - a.unclampedScore,
+              )
+              .map(
+                (item) =>
+                  `${item.strainName} ${item.matchScore}% (raw ${item.unclampedScore.toFixed(2)})`,
+              )
+              .join(", ")}
+          </p>
+
           <div className="mt-10">
             <ResultsView recommendations={recommendations} />
           </div>
