@@ -765,6 +765,89 @@ and didn't do is itself valuable context.
 
 ---
 
+### #16 — Vocabulary precision: over-dominant tokens + a missing "character of the high" layer
+
+- **Found:** 2026-06-13
+- **Source:** Owner question — "should we add words to the vocab so the engine
+  matches more precisely?" Investigated the actual token distribution before
+  answering.
+- **What (the finding, with data):** The vocab and the strain dataset are
+  currently in **perfect lockstep** — every token a user can pick is carried by
+  real strains, and no strain carries a token the user can't pick. So we are
+  **not** missing words in the "dead option / hidden token" sense that drove the
+  `v1 → v2` vocab bump. The real precision problem is the **opposite**: a handful
+  of tokens are so common they barely discriminate. Measured over all 400
+  strains (`src/lib/strain-data.ts`):
+
+  | Token | Carried by | Note |
+  |---|---|---|
+  | `sweet` (aroma) | 308 / 400 (77%) | near-universal; collapses candy, dessert, fruit-sweet, floral-sweet into one |
+  | `sweet` (flavor) | 307 / 400 | same |
+  | `euphoric` | 347 / 400 (87%) | almost no signal |
+  | `happy` | 325 / 400 | same |
+  | `relaxed` | 303 / 400 | same |
+
+  When a token sits on three-quarters of the catalog it is close to noise for the
+  engine. Two genuinely different strains can share `sweet + euphoric + happy +
+  relaxed` yet feel nothing alike. Adding *more flat words* does not fix this; the
+  fix is (a) a new discriminating **axis**, and (b) splitting the few dominant
+  tokens.
+
+- **How to reproduce the finding:** token-frequency scan over `strain-data.ts`
+  (regex-collect `aromas:` / `flavors:` / `effects:` arrays, count each token).
+  Re-run it any time the dataset changes — if a token climbs past ~70% coverage,
+  it has stopped discriminating and is a split candidate.
+
+- **Potential fix (in priority order — do ONE layer well, don't scatter):**
+
+  1. **"Character of the high" layer (highest ROI).** Today the 14 `EFFECTS`
+     describe the *direction* of the high (relaxed ↔ energetic) but never its
+     *texture*. The blind spot is exactly where similar-looking profiles diverge
+     in real life. Add a small, mostly-orthogonal axis — candidates:
+     - `clear-headed ↔ foggy/stoney` (the big one)
+     - `fast-onset ↔ creeper`
+     - `gentle ↔ intense`
+     Two strains with identical effect tokens split cleanly on this axis, and
+     "fits me / doesn't fit me" tracks it closely. Treat it as a **separate
+     scoring dimension** (its own weight in `W`), not just more `EFFECTS` tokens,
+     so it can't be drowned by the near-universal effect words.
+
+  2. **Unload `sweet` (cheaper, do first as a warm-up).** Split the 308-strong
+     `sweet` bucket with a couple of real sub-axes that also already correspond
+     to distinct experiences:
+     - `sour` — sour-vs-sweet is a true axis (Sour Diesel, sour-candy strains).
+     - `dessert` / `chocolate` / `coffee` — peel the Gelato/Mochi/GMO-type
+       sweetness off the generic `sweet`.
+     - optional: `pungent` / `dank` — "loudness/funk" separate from gas/cheese.
+     This immediately raises discrimination among desserts and sour strains
+     without touching the effect model.
+
+- **Hard constraint — do NOT subdivide for recall-loss:** splitting a *parent*
+  category like `citrus → lemon/lime/orange` **hurts**. A user who picks "lemon"
+  stops matching a strain tagged the parent `citrus`, so recall collapses. Only
+  add tokens that represent a genuinely distinct experience (sour, dessert,
+  clear-vs-foggy), or — if a hierarchy is ever wanted — keep the parent token AND
+  the child so the parent still matches (hierarchical, not replacement).
+
+- **Why deferred (the real cost):** any of these = **re-annotating up to 400
+  strains by hand** (a new axis means every strain needs a value), plus a
+  `VOCAB_VERSION` bump (currently `v2`, see `src/lib/vocab.ts`), plus engine
+  wiring (new dimension → new weight in `W`, calibration so it doesn't unbalance
+  existing scores) and tests. This is deliberate, sit-down work, not a one-line
+  change. It is **pure engine + data** though — no Prisma schema change, no
+  `db:push`; the profile axes already accept arbitrary token arrays.
+
+- **Estimated effort:** sweet-unload ≈ half a day (annotate + 2 tokens + vocab
+  bump). "Character of the high" layer ≈ 1–2 days (new dimension + 400-strain
+  annotation + weight calibration + tests).
+
+- **Trigger to revisit:** when we choose to invest in match precision; or sooner
+  if the token scan shows another token crossing ~70% coverage. Start with the
+  `sweet`-unload to get a feel for the annotation cost before committing to the
+  full "character of the high" dimension.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
