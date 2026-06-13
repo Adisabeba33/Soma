@@ -1682,7 +1682,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a fast, racing sativa named Trainwreck — a high that hits like a freight train. A powerful vintage freight locomotive thundering straight toward the viewer down the tracks at speed, headlamp blazing, billowing steam and a shower of sparks streaking past in dramatic motion blur, charging through a lemon-pine forest at golden dusk. Lemon, pine and a spicy, almost menthol bite over earthy sweetness. Palette dynamic and energetic — lemon-gold and pine green with hot spark-orange and a cool menthol-blue steam, motion-blurred light over an earthy dusk shadow. Mood: a fast, racing cerebral rush — euphoric, energetic and creative, grounded but quick. Cinematic, painterly, high-contrast, premium editorial poster, dynamic and atmospheric. The strain name 'TRAINWRECK' baked into the scene — stamped on the locomotive's nameplate or a trackside sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "trainwreck.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
