@@ -3416,7 +3416,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a frosty candy-and-gas exotic named OZ Kush — a playful nod to a magical land of Oz. A glowing emerald city rising on the horizon at the end of a golden winding path through candy-bright fields of berry and tropical color, a magical green-gold sky above; a fuel-gas haze drifts low across the path with a faint oily petrol-rainbow shimmer, a glittering trichome-frost sparkle in the air. Berry and tropical candy over earthy gas. Palette magical and vivid — emerald green and gold with candy berry-pink and tropical hues, a frosty sparkle and a faint petrol shimmer over a dreamy glow. Mood: balanced and euphoric — an uplifting head over a relaxed body, sociable and potent. Cinematic, painterly, high-contrast, premium editorial poster, whimsical and atmospheric. The strain name 'OZ KUSH' baked into the scene — carved into a roadside archway or a wooden trail sign. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no recognizable franchise designs, no cannabis leaves, buds or packaging.",
     artFileName: "oz-kush.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
