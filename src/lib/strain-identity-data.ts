@@ -2727,6 +2727,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Layer Cake is a Swamp Boys Seeds hybrid that stacks four cornerstones — Wedding Cake, GMO, Triangle Kush and Skunk — so vanilla-cake sweetness sits on top of a heavy garlic-and-gas funk. The nose is rich: cream and cake up front, savoury diesel and earth underneath. The high is a comfortable sink — a happy lift that gives way to body weight, pointed firmly at the evening. It's frosty, potent and indica-leaning, sweet without going soft. For cake flavour with serious GMO gas behind it, it's a rich, heavy choice.",
     curatorQuote:
       "Cream and cake up front, savoury diesel and earth underneath.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a rich, heavy vanilla-cake-over-gas dessert hybrid named Layer Cake. A tall slice of multi-layered vanilla cake standing in cross-section, neat stacked sponge and cream frosting layers glistening, a glossy drip down the side in warm light, a sugar-frost sparkle on top; a faint curl of savoury vapor carries an oily petrol-rainbow shimmer hinting at the garlic-diesel funk beneath the sweetness. Cream and cake up front, savoury diesel and earth underneath. Palette warm and rich — creamy vanilla-ivory and golden sponge with caramel, a frosty sparkle and a faint petrol shimmer over a moody shadow. Mood: a comfortable sink — a happy lift giving way to body weight, frosty and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'LAYER CAKE' baked into the scene — hand-lettered on a small enamel dessert tag or a cake board. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "layer-cake.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
