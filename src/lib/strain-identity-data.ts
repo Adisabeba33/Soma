@@ -514,7 +514,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a darker, gassier, grown-up cookie exotic named Biscotti. A few golden almond biscotti cookies leaning against a small cup of dark espresso on a moody dark surface, warm low café light catching the crumb and the coffee's crema, a curl of coffee steam carrying a faint oily petrol-rainbow shimmer that hints at the gassy, peppery funk, a sugar-frost sparkle on the cookies. Sweet cookie and coffee over a pronounced gassy, peppery funk. Palette rich and grown-up — golden biscotti and espresso brown with deep shadow, a frosty sparkle and a faint petrol shimmer under a moody amber glow. Mood: relaxed and euphoric with body weight — a calm, heavy ease, late-afternoon into evening. Cinematic, painterly, high-contrast, premium editorial poster, lush and atmospheric. The strain name 'BISCOTTI' baked into the scene — hand-lettered on a café chalkboard or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "biscotti.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
