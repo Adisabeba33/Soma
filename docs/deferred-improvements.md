@@ -848,6 +848,100 @@ and didn't do is itself valuable context.
 
 ---
 
+### #17 — Constrained-LLM extractor behind the `describe` parser (Phase 3)
+
+- **Found:** 2026-06-13
+- **Source:** Owner — "how do we make the describe feature maximally accurate at
+  turning a person's language into our tags?" The deterministic parser
+  (`profile-from-description.ts`) was already broadened with a situation/activity
+  layer (PR for the gym/party/movie/etc. cues); this entry records the *ceiling*
+  beyond what keyword matching can reach.
+- **What:** The deterministic parser is fast, offline and fully testable, but it
+  can only ever recognise language it has a regex for. Open-ended phrasing,
+  metaphor, food/brand references ("tastes like a Werther's", "melts me into the
+  couch", "gives me the zoomies") will always slip past. The ceiling-raiser is an
+  LLM extractor that reads free text and emits **only tokens from our closed
+  vocabulary**, slotted behind the *same* `inferProfileFromDescription` signature
+  so the editable preview and the rest of the flow are unchanged.
+- **Design (the important constraints):**
+  - **Output locked to the enum.** The model is given the exact vocab (aroma /
+    flavor / effect / use-time / potency tokens + their human labels, ideally the
+    real strain-tag definitions) and must return *only* those tokens via a JSON
+    schema / tool-call with `enum` constraints. It can never invent a tag that
+    isn't on a strain — that is the whole point ("transform language → our tags").
+  - **Validate anyway.** Clip the model output against `AROMA_VALUES` /
+    `FLAVOR_VALUES` / `EFFECT_VALUES` (already exported) before use — never trust
+    the model to have stayed in-vocab.
+  - **Deterministic parser stays** as (a) the offline/failure fallback and (b) a
+    floor: union the two, or use the LLM only to fill gaps the regex left, so a
+    network/API outage degrades gracefully instead of breaking cold-start.
+  - Use the latest Claude model for the extraction call (see CLAUDE/AGENTS guidance
+    on model ids); few-shot the system prompt with real phrasings → token sets.
+- **Why deferred:** Architectural decision, not a code tweak. Needs an API key, a
+  runtime network call (we have a network policy — confirm it allows the provider),
+  latency + per-call cost budgeting, and a fallback contract. Everything else in
+  the engine is deterministic/offline today; this is the first runtime model
+  dependency, so it's a deliberate step.
+- **Estimated effort:** ~1 day for a first cut behind a feature flag (prompt +
+  schema + validate + fallback + a fixture test set of phrases), plus tuning.
+- **Trigger to revisit:** when describe-input telemetry (#18) shows a meaningful
+  miss rate the keyword layer can't economically close, or when we decide to add
+  a runtime model dependency for other reasons.
+
+---
+
+### #18 — Describe-input telemetry: log phrases + parser misses to grow the vocab
+
+- **Found:** 2026-06-13
+- **Source:** Owner — "like the stats we built for compare, capture which
+  words/phrases the describe parser picks up (and which it misses) and feed them
+  back in." This is the data loop that tells us *what* to add to the parser/vocab.
+- **What:** Today `/api/profile/from-description` runs the parser and returns the
+  profile, but **records nothing** — we're blind to what people actually type and
+  what we failed to understand. Mirror the existing run-audit pattern
+  (`src/lib/run-audit.ts`: Postgres `RunAudit` by default, `*.json` file backend
+  for dev, fire-and-forget, no PII beyond a hashed id) with a *describe-intake*
+  audit so misses become visible and fixable.
+- **What to capture per describe submission (privacy-first):**
+  - `rawText` (already capped at 2000 chars) — the actual phrasing is the value.
+  - `matchedTokens` — aromas/flavors/effects/use-time/potency the parser resolved.
+  - `matchedTriggers` — which trigger groups fired (so we see coverage).
+  - `leftoverTerms` — content words in the text that mapped to **nothing** (the
+    gold: these are the candidate new synonyms). Compute by tokenising the text,
+    dropping stopwords + any word that contributed to a match, keeping the rest.
+  - `hadSignal` — did it yield a usable profile at all (the existing `hasSignal`).
+  - `vocabVersion` so eras are separable, like run-audit.
+  - No userId/profile content beyond a short hash; this is intake text, treat it
+    as sensitive and keep it aggregate-only on any surfaced view.
+- **How it works end to end:** add `writeDescribeAudit(entry)` alongside
+  `writeRunAudit`; call it fire-and-forget from the `from-description` route after
+  inference (never block or fail the response on logging). Default Postgres
+  (`DescribeAudit` model, or reuse `RunAudit` with `source: "describe"` and the
+  payload in `snapshot` — cheaper, no migration). For dev, the same
+  `RUN_AUDIT_BACKEND=file` switch writes `run-audit/*.json`. A small `/stats`
+  addition (or a `/stats/describe` view) aggregates: top `leftoverTerms` by
+  frequency, miss rate (`hadSignal=false` share), most common matched tokens.
+- **The "automatic" part — be honest about the limit:** we can **surface** the
+  top unrecognised terms automatically, but **mapping a new word to the correct
+  token is a human call** ("loud" → `loud-smell` trait? `gassy`? intensity?).
+  Auto-inserting words into the vocab/triggers would silently mis-map and
+  poison matching. So the realistic loop is: log misses → rank by frequency →
+  human reviews the top N each cycle → add the safe ones to `CONTEXT_TRIGGERS` /
+  `SMELL_TRIGGERS` with a test. Semi-automatic, not blind auto-add. (A future
+  step could use #17's LLM to *propose* a token for each leftover term for a
+  human to approve — suggestion, never silent commit.)
+- **Why deferred:** small but not zero — a model (or reused `RunAudit` source),
+  a route hook, the leftover-term extraction, and a stats view. Reusing
+  `RunAudit` with `source: "describe"` avoids a `db:push`; a dedicated
+  `DescribeAudit` model would need one. Decide that first.
+- **Estimated effort:** ~half a day reusing `RunAudit`; ~1 day with a dedicated
+  model + stats view.
+- **Trigger to revisit:** as soon as we want evidence-driven parser growth rather
+  than guessing at synonyms — pairs naturally with #16 (vocab precision) and #17
+  (LLM extractor) as the feedback loop that feeds both.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
