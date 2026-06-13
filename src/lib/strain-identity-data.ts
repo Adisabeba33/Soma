@@ -2442,7 +2442,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a calm, comforting buttery-sweet dessert hybrid named Pancakes. A tall stack of golden fluffy pancakes with a glossy pour of maple syrup cascading down the sides and a melting pat of butter on top, warm morning kitchen light, a curl of sweet vanilla steam carrying a faint oily petrol-rainbow shimmer that hints at the earthy gas, a sugar-frost sparkle on the surface. Vanilla and butter with an earthy gas and a cool mint edge. Palette warm and cosy — golden pancake brown and amber maple syrup with creamy butter-yellow, a sugar-frost sparkle and a faint petrol shimmer under a honeyed glow. Mood: calm and good-natured — an easy body relaxation with a contented head, comforting and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'PANCAKES' baked into the scene — hand-lettered on a diner sign or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "pancakes.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
