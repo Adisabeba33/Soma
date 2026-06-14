@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -22,6 +22,18 @@ export const metadata: Metadata = {
   title: "SŌMA — Sensory Sommelier for Cannabis",
   description:
     "SŌMA is an AI cannabis sommelier. Find flower that matches your taste — not just the strain name.",
+  // Lets iOS "Add to Home Screen" launch SŌMA full-screen (no Safari chrome),
+  // using the apple-icon. The manifest (app/manifest.ts) covers Android.
+  appleWebApp: {
+    capable: true,
+    title: "SŌMA",
+    statusBarStyle: "default",
+  },
+};
+
+export const viewport: Viewport = {
+  // Tints the mobile browser / status bar to the brand green.
+  themeColor: "#334234",
 };
 
 export default function RootLayout({
