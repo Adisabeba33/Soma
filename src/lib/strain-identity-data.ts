@@ -5973,6 +5973,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Big Skunk Korean is a Soma Seeds cross of a Korean landrace and Skunk #1 — an earthy, skunky indica used mainly for breeding (it's a parent of Lavender). The nose is earthy and sweet: skunky funk over a spicy, herbal base. The effect is relaxing and warm — a euphoric head easing into a comfortable body, evening-leaning. It's dense and frosty, valued for the body it passes on. For Korean-skunk genetics behind Lavender, this is a parent line.",
     curatorQuote:
       "Skunky funk over a spicy, herbal base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an earthy, skunky Korean-landrace indica named Big Skunk Korean. A traditional Korean mountain landscape at dusk — misty layered peaks with a curved-roof hanok pavilion silhouette among pines, and a bold black-and-white skunk prowling through the herbal underbrush in the foreground, a spicy-earthy skunky haze drifting over the scene with a glittering frost sparkle. Skunky funk over a spicy, herbal base. Palette earthy and serene — deep pine green and misty blue-grey with warm dusk amber, the skunk's black-white stripe accent and a frosty sparkle in the haze. Mood: relaxing and warm — a euphoric head easing into a comfortable body, dense and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, atmospheric and detailed. The strain name 'BIG SKUNK KOREAN' baked into the scene — carved into a weathered wooden sign or mountain stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "big-skunk-korean.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
