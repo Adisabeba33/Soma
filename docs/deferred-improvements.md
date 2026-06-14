@@ -999,6 +999,117 @@ and didn't do is itself valuable context.
 
 ---
 
+### #20 — Conversational "budtender" intake (the profile becomes a conversation, not a form)
+
+- **Found:** 2026-06-14
+- **Source:** Owner strategy session after testing many profiles. The headline
+  realisation: **SŌMA is turning from a strain catalog into a product.** The
+  defensible core isn't the scoring table (anyone can copy a formula) — it's the
+  **translation of *sensations* into *strains*.** Most people know what they
+  liked, what they didn't, and how they felt — but **not why.** If SŌMA is the
+  translator between feeling and flower, that's its strongest moat. With the
+  engine now distinguishing real taste territories (OG/Gas vs Daytime-Focus give
+  genuinely different results), the quality bottleneck has **moved off scoring
+  and onto intake** — how well we actually understand the person.
+
+- **The problem:** the questionnaire works, but it still *feels* like a
+  questionnaire. A good budtender never hands you a form. They ask: *What are you
+  after today? What did you like last time? What are you doing later? What's a
+  hard no? How do you want to feel?* That's how people actually think. The end
+  state should feel like **a conversation with an experienced budtender**, not
+  form-filling.
+
+- **Vision (owner's hybrid model):**
+  1. **A short conversation** — "What are you looking for today?" + a few follow-ups.
+  2. **SŌMA proposes a profile** from the answers.
+  3. **The user confirms or corrects it.**
+  So the person never feels they filled out a form — they feel they talked to a
+  sommelier who then said "here's what I'm hearing — right?"
+
+- **Architectural principles (how I see it working — keep these intact):**
+  - **Conversation on top, deterministic profile + scoring underneath.** Do NOT
+    turn this into a pure LLM chat that both understands *and* recommends — that
+    throws away the explainability and predictability that make SŌMA trustworthy
+    ("why this strain"). The recommender stays deterministic and auditable.
+  - **An LLM, if used, is an *extractor* (text → structured tags), never the
+    recommender.** It converts the conversation into the same structured profile
+    the engine already reads. This is exactly the role #17 sketches.
+  - **The *feeling* of a conversation does NOT require an LLM.** The felt
+    experience comes from the *interaction design* — asking the right questions,
+    proposing, confirming. Understanding *accuracy* is what an LLM improves. So
+    the experience can ship deterministically first and the brain can be upgraded
+    later — the two are decoupled.
+  - **A few targeted questions beat both a form and a single free-text box.** In
+    front of an empty "describe yourself" box, people don't know what to say. The
+    budtender's power is asking the *right* questions; 3–4 pointed prompts
+    out-perform either extreme.
+
+- **What already exists (~70% of the hybrid is built):**
+  - `profile-from-description.ts` already does free text → `InferredProfile`
+    (same shape as the questionnaire), shown as an **editable preview** before
+    saving — that is literally Steps 2–3 of the hybrid, for the describe path.
+  - `profile-from-experience.ts` reads named strains the user has tried.
+  - Describe telemetry (#18) is live, collecting real phrases + parser misses to
+    grow the vocab and inform the LLM decision.
+  - So the missing pieces are the **conversational framing** and (later) the
+    **understanding brain** (#17).
+
+- **Staged plan:**
+  - **Stage 1 — guided budtender dialogue over the existing parsers (deterministic,
+    no LLM, low risk).** Replace/augment the front door with a short multi-step
+    conversation, ~3–4 questions (see design below). Answers feed the existing
+    `describe` + `from-experience` parsers; SŌMA shows the assembled profile to
+    confirm/edit. Mostly UX assembly on code we already have — delivers the
+    "consultation" feel immediately.
+  - **Stage 2 — the brain (#17).** Slot a constrained LLM extractor behind the
+    same interface so free-text understanding gets robust (closing the vocab
+    misses #18 is logging). Decide by the telemetry data, not by guess.
+  - **Stage 3 — flip the front door.** Conversation becomes the default entry; the
+    structured questionnaire is demoted to a "fine-tune / adjust" surface (the
+    hybrid's Step 3), not the first thing a visitor sees. The form isn't the
+    enemy — it's a great *editing* surface and a bad *greeting*. Keep it, demote it.
+
+- **Stage 1 concrete design (how the conversation maps to the profile):**
+  - **Q1 — "What are you after today?"** (free text) → `describe` parser →
+    preferred aromas/flavors/effects, use-time, body-feel, potency. The richest
+    single signal.
+  - **Q2 — "What did you love last time? (name it or describe it)"** → if a strain
+    name, `from-experience` (favorite anchor + its sensory fingerprint); if prose,
+    `describe`. Feeds `favoriteStrains` / preferred tags.
+  - **Q3 — "Anything that's a hard no?"** (free text) → negated tags →
+    `dislikedEffects` / `dislikedAromas` / `dislikedStrains` (reuses the
+    negation-scope work just shipped).
+  - **Q4 — "What are you doing later / how do you want to feel?"** → context +
+    effect language (the situation/activity triggers already in the parser:
+    "movie night", "before the gym", "wind down") → effects + use-time.
+  - Then **"Here's what I'm hearing:"** → render the assembled `InferredProfile`
+    (the existing editable preview) → user confirms or tweaks → save. Each Q is
+    optional/skippable; even Q1 alone yields a usable profile.
+  - Tone: one question at a time, conversational copy, SŌMA "reflecting back" what
+    it heard ("Sounds like you want bright, citrus-forward daytime flower and
+    nothing that knocks you out — that right?").
+
+- **Risks / things to watch:**
+  - Don't let the conversation become a long interrogation — 3–4 questions max,
+    all skippable. The form's one virtue is speed for people who know the vocab;
+    keep a "just show me the form" escape hatch.
+  - Keep the deterministic profile as the single source of truth so scoring stays
+    explainable regardless of how the profile was gathered.
+  - Stage 2's LLM adds a network/runtime dependency + cost (network policy) —
+    same caveat as #17; the extractor must degrade to the deterministic parser.
+
+- **Dependencies / relatives:** built on the `describe` parser (this doc's #16,
+  #17, #18) and `from-experience`; pairs with #19 (voice = just another way to
+  answer the same questions). Stage 2 *is* #17.
+- **Estimated effort:** Stage 1 ~1–2 days (UX assembly + copy + wiring existing
+  parsers, deterministic). Stage 2 = #17's estimate. Stage 3 ~half a day of
+  routing/IA once Stage 1 is trusted.
+- **Trigger to revisit:** Owner wants to return to this **soon** — it's flagged as
+  the next big quality lever (intake, not scoring). Revisit Stage 1's exact
+  questions + copy together before building.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
