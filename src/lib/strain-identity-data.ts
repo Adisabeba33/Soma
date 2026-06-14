@@ -1993,7 +1993,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a sweet, summery watermelon-and-candy hybrid named Watermelon Zkittlez. Juicy fresh watermelon wedges with glistening pink-red flesh and bright green rind, scattered with glossy rainbow candy gems and mixed berries, a refreshing splash of juice droplets in bright summer light, a sugar-frost sparkle on the candy. Watermelon candy and mixed berry over a clean, light base. Palette fresh and vivid — watermelon pink-red and rind green with rainbow candy pops and berry color, a juicy sheen and frosty sparkle under bright summery light. Mood: calm and contented — a relaxed, happy body ease, refreshing and easy. Cinematic, painterly, high-contrast, premium editorial poster, juicy and appetizing. The strain name 'WATERMELON ZKITTLEZ' baked into the scene — printed on a candy wrapper or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "watermelon-zkittlez.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
