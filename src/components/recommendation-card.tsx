@@ -1,7 +1,7 @@
 import { Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { ScoreBar } from "@/components/match-meter";
-import { cn } from "@/lib/utils";
+import { cn, formatScore } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
 import {
   signalLabel,
@@ -85,7 +85,7 @@ export function RecommendationCard({
                   meta.tone,
                 )}
               >
-                {match.matchScore}
+                {formatScore(match.matchScore)}
               </span>
               <span className="text-lg text-muted-foreground">%</span>
             </div>
@@ -154,10 +154,23 @@ export function RecommendationCard({
             {match.explanation}
           </p>
 
-          {match.feedbackNote && (
+          {(match.feedbackNote || match.feedbackAdjustment !== 0) && (
             <p className="mt-3 flex items-start gap-2 rounded-lg bg-brass/10 px-3 py-2 text-sm leading-relaxed text-foreground/90">
               <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brass" />
-              <span>{match.feedbackNote}</span>
+              <span>
+                {match.feedbackAdjustment !== 0 && (
+                  <span className="font-semibold text-brass">
+                    {match.feedbackAdjustment > 0 ? "+" : "−"}
+                    {Math.abs(match.feedbackAdjustment)} from your feedback
+                  </span>
+                )}
+                {match.feedbackNote && (
+                  <>
+                    {match.feedbackAdjustment !== 0 ? " — " : ""}
+                    {match.feedbackNote}
+                  </>
+                )}
+              </span>
             </p>
           )}
 

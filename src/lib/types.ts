@@ -130,6 +130,11 @@ export interface FeedbackSignal {
   strainName: string;
   liked: boolean;
   rating: number | null;
+  // Signed verdict weight in [-1, 1]. Lets the engine grade how much a
+  // verdict counts instead of treating every positive alike: a "loved"
+  // anchors at +1, a softer "good" at +0.5, an "avoid" at -1. `liked` is
+  // kept as the sign for note copy; `strength` drives the actual nudge.
+  strength: number;
 }
 
 export interface AnalysisResult {

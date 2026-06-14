@@ -216,11 +216,27 @@ function emptyProfile(notes: string): InferredProfile {
 
 // Split into clauses so negation stays local ("sweet but not heavy" →
 // "sweet" positive, "heavy" negated). "and" does NOT start a new clause.
-function clauses(text: string): string[] {
-  return text
-    .split(/[,.;:!?]|\bbut\b|\bexcept\b|\bjust ?not\b/)
-    .map((c) => c.trim())
-    .filter(Boolean);
+//
+// Two kinds of boundary. HARD ones — sentence terminators and
+// but / except / just-not — reset negation: a new assertion starts.
+// Commas are SOFT: they only separate items in a list, so a single negation
+// cue scopes the whole list after it ("nothing sleepy, heavy, or
+// couch-locking" negates all three). Each clause carries `resetNeg`, true for
+// the first item of a hard-bounded sentence, false for comma continuations.
+type Clause = { text: string; resetNeg: boolean };
+
+function clauses(text: string): Clause[] {
+  const out: Clause[] = [];
+  for (const sentence of text.split(/[.;:!?]|\bbut\b|\bexcept\b|\bjust ?not\b/)) {
+    let first = true;
+    for (const seg of sentence.split(",")) {
+      const t = seg.trim();
+      if (!t) continue;
+      out.push({ text: t, resetNeg: first });
+      first = false;
+    }
+  }
+  return out;
 }
 
 // The single highest-count key, or null when there's no clear winner (no
@@ -257,16 +273,38 @@ export function inferProfileFromDescription(input: string): InferredProfile {
   // Time-of-day implied by an activity ("movie" → evening), used only as a
   // fallback when no explicit time word is present.
   const contextTimeVotes = new Set<UseTime>();
+  // Accumulated positive (non-negated) text, so weight/body-feel is read from
+  // what the user WANTS — "nothing heavy" must not register a heavy body-feel.
+  let positiveText = "";
 
-  for (const clause of clauses(text)) {
+  // Whether a negation cue is still in force from an earlier item of the same
+  // comma-separated list. Reset at every hard boundary (sentence / but / …).
+  let carriedNeg = false;
+
+  for (const { text: clause, resetNeg } of clauses(text)) {
+    if (resetNeg) carriedNeg = false;
+
     // Forward-scope negation: a cue ("not / without / no / avoid …") negates
     // everything from its position to the END of the clause — not the whole
     // clause. So "social and giggly without frying my brain" keeps social +
-    // giggly positive and only negates "frying my brain".
+    // giggly positive and only negates "frying my brain". The cue also carries
+    // across following commas, so a bare list item with no cue of its own is
+    // negated too ("nothing sleepy, heavy, or couch-locking").
     const negMatch = clause.match(NEGATION);
     const negIdx = negMatch?.index ?? -1;
-    const positivePart = negIdx === -1 ? clause : clause.slice(0, negIdx);
-    const negatedPart = negIdx === -1 ? "" : clause.slice(negIdx);
+    let positivePart: string;
+    let negatedPart: string;
+    if (negIdx !== -1) {
+      positivePart = clause.slice(0, negIdx);
+      negatedPart = clause.slice(negIdx);
+      carriedNeg = true;
+    } else if (carriedNeg) {
+      positivePart = "";
+      negatedPart = clause;
+    } else {
+      positivePart = clause;
+      negatedPart = "";
+    }
 
     // Comparative ("more X than Y" / "X instead of Y"): the part AFTER
     // than/instead-of is the de-emphasised side — drop it from the positive
@@ -274,6 +312,7 @@ export function inferProfileFromDescription(input: string): InferredProfile {
     const cmp = positivePart.match(/\b(than|instead of)\b/);
     const positiveMain =
       cmp?.index != null ? positivePart.slice(0, cmp.index) : positivePart;
+    positiveText += " " + positiveMain;
 
     // SMELLS — wanted from the positive head, avoided from the negated tail.
     for (const [token, re] of SMELL_TRIGGERS) {
@@ -355,8 +394,11 @@ export function inferProfileFromDescription(input: string): InferredProfile {
   const peWinner = topByCount(primaryEffectCounts);
   if (peWinner) profile.primaryEffect = peWinner as PrimaryEffect;
 
-  // Body-feel: rough slider from explicit weight language.
-  const heavy = HEAVY_RE.test(text);
+  // Body-feel: rough slider from explicit weight language. "heavy" only counts
+  // when it's something the user WANTS — read it from the positive text so
+  // "nothing heavy" doesn't register a heavy body. "light" stays global so a
+  // negated-heavy phrase ("not heavy") can still imply a lighter body.
+  const heavy = HEAVY_RE.test(positiveText);
   const light = LIGHT_RE.test(text);
   if (heavy && !light) profile.bodyFeel = 72;
   else if (light && !heavy) profile.bodyFeel = 30;

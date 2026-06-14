@@ -303,10 +303,12 @@ describe("integration — anchor floor still wins over family layer", () => {
   });
 });
 
-describe("calibration band — non-anchor ceiling at 88", () => {
-  // Reserve 94–96 for direct favourite anchors only. Any other strain,
-  // no matter how strong the layered evidence, caps at 88. Creates a
-  // visible gap between "your strain" and "close alternative."
+describe("calibration band — non-anchor elite band 89–92", () => {
+  // Reserve 94–96 for direct favourite anchors only. Any other strain, no
+  // matter how strong the layered evidence, tops out at 92 — but the strong
+  // ones that clear 88 spread across an elite 89–92 band (with decimals)
+  // instead of all flattening onto a single 88, so the leaders keep a
+  // visible order. 92→94 stays empty so the anchor jump survives.
   const alignedNight = profile({
     favoriteStrains: ["Northern Lights", "Granddaddy Purple", "Bubba Kush"],
     preferredAromas: ["earthy", "woody", "sweet"],
@@ -315,17 +317,17 @@ describe("calibration band — non-anchor ceiling at 88", () => {
     likedTraits: ["heavy-body", "dense-buds", "smooth"],
   });
 
-  it("non-anchor strong alternatives are capped at 88", () => {
+  it("non-anchor strong alternatives never exceed the 92 band ceiling", () => {
     for (const name of ["Purple Punch", "LA Kush Cake", "Ice Cream Cake"]) {
       const r = scoreStrain(name, alignedNight);
       assert.ok(
-        r.matchScore <= 88,
-        `${name} expected ≤88 (non-anchor), got ${r.matchScore}`,
+        r.matchScore <= 92,
+        `${name} expected ≤92 (non-anchor), got ${r.matchScore}`,
       );
     }
   });
 
-  it("anchors are unaffected by the ceiling and stay 94–96", () => {
+  it("anchors are unaffected by the band and stay 94–96", () => {
     for (const name of ["Northern Lights", "Granddaddy Purple", "Bubba Kush"]) {
       const r = scoreStrain(name, alignedNight);
       assert.ok(
@@ -335,7 +337,7 @@ describe("calibration band — non-anchor ceiling at 88", () => {
     }
   });
 
-  it("the 89–93 gap stays empty on aligned profiles", () => {
+  it("the 92→94 gap stays empty on aligned profiles", () => {
     const cohort = [
       "Purple Punch",
       "LA Kush Cake",
@@ -346,9 +348,29 @@ describe("calibration band — non-anchor ceiling at 88", () => {
     for (const name of cohort) {
       const score = scoreStrain(name, alignedNight).matchScore;
       assert.ok(
-        score <= 88 || score >= 94,
+        score <= 92 || score >= 94,
         `${name} fell into the reserved gap zone: ${score}`,
       );
+    }
+  });
+
+  it("band scores keep their raw order and carry decimal precision", () => {
+    // Same engine sees three strains with different raw scores all over the
+    // old 88 ceiling: their visible scores must stay distinct, ordered, and
+    // inside 89–92 rather than collapsing onto one integer.
+    const seen = scoreStrain("Northern Lights", alignedNight); // anchor, ignored
+    assert.ok(seen.matchScore >= 94);
+    const cohort = ["Purple Punch", "LA Kush Cake", "Ice Cream Cake", "GMO Cookies"]
+      .map((n) => scoreStrain(n, alignedNight))
+      .filter((r) => r.matchScore > 88); // only band entrants
+    // Any strain in the band proves the band is reachable and bounded.
+    for (const r of cohort) {
+      assert.ok(
+        r.matchScore >= 89 && r.matchScore <= 92,
+        `band entrant out of range: ${r.strainName ?? ""} ${r.matchScore}`,
+      );
+      // Visible band order must follow the raw (unclamped) order.
+      assert.ok(r.unclampedScore > 88);
     }
   });
 });

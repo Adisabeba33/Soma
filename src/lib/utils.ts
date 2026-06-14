@@ -5,6 +5,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// Render a match score for display. Whole numbers stay clean ("86"), while
+// elite-band scores keep their two-decimal precision ("91.63") so the order
+// among the leaders — who used to all flatten onto 88 — stays visible.
+export function formatScore(score: number): string {
+  return Number.isInteger(score) ? `${score}` : score.toFixed(2);
+}
+
 export function titleCase(value: string): string {
   return value
     .replace(/[-_]/g, " ")

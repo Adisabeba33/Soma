@@ -133,9 +133,9 @@ describe("favourite anchor behaviour", () => {
       "Super Lemon Haze",
       profile({ favoriteStrains: ["Super Lemon Haze"] }),
       [
-        { strainName: "Super Lemon Haze", liked: false, rating: 1 },
-        { strainName: "Super Lemon Haze", liked: false, rating: 2 },
-        { strainName: "Super Lemon Haze", liked: false, rating: 1 },
+        { strainName: "Super Lemon Haze", liked: false, rating: 1, strength: -1 },
+        { strainName: "Super Lemon Haze", liked: false, rating: 2, strength: -0.5 },
+        { strainName: "Super Lemon Haze", liked: false, rating: 1, strength: -1 },
       ],
     );
     assert.ok(result.matchScore >= 94 && result.matchScore <= 96);

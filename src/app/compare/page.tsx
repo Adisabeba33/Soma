@@ -10,7 +10,7 @@ import { FeedbackPill, type Verdict } from "@/components/feedback-pill";
 import { POPULAR_STRAINS } from "@/lib/profile-state";
 import { clearBasket, getBasket } from "@/lib/compare-basket";
 import { labelFor } from "@/lib/vocab";
-import { cn } from "@/lib/utils";
+import { cn, formatScore } from "@/lib/utils";
 import type { Category, ComparisonItem } from "@/lib/types";
 
 const TONE: Record<Category, string> = {
@@ -197,7 +197,7 @@ export default function ComparePage() {
             {items
               .map(
                 (item) =>
-                  `${item.strainName} ${item.matchScore}% (raw ${item.unclampedScore.toFixed(2)})`,
+                  `${item.strainName} ${formatScore(item.matchScore)}% (raw ${item.unclampedScore.toFixed(2)})`,
               )
               .join(", ")}
           </p>
@@ -230,7 +230,7 @@ export default function ComparePage() {
                         TONE[item.category],
                       )}
                     >
-                      {item.matchScore}%
+                      {formatScore(item.matchScore)}%
                     </span>
                     <span
                       className={cn("text-sm font-medium", TONE[item.category])}
@@ -240,7 +240,7 @@ export default function ComparePage() {
                     {tieRanks.get(item.strainName) && (
                       <span
                         className="rounded-full border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground"
-                        title={`Internal score ${item.unclampedScore.toFixed(2)} — the engine ranks this #${tieRanks.get(item.strainName)?.rank} of ${tieRanks.get(item.strainName)?.total} strains tied at ${item.matchScore}%. The 88-point non-anchor ceiling compresses the visible score; the order here is the engine's actual judgment.`}
+                        title={`Internal score ${item.unclampedScore.toFixed(2)} — the engine ranks this #${tieRanks.get(item.strainName)?.rank} of ${tieRanks.get(item.strainName)?.total} strains tied at ${formatScore(item.matchScore)}%. Below the 89–92 elite band the visible score is a whole number, so close non-anchors can share one; the order here is the engine's actual judgment.`}
                       >
                         #{tieRanks.get(item.strainName)?.rank} of{" "}
                         {tieRanks.get(item.strainName)?.total}

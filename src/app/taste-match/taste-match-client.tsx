@@ -19,6 +19,7 @@ import type { ParsedMenuItem } from "@/lib/parse-menu";
 import type { ProfileContradiction } from "@/lib/profile-contradictions";
 import type { MenuQuality, StrainMatch } from "@/lib/types";
 import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
+import { formatScore } from "@/lib/utils";
 
 type Phase = "loading" | "profile" | "input" | "results";
 type Rec = StrainMatch & { id?: string };
@@ -290,6 +291,24 @@ export function TasteMatchClient() {
           <p className="mt-6 rounded-xl border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
             These are sensory matches, not guarantees. Real quality still
             depends on the grower, freshness and storage.
+          </p>
+
+          {/* Temporary testing aid — ranked order on one line, mirroring
+              Compare. Shows the rounded match next to the engine's raw score.
+              Remove later. */}
+          <p className="mt-6 rounded-lg bg-muted px-3 py-2 font-mono text-xs text-muted-foreground">
+            [debug] Ranked order:{" "}
+            {[...recommendations]
+              .sort(
+                (a, b) =>
+                  b.matchScore - a.matchScore ||
+                  b.unclampedScore - a.unclampedScore,
+              )
+              .map(
+                (item) =>
+                  `${item.strainName} ${formatScore(item.matchScore)}% (raw ${item.unclampedScore.toFixed(2)})`,
+              )
+              .join(", ")}
           </p>
 
           <div className="mt-10">

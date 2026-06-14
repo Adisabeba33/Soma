@@ -66,6 +66,33 @@ describe("inferProfileFromDescription — effects & negation", () => {
     assert.ok(p.dislikedEffects.includes("sleepy"));
     assert.equal(p.useTime, "daytime");
   });
+
+  it("carries one negation across a comma-separated list (ISSUE-8)", () => {
+    const p = parse("Nothing sleepy, heavy, or couch-locking.");
+    assert.ok(p.dislikedEffects.includes("sleepy"));
+    assert.ok(p.dislikedEffects.includes("body-heavy"));
+    assert.ok(p.dislikedEffects.includes("couch-lock"));
+    assert.ok(!p.preferredEffects.includes("body-heavy"));
+    assert.ok(!p.preferredEffects.includes("couch-lock"));
+    // "heavy" is negated, so it must not register a heavy body-feel.
+    assert.notEqual(p.bodyFeel, 72);
+  });
+
+  it("a hard boundary (but) ends the carried negation", () => {
+    const p = parse("nothing sleepy or heavy, but keep it giggly");
+    assert.ok(p.dislikedEffects.includes("sleepy"));
+    assert.ok(p.dislikedEffects.includes("body-heavy"));
+    assert.ok(p.preferredEffects.includes("giggly"));
+    assert.ok(!p.dislikedEffects.includes("giggly"));
+  });
+
+  it("keeps a positive list positive when there is no negation", () => {
+    const p = parse("happy, giggly, euphoric");
+    assert.ok(p.preferredEffects.includes("happy"));
+    assert.ok(p.preferredEffects.includes("giggly"));
+    assert.ok(p.preferredEffects.includes("euphoric"));
+    assert.deepEqual(p.dislikedEffects, []);
+  });
 });
 
 describe("inferProfileFromDescription — use-time", () => {

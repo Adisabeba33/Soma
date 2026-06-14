@@ -88,7 +88,7 @@ export function CatalogCollectibleCard({
             }
           >
             <span className="font-display text-base font-semibold leading-none">
-              {badgeValue}
+              {Math.round(badgeValue)}
             </span>
             <span className="text-[8px] uppercase tracking-[0.16em] text-muted-foreground">
               {badgeLabel}

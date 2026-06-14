@@ -704,6 +704,9 @@ export function useCaseFor(strain: StrainProfile): string {
 interface ResolvedFeedback {
   strain: StrainProfile;
   liked: boolean;
+  // Signed verdict weight in [-1, 1] — see FeedbackSignal.strength. Drives
+  // the magnitude of the nudge so a soft "good" moves less than a "loved".
+  strength: number;
   sim: number;
 }
 
@@ -735,7 +738,12 @@ function evaluateFeedback(
 
   const entries: ResolvedFeedback[] = feedback.map((signal) => {
     const { strain } = resolveStrain(signal.strainName);
-    return { strain, liked: signal.liked, sim: similarity(candidate, strain) };
+    return {
+      strain,
+      liked: signal.liked,
+      strength: signal.strength,
+      sim: similarity(candidate, strain),
+    };
   });
 
   // "Support" is how much of the user's feedback is actually relevant
@@ -745,9 +753,12 @@ function evaluateFeedback(
     return { adjustment: 0, note: null, confidenceBoost: 0 };
   }
 
-  // Similarity-weighted average sentiment, in [-1, 1].
+  // Similarity-weighted average sentiment, in [-1, 1]. Uses each verdict's
+  // graded strength, so a "good" (+0.5) pulls half as hard as a "loved" (+1)
+  // and the strongest positive nudge needs an actual "loved", not just an
+  // off-profile "I'd try it again".
   const sentiment =
-    entries.reduce((acc, e) => acc + (e.liked ? 1 : -1) * e.sim, 0) / support;
+    entries.reduce((acc, e) => acc + e.strength * e.sim, 0) / support;
   // Trust grows with the volume of relevant feedback but never reaches 1,
   // so one rating alone cannot dominate.
   const trust = support / (support + FEEDBACK_DAMPING);
@@ -1048,10 +1059,11 @@ export function scoreStrain(
     familyPrefMod;
   const penalty = Math.min(42, conflicts.length * 15);
   // Pre-calibration score with decimal precision. Same formula as the
-  // visible matchScore but without anchor floor, 99 base cap, or 88
-  // non-anchor ceiling. Used to break ties when multiple strains end up
-  // displaying the same matchScore — the engine differentiates them on
-  // the raw side but the calibration bands compress that signal away.
+  // visible matchScore but without anchor floor, 99 base cap, or the 89–92
+  // elite-band remap. Used to break ties when strains end up displaying the
+  // same matchScore — the engine differentiates them on the raw side but
+  // the calibration bands compress that signal away. It also feeds the
+  // band remap above, so the visible order tracks the raw order.
   const unclampedScore = raw - penalty;
   let baseScore = Math.round(raw - penalty);
   if (isDisliked) baseScore = Math.min(baseScore, 18);
@@ -1071,12 +1083,25 @@ export function scoreStrain(
   const fbAdjustment = isFavoriteAnchor ? 0 : fb.adjustment;
   let matchScore = clamp(baseScore + fbAdjustment, 4, 99);
   // Calibration band: reserve 94–96 exclusively for direct favourite
-  // anchors. Strong non-anchor alternatives top out at 88 so the visual
-  // gap between "your strain" and "close alternative" stays obvious.
-  // Anchors flow through unchanged.
-  const NON_ANCHOR_CEILING = 88;
-  if (!isFavoriteAnchor && matchScore > NON_ANCHOR_CEILING) {
-    matchScore = NON_ANCHOR_CEILING;
+  // anchors. A non-anchor never reaches that — but rather than flattening
+  // every strong alternative onto a single 88 ceiling (which hid the order
+  // among the leaders), spread the ones that clear 88 across an elite
+  // 89–92 band carrying two-decimal precision. The map is monotonic in the
+  // raw pre-calibration score, so Rainbow Belts (raw 97.66) still reads
+  // above Apples & Bananas (97.42) above RS11 (93.27). 92 is "almost a
+  // favourite", 89 the weakest of the strong; 92→94 stays an empty gap so
+  // the favourite-vs-rest jump survives.
+  if (!isFavoriteAnchor && matchScore > 88) {
+    const BAND_LO = 89;
+    const BAND_HI = 92;
+    // Raw window feeding the band: 88.5 (just over the integer ceiling) up
+    // to 100, clamped — so an entrant lands at 89.00 at the low end and a
+    // runaway raw score can never push past 92.
+    const RAW_LO = 88.5;
+    const RAW_HI = 100;
+    const preciseTop = unclampedScore + fbAdjustment;
+    const t = clamp((preciseTop - RAW_LO) / (RAW_HI - RAW_LO), 0, 1);
+    matchScore = Math.round((BAND_LO + t * (BAND_HI - BAND_LO)) * 100) / 100;
   }
 
   let category = categorize(matchScore, conflicts.length, isDisliked);
@@ -1285,8 +1310,9 @@ export function analyze(
   }
 
   // Primary sort by visible matchScore; tie-breaker on unclampedScore so
-  // the calibration ceiling (88) doesn't collapse the engine's actual
-  // ordering of close non-anchor candidates.
+  // the calibration bands don't collapse the engine's actual ordering of
+  // close non-anchor candidates (relevant below 89, where scores are still
+  // whole integers and several can share one value).
   recommendations.sort(
     (a, b) =>
       b.matchScore - a.matchScore || b.unclampedScore - a.unclampedScore,
