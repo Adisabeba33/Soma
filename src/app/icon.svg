@@ -1,0 +1,6 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect x="16" y="16" width="480" height="480" rx="116" fill="#334234"/>
+  <rect x="36" y="36" width="440" height="440" rx="96" fill="none" stroke="#9f7b4b" stroke-width="3" opacity="0.55"/>
+  <rect x="216" y="150" width="80" height="11" rx="5.5" fill="#9f7b4b"/>
+  <text x="256" y="380" text-anchor="middle" font-family="'Liberation Serif','DejaVu Serif',Georgia,serif" font-size="300" font-weight="700" fill="#f3eee4">S</text>
+</svg>

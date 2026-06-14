@@ -19,12 +19,25 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-editorial items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="group flex items-baseline gap-2">
-          <span className="font-display text-2xl font-semibold tracking-tight">
+        <Link href="/" className="group flex items-center gap-2.5">
+          <span className="font-display text-2xl font-semibold leading-none tracking-[0.08em]">
             SŌMA
           </span>
-          <span className="hidden text-[0.7rem] uppercase tracking-[0.22em] text-muted-foreground sm:inline">
-            Sensory Sommelier
+          <span className="hidden items-center gap-2 sm:flex">
+            <svg
+              width="28"
+              height="8"
+              viewBox="0 0 28 8"
+              className="text-brass/80"
+              aria-hidden
+            >
+              <line x1="0" y1="4" x2="9" y2="4" stroke="currentColor" strokeWidth="1" opacity="0.45" />
+              <path d="M14 1 L17 4 L14 7 L11 4 Z" fill="currentColor" />
+              <line x1="19" y1="4" x2="28" y2="4" stroke="currentColor" strokeWidth="1" opacity="0.45" />
+            </svg>
+            <span className="text-[0.7rem] uppercase tracking-[0.22em] text-muted-foreground">
+              Sensory Sommelier
+            </span>
           </span>
         </Link>
 
