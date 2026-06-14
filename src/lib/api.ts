@@ -65,17 +65,27 @@ export async function getFeedbackSignals(
     strainName: row.recommendation.resolvedName || row.recommendation.strainName,
     liked: row.liked === true,
     rating: row.rating,
+    // A 1–5 star rating maps onto the signed scale (3 = neutral): 5→+1,
+    // 4→+0.5, 2→-0.5, 1→-1. Without a rating, fall back to the like flag.
+    strength:
+      row.rating != null
+        ? Math.max(-1, Math.min(1, (row.rating - 3) / 2))
+        : row.liked === true
+          ? 1
+          : -1,
   }));
 
   const fromStrain: FeedbackSignal[] = strainLevel
     .map((row): FeedbackSignal | null => {
       switch (row.verdict) {
         case "loved":
-          return { strainName: row.strainName, liked: true, rating: 5 };
+          return { strainName: row.strainName, liked: true, rating: 5, strength: 1 };
         case "good":
-          return { strainName: row.strainName, liked: true, rating: 4 };
+          // A softer yes — "I'd smoke it again", not "this is my lane". Counts
+          // at half a loved so it refines order without redefining taste.
+          return { strainName: row.strainName, liked: true, rating: 4, strength: 0.5 };
         case "avoid":
-          return { strainName: row.strainName, liked: false, rating: 1 };
+          return { strainName: row.strainName, liked: false, rating: 1, strength: -1 };
         default:
           return null;
       }

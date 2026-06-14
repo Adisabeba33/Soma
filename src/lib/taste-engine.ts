@@ -704,6 +704,9 @@ export function useCaseFor(strain: StrainProfile): string {
 interface ResolvedFeedback {
   strain: StrainProfile;
   liked: boolean;
+  // Signed verdict weight in [-1, 1] — see FeedbackSignal.strength. Drives
+  // the magnitude of the nudge so a soft "good" moves less than a "loved".
+  strength: number;
   sim: number;
 }
 
@@ -735,7 +738,12 @@ function evaluateFeedback(
 
   const entries: ResolvedFeedback[] = feedback.map((signal) => {
     const { strain } = resolveStrain(signal.strainName);
-    return { strain, liked: signal.liked, sim: similarity(candidate, strain) };
+    return {
+      strain,
+      liked: signal.liked,
+      strength: signal.strength,
+      sim: similarity(candidate, strain),
+    };
   });
 
   // "Support" is how much of the user's feedback is actually relevant
@@ -745,9 +753,12 @@ function evaluateFeedback(
     return { adjustment: 0, note: null, confidenceBoost: 0 };
   }
 
-  // Similarity-weighted average sentiment, in [-1, 1].
+  // Similarity-weighted average sentiment, in [-1, 1]. Uses each verdict's
+  // graded strength, so a "good" (+0.5) pulls half as hard as a "loved" (+1)
+  // and the strongest positive nudge needs an actual "loved", not just an
+  // off-profile "I'd try it again".
   const sentiment =
-    entries.reduce((acc, e) => acc + (e.liked ? 1 : -1) * e.sim, 0) / support;
+    entries.reduce((acc, e) => acc + e.strength * e.sim, 0) / support;
   // Trust grows with the volume of relevant feedback but never reaches 1,
   // so one rating alone cannot dominate.
   const trust = support / (support + FEEDBACK_DAMPING);
