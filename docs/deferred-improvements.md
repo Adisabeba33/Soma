@@ -1177,6 +1177,41 @@ and didn't do is itself valuable context.
 
 ---
 
+### #22 — Full PWA service worker (offline + Android install prompt)
+
+- **Found:** 2026-06-14
+- **Source:** Owner — after shipping the installable manifest, decided to leave
+  the service worker for later ("пока пусть на экран только добавляем").
+- **Context (what already shipped):** the web manifest + apple meta + 192/512 +
+  maskable icons are live (PR #163 / `app/manifest.ts`), so SŌMA can already be
+  **manually** added to the home screen on iOS and Android and launches
+  standalone. What's missing is a service worker.
+- **What this adds (the SW unlocks):**
+  - **Android's automatic "Install app" prompt** (`beforeinstallprompt`) instead
+    of the manual "Add to Home Screen" menu — much higher install conversion.
+  - **Offline / flaky-network resilience** — cache the app shell + static assets
+    so SŌMA opens without a connection and feels native.
+  - Foundation for later niceties (background sync, push) if ever wanted.
+- **Sketch:**
+  - A small service worker (hand-rolled, or `next-pwa` / Serwist for the Next App
+    Router) registered on load; cache-first for static assets + the app shell,
+    network-first for API/data so recommendations stay fresh.
+  - A light "Install SŌMA" affordance that fires the captured
+    `beforeinstallprompt` on Android.
+  - Be careful with caching on a `force-dynamic`, cookie-personalised app — never
+    cache per-user API responses (profile, feedback, matches); only the shell and
+    public static assets.
+- **Why deferred:** the manual add-to-home-screen already covers the immediate
+  need; the owner wants to watch usage first. SW caching is easy to get subtly
+  wrong on a personalised, server-rendered app, so it deserves its own focused
+  pass.
+- **Estimated effort:** ~half a day to a day (SW + registration + cache strategy
+  + install button + testing the offline/stale edges).
+- **Trigger to revisit:** when we want a proper installable, offline PWA — or if
+  testers ask for an app-store-like install on Android.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
