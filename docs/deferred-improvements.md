@@ -1110,6 +1110,73 @@ and didn't do is itself valuable context.
 
 ---
 
+### #21 — Weighted (graded-intensity) tags on strains
+
+- **Found:** 2026-06-14
+- **Source:** Owner idea. Today a strain's tags are binary — it *is* sweet /
+  tropical / euphoric, or it isn't. The engine knows the *presence* of a trait,
+  not its *strength*. Idea: give each tag an **intensity** so the engine knows a
+  strain is **intensely** piney vs **faintly** piney, or gives euphoria
+  **strongly** vs **mildly**.
+- **Why it matters:** this attacks within-cluster sameness **at the data level**,
+  not just the display. Rainbow Belts ("candy-dominant, fruity-present") would
+  separate *in score* from Apples & Bananas ("fruity-dominant, candy-present"),
+  not just by the 89–92 band decimals. It sharpens the core moat — translating
+  *how much* of a sensation a user wants into the right flower.
+
+- **The hard part — sourcing the numbers (decided: NOT a free 0–100):**
+  - There is **no ground-truth measurement** of intensity. "Smells like pine at
+    88" — nobody measured 88. A free 0–100 scale would be **false precision**:
+    a confident number with nothing behind it, which is exactly the trap the 88
+    ceiling was (pretty, but not real).
+  - Intensity genuinely **varies by phenotype, grower and batch** — the same
+    strain differs between producers.
+  - It also **varies by the perceiver** (owner's point): "strongly gassy for me
+    might be half-gassy for someone else." So a strain-level number can only ever
+    be a **population baseline**, never a personal truth.
+
+- **Decision — ordinal tiers, not 0–100:** three levels per tag —
+  **dominant / present / subtle** — mapped internally to weights (e.g.
+  1.0 / 0.6 / 0.3). This is honest (no fake precision), cheap and consistent to
+  curate (drop a tag in one of three boxes), and captures nearly all the gain
+  ("intensely gassy" vs "a hint of gas" is already distinguishable). A continuous
+  0–100 may live *internally* as the weight, but curation and any display stay
+  tiered.
+
+- **Sourcing the tiers (cheapest → best):**
+  1. **Free, now:** a weak prior we already have — **tag order** (first aroma ≈
+     dominant) and the existing `primaryAroma` / `primaryEffect`. Start with
+     "first tag = dominant, rest = present."
+  2. **Better:** an **LLM proposes tiers** from curator notes / lineage, and the
+     **curator confirms/edits** — scalable and accurate enough. (Same extractor
+     role as #17 — proposer, not oracle.)
+  3. **Long-term:** blend in **community-review frequencies** (e.g. "68% report
+     euphoria") as a real, defensible weight signal.
+
+- **The other half — intensity must also live in the profile:** weighted strain
+  tags need something to match *against*. "I want **strongly** gassy" ≠ "I want
+  **a hint** of gas." Because intensity is subjective, the **strain tier is the
+  baseline** and the **person's preferred intensity** (captured in intake, and
+  refined by the feedback loop) personalises it. This is exactly what a
+  conversation captures naturally ("really candy-forward" vs "a touch sweet"), so
+  **#21 and #20 are two sides of one coin.** Close relative of **#16**
+  (over-dominant tokens + "character of the high").
+
+- **Scope (design first, build in phases):** this is a **data-model change** — a
+  tag stops being a `string` and becomes `{ token, weight }` (or `{ token, tier }`).
+  Touches: `strain-data` (the catalog), the engine's `similarity` / aroma /
+  effect / flavour scoring, the profile shape (preferred-intensity), and curation
+  tooling. Backwards-compatible migration: untagged-intensity defaults to
+  "present" so nothing breaks while tiers are filled in.
+- **Estimated effort:** multi-phase. Data-model + engine plumbing ~2–3 days;
+  tiering the catalog is ongoing curation (LLM-assisted); profile-side intensity
+  rides with #20. Not an evening's work.
+- **Trigger to revisit:** Owner wants to **examine this deeper** soon, alongside
+  #20 (intake) and #16 (vocab precision) — they're the same theme: resolution of
+  *how much*, not just *what*.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
