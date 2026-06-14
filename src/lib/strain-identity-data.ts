@@ -87,6 +87,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Tahoe OG",
+    lineage: {
+      parents: ["OG Kush"],
+      cross: "OG Kush phenotype — clone-only Lake Tahoe cut (second parent unknown)",
+    },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Heavy pine-gas OG cut, body-forward"],
     curatorNote:
@@ -347,6 +351,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Bubba Kush",
+    lineage: {
+      parents: ["OG Kush"],
+      cross: "OG Kush × an unknown New Orleans indica (commonly cited as a Northern Lights relative — not verified)",
+    },
     marketNames: ["Bubba"],
     sensoryFamily: "kush-classic",
     phenotypeNotes: ["Coffee / earthy heavy-indica reference"],
@@ -1163,6 +1171,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Kosher Kush",
+    lineage: {
+      parents: ["OG Kush"],
+      cross: "Elite OG Kush phenotype — clone-only LA cut (second parent unknown)",
+    },
     marketNames: ["Jew Gold", "Kosher OG"],
     breeder: "Reserva Privada / DNA Genetics",
     sensoryFamily: "gas-og",
@@ -1630,6 +1642,15 @@ export const IDENTITIES: StrainIdentity[] = [
   // ── Haze / sativa classics ──
   {
     canonicalName: "Amnesia Haze",
+    lineage: {
+      parents: ["Afghani Hawaiian", "Laos", "Jamaica"],
+      cross: "Afghani Hawaiian × Laos × Jamaica (Soma Seeds Haze line)",
+      parentDetails: {
+        "Afghani Hawaiian": { lineageBrief: "Afghani × Hawaiian", type: "hybrid" },
+        Laos: { lineageBrief: "Laotian sativa landrace", type: "sativa" },
+        Jamaica: { lineageBrief: "Jamaican sativa landrace", type: "sativa" },
+      },
+    },
     marketNames: ["Amnesia"],
     sensoryFamily: "haze-sativa",
     phenotypeNotes: ["Citrus-forward Cup-winning haze"],
