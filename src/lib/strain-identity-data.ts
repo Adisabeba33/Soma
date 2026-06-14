@@ -2027,6 +2027,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gushers (Fruit Gushers) is a Cookies cross of Gelato 41 and Triangle Kush — sweet tropical candy on a gassy, OG-leaning frame. The nose is sweet and fruity: tropical candy and berry over a light gas, dessert-bright with a funky edge. The effect is balanced-leaning-relaxed — a euphoric head over a comfortable, calming body, afternoon into evening. It's frosty and potent, a popular flavour-forward exotic. For people who want fruity candy with some gas backbone, Gushers is a tasty, well-known pick.",
     curatorQuote:
       "Tropical candy and berry over a light gas, dessert-bright with a funky edge.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a fruity candy exotic with a gassy backbone named Gushers. A pile of glossy fruit-candy gushers, one bursting open mid-bite with vivid tropical juice gushing out — bright berry, mango and tropical color spilling and glistening, a sparkling sugar-frost dusting the candy, a faint oily petrol-rainbow shimmer in the sweet mist hinting at the light gas. Tropical candy and berry over a light gas, dessert-bright with a funky edge. Palette vivid and juicy — bright berry-red, mango-orange and tropical-purple with glossy highlights, a frosty sparkle and a faint petrol shimmer over a clean shadow. Mood: balanced-leaning-relaxed — a euphoric head over a comfortable, calming body, fun and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, glossy and appetizing. The strain name 'GUSHERS' baked into the scene — printed boldly on a candy-bag foil or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "gushers.webp",
+    artStatus: "prompt",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
