@@ -197,7 +197,11 @@ export default function ComparePage() {
             {items
               .map(
                 (item) =>
-                  `${item.strainName} ${formatScore(item.matchScore)}% (raw ${item.unclampedScore.toFixed(2)})`,
+                  `${item.strainName} ${formatScore(item.matchScore)}% (raw ${item.unclampedScore.toFixed(2)}${
+                    item.feedbackAdjustment
+                      ? ` ${item.feedbackAdjustment > 0 ? "+" : "-"}${Math.abs(item.feedbackAdjustment)} fb`
+                      : ""
+                  })`,
               )
               .join(", ")}
           </p>
