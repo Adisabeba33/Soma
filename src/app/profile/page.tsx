@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Check } from "lucide-react";
+import Link from "next/link";
+import { Check, Heart, ChevronRight } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
 import {
@@ -68,6 +69,22 @@ export default function ProfilePage() {
         This is what every Taste Match is measured against. Edit it whenever
         your palate shifts — the more honest it is, the sharper SŌMA gets.
       </p>
+
+      <Link
+        href="/profile/feedback"
+        className="mt-6 flex items-center justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3 transition-colors hover:border-accent/40"
+      >
+        <span className="flex items-center gap-2.5">
+          <Heart className="h-4 w-4 text-accent" />
+          <span className="text-sm">
+            Strains you&apos;ve rated
+            <span className="block text-xs text-muted-foreground">
+              See everything you loved, liked, stayed neutral on or avoided.
+            </span>
+          </span>
+        </span>
+        <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+      </Link>
 
       {saved && (
         <p className="mt-6 flex items-center gap-2 rounded-xl bg-accent/10 px-4 py-3 text-sm text-accent">
