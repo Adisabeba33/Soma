@@ -8,6 +8,7 @@ import { scoreStrain } from "@/lib/taste-engine";
 import { STRAINS } from "@/lib/strain-data";
 import type { TasteProfileInput } from "@/lib/types";
 import { CatalogClient } from "./catalog-client";
+import { FeedbackReset } from "@/components/feedback-reset";
 
 export const dynamic = "force-dynamic";
 
@@ -64,6 +65,8 @@ export default async function CatalogPage() {
         view to see what we know about each strain, where data is thin, and
         which strains sit near each other in sensory space.
       </p>
+
+      <FeedbackReset />
 
       <Suspense fallback={null}>
         <CatalogClient

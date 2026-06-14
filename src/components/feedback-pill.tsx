@@ -56,19 +56,22 @@ export function FeedbackPill({
   const [error, setError] = useState(false);
 
   async function submit(next: Verdict) {
-    // Clicking the active verdict is a no-op (no toggle-off; the user
-    // can always pick a different verdict to overwrite).
-    if (next === verdict) return;
+    // Tapping the active verdict again clears it (toggle-off) — so a
+    // verdict left by accident, or a mind changed, can be undone with the
+    // same button instead of being stuck until overwritten.
+    const clearing = next === verdict;
     setPending(next);
     setError(false);
     try {
       const res = await fetch("/api/strain-feedback", {
-        method: "POST",
+        method: clearing ? "DELETE" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ strainName, verdict: next, source }),
+        body: JSON.stringify(
+          clearing ? { strainName } : { strainName, verdict: next, source },
+        ),
       });
       if (!res.ok) throw new Error();
-      setVerdict(next);
+      setVerdict(clearing ? null : next);
     } catch {
       setError(true);
     } finally {
@@ -80,6 +83,11 @@ export function FeedbackPill({
     <div className={cn("space-y-1.5", className)}>
       <p className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
         Did you try it?
+        {verdict && (
+          <span className="ml-2 normal-case tracking-normal text-muted-foreground/70">
+            · tap again to clear
+          </span>
+        )}
       </p>
       <div className="flex flex-wrap gap-1.5">
         {OPTIONS.map((opt) => {
