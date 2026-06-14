@@ -12,7 +12,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { SensoryRadar } from "@/components/sensory-radar";
 import { RADAR_AXES, buildRadar } from "@/lib/sensory-radar";
-import { cn } from "@/lib/utils";
+import { cn, formatScore } from "@/lib/utils";
+import { FeedbackPill, type Verdict } from "@/components/feedback-pill";
 import { labelFor } from "@/lib/vocab";
 import { knownAsNames, lineageConfidenceOf } from "@/lib/strain-identity";
 import { artImageSrc, artFocusOf } from "@/lib/strain-art";
@@ -50,12 +51,14 @@ export interface LineageParent {
 export function StrainDetail({
   entry,
   match,
+  initialVerdict,
   curatedScore,
   similar,
   lineageParents,
 }: {
   entry: CatalogEntry;
   match?: CatalogMatch;
+  initialVerdict?: Verdict | null;
   curatedScore: number;
   similar: SimilarStrainEntry[];
   lineageParents: LineageParent[];
@@ -133,7 +136,7 @@ export function StrainDetail({
               )}
             >
               <span className="font-display text-2xl font-semibold leading-none">
-                {badgeScore}
+                {formatScore(badgeScore)}
               </span>
               <span className="text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
                 {match ? "match" : "curated"}
@@ -173,6 +176,13 @@ export function StrainDetail({
                 Use in Taste Match
               </Link>
               <CompareButton name={strain.name} />
+            </div>
+            <div className="mt-5 border-t border-border pt-4">
+              <FeedbackPill
+                strainName={strain.name}
+                initial={initialVerdict ?? null}
+                source="catalog"
+              />
             </div>
           </div>
         </div>

@@ -314,6 +314,12 @@ export function TasteMatchClient() {
               )
               .join(", ")}
           </p>
+          <p className="mt-1 px-3 text-[11px] leading-relaxed text-muted-foreground/80">
+            <span className="font-mono">raw</span> = pre-feedback sensory score;{" "}
+            <span className="font-mono">+N fb</span> = points the engine added or
+            removed from your saved <em>loved / good / avoid</em> verdicts on
+            sensorily similar strains. Manage them in the catalog.
+          </p>
 
           <div className="mt-10">
             <ResultsView recommendations={recommendations} />

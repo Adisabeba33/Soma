@@ -59,6 +59,24 @@ async function loadMatch(strainName: string): Promise<CatalogMatch | undefined> 
   return { score: m.matchScore, category: m.category };
 }
 
+// The visitor's own verdict on this strain, so the catalog page shows what
+// they already said about it (and lets them change or clear it on the spot).
+async function loadVerdict(
+  strainName: string,
+): Promise<"loved" | "good" | "neutral" | "avoid" | null> {
+  const store = await cookies();
+  const userId = store.get(SOMA_UID_COOKIE)?.value;
+  if (!userId) return null;
+  const row = await prisma.strainFeedback.findUnique({
+    where: { userId_strainName: { userId, strainName } },
+    select: { verdict: true },
+  });
+  const v = row?.verdict;
+  return v === "loved" || v === "good" || v === "neutral" || v === "avoid"
+    ? v
+    : null;
+}
+
 export default async function StrainPage({
   params,
 }: {
@@ -69,6 +87,7 @@ export default async function StrainPage({
   if (!entry) notFound();
 
   const match = await loadMatch(entry.strain.name);
+  const verdict = await loadVerdict(entry.strain.name);
   const similar = similarWithProfiles(entry.similar);
 
   // Enrich each parent with what we already know about it. Lookup
@@ -98,6 +117,7 @@ export default async function StrainPage({
     <StrainDetail
       entry={entry}
       match={match}
+      initialVerdict={verdict}
       curatedScore={curatedScore(entry)}
       similar={similar}
       lineageParents={lineageParents}

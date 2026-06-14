@@ -98,6 +98,41 @@ export async function POST(req: NextRequest) {
   });
 }
 
+// Remove a verdict. Two modes:
+//   { strainName }  → clear the verdict for one strain (the pill's
+//                     toggle-off: tapping the active verdict again).
+//   { all: true }   → wipe every verdict for this user (a clean slate, e.g.
+//                     to reset scoring after experimenting).
+export async function DELETE(req: NextRequest) {
+  const userId = await getUserId();
+  const body = await req.json().catch(() => ({}));
+
+  if (body?.all === true) {
+    const { count } = await prisma.strainFeedback.deleteMany({
+      where: { userId },
+    });
+    return NextResponse.json({ ok: true, cleared: count });
+  }
+
+  const rawName = asString(body.strainName, 120);
+  if (!rawName) {
+    return NextResponse.json(
+      { error: "Missing strainName (or pass { all: true })." },
+      { status: 400 },
+    );
+  }
+
+  const known = findStrain(rawName);
+  const canonical = known?.name ?? rawName;
+
+  // deleteMany (not delete) so removing a verdict that was never set is a
+  // no-op rather than a 404 — the pill can fire it optimistically.
+  const { count } = await prisma.strainFeedback.deleteMany({
+    where: { userId, strainName: canonical },
+  });
+  return NextResponse.json({ ok: true, cleared: count });
+}
+
 // Read-only retrieval for the current user's verdicts. The compare
 // page calls this on mount to hydrate the pills with existing
 // selections so a returning user sees their prior verdict highlighted
