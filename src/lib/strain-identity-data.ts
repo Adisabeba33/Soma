@@ -4606,7 +4606,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a floral, berry-sweet dessert hybrid named Pink Rozay — a nod to blush rosé wine. An elegant glass of blush-pink rosé glowing in soft warm light, delicate berries and rose petals drifting around the bowl of the glass, a gentle frosted chill sweating on the crystal, a creamy floral mist in the air. Berry and flowers over a creamy, doughy base. Palette elegant and soft — blush rosé pink and rose-petal red with creamy highlights and crystal glints, a frosty sparkle and floral glow over a soft warm shadow. Mood: relaxing and happy — a euphoric head easing into a comfortable body, elegant and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, refined and atmospheric. The strain name 'PINK ROZAY' baked into the scene — etched on the glass or an elegant label. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "pink-rozay.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     sourceConfidence: "medium",
   },
