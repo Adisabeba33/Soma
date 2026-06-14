@@ -140,12 +140,11 @@ describe("anchor-floor invariant survives the similarity lift", () => {
       preferredEffects: ["sleepy", "body-heavy"],
     });
     const pp = scoreStrain("Purple Punch", p);
-    // PP is not in favourites; even with very high similarity to GDP,
-    // it must respect the 88 non-anchor ceiling, not the 94–96 anchor
-    // floor.
+    // PP is not in favourites; even with very high similarity to GDP, it
+    // must respect the non-anchor band (≤92), never the 94–96 anchor floor.
     assert.ok(
-      pp.matchScore <= 88,
-      `PP should respect non-anchor ceiling, got ${pp.matchScore} (anchor floor leaked)`,
+      pp.matchScore <= 92,
+      `PP should respect non-anchor band, got ${pp.matchScore} (anchor floor leaked)`,
     );
   });
 

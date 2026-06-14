@@ -19,6 +19,7 @@ import type { ParsedMenuItem } from "@/lib/parse-menu";
 import type { ProfileContradiction } from "@/lib/profile-contradictions";
 import type { MenuQuality, StrainMatch } from "@/lib/types";
 import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
+import { formatScore } from "@/lib/utils";
 
 type Phase = "loading" | "profile" | "input" | "results";
 type Rec = StrainMatch & { id?: string };
@@ -305,7 +306,7 @@ export function TasteMatchClient() {
               )
               .map(
                 (item) =>
-                  `${item.strainName} ${item.matchScore}% (raw ${item.unclampedScore.toFixed(2)})`,
+                  `${item.strainName} ${formatScore(item.matchScore)}% (raw ${item.unclampedScore.toFixed(2)})`,
               )
               .join(", ")}
           </p>

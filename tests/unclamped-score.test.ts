@@ -57,36 +57,36 @@ describe("StrainMatch — unclampedScore field", () => {
     );
   });
 
-  it("exceeds matchScore when the candidate hits the 88 ceiling", () => {
-    // For a strong non-anchor match, the matchScore is capped at 88 but
-    // unclampedScore should be > 88 to reflect the actual computed value.
+  it("a band candidate (>88) was mapped from a raw score over 88", () => {
+    // A strong non-anchor match maps into the 89–92 elite band; the raw
+    // unclamped score it was mapped from must sit above the 88 entry point.
     const fa = scoreStrain("Face Off OG", gasFan);
-    if (fa.matchScore === 88) {
+    if (fa.matchScore > 88) {
       assert.ok(
         fa.unclampedScore > 88,
-        `Face Off OG hit the 88 ceiling, unclampedScore should be > 88, got ${fa.unclampedScore}`,
+        `Face Off OG is in the band (${fa.matchScore}), unclampedScore should be > 88, got ${fa.unclampedScore}`,
       );
     }
   });
 });
 
 describe("analyze — sort tie-breaker on unclampedScore", () => {
-  it("orders ceiling-tied strains by their internal raw score (descending)", () => {
-    // The reviewer's case: multiple strains hit matchScore=88, but the
-    // engine differentiates them internally. The sort guarantee here is
-    // "by unclampedScore desc within the tie" — what counts is that the
-    // engine's actual judgment isn't lost to insertion order. WHICH
-    // strain wins depends on current identity / curation state, so we
-    // don't hard-code the winner — we check the invariant.
+  it("orders band-tied strains by their internal raw score (descending)", () => {
+    // The reviewer's case: multiple strains map to the same visible band
+    // value (here they all top out at the 92 ceiling), but the engine
+    // differentiates them internally. The sort guarantee is "by
+    // unclampedScore desc within the tie" — the engine's actual judgment
+    // isn't lost to insertion order. WHICH strain wins depends on current
+    // identity / curation state, so we don't hard-code the winner.
     const result = analyze(
       ["Face Off OG", "King Louis XIII", "Permanent Marker"],
       gasFan,
     );
-    // All three should be at 88 (verify the test setup is still valid).
-    assert.deepEqual(
-      result.recommendations.map((r) => r.matchScore),
-      [88, 88, 88],
-      `expected all three tied at 88, got ${result.recommendations.map((r) => r.matchScore).join(", ")}`,
+    // All three share one band value (verify the tie setup is still valid).
+    const scores = result.recommendations.map((r) => r.matchScore);
+    assert.ok(
+      scores.every((s) => s === scores[0] && s > 88 && s <= 92),
+      `expected all three tied inside the 89–92 band, got ${scores.join(", ")}`,
     );
     // Unclamped scores must be monotonically decreasing — that's the
     // invariant the tie-breaker enforces.

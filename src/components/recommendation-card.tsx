@@ -1,7 +1,7 @@
 import { Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { ScoreBar } from "@/components/match-meter";
-import { cn } from "@/lib/utils";
+import { cn, formatScore } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
 import {
   signalLabel,
@@ -85,7 +85,7 @@ export function RecommendationCard({
                   meta.tone,
                 )}
               >
-                {match.matchScore}
+                {formatScore(match.matchScore)}
               </span>
               <span className="text-lg text-muted-foreground">%</span>
             </div>

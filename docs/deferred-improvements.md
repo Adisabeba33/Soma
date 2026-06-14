@@ -729,7 +729,23 @@ and didn't do is itself valuable context.
 
 ---
 
-### #15 — Use the 89–93 band for an "exceptional alternative" tier (IDEA, not designed yet)
+### ✓ #15 — Elite 89–92 band for strong non-anchor alternatives (RESOLVED)
+
+- **Resolved:** 2026-06-14, on `claude/project-review-status-1j09yv`. Real
+  testing on a fruity-candy profile surfaced the exact symptom this idea
+  anticipated: Rainbow Belts (raw 97.66), Apples & Bananas (97.42) and RS11
+  (93.27) all flattened onto 88, hiding the order among the leaders.
+- **What shipped (differs from the original strict-gate sketch below):**
+  instead of a conjunctive gate that promotes only a handful, the hard
+  `matchScore > 88 → 88` clamp is replaced with a **smooth, monotonic remap**
+  of every non-anchor that clears 88 into **89.00–92.00**, carried **to two
+  decimals** so even near-ties stay distinguishable (the decimals do the job
+  the cluster-rank badge would have). 92.01–93.99 stays an empty gap; 94–96
+  remains anchor-only. Owner picked the window: 89 = weakest of the strong, 92
+  = almost-a-favourite. Display via `formatScore()`; see `docs/scoring-scale.md`.
+- Pure engine + UI, no `db:push`.
+
+<details><summary>Original idea (for history)</summary>
 
 - **Found:** 2026-06-12
 - **Source:** Owner idea.
@@ -762,6 +778,8 @@ and didn't do is itself valuable context.
 - **Estimated effort:** 2–4 hours once the numbers are decided + tests.
 - **Trigger to revisit:** When we choose to invest in the band; revisit the
   thresholds together first.
+
+</details>
 
 ---
 

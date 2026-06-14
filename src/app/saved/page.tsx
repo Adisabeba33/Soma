@@ -13,7 +13,7 @@ import {
 import { ResultsView } from "@/components/results-view";
 import { FeedbackControl } from "@/components/feedback-control";
 import { buttonClass } from "@/components/ui/button";
-import { cn, formatDate } from "@/lib/utils";
+import { cn, formatDate, formatScore } from "@/lib/utils";
 import type { SessionDetail } from "@/lib/types";
 
 export default function SavedPage() {
@@ -159,7 +159,7 @@ function Group({
                     <p className="truncate text-sm text-muted-foreground">
                       {session.strainCount} strain
                       {session.strainCount === 1 ? "" : "s"}
-                      {top && ` · Top: ${top.strainName} (${top.matchScore}%)`}
+                      {top && ` · Top: ${top.strainName} (${formatScore(top.matchScore)}%)`}
                     </p>
                   </div>
                 </button>
