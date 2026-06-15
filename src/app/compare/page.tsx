@@ -7,6 +7,7 @@ import { TagInput } from "@/components/ui/selectors";
 import { Button, buttonClass } from "@/components/ui/button";
 import { ScoreBar } from "@/components/match-meter";
 import { FeedbackPill, type Verdict } from "@/components/feedback-pill";
+import { AuditPanel } from "@/components/audit-panel";
 import { POPULAR_STRAINS } from "@/lib/profile-state";
 import { clearBasket, getBasket } from "@/lib/compare-basket";
 import { labelFor } from "@/lib/vocab";
@@ -191,20 +192,10 @@ export default function ComparePage() {
               closest to your taste profile.
             </p>
           )}
-          {/* Temporary testing aid — ranked order on one line. Remove later. */}
-          <p className="mt-3 rounded-lg bg-muted px-3 py-2 font-mono text-xs text-muted-foreground">
-            [debug] Ranked order:{" "}
-            {items
-              .map(
-                (item) =>
-                  `${item.strainName} ${formatScore(item.matchScore)}% (raw ${item.unclampedScore.toFixed(2)}${
-                    item.feedbackAdjustment
-                      ? ` ${item.feedbackAdjustment > 0 ? "+" : "-"}${Math.abs(item.feedbackAdjustment)} fb`
-                      : ""
-                  })`,
-              )
-              .join(", ")}
-          </p>
+          {/* Audit mode — the engine's reasoning per strain. */}
+          <div className="mt-3">
+            <AuditPanel items={items} />
+          </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((item) => {
               const isClosest = item.strainName === closestName;
