@@ -2036,6 +2036,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Watermelon Zkittlez is a Zkittlez cross — pairing the candy berry of Zkittlez with a juicy watermelon note — and a parent of Melonade. The nose is sweet and refreshing: watermelon candy and mixed berry over a clean, light base, summery and fruity. The effect is calm and contented — a relaxed, happy body ease that's easy to handle, more mood than knockout. It's flavour-forward like its Zkittlez parent, low on funk and high on candy. For sweet watermelon-berry flavour with an easy calm, it's a refreshing pick.",
     curatorQuote:
       "Watermelon candy and mixed berry over a clean, light base, summery and fruity.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet, summery watermelon-and-candy hybrid named Watermelon Zkittlez. Juicy fresh watermelon wedges with glistening pink-red flesh and bright green rind, scattered with glossy rainbow candy gems and mixed berries, a refreshing splash of juice droplets in bright summer light, a sugar-frost sparkle on the candy. Watermelon candy and mixed berry over a clean, light base. Palette fresh and vivid — watermelon pink-red and rind green with rainbow candy pops and berry color, a juicy sheen and frosty sparkle under bright summery light. Mood: calm and contented — a relaxed, happy body ease, refreshing and easy. Cinematic, painterly, high-contrast, premium editorial poster, juicy and appetizing. The strain name 'WATERMELON ZKITTLEZ' baked into the scene — printed on a candy wrapper or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "watermelon-zkittlez.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -2073,6 +2078,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gushers (Fruit Gushers) is a Cookies cross of Gelato 41 and Triangle Kush — sweet tropical candy on a gassy, OG-leaning frame. The nose is sweet and fruity: tropical candy and berry over a light gas, dessert-bright with a funky edge. The effect is balanced-leaning-relaxed — a euphoric head over a comfortable, calming body, afternoon into evening. It's frosty and potent, a popular flavour-forward exotic. For people who want fruity candy with some gas backbone, Gushers is a tasty, well-known pick.",
     curatorQuote:
       "Tropical candy and berry over a light gas, dessert-bright with a funky edge.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a fruity candy exotic with a gassy backbone named Gushers. A pile of glossy fruit-candy gushers, one bursting open mid-bite with vivid tropical juice gushing out — bright berry, mango and tropical color spilling and glistening, a sparkling sugar-frost dusting the candy, a faint oily petrol-rainbow shimmer in the sweet mist hinting at the light gas. Tropical candy and berry over a light gas, dessert-bright with a funky edge. Palette vivid and juicy — bright berry-red, mango-orange and tropical-purple with glossy highlights, a frosty sparkle and a faint petrol shimmer over a clean shadow. Mood: balanced-leaning-relaxed — a euphoric head over a comfortable, calming body, fun and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, glossy and appetizing. The strain name 'GUSHERS' baked into the scene — printed boldly on a candy-bag foil or a small enamel tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "gushers.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -4765,6 +4775,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pink Rozay is a Cookies cross of Lemonchello and London Pound Cake — a floral, berry-sweet dessert with rosé-pink looks. The nose is sweet and floral: berry and flowers over a creamy, doughy base. The effect is relaxing and happy — a euphoric head easing into a comfortable body, afternoon into evening. It's frosty and flavour-forward, an elegant Cookies cut. For floral-berry dessert sweetness, Pink Rozay is a pretty pick.",
     curatorQuote:
       "Berry and flowers over a creamy, doughy base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a floral, berry-sweet dessert hybrid named Pink Rozay — a nod to blush rosé wine. An elegant glass of blush-pink rosé glowing in soft warm light, delicate berries and rose petals drifting around the bowl of the glass, a gentle frosted chill sweating on the crystal, a creamy floral mist in the air. Berry and flowers over a creamy, doughy base. Palette elegant and soft — blush rosé pink and rose-petal red with creamy highlights and crystal glints, a frosty sparkle and floral glow over a soft warm shadow. Mood: relaxing and happy — a euphoric head easing into a comfortable body, elegant and indulgent. Cinematic, painterly, high-contrast, premium editorial poster, refined and atmospheric. The strain name 'PINK ROZAY' baked into the scene — etched on the glass or an elegant label. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "pink-rozay.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "medium",
   },
   {
@@ -6180,6 +6195,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Big Skunk Korean is a Soma Seeds cross of a Korean landrace and Skunk #1 — an earthy, skunky indica used mainly for breeding (it's a parent of Lavender). The nose is earthy and sweet: skunky funk over a spicy, herbal base. The effect is relaxing and warm — a euphoric head easing into a comfortable body, evening-leaning. It's dense and frosty, valued for the body it passes on. For Korean-skunk genetics behind Lavender, this is a parent line.",
     curatorQuote:
       "Skunky funk over a spicy, herbal base.",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an earthy, skunky Korean-landrace indica named Big Skunk Korean. A traditional Korean mountain landscape at dusk — misty layered peaks with a curved-roof hanok pavilion silhouette among pines, and a bold black-and-white skunk prowling through the herbal underbrush in the foreground, a spicy-earthy skunky haze drifting over the scene with a glittering frost sparkle. Skunky funk over a spicy, herbal base. Palette earthy and serene — deep pine green and misty blue-grey with warm dusk amber, the skunk's black-white stripe accent and a frosty sparkle in the haze. Mood: relaxing and warm — a euphoric head easing into a comfortable body, dense and evening-leaning. Cinematic, painterly, high-contrast, premium editorial poster, atmospheric and detailed. The strain name 'BIG SKUNK KOREAN' baked into the scene — carved into a weathered wooden sign or mountain stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artFileName: "big-skunk-korean.webp",
+    artStatus: "published",
+    artVersion: 1,
     sourceConfidence: "low",
   },
   {
