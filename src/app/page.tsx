@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Leaf, ListChecks, PenLine, Sparkles } from "lucide-react";
+import { ArrowRight, Leaf, ListChecks, Sparkles, Heart, Sprout } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 
 const STEPS = [
@@ -29,80 +29,67 @@ export default function HomePage() {
           Sensory Sommelier
         </p>
         <h1 className="mt-5 max-w-3xl font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
-          Find flower that matches{" "}
-          <span className="italic text-accent">your taste</span> — not just the
-          strain name.
+          Stop paying for flower you&apos;ll{" "}
+          <span className="italic text-accent">never love</span>.
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-          SŌMA is an AI cannabis sommelier. It learns your personal sensory
-          profile and tells you whether a strain on the menu is right for{" "}
-          <span className="italic">you</span> — before you spend a cent.
+          SŌMA reads your taste and tells you what&apos;s worth your money on any
+          menu — <span className="italic">before</span> you buy.
         </p>
 
-        <div className="mt-10">
-          <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-            Three ways to start
+        <div className="mt-12">
+          <p className="font-display text-2xl font-semibold tracking-tight">
+            What brought you here today?
           </p>
-          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {/* Primary path — most visitors are standing at a menu. */}
             <Link
               href="/taste-match"
-              className="group rounded-2xl border border-accent bg-accent/5 p-6 text-left transition-colors hover:bg-accent/10"
+              className="group flex flex-col rounded-2xl border border-accent bg-accent/5 p-6 text-left transition-colors hover:bg-accent/10"
             >
-              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-accent">
-                <Leaf className="h-3.5 w-3.5" />
-                Questionnaire
-              </div>
-              <h3 className="mt-3 font-display text-xl font-semibold tracking-tight">
-                Take the full questionnaire
+              <Leaf className="h-6 w-6 text-accent" />
+              <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
+                I&apos;m choosing from a menu
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Sixteen sensory questions. Builds the most thorough profile —
-                works even if you can't name strains yet.
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                &ldquo;I have strains in front of me.&rdquo;
               </p>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
-                Start Taste Match
+              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+                Find My Flower
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Link>
 
             <Link
               href="/onboarding/experience"
-              className="group rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
+              className="group flex flex-col rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
             >
-              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-brass">
-                <Sparkles className="h-3.5 w-3.5" />
-                From experience
-              </div>
-              <h3 className="mt-3 font-display text-xl font-semibold tracking-tight">
-                Name strains you've tried
+              <Heart className="h-6 w-6 text-brass" />
+              <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
+                I already know what I love
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                List 2–5 strains you've loved, liked or disliked. SŌMA reads
-                your profile back from them — you confirm before saving.
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                &ldquo;I want similar recommendations.&rdquo;
               </p>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
-                Try Experience Match
+              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
+                Build From Experience
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Link>
 
             <Link
               href="/onboarding/describe"
-              className="group rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
+              className="group flex flex-col rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
             >
-              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-brass">
-                <PenLine className="h-3.5 w-3.5" />
-                In your words
-              </div>
-              <h3 className="mt-3 font-display text-xl font-semibold tracking-tight">
-                Describe what you like
+              <Sprout className="h-6 w-6 text-brass" />
+              <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
+                I&apos;m new to cannabis
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                No strain names needed — say it in a sentence. SŌMA reads it
-                into a starting profile you confirm before saving.
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                &ldquo;I need help discovering my taste.&rdquo;
               </p>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
-                Describe your taste
+              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
+                Guide Me
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Link>
@@ -221,7 +208,7 @@ export default function HomePage() {
             href="/taste-match"
             className={buttonClass("primary", "lg")}
           >
-            Start Taste Match
+            Find My Flower
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
