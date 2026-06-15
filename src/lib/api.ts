@@ -307,6 +307,10 @@ export function dbRecToView(
     explanation: r.explanation,
     feedbackAdjustment: 0,
     feedbackNote: r.feedbackNote,
+    // Saved rows don't carry the audit breakdown; default to a clean read.
+    baseScore: r.matchScore,
+    feedbackPotential: 0,
+    feedbackDecay: 1,
     feedback: toFeedbackData(feedback),
     purchaseConfidence,
   };
