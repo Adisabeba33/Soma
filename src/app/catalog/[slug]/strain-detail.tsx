@@ -220,7 +220,8 @@ export function StrainDetail({
             </Section>
           )}
 
-          {lineageParents.length > 0 && (
+          {(lineageParents.length > 0 ||
+            (identity && lineageStatus(identity))) && (
             <Section title="Genetics">
               {identity && lineageStatus(identity) && (
                 <span
@@ -230,12 +231,20 @@ export function StrainDetail({
                   {lineageStatus(identity)!.label}
                 </span>
               )}
-              <Genetics
-                parents={lineageParents}
-                cross={identity?.lineage?.cross}
-                child={strain.name}
-                childType={strain.type}
-              />
+              {lineageParents.length > 0 ? (
+                <Genetics
+                  parents={lineageParents}
+                  cross={identity?.lineage?.cross}
+                  child={strain.name}
+                  childType={strain.type}
+                />
+              ) : (
+                identity?.lineage?.cross && (
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {identity.lineage.cross}
+                  </p>
+                )
+              )}
               {identity && lineageConfidenceOf(identity) !== identity.sourceConfidence && (
                 <p className="mt-3 text-xs text-muted-foreground">
                   Lineage confidence:{" "}
