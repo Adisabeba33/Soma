@@ -1011,24 +1011,35 @@ export function scoreStrain(
   // what the strain lacked. A token matched in ANY category isn't missing
   // (e.g. `gassy` hit on flavor but not aroma still counts as covered), so we
   // subtract everything that earned points from the union of every miss.
+  //
+  // Grouped by sense, matching how a buyer reads a strain:
+  //   critical  — missing AROMAS (the nose; what hits first)
+  //   secondary — missing FLAVORS (the taste; secondary to the nose)
+  //   effect    — missing EFFECTS (its own axis)
+  // Traits aren't shown — they don't map onto any of the three buckets.
   const matchedTokens = new Set([
     ...aroma.matched,
     ...flavor.matched,
     ...effect.matched,
     ...trait.matched,
   ]);
-  const missingTags: string[] = [];
   const seenMissing = new Set<string>();
-  for (const token of [
-    ...aroma.missed,
-    ...effect.missed,
-    ...flavor.missed,
-    ...trait.missed,
-  ]) {
-    if (matchedTokens.has(token) || seenMissing.has(token)) continue;
-    seenMissing.add(token);
-    missingTags.push(token);
-  }
+  const collectMissing = (missed: string[]): string[] => {
+    const out: string[] = [];
+    for (const token of missed) {
+      if (matchedTokens.has(token) || seenMissing.has(token)) continue;
+      seenMissing.add(token);
+      out.push(token);
+    }
+    return out;
+  };
+  // Order matters for dedup: aroma claims a token shared with flavor, so a
+  // tag requested as both shows once under critical rather than twice.
+  const missingTags = {
+    critical: collectMissing(aroma.missed),
+    secondary: collectMissing(flavor.missed),
+    effect: collectMissing(effect.missed),
+  };
 
   // Sensory-family bonus — orthogonal to the behavioural family used by
   // familyMod above. familyMod looks at effect-feel (nighttime-indica,

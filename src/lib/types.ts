@@ -132,8 +132,12 @@ export interface StrainMatch {
   matchStrengths: { token: string; points: number }[];
   penaltyStrengths: { label: string; points: number }[];
   // Audit mode — preferred tags the user asked for that this strain lacks
-  // (matched in no category), so the audit shows what was missing too.
-  missingTags: string[];
+  // (matched in no category), grouped by sense so the audit shows what was
+  // missing and how much it matters:
+  //   critical  — missing aromas (the nose)
+  //   secondary — missing flavors (the taste)
+  //   effect    — missing effects
+  missingTags: { critical: string[]; secondary: string[]; effect: string[] };
   // Second axis: how confident we are about THIS purchase, separate from
   // the sensory match score. See src/lib/purchase-confidence.ts.
   purchaseConfidence: PurchaseConfidence;
