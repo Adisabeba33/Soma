@@ -870,8 +870,11 @@ export const IDENTITIES: StrainIdentity[] = [
     marketNames: ["MAC 1", "Miracle Alien Cookies", "Capulator's MAC"],
     breeder: "Capulator",
     lineage: {
-      parents: ["Alien Cookies", "Starfighter × Columbian"],
-      cross: "Alien Cookies × (Starfighter × Columbian)",
+      parents: ["Alien Cookies", "Starfighter", "Colombian"],
+      cross: "Alien Cookies × (Starfighter × Colombian)",
+      parentDetails: {
+        Colombian: { lineageBrief: "Colombian sativa landrace", type: "sativa" },
+      },
     },
     sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Near-white frost", "Finicky to grow"],

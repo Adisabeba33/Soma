@@ -1248,6 +1248,69 @@ and didn't do is itself valuable context.
 
 ---
 
+### #24 — Add the 39 missing parent strains to the catalog (curatorial)
+
+- **Found:** 2026-06-15
+- **Source:** Parent-coverage audit. Of **273** unique parent strains referenced
+  across the 400 catalog entries' lineage, **234 (86%) are already in the
+  catalog**; these **39 are not** (each referenced by exactly one child). They
+  came from documenting that child's cross during the lineage-fill batches
+  (sources: Seedfinder + breeder pages). They currently show on the child's page
+  with a short `parentDetails` hint but have **no page of their own** (not
+  clickable). Adding them would make lineage fully clickable and grow the catalog
+  to ~439.
+- **The 39 (parent → the catalog strain that references it):**
+
+  | Missing parent | Referenced by |
+  |---|---|
+  | 91 Hollywood Pure Kush | Frosted Lemonade |
+  | Aspen OG | Jet Fuel |
+  | Black Cherry Funk | Black Cherry Gelato |
+  | BOG Bubble | Boggle Gum |
+  | California Indica | LA Confidential |
+  | California Sour | Lemon Diesel |
+  | Citral | Papaya |
+  | Ed Rosenthal Super Bud | Pineapple |
+  | Eddy OG | Peach Rings |
+  | Evergladez | Frosted Lemonade |
+  | Face Mints | Gas Face |
+  | Florida Kush | Pink Panties |
+  | Genius | Apollo 13 |
+  | Grateful Puff | Platinum Puff |
+  | Headbanger | Sherbanger |
+  | Hella Jelly | Jelly Donutz |
+  | High Country Diesel | Jet Fuel |
+  | Honey Boo Boo | Honey Banana |
+  | Jamaica | Amnesia Haze |
+  | Jock Horror | AK-48 |
+  | Juicy Fruit | Orange Creamsicle |
+  | Juliet | Strawberry Shortcake |
+  | Laos | Amnesia Haze |
+  | Lemon Joy | Lemon Kush |
+  | Lemon OG | Lemonnade |
+  | Lost Coast OG | Lemon Diesel |
+  | Marionberry | Peach Rings |
+  | OG LA Affie | LA Confidential |
+  | Orange Crush | Orange Creamsicle |
+  | Ortega | Black Domina |
+  | Purple Elephant | Grape Stomper |
+  | Razzleberry | Blueberry Muffin |
+  | Secret Weapon | Oreoz |
+  | Snow White | Snowcap |
+  | South Florida OG | Biscotti |
+  | Starfighter | MAC |
+  | White Diesel | The Menthol |
+  | Y Life | Cereal Milk |
+  | Zookies | Biskante |
+
+- **Note:** several are themselves landraces/heritage (Jamaica, Laos, Colombian,
+  Citral) or breeder one-offs — when added, each needs sensory data + a curator
+  note like any catalog strain. Batchable like the artwork / lineage work.
+- **Trigger to revisit:** when expanding the catalog; re-run the parent-coverage
+  audit afterwards to confirm connectivity climbs toward 100%.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
