@@ -19,6 +19,7 @@ import type { ParsedMenuItem } from "@/lib/parse-menu";
 import type { ProfileContradiction } from "@/lib/profile-contradictions";
 import type { MenuQuality, StrainMatch } from "@/lib/types";
 import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
+import type { Verdict } from "@/components/feedback-pill";
 import { formatScore } from "@/lib/utils";
 
 type Phase = "loading" | "profile" | "input" | "results";
@@ -43,6 +44,29 @@ export function TasteMatchClient() {
   const [savedState, setSavedState] = useState<"idle" | "saving" | "saved">(
     "idle",
   );
+  // The visitor's own verdicts (loved/good/neutral/avoid) per strain, so a
+  // result they've already rated can show a "You loved it" badge.
+  const [verdicts, setVerdicts] = useState<Record<string, Verdict>>({});
+
+  useEffect(() => {
+    fetch("/api/strain-feedback")
+      .then((r) => r.json())
+      .then((d: { verdicts?: Array<{ strainName: string; verdict: string }> }) => {
+        const m: Record<string, Verdict> = {};
+        for (const v of d?.verdicts ?? []) {
+          if (
+            v.verdict === "loved" ||
+            v.verdict === "good" ||
+            v.verdict === "neutral" ||
+            v.verdict === "avoid"
+          ) {
+            m[v.strainName] = v.verdict;
+          }
+        }
+        setVerdicts(m);
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     fetch("/api/profile")
@@ -322,7 +346,10 @@ export function TasteMatchClient() {
           </p>
 
           <div className="mt-10">
-            <ResultsView recommendations={recommendations} />
+            <ResultsView
+              recommendations={recommendations}
+              verdicts={verdicts}
+            />
           </div>
 
           <div className="mt-12 flex flex-wrap items-center gap-3 border-t border-border pt-8">

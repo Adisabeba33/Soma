@@ -1212,6 +1212,42 @@ and didn't do is itself valuable context.
 
 ---
 
+### #23 — Learn the profile from confirmed feedback (controlled lane-widening)
+
+- **Found:** 2026-06-15
+- **Source:** Owner observation — "Biscotti with positive feedback still ranks
+  below Gelato." A simulation on the fruity-candy profile settled it: the
+  ~25-point gap is a **real sensory mismatch** (Biscotti aroma/flavour match 63
+  vs Gelato 100), so Gelato on top is honest, and feedback (bounded ±12, and it
+  lifts neighbours too) correctly can't and shouldn't flip it. Resolved the
+  immediate UX with a "You loved it / You rated it Good" badge on result cards
+  (surfaces the confirmation without distorting rank).
+- **The deeper signal:** if a user *repeatedly* confirms (loved/good) strains
+  that sit **outside their stated profile** (e.g. several gassy picks on a
+  sweet-fruity profile), that's evidence the **profile itself is too narrow** —
+  not that feedback is too weak. The fix is to let confirmed feedback **gently
+  widen the taste lane over time**, not to crank the feedback ceiling (which
+  re-introduces the noise we deliberately bounded).
+- **Design principles (keep intact):**
+  - **One off-profile love = an exception** (don't move the profile). **A
+    repeated pattern = widen the lane** — only act on corroboration.
+  - Widening is **bounded and explainable** ("you keep reaching for gassy picks
+    — added a touch of gas to your profile?") and ideally **confirmed by the
+    user**, not silent.
+  - The recommender stays deterministic; this adjusts the *profile* the engine
+    reads, not the scoring formula.
+- **Relatives:** this is the "controlled expansion" half of the feedback design
+  (see #20 conversational intake and #21 weighted tags). Direct verdicts could
+  also feed a stronger *self*-confirmation for the rated strain (distinct from
+  the gentle neighbour propagation), but the sim showed that's secondary — the
+  real lever is profile-learning.
+- **Why deferred:** needs the corroboration threshold + the widening curve
+  designed and validated so it stays rare and never silently rewrites taste.
+- **Trigger to revisit:** alongside #20/#21, or once enough feedback accrues to
+  see real off-profile-love patterns in the data.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)

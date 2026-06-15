@@ -1,4 +1,4 @@
-import { Sparkles } from "lucide-react";
+import { Sparkles, Heart, Smile, Meh, ThumbsDown } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { ScoreBar } from "@/components/match-meter";
 import { cn, formatScore } from "@/lib/utils";
@@ -8,6 +8,7 @@ import {
   type PurchaseSignals,
   type SignalLevel,
 } from "@/lib/purchase-confidence";
+import type { Verdict } from "@/components/feedback-pill";
 import type { Category, StrainMatch } from "@/lib/types";
 
 export type RecommendationView = StrainMatch & { id?: string };
@@ -53,15 +54,47 @@ const PURCHASE_LABEL: Record<SignalLevel, string> = {
   high: "High",
 };
 
+// The visitor's own verdict on this strain, surfaced so a confirmed pick reads
+// as "you've tried this" rather than just its sensory score — without changing
+// the rank (the score stays an honest sensory match).
+const VERDICT_BADGE: Record<
+  Verdict,
+  { label: string; cls: string; Icon: typeof Heart }
+> = {
+  loved: {
+    label: "You loved it",
+    cls: "border-accent/50 bg-accent/15 text-accent",
+    Icon: Heart,
+  },
+  good: {
+    label: "You rated it Good",
+    cls: "border-accent/30 bg-accent/10 text-accent/90",
+    Icon: Smile,
+  },
+  neutral: {
+    label: "You rated it Neutral",
+    cls: "border-border bg-muted text-foreground/80",
+    Icon: Meh,
+  },
+  avoid: {
+    label: "You marked it Avoid",
+    cls: "border-[#a23b2c]/40 bg-[#a23b2c]/10 text-[#a23b2c]",
+    Icon: ThumbsDown,
+  },
+};
+
 export function RecommendationCard({
   match,
   rank,
+  verdict,
   children,
 }: {
   match: RecommendationView;
   rank?: number;
+  verdict?: Verdict | null;
   children?: React.ReactNode;
 }) {
+  const verdictBadge = verdict ? VERDICT_BADGE[verdict] : null;
   const meta = CATEGORY_META[match.category];
   const matchedChips = [
     ...match.matchedEffects.map((v) => labelFor(v)),
@@ -128,6 +161,17 @@ export function RecommendationCard({
             </span>
             {typeof rank === "number" && (
               <span className="text-xs text-muted-foreground">#{rank}</span>
+            )}
+            {verdictBadge && (
+              <span
+                className={cn(
+                  "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium",
+                  verdictBadge.cls,
+                )}
+              >
+                <verdictBadge.Icon className="h-3 w-3" aria-hidden />
+                {verdictBadge.label}
+              </span>
             )}
             <span className="ml-auto rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground">
               Sensory confidence: {match.confidence}
