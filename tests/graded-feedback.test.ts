@@ -48,3 +48,33 @@ describe("graded feedback weight", () => {
     assert.equal(none, 0);
   });
 });
+
+// Diminishing-returns taper (#23): the same feedback should boost a
+// high-base pick LESS than a low-base one — so confirmed likes fill the gaps
+// the profile missed instead of inflating the strains it already rates high.
+describe("feedback taper by base score", () => {
+  const gasProfile = profile({
+    favoriteStrains: ["GG4", "Skunk #1", "Gary Payton", "White Hot Guava"],
+    preferredEffects: [],
+    dislikedEffects: ["sleepy", "couch-lock", "head-high"],
+    preferredAromas: ["gassy", "diesel", "skunky", "pine", "earthy"],
+    preferredFlavors: ["gassy", "diesel", "earthy"],
+  });
+  const fb = [
+    { strainName: "Stardawg", liked: true, rating: 5, strength: 1 },
+  ];
+
+  it("a high-base pick gets a smaller boost than a low-base one", () => {
+    const high = scoreStrain("Animal Face", gasProfile, fb); // bases high
+    const low = scoreStrain("Headband", gasProfile, fb); // bases lower
+    assert.ok(
+      high.matchScore > low.matchScore,
+      `expected Animal Face to base above Headband, got ${high.matchScore} vs ${low.matchScore}`,
+    );
+    assert.ok(high.feedbackAdjustment >= 0 && low.feedbackAdjustment >= 0);
+    assert.ok(
+      high.feedbackAdjustment < low.feedbackAdjustment,
+      `taper: high-base adj ${high.feedbackAdjustment} should be < low-base adj ${low.feedbackAdjustment}`,
+    );
+  });
+});
