@@ -26,7 +26,10 @@ function buildAuditText(items: AuditItem[]): string {
       `  Top matches: ${
         item.matchStrengths.length > 0
           ? item.matchStrengths
-              .map((m) => `${labelFor(m.token)} +${m.points}`)
+              .map(
+                (m) =>
+                  `${labelFor(m.token)} +${m.points}${m.trace ? " (trace)" : ""}`,
+              )
               .join(", ")
           : "—"
       }`,
@@ -125,7 +128,9 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
             diminishing-returns taper (higher raw → less applied) ·{" "}
             <span className="font-mono">applied</span> = what was actually added.
             ✓ = top matches, ⚠ = penalties, ✗ = tags you asked for that this
-            strain lacks (critical = aroma, secondary = flavor, effect).
+            strain lacks (critical = aroma, secondary = flavor, effect).{" "}
+            <span className="text-accent/60">trace</span> = a faint /
+            phenotype-dependent note, counted at partial strength (~).
           </p>
           {sorted.map((item) => {
             return (
@@ -164,9 +169,21 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
                     <div className="mt-1 space-y-0.5">
                       {item.matchStrengths.length > 0 ? (
                         item.matchStrengths.slice(0, 6).map((m) => (
-                          <div key={m.token} className="flex justify-between gap-4 text-accent">
-                            <span>{labelFor(m.token)}</span>
-                            <span className="font-mono">+{m.points}</span>
+                          <div
+                            key={m.token}
+                            className={`flex justify-between gap-4 ${m.trace ? "text-accent/60" : "text-accent"}`}
+                          >
+                            <span>
+                              {labelFor(m.token)}
+                              {m.trace && (
+                                <span className="ml-1 text-[9px] uppercase tracking-wide text-muted-foreground/70">
+                                  trace
+                                </span>
+                              )}
+                            </span>
+                            <span className="font-mono">
+                              {m.trace ? "~" : ""}+{m.points}
+                            </span>
                           </div>
                         ))
                       ) : (

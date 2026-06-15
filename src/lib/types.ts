@@ -136,7 +136,8 @@ export interface StrainMatch {
   feedbackPotential: number;
   feedbackDecay: number;
   // Audit mode — per-tag point strength of each match (token) and each penalty.
-  matchStrengths: { token: string; points: number }[];
+  // `trace` marks a token the strain carries only faintly (partial credit).
+  matchStrengths: { token: string; points: number; trace?: boolean }[];
   penaltyStrengths: { label: string; points: number }[];
   // Audit mode — preferred tags the user asked for that this strain lacks
   // (matched in no category), grouped by sense so the audit shows what was
