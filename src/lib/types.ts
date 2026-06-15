@@ -120,6 +120,14 @@ export interface StrainMatch {
   explanation: string;
   feedbackAdjustment: number;
   feedbackNote: string | null;
+  // Audit-mode breakdown of how feedback reached `feedbackAdjustment`:
+  //   baseScore        — the score BEFORE any feedback (the "raw" read)
+  //   feedbackPotential — what the feedback would add at full strength
+  //   feedbackDecay    — the diminishing-returns taper factor (0..1); the
+  //                       applied = round(potential * decay)
+  baseScore: number;
+  feedbackPotential: number;
+  feedbackDecay: number;
   // Second axis: how confident we are about THIS purchase, separate from
   // the sensory match score. See src/lib/purchase-confidence.ts.
   purchaseConfidence: PurchaseConfidence;

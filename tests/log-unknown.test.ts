@@ -29,6 +29,9 @@ function match(strainName: string, knownStrain: boolean): StrainMatch {
     explanation: "",
     feedbackAdjustment: 0,
     feedbackNote: null,
+    baseScore: 0,
+    feedbackPotential: 0,
+    feedbackDecay: 1,
     purchaseConfidence: emptyPurchaseConfidence(),
   };
 }

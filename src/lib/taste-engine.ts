@@ -1185,6 +1185,10 @@ export function scoreStrain(
     // so a near-zero tapered boost on a high-base pick doesn't claim credit.
     feedbackNote:
       isFavoriteAnchor || Math.abs(fbAdjustment) < 3 ? null : fb.note,
+    // Audit-mode breakdown (raw → potential → decay → applied).
+    baseScore,
+    feedbackPotential: isFavoriteAnchor ? 0 : fb.adjustment,
+    feedbackDecay: feedbackTaper,
     purchaseConfidence,
   };
 }
