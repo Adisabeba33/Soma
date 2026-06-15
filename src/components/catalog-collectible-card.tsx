@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { strainSlug } from "@/lib/catalog";
+import { knownAsNames } from "@/lib/strain-identity";
 import { paletteForTime } from "@/lib/sensory-family-palette";
 import { timeProfileOf, artImageSrc, artFocusOf } from "@/lib/strain-art";
 import { FitText } from "@/components/fit-text";
@@ -33,6 +34,12 @@ export function CatalogCollectibleCard({
   score: number;
 }) {
   const { strain, identity } = entry;
+  // Other names people know this strain by (e.g. WiFi OG for White Fire OG),
+  // so browsing-by-a-name-you-know works, not just exact-canonical.
+  const aka = knownAsNames(strain.aliases, identity).filter(
+    (a) =>
+      a.toLowerCase() !== (identity?.shortName ?? strain.name).toLowerCase(),
+  );
   const palette = paletteForTime(timeProfileOf(strain, identity));
   const artSrc = artImageSrc(strain, identity);
   // Over a published image the bottom scrim is dark, so text is always white
@@ -106,6 +113,11 @@ export function CatalogCollectibleCard({
           <p className={cn("mt-1 text-[11px] uppercase tracking-[0.14em]", mutedText)}>
             {strain.type}
           </p>
+          {aka.length > 0 && (
+            <p className={cn("mt-0.5 text-[10px] italic", mutedText)}>
+              aka {aka.slice(0, 2).join(" · ")}
+            </p>
+          )}
           <div className="mt-3 flex items-end justify-between gap-3">
             {identity?.tagline ? (
               <p
