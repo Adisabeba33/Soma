@@ -1,4 +1,4 @@
-import { Sparkles, Heart, Smile, Meh, ThumbsDown } from "lucide-react";
+import { Sparkles, Heart, Smile, Meh, ThumbsDown, Check } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { ScoreBar } from "@/components/match-meter";
 import { cn, formatScore } from "@/lib/utils";
@@ -242,15 +242,21 @@ export function RecommendationCard({
           </div>
 
           {matchedChips.length > 0 && (
-            <div className="mt-4 flex flex-wrap gap-1.5">
-              {matchedChips.map((chip) => (
-                <span
-                  key={chip}
-                  className="rounded-full bg-muted px-2.5 py-0.5 text-xs text-muted-foreground"
-                >
-                  {chip}
-                </span>
-              ))}
+            <div className="mt-4">
+              <p className="text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
+                Why
+              </p>
+              <div className="mt-1.5 flex flex-wrap gap-1.5">
+                {matchedChips.map((chip) => (
+                  <span
+                    key={chip}
+                    className="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-0.5 text-xs text-accent"
+                  >
+                    <Check className="h-3 w-3" aria-hidden />
+                    {chip}
+                  </span>
+                ))}
+              </div>
             </div>
           )}
 
