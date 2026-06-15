@@ -78,7 +78,7 @@ export default function HomePage() {
             </Link>
 
             <Link
-              href="/onboarding/describe"
+              href="/onboarding/quick"
               className="group flex flex-col rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
             >
               <Sprout className="h-6 w-6 text-brass" />
