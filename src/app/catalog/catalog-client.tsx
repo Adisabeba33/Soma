@@ -101,6 +101,7 @@ export function CatalogClient({
         const haystack = [
           e.strain.name.toLowerCase(),
           ...(e.strain.aliases ?? []).map((a) => a.toLowerCase()),
+          ...(e.identity?.marketNames ?? []).map((m) => m.toLowerCase()),
         ];
         if (!haystack.some((h) => h.includes(q))) return false;
       }
