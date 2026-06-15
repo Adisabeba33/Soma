@@ -1080,7 +1080,16 @@ export function scoreStrain(
   // A favorite anchor is exempt — the user already told us this is the
   // reference, noise from related sessions shouldn't drag it down.
   const fb = evaluateFeedback(strain, feedback);
-  const fbAdjustment = isFavoriteAnchor ? 0 : fb.adjustment;
+  // Diminishing-returns taper (deferred #23): scale the feedback nudge down as
+  // the base score rises. A strain the profile already scores high doesn't need
+  // a confirmation boost — it would just inflate the top of the list — while an
+  // underrated strain you've actually confirmed keeps its full lift. The factor
+  // is 1 at low base and 0 near the ceiling, so feedback fills the gaps the
+  // profile missed instead of piling onto what it already knows.
+  const feedbackTaper = clamp((90 - baseScore) / 30, 0, 1);
+  const fbAdjustment = isFavoriteAnchor
+    ? 0
+    : Math.round(fb.adjustment * feedbackTaper);
   let matchScore = clamp(baseScore + fbAdjustment, 4, 99);
   // Calibration band: reserve 94–96 exclusively for direct favourite
   // anchors. A non-anchor never reaches that — but rather than flattening
@@ -1172,7 +1181,10 @@ export function scoreStrain(
     riskNotes,
     explanation,
     feedbackAdjustment: fbAdjustment,
-    feedbackNote: isFavoriteAnchor ? null : fb.note,
+    // Only surface the note when the *applied* (tapered) nudge is meaningful,
+    // so a near-zero tapered boost on a high-base pick doesn't claim credit.
+    feedbackNote:
+      isFavoriteAnchor || Math.abs(fbAdjustment) < 3 ? null : fb.note,
     purchaseConfidence,
   };
 }
