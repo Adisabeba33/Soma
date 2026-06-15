@@ -7,16 +7,93 @@ import type { StrainMatch } from "@/lib/types";
 
 type AuditItem = StrainMatch & { id?: string };
 
+// Serialize the full audit to plain text so the owner can copy it in one tap
+// and paste it back for engine tuning. Mirrors what the panel shows, but holds
+// nothing back (no top-N slicing) — the copy is the complete read.
+function buildAuditText(items: AuditItem[]): string {
+  const lines: string[] = [
+    `SOMA Audit — ${items.length} strain${items.length === 1 ? "" : "s"}`,
+    "",
+  ];
+  for (const item of items) {
+    lines.push(`${item.strainName} — Final ${formatScore(item.matchScore)}`);
+    const fb =
+      item.feedbackPotential !== 0
+        ? `potential ${item.feedbackPotential > 0 ? "+" : ""}${item.feedbackPotential} × decay ${item.feedbackDecay.toFixed(2)} → applied ${item.feedbackAdjustment > 0 ? "+" : ""}${item.feedbackAdjustment}`
+        : "no feedback";
+    lines.push(`  raw ${formatScore(item.baseScore)} · ${fb}`);
+    lines.push(
+      `  Top matches: ${
+        item.matchStrengths.length > 0
+          ? item.matchStrengths
+              .map((m) => `${labelFor(m.token)} +${m.points}`)
+              .join(", ")
+          : "—"
+      }`,
+    );
+    lines.push(
+      `  Penalties: ${
+        item.penaltyStrengths.length > 0
+          ? item.penaltyStrengths
+              .map((p) => `${p.label} ${p.points}`)
+              .join(", ")
+          : "none"
+      }`,
+    );
+    const missing: [string, string[]][] = [
+      ["Critical missing", item.missingTags.critical],
+      ["Secondary missing", item.missingTags.secondary],
+      ["Effect missing", item.missingTags.effect],
+    ];
+    const anyMissing = missing.some(([, tags]) => tags.length > 0);
+    if (anyMissing) {
+      for (const [label, tags] of missing) {
+        if (tags.length === 0) continue;
+        lines.push(`  ${label}: ${tags.map((t) => labelFor(t)).join(", ")}`);
+      }
+    } else {
+      lines.push("  Missing: none");
+    }
+    lines.push("");
+  }
+  return lines.join("\n").trimEnd();
+}
+
 // Audit Mode — the engine's reasoning per strain, shared by Taste Match and
 // Compare. Shows how the score was reached (raw → potential × decay → applied)
 // and WHY it ranks where it does (top matches + penalties).
 export function AuditPanel({ items }: { items: AuditItem[] }) {
   const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   if (items.length === 0) return null;
 
   const sorted = [...items].sort(
     (a, b) => b.matchScore - a.matchScore || b.unclampedScore - a.unclampedScore,
   );
+
+  const handleCopy = async () => {
+    const text = buildAuditText(sorted);
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      // Clipboard API can be blocked (insecure context, denied permission);
+      // fall back to a hidden textarea + execCommand so the button still works.
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+      } catch {
+        /* give up silently — nothing else we can do */
+      }
+      document.body.removeChild(ta);
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="rounded-xl border border-border bg-muted/40">
@@ -32,6 +109,15 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
       </button>
       {open && (
         <div className="space-y-3 border-t border-border px-4 py-3">
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="rounded-md border border-border bg-background px-2.5 py-1 text-xs font-medium hover:bg-muted"
+            >
+              {copied ? "Copied ✓" : "Copy audit"}
+            </button>
+          </div>
           <p className="text-[11px] leading-relaxed text-muted-foreground/80">
             <span className="font-mono">raw</span> = score before feedback ·{" "}
             <span className="font-mono">potential</span> = feedback at full
