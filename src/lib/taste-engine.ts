@@ -297,10 +297,18 @@ export function similarity(a: StrainProfile, b: StrainProfile): number {
 // deferred-improvements #3.
 const PRIMARY_TAG_WEIGHT = 1.5;
 
+// Weight of a TRACE tag — a note the strain carries only faintly or
+// phenotype/grower-dependently (e.g. the skunk in a Sour-Diesel cross that
+// some cuts express and others don't). A trace match counts at this fraction
+// of a full match and is NOT treated as missing. 0.33 = "a third of the way
+// there": real credit, never dominant.
+const TRACE_TAG_WEIGHT = 0.33;
+
 function setScore(
   strainTags: string[],
   preferred: string[],
   primaryTags?: string[],
+  traceTags?: string[],
 ): {
   score: number;
   matched: string[];
@@ -310,28 +318,45 @@ function setScore(
   if (preferred.length === 0)
     return { score: NEUTRAL, matched: [], missed: [], contributions: [] };
   const tagSet = new Set(strainTags);
-  const matched = preferred.filter((p) => tagSet.has(p));
-  const missed = preferred.filter((p) => !tagSet.has(p));
+  const traceSet = traceTags && traceTags.length ? new Set(traceTags) : null;
   const primarySet =
     primaryTags && primaryTags.length ? new Set(primaryTags) : null;
 
-  // Per-token weight: a preferred tag hitting a primary token counts 1.5×, a
-  // secondary 1.0×, an unmatched preferred 1.0 in the denominator. coverage =
-  // matchedWeight / (matchedWeight + unmatched) stays in [0,1], reduces to
-  // unweighted coverage when nothing is primary, and reaches 1 only on a full
-  // match. Each matched token's share of the coverage portion (max 74 of the
-  // 0–100 sub-score) is its `points` — surfaced in Audit mode.
-  const weights = matched.map((m) =>
+  // Each preferred token is a FULL match (tag present), a TRACE match (carried
+  // only faintly — counts at TRACE_TAG_WEIGHT and is NOT missing), or absent.
+  const matched = preferred.filter((p) => tagSet.has(p));
+  const traced = traceSet
+    ? preferred.filter((p) => !tagSet.has(p) && traceSet.has(p))
+    : [];
+  const missed = preferred.filter(
+    (p) => !tagSet.has(p) && !(traceSet?.has(p) ?? false),
+  );
+
+  // Per-token weight: a full match counts 1.5× on a primary token else 1×, a
+  // trace 0.33×. coverage = matchedWeight / (matchedWeight + missingPortion),
+  // where an absent token adds 1 to the missing side and a trace adds its
+  // un-present remainder (1 − 0.33). So a lone trace yields exactly its
+  // fraction of the bonus a full match would. Each matched/traced token's
+  // share of the coverage portion (max 74 of the 0–100 sub-score) is its
+  // `points` — surfaced in Audit mode (a trace simply shows a smaller value).
+  const fullWeights = matched.map((m) =>
     primarySet?.has(m) ? PRIMARY_TAG_WEIGHT : 1,
   );
-  const matchedWeight = weights.reduce((a, b) => a + b, 0);
-  const unmatched = preferred.length - matched.length;
-  const denom = matchedWeight + unmatched;
+  const matchedWeight =
+    fullWeights.reduce((a, b) => a + b, 0) + traced.length * TRACE_TAG_WEIGHT;
+  const missingPortion = missed.length + traced.length * (1 - TRACE_TAG_WEIGHT);
+  const denom = matchedWeight + missingPortion;
   const coverage = denom > 0 ? matchedWeight / denom : 0;
-  const contributions = matched.map((token, i) => ({
-    token,
-    points: (weights[i] / denom) * 74,
-  }));
+  const contributions = [
+    ...matched.map((token, i) => ({
+      token,
+      points: (fullWeights[i] / denom) * 74,
+    })),
+    ...traced.map((token) => ({
+      token,
+      points: (TRACE_TAG_WEIGHT / denom) * 74,
+    })),
+  ];
   return { score: Math.round(26 + coverage * 74), matched, missed, contributions };
 }
 
@@ -819,7 +844,12 @@ export function scoreStrain(
 ): StrainMatch {
   const { strain, known } = resolveStrain(rawName);
 
-  const aroma = setScore(strain.aromas, profile.preferredAromas, strain.primaryAromas);
+  const aroma = setScore(
+    strain.aromas,
+    profile.preferredAromas,
+    strain.primaryAromas,
+    strain.traceAromas,
+  );
   const flavor = setScore(strain.flavors, profile.preferredFlavors, strain.primaryFlavors);
   const effect = setScore(strain.effects, profile.preferredEffects, strain.primaryEffects);
   const trait = setScore(strain.traits, profile.likedTraits);

@@ -95,6 +95,42 @@ describe("primary outweighs secondary on a partial match (GG4)", () => {
   });
 });
 
+describe("trace tags score a fraction of a full match (skunky)", () => {
+  // Lemon Diesel carries skunky only as a trace (phenotype-dependent);
+  // Skunk #1 has it as a full aroma; GG4 not at all. With skunky the sole
+  // preferred aroma, each strain's aromaMatch isolates the trace mechanic.
+  it("a trace match lands strictly between absent and full", () => {
+    const trace = scoreStrain("Lemon Diesel", profile({ preferredAromas: ["skunky"] }));
+    const full = scoreStrain("Skunk #1", profile({ preferredAromas: ["skunky"] }));
+    const absent = scoreStrain("GG4", profile({ preferredAromas: ["skunky"] }));
+    assert.ok(
+      trace.aromaMatch > absent.aromaMatch && trace.aromaMatch < full.aromaMatch,
+      `expected absent ${absent.aromaMatch} < trace ${trace.aromaMatch} < full ${full.aromaMatch}`,
+    );
+    // ~33% of the bonus a full match earns over the no-match baseline.
+    const ratio =
+      (trace.aromaMatch - absent.aromaMatch) /
+      (full.aromaMatch - absent.aromaMatch);
+    assert.ok(
+      Math.abs(ratio - 0.33) < 0.05,
+      `trace bonus ratio ${ratio.toFixed(2)} should be ≈ 0.33`,
+    );
+  });
+
+  it("a trace note is not reported as missing, but an absent one is", () => {
+    const trace = scoreStrain("Lemon Diesel", profile({ preferredAromas: ["skunky"] }));
+    const absent = scoreStrain("GG4", profile({ preferredAromas: ["skunky"] }));
+    assert.ok(!trace.missingTags.critical.includes("skunky"));
+    assert.ok(absent.missingTags.critical.includes("skunky"));
+  });
+
+  it("a trace match still contributes positive points in the audit", () => {
+    const trace = scoreStrain("Lemon Diesel", profile({ preferredAromas: ["skunky"] }));
+    const s = trace.matchStrengths.find((m) => m.token === "skunky");
+    assert.ok(s && s.points > 0, "trace skunky should show a small positive strength");
+  });
+});
+
 describe("no primaries → unchanged (no-op) scoring", () => {
   // Skywalker OG has no curated primaries: aromas gassy,earthy,herbal,spicy.
   it("two equal-count partial matches score identically", () => {
