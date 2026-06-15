@@ -6744,4 +6744,384 @@ export const IDENTITIES: StrainIdentity[] = [
     artVersion: 1,
     sourceConfidence: "medium",
   },
+
+  // ── MISSING PARENT STRAINS (catalog-expansion #24) ──
+  {
+    canonicalName: "91 Hollywood Pure Kush",
+    marketNames: ["Hollywood Pure Kush", "HPK"],
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Heavy OG-Kush cut"],
+    curatorNote:
+      "91 Hollywood Pure Kush is a heavy OG-Kush cut — all fuel and pine over a damp, earthy base. The effect is a sinking, sedating body weight, firmly an evening strain. It survives mostly as breeding stock and is a parent of Frosted Lemonade.",
+    curatorQuote: "All fuel and pine over a damp, earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Aspen OG",
+    lineage: { cross: "OG Kush-leaning gas cut" },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["OG gas with a citrus edge"],
+    curatorNote:
+      "Aspen OG is an OG-leaning gas cut — fuel and pine with a light citrus lift over earthy funk. The effect is relaxing and euphoric with real body weight. It's best known as a parent of Jet Fuel.",
+    curatorQuote: "Fuel and pine with a light citrus lift.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Black Cherry Funk",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Dark cherry-berry funk"],
+    curatorNote:
+      "Black Cherry Funk leans into dark cherry and berry over an earthy base — sweet fruit with a funky edge. The effect is relaxed and happy, easy across the day. It's a parent of Black Cherry Gelato.",
+    curatorQuote: "Dark cherry and berry over an earthy funk.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "BOG Bubble",
+    marketNames: ["Bubble (BOG)"],
+    breeder: "BOG Seeds",
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Bubblegum-sweet hybrid"],
+    curatorNote:
+      "BOG Bubble is a BOG Seeds hybrid built around sweet bubblegum-and-berry flavour. The effect is happy and uplifting easing into relaxation. It's a parent of Boggle Gum.",
+    curatorQuote: "Sweet bubblegum and berry, frosty and loud.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "California Indica",
+    marketNames: ["Cali Indica"],
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Earthy, hashy indica"],
+    curatorNote:
+      "California Indica is an earthy, hashy indica — sweet and spicy over a woody base. The effect is heavy and sedating, an evening sit-down. It's a parent of LA Confidential.",
+    curatorQuote: "Sweet and spicy over a woody, hashy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "California Sour",
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Sour Diesel-leaning citrus diesel"],
+    curatorNote:
+      "California Sour is a Sour Diesel-leaning hybrid — sharp citrus and diesel over a skunky base. The effect is up and energetic, daytime-friendly. It's a parent of Lemon Diesel.",
+    curatorQuote: "Sharp citrus and diesel over a skunky base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Citral",
+    marketNames: ["Citral #13"],
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Citrusy indica line"],
+    curatorNote:
+      "Citral is a citrusy indica line — bright lemon-citrus and sweet fruit over a light earthy base. The effect is relaxed and happy without much weight. It's a parent of Papaya.",
+    curatorQuote: "Bright lemon-citrus over a light, sweet base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Ed Rosenthal Super Bud",
+    marketNames: ["ERSB"],
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Fruity multi-strain hybrid"],
+    curatorNote:
+      "Ed Rosenthal Super Bud is a fruity, multi-strain hybrid named for the cultivation author — tropical fruit and sweet spice over an uplifting frame. The effect is energetic and happy. It's a parent of Pineapple.",
+    curatorQuote: "Tropical fruit and sweet spice, bright and uplifting.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Eddy OG",
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["OG gas cut"],
+    curatorNote:
+      "Eddy OG is an OG gas cut — fuel and pine over earthy funk with a light citrus edge. The effect is relaxing and euphoric with body weight. It's a parent of Peach Rings.",
+    curatorQuote: "Fuel and pine over earthy funk.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Evergladez",
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Sweet, fruity exotic"],
+    curatorNote:
+      "Evergladez is a sweet, fruity modern exotic — tropical fruit and citrus over a candy frame. The effect is happy and euphoric easing into calm. It's a parent of Frosted Lemonade.",
+    curatorQuote: "Tropical fruit and citrus over a candy frame.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Face Mints",
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Minty, gassy cookie cut"],
+    curatorNote:
+      "Face Mints is a minty, gassy cookie cut — cool mint over a sweet, gassy base. The effect is heavy and euphoric, evening-leaning. It's a parent of Gas Face.",
+    curatorQuote: "Cool mint over a sweet, gassy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Florida Kush",
+    marketNames: ["FLA Kush"],
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Florida OG-Kush cut"],
+    curatorNote:
+      "Florida Kush is a Florida OG-Kush cut — heavy fuel and pine over earthy funk. The effect is sedating and couch-locking, an evening strain. It's a parent of Pink Panties.",
+    curatorQuote: "Heavy fuel and pine over earthy funk.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Genius",
+    lineage: { cross: "Jack Herer phenotype" },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Jack Herer phenotype"],
+    curatorNote:
+      "Genius is a Jack Herer phenotype — herbal, piney and citrus-bright with a clear, focused lift. The effect is energetic and creative, a daytime sativa. It's a parent of Apollo 13.",
+    curatorQuote: "Herbal pine and citrus, clear and focused.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Grateful Puff",
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Gassy-sweet exotic"],
+    curatorNote:
+      "Grateful Puff is a gassy-sweet exotic — sweet fruit over a gassy, earthy base. The effect is relaxing and euphoric. It's a parent of Platinum Puff.",
+    curatorQuote: "Sweet fruit over a gassy, earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Headbanger",
+    lineage: { parents: ["Sour Diesel", "Biker Kush"], cross: "Sour Diesel × Biker Kush" },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Sour-diesel gas hybrid"],
+    curatorNote:
+      "Headbanger is a Sour Diesel × Biker Kush gas hybrid — sharp diesel and citrus over an earthy base. The effect is fast and heady, potent and uplifting. It's a parent of Sherbanger.",
+    curatorQuote: "Sharp diesel and citrus, fast and heady.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Hella Jelly",
+    marketNames: ["Hella Jelly OG"],
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Jammy, fruit-forward exotic"],
+    curatorNote:
+      "Hella Jelly is a jammy, fruit-forward exotic — sweet berry and fruit candy over a light base. The effect is happy and uplifting. It's a parent of Jelly Donutz.",
+    curatorQuote: "Sweet berry and fruit candy, jammy and bright.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "High Country Diesel",
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Diesel cut"],
+    curatorNote:
+      "High Country Diesel is a sharp diesel cut — heavy fuel and gas over earthy pine. The effect is energetic and heady, daytime-leaning. It's a parent of Jet Fuel.",
+    curatorQuote: "Heavy fuel and gas over earthy pine.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Honey Boo Boo",
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Sweet, honeyed cut"],
+    curatorNote:
+      "Honey Boo Boo is a sweet, honeyed cut — soft floral sweetness over a fruity, earthy base. The effect is relaxing and happy, mellow rather than heavy. It's a parent of Honey Banana.",
+    curatorQuote: "Soft honeyed sweetness over a fruity base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Jamaica",
+    marketNames: ["Jamaican", "Jamaican Lamb's Bread"],
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Jamaican landrace sativa"],
+    curatorNote:
+      "Jamaica is a Jamaican landrace sativa — herbal, spicy and earthy with a bright citrus edge. The effect is energetic and uplifting, classic heritage sativa. It feeds the haze line and is a parent of Amnesia Haze.",
+    curatorQuote: "Herbal, spicy and earthy, bright and energetic.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Jock Horror",
+    marketNames: ["Jock Horror #1"],
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Nirvana Jack-Herer-style sativa"],
+    curatorNote:
+      "Jock Horror is a Nirvana Jack-Herer-style sativa — spicy, piney and citrus-bright with a creative lift. The effect is uplifting and energetic. It's a parent of AK-48.",
+    curatorQuote: "Spicy, piney and citrus-bright.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Juicy Fruit",
+    marketNames: ["Juicy Fruit Thai", "Fruity Juice"],
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Sweet, fruity hybrid"],
+    curatorNote:
+      "Juicy Fruit is a sweet, fruity hybrid — tropical fruit and berry candy over a light base. The effect is happy and uplifting. It's a parent of Orange Creamsicle.",
+    curatorQuote: "Tropical fruit and berry candy, sweet and light.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Juliet",
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Sweet berry cut"],
+    curatorNote:
+      "Juliet is a sweet berry cut — soft berry and floral sweetness over a light base. The effect is happy and relaxing. It's a parent of Strawberry Shortcake.",
+    curatorQuote: "Soft berry and floral sweetness.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Laos",
+    marketNames: ["Laotian"],
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Laotian landrace sativa"],
+    curatorNote:
+      "Laos is a Laotian landrace sativa — earthy and spicy with a sweet, citrus edge. The effect is uplifting and creative, a heritage daytime sativa. It feeds the haze line and is a parent of Amnesia Haze.",
+    curatorQuote: "Earthy and spicy with a sweet, citrus edge.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lemon Joy",
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Lemony cut"],
+    curatorNote:
+      "Lemon Joy is a lemony cut — bright citrus and sweetness over a light herbal base. The effect is uplifting and happy. It's a parent of Lemon Kush.",
+    curatorQuote: "Bright citrus and sweetness, light and uplifting.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lemon OG",
+    marketNames: ["Lemon OG Kush"],
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Lemon-gas OG"],
+    curatorNote:
+      "Lemon OG is a lemon-gas OG — bright citrus over fuel and earthy pine. The effect is relaxing and euphoric with a clear-enough head. It's a parent of Lemonnade.",
+    curatorQuote: "Bright citrus over fuel and earthy pine.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lost Coast OG",
+    lineage: { cross: "OG Kush phenotype" },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["OG Kush phenotype"],
+    curatorNote:
+      "Lost Coast OG is an OG-Kush phenotype — fuel and pine over a damp, earthy base. The effect is relaxing and heavy. It's a parent of Lemon Diesel.",
+    curatorQuote: "Fuel and pine over a damp, earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Marionberry",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Dark-berry cut"],
+    curatorNote:
+      "Marionberry is a dark-berry cut — rich blackberry-style berry and sweetness over an earthy base. The effect is relaxing and happy. It's a parent of Peach Rings.",
+    curatorQuote: "Rich dark berry and sweetness over earth.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "OG LA Affie",
+    marketNames: ["LA Affie", "OG LA Affie #2"],
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Afghani indica"],
+    curatorNote:
+      "OG LA Affie is an Afghani indica — earthy and spicy over a woody, hashy base. The effect is heavy and sedating. It's a parent of LA Confidential.",
+    curatorQuote: "Earthy and spicy over a woody, hashy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Orange Crush",
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["Bright orange-citrus hybrid"],
+    curatorNote:
+      "Orange Crush is a bright orange-citrus hybrid — sweet orange and fruit over a light base. The effect is uplifting and happy, a daytime mood-lift. It's a parent of Orange Creamsicle.",
+    curatorQuote: "Sweet orange and fruit, bright and uplifting.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Ortega",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Earthy indica"],
+    curatorNote:
+      "Ortega is an earthy indica — spicy and sweet over a woody base. The effect is heavy and sedating, an evening sit-down. It's a parent of Black Domina.",
+    curatorQuote: "Spicy and sweet over a woody, earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Purple Elephant",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Grape-forward purple hybrid"],
+    curatorNote:
+      "Purple Elephant is a grape-forward purple hybrid — sweet grape and berry over an earthy base. The effect is relaxing and happy. It's a parent of Grape Stomper.",
+    curatorQuote: "Sweet grape and berry over earth.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Razzleberry",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Raspberry-berry cut"],
+    curatorNote:
+      "Razzleberry is a raspberry-berry cut — bright berry and sweet fruit over a light earthy base. The effect is relaxing and happy. It's a parent of Blueberry Muffin.",
+    curatorQuote: "Bright raspberry and sweet fruit.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Secret Weapon",
+    lineage: { parents: ["Cheese Quake", "White Widow"], cross: "Cheese Quake × White Widow" },
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Cheese-and-berry funk"],
+    curatorNote:
+      "Secret Weapon is a Cheese Quake × White Widow cut — tangy cheese and berry over an earthy base. The effect is balanced and uplifting. It's a parent of Oreoz.",
+    curatorQuote: "Tangy cheese and berry over earth.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Snow White",
+    marketNames: ["Snowwhite"],
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Frosty White Widow descendant"],
+    curatorNote:
+      "Snow White is a frosty White Widow descendant — earthy and sweet with a soft floral edge under heavy resin. The effect is relaxing and euphoric. It's a parent of Snowcap.",
+    curatorQuote: "Earthy and sweet under heavy frost.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "South Florida OG",
+    marketNames: ["SFLA OG", "South Florida OG Kush"],
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Heavy OG-Kush cut"],
+    curatorNote:
+      "South Florida OG is a heavy OG-Kush cut — fuel and pine over a damp, earthy base. The effect is sedating and couch-locking. It's a parent of Biscotti.",
+    curatorQuote: "Fuel and pine over a damp, earthy base.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Starfighter",
+    lineage: { cross: "Alien Tahoe OG × Lemon Alien Dawg" },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Gassy citrus OG hybrid"],
+    curatorNote:
+      "Starfighter is an Alien Tahoe OG × Lemon Alien Dawg gas hybrid — fuel and citrus over earthy pine, frosty and loud. The effect is relaxing and euphoric with body weight. It's a parent of MAC.",
+    curatorQuote: "Fuel and citrus over earthy pine, frosty and loud.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "White Diesel",
+    marketNames: ["White Diesel Haze"],
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Frosty diesel sativa"],
+    curatorNote:
+      "White Diesel is a frosty diesel sativa — sharp diesel and citrus over an earthy base. The effect is energetic and heady, daytime-leaning. It's a parent of The Menthol.",
+    curatorQuote: "Sharp diesel and citrus, frosty and energetic.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Y Life",
+    marketNames: ["Why Life"],
+    breeder: "Cookies",
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Creamy Cookies-family cut"],
+    curatorNote:
+      "Y Life is a creamy Cookies-family cut — sweet cream and soft fruit over an earthy base. The effect is relaxing and happy, smooth and dessert-forward. It's a parent of Cereal Milk.",
+    curatorQuote: "Sweet cream and soft fruit, smooth and frosty.",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Zookies",
+    marketNames: ["Animal Cookies × GG4"],
+    lineage: { parents: ["Animal Cookies", "GG4"], cross: "Animal Cookies × Original Glue" },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Gassy cookie-nut cut"],
+    curatorNote:
+      "Zookies is an Animal Cookies × Original Glue cut — sweet, nutty cookie over a heavy gas base. The effect is relaxing and euphoric with real body weight, evening-leaning. It's a parent of Biskante.",
+    curatorQuote: "Sweet, nutty cookie over a heavy gas base.",
+    sourceConfidence: "low",
+  },
 ];
