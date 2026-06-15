@@ -313,7 +313,7 @@ function setScore(
   score: number;
   matched: string[];
   missed: string[];
-  contributions: { token: string; points: number }[];
+  contributions: { token: string; points: number; trace?: boolean }[];
 } {
   if (preferred.length === 0)
     return { score: NEUTRAL, matched: [], missed: [], contributions: [] };
@@ -355,6 +355,7 @@ function setScore(
     ...traced.map((token) => ({
       token,
       points: (TRACE_TAG_WEIGHT / denom) * 74,
+      trace: true,
     })),
   ];
   return { score: Math.round(26 + coverage * 74), matched, missed, contributions };
@@ -1016,23 +1017,35 @@ export function scoreStrain(
   // Audit mode as "Top matches" with each tag's point strength. Aggregate
   // bonuses (family, archetype, reference) aren't per-tag, so this is the
   // sensory-tag share of the score, not the whole thing.
-  const strengthByToken = new Map<string, number>();
+  // Track points per token plus whether any FULL (non-trace) contribution
+  // landed — a token that's a full match in one category but only a trace in
+  // another reads as full, so `trace` is shown only when every contribution
+  // was a trace.
+  const strengthByToken = new Map<string, { points: number; full: boolean }>();
   const addStrength = (
-    contribs: { token: string; points: number }[],
+    contribs: { token: string; points: number; trace?: boolean }[],
     weight: number,
   ) => {
-    for (const c of contribs)
-      strengthByToken.set(
-        c.token,
-        (strengthByToken.get(c.token) ?? 0) + c.points * weight,
-      );
+    for (const c of contribs) {
+      const prev = strengthByToken.get(c.token) ?? { points: 0, full: false };
+      prev.points += c.points * weight;
+      if (!c.trace) prev.full = true;
+      strengthByToken.set(c.token, prev);
+    }
   };
   addStrength(aroma.contributions, W.aroma);
   addStrength(effect.contributions, W.effect);
   addStrength(flavor.contributions, W.flavor); // a token shared with aroma sums
   addStrength(trait.contributions, W.trait);
   const matchStrengths = [...strengthByToken.entries()]
-    .map(([token, points]) => ({ token, points: Math.round(points) }))
+    .map(([token, v]) => {
+      const s: { token: string; points: number; trace?: boolean } = {
+        token,
+        points: Math.round(v.points),
+      };
+      if (!v.full) s.trace = true;
+      return s;
+    })
     .filter((s) => s.points > 0)
     .sort((a, b) => b.points - a.points);
 

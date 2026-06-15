@@ -124,10 +124,15 @@ describe("trace tags score a fraction of a full match (skunky)", () => {
     assert.ok(absent.missingTags.critical.includes("skunky"));
   });
 
-  it("a trace match still contributes positive points in the audit", () => {
+  it("a trace match contributes positive points and is flagged trace in the audit", () => {
     const trace = scoreStrain("Lemon Diesel", profile({ preferredAromas: ["skunky"] }));
     const s = trace.matchStrengths.find((m) => m.token === "skunky");
     assert.ok(s && s.points > 0, "trace skunky should show a small positive strength");
+    assert.equal(s?.trace, true, "trace skunky should carry the trace flag");
+    // A full match must NOT be flagged trace.
+    const full = scoreStrain("Skunk #1", profile({ preferredAromas: ["skunky"] }));
+    const fs = full.matchStrengths.find((m) => m.token === "skunky");
+    assert.ok(fs && !fs.trace, "a full skunky match must not be flagged trace");
   });
 });
 
