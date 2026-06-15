@@ -2586,6 +2586,10 @@ export const IDENTITIES: StrainIdentity[] = [
   // ── Newly added strains (catalog expansion) ──
   {
     canonicalName: "Triangle Kush",
+    lineage: {
+      parents: ["Hindu Kush"],
+      cross: "Neville's Hindu Kush × an unknown Emerald Triangle female — an accidental Florida cross (~1990), held as a clone",
+    },
     marketNames: ["Triangle", "Triangle OG"],
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Florida OG cut", "Behind Wedding Cake & Triangle Mints"],
@@ -2712,6 +2716,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Pink Runtz",
+    lineage: {
+      parents: ["Zkittlez", "Gelato"],
+      cross: "Zkittlez × Gelato — a Runtz phenotype selected for colour (some attribute Pink Panties × Rainbow Sherbet — not verified)",
+    },
     marketNames: ["Runtz (pink pheno)"],
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Candy-sweet pink Runtz phenotype"],
@@ -3281,7 +3289,8 @@ export const IDENTITIES: StrainIdentity[] = [
     marketNames: ["Hi-Octane OG", "Octane", "Heirloom OG"],
     breeder: "Clone-only Strains",
     lineage: {
-      cross: "Clone-only OG — lineage contested",
+      parents: ["Chemdawg", "Lemon Thai", "Hindu Kush"],
+      cross: "Chemdawg × Lemon Thai × Hindu Kush (commonly cited, not verified — clone-only OG, lineage contested)",
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Heavy fuel-and-pine OG", "Deeply sedating nightcap"],
@@ -3731,7 +3740,11 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Black Cherry Gelato",
     lineage: {
-      cross: "Black-cherry-leaning Gelato cross",
+      parents: ["Black Cherry Funk", "Acai"],
+      cross: "Black Cherry Funk × Acai (First Class Genetics, clone-only; genetics vary by grower — not verified)",
+      parentDetails: {
+        "Black Cherry Funk": { type: "indica" },
+      },
     },
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Dark cherry over Gelato cream", "Genetics vary by grower"],
@@ -4393,6 +4406,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Jelly Donutz",
+    lineage: {
+      parents: ["Hella Jelly", "White Runtz"],
+      cross: "Hella Jelly × White Runtz (Humboldt Seed Company — not verified)",
+      parentDetails: {
+        "Hella Jelly": { type: "sativa" },
+      },
+    },
     marketNames: ["Jelly Donuts"],
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Berry-pastry sweetness over light gas"],
@@ -5802,6 +5822,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Tiramisu",
+    lineage: {
+      parents: ["Sunset Sherbet", "Thin Mint GSC"],
+      cross: "Sunset Sherbet × Thin Mint GSC (The Cali Connection)",
+    },
     sensoryFamily: "dessert-cookies",
     phenotypeNotes: ["Coffee-and-cream dessert"],
     curatorNote:
