@@ -41,14 +41,6 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
             ✓ = top matches, ⚠ = penalties.
           </p>
           {sorted.map((item) => {
-            const matched = [
-              ...item.matchedEffects,
-              ...item.matchedAromas,
-              ...item.matchedFlavors,
-            ]
-              .filter((v, i, a) => a.indexOf(v) === i)
-              .map((v) => labelFor(v));
-            const penalties = item.conflicts.map((c) => c.split(",")[0]);
             return (
               <div
                 key={item.id ?? item.strainName}
@@ -77,17 +69,41 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
                     " · no feedback"
                   )}
                 </div>
-                <div className="mt-1 flex flex-wrap gap-x-3 text-[11px]">
-                  {matched.length > 0 && (
-                    <span className="text-accent">✓ {matched.join(", ")}</span>
-                  )}
-                  {penalties.length > 0 ? (
-                    <span className="text-[#a23b2c]">
-                      ⚠ {penalties.join(", ")}
-                    </span>
-                  ) : (
-                    <span className="text-muted-foreground/60">⚠ none</span>
-                  )}
+                <div className="mt-1.5 flex flex-wrap gap-x-8 gap-y-2 text-[11px]">
+                  <div>
+                    <p className="font-medium uppercase tracking-[0.1em] text-muted-foreground">
+                      Top matches
+                    </p>
+                    <div className="mt-1 space-y-0.5">
+                      {item.matchStrengths.length > 0 ? (
+                        item.matchStrengths.slice(0, 6).map((m) => (
+                          <div key={m.token} className="flex justify-between gap-4 text-accent">
+                            <span>{labelFor(m.token)}</span>
+                            <span className="font-mono">+{m.points}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <span className="text-muted-foreground/60">—</span>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="font-medium uppercase tracking-[0.1em] text-muted-foreground">
+                      Penalties
+                    </p>
+                    <div className="mt-1 space-y-0.5">
+                      {item.penaltyStrengths.length > 0 ? (
+                        item.penaltyStrengths.map((p) => (
+                          <div key={p.label} className="flex justify-between gap-4 text-[#a23b2c]">
+                            <span>{p.label}</span>
+                            <span className="font-mono">{p.points}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <span className="text-muted-foreground/60">none</span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             );

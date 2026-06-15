@@ -311,6 +311,8 @@ export function dbRecToView(
     baseScore: r.matchScore,
     feedbackPotential: 0,
     feedbackDecay: 1,
+    matchStrengths: [],
+    penaltyStrengths: [],
     feedback: toFeedbackData(feedback),
     purchaseConfidence,
   };

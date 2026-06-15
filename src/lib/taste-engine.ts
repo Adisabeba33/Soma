@@ -301,32 +301,32 @@ function setScore(
   strainTags: string[],
   preferred: string[],
   primaryTags?: string[],
-): { score: number; matched: string[] } {
-  if (preferred.length === 0) return { score: NEUTRAL, matched: [] };
+): { score: number; matched: string[]; contributions: { token: string; points: number }[] } {
+  if (preferred.length === 0)
+    return { score: NEUTRAL, matched: [], contributions: [] };
   const tagSet = new Set(strainTags);
   const matched = preferred.filter((p) => tagSet.has(p));
   const primarySet =
     primaryTags && primaryTags.length ? new Set(primaryTags) : null;
 
-  // No curated primaries → unweighted coverage, identical to pre-#3 scoring.
-  if (!primarySet) {
-    const coverage = matched.length / preferred.length;
-    return { score: Math.round(26 + coverage * 74), matched };
-  }
-
-  // Weighted coverage: a preferred tag that hits a primary token counts
-  // 1.5×, a secondary 1.0×, an unmatched preferred 1.0 in the denominator.
-  // coverage = matchedWeight / (matchedWeight + unmatched) stays in [0,1],
-  // reduces to the unweighted form when no match is primary, and reaches 1
-  // only on a full match — so weighting differentiates PARTIAL overlaps,
-  // which is exactly the gas-primary vs citrus-secondary case.
-  let matchedWeight = 0;
-  for (const m of matched) {
-    matchedWeight += primarySet.has(m) ? PRIMARY_TAG_WEIGHT : 1;
-  }
+  // Per-token weight: a preferred tag hitting a primary token counts 1.5×, a
+  // secondary 1.0×, an unmatched preferred 1.0 in the denominator. coverage =
+  // matchedWeight / (matchedWeight + unmatched) stays in [0,1], reduces to
+  // unweighted coverage when nothing is primary, and reaches 1 only on a full
+  // match. Each matched token's share of the coverage portion (max 74 of the
+  // 0–100 sub-score) is its `points` — surfaced in Audit mode.
+  const weights = matched.map((m) =>
+    primarySet?.has(m) ? PRIMARY_TAG_WEIGHT : 1,
+  );
+  const matchedWeight = weights.reduce((a, b) => a + b, 0);
   const unmatched = preferred.length - matched.length;
-  const coverage = matchedWeight / (matchedWeight + unmatched);
-  return { score: Math.round(26 + coverage * 74), matched };
+  const denom = matchedWeight + unmatched;
+  const coverage = denom > 0 ? matchedWeight / denom : 0;
+  const contributions = matched.map((token, i) => ({
+    token,
+    points: (weights[i] / denom) * 74,
+  }));
+  return { score: Math.round(26 + coverage * 74), matched, contributions };
 }
 
 // Texture preferences ("sticky", "dense", "frosty", …) map to traits the
@@ -976,6 +976,30 @@ export function scoreStrain(
         quality: 0.02,
       };
 
+  // Per-tag contribution to the score, weighted by category — surfaced in
+  // Audit mode as "Top matches" with each tag's point strength. Aggregate
+  // bonuses (family, archetype, reference) aren't per-tag, so this is the
+  // sensory-tag share of the score, not the whole thing.
+  const strengthByToken = new Map<string, number>();
+  const addStrength = (
+    contribs: { token: string; points: number }[],
+    weight: number,
+  ) => {
+    for (const c of contribs)
+      strengthByToken.set(
+        c.token,
+        (strengthByToken.get(c.token) ?? 0) + c.points * weight,
+      );
+  };
+  addStrength(aroma.contributions, W.aroma);
+  addStrength(effect.contributions, W.effect);
+  addStrength(flavor.contributions, W.flavor); // a token shared with aroma sums
+  addStrength(trait.contributions, W.trait);
+  const matchStrengths = [...strengthByToken.entries()]
+    .map(([token, points]) => ({ token, points: Math.round(points) }))
+    .filter((s) => s.points > 0)
+    .sort((a, b) => b.points - a.points);
+
   // Sensory-family bonus — orthogonal to the behavioural family used by
   // familyMod above. familyMod looks at effect-feel (nighttime-indica,
   // daytime-functional, …); sensoryFamily looks at aroma/cluster
@@ -1058,6 +1082,13 @@ export function scoreStrain(
     potencyMod +
     familyPrefMod;
   const penalty = Math.min(42, conflicts.length * 15);
+  // Each conflict's share of the (capped) penalty, surfaced in Audit mode as
+  // "Penalties" with each one's negative point hit.
+  const perConflict = conflicts.length > 0 ? penalty / conflicts.length : 0;
+  const penaltyStrengths = conflicts.map((c) => ({
+    label: c.split(",")[0],
+    points: -Math.round(perConflict),
+  }));
   // Pre-calibration score with decimal precision. Same formula as the
   // visible matchScore but without anchor floor, 99 base cap, or the 89–92
   // elite-band remap. Used to break ties when strains end up displaying the
@@ -1189,6 +1220,8 @@ export function scoreStrain(
     baseScore,
     feedbackPotential: isFavoriteAnchor ? 0 : fb.adjustment,
     feedbackDecay: feedbackTaper,
+    matchStrengths,
+    penaltyStrengths,
     purchaseConfidence,
   };
 }

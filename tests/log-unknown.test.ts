@@ -32,6 +32,8 @@ function match(strainName: string, knownStrain: boolean): StrainMatch {
     baseScore: 0,
     feedbackPotential: 0,
     feedbackDecay: 1,
+    matchStrengths: [],
+    penaltyStrengths: [],
     purchaseConfidence: emptyPurchaseConfidence(),
   };
 }
