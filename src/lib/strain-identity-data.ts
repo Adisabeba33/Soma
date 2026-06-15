@@ -1022,6 +1022,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Face Off OG",
+    lineage: {
+      parents: ["OG Kush"],
+      cross: "OG Kush phenotype — a SoCal clone-only cut, stabilized by Archive Seed Bank",
+    },
     marketNames: ["Face Off"],
     breeder: "Archive Seed Bank",
     sensoryFamily: "gas-og",
@@ -1101,6 +1105,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Chem 91",
+    lineage: {
+      parents: ["Chemdawg"],
+      cross: "An original Chemdawg-line selection from the 1991 'Dog Bud' pack — parents unrecorded (the Skunk VA line)",
+    },
     marketNames: ["Chemdawg 91", "Chem '91", "Chem 91 Skunk VA"],
     sensoryFamily: "diesel-chem",
     phenotypeNotes: ["The original 1991 Chemdawg phenotype"],
@@ -1979,6 +1987,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Strawberry Runtz",
+    lineage: {
+      parents: ["Runtz", "Strawberry Fritter"],
+      cross: "Runtz × Strawberry Fritter (commonly cited; varies by breeder — not verified)",
+      parentDetails: {
+        "Strawberry Fritter": { lineageBrief: "Strawberry × Apple Fritter line", type: "hybrid" },
+      },
+    },
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Strawberry-forward Runtz selection"],
     curatorNote:
@@ -2625,6 +2640,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Pink Kush",
+    lineage: {
+      parents: ["OG Kush"],
+      cross: "Derived from OG Kush — virtually an OG Kush, selected and stabilized by Barney's Farm (second parent unrecorded)",
+    },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Sweet, floral OG indica", "Pink-hued pistils"],
     curatorNote:
@@ -2650,6 +2669,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Yoda OG",
+    lineage: {
+      parents: ["OG Kush", "Master Kush"],
+      cross: "OG Kush × Master Kush (commonly cited; also described as an OG Kush phenotype — not verified)",
+    },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Heavy LA OG phenotype"],
     curatorNote:
@@ -2769,6 +2792,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Obama Runtz",
+    lineage: {
+      parents: ["Afghani", "OG Kush", "Runtz"],
+      cross: "Obama Kush (Afghani × OG Kush) × Runtz",
+    },
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Candy-and-gas Runtz-orbit exotic"],
     curatorNote:
@@ -5536,6 +5563,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Grape Krush",
+    lineage: {
+      parents: ["Blueberry", "Haze"],
+      cross: "A DJ Short Blueberry-line cross (Blueberry × Haze; details sparse — not verified)",
+    },
     marketNames: ["Grape Crush"],
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Fizzy grape indica"],
@@ -6242,6 +6273,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Honey Banana",
+    lineage: {
+      parents: ["Strawberry Banana", "Honey Boo Boo"],
+      cross: "Strawberry Banana × Honey Boo Boo (DNA Genetics)",
+      parentDetails: {
+        "Honey Boo Boo": { lineageBrief: "Bubba Kush × Captain Krypt OG", type: "indica" },
+      },
+    },
     sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Honeyed banana indica"],
     curatorNote:
@@ -6487,6 +6525,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "AK-48",
+    lineage: {
+      parents: ["Ice", "Jock Horror"],
+      cross: "Ice × Jock Horror (Nirvana Seeds)",
+      parentDetails: {
+        "Jock Horror": { lineageBrief: "Northern Lights × Skunk × Haze", type: "hybrid" },
+      },
+    },
     breeder: "Nirvana Seeds",
     sensoryFamily: "kush-classic",
     phenotypeNotes: ["Fast-flowering AK selection"],
