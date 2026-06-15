@@ -159,6 +159,49 @@ export function lineageConfidenceOf(
   return identity.lineageConfidence ?? identity.sourceConfidence;
 }
 
+// Plain-language status for the genetics block, derived from the lineage we
+// already hold — so a visitor instantly understands *why* a strain shows the
+// parents it does, instead of having to read the cross string. Key cases:
+//   • 2 parents            → "Documented cross" (or "Commonly cited" if the
+//                            cross is attributed-but-unconfirmed)
+//   • 1 parent, a cut/pheno → "Clone-only phenotype" — one parent is CORRECT,
+//                            it's a selected clone of that strain, not a gap
+//   • 1 parent otherwise   → "One parent on record" (second undocumented)
+// Returns null when there are no parents (the genetics block isn't shown).
+export interface LineageStatusInfo {
+  label: string;
+  hint: string;
+}
+
+export function lineageStatus(identity: StrainIdentity): LineageStatusInfo | null {
+  const lineage = identity.lineage;
+  const parents = lineage?.parents ?? [];
+  if (parents.length === 0) return null;
+  const cross = (lineage?.cross ?? "").toLowerCase();
+  const unverified = /(not verified|commonly cited|debated|unconfirmed|contested)/.test(
+    cross,
+  );
+  if (parents.length >= 2) {
+    return unverified
+      ? {
+          label: "Commonly cited",
+          hint: "A cross most sources attribute, but not breeder-confirmed.",
+        }
+      : { label: "Documented cross", hint: "Both parents are on record." };
+  }
+  // Exactly one parent.
+  if (/(phenotype|clone[- ]?only|\bcut\b|\bs1\b|selfed)/.test(cross)) {
+    return {
+      label: "Clone-only phenotype",
+      hint: `A selected clone of ${parents[0]} — one parent is correct here, not a missing second one.`,
+    };
+  }
+  return {
+    label: "One parent on record",
+    hint: `${parents[0]} is documented; the second parent isn't.`,
+  };
+}
+
 export function historicalConfidenceOf(
   identity: StrainIdentity,
 ): IdentityConfidence {

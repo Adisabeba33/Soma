@@ -15,7 +15,7 @@ import { RADAR_AXES, buildRadar } from "@/lib/sensory-radar";
 import { cn, formatScore } from "@/lib/utils";
 import { FeedbackPill, type Verdict } from "@/components/feedback-pill";
 import { labelFor } from "@/lib/vocab";
-import { knownAsNames, lineageConfidenceOf } from "@/lib/strain-identity";
+import { knownAsNames, lineageConfidenceOf, lineageStatus } from "@/lib/strain-identity";
 import { artImageSrc, artFocusOf } from "@/lib/strain-art";
 import { strainSlug } from "@/lib/catalog";
 import { layoutParents } from "@/lib/genetics-layout";
@@ -222,6 +222,14 @@ export function StrainDetail({
 
           {lineageParents.length > 0 && (
             <Section title="Genetics">
+              {identity && lineageStatus(identity) && (
+                <span
+                  title={lineageStatus(identity)!.hint}
+                  className="mb-3 inline-flex items-center rounded-full border border-brass/30 bg-brass/10 px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.08em] text-brass"
+                >
+                  {lineageStatus(identity)!.label}
+                </span>
+              )}
               <Genetics
                 parents={lineageParents}
                 cross={identity?.lineage?.cross}
