@@ -39,7 +39,7 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
             diminishing-returns taper (higher raw → less applied) ·{" "}
             <span className="font-mono">applied</span> = what was actually added.
             ✓ = top matches, ⚠ = penalties, ✗ = tags you asked for that this
-            strain lacks.
+            strain lacks (critical = aroma, secondary = flavor, effect).
           </p>
           {sorted.map((item) => {
             return (
@@ -105,23 +105,38 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
                       )}
                     </div>
                   </div>
-                  <div>
-                    <p className="font-medium uppercase tracking-[0.1em] text-muted-foreground">
-                      Missing
-                    </p>
-                    <div className="mt-1 space-y-0.5">
-                      {item.missingTags.length > 0 ? (
-                        item.missingTags.slice(0, 8).map((t) => (
-                          <div key={t} className="text-muted-foreground/70">
-                            <span className="mr-1 text-[#a23b2c]/70">✗</span>
-                            {labelFor(t)}
-                          </div>
-                        ))
-                      ) : (
-                        <span className="text-muted-foreground/60">none</span>
-                      )}
-                    </div>
-                  </div>
+                  {(() => {
+                    const groups: { label: string; tags: string[] }[] = [
+                      { label: "Critical missing", tags: item.missingTags.critical },
+                      { label: "Secondary missing", tags: item.missingTags.secondary },
+                      { label: "Effect missing", tags: item.missingTags.effect },
+                    ].filter((g) => g.tags.length > 0);
+                    if (groups.length === 0) {
+                      return (
+                        <div>
+                          <p className="font-medium uppercase tracking-[0.1em] text-muted-foreground">
+                            Missing
+                          </p>
+                          <p className="mt-1 text-muted-foreground/60">none</p>
+                        </div>
+                      );
+                    }
+                    return groups.map((g) => (
+                      <div key={g.label}>
+                        <p className="font-medium uppercase tracking-[0.1em] text-muted-foreground">
+                          {g.label}
+                        </p>
+                        <div className="mt-1 space-y-0.5">
+                          {g.tags.slice(0, 6).map((t) => (
+                            <div key={t} className="text-muted-foreground/70">
+                              <span className="mr-1 text-[#a23b2c]/70">✗</span>
+                              {labelFor(t)}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ));
+                  })()}
                 </div>
               </div>
             );
