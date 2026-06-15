@@ -1248,8 +1248,14 @@ and didn't do is itself valuable context.
 
 ---
 
-### #24 — Add the 39 missing parent strains to the catalog (curatorial)
+### ✓ #24 — Add the 39 missing parent strains to the catalog (DONE)
 
+- **Resolved:** 2026-06-15. All 39 added to `STRAINS` with type / aromas /
+  flavors / effects / traits / potency / note (sensory data from knowledge of
+  each). Catalog 400 → **439**; parent coverage now **274/274 (100%)** — every
+  lineage parent resolves to a real, clickable page. Rich identity (lineage /
+  curator note / artwork) can follow later per strain. The list below is kept
+  for the record.
 - **Found:** 2026-06-15
 - **Source:** Parent-coverage audit. Of **273** unique parent strains referenced
   across the 400 catalog entries' lineage, **234 (86%) are already in the
