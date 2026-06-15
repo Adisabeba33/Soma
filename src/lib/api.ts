@@ -313,6 +313,7 @@ export function dbRecToView(
     feedbackDecay: 1,
     matchStrengths: [],
     penaltyStrengths: [],
+    missingTags: [],
     feedback: toFeedbackData(feedback),
     purchaseConfidence,
   };

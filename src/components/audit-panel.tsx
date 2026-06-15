@@ -38,7 +38,8 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
             strength · <span className="font-mono">decay</span> =
             diminishing-returns taper (higher raw → less applied) ·{" "}
             <span className="font-mono">applied</span> = what was actually added.
-            ✓ = top matches, ⚠ = penalties.
+            ✓ = top matches, ⚠ = penalties, ✗ = tags you asked for that this
+            strain lacks.
           </p>
           {sorted.map((item) => {
             return (
@@ -97,6 +98,23 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
                           <div key={p.label} className="flex justify-between gap-4 text-[#a23b2c]">
                             <span>{p.label}</span>
                             <span className="font-mono">{p.points}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <span className="text-muted-foreground/60">none</span>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="font-medium uppercase tracking-[0.1em] text-muted-foreground">
+                      Missing
+                    </p>
+                    <div className="mt-1 space-y-0.5">
+                      {item.missingTags.length > 0 ? (
+                        item.missingTags.slice(0, 8).map((t) => (
+                          <div key={t} className="text-muted-foreground/70">
+                            <span className="mr-1 text-[#a23b2c]/70">✗</span>
+                            {labelFor(t)}
                           </div>
                         ))
                       ) : (

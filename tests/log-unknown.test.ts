@@ -34,6 +34,7 @@ function match(strainName: string, knownStrain: boolean): StrainMatch {
     feedbackDecay: 1,
     matchStrengths: [],
     penaltyStrengths: [],
+    missingTags: [],
     purchaseConfidence: emptyPurchaseConfidence(),
   };
 }
