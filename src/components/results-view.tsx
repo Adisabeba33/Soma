@@ -1,24 +1,48 @@
 import { RecommendationCard } from "@/components/recommendation-card";
 import type { Verdict } from "@/components/feedback-pill";
-import type { Category, StrainMatch } from "@/lib/types";
+import type { StrainMatch } from "@/lib/types";
 
 type RecLike = StrainMatch & { id?: string };
 
-const ORDER: Category[] = [
-  "Best Match",
-  "Closest Alternative",
-  "Worth Trying",
-  "Risky",
-  "Avoid",
-];
+// The buy-decision verdict the visitor actually wants — three tiers over the
+// raw match score (owner-set thresholds), so results answer "should I buy
+// this?" not "what category is this?". The engine's per-card "why it suits
+// you" / "what to watch" already supply the reasons and the risk.
+const TIERS = [
+  {
+    key: "worth",
+    label: "Worth your money",
+    range: "81–100",
+    min: 81,
+    hint: "Strong fit for your taste — buy with confidence.",
+    label_cls: "text-accent",
+    bar_cls: "bg-accent",
+  },
+  {
+    key: "shot",
+    label: "Worth a shot",
+    range: "56–80",
+    min: 56,
+    hint: "Decent, with trade-offs — a fair gamble for the day.",
+    label_cls: "text-brass",
+    bar_cls: "bg-brass",
+  },
+  {
+    key: "save",
+    label: "Save your money",
+    range: "0–55",
+    min: 0,
+    hint: "Not your profile — better spent elsewhere.",
+    label_cls: "text-[#a23b2c]",
+    bar_cls: "bg-[#a23b2c]",
+  },
+] as const;
 
-const GROUP_HINT: Record<Category, string> = {
-  "Best Match": "Closest to your sensory profile.",
-  "Closest Alternative": "Not your favourite, but clearly the same lane.",
-  "Worth Trying": "Real overlap with your taste — a reasonable gamble.",
-  Risky: "Possible, but with friction. Read the caveats.",
-  Avoid: "Likely a poor use of your money.",
-};
+function tierOf(score: number): (typeof TIERS)[number]["key"] {
+  if (score >= 81) return "worth";
+  if (score >= 56) return "shot";
+  return "save";
+}
 
 export function ResultsView<T extends RecLike>({
   recommendations,
@@ -42,20 +66,28 @@ export function ResultsView<T extends RecLike>({
 
   return (
     <div className="space-y-10">
-      {ORDER.map((category) => {
-        const group = recommendations.filter((r) => r.category === category);
+      {TIERS.map((tier) => {
+        const group = recommendations.filter(
+          (r) => tierOf(r.matchScore) === tier.key,
+        );
         if (group.length === 0) return null;
         return (
-          <section key={category}>
-            <div className="mb-4 flex items-baseline gap-3">
-              <h3 className="font-display text-xl font-semibold tracking-tight">
-                {category}
+          <section key={tier.key}>
+            <div className="mb-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className={`h-2.5 w-2.5 rounded-full ${tier.bar_cls}`} />
+              <h3
+                className={`font-display text-xl font-semibold tracking-tight ${tier.label_cls}`}
+              >
+                {tier.label}
               </h3>
+              <span className="rounded-full border border-border px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
+                {tier.range}
+              </span>
               <span className="text-sm text-muted-foreground">
                 {group.length}
               </span>
               <span className="ml-1 text-sm text-muted-foreground">
-                {GROUP_HINT[category]}
+                {tier.hint}
               </span>
             </div>
             <div className="space-y-4">
