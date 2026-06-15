@@ -80,12 +80,14 @@ The engine is **not** touched.
 
 ## Phasing
 
-- **Phase A — scenario home + outcome copy** (low risk, no engine). Replace the
-  three input-mode cards with the three scenario cards routing to the existing
-  flows; lead with the outcome headline. **← start here.**
+- **Phase A — scenario home + outcome copy** ✅ done — three scenario cards
+  routing to the existing flows; outcome-led headline.
 - **Phase B — 4-question budtender onboarding + "Here's what I think you like"
-  interpretation** (this is deferred #20 Stage 1). Guided flow → existing
-  parsers → editable preview → save.
+  interpretation** ✅ done — `/onboarding/quick`: four button-only questions map
+  straight onto canonical profile tokens, then a read-back (Taste / Effects /
+  Best use / Likely families) with **Looks right** (save → Taste Match) /
+  **Adjust profile** (save → full questionnaire). The "Guide Me" card points
+  here; free-text describe + full questionnaire remain as secondary links.
 - **Phase C — make menu-analysis the hero path + 3-tier verdict results** with
   "Why?" reasons (reuses `whyItFits` / `riskNotes`). Decide the Compare-feature
   vs menu-analysis naming here.
