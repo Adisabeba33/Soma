@@ -128,6 +128,9 @@ export interface StrainMatch {
   baseScore: number;
   feedbackPotential: number;
   feedbackDecay: number;
+  // Audit mode — per-tag point strength of each match (token) and each penalty.
+  matchStrengths: { token: string; points: number }[];
+  penaltyStrengths: { label: string; points: number }[];
   // Second axis: how confident we are about THIS purchase, separate from
   // the sensory match score. See src/lib/purchase-confidence.ts.
   purchaseConfidence: PurchaseConfidence;
