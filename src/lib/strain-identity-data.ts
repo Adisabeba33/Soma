@@ -2122,6 +2122,10 @@ export const IDENTITIES: StrainIdentity[] = [
   // ── Modern exotics (part 2) + fruity / dessert ──
   {
     canonicalName: "Soap",
+    lineage: {
+      parents: ["Animal Mints", "Kush Mints"],
+      cross: "Animal Mints × Kush Mints (Seed Junky / Minntz)",
+    },
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Lighter, soapy-floral sibling of Zoap"],
     curatorNote:
@@ -2425,6 +2429,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Gas Face",
+    lineage: {
+      parents: ["Face Mints", "Biscotti"],
+      cross: "Face Mints × (Biscotti × Sherbet) backcross (Seed Junky)",
+      parentDetails: {
+        "Face Mints": { lineageBrief: "Face Off OG × Kush Mints", type: "hybrid" },
+      },
+    },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Fuel-forward, little sweetness"],
     curatorNote:
@@ -3655,7 +3666,8 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "Pink Guava",
     breeder: "OZ Kushman",
     lineage: {
-      cross: "OZ Kushman guava selection",
+      parents: ["OZ Kush"],
+      cross: "An OZ Kush F2 selection (DEO Farms / OZ Kushman; behind RS11 and the soap-funk exotics)",
     },
     sensoryFamily: "tropical-fruit",
     phenotypeNotes: ["Tropical guava sweetness", "Behind RS11 and the soap-funk exotics"],
@@ -3804,7 +3816,12 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "The Menthol",
     breeder: "Compound Genetics",
     lineage: {
-      cross: "Compound Genetics select (lineage undisclosed)",
+      parents: ["Gelato 45", "White Diesel"],
+      cross: "Gelato 45 × (White Diesel × (High Octane × Jet Fuel)) — Compound Genetics",
+      parentDetails: {
+        "Gelato 45": { lineageBrief: "Gelato phenotype", type: "hybrid" },
+        "White Diesel": { type: "sativa" },
+      },
     },
     sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Cool menthol over gas funk", "A parent of Pink Certz"],
@@ -4610,7 +4627,11 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "Pink Panties",
     breeder: "Sherbinski",
     lineage: {
-      cross: "Burmese Kush phenotype",
+      parents: ["Burmese Kush", "Florida Kush"],
+      cross: "Burmese Kush × Florida Kush (Sherbinski) — the matriarch of the Sherbet/Gelato family",
+      parentDetails: {
+        "Florida Kush": { lineageBrief: "OG-adjacent Florida kush", type: "indica" },
+      },
     },
     sensoryFamily: "dessert-cookies",
     phenotypeNotes: ["Floral Burmese Kush pheno", "A parent of Sunset Sherbet"],
@@ -4622,6 +4643,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Nevil's Wreck",
+    lineage: {
+      parents: ["Trainwreck", "Neville's Haze"],
+      cross: "Arcata Trainwreck × Neville's Haze (Rare Dankness)",
+      parentDetails: {
+        "Neville's Haze": { lineageBrief: "((Haze × Haze) × NL#5) × (Haze × Haze)", type: "sativa" },
+      },
+    },
     marketNames: ["Nevils Wreck"],
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Pungent haze cut", "A parent of Ghost Train Haze"],
@@ -4633,6 +4661,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Las Vegas Purple Kush",
+    lineage: {
+      parents: ["Purple Afghani", "Hindu Kush"],
+      cross: "Purple Afghani × Hindu Kush (commonly cited, clone-only — not verified)",
+      parentDetails: {
+        "Purple Afghani": { type: "indica" },
+      },
+    },
     marketNames: ["LVPK", "Vegas Purple Kush"],
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Purple Vegas indica", "A parent of Alien Kush"],
@@ -4644,6 +4679,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Acai",
+    lineage: {
+      parents: ["Sunset Sherbet", "Pink Panties"],
+      cross: "Sunset Sherbet × Pink Panties (Sherbinskis; some cite Gelato #49 × Pink Panties — not verified)",
+    },
     marketNames: ["Acai Berry Gelato"],
     breeder: "Sherbinski",
     sensoryFamily: "purple-berry",
@@ -4737,6 +4776,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Biskante",
+    lineage: {
+      parents: ["Zookies", "Biscotti"],
+      cross: "Zookies × Biscotti (Alien Labs)",
+      parentDetails: {
+        Zookies: { lineageBrief: "Animal Cookies × GG4", type: "hybrid" },
+      },
+    },
     sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Creamy cookie over a gassy base"],
     curatorNote:
@@ -6567,6 +6613,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Snowcap",
+    lineage: {
+      parents: ["Haze", "Snow White"],
+      cross: "Haze × Snow White (commonly cited; multiple versions exist — not verified)",
+      parentDetails: {
+        "Snow White": { lineageBrief: "Cat Piss × Jack Herer line", type: "hybrid" },
+      },
+    },
     sensoryFamily: "sweet-haze",
     phenotypeNotes: ["Frosty minty-citrus sativa"],
     curatorNote:
