@@ -39,6 +39,13 @@ export interface StrainProfile {
   primaryAromas?: string[];
   primaryFlavors?: string[];
   primaryEffects?: string[];
+  // Trace aromas (deferred-improvements #3, soft end). Notes the strain
+  // carries only faintly or phenotype/grower-dependently — e.g. the skunk a
+  // Sour-Diesel cross expresses on some cuts but not others. The engine scores
+  // a match on a trace aroma at a fraction of a full match (TRACE_TAG_WEIGHT)
+  // and does NOT count it as missing. Use for "debatable" notes where binary
+  // present/absent overstates certainty. Must be disjoint from `aromas`.
+  traceAromas?: string[];
 }
 
 export type Category =

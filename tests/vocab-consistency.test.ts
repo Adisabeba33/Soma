@@ -81,6 +81,24 @@ describe("vocab consistency — no phantom tokens", () => {
     );
   });
 
+  it("every trace aroma exists in AROMAS vocab and is disjoint from aromas", () => {
+    const vocab = vocabSet(AROMAS);
+    for (const s of STRAINS) {
+      if (!s.traceAromas) continue;
+      const full = new Set(s.aromas);
+      for (const t of s.traceAromas) {
+        assert.ok(
+          vocab.has(t),
+          `${s.name}: trace aroma "${t}" absent from AROMAS vocab`,
+        );
+        assert.ok(
+          !full.has(t),
+          `${s.name}: "${t}" is both a full and a trace aroma — pick one`,
+        );
+      }
+    }
+  });
+
   it("vocab entries are unique (no duplicate values within a list)", () => {
     for (const [name, list] of [
       ["AROMAS", AROMAS],
