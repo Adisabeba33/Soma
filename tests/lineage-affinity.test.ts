@@ -33,8 +33,8 @@ describe("lineageAffinity (#13)", () => {
   });
 
   it("is a no-op (0) when the candidate has no recorded lineage", () => {
-    // Pink Kush has no lineage in the data.
-    assert.equal(lineageAffinity("Pink Kush", ["OG Kush"]), 0);
+    // Durban Poison is a landrace — no recorded parents (and never will have).
+    assert.equal(lineageAffinity("Durban Poison", ["OG Kush"]), 0);
   });
 
   it("ignores the strain against itself", () => {

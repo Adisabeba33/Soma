@@ -1,4 +1,5 @@
 import { RecommendationCard } from "@/components/recommendation-card";
+import type { Verdict } from "@/components/feedback-pill";
 import type { Category, StrainMatch } from "@/lib/types";
 
 type RecLike = StrainMatch & { id?: string };
@@ -21,9 +22,12 @@ const GROUP_HINT: Record<Category, string> = {
 
 export function ResultsView<T extends RecLike>({
   recommendations,
+  verdicts,
   renderExtra,
 }: {
   recommendations: T[];
+  // The visitor's own verdict per strain, keyed by canonical (resolved) name.
+  verdicts?: Record<string, Verdict>;
   renderExtra?: (rec: T) => React.ReactNode;
 }) {
   if (recommendations.length === 0) {
@@ -62,6 +66,9 @@ export function ResultsView<T extends RecLike>({
                     key={rec.id ?? `${rec.strainName}-${rank}`}
                     match={rec}
                     rank={rank}
+                    verdict={
+                      verdicts?.[rec.resolvedName] ?? verdicts?.[rec.strainName]
+                    }
                   >
                     {renderExtra?.(rec)}
                   </RecommendationCard>
