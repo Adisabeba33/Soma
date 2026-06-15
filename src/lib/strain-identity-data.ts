@@ -1857,6 +1857,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "UK Cheese",
+    lineage: {
+      parents: ["Skunk #1"],
+      cross: "Skunk #1 phenotype — Exodus Cheese, an inbred clone-only selection (early-90s UK)",
+    },
     marketNames: ["Exodus Cheese", "Cheese"],
     sensoryFamily: "skunk-funk",
     phenotypeNotes: ["The original 'cheese' Skunk #1 pheno"],
@@ -2285,6 +2289,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Passion Fruit",
+    lineage: {
+      parents: ["Sweet Pink Grapefruit", "Orange Bud"],
+      cross: "Sweet Pink Grapefruit × Orange Bud (Dutch Passion)",
+      parentDetails: {
+        "Sweet Pink Grapefruit": { lineageBrief: "grapefruit-leaning clone", type: "hybrid" },
+      },
+    },
     sensoryFamily: "tropical-fruit",
     phenotypeNotes: ["Tangy tropical sativa lean"],
     curatorNote:
@@ -2309,6 +2320,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Pink Lemonade",
+    lineage: {
+      parents: ["Purple Kush", "Lemon Skunk"],
+      cross: "Purple Kush × Lemon Skunk (commonly cited, not verified; multiple pedigrees exist)",
+    },
     sensoryFamily: "tropical-fruit",
     phenotypeNotes: ["Sweet pink-lemonade citrus"],
     curatorNote:
@@ -2364,6 +2379,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Lemon Pound Cake",
+    lineage: {
+      parents: ["Lemon Skunk", "UK Cheese"],
+      cross: "Lemon Skunk × Cheese (Heavyweight Genetics)",
+    },
     marketNames: ["Lemon Poundcake"],
     sensoryFamily: "dessert-cookies",
     phenotypeNotes: ["Lemon cake over a creamy base"],
@@ -4352,6 +4371,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Han-Solo Burger",
+    lineage: {
+      parents: ["GMO Cookies", "Larry OG"],
+      cross: "GMO Cookies × Larry OG (Skunk House Genetics)",
+    },
     marketNames: ["Han Solo Burger"],
     breeder: "Skunk Master Flex",
     sensoryFamily: "garlic-funk",
@@ -4364,6 +4387,14 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Lemonnade",
+    lineage: {
+      parents: ["Lemon OG", "Gorilla Haze"],
+      cross: "Lemon OG × Gorilla Haze (Growing Passion — breeder-secret, not verified)",
+      parentDetails: {
+        "Lemon OG": { lineageBrief: "Lemon Skunk × OG Kush line", type: "hybrid" },
+        "Gorilla Haze": { type: "sativa" },
+      },
+    },
     marketNames: ["Lemonade"],
     breeder: "Cookies / Lemonnade",
     sensoryFamily: "citrus-haze",
@@ -4987,6 +5018,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Marshmallow OG",
+    lineage: {
+      parents: ["Chemdog D", "Triangle Kush", "Jet Fuel Gelato"],
+      cross: "(Chemdog D × Triangle Kush) × Jet Fuel Gelato (Compound Genetics)",
+      parentDetails: {
+        "Chemdog D": { lineageBrief: "Chemdawg 'D' cut", type: "hybrid" },
+      },
+    },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Sweet, creamy OG indica"],
     curatorNote:
@@ -5432,6 +5470,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Lemon Up",
+    lineage: {
+      parents: ["Lemon G", "Do-Si-Dos"],
+      cross: "Lemon G × Do-Si-Dos (a Lemon Tree × Purple Punch × Trop Cookies version is also sold — not verified)",
+    },
     breeder: "Cookies",
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Bright Cookies lemon cut"],
@@ -5921,6 +5963,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Pez",
+    lineage: {
+      parents: ["Afghani", "Pakistani Chitral Kush"],
+      cross: "Afghani × Pakistani landrace — a clone-only PNW indica (Lopez Island, late 90s)",
+    },
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Candy-sweet exotic"],
     curatorNote:
