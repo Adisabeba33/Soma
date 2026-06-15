@@ -176,8 +176,23 @@ export interface LineageStatusInfo {
 export function lineageStatus(identity: StrainIdentity): LineageStatusInfo | null {
   const lineage = identity.lineage;
   const parents = lineage?.parents ?? [];
-  if (parents.length === 0) return null;
   const cross = (lineage?.cross ?? "").toLowerCase();
+  if (parents.length === 0) {
+    // No parents, but an explanatory cross note → say so plainly, so an
+    // undocumented strain reads as "we checked, it's genuinely unknown",
+    // not as a missing field. No note at all → show nothing.
+    if (!cross) return null;
+    if (/landrace/.test(cross)) {
+      return {
+        label: "Landrace",
+        hint: "An origin strain — a geographic landrace, so there's no parent cross to show.",
+      };
+    }
+    return {
+      label: "Lineage undocumented",
+      hint: "We looked and couldn't confirm it — the parents aren't publicly documented (often a clone-only or market-label strain). Not an omission.",
+    };
+  }
   const unverified = /(not verified|commonly cited|debated|unconfirmed|contested)/.test(
     cross,
   );

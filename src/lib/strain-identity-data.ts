@@ -629,6 +629,9 @@ export const IDENTITIES: StrainIdentity[] = [
   // ── Custom / light data ──
   {
     canonicalName: "White Hot Guava",
+    lineage: {
+      cross: "A market label — genetics vary by breeder (Stardawg-, Guava- or White Fire-based); no single documented cross",
+    },
     marketNames: ["Hot Guava", "WHG"],
     sensoryFamily: "tropical-fruit",
     phenotypeNotes: [
@@ -2463,6 +2466,9 @@ export const IDENTITIES: StrainIdentity[] = [
   // ── Final batch: remaining OG / dessert / classics ──
   {
     canonicalName: "Triple Double OG",
+    lineage: {
+      cross: "Lineage not clearly documented — a heavy OG cut, distinct from the better-known Triple OG",
+    },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Heavy, fuel-forward OG"],
     curatorNote:
@@ -2951,6 +2957,9 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Black Truffle",
+    lineage: {
+      cross: "A market label — genetics differ by breeder (White Truffle × Pure Michigan, or Gelato 33 × unknown); no single documented cross",
+    },
     sensoryFamily: "garlic-funk",
     phenotypeNotes: ["Savoury, earthy truffle-and-gas funk"],
     curatorNote:
@@ -3081,6 +3090,9 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Lemon Tek",
+    lineage: {
+      cross: "Lineage not publicly documented — a lemon-forward cut with no recorded cross",
+    },
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Sharp, clean lemon sativa lean"],
     curatorNote:
@@ -4451,6 +4463,9 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Garlic Juice",
+    lineage: {
+      cross: "An In House Genetics cut in the GMO savoury-funk family — the exact cross isn't documented",
+    },
     breeder: "In House Genetics",
     sensoryFamily: "garlic-funk",
     phenotypeNotes: ["Loud GMO-style savoury gas"],
@@ -4504,6 +4519,9 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Watermelon",
+    lineage: {
+      cross: "A market label — several distinct versions (Watermelon Zkittlez / OG / Gelato); the original cross is undisclosed",
+    },
     marketNames: ["Watermelon OG"],
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Sweet watermelon-candy, indica-lean"],
@@ -4599,6 +4617,9 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "California Orange",
+    lineage: {
+      cross: "1970s California heritage — original parents never documented (a balanced citrus hybrid)",
+    },
     marketNames: ["Cali O", "Cali Orange"],
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["1980s citrus classic", "A parent of Tangie and Orange Crush"],
@@ -4961,6 +4982,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Boggle Gum",
+    lineage: {
+      parents: ["BOG Bubble", "Northern Lights #5"],
+      cross: "BOG Bubble × Northern Lights #5 (BOG Seeds)",
+      parentDetails: {
+        "BOG Bubble": { lineageBrief: "BOG Seeds bubblegum line", type: "hybrid" },
+      },
+    },
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Bubblegum-leaning cut", "A parent of Champagne"],
     curatorNote:
@@ -5158,6 +5186,9 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Orange Velvet",
+    lineage: {
+      cross: "MzJill clone-only — a Skunk-forward PNW elite whose parents were kept private",
+    },
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Creamy orange-citrus cut", "A parent of Jilly Bean"],
     curatorNote:
@@ -5533,6 +5564,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Pineapple",
+    lineage: {
+      parents: ["Ed Rosenthal Super Bud"],
+      cross: "An Ed Rosenthal Super Bud (ERSB) F2 selection (Sensi Seeds)",
+      parentDetails: {
+        "Ed Rosenthal Super Bud": { lineageBrief: "Jamaican × South Asian × Mexican × Afghani", type: "hybrid" },
+      },
+    },
     sensoryFamily: "sweet-haze",
     phenotypeNotes: ["Tropical pineapple Skunk selection"],
     curatorNote:
@@ -5808,6 +5846,9 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Alien Tech",
+    lineage: {
+      cross: "A pure Afghan indica landrace (seeds reportedly brought back from Afghanistan) — no recorded cross",
+    },
     breeder: "Alien Genetics",
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Gassy OG breeding line", "A parent of Alien Kush"],
@@ -5889,6 +5930,9 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Cherry Bomb",
+    lineage: {
+      cross: "Contested — different breeders cite different parents (Cherry Pie × THC Bomb, Big Bud × cherry, etc.); no consensus",
+    },
     sensoryFamily: "sweet-haze",
     phenotypeNotes: ["Sweet cherry-candy hybrid"],
     curatorNote:
@@ -5899,6 +5943,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Holland's Hope",
+    lineage: {
+      parents: ["Afghani", "Skunk #1"],
+      cross: "Afghani × Skunk #1 (Netherlands, 1980s — Dutch Passion)",
+    },
     sensoryFamily: "kush-classic",
     phenotypeNotes: ["One of the first Dutch outdoor strains"],
     curatorNote:
@@ -5960,6 +6008,9 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Banana Cream",
+    lineage: {
+      cross: "Sold by several breeders with different genetics (Banana OG × Cookies and Cream, or Animal Sherbet × Banana OG); no single documented cross",
+    },
     marketNames: ["Banana Cream Cake"],
     sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Creamy banana dessert indica"],
@@ -6103,7 +6154,7 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "Power Plant",
     breeder: "Dutch Passion",
     lineage: {
-      cross: "South African sativa selection",
+      cross: "A South African sativa landrace, selected and inbred by Dutch Passion (never hybridised)",
     },
     sensoryFamily: "sweet-haze",
     phenotypeNotes: ["Sharp South African sativa", "A parent of Cotton Candy Kush"],
@@ -6524,6 +6575,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Arjan's Haze",
+    lineage: {
+      parents: ["G13", "Haze"],
+      cross: "G13 × Haze (Arjan's Haze #1, Green House Seeds; the #2/#3 cuts use different Haze lines)",
+    },
     breeder: "Green House Seed Co.",
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Sweet, spicy Greenhouse haze"],
@@ -6589,6 +6644,13 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Lemon Kush",
+    lineage: {
+      parents: ["Master Kush", "Lemon Joy"],
+      cross: "Master Kush × Lemon Joy (commonly cited; also given as Afghani × Master Kush — not verified)",
+      parentDetails: {
+        "Lemon Joy": { type: "hybrid" },
+      },
+    },
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Bright lemon over an earthy kush"],
     curatorNote:
