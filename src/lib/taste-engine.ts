@@ -301,11 +301,17 @@ function setScore(
   strainTags: string[],
   preferred: string[],
   primaryTags?: string[],
-): { score: number; matched: string[]; contributions: { token: string; points: number }[] } {
+): {
+  score: number;
+  matched: string[];
+  missed: string[];
+  contributions: { token: string; points: number }[];
+} {
   if (preferred.length === 0)
-    return { score: NEUTRAL, matched: [], contributions: [] };
+    return { score: NEUTRAL, matched: [], missed: [], contributions: [] };
   const tagSet = new Set(strainTags);
   const matched = preferred.filter((p) => tagSet.has(p));
+  const missed = preferred.filter((p) => !tagSet.has(p));
   const primarySet =
     primaryTags && primaryTags.length ? new Set(primaryTags) : null;
 
@@ -326,7 +332,7 @@ function setScore(
     token,
     points: (weights[i] / denom) * 74,
   }));
-  return { score: Math.round(26 + coverage * 74), matched, contributions };
+  return { score: Math.round(26 + coverage * 74), matched, missed, contributions };
 }
 
 // Texture preferences ("sticky", "dense", "frosty", …) map to traits the
@@ -1000,6 +1006,30 @@ export function scoreStrain(
     .filter((s) => s.points > 0)
     .sort((a, b) => b.points - a.points);
 
+  // Missing tags — preferred tokens the user asked for that this strain does
+  // NOT carry, surfaced in Audit mode beside matches/penalties so it's clear
+  // what the strain lacked. A token matched in ANY category isn't missing
+  // (e.g. `gassy` hit on flavor but not aroma still counts as covered), so we
+  // subtract everything that earned points from the union of every miss.
+  const matchedTokens = new Set([
+    ...aroma.matched,
+    ...flavor.matched,
+    ...effect.matched,
+    ...trait.matched,
+  ]);
+  const missingTags: string[] = [];
+  const seenMissing = new Set<string>();
+  for (const token of [
+    ...aroma.missed,
+    ...effect.missed,
+    ...flavor.missed,
+    ...trait.missed,
+  ]) {
+    if (matchedTokens.has(token) || seenMissing.has(token)) continue;
+    seenMissing.add(token);
+    missingTags.push(token);
+  }
+
   // Sensory-family bonus — orthogonal to the behavioural family used by
   // familyMod above. familyMod looks at effect-feel (nighttime-indica,
   // daytime-functional, …); sensoryFamily looks at aroma/cluster
@@ -1222,6 +1252,7 @@ export function scoreStrain(
     feedbackDecay: feedbackTaper,
     matchStrengths,
     penaltyStrengths,
+    missingTags,
     purchaseConfidence,
   };
 }

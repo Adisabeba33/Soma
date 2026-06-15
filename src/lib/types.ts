@@ -131,6 +131,9 @@ export interface StrainMatch {
   // Audit mode — per-tag point strength of each match (token) and each penalty.
   matchStrengths: { token: string; points: number }[];
   penaltyStrengths: { label: string; points: number }[];
+  // Audit mode — preferred tags the user asked for that this strain lacks
+  // (matched in no category), so the audit shows what was missing too.
+  missingTags: string[];
   // Second axis: how confident we are about THIS purchase, separate from
   // the sensory match score. See src/lib/purchase-confidence.ts.
   purchaseConfidence: PurchaseConfidence;
