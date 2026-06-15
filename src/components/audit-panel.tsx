@@ -168,7 +168,7 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
                     </p>
                     <div className="mt-1 space-y-0.5">
                       {item.matchStrengths.length > 0 ? (
-                        item.matchStrengths.slice(0, 6).map((m) => (
+                        item.matchStrengths.map((m) => (
                           <div
                             key={m.token}
                             className={`flex justify-between gap-4 ${m.trace ? "text-accent/60" : "text-accent"}`}
@@ -230,7 +230,7 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
                           {g.label}
                         </p>
                         <div className="mt-1 space-y-0.5">
-                          {g.tags.slice(0, 6).map((t) => (
+                          {g.tags.map((t) => (
                             <div key={t} className="text-muted-foreground/70">
                               <span className="mr-1 text-[#a23b2c]/70">✗</span>
                               {labelFor(t)}
