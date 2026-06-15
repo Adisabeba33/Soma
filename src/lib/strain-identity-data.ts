@@ -4156,8 +4156,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["True pink-bubblegum sweetness", "Mellow, even high"],
     curatorNote:
       "Bubble Gum is an Indiana classic, refined into stable seed form by Serious Seeds — famous for genuinely tasting like pink bubblegum. The nose is sweet and candy-bright: bubblegum and berry over a light floral base. The effect is mellow and cheerful — a happy, relaxed, gently euphoric high without extremes, moderate in strength. It's smooth and well-mannered, a flavour-first throwback. For true bubblegum sweetness, this is the reference.",
-    curatorQuote:
-      "Bubblegum and berry over a light floral base.",
+    curatorQuote: "Sweet bubblegum candy, smooth and nostalgic.",
     sourceConfidence: "high",
   },
   {
@@ -4423,8 +4422,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Pacific Northwest clone-only", "Behind Green Ribbon and Crystal Locomotive"],
     curatorNote:
       "Trinity is a Pacific Northwest clone-only sativa — a rare, lightly documented cut prized for a clean pine-and-citrus nose. The smell is bright and fresh: pine and lemon over a sweet, earthy base. The effect is up and clear — an uplifting, energetic head with a smooth body, daytime-friendly. It's terpy and smooth, and it shows up behind Green Ribbon and Crystal Locomotive. For clean NW sativa character, Trinity is a quiet parent line.",
-    curatorQuote:
-      "Pine and lemon over a sweet, earthy base.",
+    curatorQuote: "Bright pine and lemon, clean and uplifting.",
     sourceConfidence: "low",
   },
   {
@@ -4554,8 +4552,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Pine-citrus sativa", "A parent of Mendo Montage"],
     curatorNote:
       "Crystal Locomotive is a Trainwreck × Trinity cross — a frosty, pine-and-citrus sativa from the same NorCal pool as Green Ribbon. The nose is bright and clean: pine and lemon over a sweet, earthy base. The effect is up and energetic — an uplifting, creative head with a relaxed body, daytime-leaning. It's terpy and potent, and it's the sativa side behind Mendo Montage. For clean pine-citrus sativa genetics, Crystal Locomotive is a flavourful parent.",
-    curatorQuote:
-      "Pine and lemon over a sweet, earthy base.",
+    curatorQuote: "Pine and citrus over sweet earth, fast and frosty.",
     sourceConfidence: "low",
   },
   {
@@ -4689,8 +4686,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Pungent haze cut", "A parent of Ghost Train Haze"],
     curatorNote:
       "Nevil's Wreck is a pungent haze-leaning cut — a sharp, citrus-pine sativa that Rare Dankness used to build Ghost Train Haze. The nose is loud and clean: citrus and pine over a spicy, incense-like base. The effect is a fast, soaring cerebral rush — energetic and heady, potent enough to overwhelm. It's frosty and very strong, the sativa half behind one of the most potent strains around. For intense haze genetics, Nevil's Wreck is a key parent.",
-    curatorQuote:
-      "Citrus and pine over a spicy, incense-like base.",
+    curatorQuote: "Citrus and pine over sharp spice, classic Haze.",
     sourceConfidence: "low",
   },
   {
@@ -4744,8 +4740,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Panamanian landrace legend", "1970s soaring sativa"],
     curatorNote:
       "Panama Red is a Panamanian landrace and a genuine 1960s-70s legend — a slow-growing, near-pure sativa that defined an era before hybrids took over. The nose is earthy and sweet: spicy, woody sweetness over a herbal base. The effect is a clean, soaring, creative high with almost no body, a true daytime classic. It's rare now and moderate by modern potency, prized for heritage and a clear, social lift. For pure old-school sativa, Panama Red is a relic worth knowing.",
-    curatorQuote:
-      "Spicy, woody sweetness over a herbal base.",
+    curatorQuote: "Spicy, woody sweetness — a 1970s sativa legend.",
     sourceConfidence: "high",
   },
   {
@@ -4938,8 +4933,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Southeast Asian landrace", "A root of Haze and NL #5"],
     curatorNote:
       "Thai is the Southeast Asian landrace behind 'Thai stick' and a root of modern sativa genetics — part of both Haze and Northern Lights #5. The nose is bright and clean: citrus and spice over an earthy, herbal base. The effect is a clear, soaring, almost electric cerebral high with no body, classic equatorial sativa. It's slow to flower and moderate in potency, but historically immense. For old-world Thai sativa genetics, this landrace is foundational.",
-    curatorQuote:
-      "Citrus and spice over an earthy, herbal base.",
+    curatorQuote: "Bright citrus and spice, soaring and clear.",
     sourceConfidence: "high",
   },
   {
@@ -4949,8 +4943,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Mexican landrace", "A root of Haze, Skunk #1 and Trainwreck"],
     curatorNote:
       "Mexican is the landrace sativa from the highlands of Michoacán and Guerrero — a sweet, energetic plant that seeded Haze, Skunk #1 and Trainwreck. The nose is sweet and earthy: honeyed grass and citrus over a faint spice. The effect is up and social — an energetic, happy, creative head with little body, a daytime classic. It's mild by modern standards but historically central. For old-world Mexican sativa at the root of countless hybrids, this is a source.",
-    curatorQuote:
-      "Honeyed grass and citrus over a faint spice.",
+    curatorQuote: "Honeyed grass and citrus, light and uplifting.",
     sourceConfidence: "high",
   },
   {
@@ -5011,8 +5004,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Bubblegum-leaning cut", "A parent of Champagne"],
     curatorNote:
       "Boggle Gum is a sweet, bubblegum-leaning cut best known as a parent of Sherbinski's Champagne (and so, indirectly, Rainbow Sherbet). The nose is sweet and candy-bright: bubblegum and berry over a light floral base. The effect is gentle and happy — a relaxing, mood-lifting high that stays comfortable, moderate in strength. It's smooth and flavour-led, a quiet parent line. For sweet bubblegum genetics behind the sherbet world, Boggle Gum is a source.",
-    curatorQuote:
-      "Bubblegum and berry over a light floral base.",
+    curatorQuote: "Bubblegum sweetness with a floral, fruity lift.",
     sourceConfidence: "low",
   },
   {
@@ -5120,8 +5112,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Eswatini (Swaziland) landrace", "Clean equatorial sativa"],
     curatorNote:
       "Swazi Gold is an African landrace from the highlands of Eswatini (Swaziland) — a clean, energetic equatorial sativa famous for resilience and a bright high. The nose is earthy and sweet: spicy, grassy sweetness with a faint citrus. The effect is up and clear — an energetic, creative, social head with no body, a true daytime landrace. It's hardy and moderate, prized for heritage and a clean lift. For old-world African sativa, Swazi Gold is a source.",
-    curatorQuote:
-      "Spicy, grassy sweetness with a faint citrus.",
+    curatorQuote: "Spicy, grassy sweetness with a citrus edge — African sativa.",
     sourceConfidence: "medium",
   },
   {
@@ -5459,8 +5450,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Mexican highland landrace", "Sweet, soaring sativa"],
     curatorNote:
       "Oaxacan is a Mexican highland landrace from the mountains of Oaxaca — a sweet, soaring sativa that fed early American imports and Haze breeding. The nose is sweet and earthy: honeyed grass and citrus over a faint spice. The effect is up and creative — an energetic, happy, almost psychedelic head with no body, a heritage daytime strain. It's mild by modern standards but historically rich. For old-world Mexican highland sativa, Oaxacan is a classic source.",
-    curatorQuote:
-      "Honeyed grass and citrus over a faint spice.",
+    curatorQuote: "Sweet citrus-grass with a faint earthy spice.",
     sourceConfidence: "medium",
   },
   {
@@ -5618,8 +5608,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Colombian highland landrace", "Red-haired soaring sativa"],
     curatorNote:
       "Punto Rojo is a Colombian highland landrace — a red-haired, long-flowering sativa from the same heritage that gave us Colombian Gold. The nose is earthy and sweet: spicy, grassy sweetness with a faint citrus. The effect is up and clear — an energetic, creative, almost psychedelic head with no body, a true heritage daytime sativa. It's moderate and pure, prized by landrace collectors. For old-world Colombian sativa, Punto Rojo is a classic source.",
-    curatorQuote:
-      "Spicy, grassy sweetness with a faint citrus.",
+    curatorQuote: "Grassy spice and faint citrus, a Colombian highland sativa.",
     sourceConfidence: "medium",
   },
   {
@@ -5628,8 +5617,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Laotian landrace", "Bright electric sativa"],
     curatorNote:
       "Luang Prabang is a Laotian landrace from the highlands of northern Laos — a bright, electric equatorial sativa prized by Southeast Asian landrace hunters. The nose is sharp and clean: citrus and spice over an earthy, herbal base. The effect is fast and heady — an energetic, almost buzzy cerebral high with no body, a pure daytime landrace. It's long-flowering and moderate, a heritage rarity. For old-world Laotian sativa, Luang Prabang is a source.",
-    curatorQuote:
-      "Citrus and spice over an earthy, herbal base.",
+    curatorQuote: "Citrus and spice over herbal earth, a highland Lao sativa.",
     sourceConfidence: "medium",
   },
   {
@@ -5639,8 +5627,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Sumatran landrace", "Earthy-sweet tropical sativa"],
     curatorNote:
       "Aceh is a Sumatran landrace from the Aceh region of Indonesia — an earthy-sweet tropical sativa grown in the equatorial heat. The nose is warm and sweet: spicy, woody sweetness over a herbal base. The effect is uplifting and gentle — a happy, creative head with a faint relaxing edge, an unusual not-quite-pure-race landrace. It's smooth and moderate, prized for heritage. For old-world Indonesian sativa, Aceh is a source.",
-    curatorQuote:
-      "Spicy, woody sweetness over a herbal base.",
+    curatorQuote: "Sweet spice over herbal earth, a tropical Sumatran sativa.",
     sourceConfidence: "medium",
   },
   {
@@ -5969,8 +5956,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["One of the first Dutch outdoor strains"],
     curatorNote:
       "Holland's Hope is one of the earliest Dutch outdoor strains — a hardy, mould-resistant Afghani selection bred for the cool, wet Dutch climate in the early 80s. The nose is earthy and sweet: spice and hash over a woody base. The effect is calm and relaxing — a mellow, grounding body ease, moderate rather than overwhelming. It's dense and dependable, a piece of Dutch cannabis history. For old-world Dutch outdoor genetics, Holland's Hope is a classic.",
-    curatorQuote:
-      "Spice and hash over a woody base.",
+    curatorQuote: "Spice and hash over woody earth — a hardy Dutch classic.",
     sourceConfidence: "medium",
   },
   {
@@ -5980,8 +5966,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Vietnamese highland landrace", "Fierce, spicy sativa"],
     curatorNote:
       "Vietnamese Black is a highland landrace from Vietnam — a fierce, long-flowering equatorial sativa with dark stems and a spicy nose. The smell is earthy and warm: spice and sweetness over a woody base. The effect is intensely up — an energetic, heady, almost relentless cerebral high with no body, a true daytime landrace. It's a slow, demanding grow and moderate in potency, prized for heritage. For old-world Southeast Asian sativa, Vietnamese Black is a striking source.",
-    curatorQuote:
-      "Spice and sweetness over a woody base.",
+    curatorQuote: "Dark spice and sweetness over woody earth.",
     sourceConfidence: "medium",
   },
   {
@@ -5991,8 +5976,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["East African highland landrace", "Clean, spicy sativa"],
     curatorNote:
       "Ethiopian Highland is an East African landrace from the highlands of Ethiopia — a clean, spicy equatorial sativa with deep heritage. The nose is earthy and bright: spice and sweetness with a faint citrus. The effect is energetic and clear — an uplifting, creative, social head with no body, a pure daytime landrace. It's hardy and moderate, prized by collectors for its rarity. For old-world African sativa genetics, Ethiopian Highland is a source.",
-    curatorQuote:
-      "Spice and sweetness with a faint citrus.",
+    curatorQuote: "Spice and sweetness with a faint citrus, a highland sativa.",
     sourceConfidence: "medium",
   },
   {
@@ -6164,8 +6148,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Heavy-yielding skunky indica"],
     curatorNote:
       "B-52 is a Nirvana cross of Big Bud and Skunk #1 — a big-yielding, skunky indica built for resin and weight. The nose is sweet and earthy: skunky sweetness over a spicy, herbal base. The effect is relaxing and heavy — a euphoric head sinking into a comfortable body, evening-leaning. It's dense, potent and dependable, a commercial workhorse. For heavy skunk-indica genetics, B-52 is a solid classic.",
-    curatorQuote:
-      "Skunky sweetness over a spicy, herbal base.",
+    curatorQuote: "Skunky sweetness over spicy herb — big and resinous.",
     sourceConfidence: "medium",
   },
   {
@@ -6178,8 +6161,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Sharp South African sativa", "A parent of Cotton Candy Kush"],
     curatorNote:
       "Power Plant is a Dutch Passion sativa selected from South African genetics — a sharp, energetic plant that became a European staple and a parent of Cotton Candy Kush. The nose is earthy and sweet: spicy, woody sweetness over a herbal base. The effect is up and clear — an energetic, uplifting, creative head with a light body, a daytime strain. It's potent and reliable, more lift than weight. For clean, energetic sativa genetics, Power Plant is a dependable parent.",
-    curatorQuote:
-      "Spicy, woody sweetness over a herbal base.",
+    curatorQuote: "Woody, peppery sweetness, sharp and energetic.",
     sourceConfidence: "medium",
   },
   {
@@ -6311,8 +6293,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Angolan red landrace", "Hardy equatorial sativa"],
     curatorNote:
       "Angola Roja (Angolan Red) is a landrace from Angola — a hardy, red-haired equatorial sativa with deep African heritage. The nose is earthy and warm: spice and sweetness over a woody base. The effect is up and clear — an energetic, creative head with no body, a pure daytime landrace. It's resilient and moderate, prized by collectors for its rarity. For old-world Angolan sativa genetics, Angola Roja is a source.",
-    curatorQuote:
-      "Spice and sweetness over a woody base.",
+    curatorQuote: "Sweet spice over woody earth — African heritage sativa.",
     sourceConfidence: "low",
   },
   {
@@ -6343,8 +6324,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["South Indian indica landrace", "A parent of White Widow"],
     curatorNote:
       "South Indian is an indica landrace from the south of India — a hashy, resin-heavy plant that gave White Widow and Great White Shark their frost and body. The nose is earthy and sweet: spice and hash over a woody base. The effect is relaxing and weighty — a calm, grounding body ease that leans toward sleep, classic landrace indica. It's dense, resin-rich and moderate, a key Dutch breeding parent. For old-world South Indian indica, this is a source.",
-    curatorQuote:
-      "Spice and hash over a woody base.",
+    curatorQuote: "Hashy spice over a woody, earthy base.",
     sourceConfidence: "medium",
   },
   {
@@ -6422,8 +6402,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Towering, electric haze", "Behind Ghost Train Haze and Hawaiian Snow"],
     curatorNote:
       "Neville's Haze is Nevil Schoenmakers' towering haze — Haze crossed back into Northern Lights #5 for a more vigorous, even more electric sativa. The nose is sharp and clean: citrus and pine over a spicy, incense-like base. The effect is a long, soaring, almost overwhelming cerebral high — energetic and psychedelic with no body. It's a slow, demanding grow and very potent, the engine behind Ghost Train Haze and Hawaiian Snow. For maximum haze intensity, Neville's Haze is a legend.",
-    curatorQuote:
-      "Citrus and pine over a spicy, incense-like base.",
+    curatorQuote: "Incense, citrus and pine — towering, racy Haze.",
     sourceConfidence: "high",
   },
   {
@@ -6557,8 +6536,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Highland Thai landrace"],
     curatorNote:
       "Highland Thai is a mountain-grown phenotype of the Thai landrace — a bright, soaring sativa from the cooler highlands of northern Thailand. The nose is clean and sharp: citrus and spice over an earthy, herbal base. The effect is a fast, electric cerebral high with no body, a pure equatorial daytime strain. It's long-flowering and moderate, a heritage rarity. For old-world highland Thai sativa, this is a collector's source.",
-    curatorQuote:
-      "Citrus and spice over an earthy, herbal base.",
+    curatorQuote: "Lemon-spice over earthy herb, a classic Thai lift.",
     sourceConfidence: "medium",
   },
   {
@@ -6578,8 +6556,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Northeast Indian landrace"],
     curatorNote:
       "Manipuri is a landrace from the state of Manipur in northeast India — a clean, spicy equatorial sativa from the hills near the Myanmar border. The nose is earthy and bright: spice and sweetness with a faint citrus. The effect is energetic and clear — an uplifting, creative head with no body, a pure daytime landrace. It's hardy and moderate, prized by collectors for its rarity. For old-world northeast Indian sativa, Manipuri is a source.",
-    curatorQuote:
-      "Spice and sweetness with a faint citrus.",
+    curatorQuote: "Sweet spice and citrus, a north-east Indian hill sativa.",
     sourceConfidence: "medium",
   },
   {
@@ -6661,8 +6638,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Fast-flowering AK selection"],
     curatorNote:
       "AK-48 is a Nirvana selection in the AK-47 family, named for a roughly 48-day flowering time — a fast, mellow, sweet-and-skunky hybrid. The nose is sweet and earthy: skunky sweetness over a spicy, herbal base. The effect is balanced and easy — an uplifting, happy head with a relaxed body, sociable and approachable. It's smooth and moderate-to-strong, bred for speed and ease. For a quick, mellow AK-style hybrid, AK-48 is a friendly pick.",
-    curatorQuote:
-      "Skunky sweetness over a spicy, herbal base.",
+    curatorQuote: "Skunky-sweet and spicy, fast and pungent.",
     sourceConfidence: "low",
   },
   {
@@ -6720,8 +6696,7 @@ export const IDENTITIES: StrainIdentity[] = [
     phenotypeNotes: ["Central American highland landrace"],
     curatorNote:
       "Highland Guatemalan is a Central American landrace from the highlands of Guatemala — a clean, spicy equatorial sativa with deep heritage. The nose is earthy and warm: spice and sweetness with a faint citrus. The effect is energetic and creative — an uplifting, social head with no body, a pure daytime landrace. It's hardy and moderate, prized by collectors for its rarity. For old-world Central American sativa, Highland Guatemalan is a source.",
-    curatorQuote:
-      "Spice and sweetness with a faint citrus.",
+    curatorQuote: "Spiced sweetness with a citrus lift, a mountain sativa.",
     sourceConfidence: "low",
   },
   {
