@@ -1317,6 +1317,55 @@ and didn't do is itself valuable context.
 
 ---
 
+### #25 — Aroma-core coverage vs effect/reference compensation (calibration)
+
+- **Found:** 2026-06-16
+- **Source:** Owner observation off the new Critical/Secondary/Effect-Missing
+  audit — strains that miss a large part of the aroma core still land close to
+  strains that cover it. Example (gassy/diesel/skunky/pine/earthy/woody profile,
+  clustered favourites):
+
+  | Strain | Final | aroma | effect | flavor | ref |
+  |---|---|---|---|---|---|
+  | Stardawg | 85 | **79** | 88 | 100 | 65 |
+  | Ghost OG | 82 | **58** | 75 | 75 | **87** |
+  | Larry OG | 82 | **58** | 75 | 75 | **87** |
+  | MAC | 78 | **47** | 88 | 51 | 66 |
+
+- **Diagnosis (not a bug):** the aroma sub-score *already* separates well — 79
+  vs 58 vs 47 is a 32-point spread. It gets **diluted in the weighted sum**:
+  with a clustered-favourite profile the engine runs in **trust mode**, where
+  `ref` (overall similarity to favourites) weighs **0.34** and `aroma` only
+  **0.17**. So Ghost OG / Larry OG hold 82 largely through `ref = 87` (they
+  resemble a favourite as a whole) despite a weak aroma core — exactly the
+  owner's concern that a strain can match "mainly through effects/similarity"
+  while missing the aroma identity. Effect is high and near-identical across the
+  set (75–88), so it barely separates.
+- **The real lever** is the **aroma vs ref/effect weight ratio**, not the
+  penalty machinery. Options to weigh later:
+  - **A. Raise aroma weight** — simplest, but global; shifts every profile.
+  - **B. Aroma-core coverage term** *(recommended)* — a small, **non-linear**
+    penalty (or score scaler) that grows once a large fraction of the user's
+    **critical** (aroma) tags is missing. Targets this case precisely and stays
+    explainable in the audit ("missed 4/5 of your aroma core").
+  - **C. Cap ref/effect compensation** when aroma coverage is low — prevents a
+    high `ref` from fully rescuing a strain that misses the nose.
+- **Blocker / hygiene first:** `nutty` is **not** a valid aroma (it's a FLAVOR;
+  absent from `AROMAS`). In the observed profile it sits in `preferredAromas`,
+  so it is **permanently** Critical-Missing on every strain — inflating the
+  miss count and skewing any "missed aroma fraction" math. Before tuning weights
+  on this signal, fix how `nutty` lands in the aroma list (likely the intake
+  parser miscategorising it) so the coverage fraction is honest.
+- **Why deferred:** the owner explicitly wants to **monitor 20–30 test
+  sessions** before any weighting change — small, broad weight moves are easy to
+  over-correct. Lever B needs its curve + threshold designed and validated.
+- **Trigger to revisit:** after the monitoring window, or if a clear pattern
+  emerges where high-`ref` strains with weak aroma cores rank above true
+  aroma-identity matches. Fix the `nutty`-as-aroma issue independently and
+  sooner.
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
