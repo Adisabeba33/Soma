@@ -22,6 +22,10 @@ function buildAuditText(items: AuditItem[]): string {
         ? `potential ${item.feedbackPotential > 0 ? "+" : ""}${item.feedbackPotential} × decay ${item.feedbackDecay.toFixed(2)} → applied ${item.feedbackAdjustment > 0 ? "+" : ""}${item.feedbackAdjustment}`
         : "no feedback";
     lines.push(`  raw ${formatScore(item.baseScore)} · ${fb}`);
+    const ch = item.channels;
+    lines.push(
+      `  Channels (score → contribution): Ref similarity ${ch.ref.score} → +${ch.ref.contribution.toFixed(1)}, Effect archetype fit ${ch.effect.score} → +${ch.effect.contribution.toFixed(1)}, Aroma ${ch.aroma.score} → +${ch.aroma.contribution.toFixed(1)}, Flavor ${ch.flavor.score} → +${ch.flavor.contribution.toFixed(1)}`,
+    );
     lines.push(
       `  Top matches: ${
         item.matchStrengths.length > 0
@@ -160,6 +164,32 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
                   ) : (
                     " · no feedback"
                   )}
+                </div>
+                <div className="mt-2">
+                  <p className="font-medium uppercase tracking-[0.1em] text-muted-foreground text-[11px]">
+                    Channels{" "}
+                    <span className="normal-case tracking-normal text-muted-foreground/60">
+                      (score → contribution to raw)
+                    </span>
+                  </p>
+                  <div className="mt-1 grid grid-cols-[auto_2.5rem_3rem] gap-x-3 gap-y-0.5 font-mono text-[11px]">
+                    {(
+                      [
+                        ["Ref similarity", item.channels.ref],
+                        ["Effect archetype fit", item.channels.effect],
+                        ["Aroma contribution", item.channels.aroma],
+                        ["Flavor contribution", item.channels.flavor],
+                      ] as const
+                    ).map(([label, ch]) => (
+                      <div key={label} className="contents">
+                        <span className="font-sans text-muted-foreground">{label}</span>
+                        <span className="text-right">{ch.score}</span>
+                        <span className="text-right text-accent">
+                          +{ch.contribution.toFixed(1)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div className="mt-1.5 flex flex-wrap gap-x-8 gap-y-2 text-[11px]">
                   <div>

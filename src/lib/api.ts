@@ -314,6 +314,12 @@ export function dbRecToView(
     matchStrengths: [],
     penaltyStrengths: [],
     missingTags: { critical: [], secondary: [], effect: [] },
+    channels: {
+      ref: { score: 0, contribution: 0 },
+      effect: { score: 0, contribution: 0 },
+      aroma: { score: 0, contribution: 0 },
+      flavor: { score: 0, contribution: 0 },
+    },
     feedback: toFeedbackData(feedback),
     purchaseConfidence,
   };

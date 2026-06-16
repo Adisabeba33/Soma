@@ -150,6 +150,17 @@ export interface StrainMatch {
   //   secondary — missing flavors (the taste)
   //   effect    — missing effects
   missingTags: { critical: string[]; secondary: string[]; effect: string[] };
+  // Audit mode — per-channel breakdown. `score` is the 0–100 sub-score;
+  // `contribution` is its weighted share of the raw score. Surfaces the two
+  // biggest drivers that the match/penalty lists don't: ref (similarity to
+  // favourites) and effect ARCHETYPE fit (distinct from effectMatch, the raw
+  // effect token coverage).
+  channels: {
+    ref: { score: number; contribution: number };
+    effect: { score: number; contribution: number };
+    aroma: { score: number; contribution: number };
+    flavor: { score: number; contribution: number };
+  };
   // Second axis: how confident we are about THIS purchase, separate from
   // the sensory match score. See src/lib/purchase-confidence.ts.
   purchaseConfidence: PurchaseConfidence;

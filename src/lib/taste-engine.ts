@@ -1299,6 +1299,24 @@ export function scoreStrain(
   // here for grower-reliability and freshness signals to plug in later.
   const purchaseConfidence = evaluatePurchase();
 
+  // Channel breakdown for Audit mode — each scoring channel's sub-score (0–100)
+  // and its weighted contribution to the raw score. Surfaces the two biggest
+  // but previously-hidden drivers of rank: `ref` (overall similarity to your
+  // favourites) and the effect ARCHETYPE fit (distinct from effectMatch, which
+  // is raw token coverage — the engine scores on archetype fit instead).
+  const channels = {
+    ref: { score: Math.round(ref.score), contribution: W.ref * ref.score },
+    effect: {
+      score: Math.round(effectContribution),
+      contribution: W.effect * effectContribution,
+    },
+    aroma: { score: Math.round(aromaScore), contribution: W.aroma * aromaScore },
+    flavor: {
+      score: Math.round(flavor.score),
+      contribution: W.flavor * flavor.score,
+    },
+  };
+
   return {
     strainName: rawName.trim(),
     resolvedName: strain.name,
@@ -1331,6 +1349,7 @@ export function scoreStrain(
     matchStrengths,
     penaltyStrengths,
     missingTags,
+    channels,
     purchaseConfidence,
   };
 }
