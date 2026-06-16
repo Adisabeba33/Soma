@@ -7322,7 +7322,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) for a creamy, tropical, balanced hybrid named Paw Paw — after the custardy mango-banana pawpaw fruit. A ripe pawpaw fruit sliced open to reveal glistening golden-custard flesh and a row of large dark seeds, ripe bananas and a swirl of creamy bubblegum-pink softness beside it, warm tropical golden-hour light, a soft sugared frost dusting the cut fruit and a gentle sweet vapor in the air. Creamy tropical bubblegum with a banana-driven depth over a light earthy base. Palette warm and luscious — golden-custard yellow and banana cream with tropical green leaves and a soft bubblegum-pink swirl, a frosty sheen under a honeyed glow. Mood: uplifting and creative easing into gentle body calm — balanced, sweet and indulgent, never couch-locked. Cinematic, painterly, high-contrast, premium editorial poster, lush and appetizing. The strain name 'PAW PAW' baked into the scene — branded into a wooden board or a small enamel fruit tag. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
     artFileName: "paw-paw.webp",
-    artStatus: "prompt",
+    artStatus: "published",
     artVersion: 1,
     lineageConfidence: "medium",
     sourceConfidence: "medium",
