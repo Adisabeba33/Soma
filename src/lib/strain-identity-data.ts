@@ -7306,4 +7306,20 @@ export const IDENTITIES: StrainIdentity[] = [
     lineageConfidence: "high",
     sourceConfidence: "medium",
   },
+  {
+    canonicalName: "Paw Paw",
+    marketNames: ["PawPaw", "Pawpaw"],
+    breeder: "Skunk House Genetics",
+    lineage: {
+      parents: ["Indigo Bubblegum", "Modified Bananas"],
+      cross: "Indigo Bubblegum × Modified Bananas",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Creamy tropical bubblegum", "Banana-driven depth"],
+    curatorNote:
+      "Paw Paw is an almost evenly balanced hybrid from Skunk House Genetics — Indigo Bubblegum crossed with Modified Bananas — named for the custardy mango-banana pawpaw fruit. The nose is sweet tropical fruit and creamy bubblegum over a hint of spice and earth, with a banana-driven depth from the Modified side. The effect comes on fast and stays balanced: an uplifting, creative, giggly mood-lift that melts into gentle body relaxation without couch-lock — good for social moments or an easy unwind. It runs potent and frosty (NY shelves show it north of 30% THC), a flavour-forward modern hybrid.",
+    curatorQuote: "Creamy tropical bubblegum with a banana-driven depth.",
+    lineageConfidence: "medium",
+    sourceConfidence: "medium",
+  },
 ];

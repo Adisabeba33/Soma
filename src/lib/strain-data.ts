@@ -4527,6 +4527,19 @@ export const STRAINS: StrainProfile[] = [
     potency: "very-strong",
     note: "Animal Cookies × GG4 (Alien Labs).",
   },
+  {
+    name: "Paw Paw",
+    aliases: ["PawPaw", "Pawpaw"],
+    type: "hybrid",
+    aromas: ["tropical", "sweet", "creamy", "earthy"],
+    flavors: ["tropical", "creamy", "sweet"],
+    effects: ["uplifted", "happy", "creative", "relaxed"],
+    primaryAromas: ["tropical", "sweet"],
+    primaryEffects: ["uplifted", "relaxed"],
+    traits: ["smooth", "terpy", "frosty", "potent"],
+    potency: "very-strong",
+    note: "Skunk House Genetics: Indigo Bubblegum × Modified Bananas; creamy tropical bubblegum.",
+  },
 ];
 
 export function normalizeStrainName(name: string): string {
