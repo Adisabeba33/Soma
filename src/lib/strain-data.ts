@@ -66,6 +66,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "sleepy", "body-heavy", "couch-lock", "calm"],
     traits: ["gassy", "dense-buds", "heavy-body", "potent"],
     potency: "very-strong",
+    primaryAromas: ["gassy", "earthy"],
+    primaryFlavors: ["gassy", "earthy"],
+    primaryEffects: ["relaxed", "body-heavy"],
   },
   {
     name: "GMO Cookies",
@@ -76,6 +79,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "body-heavy", "couch-lock", "euphoric", "sleepy"],
     traits: ["gassy", "loud-smell", "frosty", "heavy-body", "potent", "terpy"],
     potency: "very-strong",
+    primaryAromas: ["gassy", "earthy"],
+    primaryFlavors: ["gassy", "earthy"],
+    primaryEffects: ["relaxed", "body-heavy"],
   },
   {
     name: "Tahoe OG",
@@ -85,6 +91,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "body-heavy", "couch-lock", "sleepy", "euphoric"],
     traits: ["gassy", "heavy-body", "dense-buds", "potent", "frosty"],
     potency: "very-strong",
+    primaryAromas: ["gassy", "earthy"],
+    primaryFlavors: ["gassy", "earthy"],
+    primaryEffects: ["relaxed", "body-heavy"],
   },
   {
     name: "King Louis XIII",
@@ -95,6 +104,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "body-heavy", "sleepy", "couch-lock", "calm"],
     traits: ["gassy", "earthy", "dense-buds", "heavy-body", "potent"],
     potency: "very-strong",
+    primaryAromas: ["pine", "gassy"],
+    primaryFlavors: ["pine", "earthy"],
+    primaryEffects: ["relaxed", "sleepy"],
   },
   {
     name: "Platinum OG",
@@ -117,6 +129,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "euphoric", "body-heavy", "happy", "sleepy"],
     traits: ["gassy", "frosty", "loud-smell", "potent", "heavy-body"],
     potency: "very-strong",
+    primaryAromas: ["citrus", "gassy"],
+    primaryFlavors: ["citrus", "gassy"],
+    primaryEffects: ["relaxed", "euphoric"],
   },
   {
     name: "Face Off OG",
@@ -127,6 +142,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "body-heavy", "couch-lock", "sleepy", "calm"],
     traits: ["gassy", "heavy-body", "potent", "dense-buds", "frosty"],
     potency: "very-strong",
+    primaryAromas: ["gassy", "pine"],
+    primaryFlavors: ["gassy", "pine"],
+    primaryEffects: ["relaxed", "body-heavy"],
   },
   {
     name: "Alien OG",
@@ -162,6 +180,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "euphoric", "focused", "calm", "happy"],
     traits: ["gassy", "terpy"],
     potency: "strong",
+    primaryAromas: ["diesel", "citrus"],
+    primaryFlavors: ["diesel", "citrus"],
+    primaryEffects: ["relaxed"],
   },
   {
     name: "Chem 91",
@@ -208,6 +229,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "euphoric", "body-heavy", "couch-lock", "happy"],
     traits: ["gassy", "loud-smell", "heavy-body", "frosty", "potent"],
     potency: "very-strong",
+    primaryAromas: ["gassy", "cheese"],
+    primaryFlavors: ["gassy", "earthy"],
+    primaryEffects: ["happy"],
   },
   {
     name: "Permanent Marker",
@@ -217,6 +241,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["euphoric", "relaxed", "happy", "uplifted", "body-heavy"],
     traits: ["gassy", "loud-smell", "frosty", "potent", "sticky"],
     potency: "very-strong",
+    primaryAromas: ["gassy"],
+    primaryFlavors: ["sweet", "gassy"],
+    primaryEffects: ["euphoric"],
   },
   {
     name: "Gas Face",
@@ -254,6 +281,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["gassy", "loud-smell", "dense-buds", "potent"],
     potency: "strong",
     note: "Florida OG phenotype — genetic backbone of Permanent Marker, Triangle Mints and a long list of modern indica hybrids.",
+    primaryAromas: ["gassy"],
+    primaryFlavors: ["earthy"],
+    primaryEffects: ["relaxed"],
   },
 
   // ── KUSH / INDICA CLASSICS ──
@@ -292,6 +322,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "sleepy", "body-heavy", "couch-lock", "calm"],
     traits: ["heavy-body", "dense-buds", "smooth", "potent"],
     potency: "strong",
+    primaryAromas: ["earthy", "sweet"],
+    primaryFlavors: ["sweet", "earthy"],
+    primaryEffects: ["relaxed", "sleepy"],
   },
   {
     name: "Master Kush",
@@ -301,6 +334,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "sleepy", "body-heavy", "happy", "calm"],
     traits: ["earthy", "dense-buds", "smooth", "heavy-body"],
     potency: "strong",
+    primaryAromas: ["earthy", "citrus"],
+    primaryFlavors: ["earthy", "woody"],
+    primaryEffects: ["relaxed", "happy"],
   },
   {
     name: "Hindu Kush",
@@ -310,6 +346,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "sleepy", "body-heavy", "calm", "couch-lock"],
     traits: ["earthy", "smooth", "heavy-body", "dense-buds"],
     potency: "moderate",
+    primaryAromas: ["earthy", "woody"],
+    primaryFlavors: ["earthy", "woody"],
+    primaryEffects: ["relaxed", "sleepy"],
   },
   {
     name: "Afghani",
@@ -411,6 +450,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["dense-buds", "heavy-body", "potent", "frosty"],
     potency: "strong",
     note: "OG Kush phenotype with a floral-candy nose — heavy late-night indica.",
+    primaryAromas: ["floral", "sweet"],
+    primaryFlavors: ["sweet"],
+    primaryEffects: ["relaxed", "euphoric"],
   },
   {
     name: "Mendo Breath",
@@ -510,6 +552,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "sleepy", "body-heavy", "happy", "hungry"],
     traits: ["dense-buds", "frosty", "smooth"],
     potency: "strong",
+    primaryAromas: ["berry", "sweet"],
+    primaryFlavors: ["grape", "berry"],
+    primaryEffects: ["relaxed", "sleepy"],
   },
   {
     name: "Purple Urkle",
@@ -621,6 +666,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["euphoric", "happy", "relaxed", "body-heavy", "head-high"],
     traits: ["frosty", "dense-buds", "potent", "terpy"],
     potency: "very-strong",
+    primaryAromas: ["sweet", "earthy"],
+    primaryFlavors: ["sweet", "earthy"],
+    primaryEffects: ["euphoric", "happy"],
   },
   {
     name: "Wedding Cake",
@@ -669,6 +717,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "euphoric", "body-heavy", "calm", "happy"],
     traits: ["frosty", "dense-buds", "potent", "terpy"],
     potency: "very-strong",
+    primaryAromas: ["sweet", "gassy"],
+    primaryFlavors: ["mint", "sweet"],
+    primaryEffects: ["relaxed", "body-heavy"],
   },
   {
     name: "Biscotti",
@@ -704,6 +755,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["euphoric", "uplifted", "relaxed", "happy", "focused"],
     traits: ["frosty", "gassy", "loud-smell", "potent", "terpy"],
     potency: "very-strong",
+    primaryAromas: ["gassy", "earthy"],
+    primaryFlavors: ["gassy", "earthy"],
+    primaryEffects: ["euphoric", "focused"],
   },
   {
     name: "Kush Mints",
@@ -714,6 +768,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "euphoric", "body-heavy", "calm", "focused"],
     traits: ["frosty", "gassy", "dense-buds", "potent", "terpy"],
     potency: "very-strong",
+    primaryAromas: ["earthy", "sweet"],
+    primaryFlavors: ["mint", "earthy"],
+    primaryEffects: ["relaxed", "euphoric"],
   },
   {
     name: "Cereal Milk",
@@ -786,6 +843,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "body-heavy", "sleepy", "euphoric", "couch-lock"],
     traits: ["frosty", "dense-buds", "heavy-body", "potent", "sticky"],
     potency: "very-strong",
+    primaryAromas: ["sweet", "gassy"],
+    primaryFlavors: ["sweet", "vanilla"],
+    primaryEffects: ["relaxed", "body-heavy"],
   },
   {
     name: "Sticky Buns",
@@ -820,6 +880,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "happy", "euphoric", "body-heavy", "calm"],
     traits: ["smooth", "dense-buds", "frosty", "terpy"],
     potency: "strong",
+    primaryAromas: ["sweet", "vanilla"],
+    primaryFlavors: ["sweet", "vanilla"],
+    primaryEffects: ["relaxed", "happy"],
   },
   {
     name: "Gelato Cake",
@@ -842,6 +905,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "body-heavy", "sleepy", "euphoric", "calm"],
     traits: ["frosty", "dense-buds", "sticky", "heavy-body", "potent"],
     potency: "very-strong",
+    primaryAromas: ["creamy", "sweet"],
+    primaryFlavors: ["creamy", "vanilla"],
+    primaryEffects: ["relaxed", "sleepy"],
   },
   {
     name: "Peanut Butter Breath",
@@ -879,6 +945,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "euphoric", "happy", "creative", "calm"],
     traits: ["frosty", "sticky", "terpy", "potent"],
     potency: "strong",
+    primaryAromas: ["sweet", "creamy"],
+    primaryFlavors: ["sweet", "creamy"],
+    primaryEffects: ["euphoric", "relaxed"],
   },
   {
     name: "Gelato 33",
@@ -889,6 +958,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "euphoric", "happy", "creative", "body-heavy"],
     traits: ["frosty", "sticky", "terpy", "potent"],
     potency: "strong",
+    primaryAromas: ["sweet", "citrus"],
+    primaryFlavors: ["sweet", "creamy"],
+    primaryEffects: ["euphoric", "happy"],
   },
   {
     name: "Gelato 41",
@@ -912,6 +984,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["euphoric", "relaxed", "happy", "calm", "uplifted"],
     traits: ["frosty", "sticky", "loud-smell", "terpy", "potent"],
     potency: "very-strong",
+    primaryAromas: ["citrus", "berry"],
+    primaryFlavors: ["citrus", "berry"],
+    primaryEffects: ["euphoric", "relaxed"],
   },
   {
     name: "Sherblato",
@@ -971,6 +1046,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["euphoric", "happy", "relaxed", "uplifted", "calm"],
     traits: ["frosty", "sticky", "terpy", "potent"],
     potency: "very-strong",
+    primaryAromas: ["sweet", "fruity"],
+    primaryFlavors: ["sweet", "fruity"],
+    primaryEffects: ["euphoric", "happy"],
   },
   {
     name: "Strawberry Runtz",
@@ -1117,6 +1195,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "happy", "calm", "euphoric", "uplifted"],
     traits: ["terpy", "frosty", "smooth"],
     potency: "moderate",
+    primaryAromas: ["fruity", "sweet"],
+    primaryFlavors: ["fruity", "berry"],
+    primaryEffects: ["relaxed", "happy"],
   },
   {
     name: "Watermelon Zkittlez",
@@ -1166,6 +1247,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["euphoric", "happy", "uplifted", "relaxed", "creative"],
     traits: ["frosty", "loud-smell", "potent", "terpy"],
     potency: "very-strong",
+    primaryAromas: ["citrus", "gassy"],
+    primaryFlavors: ["citrus"],
+    primaryEffects: ["euphoric", "uplifted"],
   },
   {
     name: "Jealousy",
@@ -1324,6 +1408,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "euphoric", "happy", "focused", "uplifted"],
     traits: ["frosty", "loud-smell", "terpy"],
     potency: "strong",
+    primaryAromas: ["citrus", "gassy"],
+    primaryFlavors: ["citrus"],
+    primaryEffects: ["happy", "relaxed"],
   },
   {
     name: "Melonade",
@@ -1348,6 +1435,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "gassy", "loud-smell", "potent", "terpy"],
     potency: "very-strong",
     note: "Modern OG-and-cookies bx — heavy on the front, loud nose, potent enough that one bowl tells you.",
+    primaryAromas: ["gassy"],
+    primaryFlavors: ["gassy"],
+    primaryEffects: ["euphoric"],
   },
   {
     name: "Black Truffle",
@@ -1395,6 +1485,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["gassy", "frosty", "sticky", "potent", "terpy"],
     potency: "strong",
     note: "Parent of Permanent Marker — minty kush backbone with cookies-class frost.",
+    primaryAromas: ["earthy", "gassy"],
+    primaryFlavors: ["mint", "earthy"],
+    primaryEffects: ["euphoric", "relaxed"],
   },
   {
     name: "Lemonatti",
@@ -1418,6 +1511,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["uplifted", "happy", "energetic", "creative", "relaxed"],
     traits: ["smooth", "terpy"],
     potency: "moderate",
+    primaryAromas: ["tropical", "citrus"],
+    primaryFlavors: ["tropical", "citrus"],
+    primaryEffects: ["energetic", "uplifted"],
   },
   {
     name: "Mimosa",
@@ -1552,6 +1648,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["relaxed", "body-heavy", "happy", "sleepy", "calm"],
     traits: ["frosty", "dense-buds", "smooth", "terpy"],
     potency: "strong",
+    primaryAromas: ["fruity", "berry"],
+    primaryFlavors: ["fruity", "berry"],
+    primaryEffects: ["relaxed", "body-heavy"],
   },
   {
     name: "Tangie",
@@ -1561,6 +1660,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["uplifted", "energetic", "happy", "creative", "focused"],
     traits: ["loud-smell", "terpy"],
     potency: "strong",
+    primaryAromas: ["citrus", "sweet"],
+    primaryFlavors: ["citrus", "sweet"],
+    primaryEffects: ["uplifted", "energetic"],
   },
   {
     name: "Tropicana Cookies",
@@ -1673,6 +1775,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["uplifted", "energetic", "happy", "focused", "creative"],
     traits: ["loud-smell", "terpy"],
     potency: "moderate",
+    primaryAromas: ["citrus", "sweet"],
+    primaryFlavors: ["citrus", "sweet"],
+    primaryEffects: ["uplifted", "energetic"],
   },
   {
     name: "Amnesia Haze",
@@ -1709,6 +1814,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["uplifted", "energetic", "focused", "creative", "head-high"],
     traits: ["loud-smell", "frosty", "potent"],
     potency: "very-strong",
+    primaryAromas: ["citrus", "floral"],
+    primaryFlavors: ["citrus", "pine"],
+    primaryEffects: ["energetic", "uplifted"],
   },
   {
     name: "Clementine",
@@ -1781,6 +1889,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["uplifted", "focused", "creative", "energetic", "happy"],
     traits: ["terpy", "loud-smell"],
     potency: "strong",
+    primaryAromas: ["pine", "spicy"],
+    primaryFlavors: ["pine", "spicy"],
+    primaryEffects: ["uplifted", "focused"],
   },
   {
     name: "Durban Poison",
@@ -1791,6 +1902,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["energetic", "focused", "uplifted", "creative", "happy"],
     traits: ["terpy", "dense-buds"],
     potency: "strong",
+    primaryAromas: ["sweet", "spicy"],
+    primaryFlavors: ["spicy", "sweet"],
+    primaryEffects: ["energetic", "focused"],
   },
   {
     name: "Green Crack",
@@ -1801,6 +1915,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["energetic", "focused", "uplifted", "happy", "head-high"],
     traits: ["loud-smell", "terpy"],
     potency: "strong",
+    primaryAromas: ["citrus", "tropical"],
+    primaryFlavors: ["citrus", "tropical"],
+    primaryEffects: ["energetic", "focused"],
   },
   {
     name: "Trainwreck",
@@ -1810,6 +1927,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["euphoric", "uplifted", "energetic", "happy", "creative"],
     traits: ["loud-smell", "terpy"],
     potency: "strong",
+    primaryAromas: ["pine", "citrus"],
+    primaryFlavors: ["pine", "citrus"],
+    primaryEffects: ["euphoric", "uplifted"],
   },
   {
     name: "Bruce Banner",
@@ -1935,6 +2055,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["uplifted", "happy", "relaxed", "creative", "hungry"],
     traits: ["loud-smell", "earthy"],
     potency: "moderate",
+    primaryAromas: ["skunky", "earthy"],
+    primaryFlavors: ["earthy", "sweet"],
+    primaryEffects: ["uplifted", "happy"],
   },
   {
     name: "Super Skunk",
@@ -1982,6 +2105,9 @@ export const STRAINS: StrainProfile[] = [
     effects: ["euphoric", "uplifted", "relaxed", "happy", "creative"],
     traits: ["gassy", "loud-smell", "frosty", "sticky"],
     potency: "strong",
+    primaryAromas: ["diesel", "gassy"],
+    primaryFlavors: ["diesel", "pine"],
+    primaryEffects: ["euphoric", "uplifted"],
   },
   {
     name: "UK Cheese",
@@ -2031,6 +2157,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "sticky", "potent", "terpy"],
     potency: "very-strong",
     note: "Frostier, creamier phenotype of Runtz.",
+    primaryAromas: ["sweet", "fruity"],
+    primaryFlavors: ["sweet", "fruity"],
+    primaryEffects: ["euphoric", "relaxed"],
   },
 
   // ── ADDITIONAL COMMONS ──
@@ -2174,6 +2303,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "loud-smell", "terpy"],
     potency: "very-strong",
     note: "Face Off OG's piney fuel over Animal Mints cookies — frosty and very potent.",
+    primaryAromas: ["gassy", "pine"],
+    primaryFlavors: ["gassy", "pine"],
+    primaryEffects: ["euphoric", "relaxed"],
   },
   {
     name: "Project 4516",
@@ -2553,6 +2685,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "terpy"],
     potency: "strong",
     note: "OZ Kushman guava selection — tropical sweetness behind RS11 and Zoap.",
+    primaryAromas: ["tropical", "sweet"],
+    primaryFlavors: ["tropical", "sweet"],
+    primaryEffects: ["happy", "relaxed"],
   },
   {
     name: "Rainbow Sherbet",
@@ -2672,6 +2807,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "loud-smell", "terpy"],
     potency: "very-strong",
     note: "Compound Genetics — cool menthol over gas funk, parent of Pink Certz.",
+    primaryAromas: ["gassy", "herbal"],
+    primaryFlavors: ["mint", "gassy"],
+    primaryEffects: ["euphoric", "relaxed"],
   },
   {
     name: "Wedding Pie",
@@ -2781,6 +2919,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["gassy", "potent", "dense-buds", "frosty"],
     potency: "strong",
     note: "Lemony OG Kush × SFV OG — a parent of Purple Punch.",
+    primaryAromas: ["citrus", "pine"],
+    primaryFlavors: ["gassy", "citrus"],
+    primaryEffects: ["relaxed", "happy"],
   },
   {
     name: "Black Cherry Pie",
@@ -2861,6 +3002,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["gassy", "potent", "loud-smell", "sticky"],
     potency: "strong",
     note: "Sour-diesel funk — one of the parents of GG4.",
+    primaryAromas: ["diesel", "gassy"],
+    primaryFlavors: ["diesel"],
+    primaryEffects: ["euphoric", "uplifted"],
   },
   {
     name: "Chem's Sister",
@@ -2872,6 +3016,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["gassy", "potent", "loud-smell", "terpy"],
     potency: "strong",
     note: "A female Chemdawg seed — one of the parents of GG4.",
+    primaryAromas: ["diesel", "gassy"],
+    primaryFlavors: ["diesel", "citrus"],
+    primaryEffects: ["uplifted", "euphoric"],
   },
   {
     name: "Bubble Gum",
@@ -2897,6 +3044,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["dense-buds", "potent", "heavy-body", "frosty"],
     potency: "strong",
     note: "Hindu Kush × Purple Afghani — pure indica, grape-earth and sedating.",
+    primaryAromas: ["earthy", "sweet"],
+    primaryFlavors: ["grape", "earthy"],
+    primaryEffects: ["relaxed", "sleepy"],
   },
   {
     name: "Grape Soda",
@@ -2964,6 +3114,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["gassy", "potent", "loud-smell", "terpy"],
     potency: "strong",
     note: "Chocolate Thai × Sour Diesel — the third parent of GG4.",
+    primaryAromas: ["diesel", "sweet"],
+    primaryFlavors: ["diesel"],
+    primaryEffects: ["energetic", "euphoric"],
   },
   {
     name: "Shiva Skunk",
@@ -3462,6 +3615,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "terpy"],
     potency: "strong",
     note: "Sunset Sherbet cream meets Kush Mints — minty-sweet and frosty.",
+    primaryAromas: ["sweet"],
+    primaryFlavors: ["mint", "creamy"],
+    primaryEffects: ["euphoric", "happy"],
   },
   {
     name: "Apple Gelato",
@@ -4884,6 +5040,9 @@ export const STRAINS: StrainProfile[] = [
     traits: ["terpy", "gassy", "potent"],
     potency: "strong",
     note: "California Sour × Lost Coast OG — sharp lemon over diesel.",
+    primaryAromas: ["citrus", "diesel"],
+    primaryFlavors: ["citrus", "diesel"],
+    primaryEffects: ["uplifted", "energetic"],
   },
   {
     name: "Skunkberry",
