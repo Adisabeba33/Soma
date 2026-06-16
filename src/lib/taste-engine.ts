@@ -31,7 +31,16 @@ import type {
   StrainType,
   TasteProfileInput,
 } from "./types";
-import { BATCH_QUALITY_TRAITS, labelFor } from "./vocab";
+import { AROMAS, BATCH_QUALITY_TRAITS, FLAVORS, labelFor } from "./vocab";
+
+// Vocab guards. The combined aroma/flavour picker historically wrote the same
+// selection into BOTH preferred axes, so a flavour-only token (nutty, mint,
+// grape) could land in preferredAromas where it can never match any strain —
+// showing forever as "Critical Missing". Keep each preferred list to its own
+// vocab so scoring and the audit read true, regardless of how the stored
+// profile was built.
+const AROMA_VOCAB = new Set(AROMAS.map((o) => o.value));
+const FLAVOR_VOCAB = new Set(FLAVORS.map((o) => o.value));
 
 // Audit log marker — bump when the scoring formula, layer mechanics or
 // bonus magnitudes change in a way that makes old score numbers
@@ -845,13 +854,23 @@ export function scoreStrain(
 ): StrainMatch {
   const { strain, known } = resolveStrain(rawName);
 
+  // Keep each preferred list to its own vocab — a flavour-only token parked in
+  // preferredAromas (or vice-versa) can never match and would otherwise show
+  // forever as Critical Missing in the audit.
+  const preferredAromas = profile.preferredAromas.filter((t) =>
+    AROMA_VOCAB.has(t),
+  );
+  const preferredFlavors = profile.preferredFlavors.filter((t) =>
+    FLAVOR_VOCAB.has(t),
+  );
+
   const aroma = setScore(
     strain.aromas,
-    profile.preferredAromas,
+    preferredAromas,
     strain.primaryAromas,
     strain.traceAromas,
   );
-  const flavor = setScore(strain.flavors, profile.preferredFlavors, strain.primaryFlavors);
+  const flavor = setScore(strain.flavors, preferredFlavors, strain.primaryFlavors);
   const effect = setScore(strain.effects, profile.preferredEffects, strain.primaryEffects);
   const trait = setScore(strain.traits, profile.likedTraits);
   const ref = referenceSimilarity(strain, profile.favoriteStrains);
