@@ -1317,6 +1317,24 @@ export function scoreStrain(
     },
   };
 
+  // Flat bonuses added to raw on top of the weighted channels — surfaced in
+  // Audit mode so cases like Aspen vs Ghost (decided by familyMod, not the
+  // visible channels) are explainable. These are already in raw-score points.
+  //   family    — behavioural-family match (effect-feel gestalt; the big one)
+  //   archetype — effect-archetype recognition
+  //   texture   — taste-mode texture layer
+  //   sensory   — sensory-family (aroma cluster) match with a favourite
+  //   potency   — potency-preference fit
+  //   familyPref— named seek/avoid family nudge
+  const bonuses = {
+    family: familyMod,
+    archetype: archetypeBonus,
+    texture: textureMod,
+    sensory: sensoryMod,
+    potency: potencyMod,
+    familyPref: familyPrefMod,
+  };
+
   return {
     strainName: rawName.trim(),
     resolvedName: strain.name,
@@ -1350,6 +1368,7 @@ export function scoreStrain(
     penaltyStrengths,
     missingTags,
     channels,
+    bonuses,
     purchaseConfidence,
   };
 }
