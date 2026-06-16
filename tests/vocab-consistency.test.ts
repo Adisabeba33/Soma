@@ -99,6 +99,24 @@ describe("vocab consistency — no phantom tokens", () => {
     }
   });
 
+  it("every trace flavour exists in FLAVORS vocab and is disjoint from flavors", () => {
+    const vocab = vocabSet(FLAVORS);
+    for (const s of STRAINS) {
+      if (!s.traceFlavors) continue;
+      const full = new Set(s.flavors);
+      for (const t of s.traceFlavors) {
+        assert.ok(
+          vocab.has(t),
+          `${s.name}: trace flavour "${t}" absent from FLAVORS vocab`,
+        );
+        assert.ok(
+          !full.has(t),
+          `${s.name}: "${t}" is both a full and a trace flavour — pick one`,
+        );
+      }
+    }
+  });
+
   it("vocab entries are unique (no duplicate values within a list)", () => {
     for (const [name, list] of [
       ["AROMAS", AROMAS],
