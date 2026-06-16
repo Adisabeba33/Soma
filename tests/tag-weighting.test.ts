@@ -136,6 +136,24 @@ describe("trace tags score a fraction of a full match (skunky)", () => {
   });
 });
 
+describe("preferred lists are kept to their own vocab", () => {
+  // The combined aroma/flavour picker used to write the same selection into
+  // both axes, parking flavour-only tokens (nutty) in preferredAromas where
+  // they can never match — showing forever as Critical Missing.
+  it("a flavour-only token in preferredAromas is not reported as a critical (aroma) miss", () => {
+    const r = scoreStrain("GG4", profile({ preferredAromas: ["gassy", "nutty"] }));
+    assert.ok(
+      !r.missingTags.critical.includes("nutty"),
+      "nutty is a flavour, not an aroma — it must not pollute Critical Missing",
+    );
+  });
+
+  it("a valid aroma miss is still reported", () => {
+    const r = scoreStrain("GG4", profile({ preferredAromas: ["gassy", "skunky"] }));
+    assert.ok(r.missingTags.critical.includes("skunky"));
+  });
+});
+
 describe("no primaries → unchanged (no-op) scoring", () => {
   // Skywalker OG has no curated primaries: aromas gassy,earthy,herbal,spicy.
   it("two equal-count partial matches score identically", () => {

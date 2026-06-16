@@ -5,13 +5,18 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ChipSelect, SingleSelect, TagInput } from "@/components/ui/selectors";
 import {
+  AROMAS,
   AROMA_FLAVOR,
   DISLIKED_TRAITS,
   EFFECTS,
+  FLAVORS,
   LIKED_TRAITS,
 } from "@/lib/vocab";
 import { PRIMARY_AROMAS, PRIMARY_EFFECTS, USE_TIMES } from "@/lib/profile-target";
 import { POPULAR_STRAINS, type TasteProfileState } from "@/lib/profile-state";
+
+const AROMA_VALUES = new Set(AROMAS.map((o) => o.value));
+const FLAVOR_VALUES = new Set(FLAVORS.map((o) => o.value));
 
 function Section({
   index,
@@ -76,12 +81,20 @@ export function TasteProfileForm({
   ) => setState((prev) => ({ ...prev, [key]: value }));
 
   // Aroma and flavour are one question for the user (smell ≈ taste). The
-  // selection feeds both engine dimensions.
+  // selection feeds both engine dimensions — but split by vocab, so a
+  // flavour-only note (nutty, mint, grape) goes only to preferredFlavors and
+  // an aroma-only note only to preferredAromas. Writing the raw union to both
+  // parked flavour-only tokens in preferredAromas where they could never match
+  // and showed forever as Critical Missing in the audit.
   const sensoryNotes = Array.from(
     new Set([...state.preferredAromas, ...state.preferredFlavors]),
   );
   const setSensoryNotes = (v: string[]) =>
-    setState((prev) => ({ ...prev, preferredAromas: v, preferredFlavors: v }));
+    setState((prev) => ({
+      ...prev,
+      preferredAromas: v.filter((t) => AROMA_VALUES.has(t)),
+      preferredFlavors: v.filter((t) => FLAVOR_VALUES.has(t)),
+    }));
 
   return (
     <div className="space-y-7">
