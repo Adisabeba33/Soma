@@ -26,6 +26,19 @@ function buildAuditText(items: AuditItem[]): string {
     lines.push(
       `  Channels (score → contribution): Ref similarity ${ch.ref.score} → +${ch.ref.contribution.toFixed(1)}, Effect archetype fit ${ch.effect.score} → +${ch.effect.contribution.toFixed(1)}, Aroma ${ch.aroma.score} → +${ch.aroma.contribution.toFixed(1)}, Flavor ${ch.flavor.score} → +${ch.flavor.contribution.toFixed(1)}`,
     );
+    const bz: [keyof typeof item.bonuses, string][] = [
+      ["family", "Family"],
+      ["archetype", "Archetype"],
+      ["sensory", "Sensory"],
+      ["potency", "Potency"],
+      ["texture", "Texture"],
+      ["familyPref", "Family pref"],
+    ];
+    const activeBz = bz
+      .map(([k, l]) => [l, item.bonuses[k]] as const)
+      .filter(([, v]) => Math.abs(v) >= 0.5)
+      .map(([l, v]) => `${l} ${v > 0 ? "+" : ""}${v.toFixed(1)}`);
+    lines.push(`  Bonuses: ${activeBz.length > 0 ? activeBz.join(", ") : "none"}`);
     lines.push(
       `  Top matches: ${
         item.matchStrengths.length > 0
@@ -190,6 +203,40 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
                       </div>
                     ))}
                   </div>
+                  {(() => {
+                    const labels: [keyof typeof item.bonuses, string][] = [
+                      ["family", "Family"],
+                      ["archetype", "Archetype"],
+                      ["sensory", "Sensory"],
+                      ["potency", "Potency"],
+                      ["texture", "Texture"],
+                      ["familyPref", "Family pref"],
+                    ];
+                    const active = labels
+                      .map(([k, l]) => [l, item.bonuses[k]] as const)
+                      .filter(([, v]) => Math.abs(v) >= 0.5);
+                    return (
+                      <p className="mt-1 text-[11px]">
+                        <span className="font-medium uppercase tracking-[0.1em] text-muted-foreground">
+                          Bonuses
+                        </span>{" "}
+                        {active.length > 0 ? (
+                          active.map(([l, v], i) => (
+                            <span key={l}>
+                              {i > 0 && ", "}
+                              <span className="text-muted-foreground">{l} </span>
+                              <span className="font-mono text-accent">
+                                {v > 0 ? "+" : ""}
+                                {v.toFixed(1)}
+                              </span>
+                            </span>
+                          ))
+                        ) : (
+                          <span className="text-muted-foreground/60">none</span>
+                        )}
+                      </p>
+                    );
+                  })()}
                 </div>
                 <div className="mt-1.5 flex flex-wrap gap-x-8 gap-y-2 text-[11px]">
                   <div>

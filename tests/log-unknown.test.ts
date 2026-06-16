@@ -41,6 +41,14 @@ function match(strainName: string, knownStrain: boolean): StrainMatch {
       aroma: { score: 0, contribution: 0 },
       flavor: { score: 0, contribution: 0 },
     },
+    bonuses: {
+      family: 0,
+      archetype: 0,
+      texture: 0,
+      sensory: 0,
+      potency: 0,
+      familyPref: 0,
+    },
     purchaseConfidence: emptyPurchaseConfidence(),
   };
 }

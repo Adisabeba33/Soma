@@ -161,6 +161,17 @@ export interface StrainMatch {
     aroma: { score: number; contribution: number };
     flavor: { score: number; contribution: number };
   };
+  // Audit mode — flat bonuses added to raw on top of the weighted channels
+  // (already in raw-score points). `family` (behavioural-family match) is the
+  // largest and the usual reason two strains with similar channels diverge.
+  bonuses: {
+    family: number;
+    archetype: number;
+    texture: number;
+    sensory: number;
+    potency: number;
+    familyPref: number;
+  };
   // Second axis: how confident we are about THIS purchase, separate from
   // the sensory match score. See src/lib/purchase-confidence.ts.
   purchaseConfidence: PurchaseConfidence;
