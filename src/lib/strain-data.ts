@@ -388,6 +388,7 @@ export const STRAINS: StrainProfile[] = [
     primaryEffects: ["relaxed", "euphoric"],
     traits: ["frosty", "sticky", "heavy-body", "potent"],
     potency: "very-strong",
+    traceFlavors: ["nutty"],
   },
   {
     name: "Slurricane",
@@ -2107,6 +2108,7 @@ export const STRAINS: StrainProfile[] = [
     primaryEffects: ["uplifted", "energetic"],
     traits: ["loud-smell", "terpy"],
     potency: "strong",
+    traceAromas: ["skunky"],
   },
   {
     name: "Platinum Kush",
@@ -2214,6 +2216,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "dense-buds", "terpy"],
     potency: "strong",
     note: "Frosty GSC phenotype — sweet vanilla-cookie nose, balanced euphoric high.",
+    traceFlavors: ["nutty"],
   },
   {
     name: "The White",
@@ -2443,6 +2446,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "terpy"],
     potency: "strong",
     note: "Cookies' creamy-gas Gelato cross — frosty and balanced.",
+    traceFlavors: ["nutty"],
   },
   {
     name: "OZ Kush",
@@ -2484,6 +2488,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["terpy", "frosty", "potent"],
     potency: "strong",
     note: "Orange citrus on a GSC base — bright, sweet daytime hybrid.",
+    traceFlavors: ["nutty"],
   },
   {
     name: "Chile Verde",
@@ -2722,6 +2727,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["gassy", "potent", "frosty", "terpy"],
     potency: "strong",
     note: "Bodhi's Green Crack × Tres Dawg — a parent of Bay 11.",
+    traceAromas: ["skunky"],
   },
   {
     name: "Mendo Montage",
@@ -2801,6 +2807,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "terpy"],
     potency: "strong",
     note: "Lime-leaning GSC phenotype — a parent of Chile Verde.",
+    traceFlavors: ["nutty"],
   },
   {
     name: "Champagne",
@@ -3037,6 +3044,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["gassy", "potent", "sticky", "frosty"],
     potency: "very-strong",
     note: "BOG's Bubble Gum IBL — a parent of Sour Dubb.",
+    traceAromas: ["skunky"],
   },
   {
     name: "Northern Lights #5",
@@ -3942,6 +3950,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["smooth", "terpy", "well-cured"],
     potency: "mild",
     note: "Sour Diesel × NYC Diesel — one of the first CBD-rich strains.",
+    traceAromas: ["skunky"],
   },
   {
     name: "Lebanese",
@@ -4024,6 +4033,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "terpy"],
     potency: "strong",
     note: "Sunset Sherbet × Biscotti — creamy sherbet over a gassy cookie base.",
+    traceFlavors: ["nutty"],
   },
 
   // ── ROUND 11: PARENT-FILL + LANDRACES + CLASSICS ──
@@ -4226,6 +4236,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "terpy"],
     potency: "strong",
     note: "Biscotti × Sundae Driver — gassy cookie over creamy fruit.",
+    traceFlavors: ["nutty"],
   },
   {
     name: "Goji OG",
@@ -4507,6 +4518,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "dense-buds"],
     potency: "strong",
     note: "Blueberry × GSC — sweet berry over a cookie base.",
+    traceFlavors: ["nutty"],
   },
   {
     name: "Apple Jacks",
@@ -4535,6 +4547,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "dense-buds", "heavy-body"],
     potency: "very-strong",
     note: "Tahoe OG × The White × GSC — frosty, gassy and heavy.",
+    traceFlavors: ["nutty"],
   },
   {
     name: "Cheese Quake",
@@ -4668,6 +4681,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["terpy", "potent", "smooth"],
     potency: "strong",
     note: "Sensi's Jack Herer × Super Skunk × Haze — clear, spicy-citrus sativa.",
+    traceAromas: ["skunky"],
   },
   {
     name: "Pineapple Chunk",
@@ -4909,6 +4923,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "terpy"],
     potency: "strong",
     note: "Cherry Pie × GSC — cherry fruit over a cookie base.",
+    traceFlavors: ["nutty"],
   },
   {
     name: "Platinum GSC",
@@ -4923,6 +4938,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["frosty", "potent", "dense-buds"],
     potency: "very-strong",
     note: "A frosty Platinum phenotype of GSC — sweet, dense and strong.",
+    traceFlavors: ["nutty"],
   },
   {
     name: "Mango Haze",
@@ -5069,6 +5085,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["dense-buds", "potent", "heavy-body", "frosty"],
     potency: "strong",
     note: "Master Kush × Bubba Kush — coffee-and-hash, heavy and sedating.",
+    traceFlavors: ["nutty"],
   },
   {
     name: "Snowcap",
@@ -5336,6 +5353,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["heavy-body", "potent", "gassy"],
     potency: "strong",
     note: "Loud diesel sativa, behind Jet Fuel.",
+    traceAromas: ["skunky"],
   },
   {
     name: "Honey Boo Boo",
@@ -5601,6 +5619,7 @@ export const STRAINS: StrainProfile[] = [
     traits: ["loud-smell", "terpy"],
     potency: "strong",
     note: "NYC Diesel × White Widow — bright fuel.",
+    traceAromas: ["skunky"],
   },
   {
     name: "Y Life",
