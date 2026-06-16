@@ -81,6 +81,7 @@ const OVERRIDES: Record<string, EffectArchetype> = {
   "Cherry Punch": "smooth-expressive",
   Gelato: "smooth-expressive",
   "Gelato 33": "smooth-expressive",
+  "Gelato 41": "smooth-expressive",
   "White Hot Guava": "smooth-expressive",
   "Strawberry Banana": "smooth-expressive",
 

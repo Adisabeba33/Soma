@@ -578,8 +578,8 @@ export const STRAINS: StrainProfile[] = [
   {
     name: "Biscotti",
     type: "hybrid",
-    aromas: ["sweet", "earthy", "gassy", "spicy"],
-    flavors: ["sweet", "earthy", "spicy", "nutty"],
+    aromas: ["sweet", "earthy", "gassy", "creamy"],
+    flavors: ["sweet", "earthy", "creamy", "nutty"],
     effects: ["relaxed", "euphoric", "happy", "body-heavy", "calm"],
     traits: ["frosty", "sticky", "dense-buds", "potent", "terpy"],
     potency: "very-strong",
