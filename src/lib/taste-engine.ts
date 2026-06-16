@@ -870,7 +870,12 @@ export function scoreStrain(
     strain.primaryAromas,
     strain.traceAromas,
   );
-  const flavor = setScore(strain.flavors, preferredFlavors, strain.primaryFlavors);
+  const flavor = setScore(
+    strain.flavors,
+    preferredFlavors,
+    strain.primaryFlavors,
+    strain.traceFlavors,
+  );
   const effect = setScore(strain.effects, profile.preferredEffects, strain.primaryEffects);
   const trait = setScore(strain.traits, profile.likedTraits);
   const ref = referenceSimilarity(strain, profile.favoriteStrains);

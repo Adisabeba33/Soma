@@ -46,6 +46,10 @@ export interface StrainProfile {
   // and does NOT count it as missing. Use for "debatable" notes where binary
   // present/absent overstates certainty. Must be disjoint from `aromas`.
   traceAromas?: string[];
+  // Trace flavours — same partial-credit mechanic as traceAromas, on the taste
+  // axis (e.g. the doughy-nutty note a Cookies cross sometimes shows). Must be
+  // disjoint from `flavors`.
+  traceFlavors?: string[];
 }
 
 export type Category =
