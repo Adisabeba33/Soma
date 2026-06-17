@@ -86,11 +86,16 @@ const VERDICT_BADGE: Record<
 export function RecommendationCard({
   match,
   rank,
+  tie,
   verdict,
   children,
 }: {
   match: RecommendationView;
   rank?: number;
+  // When the calibration ceiling collapses several non-anchor strains onto the
+  // same visible score, the engine still ranks them internally (unclampedScore).
+  // Surfaced as a "#2 of 6" pill so the visitor isn't left to choose blind.
+  tie?: { rank: number; total: number } | null;
   verdict?: Verdict | null;
   children?: React.ReactNode;
 }) {
@@ -125,6 +130,14 @@ export function RecommendationCard({
             <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
               Sensory match
             </p>
+            {tie && (
+              <span
+                className="mt-1 inline-block rounded-full border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground"
+                title={`Internal score ${match.unclampedScore.toFixed(2)} — the engine ranks this #${tie.rank} of ${tie.total} strains tied at ${formatScore(match.matchScore)}%. At the top of the 89–92 elite band the visible score saturates, so close non-anchors can share one; the order here is the engine's actual judgment.`}
+              >
+                #{tie.rank} of {tie.total}
+              </span>
+            )}
             <div className="mt-2 hidden h-1.5 w-full overflow-hidden rounded-full bg-muted sm:block">
               <div
                 className={cn("h-full rounded-full animate-grow", meta.bar)}
