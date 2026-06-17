@@ -623,6 +623,10 @@ export const IDENTITIES: StrainIdentity[] = [
       "Durban Poison is a pure South African landrace, one of the few classic sativas that never needed crossing to earn its reputation. The nose is distinctive and clean: sweet pine and a sharp anise / black-licorice note that sets it apart from anything in the gas or candy world. The effect is the espresso of cannabis — clear, bright, energetic and focused, with almost no body weight, which is exactly why it's a morning and get-things-done staple. It's also the sativa half of Girl Scout Cookies, so its DNA runs through the modern dessert line despite tasting nothing like it. For people who find most strains too sedating, Durban is the reliable up.",
     curatorQuote:
       "Sweet pine and a sharp anise / black-licorice note that sets it apart from anything in the gas or candy world.",
+    tagline: "The espresso sativa",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of a pure South African landrace sativa — Durban Poison, electric and clear-headed. A sun-blasted highveld savanna at bright midday: tall golden grass rippling in dry wind beneath a vast clear sky, a lone flat-topped acacia and distant blue koppies, sharp clean light with no haze. Palette of pine-green and anise-spice over sun-bleached gold and ochre earth, threaded with sweet licorice warmth under a cool citrus-bright sky. The air is crisp and resinous — sharp pine and black-licorice spice carried on dry heat. Mood: awake, focused, kinetic and uplifting — restless daytime clarity, the espresso of cannabis. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'DURBAN POISON' baked into the scene — burned and painted onto a weathered wooden trail sign staked in the grass. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
     sourceConfidence: "high",
   },
 
