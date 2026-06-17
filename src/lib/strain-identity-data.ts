@@ -99,6 +99,9 @@ export const IDENTITIES: StrainIdentity[] = [
       "Sharp fuel and pine over a thick, earthy musk, dense and a little medicinal.",
     tagline: "Northern sledgehammer",
     sourceConfidence: "medium",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Tahoe OG — a heavyweight Northern California OG Kush phenotype, the clone-only Lake Tahoe cut that leans harder into the body than its SoCal cousins, sharp fuel and pine over thick earthy musk. The scene: a deep alpine night on the shore of a black mirror lake, a weathered timber boat dock jutting into still water, a rusted fuel pump and a chained gas can at the dock's edge, dense pine forest crowding the granite shoreline, fog pooling low between the trunks. Palette of pinewood green, wet granite grey, fuel-petrol teal and a cold silver moon-shimmer on water. Mood: weighted, sinking, sedate — body-heavy stillness easing toward sleep, the water flat as glass, a single ripple the only motion under a deep midnight sky. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'TAHOE OG' routed into a plank of the old dock railing. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
   },
   {
     canonicalName: "Skywalker OG",
@@ -236,6 +239,9 @@ export const IDENTITIES: StrainIdentity[] = [
       "Loud enough to embarrass most jars sitting next to it.",
     tagline: "Garlic chem heavy",
     sourceConfidence: "high",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of GMO Cookies — a savory, very-strong indica where Chemdog's diesel gas collides with the richness of Girl Scout Cookies and something genuinely garlic-and-onion falls out, the famous 'Garlic Cookies' funk made visible. The scene: a darkened roadside diner kitchen at night, a cast-iron skillet of roasted garlic cloves and charred shallots steaming under a single hooded bulb, an open jerry can of fuel glinting on a steel prep table, oil-slick floor reflecting amber light. Palette of burnt umber, oily green-black, charred onion-skin bronze and a hot diesel-amber glow, slick and savory. Mood: heavy, sinking, narcotic — relaxed into deep couch-lock and euphoric drowse, smoke curling slow in still air, the only motion the lazy drift of steam under a hard top-down night light. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'GMO COOKIES' branded into the seared underside of the cast-iron skillet. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
   },
   {
     canonicalName: "Donny Burger",
@@ -348,6 +354,9 @@ export const IDENTITIES: StrainIdentity[] = [
       "Northern Lights is 1980s bedrock — the nearly pure Afghani that taught the decade what indica was supposed to feel like. Sensi Seeds popularised it, and a large share of modern indicas trace back to its line; it's one of the foundational sedative cultivars the whole category was built on.",
     tagline: "Old guard sedation",
     sourceConfidence: "high",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Northern Lights — 1980s bedrock, a nearly pure Afghani indica that quietly fathered a huge share of modern indicas, gentle and classic with sweet pine and dusty earth and a soft spicy-resin sweetness. The scene: a still wilderness lake under a sweeping aurora borealis, ribbons of green and violet light rippling across a star-thick sky, a lone snow-dusted spruce on a rocky point, a low cairn of weathered stones at the water's edge. Palette of aurora pine-green, cold spruce-needle teal, dusty earthen brown and soft resin-amber warmth bleeding into deep indigo. Mood: calm, settling, drowsy — happy relaxation drifting toward sleep, the aurora drifting slow and silent overhead, mirrored faintly in the black lake, deep night stillness. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'NORTHERN LIGHTS' carved into a flat face of the largest cairn stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
   },
   {
     canonicalName: "Bubba Kush",
@@ -364,6 +373,9 @@ export const IDENTITIES: StrainIdentity[] = [
       "People reach for Bubba to stop, not to start.",
     tagline: "Coffee couch",
     sourceConfidence: "medium",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Bubba Kush — a classic American indica of murky early-2000s origin, OG Kush crossed with an unknown indica, signature rich coffee and dark chocolate over sweet hashy earth, dessert-like in a savory way. The scene: a dim late-night cafe corner, a battered copper espresso pot beside a broken square of dark chocolate on a worn wooden table, a curl of steam rising from a small cup, an oil lamp throwing warm pooled light across spice-dusted brass. Palette of espresso brown, dark cocoa, hashy gold-amber and warm woody umber against deep shadow. Mood: warm, heavy, sedate — calm relaxation collapsing into body-heavy couch-lock and sleep, steam rising slow, the lamp flame steady, a hushed midnight stillness. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'BUBBA KUSH' stamped into the side of the copper espresso pot. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
   },
   {
     canonicalName: "Hindu Kush",
@@ -374,6 +386,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Sandalwood and incense over a dusty, hashy musk, the smell of classic hashish for a reason.",
     sourceConfidence: "high",
+    tagline: "Born Of Mountains",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Hindu Kush — a pure indica landrace from the mountains it is named for, old-world genetics that seeded the whole Kush family, earthy and sweet with sandalwood and incense over a dusty hashy musk. The scene: a high mountain night in the Hindu Kush range, jagged moonlit peaks under a vast star field, a weathered stone shrine on a windswept ridge with a worn prayer-flag pole and a brass incense bowl smoking faintly, dusty switchback trail winding down into shadowed valleys. Palette of dusty sandstone brown, sandalwood gold, cold slate-grey rock and a thin incense-amber glow under deep starlit indigo. Mood: ancient, grounded, sedate — deep calm settling into body-heavy stillness and sleep, only a slow ribbon of incense smoke and a faint flag-stir of wind, profound mountain-night quiet. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'HINDU KUSH' chiseled into the face of the shrine's foundation stone. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
   },
   {
     canonicalName: "Afghani",
@@ -410,6 +426,9 @@ export const IDENTITIES: StrainIdentity[] = [
       "For the grape-and-couch archetype, it's still the one the others get measured against.",
     tagline: "Grape royalty",
     sourceConfidence: "high",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Granddaddy Purple — Ken Estes' 2003 reference purple indica, Purple Urkle crossed with Big Bud, dense violet character that looks the part and smells of grape and sweet berry and floral fruit. The scene: an old hillside vineyard at deep dusk, heavy clusters of dark grapes hanging from gnarled vines on weathered stakes, a wooden harvest crate brimming with violet fruit, distant rolling rows fading into purple haze, a low stone wall edging the field. Palette of deep grape-violet, berry-magenta, floral plum and sweet fruit-bloom over dusky indigo shadow. Mood: lush, heavy, sinking — happy relaxation easing into body-heavy couch-lock and sleep, vines barely stirring, the last warm light gone to violet, a slow nightfall calm. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'GRANDDADDY PURPLE' burned into the wood of the harvest crate's front slat. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
   },
   {
     canonicalName: "Purple Punch",
@@ -423,6 +442,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Grape soda and blueberry candy with a vanilla-tart edge, more candy shop than cannabis funk.",
     sourceConfidence: "medium",
+    tagline: "Grape Knockout",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Purple Punch — a dessert indica, Larry OG crossed with Granddaddy Purple, stacking grape candy on a purple heritage, sweet and fruity with grape soda and blueberry candy and a vanilla-tart edge, more candy shop than cannabis. The scene: a retro late-night soda fountain counter, a tall frosted glass of fizzing purple grape soda with violet bubbles rising, a scoop of vanilla beside spilled blueberry candies on a checkered chrome-edged counter, a dim neon glow washing over polished steel. Palette of grape-soda violet, blueberry indigo, vanilla cream and a sweet candy-pink neon shimmer against night-dark chrome. Mood: indulgent, mellow, sinking — happy hungry relaxation drifting toward sleep, soda bubbles rising slow, neon humming steady, a sleepy after-hours stillness. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'PURPLE PUNCH' painted in faded script across the soda fountain's enamel sign panel. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
   },
 
   // ── Skunk / classic hybrid family ──
@@ -482,6 +505,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Dessert-y vanilla and mint over an earthy OG funk, with the Thin Mint and Forum cuts the canonical phenos.",
     sourceConfidence: "high",
+    tagline: "The Original Dessert",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Girl Scout Cookies — the Bay Area cross, OG Kush crossed with Durban Poison, that kicked off the entire modern dessert era, sweet and complex with dessert-y vanilla and earthy nutty spice. The scene: a warm late-night home bakery counter, a fresh tray of golden spiced cookies cooling on a wire rack, a cracked vanilla pod and a scatter of toasted nuts and cinnamon sticks beside a dusting of flour, a single pendant lamp pooling warm light over dark butcher-block wood. Palette of golden-brown cookie crust, vanilla cream, toasted nut amber and warm cinnamon spice against deep kitchen shadow. Mood: warm, satisfied, settling — euphoric happy head-high mellowing into body-heavy ease, a last thread of oven steam rising, everything else still, a cozy midnight calm. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'GIRL SCOUT COOKIES' carved into the edge of the wooden cutting board. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
   },
   {
     canonicalName: "Gelato",
@@ -798,6 +825,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Hashy, incense-like musk with a faint citrus and pepper edge, understated but deep.",
     sourceConfidence: "medium",
+    tagline: "Amsterdam Standard",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Master Kush — an Amsterdam coffeeshop classic, Hindu Kush crossed with Skunk, two landrace lines made into an understated staple, earthy and rich with hashy incense musk and a faint citrus and pepper edge. The scene: a dim canal-side Amsterdam interior at night, an old brass incense burner trailing smoke on a dark windowsill, narrow gabled houses and a stone bridge glowing across the black canal beyond rain-flecked glass, a small dish of dried citrus peel and peppercorns beside it. Palette of incense brown, hashy bronze, smoky charcoal and a thin warm citrus glow against canal-night black. Mood: settled, mellow, drowsy — happy calm sliding toward sleep, incense smoke coiling slow, canal water barely moving under streetlamp reflections, deep evening hush. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'MASTER KUSH' engraved around the brass incense burner's rim. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
   },
 
   // ── Modern hype / exotics ──
@@ -2685,6 +2716,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Floral vanilla and sweet candy over an earthy, gassy kush base, dessert meeting OG.",
     sourceConfidence: "medium",
+    tagline: "Sweet And Heavy",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Pink Kush — a heavy West Coast OG Kush descendant with pink-hued pistils, beloved across British Columbia, rich and sweet with floral vanilla and candy over an earthy gassy kush base, dessert meeting fuel. The scene: a misty Pacific Northwest forest clearing at night, a single wild rose bush in pink bloom catching faint light, an old steel fuel canister leaning against a moss-furred stump, low fog drifting between towering dark firs, dew beading on petals. Palette of soft rose-pink, vanilla cream, deep forest-green and a cool petrol-blue gas sheen against night fog. Mood: soft, lush, sinking — euphoric calm easing into body-heavy sleep, fog rolling slow and low, petals utterly still, a quiet West Coast midnight. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'PINK KUSH' embossed into a small enamel tag wired to the rose bush stake. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
   },
   {
     canonicalName: "Mendo Breath",
