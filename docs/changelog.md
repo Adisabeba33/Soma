@@ -6,6 +6,57 @@ reads. Newest first.
 
 ---
 
+## Audit transparency, full breakdown + metadata cleanup (PRs #196, #199–#200, #202, #204)
+
+The audit now shows the *entire* raw-score formula, and the work shifted from
+scoring to strain-metadata consistency.
+
+- **Copy ↔ visual parity (#196).** The panel no longer truncates the match /
+  missing lists; what's on screen equals the copied text.
+- **Trace flavours + nutty audit (#199).** Extended trace tags to the taste
+  axis (`traceFlavors`). Tagged the doughy-nutty note across the Cookies
+  lineage — 2 full (Girl Scout Cookies, Forum Cookies) + 18 trace; cream/
+  vanilla/mint cuts left untouched (would double-count).
+- **Channel breakdown (#200).** Per-strain block showing each scoring channel's
+  0–100 score and its weighted contribution to raw: **Ref similarity**,
+  **Effect archetype fit** (the target-fit `effectContribution`, distinct from
+  the raw `effectMatch` token coverage), **Aroma**, **Flavor**. Surfaced the
+  two biggest but previously-hidden drivers — `ref` (similarity to favourites,
+  weight 0.34 in trust mode) and effect-archetype fit. Explained why Aspen OG
+  ties Stardawg despite a larger Critical Missing.
+- **Flat bonuses (#202).** A "Bonuses" line listing the non-zero flat terms
+  added to raw — **Family** (behavioural-family match; the big one),
+  Archetype, Sensory, Potency, Texture, Family-pref. Explained why Ghost OG
+  beats Aspen on all four channels yet scores lower: Aspen earns `Family +12`
+  (clean behavioural family) while Ghost's `body-heavy` drops it out for +0.
+
+Together the audit now decomposes raw fully: channels + bonuses + top matches
++ penalties + missing (critical/secondary/effect) + feedback taper.
+
+### Metadata consistency (#204) + dessert-cluster audit
+
+- **Biscotti (#204).** Was inferred as the savoury `garlic-funk` archetype (→
+  nighttime-indica) because the body-heavy rule matches `gassy+earthy+spicy`
+  before the sweet/creamy dessert check — and it genuinely lacked the creamy
+  note. Swapped `spicy` → `creamy` on aroma+flavour → now `dessert-couch-lock`,
+  correct, with its real creamy character. It was the only false positive among
+  sweet garlic-funk strains.
+- **Gelato 41 (#204).** The only one of its lineage siblings left out of the
+  archetype override map (Gelato, Gelato 33 are curated `smooth-expressive`).
+  Its `body-heavy` tag pushed inference to dessert-couch-lock → nighttime-indica,
+  costing the family bonus (60 vs Gelato's 76). Added to the overrides →
+  lands with its siblings.
+- **Dessert/gelato/sherbet/cookie cluster audit (72 strains).** Verified
+  consistent: desserts split sensibly into nighttime-indica (heavy),
+  contemplative-quiet (calm-creamy), daytime-functional (citrusy). Gelato 41
+  was the one real outlier. Two edges noted, deliberately **not** changed:
+  *Gelato 45* (its `uplifted`-not-`creative` effects give a dreamy texture →
+  contemplative-quiet is defensible; an override backfired to a null family),
+  and *Strawberry Shortcake* (smooth-expressive + dreamy texture → null family,
+  an engine-mapping edge, not data).
+
+---
+
 ## Audit Mode → a full engine-tuning tool (PRs #188–#190, #192, #195)
 
 Audit Mode used to say *that* a strain matched; now it shows *how much*, *what
