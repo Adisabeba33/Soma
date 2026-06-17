@@ -7327,4 +7327,176 @@ export const IDENTITIES: StrainIdentity[] = [
     lineageConfidence: "medium",
     sourceConfidence: "medium",
   },
+  {
+    canonicalName: "Mandarin Cookies",
+    lineage: {
+      parents: ["Forum Cookies", "Mandarin Sunset"],
+      cross: "Forum Cookies × Mandarin Sunset",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Sharp tangerine and orange-peel nose over doughy cookie base", "Sweet-gas undertone with a hint of pine on the back end", "Limonene-forward; bright, eye-opening lift", "Sativa-leaning hybrid energy that settles into functional ease"],
+    curatorNote:
+      "Born from the Forum Cookies cut bred into the citrus-soaked Mandarin Sunset, Mandarin Cookies opens like peeling a ripe clementine over a tray of fresh-baked cookies. The nose is all sharp tangerine and sweet orange zest, with a doughy, herbal cookie warmth underneath and the faintest whiff of sweet gasoline keeping it from being too pretty. On the palate that tangy citrus carries a nutty, almond-cookie finish. The arc is bright and cerebral up top, a frenzied little rush of motivation and creativity, before it loosens into a warm, relaxed body that never tips into sedation. A morning strain for people who like their wake-up loud, sweet, and useful.",
+    curatorQuote:
+      "Peel the clementine, raid the cookie jar.",
+    tagline: "Sweet-citrus wake-up",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a bright, citrus-forward sativa-leaning hybrid named Mandarin Cookies, intended as premium editorial poster art. The scene: a single mandarin orange caught mid-peel, its zest curling outward in a glowing spiral over a rustic wooden table dusted with cookie crumbs and powdered sugar, droplets of citrus oil suspended and catching the light. Palette of vivid tangerine and warm orange against doughy cream and golden-brown, with a thin thread of pale pine-green for lift. Light is clean early-morning sun raking low across the table, long soft shadows and a fresh, energetic glow with a faint motion of the peel still unspooling, suggesting the bright cerebral rush. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'MANDARIN COOKIES' baked subtly into the scene along the table edge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Red Velvet",
+    lineage: {
+      parents: ["Lemon Cherry Gelato", "Pina Acai"],
+      cross: "Lemon Cherry Gelato × Pina Acai",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Creamy vanilla overtone with tart cherry and berry", "Tropical, pastry-like sweetness from the Pina Acai side", "Subtle earthy-gas finish underneath the dessert notes", "Soothing, full-bodied with creative mental stimulation"],
+    curatorNote:
+      "A cross of the cult-favorite Lemon Cherry Gelato and the tropical Pina Acai, Red Velvet earns its name honestly: it smells and tastes like dessert. The nose is creamy and rich, tart cherries and a bouquet of fresh fruit folded into a vanilla-pastry sweetness, with just enough earthy gas at the bottom to keep it grown-up. The palate is smooth and berry-pastry sweet with a citrus edge. Effects come on soothing and full-bodied, a tingly sense of happiness and creative stimulation that lifts the mood before the body eases down into relaxation. A daytime indulgence for anyone who treats flavor as the main event.",
+    curatorQuote:
+      "Cake for the senses, calm for the head.",
+    tagline: "Dessert in bloom",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a creamy, dessert-sweet euphoric hybrid named Red Velvet, intended as premium editorial poster art. The scene: a luscious slice of deep-crimson red velvet cake with thick swirls of cream-cheese frosting, a glossy tart cherry perched on top and a few berries tumbling beside it, ribbons of vanilla cream caught mid-pour. Palette of rich velvet crimson and berry-red against soft vanilla cream and warm beige, with a faint earthy-brown shadow grounding it. Light is soft, diffuse daytime studio glow, warm and inviting, the cream catching gentle highlights with a slow luxurious drip of frosting suggesting the soothing, full-bodied ease. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'RED VELVET' baked subtly into the scene. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Jokerz",
+    lineage: {
+      parents: ["White Runtz", "Jet Fuel Gelato"],
+      cross: "White Runtz × Jet Fuel Gelato",
+    },
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Sour cheese-candy nose with creamy, floral sweetness", "Pungent diesel and peppery fuel on the exhale", "Caryophyllene-driven spice over candy and earth", "Relaxed, euphoric, focused before a sleepy drift"],
+    curatorNote:
+      "Compound Genetics' Jokerz crosses White Runtz with Jet Fuel Gelato, and the contradiction is the whole point. The nose is funky and unhinged, sour cheese and candy up front, creamy and floral underneath, then the jet fuel detonates on the exhale into pungent, peppery diesel. It opens smooth and sweet and finishes gassy and earthy, a flavor that keeps the palate guessing from first hit to last. The effect lands relaxed and euphoric with a surprising window of focus before it tips, slow and heavy, toward sleep. A nighttime indica for connoisseurs who want their candy with a dangerous edge.",
+    curatorQuote:
+      "Sweet on the inhale, gas on the punchline.",
+    tagline: "Candy with teeth",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a funky, gas-and-candy indica-dominant hybrid named Jokerz, intended as premium editorial poster art. The scene: a single twisted candy wrapper unfurling to reveal a glossy sweet inside, while a thin curl of dark fuel-vapor coils up behind it and catches a sodium-lamp glint, the whole thing balanced between playful and menacing. Palette of acid-yellow and electric purple candy tones against oily charcoal and diesel-blue shadow, a sour-cream cream accent threading through. Light is moody late-night, a single hard spotlight raking across the scene with deep blacks around it, slow drifting vapor giving a heavy, hypnotic motion that mirrors the relaxed-then-sleepy slide. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'JOKERZ' baked subtly into the scene. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Truffle Butter",
+    lineage: {
+      parents: ["Gelato", "Chocolate Kush"],
+      cross: "Gelato × Chocolate Kush",
+    },
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Caramel, coffee and dark-chocolate dessert notes", "Fruity, nutty inhale with a tart-gas, minty finish", "Dark berry edge over an earthy-fuel base", "Euphoric lift fading into sedative couch-lock"],
+    curatorNote:
+      "Truffle Butter folds Gelato into Chocolate Kush, and the result is the richest, most decadent corner of the menu. The nose is sweet and doughy with a dark berry edge over an earthy fuel base; the palate is where it shows off, rich chestnut and coffee on the inhale, mouthfuls of caramel and cocoa, then a lingering mint and tart-gas finish. Effects open uplifted and happy with a rush of euphoria before they melt, unhurried, into an unfocused, deeply sedative couch-lock. This is a late-night dessert strain, the one you reach for when the day is done and you want flavor and gravity in equal measure.",
+    curatorQuote:
+      "Caramel, cocoa, and a soft landing.",
+    tagline: "Decadent and done",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a rich, dessert-heavy sedative indica named Truffle Butter, intended as premium editorial poster art. The scene: a single dark chocolate truffle split open to reveal a molten caramel center, a thread of melted chocolate pulling away, a scatter of dark berries and coffee beans glistening on a slab of dark stone. Palette of deep cocoa brown and burnt caramel gold against near-black, with a bruised dark-berry purple and a faint mint-green glint. Light is warm, low and intimate, a single candle-like glow pooling on the truffle and falling off fast into shadow, slow viscous drip of caramel suggesting the melt into couch-lock. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'TRUFFLE BUTTER' baked subtly into the scene. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Granddaddy Pluto",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Flowery violet overtone with fruity blueberry", "Spicy anise and pipe-tobacco accents", "Sweet-fruity, faintly spicy palate", "Weighty, sedative nighttime calm with hunger"],
+    curatorNote:
+      "Granddaddy Pluto is a deep-purple nighttime indica that smells like a violet sachet tucked into a bowl of blueberries. The nose leads with flowery violet and ripe berry, threaded with spicy anise and a curl of pipe tobacco; the palate follows sweet and fruity with a peppery edge. The effect is unapologetically heavy, settling into mind and body a few minutes after the exhale with a weighty, dreamy calm that drifts toward hunger and then sleep. There is little pretense of productivity here. This is the last strain of the evening, for winding all the way down.",
+    curatorQuote:
+      "Violets, berries, and the long way down.",
+    tagline: "Deep space sleep",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sedative, berry-and-floral nighttime indica named Granddaddy Pluto, intended as premium editorial poster art. The scene: a cluster of dusky violets and plump blueberries floating in a dark cosmic field, a small distant planet hanging low like a fruit, faint stardust drifting between them. Palette of deep indigo and royal violet against bruised plum and near-black, with blueberry-blue highlights and a faint spice-amber glint. Light is dim, nocturnal and cosmic, a soft moon-blue rim glow with vast shadow around it, slow weightless drift of petals and dust suggesting the heavy, dreamy sedation of deep night. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'GRANDDADDY PLUTO' baked subtly into the scene. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Watermelon Gelato",
+    lineage: {
+      parents: ["Watermelon Zkittlez", "Gelato 45"],
+      cross: "Watermelon Zkittlez × Gelato 45",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Juicy watermelon and tropical fruit over creamy gelato", "Doughy cream and a faint floral gas accent", "Limonene and caryophyllene forward", "Instant uplift into focused, creative motivation"],
+    curatorNote:
+      "Watermelon Zkittlez bred into Gelato 45 gives Watermelon Gelato its summer-stand sweetness, all juicy melon and tropical fruit poured over a scoop of doughy, creamy gelato with a faint floral gas keeping it honest. The flavor delivers exactly what the nose promises, sweet melon and cream with a citrus brightness. The effect arrives the moment you exhale, an immediate body ease that gives way to a lifted, focused, happy motivation, the kind that suits creative work or easy conversation. A daytime hybrid for bright afternoons and good company.",
+    curatorQuote:
+      "Summer in a scoop.",
+    tagline: "Juicy and lifted",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a juicy, uplifting tropical hybrid named Watermelon Gelato, intended as premium editorial poster art. The scene: a glistening wedge of ripe watermelon balanced against a melting scoop of pale gelato, droplets of melon juice arcing through the air, a few tropical petals scattered nearby. Palette of vivid watermelon pink and red against fresh mint-green rind and creamy off-white, with a sunny citrus-yellow sparkle. Light is bright midday daytime sun, crisp and clean with sparkling highlights on the juice, lively splashing motion that mirrors the instant uplift and focused energy. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'WATERMELON GELATO' baked subtly into the scene. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Cherry Cola",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Spiced cherry-syrup cola profile", "Sweet fruity cherry over herbal, spicy dank", "Fresh spicy-berry accents", "Giggly, happy lift into a mellow sleepy finish"],
+    curatorNote:
+      "Cherry Cola pours exactly like its name, a spiced cherry-syrup cola in flower form. The nose is sweet and fruity, ripe cherries and fresh berry sitting over a spicy, herbal dank that gives it that fizzy soda-fountain character. The palate is much the same, sugary cherry drink with a peppery edge. The effect settles in a few minutes after the exhale, a happy, giggly lightness that edges out the noise before a gentle physical relaxation eases you toward a mellow, sleepy finish. A nighttime indica for unwinding with a smile rather than a thud.",
+    curatorQuote:
+      "Fizzy cherry, soft landing.",
+    tagline: "Spiced cherry pour",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a sweet, spiced cherry-cola nighttime indica named Cherry Cola, intended as premium editorial poster art. The scene: a tall frosted glass of dark cherry cola fizzing over crushed ice, a glossy cherry bobbing on top, ribbons of caramel-dark soda and rising bubbles caught mid-fizz against a moody bar-top. Palette of deep cherry red and cola brown against warm amber and near-black, with bright ruby highlights on the cherry. Light is dim, warm late-night glow, a single soft lamp catching the fizz and the cherry while shadow swallows the edges, lazy rising bubbles giving a slow, mellow motion toward the sleepy finish. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'CHERRY COLA' baked subtly into the scene. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Strawberry Guava",
+    lineage: {
+      parents: ["Strawberry Banana", "Papaya"],
+      cross: "Strawberry Banana × Papaya",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Loud strawberry-jam nose over ripe guava nectar", "Tropical custard note of papaya and banana cream", "Limonene-dominant with a crisp citrus sparkle", "Happy, relaxed body with euphoric creative buzz"],
+    curatorNote:
+      "Strawberry Banana crossed with Papaya makes Strawberry Guava one of the loudest noses on the shelf: a burst of strawberry jam layered over ripe guava nectar, candy-sweet like berry taffy, with a tropical custard whisper of papaya and banana cream underneath. Limonene runs the show, lending a crisp citrus sparkle that lifts the whole tropical tangle. The palate carries that berry-and-guava sweetness straight through. The effect is a happy, relaxed body high paired with a euphoric, creative cerebral buzz, easy enough for a daytime session whether you are making something or just enjoying the ride.",
+    curatorQuote:
+      "Loud fruit, easy company.",
+    tagline: "Loud tropical jam",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a loud, limonene-bright tropical hybrid named Strawberry Guava, intended as premium editorial poster art. The scene: a halved guava glowing pink at its core nestled against ripe strawberries, a drizzle of strawberry jam ribboning across them with a slice of papaya and a citrus twist catching the light. Palette of hot strawberry red and guava coral-pink against tropical papaya orange and a crisp citrus-yellow sparkle, with creamy off-white accents. Light is vivid, sun-drenched daytime, saturated and lively with juicy highlights, a bright splash of jam mid-pour giving energetic motion that mirrors the happy creative buzz. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'STRAWBERRY GUAVA' baked subtly into the scene. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Banana Runtz",
+    lineage: {
+      parents: ["Banana OG", "Runtz"],
+      cross: "Banana OG × Runtz",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Overripe banana-candy nose, almost artificial", "Creamy, doughy Runtz sweetness with a tart-gas finish", "Notes of tobacco and tree fruit underneath", "Uplifting, euphoric lift with relaxed body ease"],
+    curatorNote:
+      "Banana OG bred into Runtz gives Banana Runtz a nose that is unmistakable and a little ridiculous in the best way: overripe banana so sweet it reads almost artificial, like banana candy, riding on the creamy, doughy sweetness Runtz is famous for. The smoke is smooth and tropical with a distinct tart-gas finish and faint tobacco and tree-fruit shadows. The effect leans bright, an uplifting, euphoric mental energy with body tingles, balanced by enough relaxation to free up the shoulders without dragging you down. A daytime candy strain for keeping the mood light and the motivation flowing.",
+    curatorQuote:
+      "Banana candy, cranked to exotic.",
+    tagline: "Pure banana candy",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for a candy-sweet, uplifting exotic hybrid named Banana Runtz, intended as premium editorial poster art. The scene: a glossy spill of bright banana-yellow hard candies and a single peeled ripe banana, glittering sugar crystals scattered around them, a swirl of creamy ribbon weaving through the pile. Palette playful and exotic, vivid banana yellow against candy pastels and creamy white, with a faint tropical-gold sparkle. Light is bright, social and cheerful daytime glow, glossy candy-shell highlights everywhere, a lively tumbling motion of candies that mirrors the uplifting euphoric lift. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'BANANA RUNTZ' baked subtly into the scene. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Blue Sherbert",
+    lineage: {
+      parents: ["Blue Cookies", "Sunset Sherbet"],
+      cross: "Blue Cookies × Sunset Sherbet",
+    },
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Sweet blueberry and citrus over creamy vanilla", "Dessert-like berry sweetness with a pine-earth base", "Creamy Sunset Sherbet smoothness on the palate", "Uplifting, euphoric and creative before relaxation"],
+    curatorNote:
+      "The Plug Genetics' Blue Sherbert marries Blue Cookies with Sunset Sherbet, and the result is dessert with a berry heart. The nose is sweet and fruity, blueberry and citrus folded into creamy vanilla, with a quiet pine-and-earth backbone that gives it structure. The palate is smooth and creamy, berries and vanilla all the way through. The effect is bright and cerebral first, uplifting and euphoric with a creative, conversational energy that lifts the mood, before it eases gradually into a relaxed body. A versatile daytime hybrid that flatters both the working hours and the social ones.",
+    curatorQuote:
+      "Berries and cream with a clear head.",
+    tagline: "Berry cream lift",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) for an uplifting, berry-cream gelato hybrid named Blue Sherbert, intended as premium editorial poster art. The scene: a swirling scoop of pale violet-blue sherbet melting at the edges, studded with glistening blueberries and a curl of citrus zest, soft drips of vanilla cream pooling beneath it. Palette of cool blueberry blue and soft lavender against creamy vanilla white and a thread of pine-green and citrus-yellow. Light is bright, clear daytime studio glow, fresh and airy with gentle highlights on the cream, a slow elegant melt and lift of zest suggesting the uplifting creative buzz. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'BLUE SHERBERT' baked subtly into the scene. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "prompt",
+    sourceConfidence: "high",
+  },
 ];
