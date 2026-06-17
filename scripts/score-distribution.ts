@@ -76,6 +76,30 @@ broad.preferredEffects = ["euphoric", "happy", "relaxed", "uplifted"];
 const single = emptyProfile();
 single.favoriteStrains = ["GG4"];
 
+// --- Profile D: the user's real profile (daytime sativa-citrus) ---
+const user: TasteProfileInput = {
+  favoriteStrains: [
+    "Super Lemon Haze",
+    "Jack Herer",
+    "Durban Poison",
+    "Green Crack",
+    "Tangie",
+  ],
+  dislikedStrains: [],
+  likedTraits: ["loud-smell", "smooth", "frosty", "well-cured", "terpy"],
+  dislikedTraits: ["dry-flower", "weak-smell", "harsh", "bland-taste", "seedy"],
+  preferredAromas: ["herbal", "citrus", "sweet", "tropical", "floral"],
+  preferredFlavors: ["citrus", "sweet", "tropical", "herbal", "floral"],
+  preferredEffects: ["euphoric", "happy", "uplifted", "focused", "creative", "energetic"],
+  dislikedEffects: ["sleepy", "body-heavy", "couch-lock"],
+  texturePreferences: ["frosty", "well-cured"],
+  qualityPriorities: [],
+  primaryAroma: "citrus",
+  primaryEffect: "happy",
+  useTime: "daytime",
+};
+
 report("A: clustered favourites (GG4 / OG Kush / Sour Diesel)", clustered);
 report("B: broad questionnaire (sweet/fruity + happy/euphoric)", broad);
 report("C: single favourite (GG4)", single);
+report("D: YOUR PROFILE (Super Lemon Haze/Jack Herer/Durban/Green Crack/Tangie)", user);
