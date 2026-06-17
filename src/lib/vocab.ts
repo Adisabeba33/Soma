@@ -6,7 +6,7 @@
 // that affects how older audit entries should be interpreted (additive,
 // renamed, subdivided, etc). Audit readers pivot on this to apply
 // translation maps or filter to a single vocab era.
-export const VOCAB_VERSION = "v2";
+export const VOCAB_VERSION = "v3";
 
 export interface Option {
   value: string;
@@ -33,6 +33,12 @@ export const AROMAS: Option[] = [
   // v2: added so strains that tag vanilla aroma (Birthday Cake, Gelato
   // Cake, LA Kush Cake, Moby Dick) are addressable in the questionnaire.
   { value: "vanilla", label: "Vanilla" },
+  // v3: mint & grape exist on the palate (FLAVORS) but their *nose* had no
+  // token, so menthol-forward strains (Kush Mints, The Menthol) and grape
+  // strains parked the aroma in herbal/berry. Added so the aroma is
+  // addressable and re-taggable.
+  { value: "mint", label: "Mint" },
+  { value: "grape", label: "Grape" },
 ];
 
 export const FLAVORS: Option[] = [
