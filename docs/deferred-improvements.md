@@ -1350,19 +1350,26 @@ and didn't do is itself valuable context.
     explainable in the audit ("missed 4/5 of your aroma core").
   - **C. Cap ref/effect compensation** when aroma coverage is low — prevents a
     high `ref` from fully rescuing a strain that misses the nose.
-- **Blocker / hygiene first:** `nutty` is **not** a valid aroma (it's a FLAVOR;
-  absent from `AROMAS`). In the observed profile it sits in `preferredAromas`,
-  so it is **permanently** Critical-Missing on every strain — inflating the
-  miss count and skewing any "missed aroma fraction" math. Before tuning weights
-  on this signal, fix how `nutty` lands in the aroma list (likely the intake
-  parser miscategorising it) so the coverage fraction is honest.
+- **Blocker / hygiene first:** ✓ **RESOLVED.** `nutty` is **not** a valid aroma
+  (it's a FLAVOR; absent from `AROMAS`). It was landing in `preferredAromas`
+  because both intake paths wrote the merged aroma+flavour selection to *both*
+  dimensions, so flavour-only tokens (`nutty`, `mint`, `grape`) parked
+  **permanently** Critical-Missing on every strain — inflating the miss count
+  and skewing any "missed aroma fraction" math. Both intake surfaces now split
+  the union by vocab, so a flavour-only token can never reach `preferredAromas`:
+  the questionnaire (`taste-profile-form.tsx` — `preferredAromas` filtered by
+  `AROMA_VALUES`, `preferredFlavors` by `FLAVOR_VALUES`) and the describe parser
+  (`profile-from-description.ts:320–321` — adds to `aromaSet` only if
+  `AROMA_VALUES.has(token)`, to `flavorSet` only if `FLAVOR_VALUES.has(token)`).
+  The coverage fraction is now honest; the calibration work below can proceed on
+  clean miss counts.
 - **Why deferred:** the owner explicitly wants to **monitor 20–30 test
   sessions** before any weighting change — small, broad weight moves are easy to
   over-correct. Lever B needs its curve + threshold designed and validated.
 - **Trigger to revisit:** after the monitoring window, or if a clear pattern
   emerges where high-`ref` strains with weak aroma cores rank above true
-  aroma-identity matches. Fix the `nutty`-as-aroma issue independently and
-  sooner.
+  aroma-identity matches. (The `nutty`-as-aroma hygiene blocker is already
+  fixed — see above; only the weight-calibration part of #25 remains open.)
 
 ---
 
