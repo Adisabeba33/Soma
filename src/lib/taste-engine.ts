@@ -91,13 +91,22 @@ const FLAVOR_VOCAB = new Set(FLAVORS.map((o) => o.value));
 // favourite scores a little above one resembling their #4 — favourites are
 // read most-loved-first. Single-favourite profiles are unchanged (weight 1.0).
 // Multi-favourite score distributions shift; older v7 audits stay readable.
-export const ENGINE_VERSION = "v8";
+export const ENGINE_VERSION = "v9";
 
 const NEUTRAL = 52;
 
 // Bounded boost added to a strain's aroma sub-score when its nose matches
-// the user's forced-choice primary aroma family.
+// the user's forced-choice primary aroma family. Tier-scaled (deferred
+// improvements #21, "weighted tags" Variant A): the FULL bonus is earned
+// only when the user's loud note is the strain's DOMINANT character (it sits
+// in primaryAromas); a background (present) note earns PRESENT and a faint
+// (trace) note earns TRACE. Replaces the old binary "present anywhere → full
+// bonus", which over-rewarded strains carrying the loud note only in the
+// background (e.g. a spicy-dominant strain whose third note is citrus scored
+// the same loud-note boost as a true citrus-forward strain).
 const PRIMARY_AROMA_BONUS = 10;
+const PRIMARY_AROMA_BONUS_PRESENT = 4;
+const PRIMARY_AROMA_BONUS_TRACE = 1;
 
 const clamp = (n: number, min: number, max: number) =>
   Math.max(min, Math.min(max, n));
@@ -889,9 +898,21 @@ export function scoreStrain(
   const matchesPrimaryAroma =
     primaryTokens.length > 0 &&
     strain.aromas.some((a) => primaryTokens.includes(a));
-  const aromaScore = matchesPrimaryAroma
-    ? Math.min(100, aroma.score + PRIMARY_AROMA_BONUS)
-    : aroma.score;
+  // Tier-scaled loud-note bonus: credit the strain by HOW DOMINANT the user's
+  // forced-choice note is in it, not merely whether it's present. Take the
+  // best tier across the user's primary tokens. When no primary token is set
+  // (forced choice skipped) this is 0 — identical to the pre-#21 behaviour, so
+  // profiles without a loud note are unchanged. The boolean above is left as
+  // "present at all" because it still gates the cross-family mismatch damper
+  // below; only the bonus magnitude becomes tier-aware.
+  const loudNoteBonus = primaryTokens.reduce((best, tok) => {
+    let tierBonus = 0;
+    if (strain.primaryAromas?.includes(tok)) tierBonus = PRIMARY_AROMA_BONUS;
+    else if (strain.aromas.includes(tok)) tierBonus = PRIMARY_AROMA_BONUS_PRESENT;
+    else if (strain.traceAromas?.includes(tok)) tierBonus = PRIMARY_AROMA_BONUS_TRACE;
+    return Math.max(best, tierBonus);
+  }, 0);
+  const aromaScore = Math.min(100, aroma.score + loudNoteBonus);
   const resolvedFavorites = profile.favoriteStrains
     .map((f) => findStrain(f))
     .filter((s): s is StrainProfile => Boolean(s));
