@@ -1567,6 +1567,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Orange and tangerine over a berry-sweet base, juicy and clean.",
     sourceConfidence: "medium",
+    tagline: "Bright Brunch Buzz",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Mimosa, the Symbiotic Genetics Clementine × Purple Punch hybrid, a bright, citrus-forward brunch cocktail of orange and sparkling sweetness. Scene: a sunlit brunch table with a tall champagne flute of mimosa, ribbons of bubbles rising through orange juice, fresh clementines and a faint dusk of berry-purple in the background florals, dappled morning light on white linen. Palette and light: radiant orange and tangerine over sparkling champagne-gold, accented with soft berry-purple and clean fizzing whites; bright golden morning daytime light streaming low and warm. Mood and motion: uplifted, energetic and happy lift, bubbles streaming upward and juice glinting, the fresh optimism of a bright morning. Cinematic, painterly, high-contrast, premium editorial poster. The name MIMOSA etched elegantly into the frosted glass of the champagne flute. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Strawberry Banana",
@@ -1700,6 +1704,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "The nose is bright, juicy and clean, with almost none of the funk you'd get from a gassy hybrid.",
     sourceConfidence: "medium",
+    tagline: "Watermelon Lemon Splash",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Melonade, the Cannarado Watermelon Zkittlez × Lemon Tree sativa, a juicy, candy-bright cross of ripe watermelon and sharp lemonade. Scene: a sun-soaked summer scene of split ripe watermelon dripping with juice beside a frosted pitcher of lemonade, lemon slices and melon balls glistening, droplets and a playful splash frozen mid-air. Palette and light: vivid watermelon-pink and crimson with juicy melon-green rind, splashed against zesty lemon-yellow and sparkling clear-glass highlights; brilliant summer daytime sun making every droplet glow. Mood and motion: uplifted, energetic and happy buzz, juice splashing and bubbles rising, the joyful brightness of a hot summer day. Cinematic, painterly, high-contrast, premium editorial poster. The name MELONADE painted in bold juicy lettering across the wet melon rind. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
 
   // ── Haze / sativa classics ──
@@ -1864,6 +1872,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Toffee and burnt caramel over earthy pine and a hint of citrus, distinctive and rich.",
     sourceConfidence: "medium",
+    tagline: "Golden Coast Legend",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Acapulco Gold, the legendary Mexican landrace sativa named for its golden resinous buds, warm with toffee, caramel and earthy spice. Scene: the sun-drenched Acapulco coastline at golden hour, dramatic cliffs and turquoise Pacific bay below a sky burning amber-gold, sun-cured golden grasses and agave on the headland, warm light gilding everything. Palette and light: rich golden-amber and burnt-caramel toffee over earthy woody brown and warm pine, with a faint citrus-gold sparkle on the sea; intense low golden daytime sun saturating the whole scene. Mood and motion: uplifted, energetic and euphoric warmth, golden grasses swaying and surf glinting far below, the radiant glow of a bright tropical afternoon. Cinematic, painterly, high-contrast, premium editorial poster. The name ACAPULCO GOLD carved into a sun-bleached cliffside stone, edges catching the gold light. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Chocolope",
@@ -2357,6 +2369,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Fresh lemon and citrus over a sour diesel funk, zesty with a fuel edge.",
     sourceConfidence: "medium",
+    tagline: "Sharp Lemon Funk",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Lemon Tree, a bright Lemon Skunk × Sour Diesel hybrid with a sunlit citrus character and a gassy diesel undercurrent. Scene: a sun-flooded Mediterranean courtyard with a single laden lemon tree, ripe lemons glowing against glossy leaves, a cracked stone wall and a faint shimmer of diesel-fuel haze rising from warm flagstones. Palette and light: vivid lemon-yellow and zesty chartreuse over earthy stone ochre and sweet honeyed amber, with a sour metallic glint of blue-grey fuel; high midday sun casting crisp hard shadows. Mood and motion: relaxed yet euphoric and uplifted energy, leaves and citrus fronds stirring in a focused breeze, the bright clarity of full daytime. Cinematic, painterly, high-contrast, premium editorial poster. The name LEMON TREE carved into the courtyard's stone wall, weathered and sun-bleached. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Grape Pie",
@@ -2495,6 +2511,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Bright lemon and vanilla cake with a faint gas, smooth rather than sharp.",
     sourceConfidence: "low",
+    tagline: "Sweet Lemon Comfort",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Lemon Pound Cake, a gentle Lemon Skunk × Cheese hybrid with the warm, doughy character of a citrus dessert. Scene: a cozy artisan bakery interior, a golden lemon pound cake cooling on a marble counter, lemon icing dripping in glossy ribbons, vanilla beans and dusted sugar scattered nearby, soft steam curling from the fresh loaf. Palette and light: buttery golden-yellow and creamy vanilla ivory over warm caramel and soft lemon-zest brightness, with a faint tangy gas-blue shadow; warm honeyed daylight pouring through a frosted bakery window. Mood and motion: uplifted, happy and energetic ease, sugar dust drifting and icing slowly flowing, the bright cheer of a mid-morning daytime kitchen. Cinematic, painterly, high-contrast, premium editorial poster. The name LEMON POUND CAKE piped in delicate lemon icing across the cake's golden top. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Cotton Candy Kush",
@@ -4517,6 +4537,10 @@ export const IDENTITIES: StrainIdentity[] = [
       "Trinity is a Pacific Northwest clone-only sativa — a rare, lightly documented cut prized for a clean pine-and-citrus nose. The smell is bright and fresh: pine and lemon over a sweet, earthy base. The effect is up and clear — an uplifting, energetic head with a smooth body, daytime-friendly. It's terpy and smooth, and it shows up behind Green Ribbon and Crystal Locomotive. For clean NW sativa character, Trinity is a quiet parent line.",
     curatorQuote: "Bright pine and lemon, clean and uplifting.",
     sourceConfidence: "low",
+    tagline: "Misty Coast Clone",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Trinity, a rare Pacific Northwest clone-only sativa with a clean pine-and-citrus nose, prized and lightly documented. Scene: a misty Oregon coastline at the edge of an old-growth pine forest, fog rolling between towering evergreens onto a rocky shore, a single weathered sea-stack rising from the surf, bright lemon light breaking through the mist. Palette and light: deep pine-green and misty silver-grey over earthy driftwood-brown, lifted by a clean lemon-citrus glow and skunky slate-blue; cool diffuse Pacific-Northwest daytime light cutting through coastal fog. Mood and motion: uplifted, euphoric and clear energy, fog drifting and waves rolling, the fresh crispness of a bright coastal day. Cinematic, painterly, high-contrast, premium editorial poster. The name TRINITY carved into a salt-weathered driftwood plank on the shore. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Lemon G",
@@ -5736,6 +5760,10 @@ export const IDENTITIES: StrainIdentity[] = [
       "Luang Prabang is a Laotian landrace from the highlands of northern Laos — a bright, electric equatorial sativa prized by Southeast Asian landrace hunters. The nose is sharp and clean: citrus and spice over an earthy, herbal base. The effect is fast and heady — an energetic, almost buzzy cerebral high with no body, a pure daytime landrace. It's long-flowering and moderate, a heritage rarity. For old-world Laotian sativa, Luang Prabang is a source.",
     curatorQuote: "Citrus and spice over herbal earth, a highland Lao sativa.",
     sourceConfidence: "medium",
+    tagline: "Mekong Temple Sativa",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Luang Prabang, a Laotian landrace sativa from the highlands of northern Laos, bright, electric and equatorial. Scene: the temple town of Luang Prabang on the Mekong, gilded tiered temple roofs and ornate stupas rising above misty river bends, longboats on jade-green water, lemongrass and herbal foliage in the foreground. Palette and light: bright citrus-gold and temple-saffron over jade river-green and earthy teak-brown, with spicy ochre and herbal sage accents; clear bright Southeast-Asian daytime sun with soft river haze. Mood and motion: energetic, creative and euphoric head-lift, incense and river mist drifting, palm and lemongrass swaying in a warm breeze, the luminous clarity of midday. Cinematic, painterly, high-contrast, premium editorial poster. The name LUANG PRABANG carved into a gilded temple lintel above the riverside steps. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Aceh",
@@ -6107,6 +6135,10 @@ export const IDENTITIES: StrainIdentity[] = [
       "Ethiopian Highland is an East African landrace from the highlands of Ethiopia — a clean, spicy equatorial sativa with deep heritage. The nose is earthy and bright: spice and sweetness with a faint citrus. The effect is energetic and clear — an uplifting, creative, social head with no body, a pure daytime landrace. It's hardy and moderate, prized by collectors for its rarity. For old-world African sativa genetics, Ethiopian Highland is a source.",
     curatorQuote: "Spice and sweetness with a faint citrus, a highland sativa.",
     sourceConfidence: "medium",
+    tagline: "Highland Coffee Country",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Ethiopian Highland, an East African landrace sativa from the high plateaus of Ethiopia, earthy, spicy and rooted in deep coffee-country heritage. Scene: a sweeping Ethiopian highland plateau, terraced coffee fields and acacia trees on red-earth ridges, distant escarpments fading into thin highland air, scattered ripe coffee cherries glowing on a stone ledge. Palette and light: warm earthen terracotta and deep umber over spicy cinnamon-brown and woody olive-green, lifted by a faint citrus-gold horizon; bright thin high-altitude daytime sun with long clean shadows. Mood and motion: energetic, creative and clear focus, grasses rippling across the plateau and a fresh highland wind, the crisp brilliance of midday. Cinematic, painterly, high-contrast, premium editorial poster. The name ETHIOPIAN HIGHLAND carved into a weathered basalt boulder on the ridge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Sinai",
@@ -6541,6 +6573,10 @@ export const IDENTITIES: StrainIdentity[] = [
       "Neville's Haze is Nevil Schoenmakers' towering haze — Haze crossed back into Northern Lights #5 for a more vigorous, even more electric sativa. The nose is sharp and clean: citrus and pine over a spicy, incense-like base. The effect is a long, soaring, almost overwhelming cerebral high — energetic and psychedelic with no body. It's a slow, demanding grow and very potent, the engine behind Ghost Train Haze and Hawaiian Snow. For maximum haze intensity, Neville's Haze is a legend.",
     curatorQuote: "Incense, citrus and pine — towering, racy Haze.",
     sourceConfidence: "high",
+    tagline: "Electric Haze Legend",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Neville's Haze, Nevil Schoenmakers' towering near-pure Haze × Northern Lights #5 sativa rooted in Dutch seed-bank heritage, sharp, spicy and incense-like. Scene: a soaring cathedral-tall haze plant silhouette beside a weathered Dutch seed-bank altar, brass apothecary jars and curling ribbons of fragrant incense smoke against tall pine boughs, a clean northern sky. Palette and light: bright citrus-yellow and deep pine-green over spicy clove-brown and herbal grey-violet, with luminous incense-smoke whites; clean high-key daytime light cutting sharp through the smoke. Mood and motion: energetic, euphoric, creative and electric head-rush, incense spiralling fast upward and pine swaying, the vivid clarity of full day. Cinematic, painterly, high-contrast, premium editorial poster. The name NEVILLE'S HAZE stencilled in austere serif across the worn altar plinth. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Death Star",
@@ -6751,6 +6787,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Citrus and tropical fruit over a spicy haze base.",
     sourceConfidence: "medium",
+    tagline: "Frosty Tropical Soar",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Hawaiian Snow, the Green House Seed Co. Hawaiian × Laos × Haze sativa, a frosty, soaring tropical haze of contrasts. Scene: a towering Hawaiian volcanic peak crowned with glittering snow-frost above lush emerald jungle slopes, tropical fruit and pine fronds in the foreground rimed with sparkling crystalline frost, a faint warm haze drifting over the caldera. Palette and light: vivid tropical teal and emerald with sweet papaya-orange, set against icy frost-white and pale glacial blue, edged with pine-green and a spicy amber glow; brilliant equatorial daytime sun glinting off frost. Mood and motion: energetic, euphoric and uplifting head-soar, frost crystals shimmering and tropical leaves swaying fast in trade winds, the dazzling clarity of full day. Cinematic, painterly, high-contrast, premium editorial poster. The name HAWAIIAN SNOW etched in frost-rime across a dark volcanic rock face. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Cataract Kush",
