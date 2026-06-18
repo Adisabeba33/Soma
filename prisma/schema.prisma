@@ -14,6 +14,13 @@ datasource db {
 model User {
   id        String   @id @default(uuid())
   email     String?  @unique
+  // Account fields (real registration). All optional so existing anonymous-
+  // cookie users stay valid; a User becomes "registered" when username/
+  // passwordHash are set on its existing row, so its history carries over.
+  // emailVerified stays null until the user confirms via the emailed link.
+  username      String?   @unique
+  passwordHash  String?
+  emailVerified DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -23,6 +30,24 @@ model User {
   strainFeedback   StrainFeedback[]
   unknownStrains   UnknownStrain[]
   runAudits        RunAudit[]
+  authTokens       AuthToken[]
+}
+
+// Single-use, hashed tokens for email verification and password reset. The raw
+// token is emailed to the user; only its sha256 hash is stored, so a DB leak
+// cannot be used to verify an email or reset a password. Deleted on use, and
+// ignored past expiresAt.
+model AuthToken {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  type      String // "email_verify" | "password_reset"
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
 }
 
 model TasteProfile {

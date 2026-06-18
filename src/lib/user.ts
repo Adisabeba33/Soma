@@ -1,6 +1,7 @@
 import { randomUUID } from "crypto";
 import { cookies } from "next/headers";
 import { prisma } from "./prisma";
+import { SESSION_COOKIE, verifySessionToken } from "./session";
 
 export const SOMA_UID_COOKIE = "soma_uid";
 
@@ -11,11 +12,24 @@ const COOKIE_OPTIONS = {
   maxAge: 60 * 60 * 24 * 365,
 };
 
-// Resolves the anonymous SOMA visitor. No auth in the MVP — a signed
-// cookie keeps a person's taste profile and history tied to them. The
-// cookie is set lazily on the first API call that needs it.
+// Resolves the current SOMA visitor.
+//   1. A valid authenticated session cookie wins — that's a registered user.
+//   2. Otherwise the anonymous cookie keeps a person's taste profile and
+//      history tied to them (set lazily on first use). When a visitor later
+//      registers, the account is written onto this same User row, so the
+//      anonymous history carries over with no migration.
 export async function getUserId(): Promise<string> {
   const store = await cookies();
+
+  const session = store.get(SESSION_COOKIE)?.value;
+  if (session) {
+    const uid = verifySessionToken(session);
+    if (uid) {
+      const user = await prisma.user.findUnique({ where: { id: uid } });
+      if (user) return uid;
+    }
+  }
+
   const existing = store.get(SOMA_UID_COOKIE)?.value;
 
   if (existing) {
