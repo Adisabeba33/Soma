@@ -75,12 +75,12 @@ async function main() {
   }
 
   // Rounded squircle (transparent corners) for favicon / apple / manifest "any".
-  await compose(true, 0.66, "src/app/icon.png", 512);
-  await compose(true, 0.66, "src/app/apple-icon.png", 180);
-  await compose(true, 0.66, "public/icon-192.png", 192);
-  await compose(true, 0.66, "public/icon-512.png", 512);
+  await compose(true, 0.76, "src/app/icon.png", 512);
+  await compose(true, 0.76, "src/app/apple-icon.png", 180);
+  await compose(true, 0.76, "public/icon-192.png", 192);
+  await compose(true, 0.76, "public/icon-512.png", 512);
   // Maskable: full-bleed cream, wordmark a touch smaller for the safe zone.
-  await compose(false, 0.56, "public/icon-maskable-512.png", 512);
+  await compose(false, 0.64, "public/icon-maskable-512.png", 512);
 }
 
 main().catch((e) => {
