@@ -1924,6 +1924,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Fresh lemon and citrus over a sweet, skunky base, clean and lively.",
     sourceConfidence: "high",
+    tagline: "Zest Meets Funk",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Lemon Skunk, a bright lemon-zest sativa-leaning hybrid with a clean tangy snap riding over earthy skunk funk. A burst of fresh-cut lemons mid-explosion, peel curling and citrus mist spraying in a sharp electric arc above a dim, mossy cellar-funk underbase. Palette of vivid electric lemon yellow and citrus zest against shadowy musky greens and earthy browns, lit by a crisp high-key citrus flash cutting through low funk-dark gloom. Mood is energetic, uplifted and lively, motion a sharp zesty spray of droplets and peel, lit by bright daytime light catching the spray. Cinematic, painterly, high-contrast, premium editorial poster. The name LEMON SKUNK is stencilled in bold across a battered yellow zest-stained crate in the foreground. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "NYC Diesel",
@@ -2704,6 +2708,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Orange and citrus over a skunky, earthy base, clean and classic.",
     sourceConfidence: "medium",
+    tagline: "Classic Dutch Citrus",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Orange Bud, a classic Dutch skunk orange-citrus hybrid, a stabilised 1980s Skunk selection with vintage Amsterdam swagger. A bright stack of fresh oranges spilling across a sunlit Dutch market crate beside a canal-side brick wall, peel and pith catching crisp light. Palette of vivid bright orange and citrus gold over warm skunky earth-browns against clean Dutch daylight neutrals, lit by sharp clear northern sun. Mood is uplifted, happy and energetic, motion a bright rolling tumble of oranges, lit by clear daytime light of a brisk market morning. Cinematic, painterly, high-contrast, premium editorial poster. The name ORANGE BUD is stencilled in bold vintage type across the front of the wooden market crate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Sour Tangie",
@@ -4001,6 +4009,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Pineapple and citrus over a light floral haze.",
     sourceConfidence: "medium",
+    tagline: "Stroke of Magic",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Cinderella 99 \"Cindy\", a dreamy fairytale sativa with the air of a glass-slippered heroine slipping away at the turn of midnight. A radiant golden coach drawn through a moonlit cobblestone courtyard, pumpkin-curved and lantern-lit, trailing a comet-tail of pineapple-gold sparks and drifting petals. Palette of sweet pineapple yellow, ripe tropical-fruit amber and citrus blush against deep twilight violets, lit by a warm shimmering fairy-glow. Mood is euphoric, uplifted and creatively buoyant, motion sweeping and weightless, lit by clear daytime light breaking gold at dawn's edge. Cinematic, painterly, high-contrast, premium editorial poster. The name CINDERELLA 99 is carved into the gilded coach door panel as ornate raised filigree, part of the scene itself. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Vortex",
@@ -4738,6 +4750,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Honeyed grass and citrus with a faint skunk.",
     sourceConfidence: "high",
+    tagline: "Mountain Sun Legend",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Colombian Gold, a legendary Santa Marta golden landrace with the dignity of an old equatorial heirloom. Terraced hillside fields on the Sierra Nevada de Santa Marta coast, where dry honeyed grasses ripple down toward a glittering Caribbean shoreline below sun-bronzed peaks. Palette of golden honey amber, sun-baked earth ochre, citrus highlights and a faint smoky skunk-green undertone, against deep coastal blues, lit by hard tropical midday sun. Mood is energetic, uplifted and clear-headed, motion warm and wind-swept across swaying grass, lit by bright daytime light blazing high overhead. Cinematic, painterly, high-contrast, premium editorial poster. The name COLOMBIAN GOLD is stencilled into a weathered wooden coastal trail marker planted in the foreground earth. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Hawaiian",
@@ -4749,6 +4765,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Pineapple and citrus over a light, sweet base.",
     sourceConfidence: "medium",
+    tagline: "Endless Island Summer",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Hawaiian, a classic sweet tropical island sativa with the easy radiance of an endless summer. A lush emerald Hawaiian valley folding down to a turquoise lagoon, waterfalls threading volcanic ridges, palms and ripe tropical fruit catching the light. Palette of vivid pineapple yellow, ripe mango orange, citrus bright and saturated jungle greens against turquoise sea and warm sky, lit by glowing tropical sunshine. Mood is happy, uplifted and euphoric, motion gentle and breezy with swaying fronds and mist, lit by clear daytime light of a bright island afternoon. Cinematic, painterly, high-contrast, premium editorial poster. The name HAWAIIAN is carved into a smooth volcanic-stone marker at the valley mouth, mossed at the edges. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "California Orange",
@@ -4813,6 +4833,10 @@ export const IDENTITIES: StrainIdentity[] = [
       "Nevil's Wreck is a pungent haze-leaning cut — a sharp, citrus-pine sativa that Rare Dankness used to build Ghost Train Haze. The nose is loud and clean: citrus and pine over a spicy, incense-like base. The effect is a fast, soaring cerebral rush — energetic and heady, potent enough to overwhelm. It's frosty and very strong, the sativa half behind one of the most potent strains around. For intense haze genetics, Nevil's Wreck is a key parent.",
     curatorQuote: "Citrus and pine over sharp spice, classic Haze.",
     sourceConfidence: "low",
+    tagline: "Sharp and Soaring",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Nevil's Wreck, a sharp piney-spicy haze cut, an Arcata Trainwreck crossed with Neville's Haze, loud and clean and soaring. A dense towering pine forest split by a shaft of hard light, sharp green needles and drifting resin-incense smoke amid jagged shattered timber and a faint distant rail-line wreck of splintered wood. Palette of sharp pine green and citrus-bright accents over spicy incense-greys against deep forest shadow, lit by a piercing cold light beam. Mood is fast, soaring and cerebral, motion sharp rushing air and snapping needles, lit by bright daytime light cutting hard through the canopy. Cinematic, painterly, high-contrast, premium editorial poster. The name NEVIL'S WRECK is carved deep into a splintered fallen pine trunk in the foreground. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Las Vegas Purple Kush",
@@ -5202,6 +5226,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Orange and mango candy over a light earthy base.",
     sourceConfidence: "medium",
+    tagline: "Sweet Little Riot",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Jilly Bean, a playful orange-and-mango jelly-bean candy hybrid with the mischief of a sugar rush. A toppling glass candy jar spilling a glossy cascade of orange and mango jelly beans across a polished countertop, each candy catching tiny reflected highlights like wet glass. Palette of bright orange, mango gold, sugary candy-pink and tropical fruit tones against creamy warm neutrals, lit by bouncy bright bonbon-shop light. Mood is uplifted, happy and creatively giddy, motion bouncing and scattering mid-tumble, lit by cheerful daytime light flooding a candy-shop window. Cinematic, painterly, high-contrast, premium editorial poster. The name JILLY BEAN is painted in glossy enamel script across the curved glass face of the candy jar. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Holy Grail Kush",
@@ -6701,6 +6729,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Ripe mango and tropical fruit over a spicy haze base.",
     sourceConfidence: "medium",
+    tagline: "Ripe and Soaring",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Mango Haze, a ripe-mango sativa rising through a warm spicy haze. A tropical mango grove heavy with sun-blushed ripe fruit, golden pollen-haze and incense-like smoke drifting in soft beams between broad leaves. Palette of ripe mango orange and sunset gold, sweet tropical tones and warm spice-amber against hazy soft greens, lit by a glowing diffused haze of low warm light. Mood is euphoric, uplifted and clear-headed creative, motion slow drifting smoke and warm rising air, lit by bright daytime sun filtered to a hazy tropical glow. Cinematic, painterly, high-contrast, premium editorial poster. The name MANGO HAZE is carved into the weathered bark of a leaning grove tree trunk. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Highland Thai",
@@ -6735,6 +6767,10 @@ export const IDENTITIES: StrainIdentity[] = [
       "Manipuri is a landrace from the state of Manipur in northeast India — a clean, spicy equatorial sativa from the hills near the Myanmar border. The nose is earthy and bright: spice and sweetness with a faint citrus. The effect is energetic and clear — an uplifting, creative head with no body, a pure daytime landrace. It's hardy and moderate, prized by collectors for its rarity. For old-world northeast Indian sativa, Manipuri is a source.",
     curatorQuote: "Sweet spice and citrus, a north-east Indian hill sativa.",
     sourceConfidence: "medium",
+    tagline: "Highland Spice Light",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Manipuri, a clean spicy equatorial landrace from the Manipur hills of northeast India near the Myanmar border. Layered green Himalayan foothills wreathed in cool morning mist, terraced ridgelines and wild flowering hill-slopes rolling toward distant blue peaks. Palette of floral pinks and pale citrus over earthy hill-greens and warm spice-browns against soft Himalayan blue-greys, lit by clean cool mountain light. Mood is energetic, uplifted and bright-minded, motion drifting valley mist and swaying highland blooms, lit by clear daytime light of a crisp hill morning. Cinematic, painterly, high-contrast, premium editorial poster. The name MANIPURI is carved into a mossy stone hillside boundary marker among the wild flowers. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Lemon Thai",
