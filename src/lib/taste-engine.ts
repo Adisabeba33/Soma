@@ -267,12 +267,22 @@ export function inferStrain(name: string): StrainProfile {
   };
 }
 
-export function resolveStrain(name: string): {
+export function resolveStrain(
+  name: string,
+  // Optional pre-resolved profiles for strains not in the catalog — e.g. the
+  // AI-inference layer (strain-inference-ai.ts) resolves unknown menu names at
+  // the API boundary and passes them in here, keyed by normalizeStrainName.
+  // When absent, behaviour is identical to before: catalog hit, else the
+  // deterministic keyword inferStrain fallback.
+  overrides?: Map<string, StrainProfile>,
+): {
   strain: StrainProfile;
   known: boolean;
 } {
   const known = findStrain(name);
   if (known) return { strain: known, known: true };
+  const override = overrides?.get(normalizeStrainName(name));
+  if (override) return { strain: override, known: false };
   return { strain: inferStrain(name), known: false };
 }
 
@@ -860,8 +870,9 @@ export function scoreStrain(
   rawName: string,
   profile: TasteProfileInput,
   feedback: FeedbackSignal[] = [],
+  overrides?: Map<string, StrainProfile>,
 ): StrainMatch {
-  const { strain, known } = resolveStrain(rawName);
+  const { strain, known } = resolveStrain(rawName, overrides);
 
   // Keep each preferred list to its own vocab — a flavour-only token parked in
   // preferredAromas (or vice-versa) can never match and would otherwise show
@@ -1513,6 +1524,7 @@ export function analyze(
   strainNames: string[],
   profile: TasteProfileInput,
   feedback: FeedbackSignal[] = [],
+  overrides?: Map<string, StrainProfile>,
 ): AnalysisResult {
   const seen = new Set<string>();
   const recommendations: StrainMatch[] = [];
@@ -1523,7 +1535,7 @@ export function analyze(
     const key = normalizeStrainName(trimmed);
     if (!key || seen.has(key)) continue;
     seen.add(key);
-    recommendations.push(scoreStrain(trimmed, profile, feedback));
+    recommendations.push(scoreStrain(trimmed, profile, feedback, overrides));
   }
 
   // Primary sort by visible matchScore; tie-breaker on unclampedScore so
