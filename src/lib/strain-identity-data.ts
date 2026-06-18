@@ -1742,6 +1742,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Lemon and citrus over a spicy, herbal haze, clean and lively.",
     sourceConfidence: "high",
+    tagline: "Three-Time Champion",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Super Silver Haze, the Green House three-time Cup champion, an electric Amsterdam classic glittering with silvery frost. The scene is a tarnished silver trophy cup on a dark velvet plinth, its surface frosted with a crystalline silver shimmer, lemon-peel slivers and a faint skunky-spiced haze drifting around it under a single dramatic spotlight. The palette is cold silver and frosted platinum over deep charcoal, sparked by lemon-citrus gold and a spicy herbal green glow, lit by sharp electric highlights and silvery resin sheen. The mood is uplifted, energetic, focused and euphoric, charged and lively with a frosted electric crackle, set in bright clear daytime light breaking the shadows. Cinematic, painterly, high-contrast, premium editorial poster. The name SUPER SILVER HAZE is embossed across the face of the silver trophy cup. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Ghost Train Haze",
@@ -1845,6 +1849,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Pineapple and citrus over a light earthy base, sunny and clean.",
     sourceConfidence: "medium",
+    tagline: "Aloha In Bloom",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Maui Wowie, the 1960s-70s Hawaiian landrace classic, shorthand for tropical, easygoing island sun. The scene is a black volcanic Maui shoreline where turquoise surf meets dark lava rock, a halved pineapple resting on weathered driftwood and palm fronds swaying against a green ridge above the beach. The palette is tropical turquoise and pineapple-gold over volcanic black and sweet fruity coral, washed in bright clean island light and salt sparkle. The mood is uplifted, energetic, happy and creative, breezy and buoyant with rolling surf motion, lit by brilliant tropical daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name MAUI WOWIE is carved into the weathered driftwood beside the pineapple. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Acapulco Gold",
@@ -4556,6 +4564,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Lemon and citrus over a soft, sweet herbal base.",
     sourceConfidence: "low",
+    tagline: "Pure Lemon Pop",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Lemonnade, the bright sweet Cookies-affiliated lemon line built around clean, zesty citrus joy. The scene is a frosted glass bottle of homemade lemonade on a sun-bleached counter, condensation beading down its sides, a coil of lemon peel curling out of the neck while fizzing soda bubbles catch the light. The palette is electric lemon-yellow and sugar-white over soft herbal sage-green, washed in clean fizzy highlights and zesty citrus sparkle. The mood is uplifting, happy and energetic, full of effervescent upward motion, lit by bright midday daytime sun pouring through the frame. Cinematic, painterly, high-contrast, premium editorial poster. The name LEMONNADE is etched into the frosted glass of the bottle, reading clearly across its curved face. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Garlic Juice",
@@ -4668,6 +4680,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Citrus and incense over a spicy, earthy base.",
     sourceConfidence: "high",
+    tagline: "Where It Began",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Haze, the original 1970s Santa Cruz landrace blend that became the spine of nearly every modern sativa. The scene is a sun-drenched Santa Cruz coastal bluff at golden hour, rolling fog drifting off the Pacific over wind-bent grasses and weathered cliffs, distant surf glowing through a luminous golden mist. The palette is golden amber and foggy coastal gold over earthy ochre and bright citrus-incense yellow, lit by warm sun-drenched light cutting through drifting sea haze. The mood is energetic, euphoric, uplifted and creative, expansive and soaring with slow rolling fog motion, under luminous daytime light. Cinematic, painterly, high-contrast, premium editorial poster. The name HAZE is carved into a weathered wooden bluff-top marker post overlooking the sea. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Ghost OG",
@@ -6037,6 +6053,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Grapefruit and citrus over a sweet, light base.",
     sourceConfidence: "medium",
+    tagline: "Ruby Citrus Rush",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Grapefruit, a bright Cinderella 99-derived citrus sativa bursting with juicy pink-grapefruit flavour. The scene is a sun-drenched citrus orchard at peak ripeness, a single ruby grapefruit sliced open in the foreground revealing glistening pink segments, dewy leaves and laden branches glowing behind it. The palette is ruby-pink and blush-coral over sweet citrus gold and tropical leaf-green, washed in juicy, zesty highlights and dewy orchard sparkle. The mood is uplifted, happy, euphoric and energetic, fresh and tingling with bright upward fizz, lit by clear midday daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name GRAPEFRUIT is branded into the wooden crate of fruit beside the sliced grapefruit. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Cherry Bomb",
@@ -6414,6 +6434,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Spice and citrus over a herbal base.",
     sourceConfidence: "medium",
+    tagline: "Temple Of Light",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Cambodian, a clean, electric equatorial landrace carrying Angkor temple and Southeast Asian heritage. The scene is the weathered stone towers of an Angkor temple at the edge of jungle, carved sandstone reliefs and a serene moss-softened doorway framed by floral creepers and tropical foliage in still morning air. The palette is sun-warmed sandstone ochre and deep jungle green over soft floral pink-white and earthy spice-brown, lit by clear equatorial light filtering through the canopy. The mood is energetic, euphoric, focused and uplifted, a bright soaring head-high stillness with shafts of rising light, set in crisp daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name CAMBODIAN is chiselled into the carved sandstone lintel above the temple doorway. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Brazilian",
@@ -6425,6 +6449,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Honeyed fruit and spice over a herbal base.",
     sourceConfidence: "medium",
+    tagline: "Atlantic Coast Heat",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Brazilian, a sweet, energetic South American landrace with Atlantic-forest and Rio coastal heritage. The scene is a lush Mata Atlantica hillside tumbling down toward a sweeping Rio coastline, granite peaks and palm canopy above a curving golden beach, tropical fruit and spice plants catching light along the slope. The palette is verdant rainforest green and honeyed fruit-gold over warm coastal sand and spiced amber, lit by humid tropical sunlight and shimmering ocean haze. The mood is energetic, uplifted, euphoric and creative, alive with carnival-bright buoyancy and rolling sea breeze, under vivid daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name BRAZILIAN is carved into a weathered wooden trail sign on the forest hillside. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "South Indian",
@@ -6647,6 +6675,10 @@ export const IDENTITIES: StrainIdentity[] = [
       "Highland Thai is a mountain-grown phenotype of the Thai landrace — a bright, soaring sativa from the cooler highlands of northern Thailand. The nose is clean and sharp: citrus and spice over an earthy, herbal base. The effect is a fast, electric cerebral high with no body, a pure equatorial daytime strain. It's long-flowering and moderate, a heritage rarity. For old-world highland Thai sativa, this is a collector's source.",
     curatorQuote: "Lemon-spice over earthy herb, a classic Thai lift.",
     sourceConfidence: "medium",
+    tagline: "Mountain Stick Heritage",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Highland Thai, a bright, soaring mountain-grown Thai landrace with classic Thai-stick heritage. The scene is a misty terraced ridge in the cool highlands of northern Thailand, tall bamboo groves and stalks of lemongrass swaying on the slope, layered blue mountains receding into morning haze beyond the terraces. The palette is fresh bamboo-green and lemongrass citrus-gold over cool highland blue and earthy spice-brown, lit by crisp clear mountain light breaking through thin mist. The mood is energetic, euphoric, uplifted and creative, a fast electric soaring lift carried on cool rising air, set in bright daytime mountain sun. Cinematic, painterly, high-contrast, premium editorial poster. The name HIGHLAND THAI is burned into a length of bamboo standing in the foreground. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Persian",
@@ -6700,6 +6732,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Citrus and spice over a sweet, herbal base.",
     sourceConfidence: "low",
+    tagline: "Amsterdam Cup Royalty",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Arjan's Haze, the Green House Cup-winning haze named for founder Arjan Roskam, a sweet, spicy, energising Amsterdam pedigree. The scene is a narrow Amsterdam canal house facade with leaded windows, a brass nameplate by the door and threads of fragrant incense smoke drifting past hanging citrus and crates of spice in a warm interior glow. The palette is amber and warm pine-green over spiced ochre and zesty citrus gold, lit by glowing window light and curling incense haze. The mood is energetic, euphoric and creative, with a soaring head-high lift suggested in rising smoke and bright reflections on the canal, set in clear daytime light. Cinematic, painterly, high-contrast, premium editorial poster. The name ARJAN'S HAZE is engraved into the brass nameplate beside the canal-house door. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Hawaiian Snow",
@@ -7192,6 +7228,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote: "Bright, sugary lemon-citrus, fast and clear.",
     lineageConfidence: "low",
     sourceConfidence: "low",
+    tagline: "Sunny Little Lift",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Lemon Joy, a cheerful, fast-acting sweet-lemon hybrid radiating sunny domestic warmth. The scene is a cozy kitchen windowsill in the morning, a ceramic bowl of bright lemons beside a steaming mug and a small wooden cutting board, gingham cloth and a vase of yellow blooms warmed by light spilling across the counter. The palette is buttery lemon-yellow and warm honeyed wood over soft cream and a touch of spice-brown, glowing with cheerful sugary citrus light. The mood is happy, uplifted, focused and energetic, an easy domestic brightness with gentle rising warmth, lit by cheerful clear daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name LEMON JOY is painted in tidy lettering across the front of the ceramic bowl. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Lemon OG",
