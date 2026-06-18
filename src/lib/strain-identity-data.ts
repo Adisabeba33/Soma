@@ -307,8 +307,10 @@ export const IDENTITIES: StrainIdentity[] = [
     // candy-bright lemon lift reads as a morning strain.
     timeProfile: "morning",
     artFileName: "super-lemon-haze.webp",
-    artStatus: "none",
+    artStatus: "published",
     artVersion: 1,
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Super Lemon Haze — Green House's Cup-winning citrus-haze sativa, candy-bright and grinning. A sun-drenched morning market stall: a marble counter heaped with halved Amalfi lemons, a scoop of pale lemon sherbet melting in a glass coupe, curls of bright zest and a sweating jug of lemonade, dewy and luminous, with a faint green skunky haze drifting in the warm light. Palette of vivid lemon-yellow and sherbet-cream over fresh leaf-green and a pale gold morning glow, high-key and zesty-sweet. Mood: bright, buzzy, uplifting — energetic creative head-high, everything sparkling and awake in fresh early light. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'SUPER LEMON HAZE' painted in bold across the front of a wooden lemon crate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
   },
   {
     canonicalName: "Lemon Haze",
@@ -320,6 +322,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Lemon and citrus over a green, herbal haze, clean and lively.",
     sourceConfidence: "medium",
+    tagline: "Easy lemon lift",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Lemon Haze — a bright, easygoing citrus sativa, the lighter cousin of Super Lemon Haze. A breezy sunlit lemon grove at midday: a leaning wooden ladder against a lemon tree heavy with fruit, a woven basket of fresh-picked lemons in dappled light, a soft green herbal haze drifting between the leaves, dew still bright on the rind. Palette of fresh lemon-yellow and leaf-green over warm sun-dappled cream, airy and light, more open than a market scene. Mood: cheerful, talkative, light — uplifted happy energy with an easy, accessible lift, leaves fluttering in a warm breeze. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'LEMON HAZE' burned into the side rail of the wooden ladder. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Tangie",
@@ -334,6 +340,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Fresh tangerine and orange peel, zesty and sweet, with just a whisper of skunk underneath.",
     sourceConfidence: "high",
+    tagline: "Pure tangerine zest",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Tangie — DNA Genetics tangerine showpiece, zesty, sweet and unmistakably orange. A bright mid-century California roadside citrus stand at high noon: a sun-bleached turquoise counter piled with ripe tangerines and navel oranges, long curls of orange peel, a glass of fresh-squeezed juice and a chrome hand-juicer catching the light, a faint skunk-green shadow at the edge. Palette of vivid tangerine-orange and sweet marigold over sun-faded turquoise and warm cream, saturated and citrus-bright. Mood: upbeat, buzzy, creative — uplifted energetic focus, everything zesty and awake under hard noon sun. Cinematic, painterly, high-contrast, premium editorial poster. The strain name TANGIE painted in bold retro letters across the front of the wooden orange crate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
 
   // ── Kush / classic indica family ──
@@ -636,6 +646,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Pine, peppery spice and a lemony incense note that reads clean and almost medicinal.",
     sourceConfidence: "high",
+    tagline: "The pine benchmark",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Jack Herer — Sensi Seeds' benchmark spicy-pine sativa named for the cannabis activist and author, bright, clear-headed and creative. A sunlit alpine pine forest at midday: tall resin-bright conifers with shafts of golden light cutting through, a flat granite boulder set with a halved lemon, scattered black peppercorns and a thin curl of incense smoke rising into the clean air, fresh sap glistening on bark. Palette of resinous pine-green and silver-fir, bright lemon-yellow and warm peppercorn-amber against cool forest shadow, crisp and clean. Mood: clear, awake, inventive — uplifted creative focus and bright energy, light flickering through swaying branches, fresh and almost medicinal. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'JACK HERER' carved into the bark of a foreground pine trunk. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Durban Poison",
@@ -1755,6 +1769,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Sharp mango and citrus over a skunky, earthy base, clean and zesty.",
     sourceConfidence: "medium",
+    tagline: "Pure daytime jolt",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Green Crack — a Skunk #1 descendant famous as a pure daytime energiser, sharp, zesty and relentlessly awake. A sun-flooded citrus-and-mango grove at first light: dew-bright orange and lime trees heavy with fruit beside a split ripe mango on a weathered wooden crate, a low golden sunrise cutting hard through a fresh skunky-earthy haze, everything sharp-edged and electric. Palette of acid lime-green, bright tangerine and mango-gold over dewy leaf-green and a faint earthy-skunk shadow, high-key and zesty. Mood: wired, restless, exhilarated — a sharp energetic head-high and clean focus, leaves trembling in a crisp morning breeze, motion and brightness everywhere. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'GREEN CRACK' stencilled onto the side of the wooden fruit crate. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Trainwreck",
@@ -2309,6 +2327,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Orange and tangerine over a lemony, skunky base, clean and zesty.",
     sourceConfidence: "medium",
+    tagline: "Juicy citrus morning",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Clementine — Crockett Family's juicy citrus sativa (Tangie × Lemon Skunk), sweet, bright and motivating. A sunlit breakfast nook at mid-morning: a ceramic bowl heaped with ripe clementines, a scatter of peeled segments and bright spiral peel on a scrubbed wooden table, a small glass of fresh clementine juice glowing in a shaft of window light, a sprig of pine on the sill. Palette of vivid clementine-orange and sweet honey-gold over warm cream and soft pine-green, juicy and luminous. Mood: cheerful, motivated, light — uplifted energetic happiness, a bright easy morning lift, sunlight warm across the table. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'CLEMENTINE' painted around the rim of the ceramic bowl. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Lemon Tree",
@@ -3950,6 +3972,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Lemon and tropical fruit over a light herbal base.",
     sourceConfidence: "medium",
+    tagline: "Citrus cyclone",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Vortex — TGA Subcool's bright sativa-hybrid (Apollo 13 × Space Queen), zesty, tropical and spinning with energy. A luminous spiralling vortex over a sunlit tropical sea at midday: a towering whirlwind of citrus mist, lemon peel, orange slices and tropical petals caught spinning in a glowing funnel of light, sea spray catching the sun, sky bright and electric. Palette of lemon-gold, tropical orange and zesty lime-green swirling against pale sea-blue and bright cloud-white, saturated and kinetic. Mood: fast, soaring, exhilarated — energetic creative euphoria in constant spin, everything swept upward and bright. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'VORTEX' carved into a weathered driftwood plank resting on the calm sand in the foreground. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Appalachia",
@@ -4284,6 +4310,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Tropical fruit and citrus over a light herbal base.",
     sourceConfidence: "low",
+    tagline: "Tangy fruit liftoff",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Apollo 13 — Brothers Grimm's fast, tangy sativa from the Cinderella 99 camp, zesty and electric. A retro 1970s launchpad at first light: a slender white rocket on its gantry trailing a plume of citrus-gold exhaust as it lifts, against a sky streaked tangerine, mango and grapefruit-pink over distant palms and a coastal haze. Palette of bright citrus-orange, tropical mango-gold and zesty grapefruit-pink against pale dawn-blue and steel-white, saturated and luminous. Mood: fast, soaring, exhilarated — energetic creative euphoria with liftoff motion, everything bright and accelerating into the morning sky. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'APOLLO 13' stencilled boldly down the side of the rocket fuselage. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
 
   // ── ROUND 7: DEEP PARENT-LINE FILL + CLASSICS ──
@@ -5231,6 +5261,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Lemon and pine over a spicy, herbal haze.",
     sourceConfidence: "medium",
+    tagline: "Lemon-pine cleaner",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Jack's Cleaner — Tom Hill's blisteringly sharp sativa (Jack Herer × NL5 Haze), so lemon-pine clean it reads like floor cleaner. A gleaming sunlit tiled hall at midday, just-mopped and spotless: a battered metal pail of water with halved lemons and fresh pine sprigs, an old wooden mop leaning in a streak of hard light, a sharp citrus-pine vapor hanging crisp in the air, every surface reflecting bright. Palette of acid lemon-yellow and clean pine-green over cold white tile and chrome, hyper-clean and high-key with a sharp medicinal edge. Mood: fast, soaring, electric — energetic creative clarity, almost antiseptic in its brightness, light bouncing hard off wet stone. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'JACK'S CLEANER' stencilled across the side of the metal pail. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Orange Velvet",
@@ -6611,6 +6645,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Lemon and mint over a spicy, herbal base.",
     sourceConfidence: "medium",
+    tagline: "Lemon-mint heritage",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Lemon Thai — a 1970s Thai × Hawaiian heritage sativa, zesty and clean with lemon and cool mint. A sun-dappled tropical herb garden at midday: stalks of lemongrass and fresh mint sprigs beside halved lemons and kaffir limes on a weathered teak tray, banana-leaf shadows and a lush jungle backdrop, a thread of bright steam rising as if from cool tea. Palette of lemon-yellow and cool mint-green over deep tropical leaf-green and warm teak-brown, fresh and clean. Mood: bright, talkative, creative — energetic uplifted clarity with a cool herbal lift, dappled light shifting through swaying leaves. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'LEMON THAI' carved into the edge of the teak tray. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Arjan's Haze",
