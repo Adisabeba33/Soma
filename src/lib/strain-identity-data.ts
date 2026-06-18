@@ -1722,6 +1722,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Lemon and citrus over an earthy, spicy haze, clean and energetic.",
     sourceConfidence: "medium",
+    tagline: "Amsterdam Haze",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Amnesia Haze, a Cup-winning haze-heavy sativa blending Jamaican, South Asian and Haze landrace lines and beloved across Amsterdam coffeeshops. A canal-side Amsterdam morning: narrow leaning gabled brick townhouses reflected in a still canal, an arched stone bridge, a moored bicycle against iron railings and warm citrus-incense haze drifting low over the water. Palette of bright lemon-citrus yellow, warm brick reds, earthy spicy browns and herbal green-grey haze drawn from the citrus-earthy-spicy-herbal profile. The mood is uplifted, happy, energetic and euphoric, haze and canal mist curling slowly upward between the houses, lit by soft bright daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name AMNESIA HAZE is stencilled across the wooden hull of a small canal boat moored in the foreground. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Super Silver Haze",
@@ -2687,6 +2691,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Fresh tangerine and orange over a sour diesel base, zesty with a fuel edge.",
     sourceConfidence: "medium",
+    tagline: "Citrus Meets Fuel",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Sour Tangie, a DNA Genetics cross of Sour Diesel and Tangie welding bright orange citrus to sharp diesel funk. A sun-baked industrial citrus depot: stacked orange crates and a vintage fuel pump beside a chrome tanker truck on cracked asphalt, heat haze shimmering and ripe tangerines spilling across an oil-stained loading dock. Palette of electric tangerine and zesty orange against gritty diesel chrome, asphalt grey, earthy rust and sour spicy ochre from the citrus-diesel-earthy-spicy nose. The mood is uplifted, happy, energetic and creative, fuel vapour and citrus oil shimmering upward in restless heat motion, lit by harsh bright daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name SOUR TANGIE is hand-painted in bold weathered letters across the side of the chrome tanker truck. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Platinum Kush",
@@ -3128,6 +3136,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Lemon and citrus over a floral, earthy base, clean and lively.",
     sourceConfidence: "medium",
+    tagline: "Zest In Motion",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Cinex, a bright Colorado sativa cross of Cinderella 99 and Vortex built for a zesty, energetic, citrus-sweet daytime lift. A sun-drenched Rocky Mountain morning: a fresh lemon-citrus grove on a high open plateau, dewy leaves and a coiling spiral of citrus mist (a nod to the Vortex parent) twisting up into clean blue air over distant snow-capped peaks. Palette of sweet lemon-yellow, lively zesty orange, clean pine green and soft earthy floral tones from the citrus-sweet-pine profile. The mood is uplifted, happy, focused and electric, dew and pollen lifting in a swirling energetic updraft, lit by a sharp bright daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name CINEX is stencilled in crisp letters on the weathered side panel of an old grove irrigation crate in the foreground. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Sour Apple",
@@ -3174,6 +3186,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Fresh lemon over a light herbal, earthy base.",
     sourceConfidence: "low",
+    tagline: "Sharp And Gassy",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Lemon Tek, a citrus-forward sativa-leaning hybrid built on sharp, sweet lemon over a gassy skunky base. A bright roadside lemonade stand fused with a working fuel station at the edge of a sunlit highway: a galvanised metal counter heaped with halved lemons, a row of glass bottles glinting, an old gas pump and a faint waver of fuel vapour rising off warm tarmac. Palette of vivid sweet lemon-yellow and white pith, clean glass glints, gassy blue-grey vapour and earthy skunk-brown undertones from the citrus-gassy-skunky-sweet profile. The mood is up, happy, talkative and energetic, lemon zest mist and heat shimmer lifting in lively upward motion, lit by sharp bright daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name LEMON TEK is hand-painted in cheerful bold letters across the front board of the metal counter stand. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Bay 11",
@@ -4822,6 +4838,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Citrus and spice over a herbal, earthy base.",
     sourceConfidence: "medium",
+    tagline: "Queen Of Sativas",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Kali Mist, a Serious Seeds haze hybrid crowned the regal 'queen of sativas' for its clean, spicy-citrus clarity. A serene temple courtyard at the top of high stone steps: weathered carved pillars, brass incense burners trailing thin ribbons of fragrant smoke, scattered fresh herbs and citrus on a stone altar and a misty mountain valley beyond. Palette of cool herbal sage greens, spicy saffron and incense amber, earthy stone greys, pine and a sharp fresh citrus accent from the spicy-herbal-earthy-sweet-pine nose. The mood is up, focused and euphoric, incense mist rising in tall graceful upward coils, lit by clear bright daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name KALI MIST is engraved into the stone lintel above the courtyard's central archway. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Pink Rozay",
@@ -4942,6 +4962,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Spicy, woody sweetness with a faint citrus.",
     sourceConfidence: "medium",
+    tagline: "Highland Gold",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Malawi (Malawi Gold), a celebrated long-flowering African landrace from the Malawi highlands known for resin and a clean, soaring high. A vast sweep of the Central African highlands above the shores of Lake Malawi: rolling golden-grass uplands, terraced red-earth slopes catching morning light, the great silver lake glittering below and acacia silhouettes on the ridgeline. Palette of sun-cured straw gold, sweet amber, spicy woody browns, herbal sage greens and faint floral-citrus warmth from the earthy-sweet-spicy-floral nose. The mood is energetic, euphoric and uplifting, heat shimmer and dust rising in soaring vertical motion off the warm hills, lit by clear bright daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name MALAWI is carved into a weathered wooden boundary marker post planted at the crest of the foreground ridge. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
 
   // ── ROUND 9: MORE PARENT-FILL + LANDRACES + CLASSICS ──
@@ -5515,6 +5539,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Spicy, incense-like sweetness with a faint citrus.",
     sourceConfidence: "medium",
+    tagline: "Equator Awakened",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Congolese, a clean, energetic Central African equatorial landrace prized by breeders for vigour and a bright high. A towering equatorial rainforest in the Congo basin at mid-morning: colossal buttressed tree trunks vanishing into the green canopy, dense ferns and broad leaves, a river of golden light cutting through the humid mist and faint drifting incense-like haze between the trunks. Palette of deep rainforest green, sweet earthy browns, resinous pine, spicy incense ambers and a faint citrus glow from the earthy-sweet-pine-spicy-citrus profile. The mood is uplifting, euphoric and creative, mist and pollen rising in slow energetic columns through the light shafts, lit by warm bright daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name CONGOLESE is carved into the smooth bark of the great buttress-rooted tree dominating the foreground. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Oaxacan",
@@ -5722,6 +5750,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Citrus and herbs over an earthy, spicy base.",
     sourceConfidence: "medium",
+    tagline: "Volcano Rising",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Zamal, a rare soaring tropical sativa landrace from Réunion Island in the Indian Ocean with French-island heritage. A dramatic Réunion volcanic landscape: black basalt lava ridges of the Piton highlands plunging toward turquoise tropical sea, lush green ravines, banana and palm fronds clinging to the slopes and faint volcanic steam threading the air. Palette of bright citrus yellow and lime, deep volcanic black and ash-grey, spicy woody browns and warm tropical greens from the citrus-woody-spicy-tropical nose. The mood is fast, clear and euphoric, sea spray and warm thermals rising in a quick soaring updraft off the cliffs, lit by brilliant equatorial bright daytime sun. Cinematic, painterly, high-contrast, premium editorial poster. The name ZAMAL is chiselled into a flat slab of black volcanic rock wedged in the foreground lava field. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Grape Krush",
@@ -6041,6 +6073,10 @@ export const IDENTITIES: StrainIdentity[] = [
       "Vietnamese Black is a highland landrace from Vietnam — a fierce, long-flowering equatorial sativa with dark stems and a spicy nose. The smell is earthy and warm: spice and sweetness over a woody base. The effect is intensely up — an energetic, heady, almost relentless cerebral high with no body, a true daytime landrace. It's a slow, demanding grow and moderate in potency, prized for heritage. For old-world Southeast Asian sativa, Vietnamese Black is a striking source.",
     curatorQuote: "Dark spice and sweetness over woody earth.",
     sourceConfidence: "medium",
+    tagline: "Dark Highland Fire",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Vietnamese Black, a fierce long-flowering highland landrace from Vietnam with dark stems and a warm spicy nose. A misty Southeast-Asian mountain highland at dawn: emerald terraced rice paddies stepping down a steep slope, dark wet stone, low cloud snagged on jagged karst peaks and a lone weathered shrine post on the trail. Palette of deep blackened greens and near-black woody stems, warm spice ochres, citrus-amber light and tropical-herbal accents drawn from the earthy-spicy-citrus-woody profile. The mood is intensely up, energetic and creatively charged, mist tearing upward off the terraces in swift focused motion, lit by a cool bright daytime sun breaking through cloud. Cinematic, painterly, high-contrast, premium editorial poster. The name VIETNAMESE BLACK is brush-painted in dark vertical strokes down the side of the wooden shrine post in the foreground. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Ethiopian Highland",
@@ -6988,6 +7024,10 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote: "Herbal, woody and citrus-spice, clear and creative.",
     lineageConfidence: "high",
     sourceConfidence: "medium",
+    tagline: "Quiet Brilliance",
+    artPrompt:
+      "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Genius, a clone-only Jack Herer phenotype prized for a strong, introspective, almost scholarly cerebral high. A cluttered inventor's attic study at the top of a tall house: an antique brass orrery and open ledgers on a heavy oak desk, a single window throwing a hard shaft of light across drifting motes and pinned botanical-spice sketches. Palette of warm pine-needle greens, herbal ochres, woody walnut browns and a bright lemon-citrus glint catching the brass, evoking the spicy-herbal-citrus-pine nose. The air feels charged with energetic, creative, focused thought, motes spiralling upward in slow euphoric motion, lit by a clear bright daytime sun raking through the glass. Cinematic, painterly, high-contrast, premium editorial poster. The name GENIUS is engraved into the worn brass nameplate screwed to the front of the oak desk, catching the light. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
+    artStatus: "published",
   },
   {
     canonicalName: "Grateful Puff",
