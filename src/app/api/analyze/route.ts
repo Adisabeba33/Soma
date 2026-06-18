@@ -11,7 +11,8 @@ import {
   logUnknownStrains,
   sanitizeParsedItems,
 } from "@/lib/api";
-import { analyze } from "@/lib/taste-engine";
+import { analyze, resolveStrain } from "@/lib/taste-engine";
+import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
 import type { TasteProfileInput } from "@/lib/types";
@@ -49,7 +50,12 @@ export async function POST(req: NextRequest) {
   // Deterministic engine first — it always produces the structured result.
   // Confirmed feedback from past sessions is folded into the scoring.
   const feedback = await getFeedbackSignals(userId);
-  let result = analyze(strains, profile, feedback);
+  // Resolve any menu strains not in the catalog via the optional AI layer.
+  // No-op (empty map) without OPENAI_API_KEY — scoring stays identical until a
+  // key is added; with one, unknown names get a vocab-constrained profile.
+  const unknownNames = strains.filter((name) => !resolveStrain(name).known);
+  const overrides = await inferStrainsAI(unknownNames);
+  let result = analyze(strains, profile, feedback, overrides);
   // The optional AI layer only rewrites prose; scores stay untouched.
   if (isOpenAIEnabled()) {
     result = await enhanceWithOpenAI(result, profile);
