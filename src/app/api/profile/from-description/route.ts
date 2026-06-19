@@ -6,6 +6,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { inferProfileFromDescription } from "@/lib/profile-from-description";
 import {
+  inferProfileAI,
+  isDescribeAIEnabled,
+  mergeInferred,
+} from "@/lib/describe-ai";
+import {
   buildDescribeAuditEntry,
   writeDescribeAudit,
 } from "@/lib/describe-audit";
@@ -35,7 +40,14 @@ export async function POST(req: NextRequest) {
   // Cap the text so a hostile/giant paste doesn't blow up the regex pass.
   const text = typeof body.text === "string" ? body.text.slice(0, 2000) : "";
 
-  const profile = inferProfileFromDescription(text);
+  // Deterministic keyword parse is the floor; the LLM extractor (when a key is
+  // present) enriches it with understanding the regex can't reach. The merge
+  // only ever adds, so the result is never worse than the parser alone.
+  let profile = inferProfileFromDescription(text);
+  if (isDescribeAIEnabled()) {
+    const ai = await inferProfileAI(text);
+    if (ai) profile = mergeInferred(profile, ai);
+  }
   const sufficient = hasSignal(profile);
 
   // Fire-and-forget intake telemetry — captures the phrasing and the words we
