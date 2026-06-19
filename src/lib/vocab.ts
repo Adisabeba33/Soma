@@ -6,7 +6,9 @@
 // that affects how older audit entries should be interpreted (additive,
 // renamed, subdivided, etc). Audit readers pivot on this to apply
 // translation maps or filter to a single vocab era.
-export const VOCAB_VERSION = "v3";
+// v3 → v4: added the soft sativa-risk opt-out dimension (profile.avoidedRisks,
+// currently "racy"; see src/lib/risk-tags.ts). Penalises only users who opt out.
+export const VOCAB_VERSION = "v4";
 
 export interface Option {
   value: string;

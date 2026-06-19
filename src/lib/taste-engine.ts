@@ -19,6 +19,7 @@ import {
 import { primaryAromaTokens, type ResolvedTarget } from "./profile-target";
 import { deriveTasteModes } from "./taste-modes";
 import { familyMatches } from "./strain-families";
+import { riskTagsFor } from "./risk-tags";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
 import type {
   AnalysisResult,
@@ -539,6 +540,40 @@ function referenceSimilarity(
   return { score: Math.min(99, Math.round(bestWeighted * 100)), against };
 }
 
+// Soft sativa-risk layer (deferred "character of the high"). Separate from the
+// hard dislike conflicts: a smaller bounded points hit and NO category cap, so
+// a risk-tagged strain slips a few points below cleaner-energy options without
+// being dumped into Risky. Gated entirely on profile.avoidedRisks, reconciled
+// against the user's own favourites. Weights are untouched.
+const SOFT_RISK_PER_TAG = 5;
+const SOFT_RISK_CAP = 10;
+const RISK_LEAN: Record<string, string> = {
+  racy: "a sharp, racy head high that can tip into nervous energy",
+};
+
+// Returns the bounded soft-risk penalty (0 unless the user opted out of a risk
+// the strain carries) plus a human note per matched risk for the risk panel.
+function softRiskAssessment(
+  strain: StrainProfile,
+  profile: TasteProfileInput,
+  favorites: StrainProfile[],
+): { penalty: number; notes: string[] } {
+  const avoided = profile.avoidedRisks ?? [];
+  if (avoided.length === 0) return { penalty: 0, notes: [] };
+  const tags = riskTagsFor(strain.name);
+  if (tags.length === 0) return { penalty: 0, notes: [] };
+
+  // A favourite carrying the same risk means the user already lives with it —
+  // don't penalise their own territory.
+  const favRisks = new Set(favorites.flatMap((f) => riskTagsFor(f.name)));
+  const hit = tags.filter((t) => avoided.includes(t) && !favRisks.has(t));
+  if (hit.length === 0) return { penalty: 0, notes: [] };
+
+  const penalty = Math.min(SOFT_RISK_CAP, hit.length * SOFT_RISK_PER_TAG);
+  const notes = hit.map((t) => RISK_LEAN[t] ?? `${t}, which you said you'd rather avoid`);
+  return { penalty, notes };
+}
+
 function dislikedConflicts(
   strain: StrainProfile,
   profile: TasteProfileInput,
@@ -928,6 +963,7 @@ export function scoreStrain(
     .map((f) => findStrain(f))
     .filter((s): s is StrainProfile => Boolean(s));
   const conflicts = dislikedConflicts(strain, profile, resolvedFavorites);
+  const softRisk = softRiskAssessment(strain, profile, resolvedFavorites);
 
   // Disliked detection — resolve aliases through findStrain so that flagging
   // "GG4" also catches "Gorilla Glue #4" and vice versa.
@@ -1229,14 +1265,19 @@ export function scoreStrain(
     label: c.split(",")[0],
     points: -Math.round(perConflict),
   }));
+  // Soft-risk penalty is shown in Audit too, but as a single bounded hit that
+  // never caps the category (kept out of `conflicts`).
+  if (softRisk.penalty > 0) {
+    penaltyStrengths.push({ label: "racy head high (you avoid)", points: -softRisk.penalty });
+  }
   // Pre-calibration score with decimal precision. Same formula as the
   // visible matchScore but without anchor floor, 99 base cap, or the 89–92
   // elite-band remap. Used to break ties when strains end up displaying the
   // same matchScore — the engine differentiates them on the raw side but
   // the calibration bands compress that signal away. It also feeds the
   // band remap above, so the visible order tracks the raw order.
-  const unclampedScore = raw - penalty;
-  let baseScore = Math.round(raw - penalty);
+  const unclampedScore = raw - penalty - softRisk.penalty;
+  let baseScore = Math.round(raw - penalty - softRisk.penalty);
   if (isDisliked) baseScore = Math.min(baseScore, 18);
   // Favourite anchor lives in 94–96. Never 100, because grower, batch
   // freshness, package date and storage are not captured — even a perfect
@@ -1316,7 +1357,7 @@ export function scoreStrain(
     favoriteSurface,
     modeNote,
   );
-  const riskNotes = buildRiskNotes(strain, known, conflicts, profile);
+  const riskNotes = buildRiskNotes(strain, known, conflicts, profile, softRisk.notes);
   const explanation = buildExplanation(
     strain,
     matchScore,
@@ -1463,9 +1504,13 @@ function buildRiskNotes(
   known: boolean,
   conflicts: string[],
   profile: TasteProfileInput,
+  riskTagNotes: string[] = [],
 ): string {
   const risks: string[] = [];
   for (const c of conflicts) risks.push(`it leans toward ${c}`);
+  // Soft sativa-risk notes — surfaced as honest "watch-outs" without the hard
+  // conflict's category cap.
+  for (const n of riskTagNotes) risks.push(`it can carry ${n}`);
 
   const concerns = profile.dislikedTraits.filter((d) =>
     BATCH_QUALITY_TRAITS.has(d),
