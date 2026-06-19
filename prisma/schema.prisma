@@ -82,6 +82,10 @@ model TasteProfile {
   // distinct from sensory match). Named-family keys; see src/lib/strain-families.ts.
   preferredFamilies  String[] @default([])
   avoidedFamilies    String[] @default([])
+  // Soft sativa-risk dimensions the user opts out of (see src/lib/risk-tags.ts,
+  // currently "racy"). Penalises only opted-out users. Default empty so existing
+  // rows stay valid without a backfill.
+  avoidedRisks       String[] @default([])
   notes              String?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt

@@ -21,6 +21,7 @@ Hard rules:
 - Never invent batch quality, lab percentages, terpene numbers or facts you cannot know.
 - Always keep honest caveats: real quality depends on grower, freshness, packaging date and storage; the same strain varies between brands; this is a sensory match, not a guarantee.
 - If sensory data is thin or the strain is unknown, say so plainly and calmly.
+- The "penalties" list shows why a score was reduced. A "racy head high (you avoid)" penalty means the user opted out of sharp/racy highs: −5 = a DOCUMENTED racy strain (likely racy, mention it as a real watch-out), −2 = a PARTIAL/dose-dependent risk (frame it as a maybe — could run racy for some or at a heavier dose, not a certainty). Use this to help the user choose between close scores honestly, but never restate the raw number.
 - Reply with strict JSON only, matching the requested shape.`;
 
 interface EnhanceItem {
@@ -63,6 +64,9 @@ export async function enhanceWithOpenAI(
       matchedFlavors: r.matchedFlavors,
       matchedEffects: r.matchedEffects,
       conflicts: r.conflicts,
+      // Why points were docked — includes the tier-scaled racy penalty
+      // (−5 documented / −2 partial) so the bartender can explain it.
+      penalties: r.penaltyStrengths,
       draftWhyItFits: r.whyItFits,
       draftRiskNotes: r.riskNotes,
     })),
