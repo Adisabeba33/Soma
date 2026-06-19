@@ -54,3 +54,7 @@ export function riskTagsFor(strainName: string): RiskTag[] {
 
 // The vocab a user can list under profile.avoidedRisks.
 export const RISK_TAG_VALUES: RiskTag[] = ["racy"];
+
+export function isRiskTag(value: unknown): value is RiskTag {
+  return typeof value === "string" && (RISK_TAG_VALUES as string[]).includes(value);
+}

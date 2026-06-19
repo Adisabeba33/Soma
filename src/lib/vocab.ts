@@ -139,6 +139,13 @@ export const DISLIKED_TRAITS: Option[] = [
   { value: "seedy", label: "Seeds / stems" },
 ];
 
+// Soft sativa-risk dimensions a user can opt out of (profile.avoidedRisks).
+// The chips for "Anything in the high you'd rather avoid?". See
+// src/lib/risk-tags.ts for which strains carry each tag.
+export const RISK_AVOIDANCE: Option[] = [
+  { value: "racy", label: "Sharp / racy head high" },
+];
+
 export const QUALITY_PRIORITIES: Option[] = [
   { value: "freshness", label: "Freshness" },
   { value: "moisture", label: "Moisture" },
