@@ -101,6 +101,12 @@ export interface TasteProfileInput {
   // sensory match; optional, no-op when empty.
   preferredFamilies?: string[];
   avoidedFamilies?: string[];
+  // Soft sativa-risk dimensions the user opts out of (see src/lib/risk-tags.ts,
+  // currently just "racy"). A strain carrying a matching risk tag takes a small
+  // bounded penalty ONLY for users who list it here — never a weight change,
+  // never a category cap, and reconciled away if a favourite carries it.
+  // Optional, no-op when empty.
+  avoidedRisks?: string[];
   notes?: string | null;
 }
 
