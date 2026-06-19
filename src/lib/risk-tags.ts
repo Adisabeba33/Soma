@@ -18,25 +18,60 @@ export interface RiskEntry {
   source: string;
 }
 
-const RACY: RiskEntry = { tags: ["racy"], confidence: "medium", source: "community-consensus" };
+// Penalty scales with confidence (applied in the engine): high = clearly /
+// well-documented racy (−5), medium = 50/50, dose-dependent (−2), anything not
+// listed = clean (0). Curated conservatively; medium is the deliberately-soft
+// tier for "could go either way".
+const HIGH: RiskEntry = { tags: ["racy"], confidence: "high", source: "community-consensus" };
+const MAYBE: RiskEntry = { tags: ["racy"], confidence: "medium", source: "community-consensus" };
 
-// Canonical strain name → risk entry. Edit here to extend coverage.
+// Canonical strain name → risk entry. Edit here to extend / re-tier coverage.
 const RISK: Record<string, RiskEntry> = {
-  "Ghost Train Haze": RACY,
-  "Neville's Haze": RACY,
-  "Nevil's Wreck": RACY,
-  "Hawaiian Snow": RACY,
-  Haze: RACY,
-  "Amnesia Haze": RACY,
-  "Super Silver Haze": RACY,
-  "Super Lemon Haze": RACY,
-  "Mango Haze": RACY,
-  "Arjan's Haze": RACY,
-  "Jack the Ripper": RACY,
-  "Kali Mist": RACY,
-  "Green Crack": RACY,
-  "Sour Diesel": RACY,
-  "Power Plant": RACY,
+  // — HIGH (−5): documented / strong-consensus racy —
+  // Hazes
+  "Ghost Train Haze": HIGH,
+  "Neville's Haze": HIGH,
+  "Nevil's Wreck": HIGH,
+  "Hawaiian Snow": HIGH,
+  Haze: HIGH,
+  "Amnesia Haze": HIGH,
+  "Super Silver Haze": HIGH,
+  "Super Lemon Haze": HIGH,
+  "Mango Haze": HIGH,
+  "Arjan's Haze": HIGH,
+  // Classic sharp sativas
+  "Jack the Ripper": HIGH,
+  "Kali Mist": HIGH,
+  "Green Crack": HIGH,
+  "Sour Diesel": HIGH,
+  "Power Plant": HIGH,
+  // Racy hybrids
+  "Bruce Banner": HIGH,
+  Chemdawg: HIGH,
+  "Chem 91": HIGH,
+  Trainwreck: HIGH,
+
+  // — MEDIUM (−2): 50/50, dose-dependent —
+  "Durban Poison": MAYBE,
+  Tangie: MAYBE,
+  "Sour Tangie": MAYBE,
+  "NYC Diesel": MAYBE,
+  "Chocolate Diesel": MAYBE,
+  Chocolope: MAYBE,
+  "Moby Dick": MAYBE,
+  Malawi: MAYBE,
+  "Cinderella 99": MAYBE,
+  "Jack's Cleaner": MAYBE,
+  Grapefruit: MAYBE,
+  "Lemon G": MAYBE,
+  Snowcap: MAYBE,
+  "Jet Fuel": MAYBE,
+  "Lemon Diesel": MAYBE,
+  "White Widow": MAYBE,
+  "White Fire OG": MAYBE,
+  "Cap Junky": MAYBE,
+  "Girl Scout Cookies": MAYBE,
+  Headbanger: MAYBE,
 };
 
 const BY_NORM = new Map<string, RiskEntry>();

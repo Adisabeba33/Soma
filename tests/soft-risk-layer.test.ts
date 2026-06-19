@@ -26,10 +26,16 @@ test("risk overlay tags the curated racy sativas, not the clean ones", () => {
   assert.deepEqual(riskTagsFor("Blue Dream"), []);
 });
 
-test("no penalty unless the user opts out of racy", () => {
+test("high-confidence racy costs -5 when the user opts out", () => {
   const without = scoreStrain("Ghost Train Haze", base());
   const optedOut = scoreStrain("Ghost Train Haze", base({ avoidedRisks: ["racy"] }));
   assert.equal(optedOut.unclampedScore, without.unclampedScore - 5);
+});
+
+test("medium-confidence (50/50) racy costs only -2", () => {
+  const without = scoreStrain("Durban Poison", base());
+  const optedOut = scoreStrain("Durban Poison", base({ avoidedRisks: ["racy"] }));
+  assert.equal(optedOut.unclampedScore, without.unclampedScore - 2);
 });
 
 test("the penalty never caps the category (stays out of conflicts)", () => {

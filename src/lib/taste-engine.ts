@@ -19,7 +19,7 @@ import {
 import { primaryAromaTokens, type ResolvedTarget } from "./profile-target";
 import { deriveTasteModes } from "./taste-modes";
 import { familyMatches } from "./strain-families";
-import { riskTagsFor } from "./risk-tags";
+import { riskEntryFor, riskTagsFor } from "./risk-tags";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
 import type {
   AnalysisResult,
@@ -545,7 +545,9 @@ function referenceSimilarity(
 // a risk-tagged strain slips a few points below cleaner-energy options without
 // being dumped into Risky. Gated entirely on profile.avoidedRisks, reconciled
 // against the user's own favourites. Weights are untouched.
-const SOFT_RISK_PER_TAG = 5;
+// Penalty scales with the overlay's confidence tier: clearly-racy (high) costs
+// more than a 50/50 (medium) one. Bounded; never a category cap.
+const RISK_PENALTY: Record<string, number> = { high: 5, medium: 2, low: 1 };
 const SOFT_RISK_CAP = 10;
 const RISK_LEAN: Record<string, string> = {
   racy: "a sharp, racy head high that can tip into nervous energy",
@@ -560,16 +562,16 @@ function softRiskAssessment(
 ): { penalty: number; notes: string[] } {
   const avoided = profile.avoidedRisks ?? [];
   if (avoided.length === 0) return { penalty: 0, notes: [] };
-  const tags = riskTagsFor(strain.name);
-  if (tags.length === 0) return { penalty: 0, notes: [] };
+  const entry = riskEntryFor(strain.name);
+  if (!entry) return { penalty: 0, notes: [] };
 
   // A favourite carrying the same risk means the user already lives with it —
   // don't penalise their own territory.
   const favRisks = new Set(favorites.flatMap((f) => riskTagsFor(f.name)));
-  const hit = tags.filter((t) => avoided.includes(t) && !favRisks.has(t));
+  const hit = entry.tags.filter((t) => avoided.includes(t) && !favRisks.has(t));
   if (hit.length === 0) return { penalty: 0, notes: [] };
 
-  const penalty = Math.min(SOFT_RISK_CAP, hit.length * SOFT_RISK_PER_TAG);
+  const penalty = Math.min(SOFT_RISK_CAP, RISK_PENALTY[entry.confidence] ?? 2);
   const notes = hit.map((t) => RISK_LEAN[t] ?? `${t}, which you said you'd rather avoid`);
   return { penalty, notes };
 }
