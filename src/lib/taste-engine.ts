@@ -546,15 +546,21 @@ function referenceSimilarity(
 // being dumped into Risky. Gated entirely on profile.avoidedRisks, reconciled
 // against the user's own favourites. Weights are untouched.
 // Penalty scales with the overlay's confidence tier: clearly-racy (high) costs
-// more than a 50/50 (medium) one. Bounded; never a category cap.
+// more than a 50/50 (medium) one. Bounded; never a category cap. The note is
+// tier-aware too, so the risk panel — and the AI bartender, which receives both
+// the note and the explicit −5/−2 — can tell "documented racy" from "might run
+// racy at a higher dose", and use it to break close ties honestly.
 const RISK_PENALTY: Record<string, number> = { high: 5, medium: 2, low: 1 };
 const SOFT_RISK_CAP = 10;
-const RISK_LEAN: Record<string, string> = {
-  racy: "a sharp, racy head high that can tip into nervous energy",
+const RISK_LEAN: Record<string, { high: string; medium: string }> = {
+  racy: {
+    high: "a sharp, racy head high — well-documented for this one, so if you're steering clear of that it's a likely miss",
+    medium: "a head high that can run racy for some people or at a heavier dose — a maybe, not a certainty",
+  },
 };
 
 // Returns the bounded soft-risk penalty (0 unless the user opted out of a risk
-// the strain carries) plus a human note per matched risk for the risk panel.
+// the strain carries) plus a tier-aware note per matched risk for the panel.
 function softRiskAssessment(
   strain: StrainProfile,
   profile: TasteProfileInput,
@@ -571,8 +577,11 @@ function softRiskAssessment(
   const hit = entry.tags.filter((t) => avoided.includes(t) && !favRisks.has(t));
   if (hit.length === 0) return { penalty: 0, notes: [] };
 
+  const tier = entry.confidence === "high" ? "high" : "medium";
   const penalty = Math.min(SOFT_RISK_CAP, RISK_PENALTY[entry.confidence] ?? 2);
-  const notes = hit.map((t) => RISK_LEAN[t] ?? `${t}, which you said you'd rather avoid`);
+  const notes = hit.map(
+    (t) => RISK_LEAN[t]?.[tier] ?? `${t}, which you said you'd rather avoid`,
+  );
   return { penalty, notes };
 }
 
@@ -1270,7 +1279,11 @@ export function scoreStrain(
   // Soft-risk penalty is shown in Audit too, but as a single bounded hit that
   // never caps the category (kept out of `conflicts`).
   if (softRisk.penalty > 0) {
-    penaltyStrengths.push({ label: "racy head high (you avoid)", points: -softRisk.penalty });
+    // Tier-explicit label so both the audit panel and the AI bartender read the
+    // strength of the signal, not just the number: −5 documented vs −2 partial.
+    const label =
+      softRisk.penalty >= 5 ? "likely racy (you avoid)" : "possibly racy (you avoid)";
+    penaltyStrengths.push({ label, points: -softRisk.penalty });
   }
   // Pre-calibration score with decimal precision. Same formula as the
   // visible matchScore but without anchor floor, 99 base cap, or the 89–92
