@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { labelFor } from "@/lib/vocab";
 import { cn } from "@/lib/utils";
 import type { InferredProfile } from "@/lib/profile-from-experience";
+import { profileCompleteness } from "@/lib/profile-completeness";
+import { ProfileProgressRing } from "@/components/profile-progress";
 
 // A short "budtender" conversation — four taps that map straight onto canonical
 // profile tokens (no text parsing needed), then a friendly read-back the user
@@ -156,17 +158,25 @@ export default function QuickOnboardingPage() {
     const effects = p.preferredEffects.map((v) => labelFor(v));
     const families = p.primaryAroma ? FAMILIES_BY_AROMA[p.primaryAroma] ?? [] : [];
     const bestUse = p.useTime ? BEST_USE[p.useTime] : "Anytime";
+    const percent = profileCompleteness(p).percent;
 
     return (
       <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
         <p className="text-xs uppercase tracking-[0.24em] text-brass">Guide Me</p>
-        <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
-          Here&apos;s what I think you like.
-        </h1>
-        <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
-          From four quick taps. If it&apos;s close, save it and start matching —
-          you can fine-tune any of it later.
-        </p>
+        <div className="mt-4 flex items-start gap-5">
+          <ProfileProgressRing percent={percent} size={76} className="mt-1" />
+          <div>
+            <h1 className="font-display text-4xl font-semibold tracking-tight">
+              Here&apos;s what I think you like.
+            </h1>
+            <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+              Your base profile is set — about{" "}
+              <span className="font-medium text-foreground">{percent}%</span>.
+              That&apos;s enough to start matching. Fill in the rest and the match
+              gets sharper — fewer ties, more confident picks.
+            </p>
+          </div>
+        </div>
 
         <dl className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
           <Read label="Taste" values={taste.length ? taste : ["—"]} tone="accent" />
@@ -191,18 +201,18 @@ export default function QuickOnboardingPage() {
         )}
 
         <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-border pt-6">
-          <Button onClick={() => save(false)} disabled={submitting} size="lg">
-            <Check className="h-4 w-4" />
-            {submitting ? "Saving…" : "Looks right"}
+          <Button onClick={() => save(true)} disabled={submitting} size="lg">
+            <SlidersHorizontal className="h-4 w-4" />
+            {submitting ? "Saving…" : "Finish my profile (100%)"}
           </Button>
           <button
             type="button"
-            onClick={() => save(true)}
+            onClick={() => save(false)}
             disabled={submitting}
             className="inline-flex items-center gap-1.5 rounded-xl border border-border px-4 py-2.5 text-sm font-medium hover:border-accent/40 disabled:opacity-60"
           >
-            <SlidersHorizontal className="h-4 w-4" />
-            Adjust profile
+            <Check className="h-4 w-4" />
+            Start matching as is
           </button>
           <button
             type="button"
@@ -219,6 +229,9 @@ export default function QuickOnboardingPage() {
 
   // ── Question screen ────────────────────────────────────────────────
   const q = STEPS[step];
+  // Live completeness from the answers picked so far — climbs 0 → ~60% as the
+  // base profile fills in, so the visitor watches their profile take shape.
+  const livePercent = profileCompleteness(buildProfile(answers)).percent;
   return (
     <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
       <div className="flex items-center gap-3">
@@ -240,19 +253,17 @@ export default function QuickOnboardingPage() {
         <span className="text-xs uppercase tracking-[0.2em] text-brass">
           Question {step + 1} of {STEPS.length}
         </span>
+        <span className="ml-auto text-xs font-semibold tabular-nums text-brass">
+          {livePercent}% complete
+        </span>
       </div>
 
-      {/* progress */}
-      <div className="mt-4 flex gap-1.5">
-        {STEPS.map((_, i) => (
-          <span
-            key={i}
-            className={cn(
-              "h-1 flex-1 rounded-full",
-              i <= step ? "bg-accent" : "bg-muted",
-            )}
-          />
-        ))}
+      {/* progress — a single bar that grows with profile completeness */}
+      <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-muted">
+        <span
+          className="block h-full rounded-full bg-accent transition-[width] duration-500 ease-out"
+          style={{ width: `${Math.max(4, livePercent)}%` }}
+        />
       </div>
 
       <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">

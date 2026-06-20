@@ -3,6 +3,7 @@ import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { FinishProfileNudge } from "@/components/finish-profile-nudge";
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -42,9 +43,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+    <html lang="en" className={`${display.variable} ${sans.variable} scroll-smooth`}>
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <SiteHeader />
+        <FinishProfileNudge />
         <main className="flex-1">{children}</main>
         <SiteFooter />
       </body>

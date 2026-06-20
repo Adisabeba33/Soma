@@ -8,7 +8,7 @@ const NAV = [
   { href: "/taste-match", label: "Taste Match" },
   { href: "/compare", label: "Compare" },
   { href: "/catalog", label: "Catalog" },
-  { href: "/profile", label: "My Profile" },
+  { href: "/profile", label: "Sensory Profile" },
   { href: "/saved", label: "Saved" },
   { href: "/account", label: "Account" },
   { href: "/about", label: "About" },
