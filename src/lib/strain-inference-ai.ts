@@ -1,16 +1,17 @@
 // AI strain inference — the optional coverage layer.
 //
 // When a user enters a strain that is NOT in our curated catalog, the engine
-// normally falls back to a crude keyword guess (inferStrain). With an
-// OPENAI_API_KEY present, this layer instead asks the model for a structured
-// sensory profile for those unknown names — but constrained to OUR closed
-// vocabulary, so the result drops straight into the same deterministic scoring
-// as a curated strain.
+// normally falls back to a crude keyword guess (inferStrain). With an AI
+// provider configured (Claude by default, OpenAI as an option), this layer
+// instead asks the model for a structured sensory profile for those unknown
+// names — but constrained to OUR closed vocabulary, so the result drops
+// straight into the same deterministic scoring as a curated strain. The
+// provider/model lives in ai-provider.ts.
 //
 // Safety / honesty contract:
-//   - Fully key-gated: no OPENAI_API_KEY (or STRAIN_AI=off) ⇒ this never runs
-//     and resolveStrain keeps its existing keyword fallback. Zero behaviour
-//     change until a key is added.
+//   - Fully gated: no provider key (or STRAIN_AI=off) ⇒ this never runs and
+//     resolveStrain keeps its existing keyword fallback. Zero behaviour change
+//     until a key is added.
 //   - Output is clipped to AROMA/FLAVOR/EFFECT/trait vocab before use — the
 //     model can never inject a token the engine doesn't understand.
 //   - Inferred strains stay knownStrain:false (an estimate, not curated), so
@@ -24,6 +25,7 @@
 import { normalizeStrainName } from "./strain-data";
 import { AROMAS, EFFECTS, FLAVORS, LIKED_TRAITS } from "./vocab";
 import type { Potency, StrainProfile, StrainType } from "./types";
+import { aiExtractJson, isAIEnabled } from "./ai-provider";
 
 const AROMA_SET = new Set(AROMAS.map((o) => o.value));
 const FLAVOR_SET = new Set(FLAVORS.map((o) => o.value));
@@ -36,7 +38,7 @@ const POTENCIES = new Set<Potency>(["mild", "moderate", "strong", "very-strong"]
 const cache = new Map<string, StrainProfile>();
 
 export function isStrainAIEnabled(): boolean {
-  return Boolean(process.env.OPENAI_API_KEY) && process.env.STRAIN_AI !== "off";
+  return isAIEnabled() && process.env.STRAIN_AI !== "off";
 }
 
 function clip(values: unknown, allowed: Set<string>): string[] {
@@ -148,37 +150,12 @@ export async function inferStrainsAI(
   // menu paste therefore can't trigger a runaway call.
   const batch = needed.slice(0, 12);
 
-  const apiKey = process.env.OPENAI_API_KEY!;
-  const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
-
   try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 28_000);
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model,
-        temperature: 0.2,
-        response_format: { type: "json_object" },
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: JSON.stringify(buildUserPayload(batch)) },
-        ],
-      }),
-      signal: controller.signal,
-    });
-    clearTimeout(timeout);
-    if (!response.ok) return out;
+    const parsed = (await aiExtractJson(SYSTEM_PROMPT, buildUserPayload(batch), {
+      maxTokens: 2048,
+    })) as { strains?: unknown } | null;
+    if (!parsed) return out;
 
-    const data = await response.json();
-    const content: string | undefined = data?.choices?.[0]?.message?.content;
-    if (!content) return out;
-
-    const parsed = JSON.parse(content) as { strains?: unknown };
     const list = Array.isArray(parsed.strains) ? parsed.strains : [];
     for (const item of list) {
       const itemName =

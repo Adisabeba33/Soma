@@ -1,14 +1,16 @@
 // Optional AI sommelier layer.
 // The deterministic engine always produces the structured result first
-// (scores, categories, matched sensory data). When an OPENAI_API_KEY is
-// present, this layer rewrites only the prose in a warm sommelier voice —
-// it never changes scores and never invents batch facts.
+// (scores, categories, matched sensory data). When an AI provider is
+// configured (Claude by default, OpenAI as an option), this layer rewrites
+// only the prose in a warm sommelier voice — it never changes scores and
+// never invents batch facts. The provider/model lives in ai-provider.ts.
 
 import type { AnalysisResult, TasteProfileInput } from "./types";
 import { labelList } from "./vocab";
+import { aiExtractJson, isAIEnabled } from "./ai-provider";
 
 export function isOpenAIEnabled(): boolean {
-  return Boolean(process.env.OPENAI_API_KEY);
+  return isAIEnabled();
 }
 
 const SYSTEM_PROMPT = `You are SOMA, a calm and precise cannabis sommelier.
@@ -35,10 +37,7 @@ export async function enhanceWithOpenAI(
   result: AnalysisResult,
   profile: TasteProfileInput,
 ): Promise<AnalysisResult> {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) return result;
-
-  const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
+  if (!isAIEnabled()) return result;
 
   const userPayload = {
     task: "Rewrite the prose for each recommendation in a sommelier voice. Keep all scores and categories unchanged.",
@@ -83,35 +82,11 @@ export async function enhanceWithOpenAI(
   };
 
   try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 28_000);
+    const parsed = (await aiExtractJson(SYSTEM_PROMPT, userPayload, {
+      maxTokens: 2048,
+    })) as { items?: EnhanceItem[] } | null;
+    if (!parsed) return result;
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model,
-        temperature: 0.5,
-        response_format: { type: "json_object" },
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: JSON.stringify(userPayload) },
-        ],
-      }),
-      signal: controller.signal,
-    });
-    clearTimeout(timeout);
-
-    if (!response.ok) return result;
-
-    const data = await response.json();
-    const content: string | undefined = data?.choices?.[0]?.message?.content;
-    if (!content) return result;
-
-    const parsed = JSON.parse(content) as { items?: EnhanceItem[] };
     const items = parsed.items ?? [];
     const byName = new Map<string, EnhanceItem>();
     for (const item of items) {

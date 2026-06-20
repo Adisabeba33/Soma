@@ -1368,6 +1368,22 @@ and didn't do is itself valuable context.
 
 ### #26 — Switch AI layers to Claude (Anthropic) as primary, OpenAI as option
 
+> **◑ Shipped (2026-06-20).** Provider abstraction `src/lib/ai-provider.ts`
+> built on `@anthropic-ai/sdk`: `activeProvider()` picks Claude by default
+> (`AI_PROVIDER` env, `claude` | `openai`), each gated on its own key
+> (`ANTHROPIC_API_KEY` / `OPENAI_API_KEY`) with fallback to the other, and
+> `aiExtractJson()` is the single entry point. The two AI layers present on
+> this branch — `src/lib/openai.ts` (sommelier prose) and
+> `src/lib/strain-inference-ai.ts` (unknown-strain inference) — now route
+> through it; both gate on `isAIEnabled()` and stay dormant with no key.
+> `.env.example` documents `AI_PROVIDER` / `ANTHROPIC_API_KEY` / `CLAUDE_MODEL`
+> (default `claude-haiku-4-5`). Tests cover provider selection + fallback and
+> the no-key/`STRAIN_AI=off` dormancy. **Still open / deferred:** the
+> `describe-ai.ts` extractor (lives on the unmerged `claude/describe-ai`
+> branch — re-point it to `aiExtractJson` when that lands) and the
+> enum-constrained structured-output upgrade (today's `json_object` + post-hoc
+> clip is kept as belt-and-suspenders).
+
 - **Found:** 2026-06-20
 - **Source:** Owner — prefers Anthropic as the primary AI vendor; OpenAI stays
   selectable as a fallback/option. **Primary = Claude, secondary = OpenAI.**

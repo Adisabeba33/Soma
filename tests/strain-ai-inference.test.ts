@@ -37,13 +37,16 @@ const ZZ: StrainProfile = {
   primaryAromas: ["citrus"],
 };
 
-test("AI inference is a no-op without OPENAI_API_KEY", async () => {
-  const prev = process.env.OPENAI_API_KEY;
+test("AI inference is a no-op with no provider key", async () => {
+  const prevOpenAI = process.env.OPENAI_API_KEY;
+  const prevClaude = process.env.ANTHROPIC_API_KEY;
   delete process.env.OPENAI_API_KEY;
+  delete process.env.ANTHROPIC_API_KEY;
   assert.equal(isStrainAIEnabled(), false);
   const map = await inferStrainsAI(["Totally Made Up Strain 9000"]);
   assert.equal(map.size, 0);
-  if (prev !== undefined) process.env.OPENAI_API_KEY = prev;
+  if (prevOpenAI !== undefined) process.env.OPENAI_API_KEY = prevOpenAI;
+  if (prevClaude !== undefined) process.env.ANTHROPIC_API_KEY = prevClaude;
 });
 
 test("STRAIN_AI=off disables inference even with a key present", async () => {
@@ -58,6 +61,45 @@ test("STRAIN_AI=off disables inference even with a key present", async () => {
   else process.env.OPENAI_API_KEY = prevKey;
   if (prevFlag === undefined) delete process.env.STRAIN_AI;
   else process.env.STRAIN_AI = prevFlag;
+});
+
+test("activeProvider prefers Claude and falls back by key", async () => {
+  const { activeProvider } = await import("../src/lib/ai-provider");
+  const prevOpenAI = process.env.OPENAI_API_KEY;
+  const prevClaude = process.env.ANTHROPIC_API_KEY;
+  const prevPref = process.env.AI_PROVIDER;
+  try {
+    // No keys → dormant.
+    delete process.env.OPENAI_API_KEY;
+    delete process.env.ANTHROPIC_API_KEY;
+    delete process.env.AI_PROVIDER;
+    assert.equal(activeProvider(), null);
+
+    // Default preference is Claude when its key is present.
+    process.env.ANTHROPIC_API_KEY = "sk-ant-test";
+    assert.equal(activeProvider(), "claude");
+
+    // Only an OpenAI key → falls back to OpenAI even under the default pref.
+    delete process.env.ANTHROPIC_API_KEY;
+    process.env.OPENAI_API_KEY = "sk-test";
+    assert.equal(activeProvider(), "openai");
+
+    // Explicit openai preference wins when both keys exist.
+    process.env.ANTHROPIC_API_KEY = "sk-ant-test";
+    process.env.AI_PROVIDER = "openai";
+    assert.equal(activeProvider(), "openai");
+
+    // Preferred openai but no OpenAI key → falls back to Claude.
+    delete process.env.OPENAI_API_KEY;
+    assert.equal(activeProvider(), "claude");
+  } finally {
+    if (prevOpenAI === undefined) delete process.env.OPENAI_API_KEY;
+    else process.env.OPENAI_API_KEY = prevOpenAI;
+    if (prevClaude === undefined) delete process.env.ANTHROPIC_API_KEY;
+    else process.env.ANTHROPIC_API_KEY = prevClaude;
+    if (prevPref === undefined) delete process.env.AI_PROVIDER;
+    else process.env.AI_PROVIDER = prevPref;
+  }
 });
 
 test("resolveStrain uses an override for an unknown strain", () => {

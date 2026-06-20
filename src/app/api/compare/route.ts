@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   const feedback = await getFeedbackSignals(userId);
 
   // Resolve strains not in the catalog via the optional AI layer. No-op
-  // (empty map) without OPENAI_API_KEY, so scoring is unchanged until a key
+  // (empty map) without an AI provider key, so scoring is unchanged until a key
   // is added; with one, the unknowns get a vocab-constrained profile instead
   // of the keyword guess.
   const unknownNames = strains.filter((name) => !resolveStrain(name).known);

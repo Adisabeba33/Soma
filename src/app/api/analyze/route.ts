@@ -51,8 +51,8 @@ export async function POST(req: NextRequest) {
   // Confirmed feedback from past sessions is folded into the scoring.
   const feedback = await getFeedbackSignals(userId);
   // Resolve any menu strains not in the catalog via the optional AI layer.
-  // No-op (empty map) without OPENAI_API_KEY — scoring stays identical until a
-  // key is added; with one, unknown names get a vocab-constrained profile.
+  // No-op (empty map) without an AI provider key — scoring stays identical
+  // until a key is added; with one, unknown names get a vocab-constrained profile.
   const unknownNames = strains.filter((name) => !resolveStrain(name).known);
   const overrides = await inferStrainsAI(unknownNames);
   let result = analyze(strains, profile, feedback, overrides);
