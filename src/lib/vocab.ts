@@ -144,6 +144,9 @@ export const DISLIKED_TRAITS: Option[] = [
 // src/lib/risk-tags.ts for which strains carry each tag.
 export const RISK_AVOIDANCE: Option[] = [
   { value: "racy", label: "Sharp / racy head high" },
+  { value: "paranoia", label: "Paranoia / anxious spike" },
+  { value: "foggy", label: "Foggy / can't think" },
+  { value: "crash", label: "Heavy crash / burnout" },
 ];
 
 export const QUALITY_PRIORITIES: Option[] = [

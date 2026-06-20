@@ -9,7 +9,7 @@
 // under-tagging is safer than penalising a clean sativa for a sensitive user.
 import { normalizeStrainName } from "./strain-data";
 
-export type RiskTag = "racy";
+export type RiskTag = "racy" | "paranoia" | "foggy" | "crash";
 export type RiskConfidence = "low" | "medium" | "high";
 
 export interface RiskEntry {
@@ -87,9 +87,25 @@ export function riskTagsFor(strainName: string): RiskTag[] {
   return riskEntryFor(strainName)?.tags ?? [];
 }
 
-// The vocab a user can list under profile.avoidedRisks.
-export const RISK_TAG_VALUES: RiskTag[] = ["racy"];
+// The vocab a user can list under profile.avoidedRisks. `racy` is curated (the
+// RISK table above); paranoia / foggy / crash are defined so the questionnaire
+// can offer them, but carry NO tagged strains yet — they stay inert in scoring
+// until the catalog is curated for them.
+export const RISK_TAG_VALUES: RiskTag[] = ["racy", "paranoia", "foggy", "crash"];
 
 export function isRiskTag(value: unknown): value is RiskTag {
   return typeof value === "string" && (RISK_TAG_VALUES as string[]).includes(value);
 }
+
+// De-dup map with the disliked-effect question (Q07). Each risk names the
+// EFFECTS tokens that express the same concept. When a user avoids BOTH a risk
+// and one of its overlapping effects, and a strain triggers both, the engine
+// keeps the (larger) effect-conflict penalty and shrinks the risk penalty to a
+// token amount, so the same concern is never charged twice at full strength.
+// foggy has no clean EFFECTS counterpart, so it stands alone.
+export const RISK_EFFECT_OVERLAP: Record<RiskTag, string[]> = {
+  racy: ["head-high"],
+  paranoia: ["head-high"],
+  crash: ["sleepy", "body-heavy", "couch-lock"],
+  foggy: [],
+};

@@ -19,7 +19,7 @@ import {
 import { primaryAromaTokens, type ResolvedTarget } from "./profile-target";
 import { deriveTasteModes } from "./taste-modes";
 import { familyMatches } from "./strain-families";
-import { riskEntryFor, riskTagsFor } from "./risk-tags";
+import { riskEntryFor, riskTagsFor, RISK_EFFECT_OVERLAP } from "./risk-tags";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
 import type {
   AnalysisResult,
@@ -578,7 +578,22 @@ function softRiskAssessment(
   if (hit.length === 0) return { penalty: 0, notes: [] };
 
   const tier = entry.confidence === "high" ? "high" : "medium";
-  const penalty = Math.min(SOFT_RISK_CAP, RISK_PENALTY[entry.confidence] ?? 2);
+  let penalty = Math.min(SOFT_RISK_CAP, RISK_PENALTY[entry.confidence] ?? 2);
+
+  // De-dup with the disliked-effect penalty (−15 each). If a matched risk
+  // overlaps an effect the user also avoids AND the strain carries it, that
+  // concern is already charged via the conflict — drop the risk to a token 1
+  // rather than stacking a second full hit for the same thing.
+  const dislikedEff = (profile.dislikedEffects ?? []).filter(
+    (e) => !favorites.some((f) => f.effects.includes(e)),
+  );
+  const alreadyCharged = hit.some((t) =>
+    (RISK_EFFECT_OVERLAP[t] ?? []).some(
+      (eff) => dislikedEff.includes(eff) && strain.effects.includes(eff),
+    ),
+  );
+  if (alreadyCharged) penalty = 1;
+
   const notes = hit.map(
     (t) => RISK_LEAN[t]?.[tier] ?? `${t}, which you said you'd rather avoid`,
   );
