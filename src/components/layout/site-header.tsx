@@ -34,19 +34,19 @@ export function SiteHeader() {
           <span className="font-display text-2xl font-semibold leading-none tracking-[0.08em]">
             SŌMA
           </span>
-          <span className="hidden items-center gap-2 sm:flex">
+          <span className="flex items-center gap-1.5 sm:gap-2">
             <svg
               width="28"
               height="8"
               viewBox="0 0 28 8"
-              className="text-brass/80"
+              className="hidden text-brass/80 sm:block"
               aria-hidden
             >
               <line x1="0" y1="4" x2="9" y2="4" stroke="currentColor" strokeWidth="1" opacity="0.45" />
               <path d="M14 1 L17 4 L14 7 L11 4 Z" fill="currentColor" />
               <line x1="19" y1="4" x2="28" y2="4" stroke="currentColor" strokeWidth="1" opacity="0.45" />
             </svg>
-            <span className="text-[0.7rem] uppercase tracking-[0.22em] text-muted-foreground">
+            <span className="whitespace-nowrap text-[0.58rem] uppercase tracking-[0.18em] text-muted-foreground sm:text-[0.7rem] sm:tracking-[0.22em]">
               Sensory Sommelier
             </span>
           </span>

@@ -59,7 +59,7 @@ export default function HomePage() {
             Your private cannabis sommelier.
           </h1>
 
-          <div className="mx-auto mt-4 flex items-center gap-2 text-brass/70">
+          <div className="mt-4 flex items-center justify-center gap-2 text-brass/70">
             <span className="h-px w-8 bg-current opacity-50" />
             <Sparkles className="h-3.5 w-3.5" />
             <span className="h-px w-8 bg-current opacity-50" />
