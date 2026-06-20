@@ -11,6 +11,7 @@ import {
   isUseTime,
   isSmokingMethod,
   isBudStructure,
+  isPreferredType,
 } from "@/lib/profile-target";
 import type { TasteProfileInput } from "@/lib/types";
 
@@ -66,6 +67,7 @@ async function upsertProfile(req: NextRequest) {
     useTime: asEnum(body.useTime, isUseTime),
     smokingMethods: asArray(body.smokingMethods).filter(isSmokingMethod),
     budStructure: asEnum(body.budStructure, isBudStructure),
+    preferredType: asEnum(body.preferredType, isPreferredType),
     bodyFeel: asBodyFeel(body.bodyFeel),
     potencyPreference: asPotency(body.potencyPreference),
     preferredFamilies: asArray(body.preferredFamilies).filter(isFamilyKey),

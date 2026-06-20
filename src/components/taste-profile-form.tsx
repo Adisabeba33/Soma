@@ -21,6 +21,7 @@ import {
   USE_TIMES,
   SMOKING_METHODS,
   BUD_STRUCTURES,
+  PREFERRED_TYPES,
 } from "@/lib/profile-target";
 import { NAMED_FAMILIES } from "@/lib/strain-families";
 import { STRAIN_NAMES } from "@/lib/strain-data";
@@ -338,6 +339,18 @@ export function TasteProfileForm({
       />
       <Section
         index={16}
+        title="Which type usually treats you best?"
+        hint="A soft preference — pick 'No difference' if the indica/sativa label doesn't matter to you."
+      >
+        <SingleSelect
+          options={PREFERRED_TYPES}
+          value={state.preferredType}
+          onChange={(v) => set("preferredType", v)}
+        />
+      </Section>
+
+      <Section
+        index={17}
         title="What did you like about your favourites?"
         hint="The traits that made those picks feel good."
       >
@@ -349,7 +362,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={17}
+        index={18}
         title="Strain families you seek out or avoid"
         hint="Buying behaviour, distinct from the sensory match."
       >
@@ -378,7 +391,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={18}
+        index={19}
         title="What matters most in quality?"
         hint="Tie-breakers when picks are close."
       >
@@ -390,7 +403,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={19}
+        index={20}
         title="Texture you like"
         hint="How the flower feels and breaks down."
       >
@@ -401,7 +414,7 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section index={20} title="Anything else?" hint="Free notes.">
+      <Section index={21} title="Anything else?" hint="Free notes.">
         <Textarea
           rows={3}
           value={state.notes}
