@@ -600,6 +600,20 @@ function softRiskAssessment(
   return { penalty, notes };
 }
 
+// A whisper-soft nudge toward the user's preferred plant type. +0.5 on a match
+// only ever changes the ROUNDED score on the margin (a tie-breaker, e.g.
+// 91.33 → 91.83 → 92); it never penalises a mismatch, and "any"/unset is a
+// no-op. Deliberately NOT a contradiction with use-time — liking mornings AND
+// indica is perfectly normal, so there's no reconciliation here.
+const TYPE_MATCH_BONUS = 0.5;
+function typeMatchBonus(
+  strain: StrainProfile,
+  profile: TasteProfileInput,
+): number {
+  const pref = profile.preferredType;
+  return pref && pref === strain.type ? TYPE_MATCH_BONUS : 0;
+}
+
 function dislikedConflicts(
   strain: StrainProfile,
   profile: TasteProfileInput,
@@ -1306,8 +1320,9 @@ export function scoreStrain(
   // same matchScore — the engine differentiates them on the raw side but
   // the calibration bands compress that signal away. It also feeds the
   // band remap above, so the visible order tracks the raw order.
-  const unclampedScore = raw - penalty - softRisk.penalty;
-  let baseScore = Math.round(raw - penalty - softRisk.penalty);
+  const typeBonus = typeMatchBonus(strain, profile);
+  const unclampedScore = raw - penalty - softRisk.penalty + typeBonus;
+  let baseScore = Math.round(raw - penalty - softRisk.penalty + typeBonus);
   if (isDisliked) baseScore = Math.min(baseScore, 18);
   // Favourite anchor lives in 94–96. Never 100, because grower, batch
   // freshness, package date and storage are not captured — even a perfect
