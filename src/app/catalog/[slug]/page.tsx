@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import {
   curatedScore,
@@ -10,7 +9,7 @@ import {
 import { STRAINS } from "@/lib/strain-data";
 import { getIdentity } from "@/lib/strain-identity";
 import { prisma } from "@/lib/prisma";
-import { SOMA_UID_COOKIE } from "@/lib/user";
+import { getUserIdReadOnly } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
 import { scoreStrain } from "@/lib/taste-engine";
 import type { StrainType, TasteProfileInput } from "@/lib/types";
@@ -40,8 +39,7 @@ export async function generateMetadata({
 }
 
 async function loadMatch(strainName: string): Promise<CatalogMatch | undefined> {
-  const store = await cookies();
-  const userId = store.get(SOMA_UID_COOKIE)?.value;
+  const userId = await getUserIdReadOnly();
   if (!userId) return undefined;
 
   const profile = await prisma.tasteProfile.findFirst({
@@ -64,8 +62,7 @@ async function loadMatch(strainName: string): Promise<CatalogMatch | undefined> 
 async function loadVerdict(
   strainName: string,
 ): Promise<"loved" | "good" | "neutral" | "avoid" | null> {
-  const store = await cookies();
-  const userId = store.get(SOMA_UID_COOKIE)?.value;
+  const userId = await getUserIdReadOnly();
   if (!userId) return null;
   const row = await prisma.strainFeedback.findUnique({
     where: { userId_strainName: { userId, strainName } },
