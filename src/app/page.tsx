@@ -1,5 +1,15 @@
 import Link from "next/link";
-import { ArrowRight, Leaf, ListChecks, Sparkles, Heart, Sprout } from "lucide-react";
+import {
+  ArrowRight,
+  Leaf,
+  ListChecks,
+  Sparkles,
+  Heart,
+  Sprout,
+  User,
+  BookOpen,
+  ChevronDown,
+} from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 
 const STEPS = [
@@ -23,104 +33,78 @@ const STEPS = [
 export default function HomePage() {
   return (
     <div>
-      {/* Greeting — the sommelier introduces itself before anything else. */}
-      <section className="mx-auto max-w-editorial px-5 pb-16 pt-20 sm:px-8 sm:pt-28">
-        <p className="text-xs uppercase tracking-[0.28em] text-brass">
-          Sensory Sommelier
-        </p>
-        <h1 className="mt-5 max-w-3xl font-display text-5xl font-semibold leading-[1.08] tracking-tight sm:text-6xl">
-          Hi, I&apos;m <span className="tracking-[0.06em]">SŌMA</span> — your
-          personal <span className="italic text-accent">cannabis sommelier</span>.
-        </h1>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-          My job is simple: make sure you never spend money on flower you&apos;d
-          never love. Give me a minute to learn your taste, and I&apos;ll read any
-          menu for you — <span className="italic">before</span> you buy.
-        </p>
+      {/* ── Greeting — a full-screen "meeting the sommelier" moment. ──────
+          The warm gradient is a placeholder; drop a sommelier-scene photo at
+          public/hero/sommelier.jpg and swap the gradient div for an <img>. */}
+      <section className="relative flex min-h-[calc(100vh-4rem)] items-end justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[#3b2e1e] via-[#4a3826] to-[#221a10]"
+          aria-hidden
+        />
+        {/* Soft vignette so the frosted card reads against any photo. */}
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20"
+          aria-hidden
+        />
 
-        <div className="mt-10 flex flex-wrap items-center gap-4">
-          <Link href="/onboarding/quick" className={buttonClass("primary", "lg")}>
-            Continue — learn my taste
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <span className="text-sm text-muted-foreground">
-            Already with us?{" "}
-            <Link href="/login" className="font-medium text-accent hover:underline">
-              Log in
-            </Link>
-          </span>
-        </div>
-      </section>
+        <div className="relative z-10 mx-4 mb-14 w-full max-w-md rounded-[1.75rem] border border-white/40 bg-[#f4eee2]/85 p-7 text-center shadow-2xl backdrop-blur-xl sm:mb-20 sm:p-8">
+          <h1 className="font-display text-[2.1rem] font-semibold leading-[1.1] tracking-tight text-[#2a2018] sm:text-4xl">
+            Your private cannabis sommelier.
+          </h1>
 
-      {/* Branch — pick the path that fits, for those who'd rather choose. */}
-      <section className="border-t border-border">
-        <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
-          <p className="font-display text-2xl font-semibold tracking-tight">
-            What brought you here today?
+          <div className="mx-auto mt-4 flex items-center gap-2 text-brass/70">
+            <span className="h-px w-8 bg-current opacity-50" />
+            <Sparkles className="h-3.5 w-3.5" />
+            <span className="h-px w-8 bg-current opacity-50" />
+          </div>
+
+          <p className="mt-4 text-sm leading-relaxed text-[#5c5040]">
+            Hi, I&apos;m <span className="font-medium text-[#2a2018]">SŌMA</span>,
+            a professional cannabis sommelier. My job is to save you money on
+            flower you were never going to love.
           </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            {/* Primary path — most visitors are standing at a menu. */}
-            <Link
-              href="/taste-match"
-              className="group flex flex-col rounded-2xl border border-accent bg-accent/5 p-6 text-left transition-colors hover:bg-accent/10"
-            >
-              <Leaf className="h-6 w-6 text-accent" />
-              <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
-                I&apos;m choosing from a menu
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                &ldquo;I have strains in front of me.&rdquo;
-              </p>
-              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
-                Find My Flower
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
-            </Link>
 
+          <div className="mt-7 space-y-3">
             <Link
-              href="/onboarding/experience"
-              className="group flex flex-col rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
+              href="/login"
+              className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-[#2a2018]/20 bg-white/50 px-5 py-3.5 text-sm font-medium text-[#2a2018] transition-colors hover:bg-white/70"
             >
-              <Heart className="h-6 w-6 text-brass" />
-              <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
-                I already know what I love
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                &ldquo;I want similar recommendations.&rdquo;
-              </p>
-              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
-                Build From Experience
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
+              <User className="h-4 w-4" />
+              I already have an account
             </Link>
-
             <Link
               href="/onboarding/quick"
-              className="group flex flex-col rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
+              className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-[#2a2018] px-5 py-3.5 text-sm font-semibold text-[#f4eee2] transition-colors hover:bg-[#3a2e1f]"
             >
-              <Sprout className="h-6 w-6 text-brass" />
-              <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
-                I&apos;m new to cannabis
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                &ldquo;I need help discovering my taste.&rdquo;
-              </p>
-              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
-                Guide Me
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
+              <Sparkles className="h-4 w-4 text-brass" />
+              I&apos;m new — continue
             </Link>
-          </div>
-          <div className="mt-5">
-            <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground">
-              How it works →
-            </Link>
+            <a
+              href="#learn-more"
+              className="flex w-full items-center justify-center gap-2.5 rounded-xl px-5 py-3 text-sm font-medium text-[#5c5040] transition-colors hover:bg-white/40"
+            >
+              <BookOpen className="h-4 w-4" />
+              Learn more about the product
+            </a>
           </div>
         </div>
+
+        {/* Scroll hint — same destination as "Learn more". */}
+        <a
+          href="#learn-more"
+          aria-label="Learn more"
+          className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 text-white/70 transition-colors hover:text-white"
+        >
+          <ChevronDown className="h-6 w-6 animate-bounce" />
+        </a>
       </section>
 
-      {/* Problem */}
-      <section className="border-y border-border bg-card">
+      {/* ── Learn more — the project, explained, for anyone who wants the
+          full story before they start. ─────────────────────────────────── */}
+      <section
+        id="learn-more"
+        className="scroll-mt-20 border-y border-border bg-card"
+      >
         <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
           <div className="grid gap-10 sm:grid-cols-[1fr_1.2fr] sm:gap-16">
             <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight">
@@ -212,22 +196,81 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="mx-auto max-w-editorial px-5 py-24 text-center sm:px-8">
-        <h2 className="mx-auto max-w-2xl font-display text-4xl font-semibold leading-tight tracking-tight">
-          Stop guessing at the counter.
-        </h2>
-        <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-          Build your taste profile once. Bring SŌMA to every menu after that.
+      {/* Branch — for anyone who'd rather pick their own path. */}
+      <section className="mx-auto max-w-editorial px-5 py-20 sm:px-8">
+        <p className="font-display text-2xl font-semibold tracking-tight">
+          What brought you here today?
         </p>
-        <div className="mt-8">
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {/* Primary path — most visitors are standing at a menu. */}
           <Link
             href="/taste-match"
-            className={buttonClass("primary", "lg")}
+            className="group flex flex-col rounded-2xl border border-accent bg-accent/5 p-6 text-left transition-colors hover:bg-accent/10"
           >
-            Find My Flower
-            <ArrowRight className="h-4 w-4" />
+            <Leaf className="h-6 w-6 text-accent" />
+            <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
+              I&apos;m choosing from a menu
+            </h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+              &ldquo;I have strains in front of me.&rdquo;
+            </p>
+            <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+              Find My Flower
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </span>
           </Link>
+
+          <Link
+            href="/onboarding/experience"
+            className="group flex flex-col rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
+          >
+            <Heart className="h-6 w-6 text-brass" />
+            <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
+              I already know what I love
+            </h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+              &ldquo;I want similar recommendations.&rdquo;
+            </p>
+            <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
+              Build From Experience
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+
+          <Link
+            href="/onboarding/quick"
+            className="group flex flex-col rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
+          >
+            <Sprout className="h-6 w-6 text-brass" />
+            <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
+              I&apos;m new to cannabis
+            </h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+              &ldquo;I need help discovering my taste.&rdquo;
+            </p>
+            <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
+              Guide Me
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="border-t border-border bg-card">
+        <div className="mx-auto max-w-editorial px-5 py-24 text-center sm:px-8">
+          <h2 className="mx-auto max-w-2xl font-display text-4xl font-semibold leading-tight tracking-tight">
+            Stop guessing at the counter.
+          </h2>
+          <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
+            Build your taste profile once. Bring SŌMA to every menu after that.
+          </p>
+          <div className="mt-8">
+            <Link href="/onboarding/quick" className={buttonClass("primary", "lg")}>
+              Get started
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
     </div>

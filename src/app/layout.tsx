@@ -43,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+    <html lang="en" className={`${display.variable} ${sans.variable} scroll-smooth`}>
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <SiteHeader />
         <FinishProfileNudge />
