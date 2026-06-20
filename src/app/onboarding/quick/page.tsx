@@ -23,7 +23,12 @@ import {
   DISLIKED_TRAITS,
 } from "@/lib/vocab";
 import { STRAIN_NAMES } from "@/lib/strain-data";
-import { profileCompleteness } from "@/lib/profile-completeness";
+import {
+  profileCompleteness,
+  MATCH_GATE_PERCENT,
+} from "@/lib/profile-completeness";
+import { ProfileProgressRing } from "@/components/profile-progress";
+import { labelFor } from "@/lib/vocab";
 
 // Onboarding — the questionnaire fills the profile over five screens, each
 // worth ~15% (→ 75% by the end; the final 25% is optional precision in the full
@@ -89,6 +94,7 @@ export default function QuickOnboardingPage() {
   const [bodyFeel, setBodyFeel] = useState("");
   const [potency, setPotency] = useState("");
 
+  const [review, setReview] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -116,7 +122,7 @@ export default function QuickOnboardingPage() {
   // onboarding tops out near 75% — the extra questions live in the full profile.
   const percent = profileCompleteness(draft).percent;
 
-  async function save() {
+  async function save(target: "match" | "profile") {
     setSubmitting(true);
     setError(null);
     try {
@@ -127,7 +133,7 @@ export default function QuickOnboardingPage() {
         body: JSON.stringify(draft),
       });
       if (!res.ok) throw new Error();
-      router.push("/taste-match");
+      router.push(target === "profile" ? "/profile" : "/taste-match");
     } catch {
       setError("Couldn't save that. Try again.");
       setSubmitting(false);
@@ -139,8 +145,99 @@ export default function QuickOnboardingPage() {
       setStep((s) => s + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      save();
+      setReview(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
+  }
+
+  // ── Final summary / read-back ──────────────────────────────────────
+  if (review) {
+    const canMatch = percent >= MATCH_GATE_PERCENT;
+    const effectLabel =
+      PRIMARY_EFFECTS.find((o) => o.value === primaryEffect)?.label ?? "—";
+    const aromaLabel =
+      PRIMARY_AROMAS.find((o) => o.value === primaryAroma)?.label ?? "—";
+    const timeLabel = time ? TIME_LABELS[time] : "Anytime";
+    const effectChips =
+      preferredEffects.length > 0 ? preferredEffects.map(labelFor) : ["—"];
+
+    return (
+      <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
+        <p className="text-xs uppercase tracking-[0.24em] text-brass">
+          Almost there
+        </p>
+        <div className="mt-4 flex items-start gap-5">
+          <ProfileProgressRing percent={percent} size={80} className="mt-1" />
+          <div>
+            <h1 className="font-display text-4xl font-semibold tracking-tight">
+              Here&apos;s your taste, in short.
+            </h1>
+            <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+              {canMatch
+                ? "That's enough to start matching. Fill in the rest of your profile anytime for an even sharper read."
+                : `You're at ${percent}% — reach ${MATCH_GATE_PERCENT}% and matching unlocks. A few more answers will do it.`}
+            </p>
+          </div>
+        </div>
+
+        <dl className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
+          <ReadItem
+            label="Loves"
+            values={favorites.length ? favorites : ["—"]}
+            tone="accent"
+          />
+          <ReadItem label="Wants to feel" values={[effectLabel]} tone="accent" />
+          <ReadItem label="Drawn to" values={[aromaLabel]} />
+          <ReadItem label="Best time" values={[timeLabel]} />
+          <ReadItem label="Effects" values={effectChips} />
+          <ReadItem
+            label="Steers clear of"
+            values={
+              dislikedEffects.length ? dislikedEffects.map(labelFor) : ["—"]
+            }
+          />
+        </dl>
+
+        {error && (
+          <p className="mt-4 rounded-xl bg-[#a23b2c]/10 px-4 py-3 text-sm text-[#a23b2c]">
+            {error}
+          </p>
+        )}
+
+        <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-border pt-6">
+          {canMatch ? (
+            <>
+              <Button onClick={() => save("match")} disabled={submitting} size="lg">
+                {submitting ? "Saving…" : "Start matching"}
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+              <button
+                type="button"
+                onClick={() => save("profile")}
+                disabled={submitting}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-border px-4 py-2.5 text-sm font-medium hover:border-accent/40 disabled:opacity-60"
+              >
+                Finish my profile (100%)
+              </button>
+            </>
+          ) : (
+            <Button onClick={() => save("profile")} disabled={submitting} size="lg">
+              {submitting ? "Saving…" : `Finish to ${MATCH_GATE_PERCENT}%`}
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          )}
+          <button
+            type="button"
+            onClick={() => setReview(false)}
+            disabled={submitting}
+            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Back
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -510,6 +607,32 @@ function OptionRow({
           </button>
         );
       })}
+    </div>
+  );
+}
+
+function ReadItem({
+  label,
+  values,
+  tone,
+}: {
+  label: string;
+  values: string[];
+  tone?: "accent";
+}) {
+  return (
+    <div className="bg-card p-5">
+      <dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+        {label}
+      </dt>
+      <dd
+        className={cn(
+          "mt-1.5 font-display text-lg",
+          tone === "accent" ? "text-accent" : "text-foreground",
+        )}
+      >
+        {values.join(" · ")}
+      </dd>
     </div>
   );
 }
