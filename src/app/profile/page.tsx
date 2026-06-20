@@ -6,10 +6,19 @@ import { Check, Heart, ChevronRight } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
 import {
+  ProfileProgressRing,
+  ProfileMissingList,
+} from "@/components/profile-progress";
+import {
   EMPTY_PROFILE,
   profileFromApi,
   type TasteProfileState,
 } from "@/lib/profile-state";
+import {
+  profileCompleteness,
+  type ProfileCompleteness,
+} from "@/lib/profile-completeness";
+import type { TasteProfileInput } from "@/lib/types";
 import type { ProfileContradiction } from "@/lib/profile-contradictions";
 
 export default function ProfilePage() {
@@ -21,6 +30,11 @@ export default function ProfilePage() {
   const [contradictions, setContradictions] = useState<ProfileContradiction[]>(
     [],
   );
+  // Completeness is derived from the RAW api profile (it carries families,
+  // potency and disliked-aroma fields the lighter form state drops).
+  const [completeness, setCompleteness] = useState<ProfileCompleteness | null>(
+    null,
+  );
 
   useEffect(() => {
     fetch("/api/profile")
@@ -30,6 +44,11 @@ export default function ProfilePage() {
         setInitial(result.state);
         setExists(result.exists);
         setContradictions(d.contradictions ?? []);
+        setCompleteness(
+          d.profile
+            ? profileCompleteness(d.profile as TasteProfileInput)
+            : null,
+        );
       })
       .catch(() => setInitial({ ...EMPTY_PROFILE }));
   }, []);
@@ -47,6 +66,9 @@ export default function ProfilePage() {
       if (!res.ok) throw new Error();
       const data = await res.json().catch(() => ({}));
       setContradictions(data.contradictions ?? []);
+      if (data.profile) {
+        setCompleteness(profileCompleteness(data.profile as TasteProfileInput));
+      }
       setSaved(true);
       setExists(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -60,7 +82,7 @@ export default function ProfilePage() {
   return (
     <div className="mx-auto max-w-2xl px-5 py-16 sm:px-8">
       <p className="text-xs uppercase tracking-[0.24em] text-brass">
-        My Taste Profile
+        Sensory Profile
       </p>
       <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
         Your sensory profile
@@ -69,6 +91,33 @@ export default function ProfilePage() {
         This is what every Taste Match is measured against. Edit it whenever
         your palate shifts — the more honest it is, the sharper SŌMA gets.
       </p>
+
+      {completeness && (
+        <div className="mt-8 flex items-start gap-4 rounded-2xl border border-border bg-card p-5">
+          <ProfileProgressRing percent={completeness.percent} size={72} />
+          <div className="min-w-0">
+            {completeness.isComplete ? (
+              <p className="font-display text-lg font-semibold tracking-tight text-accent">
+                Profile complete — SŌMA has the full picture.
+              </p>
+            ) : (
+              <>
+                <p className="font-display text-lg font-semibold tracking-tight">
+                  {completeness.percent}% complete
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Add the rest for a sharper match — fewer ties, more confident
+                  picks. Still missing:
+                </p>
+                <ProfileMissingList
+                  missing={completeness.missing.slice(0, 4)}
+                  className="mt-2"
+                />
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       <Link
         href="/profile/feedback"

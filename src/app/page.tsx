@@ -23,21 +23,38 @@ const STEPS = [
 export default function HomePage() {
   return (
     <div>
-      {/* Hero */}
-      <section className="mx-auto max-w-editorial px-5 pb-20 pt-20 sm:px-8 sm:pt-28">
+      {/* Greeting — the sommelier introduces itself before anything else. */}
+      <section className="mx-auto max-w-editorial px-5 pb-16 pt-20 sm:px-8 sm:pt-28">
         <p className="text-xs uppercase tracking-[0.28em] text-brass">
           Sensory Sommelier
         </p>
-        <h1 className="mt-5 max-w-3xl font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
-          Stop paying for flower you&apos;ll{" "}
-          <span className="italic text-accent">never love</span>.
+        <h1 className="mt-5 max-w-3xl font-display text-5xl font-semibold leading-[1.08] tracking-tight sm:text-6xl">
+          Hi, I&apos;m <span className="tracking-[0.06em]">SŌMA</span> — your
+          personal <span className="italic text-accent">cannabis sommelier</span>.
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-          SŌMA reads your taste and tells you what&apos;s worth your money on any
-          menu — <span className="italic">before</span> you buy.
+          My job is simple: make sure you never spend money on flower you&apos;d
+          never love. Give me a minute to learn your taste, and I&apos;ll read any
+          menu for you — <span className="italic">before</span> you buy.
         </p>
 
-        <div className="mt-12">
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+          <Link href="/onboarding/quick" className={buttonClass("primary", "lg")}>
+            Continue — learn my taste
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <span className="text-sm text-muted-foreground">
+            Already with us?{" "}
+            <Link href="/login" className="font-medium text-accent hover:underline">
+              Log in
+            </Link>
+          </span>
+        </div>
+      </section>
+
+      {/* Branch — pick the path that fits, for those who'd rather choose. */}
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
           <p className="font-display text-2xl font-semibold tracking-tight">
             What brought you here today?
           </p>
