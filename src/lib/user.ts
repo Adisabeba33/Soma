@@ -46,3 +46,24 @@ export async function getUserId(): Promise<string> {
   store.set(SOMA_UID_COOKIE, id, COOKIE_OPTIONS);
   return id;
 }
+
+// Read-only identity resolution for server COMPONENTS (pages), which may not
+// set cookies. Mirrors getUserId's precedence — a valid auth session wins, then
+// the anonymous cookie — but never creates a user or writes a cookie. Returns
+// null when there's no identity yet (a brand-new visitor with no profile).
+// Use this anywhere a page renders per-user data (e.g. catalog match scores) so
+// a logged-in user is read by their account, not a stale anonymous cookie.
+export async function getUserIdReadOnly(): Promise<string | null> {
+  const store = await cookies();
+
+  const session = store.get(SESSION_COOKIE)?.value;
+  if (session) {
+    const uid = verifySessionToken(session);
+    if (uid) {
+      const user = await prisma.user.findUnique({ where: { id: uid } });
+      if (user) return uid;
+    }
+  }
+
+  return store.get(SOMA_UID_COOKIE)?.value ?? null;
+}

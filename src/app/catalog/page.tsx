@@ -1,8 +1,7 @@
 import { Suspense } from "react";
-import { cookies } from "next/headers";
 import { buildCatalog, type CatalogMatch } from "@/lib/catalog";
 import { prisma } from "@/lib/prisma";
-import { SOMA_UID_COOKIE } from "@/lib/user";
+import { getUserIdReadOnly } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
 import { scoreStrain } from "@/lib/taste-engine";
 import { STRAINS } from "@/lib/strain-data";
@@ -25,8 +24,7 @@ async function loadMatches(): Promise<{
   matches: Record<string, CatalogMatch>;
   hasProfile: boolean;
 }> {
-  const store = await cookies();
-  const userId = store.get(SOMA_UID_COOKIE)?.value;
+  const userId = await getUserIdReadOnly();
   if (!userId) return { matches: {}, hasProfile: false };
 
   const profile = await prisma.tasteProfile.findFirst({
