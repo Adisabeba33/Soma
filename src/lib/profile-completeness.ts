@@ -22,7 +22,6 @@ import {
   isPrimaryAroma,
   isPrimaryEffect,
   isUseTime,
-  isSmokingMethod,
   isBudStructure,
 } from "./profile-target";
 import type { TasteProfileInput } from "./types";
@@ -66,10 +65,10 @@ function items(p: TasteProfileInput): CompletenessItem[] {
       section: "base",
     },
     {
-      key: "smokingMethod",
+      key: "smokingMethods",
       label: "How you like to smoke it",
       weight: 6,
-      filled: isSmokingMethod(p.smokingMethod),
+      filled: nonEmpty(p.smokingMethods),
       section: "base",
     },
     {

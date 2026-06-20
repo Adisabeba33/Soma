@@ -47,6 +47,9 @@ export const USE_TIMES: Option[] = [
   { value: "daytime", label: "Daytime — social & active" },
   { value: "evening", label: "Evening — to unwind" },
   { value: "bed", label: "Right before bed" },
+  // No strong preference — no day/night signal for the target derivation,
+  // which falls back to the other answers (handled in deriveProfileTarget).
+  { value: "anytime", label: "Any time of day" },
 ];
 
 // How a person actually consumes — contextual signal (a joint smokes very

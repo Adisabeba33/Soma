@@ -18,7 +18,7 @@ const empty = (over: Partial<TasteProfileInput> = {}): TasteProfileInput => ({
   primaryAroma: null,
   primaryEffect: null,
   useTime: null,
-  smokingMethod: null,
+  smokingMethods: [],
   bodyFeel: null,
   potencyPreference: null,
   preferredFamilies: [],
@@ -32,14 +32,14 @@ const empty = (over: Partial<TasteProfileInput> = {}): TasteProfileInput => ({
 const afterScreen1 = (): TasteProfileInput =>
   empty({
     favoriteStrains: ["GG4"],
-    smokingMethod: "joint",
+    smokingMethods: ["joint"],
     useTime: "evening",
   });
 
 const everything = (): TasteProfileInput => ({
   ...empty(),
   favoriteStrains: ["GG4", "Sour Diesel"],
-  smokingMethod: "vape",
+  smokingMethods: ["vape"],
   budStructure: "fluffy",
   primaryEffect: "calm",
   primaryAroma: "citrus",
@@ -72,7 +72,7 @@ test("after screen 1, a real chunk is filled but it's far from done", () => {
   // The favourite strain + method + time are recorded.
   const keys = c.filled.map((i) => i.key);
   assert.ok(keys.includes("favoriteStrains"));
-  assert.ok(keys.includes("smokingMethod"));
+  assert.ok(keys.includes("smokingMethods"));
   assert.ok(keys.includes("useTime"));
 });
 
@@ -111,7 +111,7 @@ test("adding any signal never lowers the percent (monotonic), reaching 100", () 
   const steps: Partial<TasteProfileInput>[] = [
     { primaryEffect: "sharp" },
     { useTime: "morning" },
-    { smokingMethod: "bong" },
+    { smokingMethods: ["bong"] },
     { primaryAroma: "gas" },
     { budStructure: "dense" },
     { dislikedEffects: ["head-high"] },
@@ -135,7 +135,7 @@ test("adding any signal never lowers the percent (monotonic), reaching 100", () 
 });
 
 test("nextHint points at the highest-value missing item", () => {
-  const c = profileCompleteness(empty({ smokingMethod: "joint" }));
+  const c = profileCompleteness(empty({ smokingMethods: ["joint"] }));
   assert.ok(c.nextHint);
   assert.equal(c.nextHint!.weight, 18);
 });

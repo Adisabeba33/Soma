@@ -91,9 +91,11 @@ export interface TasteProfileInput {
   primaryAroma?: string | null;
   primaryEffect?: string | null;
   useTime?: string | null;
-  // How the person consumes (joint | blunt | pipe | bong | vape). Contextual
-  // signal kept for future logic; optional, no-op in scoring for now.
+  // How the person consumes (joint | blunt | pipe | bong | vape). Multi-select
+  // now (smokingMethods); the legacy single `smokingMethod` is read-only.
+  // Contextual signal kept for future logic; optional, no-op in scoring for now.
   smokingMethod?: string | null;
+  smokingMethods?: string[];
   // Preferred bud structure (dense | airy | fluffy | popcorn | larfy). Captured
   // now; no-op in scoring until the catalog carries these tags.
   budStructure?: string | null;

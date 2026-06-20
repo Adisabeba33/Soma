@@ -76,9 +76,11 @@ model TasteProfile {
   primaryAroma       String?  // gas | earthfunk | citrus | sweet | fruit | pineherb
   primaryEffect      String?  // calm | knockout | social | lifted | sharp
   useTime            String?  // morning | daytime | evening | bed
-  // How the person consumes: joint | blunt | pipe | bong | vape. Nullable so
-  // existing rows stay valid; contextual signal for future logic.
+  // How the person consumes. Legacy single value (smokingMethod) kept for
+  // back-compat; smokingMethods is the multi-select successor. Values: joint |
+  // blunt | pipe | bong | vape. Nullable / default-empty so old rows stay valid.
   smokingMethod      String?
+  smokingMethods     String[] @default([])
   // Preferred bud structure: dense | airy | fluffy | popcorn | larfy. Nullable;
   // captured now, scored once the catalog carries these tags.
   budStructure       String?
