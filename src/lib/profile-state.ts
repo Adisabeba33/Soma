@@ -19,6 +19,10 @@ export interface TasteProfileState {
   smokingMethods: string[];
   budStructure: string;
   bodyFeel: number | null;
+  potencyPreference: string;
+  dislikedAromas: string[];
+  preferredFamilies: string[];
+  avoidedFamilies: string[];
   notes: string;
 }
 
@@ -42,6 +46,10 @@ export const EMPTY_PROFILE: TasteProfileState = {
   smokingMethods: [],
   budStructure: "",
   bodyFeel: null,
+  potencyPreference: "",
+  dislikedAromas: [],
+  preferredFamilies: [],
+  avoidedFamilies: [],
   notes: "",
 };
 
@@ -65,6 +73,10 @@ interface RawProfile {
   smokingMethods?: string[] | null;
   budStructure?: string | null;
   bodyFeel?: number | null;
+  potencyPreference?: string | null;
+  dislikedAromas?: string[] | null;
+  preferredFamilies?: string[] | null;
+  avoidedFamilies?: string[] | null;
   notes?: string | null;
 }
 
@@ -95,6 +107,10 @@ export function profileFromApi(raw: RawProfile | null | undefined): {
       smokingMethods: raw.smokingMethods ?? [],
       budStructure: raw.budStructure ?? "",
       bodyFeel: typeof raw.bodyFeel === "number" ? raw.bodyFeel : null,
+      potencyPreference: raw.potencyPreference ?? "",
+      dislikedAromas: raw.dislikedAromas ?? [],
+      preferredFamilies: raw.preferredFamilies ?? [],
+      avoidedFamilies: raw.avoidedFamilies ?? [],
       notes: raw.notes ?? "",
     },
   };

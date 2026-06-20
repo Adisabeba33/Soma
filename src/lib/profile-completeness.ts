@@ -1,22 +1,12 @@
-// Profile completeness — how much sharpening signal a taste profile carries.
-//
-// This drives the onboarding "you're at 60%" indicator, the persistent
-// finish-your-profile nudge, and the ring on the profile page. It is NOT a
-// score of the user and never gates anything: a partial profile still matches,
-// just with a broader (noisier) target. The weighting mirrors what the engine
-// actually leans on (src/lib/profile-target.ts): the forced-choice target
-// fields — primaryEffect + useTime + primaryAroma — are the highest-value
-// signal, so they make up the "base" 60%. Depth layers (favourites, body-feel,
-// potency, avoid lists, families…) refine the target the rest of the way to
-// 100%.
-//
-// Design notes:
-//   - "Base" (60) is exactly what the /onboarding/quick four-tap flow captures,
-//     so finishing quick lands a user right around 60% — the threshold where we
-//     offer "good enough" vs "finish for a sharper match".
-//   - Weights are tunable; the only invariants the tests pin are: empty = 0,
-//     full = 100, monotonic (adding signal never lowers the percent), and the
-//     post-quick base sits in the ~55–60 band.
+// Profile completeness — a single per-question cost model used everywhere
+// (onboarding progress, the finish-your-profile nudge, the profile ring) so the
+// percentage is one consistent number. Each question carries a weight; the
+// percent is the sum of answered weights. The 15 onboarding questions total
+// 75%; five extra refinement questions (full profile only) take it to 100%.
+// Weights are tuned so the answers that point the engine in the right direction
+// up front — favourite strains, primary effect, use-time, primary aroma — are
+// worth the most (39% between them). It never gates matching here; the 60% gate
+// lives at the call sites.
 
 import {
   isPrimaryAroma,
@@ -30,8 +20,14 @@ const nonEmpty = (v: unknown): boolean => Array.isArray(v) && v.length > 0;
 const hasText = (v: unknown): boolean =>
   typeof v === "string" && v.trim().length > 0;
 
-// One scorable signal: its weight, whether the profile carries it, and the
-// human hint shown in "what's missing". `section` points at where to fill it.
+// Below this, matching is gated — the engine needs the directional answers
+// (favourites + effect + time + aroma ≈ 39%, plus a couple of the broad
+// sensory picks) before a run is worth showing.
+export const MATCH_GATE_PERCENT = 60;
+
+// One scorable question: its weight, whether the profile carries an answer, and
+// the human hint shown in "what's missing". `section` groups onboarding ("base")
+// vs full-profile-only refinement ("depth").
 export interface CompletenessItem {
   key: string;
   label: string;
@@ -40,108 +36,33 @@ export interface CompletenessItem {
   section: "base" | "depth";
 }
 
-function items(p: TasteProfileInput): CompletenessItem[] {
-  const avoidEffects = nonEmpty(p.dislikedEffects);
-  const familiesSet = nonEmpty(p.preferredFamilies) || nonEmpty(p.avoidedFamilies);
-  const extras =
-    nonEmpty(p.qualityPriorities) ||
-    nonEmpty(p.texturePreferences) ||
-    hasText(p.notes);
+function items(p: Partial<TasteProfileInput>): CompletenessItem[] {
+  const familiesSet =
+    nonEmpty(p.preferredFamilies) || nonEmpty(p.avoidedFamilies);
 
   return [
-    // ── Base (60): the forced-choice target + the primary avoid signal ──
-    {
-      key: "primaryEffect",
-      label: "The one effect you want most",
-      weight: 18,
-      filled: isPrimaryEffect(p.primaryEffect),
-      section: "base",
-    },
-    {
-      key: "useTime",
-      label: "When you usually reach for it",
-      weight: 18,
-      filled: isUseTime(p.useTime),
-      section: "base",
-    },
-    {
-      key: "smokingMethods",
-      label: "How you like to smoke it",
-      weight: 6,
-      filled: nonEmpty(p.smokingMethods),
-      section: "base",
-    },
-    {
-      key: "primaryAroma",
-      label: "The aroma that pulls you in",
-      weight: 18,
-      filled: isPrimaryAroma(p.primaryAroma) || nonEmpty(p.preferredAromas),
-      section: "base",
-    },
-    {
-      key: "dislikedEffects",
-      label: "What ruins a session for you",
-      weight: 6,
-      filled: avoidEffects,
-      section: "base",
-    },
-    // ── Depth (40): signals that sharpen the target the rest of the way ──
-    {
-      key: "favoriteStrains",
-      label: "A few strains you already love",
-      weight: 12,
-      filled: nonEmpty(p.favoriteStrains),
-      section: "depth",
-    },
-    {
-      key: "bodyFeel",
-      label: "How heavy a body feel you like",
-      weight: 6,
-      filled: typeof p.bodyFeel === "number",
-      section: "depth",
-    },
-    {
-      key: "potencyPreference",
-      label: "How hard-hitting you want it",
-      weight: 6,
-      filled: hasText(p.potencyPreference),
-      section: "depth",
-    },
-    {
-      key: "dislikedAromas",
-      label: "Aromas you'd rather avoid",
-      weight: 5,
-      filled: nonEmpty(p.dislikedAromas),
-      section: "depth",
-    },
-    {
-      key: "budStructure",
-      label: "The bud structure you like",
-      weight: 5,
-      filled: isBudStructure(p.budStructure),
-      section: "depth",
-    },
-    {
-      key: "families",
-      label: "Strain families you seek or avoid",
-      weight: 4,
-      filled: familiesSet,
-      section: "depth",
-    },
-    {
-      key: "avoidedRisks",
-      label: "Sensitivity to racy / heady highs",
-      weight: 3,
-      filled: nonEmpty(p.avoidedRisks),
-      section: "depth",
-    },
-    {
-      key: "extras",
-      label: "Quality priorities, texture & notes",
-      weight: 4,
-      filled: extras,
-      section: "depth",
-    },
+    // ── Onboarding (75): the 15 questions, weighted by directional value ──
+    { key: "favoriteStrains", label: "A few strains you already love", weight: 13, filled: nonEmpty(p.favoriteStrains), section: "base" },
+    { key: "primaryEffect", label: "Your one-word session (primary effect)", weight: 10, filled: isPrimaryEffect(p.primaryEffect), section: "base" },
+    { key: "useTime", label: "When you usually reach for it", weight: 8, filled: isUseTime(p.useTime), section: "base" },
+    { key: "primaryAroma", label: "The one aroma that pulls you in", weight: 8, filled: isPrimaryAroma(p.primaryAroma), section: "base" },
+    { key: "preferredEffects", label: "The effects you're after", weight: 6, filled: nonEmpty(p.preferredEffects), section: "base" },
+    { key: "preferredAromas", label: "The aromas & flavours you reach for", weight: 6, filled: nonEmpty(p.preferredAromas) || nonEmpty(p.preferredFlavors), section: "base" },
+    { key: "dislikedEffects", label: "Effects that ruin a session", weight: 4, filled: nonEmpty(p.dislikedEffects), section: "base" },
+    { key: "bodyFeel", label: "How heavy a body feel you like", weight: 4, filled: typeof p.bodyFeel === "number", section: "base" },
+    { key: "potencyPreference", label: "How hard-hitting you want it", weight: 4, filled: hasText(p.potencyPreference), section: "base" },
+    { key: "dislikedAromas", label: "Aromas that are an instant no", weight: 3, filled: nonEmpty(p.dislikedAromas), section: "base" },
+    { key: "smokingMethods", label: "How you like to smoke it", weight: 2, filled: nonEmpty(p.smokingMethods), section: "base" },
+    { key: "budStructure", label: "The bud structure you like", weight: 2, filled: isBudStructure(p.budStructure), section: "base" },
+    { key: "avoidedRisks", label: "Risks in the high to avoid", weight: 2, filled: nonEmpty(p.avoidedRisks), section: "base" },
+    { key: "dislikedStrains", label: "Strains to steer away from", weight: 2, filled: nonEmpty(p.dislikedStrains), section: "base" },
+    { key: "dislikedTraits", label: "Past-pickup dealbreakers", weight: 1, filled: nonEmpty(p.dislikedTraits), section: "base" },
+    // ── Full-profile refinement (25): the extra precision questions ──
+    { key: "likedTraits", label: "What you liked about your favourites", weight: 7, filled: nonEmpty(p.likedTraits), section: "depth" },
+    { key: "families", label: "Strain families you seek or avoid", weight: 7, filled: familiesSet, section: "depth" },
+    { key: "qualityPriorities", label: "Quality priorities", weight: 5, filled: nonEmpty(p.qualityPriorities), section: "depth" },
+    { key: "texturePreferences", label: "Texture you like", weight: 4, filled: nonEmpty(p.texturePreferences), section: "depth" },
+    { key: "extras", label: "Free notes", weight: 2, filled: hasText(p.notes), section: "depth" },
   ];
 }
 
@@ -158,12 +79,14 @@ export interface ProfileCompleteness {
 // The forced-choice target the engine prefers needs BOTH primaryEffect and
 // useTime (see deriveProfileTarget); that pairing is what "has a real base"
 // means here — without it the match falls back to noisy inference.
-function computeHasBase(p: TasteProfileInput): boolean {
+function computeHasBase(p: Partial<TasteProfileInput>): boolean {
   return isPrimaryEffect(p.primaryEffect) && isUseTime(p.useTime);
 }
 
+// Accepts a partial profile (the onboarding passes live, half-filled state) —
+// every field is read defensively, so missing ones simply count as unanswered.
 export function profileCompleteness(
-  p: TasteProfileInput,
+  p: Partial<TasteProfileInput>,
 ): ProfileCompleteness {
   const all = items(p);
   const earned = all.reduce((sum, i) => sum + (i.filled ? i.weight : 0), 0);

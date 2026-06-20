@@ -19,6 +19,7 @@ const empty = (over: Partial<TasteProfileInput> = {}): TasteProfileInput => ({
   primaryEffect: null,
   useTime: null,
   smokingMethods: [],
+  budStructure: null,
   bodyFeel: null,
   potencyPreference: null,
   preferredFamilies: [],
@@ -36,21 +37,26 @@ const afterScreen1 = (): TasteProfileInput =>
     useTime: "evening",
   });
 
+// Every one of the 20 questions answered.
 const everything = (): TasteProfileInput => ({
   ...empty(),
   favoriteStrains: ["GG4", "Sour Diesel"],
-  smokingMethods: ["vape"],
-  budStructure: "fluffy",
   primaryEffect: "calm",
-  primaryAroma: "citrus",
   useTime: "evening",
+  primaryAroma: "citrus",
+  preferredEffects: ["relaxed"],
   preferredAromas: ["citrus"],
   dislikedEffects: ["sleepy"],
   bodyFeel: 70,
   potencyPreference: "strong",
   dislikedAromas: ["floral"],
-  preferredFamilies: ["OG"],
+  smokingMethods: ["vape"],
+  budStructure: "fluffy",
   avoidedRisks: ["racy"],
+  dislikedStrains: ["Durban Poison"],
+  dislikedTraits: ["harsh"],
+  likedTraits: ["terpy"],
+  preferredFamilies: ["OG"],
   qualityPriorities: ["freshness"],
   texturePreferences: ["dense"],
   notes: "love a gassy evening smoke",
@@ -67,13 +73,39 @@ test("empty profile is 0% and has no base", () => {
 
 test("after screen 1, a real chunk is filled but it's far from done", () => {
   const c = profileCompleteness(afterScreen1());
-  assert.ok(c.percent > 20 && c.percent < 50, `got ${c.percent}`);
+  // favouriteStrains(13) + smokingMethods(2) + useTime(8) = 23.
+  assert.equal(c.percent, 23);
   assert.equal(c.isComplete, false);
-  // The favourite strain + method + time are recorded.
   const keys = c.filled.map((i) => i.key);
   assert.ok(keys.includes("favoriteStrains"));
   assert.ok(keys.includes("smokingMethods"));
   assert.ok(keys.includes("useTime"));
+});
+
+test("the four directional answers are worth 39% together", () => {
+  const c = profileCompleteness(
+    empty({
+      favoriteStrains: ["GG4"],
+      primaryEffect: "calm",
+      useTime: "evening",
+      primaryAroma: "citrus",
+    }),
+  );
+  assert.equal(c.percent, 39);
+});
+
+test("the onboarding questions max out at 75% (extras live in the profile)", () => {
+  // Everything except the five depth/extra questions.
+  const c = profileCompleteness({
+    ...everything(),
+    likedTraits: [],
+    preferredFamilies: [],
+    avoidedFamilies: [],
+    qualityPriorities: [],
+    texturePreferences: [],
+    notes: "",
+  });
+  assert.equal(c.percent, 75);
 });
 
 test("a fully filled profile is 100% and complete", () => {
@@ -96,31 +128,27 @@ test("hasBase needs both the primary effect and the use-time", () => {
   );
 });
 
-test("the avoid signal is a minor weight", () => {
-  const base = empty({ primaryEffect: "calm", useTime: "evening" });
-  const without = profileCompleteness(base).percent;
-  const withAvoid = profileCompleteness({
-    ...base,
-    dislikedEffects: ["sleepy"],
-  }).percent;
-  assert.ok(withAvoid > without);
-  assert.ok(withAvoid - without <= 8);
-});
-
 test("adding any signal never lowers the percent (monotonic), reaching 100", () => {
   const steps: Partial<TasteProfileInput>[] = [
+    { favoriteStrains: ["Jack Herer"] },
     { primaryEffect: "sharp" },
     { useTime: "morning" },
-    { smokingMethods: ["bong"] },
     { primaryAroma: "gas" },
-    { budStructure: "dense" },
+    { preferredEffects: ["energetic"] },
+    { preferredAromas: ["citrus"] },
     { dislikedEffects: ["head-high"] },
-    { favoriteStrains: ["Jack Herer"] },
     { bodyFeel: 20 },
     { potencyPreference: "balanced" },
     { dislikedAromas: ["cheese"] },
-    { preferredFamilies: ["Haze"] },
+    { smokingMethods: ["bong"] },
+    { budStructure: "dense" },
     { avoidedRisks: ["racy"] },
+    { dislikedStrains: ["Durban Poison"] },
+    { dislikedTraits: ["harsh"] },
+    { likedTraits: ["terpy"] },
+    { preferredFamilies: ["Haze"] },
+    { qualityPriorities: ["freshness"] },
+    { texturePreferences: ["dense"] },
     { notes: "bright daytime" },
   ];
   let acc: TasteProfileInput = empty();
@@ -134,8 +162,9 @@ test("adding any signal never lowers the percent (monotonic), reaching 100", () 
   assert.equal(prev, 100);
 });
 
-test("nextHint points at the highest-value missing item", () => {
+test("nextHint points at the highest-value missing question (favourites)", () => {
   const c = profileCompleteness(empty({ smokingMethods: ["joint"] }));
   assert.ok(c.nextHint);
-  assert.equal(c.nextHint!.weight, 18);
+  assert.equal(c.nextHint!.key, "favoriteStrains");
+  assert.equal(c.nextHint!.weight, 13);
 });

@@ -11,13 +11,38 @@ import {
   EFFECTS,
   FLAVORS,
   LIKED_TRAITS,
+  QUALITY_PRIORITIES,
   RISK_AVOIDANCE,
+  TEXTURE_PREFERENCES,
 } from "@/lib/vocab";
-import { PRIMARY_AROMAS, PRIMARY_EFFECTS, USE_TIMES } from "@/lib/profile-target";
-import { POPULAR_STRAINS, type TasteProfileState } from "@/lib/profile-state";
+import {
+  PRIMARY_AROMAS,
+  PRIMARY_EFFECTS,
+  USE_TIMES,
+  SMOKING_METHODS,
+  BUD_STRUCTURES,
+} from "@/lib/profile-target";
+import { NAMED_FAMILIES } from "@/lib/strain-families";
+import { STRAIN_NAMES } from "@/lib/strain-data";
+import { type TasteProfileState } from "@/lib/profile-state";
 
 const AROMA_VALUES = new Set(AROMAS.map((o) => o.value));
 const FLAVOR_VALUES = new Set(FLAVORS.map((o) => o.value));
+
+const FAMILY_OPTIONS = NAMED_FAMILIES.map((f) => ({
+  value: f.key,
+  label: f.label,
+}));
+const POTENCY_OPTIONS = [
+  { value: "mild", label: "Easy-going" },
+  { value: "balanced", label: "Balanced" },
+  { value: "strong", label: "Strong" },
+];
+const BODY_FEEL_OPTIONS = [
+  { value: "0", label: "Clear & light" },
+  { value: "50", label: "In between" },
+  { value: "100", label: "Heavy & sunk-in" },
+];
 
 function Section({
   index,
@@ -61,6 +86,8 @@ function Section({
   );
 }
 
+// Mirrors the onboarding questionnaire one-to-one (screens 1–5, same order),
+// then adds the extra refinement questions that take the profile to 100%.
 export function TasteProfileForm({
   initial,
   submitLabel,
@@ -81,12 +108,8 @@ export function TasteProfileForm({
     value: TasteProfileState[K],
   ) => setState((prev) => ({ ...prev, [key]: value }));
 
-  // Aroma and flavour are one question for the user (smell ≈ taste). The
-  // selection feeds both engine dimensions — but split by vocab, so a
-  // flavour-only note (nutty, mint, grape) goes only to preferredFlavors and
-  // an aroma-only note only to preferredAromas. Writing the raw union to both
-  // parked flavour-only tokens in preferredAromas where they could never match
-  // and showed forever as Critical Missing in the audit.
+  // Aroma + flavour are one question; split the selection by vocab so a
+  // flavour-only note (nutty, mint…) feeds only preferredFlavors.
   const sensoryNotes = Array.from(
     new Set([...state.preferredAromas, ...state.preferredFlavors]),
   );
@@ -99,16 +122,17 @@ export function TasteProfileForm({
 
   return (
     <div className="space-y-7">
+      {/* ── Screen 1 ── */}
       <Section
         index={1}
         title="Which strains have you loved?"
-        hint="Add the flower that has genuinely worked for you, in order of preference — your most-loved first. SŌMA uses these as anchors, and the order matters: a strain that resembles your #1 favourite scores a little above one that resembles a lower-ranked pick."
+        hint="Add the flower that has genuinely worked for you, most-loved first. SŌMA uses these as anchors and the order matters."
       >
         <TagInput
           value={state.favoriteStrains}
           onChange={(v) => set("favoriteStrains", v)}
           placeholder="Type a strain and press Enter"
-          suggestions={POPULAR_STRAINS}
+          suggestions={STRAIN_NAMES}
           validateStrains
           ordered
         />
@@ -116,18 +140,32 @@ export function TasteProfileForm({
 
       <Section
         index={2}
-        title="What did you like about them?"
-        hint="The traits that made those picks feel good."
+        title="How do you usually smoke?"
+        optional
+        hint="Pick all that apply."
       >
         <ChipSelect
-          options={LIKED_TRAITS}
-          value={state.likedTraits}
-          onChange={(v) => set("likedTraits", v)}
+          options={SMOKING_METHODS}
+          value={state.smokingMethods}
+          onChange={(v) => set("smokingMethods", v)}
         />
       </Section>
 
       <Section
         index={3}
+        title="When do you prefer to smoke?"
+        hint="This steers day vs night picks."
+      >
+        <SingleSelect
+          options={USE_TIMES}
+          value={state.useTime}
+          onChange={(v) => set("useTime", v)}
+        />
+      </Section>
+
+      {/* ── Screen 2 ── */}
+      <Section
+        index={4}
         title="Which aromas & flavours do you reach for?"
         hint="Smell and taste together — pick everything that appeals."
       >
@@ -139,7 +177,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={4}
+        index={5}
         title="One jar stops you dead. What does it smell like?"
         hint="Pick one. This is your primary note — it carries extra weight."
       >
@@ -151,7 +189,21 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={5}
+        index={6}
+        title="Opening the jar — how should the bud look and feel?"
+        optional
+        hint="Visually and to the touch."
+      >
+        <SingleSelect
+          options={BUD_STRUCTURES}
+          value={state.budStructure}
+          onChange={(v) => set("budStructure", v)}
+        />
+      </Section>
+
+      {/* ── Screen 3 ── */}
+      <Section
+        index={7}
         title="What effect are you looking for?"
         hint="Pick everything that fits — head and body."
       >
@@ -163,7 +215,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={6}
+        index={8}
         title="A perfect session — in one word, how do you feel?"
         hint="Pick one. This is the outcome that matters most to you."
       >
@@ -175,10 +227,10 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={7}
+        index={9}
         title="Any effects you want to avoid?"
         optional
-        hint="Pick anything that ruins a session for you — couch-lock, paranoia, head-heavy spin. SŌMA penalises picks that carry these and silences the dislike if your favourites already deliver it (you're allowed to contradict yourself)."
+        hint="Couch-lock, paranoia, head-heavy spin. SŌMA penalises these and silences the dislike if your favourites already deliver it."
       >
         <ChipSelect
           options={EFFECTS}
@@ -187,11 +239,12 @@ export function TasteProfileForm({
         />
       </Section>
 
+      {/* ── Screen 4 ── */}
       <Section
-        index={8}
+        index={10}
         title="Anything in the high you'd rather avoid?"
         optional
-        hint="For users who want daytime energy but not a nervous, overstimulating edge. SŌMA gently lowers strains known to run racy — only for you, and never if your own favourites already run that way."
+        hint="For daytime energy without the nervous edge. SŌMA gently lowers strains known to run this way — never if your own favourites already do."
       >
         <ChipSelect
           options={RISK_AVOIDANCE}
@@ -201,22 +254,10 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={9}
-        title="When do you usually reach for it?"
-        hint="Pick one. This steers day vs night picks."
-      >
-        <SingleSelect
-          options={USE_TIMES}
-          value={state.useTime}
-          onChange={(v) => set("useTime", v)}
-        />
-      </Section>
-
-      <Section
-        index={10}
+        index={11}
         title="What disappointed you in past pickups?"
         optional
-        hint="Honest dealbreakers. Some of these come down to freshness and storage rather than the strain itself — SŌMA accounts for that."
+        hint="Honest dealbreakers. Some come down to freshness and storage rather than the strain — SŌMA accounts for that."
       >
         <ChipSelect
           options={DISLIKED_TRAITS}
@@ -226,7 +267,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={11}
+        index={12}
         title="Strains to steer away from"
         optional
         hint="Anything you already know is not for you."
@@ -235,11 +276,122 @@ export function TasteProfileForm({
           value={state.dislikedStrains}
           onChange={(v) => set("dislikedStrains", v)}
           placeholder="Type a strain and press Enter"
+          suggestions={STRAIN_NAMES}
           validateStrains
         />
       </Section>
 
-      <Section index={12} title="Anything else?" optional hint="Free notes.">
+      {/* ── Screen 5 ── */}
+      <Section
+        index={13}
+        title="Any aroma that's an instant no?"
+        optional
+        hint="The opposite of what you reach for — helps catch contradictions."
+      >
+        <ChipSelect
+          options={AROMA_FLAVOR}
+          value={state.dislikedAromas}
+          onChange={(v) => set("dislikedAromas", v)}
+        />
+      </Section>
+
+      <Section
+        index={14}
+        title="When it hits right, how heavy is the body?"
+        optional
+        hint="Clear-headed and light, or sunk into the couch?"
+      >
+        <SingleSelect
+          options={BODY_FEEL_OPTIONS}
+          value={state.bodyFeel === null ? "" : String(state.bodyFeel)}
+          onChange={(v) => set("bodyFeel", v === "" ? null : Number(v))}
+        />
+      </Section>
+
+      <Section
+        index={15}
+        title="How hard should it hit?"
+        optional
+        hint="Your preferred strength."
+      >
+        <SingleSelect
+          options={POTENCY_OPTIONS}
+          value={state.potencyPreference}
+          onChange={(v) => set("potencyPreference", v)}
+        />
+      </Section>
+
+      {/* ── Extra refinement (full profile only) ── */}
+      <Section
+        index={16}
+        title="What did you like about your favourites?"
+        optional
+        hint="The traits that made those picks feel good."
+      >
+        <ChipSelect
+          options={LIKED_TRAITS}
+          value={state.likedTraits}
+          onChange={(v) => set("likedTraits", v)}
+        />
+      </Section>
+
+      <Section
+        index={17}
+        title="Strain families you seek out or avoid"
+        optional
+        hint="Buying behaviour, distinct from the sensory match."
+      >
+        <div className="space-y-3">
+          <div>
+            <p className="mb-1.5 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              Seek out
+            </p>
+            <ChipSelect
+              options={FAMILY_OPTIONS}
+              value={state.preferredFamilies}
+              onChange={(v) => set("preferredFamilies", v)}
+            />
+          </div>
+          <div>
+            <p className="mb-1.5 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              Usually avoid
+            </p>
+            <ChipSelect
+              options={FAMILY_OPTIONS}
+              value={state.avoidedFamilies}
+              onChange={(v) => set("avoidedFamilies", v)}
+            />
+          </div>
+        </div>
+      </Section>
+
+      <Section
+        index={18}
+        title="What matters most in quality?"
+        optional
+        hint="Tie-breakers when picks are close."
+      >
+        <ChipSelect
+          options={QUALITY_PRIORITIES}
+          value={state.qualityPriorities}
+          onChange={(v) => set("qualityPriorities", v)}
+        />
+      </Section>
+
+      <Section
+        index={19}
+        title="Texture you like"
+        optional
+        hint="How the flower feels and breaks down."
+      >
+        <ChipSelect
+          options={TEXTURE_PREFERENCES}
+          value={state.texturePreferences}
+          onChange={(v) => set("texturePreferences", v)}
+        />
+      </Section>
+
+      <Section index={20} title="Anything else?" optional hint="Free notes.">
         <Textarea
           rows={3}
           value={state.notes}

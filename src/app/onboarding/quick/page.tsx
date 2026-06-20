@@ -23,6 +23,7 @@ import {
   DISLIKED_TRAITS,
 } from "@/lib/vocab";
 import { STRAIN_NAMES } from "@/lib/strain-data";
+import { profileCompleteness } from "@/lib/profile-completeness";
 
 // Onboarding — the questionnaire fills the profile over five screens, each
 // worth ~15% (→ 75% by the end; the final 25% is optional precision in the full
@@ -35,7 +36,6 @@ import { STRAIN_NAMES } from "@/lib/strain-data";
 //   5. final calibration & cross-check — disliked aromas, body feel, potency
 
 const ONBOARDING_SCREENS = 5;
-const PERCENT_PER_SCREEN = 15; // 5 × 15 = 75% by the end of the questionnaire
 const LAST_STEP = ONBOARDING_SCREENS - 1; // 0-indexed (screen 5 = step 4)
 
 const TIME_LABELS: Record<string, string> = {
@@ -92,46 +92,39 @@ export default function QuickOnboardingPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Progress: each screen is worth PERCENT_PER_SCREEN; within a screen the
-  // three answers fill that share evenly. 15% → 30% → 45% → 60% → 75%.
-  const answeredPerScreen = [
-    (favorites.length > 0 ? 1 : 0) + (methods.length > 0 ? 1 : 0) + (time ? 1 : 0),
-    (sensoryNotes.length > 0 ? 1 : 0) + (primaryAroma ? 1 : 0) + (budStructure ? 1 : 0),
-    (preferredEffects.length > 0 ? 1 : 0) + (primaryEffect ? 1 : 0) + (dislikedEffects.length > 0 ? 1 : 0),
-    (avoidedRisks.length > 0 ? 1 : 0) + (dislikedTraits.length > 0 ? 1 : 0) + (dislikedStrains.length > 0 ? 1 : 0),
-    (dislikedAromas.length > 0 ? 1 : 0) + (bodyFeel ? 1 : 0) + (potency ? 1 : 0),
-  ];
-  const percent = Math.round(
-    (step + answeredPerScreen[step] / 3) * PERCENT_PER_SCREEN,
-  );
+  // Single source for both the live progress and the save payload.
+  const draft = {
+    favoriteStrains: favorites,
+    smokingMethods: methods,
+    useTime: time,
+    preferredAromas: sensoryNotes.filter((t) => AROMA_VALUES.has(t)),
+    preferredFlavors: sensoryNotes.filter((t) => FLAVOR_VALUES.has(t)),
+    primaryAroma,
+    budStructure,
+    preferredEffects,
+    primaryEffect,
+    dislikedEffects,
+    avoidedRisks,
+    dislikedTraits,
+    dislikedStrains,
+    dislikedAromas,
+    bodyFeel: bodyFeel ? Number(bodyFeel) : null,
+    potencyPreference: potency,
+  };
+  // One unified scale: progress = the shared per-question completeness. Each
+  // answer is worth its own weight (so skipping a screen adds 0), and the
+  // onboarding tops out near 75% — the extra questions live in the full profile.
+  const percent = profileCompleteness(draft).percent;
 
   async function save() {
     setSubmitting(true);
     setError(null);
     try {
-      // Plain payload — the API reads each field loosely and clips to vocab.
-      const body = {
-        favoriteStrains: favorites,
-        smokingMethods: methods,
-        useTime: time,
-        preferredAromas: sensoryNotes.filter((t) => AROMA_VALUES.has(t)),
-        preferredFlavors: sensoryNotes.filter((t) => FLAVOR_VALUES.has(t)),
-        primaryAroma,
-        budStructure,
-        preferredEffects,
-        primaryEffect,
-        dislikedEffects,
-        avoidedRisks,
-        dislikedTraits,
-        dislikedStrains,
-        dislikedAromas,
-        bodyFeel: bodyFeel ? Number(bodyFeel) : null,
-        potencyPreference: potency,
-      };
+      // The API reads each field loosely and clips to vocab.
       const res = await fetch("/api/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify(draft),
       });
       if (!res.ok) throw new Error();
       router.push("/taste-match");
