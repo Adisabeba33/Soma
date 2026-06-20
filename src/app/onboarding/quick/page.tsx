@@ -23,26 +23,41 @@ import {
   DISLIKED_TRAITS,
 } from "@/lib/vocab";
 import { STRAIN_NAMES } from "@/lib/strain-data";
-import { EMPTY_PROFILE, type TasteProfileState } from "@/lib/profile-state";
 
 // Onboarding — the questionnaire fills the profile over five screens, each
 // worth ~15% (→ 75% by the end; the final 25% is optional precision in the full
-// profile). Screen 1: a strain you love, how you smoke, when you smoke.
-// Screen 2: the aromas/flavours you reach for, your one primary note, and the
-// bud structure you like. Screen 3: the effects you want, your one-word
-// session, and effects to avoid. Screen 4 (all optional): risks in the high to
-// avoid, past-pickup dealbreakers, and strains to steer away from. Screen 5
-// slots in before the final save.
+// profile). Every question is optional and just earns progress — Continue is
+// always active, and skipping a whole screen simply adds 0%.
+//   1. a strain you love, how/when you smoke
+//   2. aromas/flavours, your one primary note, bud structure
+//   3. effects you want, one-word session, effects to avoid
+//   4. risks in the high to avoid, past-pickup dealbreakers, strains to avoid
+//   5. final calibration & cross-check — disliked aromas, body feel, potency
 
 const ONBOARDING_SCREENS = 5;
 const PERCENT_PER_SCREEN = 15; // 5 × 15 = 75% by the end of the questionnaire
+const LAST_STEP = ONBOARDING_SCREENS - 1; // 0-indexed (screen 5 = step 4)
 
 const TIME_LABELS: Record<string, string> = {
   morning: "Morning",
   daytime: "Day",
   evening: "Evening",
   bed: "Late night",
+  anytime: "Any time",
 };
+
+const POTENCY_OPTIONS = [
+  { value: "mild", label: "Easy-going" },
+  { value: "balanced", label: "Balanced" },
+  { value: "strong", label: "Strong" },
+];
+
+// bodyFeel is a 0–100 axis; three taps map onto it.
+const BODY_FEEL_OPTIONS = [
+  { value: "0", label: "Clear & light" },
+  { value: "50", label: "In between" },
+  { value: "100", label: "Heavy & sunk-in" },
+];
 
 // Aroma and flavour are one question for the user; the selection feeds both
 // engine dimensions, split by vocab so a flavour-only note goes only to flavours.
@@ -51,12 +66,11 @@ const FLAVOR_VALUES = new Set(FLAVORS.map((o) => o.value));
 
 export default function QuickOnboardingPage() {
   const router = useRouter();
-  const [step, setStep] = useState(0); // 0–3 = screens 1–4
-  const LAST_STEP = 3;
+  const [step, setStep] = useState(0); // 0–4 = screens 1–5
 
   // Screen 1
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [method, setMethod] = useState("");
+  const [methods, setMethods] = useState<string[]>([]);
   const [time, setTime] = useState("");
   // Screen 2
   const [sensoryNotes, setSensoryNotes] = useState<string[]>([]);
@@ -70,56 +84,35 @@ export default function QuickOnboardingPage() {
   const [avoidedRisks, setAvoidedRisks] = useState<string[]>([]);
   const [dislikedTraits, setDislikedTraits] = useState<string[]>([]);
   const [dislikedStrains, setDislikedStrains] = useState<string[]>([]);
+  // Screen 5 (calibration & cross-check)
+  const [dislikedAromas, setDislikedAromas] = useState<string[]>([]);
+  const [bodyFeel, setBodyFeel] = useState("");
+  const [potency, setPotency] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Progress: each screen is worth PERCENT_PER_SCREEN; within a screen the
-  // answers fill that share evenly. Screen 1 → 15%, 2 → 30%, 3 → 45%.
-  const answered1 =
-    (favorites.length > 0 ? 1 : 0) + (method ? 1 : 0) + (time ? 1 : 0);
-  const answered2 =
-    (sensoryNotes.length > 0 ? 1 : 0) +
-    (primaryAroma ? 1 : 0) +
-    (budStructure ? 1 : 0);
-  const answered3 =
-    (preferredEffects.length > 0 ? 1 : 0) +
-    (primaryEffect ? 1 : 0) +
-    (dislikedEffects.length > 0 ? 1 : 0);
-  const answered4 =
-    (avoidedRisks.length > 0 ? 1 : 0) +
-    (dislikedTraits.length > 0 ? 1 : 0) +
-    (dislikedStrains.length > 0 ? 1 : 0);
-  const answeredThisStep =
-    step === 0
-      ? answered1
-      : step === 1
-        ? answered2
-        : step === 2
-          ? answered3
-          : answered4;
+  // three answers fill that share evenly. 15% → 30% → 45% → 60% → 75%.
+  const answeredPerScreen = [
+    (favorites.length > 0 ? 1 : 0) + (methods.length > 0 ? 1 : 0) + (time ? 1 : 0),
+    (sensoryNotes.length > 0 ? 1 : 0) + (primaryAroma ? 1 : 0) + (budStructure ? 1 : 0),
+    (preferredEffects.length > 0 ? 1 : 0) + (primaryEffect ? 1 : 0) + (dislikedEffects.length > 0 ? 1 : 0),
+    (avoidedRisks.length > 0 ? 1 : 0) + (dislikedTraits.length > 0 ? 1 : 0) + (dislikedStrains.length > 0 ? 1 : 0),
+    (dislikedAromas.length > 0 ? 1 : 0) + (bodyFeel ? 1 : 0) + (potency ? 1 : 0),
+  ];
   const percent = Math.round(
-    (step + answeredThisStep / 3) * PERCENT_PER_SCREEN,
+    (step + answeredPerScreen[step] / 3) * PERCENT_PER_SCREEN,
   );
-
-  // Screen 4 is entirely optional, so it never blocks Continue.
-  const canAdvance =
-    step === 0
-      ? method !== "" && time !== ""
-      : step === 1
-        ? primaryAroma !== "" && budStructure !== ""
-        : step === 2
-          ? primaryEffect !== "" && preferredEffects.length > 0
-          : true;
 
   async function save() {
     setSubmitting(true);
     setError(null);
     try {
-      const draft: TasteProfileState = {
-        ...EMPTY_PROFILE,
+      // Plain payload — the API reads each field loosely and clips to vocab.
+      const body = {
         favoriteStrains: favorites,
-        smokingMethod: method,
+        smokingMethods: methods,
         useTime: time,
         preferredAromas: sensoryNotes.filter((t) => AROMA_VALUES.has(t)),
         preferredFlavors: sensoryNotes.filter((t) => FLAVOR_VALUES.has(t)),
@@ -131,15 +124,16 @@ export default function QuickOnboardingPage() {
         avoidedRisks,
         dislikedTraits,
         dislikedStrains,
+        dislikedAromas,
+        bodyFeel: bodyFeel ? Number(bodyFeel) : null,
+        potencyPreference: potency,
       };
       const res = await fetch("/api/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(draft),
+        body: JSON.stringify(body),
       });
       if (!res.ok) throw new Error();
-      // Screen 5 will be inserted before this step later; for now screen 4
-      // is the last, so it saves and sends the visitor into matching.
       router.push("/taste-match");
     } catch {
       setError("Couldn't save that. Try again.");
@@ -220,12 +214,12 @@ export default function QuickOnboardingPage() {
           <Question
             n={2}
             title="How do you usually smoke?"
-            sub="Helps SŌMA read the experience."
+            sub="Pick all that apply."
           >
-            <OptionRow
+            <ChipSelect
               options={SMOKING_METHODS}
-              selected={method}
-              onSelect={(v) => setMethod(v === method ? "" : v)}
+              value={methods}
+              onChange={setMethods}
             />
           </Question>
 
@@ -334,7 +328,7 @@ export default function QuickOnboardingPage() {
             />
           </Question>
         </>
-      ) : (
+      ) : step === 3 ? (
         <>
           <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
             A few dealbreakers.
@@ -381,6 +375,51 @@ export default function QuickOnboardingPage() {
             />
           </Question>
         </>
+      ) : (
+        <>
+          <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
+            Final calibration.
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            Three quick checks to sharpen — and sanity-check — your profile.
+          </p>
+
+          <Question
+            n={1}
+            title="Any aroma that's an instant no?"
+            sub="The opposite of what you reach for — helps catch contradictions."
+          >
+            <ChipSelect
+              options={AROMA_FLAVOR}
+              value={dislikedAromas}
+              onChange={setDislikedAromas}
+            />
+          </Question>
+
+          <Question
+            n={2}
+            title="When it hits right, how heavy is the body?"
+            sub="Clear-headed and light, or sunk into the couch?"
+          >
+            <OptionRow
+              options={BODY_FEEL_OPTIONS}
+              selected={bodyFeel}
+              onSelect={(v) => setBodyFeel(v === bodyFeel ? "" : v)}
+            />
+          </Question>
+
+          <Question
+            n={3}
+            title="How hard should it hit?"
+            sub="Your preferred strength."
+          >
+            <OptionRow
+              options={POTENCY_OPTIONS}
+              selected={potency}
+              onSelect={(v) => setPotency(v === potency ? "" : v)}
+            />
+          </Question>
+        </>
       )}
 
       {error && (
@@ -390,18 +429,23 @@ export default function QuickOnboardingPage() {
       )}
 
       <div className="mt-10 flex items-center gap-3 border-t border-border pt-6">
-        <Button onClick={onContinue} disabled={!canAdvance || submitting} size="lg">
-          {submitting ? "Saving…" : "Continue"}
+        {/* Always active — every question is optional; skipping just adds 0%. */}
+        <Button onClick={onContinue} disabled={submitting} size="lg">
+          {submitting
+            ? "Saving…"
+            : step === LAST_STEP
+              ? "Finish"
+              : "Continue"}
           <ArrowRight className="h-4 w-4" />
         </Button>
-        {!canAdvance && (
-          <span className="text-sm text-muted-foreground">
-            {step === 0
-              ? "Pick how and when you smoke to continue."
-              : step === 1
-                ? "Pick your primary note and a bud structure to continue."
-                : "Pick the effects you want and your one-word session to continue."}
-          </span>
+        {step < LAST_STEP && (
+          <button
+            type="button"
+            onClick={onContinue}
+            className="text-sm text-muted-foreground hover:text-foreground"
+          >
+            Skip
+          </button>
         )}
       </div>
 

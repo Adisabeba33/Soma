@@ -64,7 +64,7 @@ async function upsertProfile(req: NextRequest) {
     primaryAroma: asEnum(body.primaryAroma, isPrimaryAroma),
     primaryEffect: asEnum(body.primaryEffect, isPrimaryEffect),
     useTime: asEnum(body.useTime, isUseTime),
-    smokingMethod: asEnum(body.smokingMethod, isSmokingMethod),
+    smokingMethods: asArray(body.smokingMethods).filter(isSmokingMethod),
     budStructure: asEnum(body.budStructure, isBudStructure),
     bodyFeel: asBodyFeel(body.bodyFeel),
     potencyPreference: asPotency(body.potencyPreference),

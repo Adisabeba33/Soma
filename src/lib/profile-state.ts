@@ -16,7 +16,7 @@ export interface TasteProfileState {
   primaryAroma: string;
   primaryEffect: string;
   useTime: string;
-  smokingMethod: string;
+  smokingMethods: string[];
   budStructure: string;
   bodyFeel: number | null;
   notes: string;
@@ -39,7 +39,7 @@ export const EMPTY_PROFILE: TasteProfileState = {
   primaryAroma: "",
   primaryEffect: "",
   useTime: "",
-  smokingMethod: "",
+  smokingMethods: [],
   budStructure: "",
   bodyFeel: null,
   notes: "",
@@ -62,7 +62,7 @@ interface RawProfile {
   primaryAroma?: string | null;
   primaryEffect?: string | null;
   useTime?: string | null;
-  smokingMethod?: string | null;
+  smokingMethods?: string[] | null;
   budStructure?: string | null;
   bodyFeel?: number | null;
   notes?: string | null;
@@ -92,7 +92,7 @@ export function profileFromApi(raw: RawProfile | null | undefined): {
       primaryAroma: raw.primaryAroma ?? "",
       primaryEffect: raw.primaryEffect ?? "",
       useTime: raw.useTime ?? "",
-      smokingMethod: raw.smokingMethod ?? "",
+      smokingMethods: raw.smokingMethods ?? [],
       budStructure: raw.budStructure ?? "",
       bodyFeel: typeof raw.bodyFeel === "number" ? raw.bodyFeel : null,
       notes: raw.notes ?? "",
