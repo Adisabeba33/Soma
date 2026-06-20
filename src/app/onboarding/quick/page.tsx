@@ -14,7 +14,14 @@ import {
   PRIMARY_EFFECTS,
   BUD_STRUCTURES,
 } from "@/lib/profile-target";
-import { AROMAS, FLAVORS, AROMA_FLAVOR, EFFECTS } from "@/lib/vocab";
+import {
+  AROMAS,
+  FLAVORS,
+  AROMA_FLAVOR,
+  EFFECTS,
+  RISK_AVOIDANCE,
+  DISLIKED_TRAITS,
+} from "@/lib/vocab";
 import { STRAIN_NAMES } from "@/lib/strain-data";
 import { EMPTY_PROFILE, type TasteProfileState } from "@/lib/profile-state";
 
@@ -23,7 +30,9 @@ import { EMPTY_PROFILE, type TasteProfileState } from "@/lib/profile-state";
 // profile). Screen 1: a strain you love, how you smoke, when you smoke.
 // Screen 2: the aromas/flavours you reach for, your one primary note, and the
 // bud structure you like. Screen 3: the effects you want, your one-word
-// session, and effects to avoid. Screens 4–5 slot in before the final save.
+// session, and effects to avoid. Screen 4 (all optional): risks in the high to
+// avoid, past-pickup dealbreakers, and strains to steer away from. Screen 5
+// slots in before the final save.
 
 const ONBOARDING_SCREENS = 5;
 const PERCENT_PER_SCREEN = 15; // 5 × 15 = 75% by the end of the questionnaire
@@ -42,8 +51,8 @@ const FLAVOR_VALUES = new Set(FLAVORS.map((o) => o.value));
 
 export default function QuickOnboardingPage() {
   const router = useRouter();
-  const [step, setStep] = useState(0); // 0 = screen 1, 1 = screen 2, 2 = screen 3
-  const LAST_STEP = 2;
+  const [step, setStep] = useState(0); // 0–3 = screens 1–4
+  const LAST_STEP = 3;
 
   // Screen 1
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -57,6 +66,10 @@ export default function QuickOnboardingPage() {
   const [preferredEffects, setPreferredEffects] = useState<string[]>([]);
   const [primaryEffect, setPrimaryEffect] = useState("");
   const [dislikedEffects, setDislikedEffects] = useState<string[]>([]);
+  // Screen 4 (all optional)
+  const [avoidedRisks, setAvoidedRisks] = useState<string[]>([]);
+  const [dislikedTraits, setDislikedTraits] = useState<string[]>([]);
+  const [dislikedStrains, setDislikedStrains] = useState<string[]>([]);
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -73,18 +86,31 @@ export default function QuickOnboardingPage() {
     (preferredEffects.length > 0 ? 1 : 0) +
     (primaryEffect ? 1 : 0) +
     (dislikedEffects.length > 0 ? 1 : 0);
+  const answered4 =
+    (avoidedRisks.length > 0 ? 1 : 0) +
+    (dislikedTraits.length > 0 ? 1 : 0) +
+    (dislikedStrains.length > 0 ? 1 : 0);
   const answeredThisStep =
-    step === 0 ? answered1 : step === 1 ? answered2 : answered3;
+    step === 0
+      ? answered1
+      : step === 1
+        ? answered2
+        : step === 2
+          ? answered3
+          : answered4;
   const percent = Math.round(
     (step + answeredThisStep / 3) * PERCENT_PER_SCREEN,
   );
 
+  // Screen 4 is entirely optional, so it never blocks Continue.
   const canAdvance =
     step === 0
       ? method !== "" && time !== ""
       : step === 1
         ? primaryAroma !== "" && budStructure !== ""
-        : primaryEffect !== "" && preferredEffects.length > 0;
+        : step === 2
+          ? primaryEffect !== "" && preferredEffects.length > 0
+          : true;
 
   async function save() {
     setSubmitting(true);
@@ -102,6 +128,9 @@ export default function QuickOnboardingPage() {
         preferredEffects,
         primaryEffect,
         dislikedEffects,
+        avoidedRisks,
+        dislikedTraits,
+        dislikedStrains,
       };
       const res = await fetch("/api/profile", {
         method: "POST",
@@ -109,7 +138,7 @@ export default function QuickOnboardingPage() {
         body: JSON.stringify(draft),
       });
       if (!res.ok) throw new Error();
-      // Screens 4–5 will be inserted before this step later; for now screen 3
+      // Screen 5 will be inserted before this step later; for now screen 4
       // is the last, so it saves and sends the visitor into matching.
       router.push("/taste-match");
     } catch {
@@ -260,7 +289,7 @@ export default function QuickOnboardingPage() {
             />
           </Question>
         </>
-      ) : (
+      ) : step === 2 ? (
         <>
           <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
             Now the high.
@@ -302,6 +331,53 @@ export default function QuickOnboardingPage() {
               options={EFFECTS}
               value={dislikedEffects}
               onChange={setDislikedEffects}
+            />
+          </Question>
+        </>
+      ) : (
+        <>
+          <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
+            A few dealbreakers.
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            All optional — skip any that don&apos;t apply.
+          </p>
+
+          <Question
+            n={1}
+            title="Anything in the high you'd rather avoid?"
+            sub="For daytime energy without the nervous edge. SŌMA gently lowers strains known to run this way — only for you, never if your favourites already do."
+          >
+            <ChipSelect
+              options={RISK_AVOIDANCE}
+              value={avoidedRisks}
+              onChange={setAvoidedRisks}
+            />
+          </Question>
+
+          <Question
+            n={2}
+            title="What disappointed you in past pickups?"
+            sub="Honest dealbreakers. Some come down to freshness and storage rather than the strain — SŌMA accounts for that."
+          >
+            <ChipSelect
+              options={DISLIKED_TRAITS}
+              value={dislikedTraits}
+              onChange={setDislikedTraits}
+            />
+          </Question>
+
+          <Question
+            n={3}
+            title="Strains to steer away from"
+            sub="Anything you already know is not for you."
+          >
+            <TagInput
+              value={dislikedStrains}
+              onChange={setDislikedStrains}
+              placeholder="Type a strain and press Enter"
+              suggestions={STRAIN_NAMES}
+              validateStrains
             />
           </Question>
         </>

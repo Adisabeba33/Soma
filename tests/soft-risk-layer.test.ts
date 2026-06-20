@@ -60,3 +60,33 @@ test("a favourite carrying the risk reconciles it away (no self-penalty)", () =>
   );
   assert.equal(avoid.unclampedScore, noAvoid.unclampedScore);
 });
+
+test("de-dup: racy + head-high avoided together don't double-charge", () => {
+  // Sour Diesel is racy (HIGH) AND carries the head-high effect. Avoiding both
+  // the racy risk (Q08) and head-high (Q07) must NOT stack −5 on top of the
+  // −15 effect conflict — the risk shrinks to a token −1.
+  const effectOnly = scoreStrain(
+    "Sour Diesel",
+    base({ dislikedEffects: ["head-high"] }),
+  );
+  const both = scoreStrain(
+    "Sour Diesel",
+    base({ dislikedEffects: ["head-high"], avoidedRisks: ["racy"] }),
+  );
+  assert.equal(effectOnly.unclampedScore - both.unclampedScore, 1);
+});
+
+test("de-dup only fires when the strain carries the overlapping effect", () => {
+  // Bruce Banner is racy (HIGH) but does NOT carry head-high. Avoiding both
+  // racy and head-high leaves the racy penalty at its full −5 (no effect
+  // conflict to de-dup against).
+  const effectOnly = scoreStrain(
+    "Bruce Banner",
+    base({ dislikedEffects: ["head-high"] }),
+  );
+  const both = scoreStrain(
+    "Bruce Banner",
+    base({ dislikedEffects: ["head-high"], avoidedRisks: ["racy"] }),
+  );
+  assert.equal(effectOnly.unclampedScore - both.unclampedScore, 5);
+});
