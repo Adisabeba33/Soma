@@ -7732,4 +7732,74 @@ export const IDENTITIES: StrainIdentity[] = [
     artStatus: "prompt",
     sourceConfidence: "high",
   },
+  {
+    canonicalName: "True OG",
+    marketNames: ["The True OG"],
+    breeder: "Elemental Seeds",
+    lineage: {
+      parents: ["OG Kush"],
+      cross: "OG Kush self-cross (select phenotype)",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Select OG Kush cut isolated for heavy resin and pure fuel-pine profile.", "Multiple Cannabis Cup wins since 2010, including Best Indica honors."],
+    curatorNote:
+      "This is OG distilled to its truest self, with none of the modern sweetening that softened so many of its descendants. Crack a jar and the fuel hits first, raw and gassy, before pine and a cool citrus edge settle in over damp earth. The smoke is dense and resinous, leaning heavy and physical, the kind of slow descent into the couch that earned its Cup hardware. It is unapologetically old-school, a benchmark indica for those who want the lineage spoken plainly rather than dressed up.",
+    curatorQuote:
+      "OG with the volume turned all the way up and nothing else added.",
+    tagline: "Pure Fuel Lineage",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Golden GMO",
+    marketNames: ["Golden Garlic Cookies"],
+    lineage: {
+      parents: ["GMO"],
+      cross: "GMO (Garlic Cookies) selection; specific Golden cross not documented",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Documented as a GMO-family selection; sparse standalone records, so profile follows the GMO consensus.", "Savory garlic-diesel funk over frosty, dense indica structure."],
+    curatorNote:
+      "A GMO at heart, which means the nose announces itself before the jar is fully open: savory garlic and aged cheese riding on a thick diesel undertone, with skunky earth filling the room. The smoke is heavy and unmistakably funky, the kind of savory pungency that splits a room into devotees and the bewildered. Expect a slow, weighty settling into the body that leans sedative and hungry as it deepens. Documentation on this particular selection is thin, so treat the precise pedigree as best-guess while the savory GMO signature itself is reliable.",
+    curatorQuote:
+      "Garlic-funk royalty wearing the family crest.",
+    tagline: "Savory Garlic Funk",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Garlic Budder",
+    marketNames: ["Garlic Butter"],
+    breeder: "Humboldt Seed Co.",
+    lineage: {
+      parents: ["GMO", "Fortune Cookies"],
+      cross: "GMO x Fortune Cookies",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Selected in a 2019 Humboldt Seed Co. pheno hunt.", "Indica-leaning genetics that paradoxically reads more uplifting and clear-headed than its pedigree suggests."],
+    curatorNote:
+      "Garlic Budder takes the savory GMO funk and rounds it with something richer and more buttery, a blue-cheese-and-nut creaminess layered over the expected garlic-and-fuel base. Where its GMO parent sledgehammers, this one is more conversational: an uplifting, clear opening that keeps the head light and focused before any body weight arrives. The result is a funk-lover's daytime option, terpy and loud but more sociable than sedative. A genuinely well-built modern cross from a breeder that knows its Humboldt funk.",
+    curatorQuote:
+      "GMO's funk with the butter dish passed around.",
+    tagline: "Buttery Garlic Funk",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sherb-burger",
+    marketNames: ["Sherburger", "Sherb Burger"],
+    lineage: {
+      parents: ["Sherbert", "Cheeseburger"],
+      cross: "Sherbert x Cheeseburger (inferred from name; not formally documented)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["No dedicated database listing found; profile inferred from the Sherbert and Cheeseburger parents implied by the name.", "Reads as a creamy dessert cross with a savory cheese-and-fuel undertone from the burger side."],
+    curatorNote:
+      "Read this one as a marriage of two cookie-family lineages: the sweet, creamy vanilla-and-berry lift of Sherbert meeting the savory, cheesy fuel of a Cheeseburger cut. The result leans dessert-forward, smooth and sugary up top, with a funkier nutty-cheese tail that keeps it from being one-note. Effects track that balance, an easy euphoric happiness easing toward relaxation without flattening you. Be warned that this strain is barely documented as a distinct cultivar, so the pedigree here is inferred from the name and the profile is a best-consensus read rather than a verified record.",
+    curatorQuote:
+      "Dessert up front, savory funk on the finish.",
+    tagline: "Creamy Funky Dessert",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
 ];
