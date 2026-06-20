@@ -34,16 +34,23 @@ export default function HomePage() {
   return (
     <div>
       {/* ── Greeting — a full-screen "meeting the sommelier" moment. ──────
-          The warm gradient is a placeholder; drop a sommelier-scene photo at
-          public/hero/sommelier.jpg and swap the gradient div for an <img>. */}
+          The photo fills the screen (object-cover). object-position keeps the
+          sommelier (right side, handing the jar) in frame when a narrow phone
+          crops the landscape shot; the gradient sits behind as a fallback. */}
       <section className="relative flex min-h-[calc(100vh-4rem)] items-end justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-gradient-to-b from-[#3b2e1e] via-[#4a3826] to-[#221a10]"
           aria-hidden
         />
-        {/* Soft vignette so the frosted card reads against any photo. */}
+        <img
+          src="/hero/sommelier.png"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover object-[68%_center] sm:object-center"
+        />
+        {/* Soft vignette so the frosted card reads against the photo. */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20"
+          className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/35"
           aria-hidden
         />
 
