@@ -91,6 +91,9 @@ export interface TasteProfileInput {
   primaryAroma?: string | null;
   primaryEffect?: string | null;
   useTime?: string | null;
+  // How the person consumes (joint | blunt | pipe | bong | vape). Contextual
+  // signal kept for future logic; optional, no-op in scoring for now.
+  smokingMethod?: string | null;
   bodyFeel?: number | null;
   // Desired overall strength ("mild" | "balanced" | "strong"). Typed loosely
   // (like primaryAroma) so raw DB rows assign cleanly; absent/"balanced"/an
