@@ -34,31 +34,23 @@ export default function HomePage() {
   return (
     <div>
       {/* ── Greeting — a full-screen "meeting the sommelier" moment. ──────
-          The photo fills the screen (object-cover). object-position keeps the
-          sommelier (right side, handing the jar) in frame when a narrow phone
-          crops the landscape shot; the gradient sits behind as a fallback. */}
+          A portrait shot of the SŌMA apothecary; object-top keeps the branded
+          sign + jars in frame while the card sits over the counter below. The
+          gradient is a fallback behind the photo. */}
       <section className="relative flex min-h-[calc(100vh-4rem)] items-end justify-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-gradient-to-b from-[#3b2e1e] via-[#4a3826] to-[#221a10]"
+          className="absolute inset-0 bg-gradient-to-b from-[#e9e1d2] via-[#d9cdb8] to-[#cdbfa6]"
           aria-hidden
         />
-        {/* Art-directed: phones get a portrait crop (the sommelier + jar),
-            tablets/desktop get the full landscape. <picture> loads only the
-            matching source, so neither device pays for the other's image. */}
-        <picture aria-hidden>
-          <source
-            media="(max-width: 639px)"
-            srcSet="/hero/sommelier-portrait.png"
-          />
-          <img
-            src="/hero/sommelier.png"
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover object-center"
-          />
-        </picture>
-        {/* Soft vignette so the frosted card reads against the photo. */}
+        <img
+          src="/hero/hero.png"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover object-top"
+        />
+        {/* Gentle bottom scrim so the cream card reads over the light counter. */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/35"
+          className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent"
           aria-hidden
         />
 
