@@ -94,6 +94,9 @@ export interface TasteProfileInput {
   // How the person consumes (joint | blunt | pipe | bong | vape). Contextual
   // signal kept for future logic; optional, no-op in scoring for now.
   smokingMethod?: string | null;
+  // Preferred bud structure (dense | airy | fluffy | popcorn | larfy). Captured
+  // now; no-op in scoring until the catalog carries these tags.
+  budStructure?: string | null;
   bodyFeel?: number | null;
   // Desired overall strength ("mild" | "balanced" | "strong"). Typed loosely
   // (like primaryAroma) so raw DB rows assign cleanly; absent/"balanced"/an

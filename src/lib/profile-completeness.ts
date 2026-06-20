@@ -23,6 +23,7 @@ import {
   isPrimaryEffect,
   isUseTime,
   isSmokingMethod,
+  isBudStructure,
 } from "./profile-target";
 import type { TasteProfileInput } from "./types";
 
@@ -112,6 +113,13 @@ function items(p: TasteProfileInput): CompletenessItem[] {
       label: "Aromas you'd rather avoid",
       weight: 5,
       filled: nonEmpty(p.dislikedAromas),
+      section: "depth",
+    },
+    {
+      key: "budStructure",
+      label: "The bud structure you like",
+      weight: 5,
+      filled: isBudStructure(p.budStructure),
       section: "depth",
     },
     {
