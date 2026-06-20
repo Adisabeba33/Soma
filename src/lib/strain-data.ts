@@ -6040,3 +6040,7 @@ export function findStrain(name: string): StrainProfile | null {
   }
   return null;
 }
+
+// Catalog strain names (sorted), for client-side autocomplete suggestions —
+// a lightweight list that avoids pulling the scoring engine into the bundle.
+export const STRAIN_NAMES: string[] = STRAINS.map((s) => s.name).sort();

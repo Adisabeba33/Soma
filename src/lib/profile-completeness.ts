@@ -18,7 +18,12 @@
 //     full = 100, monotonic (adding signal never lowers the percent), and the
 //     post-quick base sits in the ~55–60 band.
 
-import { isPrimaryAroma, isPrimaryEffect, isUseTime } from "./profile-target";
+import {
+  isPrimaryAroma,
+  isPrimaryEffect,
+  isUseTime,
+  isSmokingMethod,
+} from "./profile-target";
 import type { TasteProfileInput } from "./types";
 
 const nonEmpty = (v: unknown): boolean => Array.isArray(v) && v.length > 0;
@@ -57,6 +62,13 @@ function items(p: TasteProfileInput): CompletenessItem[] {
       label: "When you usually reach for it",
       weight: 18,
       filled: isUseTime(p.useTime),
+      section: "base",
+    },
+    {
+      key: "smokingMethod",
+      label: "How you like to smoke it",
+      weight: 6,
+      filled: isSmokingMethod(p.smokingMethod),
       section: "base",
     },
     {

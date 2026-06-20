@@ -49,13 +49,27 @@ export const USE_TIMES: Option[] = [
   { value: "bed", label: "Right before bed" },
 ];
 
+// How a person actually consumes — contextual signal (a joint smokes very
+// differently from a vape or a bong). Not a sensory-target dimension yet; kept
+// for future logic (e.g. potency framing, harshness notes). The five everyday
+// methods; "other" catches the rest.
+export const SMOKING_METHODS: Option[] = [
+  { value: "joint", label: "Joint" },
+  { value: "blunt", label: "Blunt" },
+  { value: "pipe", label: "Pipe" },
+  { value: "bong", label: "Bong" },
+  { value: "vape", label: "Vape" },
+];
+
 export type PrimaryAroma = (typeof PRIMARY_AROMAS)[number]["value"];
 export type PrimaryEffect = (typeof PRIMARY_EFFECTS)[number]["value"];
 export type UseTime = (typeof USE_TIMES)[number]["value"];
+export type SmokingMethod = (typeof SMOKING_METHODS)[number]["value"];
 
 const PRIMARY_AROMA_VALUES = new Set(PRIMARY_AROMAS.map((o) => o.value));
 const PRIMARY_EFFECT_VALUES = new Set(PRIMARY_EFFECTS.map((o) => o.value));
 const USE_TIME_VALUES = new Set(USE_TIMES.map((o) => o.value));
+const SMOKING_METHOD_VALUES = new Set(SMOKING_METHODS.map((o) => o.value));
 
 export const isPrimaryAroma = (v: unknown): v is PrimaryAroma =>
   typeof v === "string" && PRIMARY_AROMA_VALUES.has(v);
@@ -63,6 +77,8 @@ export const isPrimaryEffect = (v: unknown): v is PrimaryEffect =>
   typeof v === "string" && PRIMARY_EFFECT_VALUES.has(v);
 export const isUseTime = (v: unknown): v is UseTime =>
   typeof v === "string" && USE_TIME_VALUES.has(v);
+export const isSmokingMethod = (v: unknown): v is SmokingMethod =>
+  typeof v === "string" && SMOKING_METHOD_VALUES.has(v);
 
 // Maps each primary-aroma family to the sensory tokens it covers. Used for
 // the aroma boost and the half-damper (a strain whose nose matches the

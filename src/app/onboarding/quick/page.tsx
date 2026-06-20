@@ -3,294 +3,170 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight, ArrowLeft, Check, SlidersHorizontal } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { labelFor } from "@/lib/vocab";
+import { TagInput } from "@/components/ui/selectors";
 import { cn } from "@/lib/utils";
-import type { InferredProfile } from "@/lib/profile-from-experience";
-import { profileCompleteness } from "@/lib/profile-completeness";
-import { ProfileProgressRing } from "@/components/profile-progress";
+import { SMOKING_METHODS, USE_TIMES } from "@/lib/profile-target";
+import { STRAIN_NAMES } from "@/lib/strain-data";
+import { EMPTY_PROFILE, type TasteProfileState } from "@/lib/profile-state";
 
-// A short "budtender" conversation — four taps that map straight onto canonical
-// profile tokens (no text parsing needed), then a friendly read-back the user
-// confirms. This is the new-visitor "Guide Me" path (UX V2 Phase B / #20).
+// Onboarding — the questionnaire fills the profile over five screens, each
+// worth ~15% (→ 75% by the end; the final 25% is optional precision added in
+// the full profile). THIS is screen 1 of 5: three quick answers — a strain you
+// love, how you smoke, when you smoke. Screens 2–5 slot in before the final
+// "start matching" step (see ONBOARDING_SCREENS / Continue below).
 
-type Opt = { key: string; label: string } & Partial<{
-  effects: string[];
-  primaryEffect: InferredProfile["primaryEffect"];
-  aromas: string[];
-  flavors: string[];
-  primaryAroma: InferredProfile["primaryAroma"];
-  useTime: InferredProfile["useTime"];
-  disliked: string[];
-}>;
+const ONBOARDING_SCREENS = 5;
+const PERCENT_PER_SCREEN = 15; // 5 × 15 = 75% by the end of the questionnaire
+const SCREEN_INDEX = 0; // this is screen 1
 
-const Q1: { title: string; sub: string; options: Opt[] } = {
-  title: "What are you looking for today?",
-  sub: "The feeling you're after.",
-  options: [
-    { key: "social", label: "Happy & Social", effects: ["happy", "giggly", "euphoric"], primaryEffect: "social" },
-    { key: "focus", label: "Focused & Productive", effects: ["focused", "energetic"], primaryEffect: "sharp" },
-    { key: "creative", label: "Creative", effects: ["creative", "euphoric"], primaryEffect: "sharp" },
-    { key: "relax", label: "Deep Relaxation", effects: ["relaxed", "calm"], primaryEffect: "calm" },
-    { key: "sleep", label: "Sleep", effects: ["sleepy", "body-heavy", "relaxed"], primaryEffect: "knockout" },
-  ],
+// Friendlier, shorter labels than the full questionnaire copy.
+const TIME_LABELS: Record<string, string> = {
+  morning: "Morning",
+  daytime: "Day",
+  evening: "Evening",
+  bed: "Late night",
 };
-
-const Q2: { title: string; sub: string; options: Opt[] } = {
-  title: "Which jar do you open first?",
-  sub: "The smell that makes you reach for it again.",
-  options: [
-    { key: "candy", label: "Candy", aromas: ["sweet"], flavors: ["sweet"], primaryAroma: "sweet" },
-    { key: "fruit", label: "Fruit", aromas: ["fruity"], flavors: ["fruity"], primaryAroma: "fruit" },
-    { key: "citrus", label: "Citrus", aromas: ["citrus"], flavors: ["citrus"], primaryAroma: "citrus" },
-    { key: "gas", label: "Gas", aromas: ["gassy", "diesel"], primaryAroma: "gas" },
-    { key: "pine", label: "Pine", aromas: ["pine"], primaryAroma: "pineherb" },
-    { key: "earth", label: "Earth", aromas: ["earthy"], primaryAroma: "earthfunk" },
-  ],
-};
-
-const Q3: { title: string; sub: string; options: Opt[] } = {
-  title: "When do you usually reach for it?",
-  sub: "Time of day shapes the match.",
-  options: [
-    { key: "morning", label: "Morning", useTime: "morning" },
-    { key: "daytime", label: "Daytime", useTime: "daytime" },
-    { key: "evening", label: "Evening", useTime: "evening" },
-    { key: "bed", label: "Before Bed", useTime: "bed" },
-  ],
-};
-
-const Q4: { title: string; sub: string; options: Opt[] } = {
-  title: "What ruins a good session?",
-  sub: "So SŌMA can steer you away from it.",
-  options: [
-    { key: "sleepy", label: "Sleepiness", disliked: ["sleepy"] },
-    { key: "anxiety", label: "Anxiety", disliked: ["head-high"] },
-    { key: "heavy", label: "Too Heavy", disliked: ["body-heavy"] },
-    { key: "head", label: "Head Pressure", disliked: ["head-high"] },
-    { key: "none", label: "Nothing", disliked: [] },
-  ],
-};
-
-const STEPS = [Q1, Q2, Q3, Q4];
-
-const FAMILIES_BY_AROMA: Record<string, string[]> = {
-  sweet: ["Runtz", "Zkittlez", "Dessert"],
-  fruit: ["Fruit-forward", "Tropical exotics"],
-  citrus: ["Lemon", "Haze"],
-  gas: ["OG", "Gas & Diesel"],
-  pineherb: ["OG", "Kush"],
-  earthfunk: ["Kush", "Garlic / Funk"],
-};
-
-const BEST_USE: Record<string, string> = {
-  morning: "Morning — wake & go",
-  daytime: "Daytime & social",
-  evening: "Evening wind-down",
-  bed: "Nighttime & sleep",
-};
-
-function emptyProfile(): InferredProfile {
-  return {
-    favoriteStrains: [], dislikedStrains: [], referenceStrain: "", likedTraits: [],
-    dislikedTraits: [], preferredAromas: [], preferredFlavors: [], preferredEffects: [],
-    dislikedEffects: [], dislikedAromas: [], texturePreferences: [], qualityPriorities: [],
-    primaryAroma: "", primaryEffect: "", useTime: "", bodyFeel: null, potencyPreference: "",
-    preferredFamilies: [], avoidedFamilies: [], lookingFor: "similar", notes: "",
-  };
-}
-
-function buildProfile(a: (Opt | null)[]): InferredProfile {
-  const [q1, q2, q3, q4] = a;
-  const p = emptyProfile();
-  if (q1) {
-    p.preferredEffects = q1.effects ?? [];
-    p.primaryEffect = q1.primaryEffect ?? "";
-  }
-  if (q2) {
-    p.preferredAromas = q2.aromas ?? [];
-    p.preferredFlavors = q2.flavors ?? [];
-    p.primaryAroma = q2.primaryAroma ?? "";
-  }
-  if (q3) p.useTime = q3.useTime ?? "";
-  if (q4) p.dislikedEffects = q4.disliked ?? [];
-  return p;
-}
 
 export default function QuickOnboardingPage() {
   const router = useRouter();
-  const [step, setStep] = useState(0); // 0..3 questions, 4 = interpretation
-  const [answers, setAnswers] = useState<(Opt | null)[]>([null, null, null, null]);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [method, setMethod] = useState("");
+  const [time, setTime] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  function pick(opt: Opt) {
-    const next = [...answers];
-    next[step] = opt;
-    setAnswers(next);
-    setStep((s) => s + 1);
-  }
+  // Progress: each screen is worth PERCENT_PER_SCREEN. Within this screen the
+  // three answers fill that share evenly, so the bar climbs 0 → 15% as they go.
+  const answered =
+    (favorites.length > 0 ? 1 : 0) + (method ? 1 : 0) + (time ? 1 : 0);
+  const percent = Math.round(
+    (SCREEN_INDEX + answered / 3) * PERCENT_PER_SCREEN,
+  );
+  // Time + method are the two taps that meaningfully shape the match; the
+  // favourite strain is optional (a brand-new user may not have one).
+  const canContinue = method !== "" && time !== "";
 
-  async function save(adjust: boolean) {
+  async function save() {
     setSubmitting(true);
     setError(null);
     try {
+      const draft: TasteProfileState = {
+        ...EMPTY_PROFILE,
+        favoriteStrains: favorites,
+        smokingMethod: method,
+        useTime: time,
+      };
       const res = await fetch("/api/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(buildProfile(answers)),
+        body: JSON.stringify(draft),
       });
       if (!res.ok) throw new Error();
-      router.push(adjust ? "/profile" : "/taste-match");
+      // Screens 2–5 will be inserted here later; for now screen 1 saves and
+      // sends the visitor into matching.
+      router.push("/taste-match");
     } catch {
       setError("Couldn't save that. Try again.");
       setSubmitting(false);
     }
   }
 
-  // ── Interpretation screen ──────────────────────────────────────────
-  if (step >= STEPS.length) {
-    const p = buildProfile(answers);
-    const taste = [...p.preferredAromas, ...p.preferredFlavors]
-      .filter((v, i, arr) => arr.indexOf(v) === i)
-      .map((v) => labelFor(v));
-    const effects = p.preferredEffects.map((v) => labelFor(v));
-    const families = p.primaryAroma ? FAMILIES_BY_AROMA[p.primaryAroma] ?? [] : [];
-    const bestUse = p.useTime ? BEST_USE[p.useTime] : "Anytime";
-    const percent = profileCompleteness(p).percent;
-
-    return (
-      <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
-        <p className="text-xs uppercase tracking-[0.24em] text-brass">Guide Me</p>
-        <div className="mt-4 flex items-start gap-5">
-          <ProfileProgressRing percent={percent} size={76} className="mt-1" />
-          <div>
-            <h1 className="font-display text-4xl font-semibold tracking-tight">
-              Here&apos;s what I think you like.
-            </h1>
-            <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
-              Your base profile is set — about{" "}
-              <span className="font-medium text-foreground">{percent}%</span>.
-              That&apos;s enough to start matching. Fill in the rest and the match
-              gets sharper — fewer ties, more confident picks.
-            </p>
-          </div>
-        </div>
-
-        <dl className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
-          <Read label="Taste" values={taste.length ? taste : ["—"]} tone="accent" />
-          <Read label="Effects" values={effects.length ? effects : ["—"]} tone="accent" />
-          <Read label="Best use" values={[bestUse]} />
-          <Read label="Likely families" values={families.length ? families : ["—"]} />
-        </dl>
-
-        {p.dislikedEffects.length > 0 && (
-          <p className="mt-4 text-sm text-muted-foreground">
-            Steering you away from:{" "}
-            <span className="text-[#a23b2c]">
-              {p.dislikedEffects.map((v) => labelFor(v)).join(", ")}
-            </span>
-          </p>
-        )}
-
-        {error && (
-          <p className="mt-4 rounded-xl bg-[#a23b2c]/10 px-4 py-3 text-sm text-[#a23b2c]">
-            {error}
-          </p>
-        )}
-
-        <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-border pt-6">
-          <Button onClick={() => save(true)} disabled={submitting} size="lg">
-            <SlidersHorizontal className="h-4 w-4" />
-            {submitting ? "Saving…" : "Finish my profile (100%)"}
-          </Button>
-          <button
-            type="button"
-            onClick={() => save(false)}
-            disabled={submitting}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-border px-4 py-2.5 text-sm font-medium hover:border-accent/40 disabled:opacity-60"
-          >
-            <Check className="h-4 w-4" />
-            Start matching as is
-          </button>
-          <button
-            type="button"
-            onClick={() => setStep(STEPS.length - 1)}
-            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Back
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // ── Question screen ────────────────────────────────────────────────
-  const q = STEPS[step];
-  // Live completeness from the answers picked so far — climbs 0 → ~60% as the
-  // base profile fills in, so the visitor watches their profile take shape.
-  const livePercent = profileCompleteness(buildProfile(answers)).percent;
   return (
     <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
       <div className="flex items-center gap-3">
-        {step > 0 ? (
-          <button
-            type="button"
-            onClick={() => setStep((s) => s - 1)}
-            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back
-          </button>
-        ) : (
-          <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" />
-            Home
-          </Link>
-        )}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Home
+        </Link>
         <span className="text-xs uppercase tracking-[0.2em] text-brass">
-          Question {step + 1} of {STEPS.length}
+          Step {SCREEN_INDEX + 1} of {ONBOARDING_SCREENS}
         </span>
         <span className="ml-auto text-xs font-semibold tabular-nums text-brass">
-          {livePercent}% complete
+          {percent}% complete
         </span>
       </div>
 
-      {/* progress — a single bar that grows with profile completeness */}
+      {/* progress bar — grows toward 75% across the five screens */}
       <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-muted">
         <span
           className="block h-full rounded-full bg-accent transition-[width] duration-500 ease-out"
-          style={{ width: `${Math.max(4, livePercent)}%` }}
+          style={{ width: `${Math.max(4, percent)}%` }}
         />
       </div>
 
       <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
-        {q.title}
+        Let&apos;s get your taste.
       </h1>
-      <p className="mt-2 text-muted-foreground">{q.sub}</p>
+      <p className="mt-2 text-muted-foreground">
+        A few quick answers — no typing beyond a strain name if you have one.
+      </p>
 
-      <div className="mt-8 grid gap-3 sm:grid-cols-2">
-        {q.options.map((opt) => {
-          const active = answers[step]?.key === opt.key;
-          return (
-            <button
-              key={opt.key}
-              type="button"
-              onClick={() => pick(opt)}
-              className={cn(
-                "group flex items-center justify-between rounded-2xl border px-5 py-4 text-left text-lg font-medium transition-colors",
-                active
-                  ? "border-accent bg-accent/10 text-accent"
-                  : "border-border bg-card hover:border-accent/40",
-              )}
-            >
-              {opt.label}
-              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-            </button>
-          );
-        })}
+      {/* Q1 — a strain you love */}
+      <Question
+        n={1}
+        title="A strain you already love"
+        sub="Pick from the catalog or type your own. New to this? Skip it."
+      >
+        <TagInput
+          value={favorites}
+          onChange={setFavorites}
+          placeholder="e.g. GG4, Blue Dream…"
+          suggestions={STRAIN_NAMES}
+          validateStrains
+          ordered
+        />
+      </Question>
+
+      {/* Q2 — how you smoke */}
+      <Question
+        n={2}
+        title="How do you usually smoke?"
+        sub="Helps SŌMA read the experience."
+      >
+        <OptionRow
+          options={SMOKING_METHODS}
+          selected={method}
+          onSelect={(v) => setMethod(v === method ? "" : v)}
+        />
+      </Question>
+
+      {/* Q3 — when you smoke */}
+      <Question
+        n={3}
+        title="When do you prefer to smoke?"
+        sub="Time of day shapes the match."
+      >
+        <OptionRow
+          options={USE_TIMES.map((o) => ({
+            value: o.value,
+            label: TIME_LABELS[o.value],
+          }))}
+          selected={time}
+          onSelect={(v) => setTime(v === time ? "" : v)}
+        />
+      </Question>
+
+      {error && (
+        <p className="mt-6 rounded-xl bg-[#a23b2c]/10 px-4 py-3 text-sm text-[#a23b2c]">
+          {error}
+        </p>
+      )}
+
+      <div className="mt-10 flex items-center gap-3 border-t border-border pt-6">
+        <Button onClick={save} disabled={!canContinue || submitting} size="lg">
+          {submitting ? "Saving…" : "Continue"}
+          <ArrowRight className="h-4 w-4" />
+        </Button>
+        {!canContinue && (
+          <span className="text-sm text-muted-foreground">
+            Pick how and when you smoke to continue.
+          </span>
+        )}
       </div>
 
       <p className="mt-8 text-sm text-muted-foreground">
@@ -307,28 +183,60 @@ export default function QuickOnboardingPage() {
   );
 }
 
-function Read({
-  label,
-  values,
-  tone,
+function Question({
+  n,
+  title,
+  sub,
+  children,
 }: {
-  label: string;
-  values: string[];
-  tone?: "accent";
+  n: number;
+  title: string;
+  sub: string;
+  children: React.ReactNode;
 }) {
   return (
-    <div className="bg-card p-5">
-      <dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
-        {label}
-      </dt>
-      <dd
-        className={cn(
-          "mt-1.5 font-display text-lg",
-          tone === "accent" ? "text-accent" : "text-foreground",
-        )}
-      >
-        {values.join(" · ")}
-      </dd>
+    <div className="mt-8">
+      <div className="flex items-baseline gap-2.5">
+        <span className="font-display text-sm text-brass">0{n}</span>
+        <h2 className="font-display text-xl font-semibold tracking-tight">
+          {title}
+        </h2>
+      </div>
+      <p className="ml-7 mt-0.5 text-sm text-muted-foreground">{sub}</p>
+      <div className="ml-7 mt-3">{children}</div>
+    </div>
+  );
+}
+
+function OptionRow({
+  options,
+  selected,
+  onSelect,
+}: {
+  options: { value: string; label: string }[];
+  selected: string;
+  onSelect: (value: string) => void;
+}) {
+  return (
+    <div className="flex flex-wrap gap-2.5">
+      {options.map((opt) => {
+        const active = selected === opt.value;
+        return (
+          <button
+            key={opt.value}
+            type="button"
+            onClick={() => onSelect(opt.value)}
+            className={cn(
+              "rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors",
+              active
+                ? "border-accent bg-accent/10 text-accent"
+                : "border-border bg-card hover:border-accent/40",
+            )}
+          >
+            {opt.label}
+          </button>
+        );
+      })}
     </div>
   );
 }
