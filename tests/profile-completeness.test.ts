@@ -52,6 +52,7 @@ const everything = (): TasteProfileInput => ({
   dislikedAromas: ["floral"],
   smokingMethods: ["vape"],
   budStructure: "fluffy",
+  preferredType: "indica",
   avoidedRisks: ["racy"],
   dislikedStrains: ["Durban Poison"],
   dislikedTraits: ["harsh"],
@@ -99,6 +100,7 @@ test("the onboarding questions max out at 75% (extras live in the profile)", () 
   const c = profileCompleteness({
     ...everything(),
     likedTraits: [],
+    preferredType: "",
     preferredFamilies: [],
     avoidedFamilies: [],
     qualityPriorities: [],
@@ -149,6 +151,7 @@ test("adding any signal never lowers the percent (monotonic), reaching 100", () 
     { preferredFamilies: ["Haze"] },
     { qualityPriorities: ["freshness"] },
     { texturePreferences: ["dense"] },
+    { preferredType: "hybrid" },
     { notes: "bright daytime" },
   ];
   let acc: TasteProfileInput = empty();
