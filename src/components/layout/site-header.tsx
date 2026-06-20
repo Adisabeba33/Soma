@@ -1,24 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const NAV = [
+// The nav adapts to who's here. Registered users get "Account" (their sensory
+// profile lives inside it); anonymous, cookie-only visitors get a plain
+// "Sensory Profile" — and never see an Account button, since they have none.
+const BASE_NAV = [
   { href: "/taste-match", label: "Taste Match" },
   { href: "/compare", label: "Compare" },
   { href: "/catalog", label: "Catalog" },
-  { href: "/profile", label: "Sensory Profile" },
+];
+const TAIL_NAV = [
   { href: "/saved", label: "Saved" },
-  { href: "/account", label: "Account" },
   { href: "/about", label: "About" },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  // Default to the anonymous view (the common case) until /api/auth/me answers.
+  const [registered, setRegistered] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((r) => r.json())
+      .then((d) => setRegistered(Boolean(d?.registered)))
+      .catch(() => {});
+  }, [pathname]); // re-check after auth navigations (login / logout)
+
+  const identity = registered
+    ? { href: "/account", label: "Account" }
+    : { href: "/profile", label: "Sensory Profile" };
+  const nav = [...BASE_NAV, identity, ...TAIL_NAV];
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
@@ -61,7 +78,7 @@ export function SiteHeader() {
 
         {/* Desktop nav — inline once there's room (md+). */}
         <nav className="hidden items-center gap-1 md:flex">
-          {NAV.map((item) => {
+          {nav.map((item) => {
             const active = isActive(item.href);
             return (
               <Link
@@ -99,7 +116,7 @@ export function SiteHeader() {
       {open && (
         <nav className="border-t border-border bg-background/95 backdrop-blur-md md:hidden">
           <div className="mx-auto max-w-editorial px-3 py-2">
-            {NAV.map((item) => {
+            {nav.map((item) => {
               const active = isActive(item.href);
               return (
                 <Link

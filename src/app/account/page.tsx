@@ -3,9 +3,18 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Check } from "lucide-react";
+import { Check, ChevronRight } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import {
+  ProfileProgressRing,
+  ProfileMissingList,
+} from "@/components/profile-progress";
+import {
+  profileCompleteness,
+  type ProfileCompleteness,
+} from "@/lib/profile-completeness";
+import type { TasteProfileInput } from "@/lib/types";
 
 type Me = {
   registered: boolean;
@@ -17,12 +26,25 @@ type Me = {
 export default function AccountPage() {
   const router = useRouter();
   const [me, setMe] = useState<Me | null>(null);
+  const [completeness, setCompleteness] = useState<ProfileCompleteness | null>(
+    null,
+  );
 
   useEffect(() => {
     fetch("/api/auth/me")
       .then((r) => r.json())
       .then(setMe)
       .catch(() => setMe(null));
+    fetch("/api/profile")
+      .then((r) => r.json())
+      .then((d) =>
+        setCompleteness(
+          d?.profile
+            ? profileCompleteness(d.profile as TasteProfileInput)
+            : null,
+        ),
+      )
+      .catch(() => {});
   }, []);
 
   async function logout() {
@@ -79,6 +101,41 @@ export default function AccountPage() {
           )}
         </div>
       </Card>
+
+      {/* Sensory Profile lives inside the account. One profile for now;
+          saving more (e.g. a morning vs evening profile) comes later. */}
+      <p className="mt-10 text-xs uppercase tracking-[0.24em] text-brass">
+        Sensory Profile
+      </p>
+      <Link
+        href="/profile"
+        className="mt-3 flex items-center gap-4 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-accent/40"
+      >
+        <ProfileProgressRing percent={completeness?.percent ?? 0} size={64} />
+        <div className="min-w-0 flex-1">
+          {completeness?.isComplete ? (
+            <span className="font-display text-lg font-semibold tracking-tight text-accent">
+              Profile complete
+            </span>
+          ) : (
+            <span className="font-display text-lg font-semibold tracking-tight">
+              {completeness?.percent ?? 0}% complete
+            </span>
+          )}
+          <p className="mt-0.5 text-sm text-muted-foreground">
+            {completeness?.isComplete
+              ? "SŌMA has the full picture of your taste."
+              : "Tap to edit — a fuller profile sharpens every match."}
+          </p>
+        </div>
+        <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
+      </Link>
+      {completeness && !completeness.isComplete && (
+        <ProfileMissingList
+          missing={completeness.missing.slice(0, 3)}
+          className="mt-3 px-1"
+        />
+      )}
 
       <button onClick={logout} className={buttonClass("outline", "md", "mt-8")}>
         Sign out
