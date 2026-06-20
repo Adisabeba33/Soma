@@ -11,9 +11,10 @@ import {
   SMOKING_METHODS,
   USE_TIMES,
   PRIMARY_AROMAS,
+  PRIMARY_EFFECTS,
   BUD_STRUCTURES,
 } from "@/lib/profile-target";
-import { AROMAS, FLAVORS, AROMA_FLAVOR } from "@/lib/vocab";
+import { AROMAS, FLAVORS, AROMA_FLAVOR, EFFECTS } from "@/lib/vocab";
 import { STRAIN_NAMES } from "@/lib/strain-data";
 import { EMPTY_PROFILE, type TasteProfileState } from "@/lib/profile-state";
 
@@ -21,7 +22,8 @@ import { EMPTY_PROFILE, type TasteProfileState } from "@/lib/profile-state";
 // worth ~15% (→ 75% by the end; the final 25% is optional precision in the full
 // profile). Screen 1: a strain you love, how you smoke, when you smoke.
 // Screen 2: the aromas/flavours you reach for, your one primary note, and the
-// bud structure you like. Screens 3–5 slot in before the final save.
+// bud structure you like. Screen 3: the effects you want, your one-word
+// session, and effects to avoid. Screens 4–5 slot in before the final save.
 
 const ONBOARDING_SCREENS = 5;
 const PERCENT_PER_SCREEN = 15; // 5 × 15 = 75% by the end of the questionnaire
@@ -40,7 +42,8 @@ const FLAVOR_VALUES = new Set(FLAVORS.map((o) => o.value));
 
 export default function QuickOnboardingPage() {
   const router = useRouter();
-  const [step, setStep] = useState(0); // 0 = screen 1, 1 = screen 2
+  const [step, setStep] = useState(0); // 0 = screen 1, 1 = screen 2, 2 = screen 3
+  const LAST_STEP = 2;
 
   // Screen 1
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -50,27 +53,38 @@ export default function QuickOnboardingPage() {
   const [sensoryNotes, setSensoryNotes] = useState<string[]>([]);
   const [primaryAroma, setPrimaryAroma] = useState("");
   const [budStructure, setBudStructure] = useState("");
+  // Screen 3
+  const [preferredEffects, setPreferredEffects] = useState<string[]>([]);
+  const [primaryEffect, setPrimaryEffect] = useState("");
+  const [dislikedEffects, setDislikedEffects] = useState<string[]>([]);
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Progress: each screen is worth PERCENT_PER_SCREEN; within a screen the
-  // answers fill that share evenly. Screen 1 → 15%, screen 2 → 30%.
+  // answers fill that share evenly. Screen 1 → 15%, 2 → 30%, 3 → 45%.
   const answered1 =
     (favorites.length > 0 ? 1 : 0) + (method ? 1 : 0) + (time ? 1 : 0);
   const answered2 =
     (sensoryNotes.length > 0 ? 1 : 0) +
     (primaryAroma ? 1 : 0) +
     (budStructure ? 1 : 0);
-  const percent =
-    step === 0
-      ? Math.round((answered1 / 3) * PERCENT_PER_SCREEN)
-      : Math.round((1 + answered2 / 3) * PERCENT_PER_SCREEN);
+  const answered3 =
+    (preferredEffects.length > 0 ? 1 : 0) +
+    (primaryEffect ? 1 : 0) +
+    (dislikedEffects.length > 0 ? 1 : 0);
+  const answeredThisStep =
+    step === 0 ? answered1 : step === 1 ? answered2 : answered3;
+  const percent = Math.round(
+    (step + answeredThisStep / 3) * PERCENT_PER_SCREEN,
+  );
 
   const canAdvance =
     step === 0
       ? method !== "" && time !== ""
-      : primaryAroma !== "" && budStructure !== "";
+      : step === 1
+        ? primaryAroma !== "" && budStructure !== ""
+        : primaryEffect !== "" && preferredEffects.length > 0;
 
   async function save() {
     setSubmitting(true);
@@ -85,6 +99,9 @@ export default function QuickOnboardingPage() {
         preferredFlavors: sensoryNotes.filter((t) => FLAVOR_VALUES.has(t)),
         primaryAroma,
         budStructure,
+        preferredEffects,
+        primaryEffect,
+        dislikedEffects,
       };
       const res = await fetch("/api/profile", {
         method: "POST",
@@ -92,7 +109,7 @@ export default function QuickOnboardingPage() {
         body: JSON.stringify(draft),
       });
       if (!res.ok) throw new Error();
-      // Screens 3–5 will be inserted before this step later; for now screen 2
+      // Screens 4–5 will be inserted before this step later; for now screen 3
       // is the last, so it saves and sends the visitor into matching.
       router.push("/taste-match");
     } catch {
@@ -102,8 +119,8 @@ export default function QuickOnboardingPage() {
   }
 
   function onContinue() {
-    if (step === 0) {
-      setStep(1);
+    if (step < LAST_STEP) {
+      setStep((s) => s + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       save();
@@ -124,7 +141,7 @@ export default function QuickOnboardingPage() {
         ) : (
           <button
             type="button"
-            onClick={() => setStep(0)}
+            onClick={() => setStep((s) => s - 1)}
             className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -198,7 +215,7 @@ export default function QuickOnboardingPage() {
             />
           </Question>
         </>
-      ) : (
+      ) : step === 1 ? (
         <>
           <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
             Now your nose.
@@ -243,6 +260,51 @@ export default function QuickOnboardingPage() {
             />
           </Question>
         </>
+      ) : (
+        <>
+          <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
+            Now the high.
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            The effects you want — and the ones to steer clear of.
+          </p>
+
+          <Question
+            n={1}
+            title="What effect are you looking for?"
+            sub="Pick everything that fits — head and body."
+          >
+            <ChipSelect
+              options={EFFECTS}
+              value={preferredEffects}
+              onChange={setPreferredEffects}
+            />
+          </Question>
+
+          <Question
+            n={2}
+            title="A perfect session — in one word, how do you feel?"
+            sub="Pick one. This is the outcome that matters most to you."
+          >
+            <OptionRow
+              options={PRIMARY_EFFECTS}
+              selected={primaryEffect}
+              onSelect={(v) => setPrimaryEffect(v === primaryEffect ? "" : v)}
+            />
+          </Question>
+
+          <Question
+            n={3}
+            title="Any effects you want to avoid?"
+            sub="Optional — couch-lock, paranoia, a head-heavy spin. SŌMA steers you away (and won't if your favourites already deliver it)."
+          >
+            <ChipSelect
+              options={EFFECTS}
+              value={dislikedEffects}
+              onChange={setDislikedEffects}
+            />
+          </Question>
+        </>
       )}
 
       {error && (
@@ -260,7 +322,9 @@ export default function QuickOnboardingPage() {
           <span className="text-sm text-muted-foreground">
             {step === 0
               ? "Pick how and when you smoke to continue."
-              : "Pick your primary note and a bud structure to continue."}
+              : step === 1
+                ? "Pick your primary note and a bud structure to continue."
+                : "Pick the effects you want and your one-word session to continue."}
           </span>
         )}
       </div>
