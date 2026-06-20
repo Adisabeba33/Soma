@@ -86,6 +86,20 @@ function Section({
   );
 }
 
+// Group heading that mirrors an onboarding screen — used to break the single
+// scrolling page into the same five chapters (plus a refinement group), so the
+// settings view reads like the questionnaire but shows everything at once.
+function GroupHeader({ title, sub }: { title: string; sub: string }) {
+  return (
+    <div className="border-t-2 border-border pt-9 first:border-0 first:pt-0">
+      <h2 className="font-display text-2xl font-semibold tracking-tight">
+        {title}
+      </h2>
+      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{sub}</p>
+    </div>
+  );
+}
+
 // Mirrors the onboarding questionnaire one-to-one (screens 1–5, same order),
 // then adds the extra refinement questions that take the profile to 100%.
 export function TasteProfileForm({
@@ -122,7 +136,10 @@ export function TasteProfileForm({
 
   return (
     <div className="space-y-7">
-      {/* ── Screen 1 ── */}
+      <GroupHeader
+        title="Let's get your taste"
+        sub="A strain you love, how and when you smoke."
+      />
       <Section
         index={1}
         title="Which strains have you loved?"
@@ -163,7 +180,10 @@ export function TasteProfileForm({
         />
       </Section>
 
-      {/* ── Screen 2 ── */}
+      <GroupHeader
+        title="Now your nose"
+        sub="What you're drawn to in the jar — smell, taste and structure."
+      />
       <Section
         index={4}
         title="Which aromas & flavours do you reach for?"
@@ -201,7 +221,10 @@ export function TasteProfileForm({
         />
       </Section>
 
-      {/* ── Screen 3 ── */}
+      <GroupHeader
+        title="Now the high"
+        sub="The effects you want — and the ones to steer clear of."
+      />
       <Section
         index={7}
         title="What effect are you looking for?"
@@ -239,7 +262,10 @@ export function TasteProfileForm({
         />
       </Section>
 
-      {/* ── Screen 4 ── */}
+      <GroupHeader
+        title="A few dealbreakers"
+        sub="All optional — skip any that don't apply."
+      />
       <Section
         index={10}
         title="Anything in the high you'd rather avoid?"
@@ -281,7 +307,10 @@ export function TasteProfileForm({
         />
       </Section>
 
-      {/* ── Screen 5 ── */}
+      <GroupHeader
+        title="Final calibration"
+        sub="A few checks to sharpen — and sanity-check — your profile."
+      />
       <Section
         index={13}
         title="Any aroma that's an instant no?"
@@ -321,7 +350,10 @@ export function TasteProfileForm({
         />
       </Section>
 
-      {/* ── Extra refinement (full profile only) ── */}
+      <GroupHeader
+        title="Refine further"
+        sub="Extra detail that takes your profile to 100% and sharpens the match."
+      />
       <Section
         index={16}
         title="What did you like about your favourites?"
