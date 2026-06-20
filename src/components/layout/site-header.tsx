@@ -10,6 +10,7 @@ const NAV = [
   { href: "/catalog", label: "Catalog" },
   { href: "/profile", label: "My Profile" },
   { href: "/saved", label: "Saved" },
+  { href: "/account", label: "Account" },
   { href: "/about", label: "About" },
 ];
 

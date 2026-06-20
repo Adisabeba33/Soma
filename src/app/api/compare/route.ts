@@ -7,6 +7,7 @@ import {
   logUnknownStrains,
 } from "@/lib/api";
 import { resolveStrain, scoreStrain, useCaseFor } from "@/lib/taste-engine";
+import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
 import type { ComparisonItem, StrainMatch } from "@/lib/types";
 
@@ -41,12 +42,19 @@ export async function POST(req: NextRequest) {
 
   const feedback = await getFeedbackSignals(userId);
 
+  // Resolve strains not in the catalog via the optional AI layer. No-op
+  // (empty map) without OPENAI_API_KEY, so scoring is unchanged until a key
+  // is added; with one, the unknowns get a vocab-constrained profile instead
+  // of the keyword guess.
+  const unknownNames = strains.filter((name) => !resolveStrain(name).known);
+  const overrides = await inferStrainsAI(unknownNames);
+
   const matches: StrainMatch[] = strains.map((name) =>
-    scoreStrain(name, profile, feedback),
+    scoreStrain(name, profile, feedback, overrides),
   );
 
   const items: ComparisonItem[] = strains.map((name, i) => {
-    const { strain } = resolveStrain(name);
+    const { strain } = resolveStrain(name, overrides);
     const match = matches[i];
     return {
       ...match,

@@ -6,7 +6,9 @@
 // that affects how older audit entries should be interpreted (additive,
 // renamed, subdivided, etc). Audit readers pivot on this to apply
 // translation maps or filter to a single vocab era.
-export const VOCAB_VERSION = "v2";
+// v3 → v4: added the soft sativa-risk opt-out dimension (profile.avoidedRisks,
+// currently "racy"; see src/lib/risk-tags.ts). Penalises only users who opt out.
+export const VOCAB_VERSION = "v4";
 
 export interface Option {
   value: string;
@@ -33,6 +35,12 @@ export const AROMAS: Option[] = [
   // v2: added so strains that tag vanilla aroma (Birthday Cake, Gelato
   // Cake, LA Kush Cake, Moby Dick) are addressable in the questionnaire.
   { value: "vanilla", label: "Vanilla" },
+  // v3: mint & grape exist on the palate (FLAVORS) but their *nose* had no
+  // token, so menthol-forward strains (Kush Mints, The Menthol) and grape
+  // strains parked the aroma in herbal/berry. Added so the aroma is
+  // addressable and re-taggable.
+  { value: "mint", label: "Mint" },
+  { value: "grape", label: "Grape" },
 ];
 
 export const FLAVORS: Option[] = [
@@ -129,6 +137,13 @@ export const DISLIKED_TRAITS: Option[] = [
   { value: "too-heavy", label: "Too heavy / sedating" },
   { value: "bland-taste", label: "Bland taste" },
   { value: "seedy", label: "Seeds / stems" },
+];
+
+// Soft sativa-risk dimensions a user can opt out of (profile.avoidedRisks).
+// The chips for "Anything in the high you'd rather avoid?". See
+// src/lib/risk-tags.ts for which strains carry each tag.
+export const RISK_AVOIDANCE: Option[] = [
+  { value: "racy", label: "Sharp / racy head high" },
 ];
 
 export const QUALITY_PRIORITIES: Option[] = [

@@ -4,6 +4,7 @@ import { getUserId } from "@/lib/user";
 import { asArray, asText } from "@/lib/api";
 import { detectProfileContradictions } from "@/lib/profile-contradictions";
 import { isFamilyKey } from "@/lib/strain-families";
+import { isRiskTag } from "@/lib/risk-tags";
 import {
   isPrimaryAroma,
   isPrimaryEffect,
@@ -53,6 +54,7 @@ async function upsertProfile(req: NextRequest) {
     preferredEffects: asArray(body.preferredEffects),
     dislikedEffects: asArray(body.dislikedEffects),
     dislikedAromas: asArray(body.dislikedAromas),
+    avoidedRisks: asArray(body.avoidedRisks).filter(isRiskTag),
     texturePreferences: asArray(body.texturePreferences),
     qualityPriorities: asArray(body.qualityPriorities),
     referenceStrain: asText(body.referenceStrain, 120),

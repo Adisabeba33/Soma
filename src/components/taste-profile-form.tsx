@@ -11,6 +11,7 @@ import {
   EFFECTS,
   FLAVORS,
   LIKED_TRAITS,
+  RISK_AVOIDANCE,
 } from "@/lib/vocab";
 import { PRIMARY_AROMAS, PRIMARY_EFFECTS, USE_TIMES } from "@/lib/profile-target";
 import { POPULAR_STRAINS, type TasteProfileState } from "@/lib/profile-state";
@@ -188,6 +189,19 @@ export function TasteProfileForm({
 
       <Section
         index={8}
+        title="Anything in the high you'd rather avoid?"
+        optional
+        hint="For users who want daytime energy but not a nervous, overstimulating edge. SŌMA gently lowers strains known to run racy — only for you, and never if your own favourites already run that way."
+      >
+        <ChipSelect
+          options={RISK_AVOIDANCE}
+          value={state.avoidedRisks}
+          onChange={(v) => set("avoidedRisks", v)}
+        />
+      </Section>
+
+      <Section
+        index={9}
         title="When do you usually reach for it?"
         hint="Pick one. This steers day vs night picks."
       >
@@ -199,7 +213,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={9}
+        index={10}
         title="What disappointed you in past pickups?"
         optional
         hint="Honest dealbreakers. Some of these come down to freshness and storage rather than the strain itself — SŌMA accounts for that."
@@ -212,7 +226,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={10}
+        index={11}
         title="Strains to steer away from"
         optional
         hint="Anything you already know is not for you."
@@ -225,7 +239,7 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section index={11} title="Anything else?" optional hint="Free notes.">
+      <Section index={12} title="Anything else?" optional hint="Free notes.">
         <Textarea
           rows={3}
           value={state.notes}

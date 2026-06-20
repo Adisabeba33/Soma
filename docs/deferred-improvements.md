@@ -1373,6 +1373,48 @@ and didn't do is itself valuable context.
 
 ---
 
+### #26 — Switch AI layers to Claude (Anthropic) as primary, OpenAI as option
+
+- **Found:** 2026-06-20
+- **Source:** Owner — prefers Anthropic as the primary AI vendor; OpenAI stays
+  selectable as a fallback/option. **Primary = Claude, secondary = OpenAI.**
+- **What:** All three runtime AI layers currently call OpenAI's
+  `chat.completions` (raw `fetch`, `response_format: json_object`):
+  `src/lib/openai.ts` (sommelier prose), `src/lib/strain-inference-ai.ts`
+  (unknown-strain inference), `src/lib/describe-ai.ts` (the #17 conversational
+  extractor). Re-point them at the Anthropic **Messages API** with OpenAI kept
+  behind a provider switch.
+- **Recommended shape:**
+  - **One provider-abstraction client** (`src/lib/ai-provider.ts`) the three
+    layers call, so the model/vendor lives in one place. `AI_PROVIDER` env
+    (`claude` | `openai`, default `claude`) selects; each provider gated on its
+    own key (`ANTHROPIC_API_KEY` / `OPENAI_API_KEY`), falling back to the
+    deterministic path when neither is set (unchanged dormancy contract).
+  - **SDK:** `@anthropic-ai/sdk` (Anthropic guidance is to use the official SDK
+    in a TS project, not raw fetch). New dependency.
+  - **Model:** `claude-haiku-4-5` for the extraction/inference work (cheapest
+    Claude, well-suited). Honest cost note: Haiku 4.5 is **$1 / $5 per 1M
+    tokens** — ~6–8× gpt-4o-mini's $0.15 / $0.60, so this is NOT a cost win;
+    absolute cost is still pennies and **prompt caching** (cache reads ~0.1×)
+    on the fixed vocab system prompt narrows the gap a lot.
+  - **Structured output upgrade:** use Claude **enum-constrained structured
+    outputs** (`output_config.format` JSON-schema, or strict tool use) so the
+    closed-vocab tokens are constrained at generation — cleaner than today's
+    `json_object` + post-hoc clip. Keep the clip as a belt-and-suspenders.
+  - Prose layer (openai.ts) ports the same way (system prompt → top-level
+    `system`, `max_tokens` required, json_object → `output_config.format`).
+- **Account note:** an Anthropic **API** key (console.anthropic.com, its own
+  prepaid billing) is required — a Claude.ai subscription does NOT grant API
+  access (same gotcha as ChatGPT vs the OpenAI API).
+- **Estimated effort:** ~1 day — add the SDK, write the provider abstraction,
+  port the 3 layers, enum schemas, tests, keep OpenAI selectable.
+- **Trigger to revisit:** owner wants this next on a dedicated branch
+  (`claude/ai-provider-anthropic`), built so Claude is primary and OpenAI an
+  option. Pairs with #17/#20 (the conversational brain runs through the same
+  provider client).
+
+---
+
 ## Resolved
 
 ### ✓ #5 — Texture participates in scoring (was open)
