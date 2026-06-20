@@ -24,8 +24,8 @@ export function SiteHeader() {
     pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-editorial items-center justify-between px-5 sm:px-8">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/60 backdrop-blur-md">
+      <div className="relative mx-auto flex h-16 max-w-editorial items-center justify-between px-5 sm:px-8">
         <Link
           href="/"
           className="group flex items-center gap-2.5"
@@ -34,23 +34,30 @@ export function SiteHeader() {
           <span className="font-display text-2xl font-semibold leading-none tracking-[0.08em]">
             SŌMA
           </span>
-          <span className="flex items-center gap-1.5 sm:gap-2">
+          {/* Desktop: tagline rides next to the wordmark. */}
+          <span className="hidden items-center gap-2 md:flex">
             <svg
               width="28"
               height="8"
               viewBox="0 0 28 8"
-              className="hidden text-brass/80 sm:block"
+              className="text-brass/80"
               aria-hidden
             >
               <line x1="0" y1="4" x2="9" y2="4" stroke="currentColor" strokeWidth="1" opacity="0.45" />
               <path d="M14 1 L17 4 L14 7 L11 4 Z" fill="currentColor" />
               <line x1="19" y1="4" x2="28" y2="4" stroke="currentColor" strokeWidth="1" opacity="0.45" />
             </svg>
-            <span className="whitespace-nowrap text-[0.58rem] uppercase tracking-[0.18em] text-muted-foreground sm:text-[0.7rem] sm:tracking-[0.22em]">
+            <span className="whitespace-nowrap text-[0.7rem] uppercase tracking-[0.22em] text-brass">
               Sensory Sommelier
             </span>
           </span>
         </Link>
+
+        {/* Mobile: tagline centred between the wordmark and the menu button,
+            in brand gold. pointer-events-none so it never blocks a tap. */}
+        <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[0.6rem] uppercase tracking-[0.2em] text-brass md:hidden">
+          Sensory Sommelier
+        </span>
 
         {/* Desktop nav — inline once there's room (md+). */}
         <nav className="hidden items-center gap-1 md:flex">
