@@ -312,7 +312,7 @@ export default function QuickOnboardingPage() {
           <Question
             n={3}
             title="Any effects you want to avoid?"
-            sub="Optional — couch-lock, paranoia, a head-heavy spin. SŌMA steers you away (and won't if your favourites already deliver it)."
+            sub="Couch-lock, paranoia, a head-heavy spin. SŌMA steers you away (and won't if your favourites already deliver it)."
           >
             <ChipSelect
               options={EFFECTS}
@@ -327,7 +327,7 @@ export default function QuickOnboardingPage() {
             A few dealbreakers.
           </h1>
           <p className="mt-2 text-muted-foreground">
-            All optional — skip any that don&apos;t apply.
+            What to steer you away from — each answer sharpens the match.
           </p>
 
           <Question

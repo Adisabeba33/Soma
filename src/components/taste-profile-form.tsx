@@ -48,13 +48,11 @@ function Section({
   index,
   title,
   hint,
-  optional = false,
   children,
 }: {
   index: number;
   title: string;
   hint?: string;
-  optional?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -64,16 +62,9 @@ function Section({
           {String(index).padStart(2, "0")}
         </span>
         <div className="min-w-0 flex-1">
-          <div className="flex items-baseline gap-2">
-            <h3 className="font-display text-lg font-semibold tracking-tight">
-              {title}
-            </h3>
-            {optional && (
-              <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                Optional
-              </span>
-            )}
-          </div>
+          <h3 className="font-display text-lg font-semibold tracking-tight">
+            {title}
+          </h3>
           {hint && (
             <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
               {hint}
@@ -158,7 +149,6 @@ export function TasteProfileForm({
       <Section
         index={2}
         title="How do you usually smoke?"
-        optional
         hint="Pick all that apply."
       >
         <ChipSelect
@@ -211,7 +201,6 @@ export function TasteProfileForm({
       <Section
         index={6}
         title="Opening the jar — how should the bud look and feel?"
-        optional
         hint="Visually and to the touch."
       >
         <SingleSelect
@@ -252,7 +241,6 @@ export function TasteProfileForm({
       <Section
         index={9}
         title="Any effects you want to avoid?"
-        optional
         hint="Couch-lock, paranoia, head-heavy spin. SŌMA penalises these and silences the dislike if your favourites already deliver it."
       >
         <ChipSelect
@@ -264,12 +252,11 @@ export function TasteProfileForm({
 
       <GroupHeader
         title="A few dealbreakers"
-        sub="All optional — skip any that don't apply."
+        sub="What to steer you away from — each answer sharpens the match."
       />
       <Section
         index={10}
         title="Anything in the high you'd rather avoid?"
-        optional
         hint="For daytime energy without the nervous edge. SŌMA gently lowers strains known to run this way — never if your own favourites already do."
       >
         <ChipSelect
@@ -282,7 +269,6 @@ export function TasteProfileForm({
       <Section
         index={11}
         title="What disappointed you in past pickups?"
-        optional
         hint="Honest dealbreakers. Some come down to freshness and storage rather than the strain — SŌMA accounts for that."
       >
         <ChipSelect
@@ -295,7 +281,6 @@ export function TasteProfileForm({
       <Section
         index={12}
         title="Strains to steer away from"
-        optional
         hint="Anything you already know is not for you."
       >
         <TagInput
@@ -314,7 +299,6 @@ export function TasteProfileForm({
       <Section
         index={13}
         title="Any aroma that's an instant no?"
-        optional
         hint="The opposite of what you reach for — helps catch contradictions."
       >
         <ChipSelect
@@ -327,7 +311,6 @@ export function TasteProfileForm({
       <Section
         index={14}
         title="When it hits right, how heavy is the body?"
-        optional
         hint="Clear-headed and light, or sunk into the couch?"
       >
         <SingleSelect
@@ -340,7 +323,6 @@ export function TasteProfileForm({
       <Section
         index={15}
         title="How hard should it hit?"
-        optional
         hint="Your preferred strength."
       >
         <SingleSelect
@@ -357,7 +339,6 @@ export function TasteProfileForm({
       <Section
         index={16}
         title="What did you like about your favourites?"
-        optional
         hint="The traits that made those picks feel good."
       >
         <ChipSelect
@@ -370,7 +351,6 @@ export function TasteProfileForm({
       <Section
         index={17}
         title="Strain families you seek out or avoid"
-        optional
         hint="Buying behaviour, distinct from the sensory match."
       >
         <div className="space-y-3">
@@ -400,7 +380,6 @@ export function TasteProfileForm({
       <Section
         index={18}
         title="What matters most in quality?"
-        optional
         hint="Tie-breakers when picks are close."
       >
         <ChipSelect
@@ -413,7 +392,6 @@ export function TasteProfileForm({
       <Section
         index={19}
         title="Texture you like"
-        optional
         hint="How the flower feels and breaks down."
       >
         <ChipSelect
@@ -423,7 +401,7 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section index={20} title="Anything else?" optional hint="Free notes.">
+      <Section index={20} title="Anything else?" hint="Free notes.">
         <Textarea
           rows={3}
           value={state.notes}
