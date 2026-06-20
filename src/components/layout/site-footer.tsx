@@ -24,7 +24,7 @@ export function SiteFooter() {
                 Compare
               </Link>
               <Link href="/catalog" className="hover:text-accent">
-                Catalog
+                Harvest
               </Link>
               <Link href="/profile" className="hover:text-accent">
                 My Profile

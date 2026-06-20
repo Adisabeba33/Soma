@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 const BASE_NAV = [
   { href: "/taste-match", label: "Taste Match" },
   { href: "/compare", label: "Compare" },
-  { href: "/catalog", label: "Catalog" },
+  { href: "/catalog", label: "Harvest" },
 ];
 const TAIL_NAV = [
   { href: "/saved", label: "Saved" },

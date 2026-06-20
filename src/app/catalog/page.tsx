@@ -13,7 +13,7 @@ import { FeedbackReset } from "@/components/feedback-reset";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Catalog — SŌMA",
+  title: "Harvest — SŌMA",
   description:
     "Every strain SOMA knows about. Sensory data, aliases, archetype and nearest matches — the same source the Taste Match Engine reads.",
 };
@@ -54,7 +54,7 @@ export default async function CatalogPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
-      <p className="text-xs uppercase tracking-[0.24em] text-brass">Catalog</p>
+      <p className="text-xs uppercase tracking-[0.24em] text-brass">Harvest</p>
       <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
         What SŌMA knows
       </h1>

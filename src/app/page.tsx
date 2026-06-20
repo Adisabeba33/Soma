@@ -56,7 +56,7 @@ export default function HomePage() {
 
         <div className="relative z-10 mx-4 mb-14 w-full max-w-md rounded-[1.75rem] border border-white/40 bg-[#f4eee2]/85 p-7 text-center shadow-2xl backdrop-blur-xl sm:mb-20 sm:p-8">
           <h1 className="font-display text-[2.1rem] font-semibold leading-[1.1] tracking-tight text-[#2a2018] sm:text-4xl">
-            Your private cannabis sommelier.
+            Your personal cannabis sommelier.
           </h1>
 
           <div className="mt-4 flex items-center justify-center gap-2 text-brass/70">
