@@ -9,7 +9,8 @@ import {
 import { resolveStrain, scoreStrain, useCaseFor } from "@/lib/taste-engine";
 import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
-import type { ComparisonItem, StrainMatch } from "@/lib/types";
+import type { ComparisonItem, StrainMatch, TasteProfileInput } from "@/lib/types";
+import { profileCompleteness, MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +36,19 @@ export async function POST(req: NextRequest) {
       {
         error: "Build your taste profile first — comparison ranks against it.",
         profileExists: false,
+      },
+      { status: 400 },
+    );
+  }
+
+  // Gate: same threshold as Taste Match — enough profile to rank with confidence.
+  const completion = profileCompleteness(profile as unknown as TasteProfileInput);
+  if (completion.percent < MATCH_GATE_PERCENT) {
+    return NextResponse.json(
+      {
+        error: `Finish your sensory profile to ${MATCH_GATE_PERCENT}% to compare.`,
+        gated: true,
+        percent: completion.percent,
       },
       { status: 400 },
     );

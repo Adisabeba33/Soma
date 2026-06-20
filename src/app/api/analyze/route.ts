@@ -16,6 +16,7 @@ import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
 import type { TasteProfileInput } from "@/lib/types";
+import { profileCompleteness, MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +44,19 @@ export async function POST(req: NextRequest) {
   if (!profile) {
     return NextResponse.json(
       { error: "Build your taste profile before running an analysis." },
+      { status: 400 },
+    );
+  }
+
+  // Gate: matching needs enough of the profile to read a taste with confidence.
+  const completion = profileCompleteness(profile as unknown as TasteProfileInput);
+  if (completion.percent < MATCH_GATE_PERCENT) {
+    return NextResponse.json(
+      {
+        error: `Finish your sensory profile to ${MATCH_GATE_PERCENT}% to start matching.`,
+        gated: true,
+        percent: completion.percent,
+      },
       { status: 400 },
     );
   }
