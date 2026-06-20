@@ -79,6 +79,9 @@ model TasteProfile {
   // How the person consumes: joint | blunt | pipe | bong | vape. Nullable so
   // existing rows stay valid; contextual signal for future logic.
   smokingMethod      String?
+  // Preferred bud structure: dense | airy | fluffy | popcorn | larfy. Nullable;
+  // captured now, scored once the catalog carries these tags.
+  budStructure       String?
   bodyFeel           Int?     // 0 (clear/light) .. 100 (heavy/couch-lock)
   potencyPreference  String?  // mild | balanced | strong (how hard-hitting)
   // Strain "families" the user seeks out / usually avoids (buying behaviour,

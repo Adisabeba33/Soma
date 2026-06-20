@@ -5,23 +5,27 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { TagInput } from "@/components/ui/selectors";
+import { ChipSelect, TagInput } from "@/components/ui/selectors";
 import { cn } from "@/lib/utils";
-import { SMOKING_METHODS, USE_TIMES } from "@/lib/profile-target";
+import {
+  SMOKING_METHODS,
+  USE_TIMES,
+  PRIMARY_AROMAS,
+  BUD_STRUCTURES,
+} from "@/lib/profile-target";
+import { AROMAS, FLAVORS, AROMA_FLAVOR } from "@/lib/vocab";
 import { STRAIN_NAMES } from "@/lib/strain-data";
 import { EMPTY_PROFILE, type TasteProfileState } from "@/lib/profile-state";
 
 // Onboarding — the questionnaire fills the profile over five screens, each
-// worth ~15% (→ 75% by the end; the final 25% is optional precision added in
-// the full profile). THIS is screen 1 of 5: three quick answers — a strain you
-// love, how you smoke, when you smoke. Screens 2–5 slot in before the final
-// "start matching" step (see ONBOARDING_SCREENS / Continue below).
+// worth ~15% (→ 75% by the end; the final 25% is optional precision in the full
+// profile). Screen 1: a strain you love, how you smoke, when you smoke.
+// Screen 2: the aromas/flavours you reach for, your one primary note, and the
+// bud structure you like. Screens 3–5 slot in before the final save.
 
 const ONBOARDING_SCREENS = 5;
 const PERCENT_PER_SCREEN = 15; // 5 × 15 = 75% by the end of the questionnaire
-const SCREEN_INDEX = 0; // this is screen 1
 
-// Friendlier, shorter labels than the full questionnaire copy.
 const TIME_LABELS: Record<string, string> = {
   morning: "Morning",
   daytime: "Day",
@@ -29,24 +33,44 @@ const TIME_LABELS: Record<string, string> = {
   bed: "Late night",
 };
 
+// Aroma and flavour are one question for the user; the selection feeds both
+// engine dimensions, split by vocab so a flavour-only note goes only to flavours.
+const AROMA_VALUES = new Set(AROMAS.map((o) => o.value));
+const FLAVOR_VALUES = new Set(FLAVORS.map((o) => o.value));
+
 export default function QuickOnboardingPage() {
   const router = useRouter();
+  const [step, setStep] = useState(0); // 0 = screen 1, 1 = screen 2
+
+  // Screen 1
   const [favorites, setFavorites] = useState<string[]>([]);
   const [method, setMethod] = useState("");
   const [time, setTime] = useState("");
+  // Screen 2
+  const [sensoryNotes, setSensoryNotes] = useState<string[]>([]);
+  const [primaryAroma, setPrimaryAroma] = useState("");
+  const [budStructure, setBudStructure] = useState("");
+
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Progress: each screen is worth PERCENT_PER_SCREEN. Within this screen the
-  // three answers fill that share evenly, so the bar climbs 0 → 15% as they go.
-  const answered =
+  // Progress: each screen is worth PERCENT_PER_SCREEN; within a screen the
+  // answers fill that share evenly. Screen 1 → 15%, screen 2 → 30%.
+  const answered1 =
     (favorites.length > 0 ? 1 : 0) + (method ? 1 : 0) + (time ? 1 : 0);
-  const percent = Math.round(
-    (SCREEN_INDEX + answered / 3) * PERCENT_PER_SCREEN,
-  );
-  // Time + method are the two taps that meaningfully shape the match; the
-  // favourite strain is optional (a brand-new user may not have one).
-  const canContinue = method !== "" && time !== "";
+  const answered2 =
+    (sensoryNotes.length > 0 ? 1 : 0) +
+    (primaryAroma ? 1 : 0) +
+    (budStructure ? 1 : 0);
+  const percent =
+    step === 0
+      ? Math.round((answered1 / 3) * PERCENT_PER_SCREEN)
+      : Math.round((1 + answered2 / 3) * PERCENT_PER_SCREEN);
+
+  const canAdvance =
+    step === 0
+      ? method !== "" && time !== ""
+      : primaryAroma !== "" && budStructure !== "";
 
   async function save() {
     setSubmitting(true);
@@ -57,6 +81,10 @@ export default function QuickOnboardingPage() {
         favoriteStrains: favorites,
         smokingMethod: method,
         useTime: time,
+        preferredAromas: sensoryNotes.filter((t) => AROMA_VALUES.has(t)),
+        preferredFlavors: sensoryNotes.filter((t) => FLAVOR_VALUES.has(t)),
+        primaryAroma,
+        budStructure,
       };
       const res = await fetch("/api/profile", {
         method: "POST",
@@ -64,8 +92,8 @@ export default function QuickOnboardingPage() {
         body: JSON.stringify(draft),
       });
       if (!res.ok) throw new Error();
-      // Screens 2–5 will be inserted here later; for now screen 1 saves and
-      // sends the visitor into matching.
+      // Screens 3–5 will be inserted before this step later; for now screen 2
+      // is the last, so it saves and sends the visitor into matching.
       router.push("/taste-match");
     } catch {
       setError("Couldn't save that. Try again.");
@@ -73,18 +101,38 @@ export default function QuickOnboardingPage() {
     }
   }
 
+  function onContinue() {
+    if (step === 0) {
+      setStep(1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      save();
+    }
+  }
+
   return (
     <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
       <div className="flex items-center gap-3">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Home
-        </Link>
+        {step === 0 ? (
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Home
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setStep(0)}
+            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back
+          </button>
+        )}
         <span className="text-xs uppercase tracking-[0.2em] text-brass">
-          Step {SCREEN_INDEX + 1} of {ONBOARDING_SCREENS}
+          Step {step + 1} of {ONBOARDING_SCREENS}
         </span>
         <span className="ml-auto text-xs font-semibold tabular-nums text-brass">
           {percent}% complete
@@ -99,57 +147,103 @@ export default function QuickOnboardingPage() {
         />
       </div>
 
-      <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
-        Let&apos;s get your taste.
-      </h1>
-      <p className="mt-2 text-muted-foreground">
-        A few quick answers — no typing beyond a strain name if you have one.
-      </p>
+      {step === 0 ? (
+        <>
+          <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
+            Let&apos;s get your taste.
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            A few quick answers — no typing beyond a strain name if you have one.
+          </p>
 
-      {/* Q1 — a strain you love */}
-      <Question
-        n={1}
-        title="A strain you already love"
-        sub="Pick from the catalog or type your own. New to this? Skip it."
-      >
-        <TagInput
-          value={favorites}
-          onChange={setFavorites}
-          placeholder="e.g. GG4, Blue Dream…"
-          suggestions={STRAIN_NAMES}
-          validateStrains
-          ordered
-        />
-      </Question>
+          <Question
+            n={1}
+            title="A strain you already love"
+            sub="Pick from the catalog or type your own. New to this? Skip it."
+          >
+            <TagInput
+              value={favorites}
+              onChange={setFavorites}
+              placeholder="e.g. GG4, Blue Dream…"
+              suggestions={STRAIN_NAMES}
+              validateStrains
+              ordered
+            />
+          </Question>
 
-      {/* Q2 — how you smoke */}
-      <Question
-        n={2}
-        title="How do you usually smoke?"
-        sub="Helps SŌMA read the experience."
-      >
-        <OptionRow
-          options={SMOKING_METHODS}
-          selected={method}
-          onSelect={(v) => setMethod(v === method ? "" : v)}
-        />
-      </Question>
+          <Question
+            n={2}
+            title="How do you usually smoke?"
+            sub="Helps SŌMA read the experience."
+          >
+            <OptionRow
+              options={SMOKING_METHODS}
+              selected={method}
+              onSelect={(v) => setMethod(v === method ? "" : v)}
+            />
+          </Question>
 
-      {/* Q3 — when you smoke */}
-      <Question
-        n={3}
-        title="When do you prefer to smoke?"
-        sub="Time of day shapes the match."
-      >
-        <OptionRow
-          options={USE_TIMES.map((o) => ({
-            value: o.value,
-            label: TIME_LABELS[o.value],
-          }))}
-          selected={time}
-          onSelect={(v) => setTime(v === time ? "" : v)}
-        />
-      </Question>
+          <Question
+            n={3}
+            title="When do you prefer to smoke?"
+            sub="Time of day shapes the match."
+          >
+            <OptionRow
+              options={USE_TIMES.map((o) => ({
+                value: o.value,
+                label: TIME_LABELS[o.value],
+              }))}
+              selected={time}
+              onSelect={(v) => setTime(v === time ? "" : v)}
+            />
+          </Question>
+        </>
+      ) : (
+        <>
+          <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
+            Now your nose.
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            What you&apos;re drawn to in the jar — smell, taste and structure.
+          </p>
+
+          <Question
+            n={1}
+            title="Which aromas & flavours do you reach for?"
+            sub="Smell and taste together — pick everything that appeals."
+          >
+            <ChipSelect
+              options={AROMA_FLAVOR}
+              value={sensoryNotes}
+              onChange={setSensoryNotes}
+            />
+          </Question>
+
+          <Question
+            n={2}
+            title="One jar stops you dead. What does it smell like?"
+            sub="Pick one. This is your primary note — it carries extra weight."
+          >
+            <OptionRow
+              options={PRIMARY_AROMAS}
+              selected={primaryAroma}
+              onSelect={(v) => setPrimaryAroma(v === primaryAroma ? "" : v)}
+            />
+          </Question>
+
+          <Question
+            n={3}
+            title="Opening the jar — how should the bud look and feel?"
+            sub="Visually and to the touch."
+          >
+            <OptionRow
+              options={BUD_STRUCTURES}
+              selected={budStructure}
+              onSelect={(v) => setBudStructure(v === budStructure ? "" : v)}
+            />
+          </Question>
+        </>
+      )}
 
       {error && (
         <p className="mt-6 rounded-xl bg-[#a23b2c]/10 px-4 py-3 text-sm text-[#a23b2c]">
@@ -158,13 +252,15 @@ export default function QuickOnboardingPage() {
       )}
 
       <div className="mt-10 flex items-center gap-3 border-t border-border pt-6">
-        <Button onClick={save} disabled={!canContinue || submitting} size="lg">
+        <Button onClick={onContinue} disabled={!canAdvance || submitting} size="lg">
           {submitting ? "Saving…" : "Continue"}
           <ArrowRight className="h-4 w-4" />
         </Button>
-        {!canContinue && (
+        {!canAdvance && (
           <span className="text-sm text-muted-foreground">
-            Pick how and when you smoke to continue.
+            {step === 0
+              ? "Pick how and when you smoke to continue."
+              : "Pick your primary note and a bud structure to continue."}
           </span>
         )}
       </div>
