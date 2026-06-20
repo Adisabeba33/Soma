@@ -42,12 +42,20 @@ export default function HomePage() {
           className="absolute inset-0 bg-gradient-to-b from-[#3b2e1e] via-[#4a3826] to-[#221a10]"
           aria-hidden
         />
-        <img
-          src="/hero/sommelier.png"
-          alt=""
-          aria-hidden
-          className="absolute inset-0 h-full w-full object-cover object-[68%_center] sm:object-center"
-        />
+        {/* Art-directed: phones get a portrait crop (the sommelier + jar),
+            tablets/desktop get the full landscape. <picture> loads only the
+            matching source, so neither device pays for the other's image. */}
+        <picture aria-hidden>
+          <source
+            media="(max-width: 639px)"
+            srcSet="/hero/sommelier-portrait.png"
+          />
+          <img
+            src="/hero/sommelier.png"
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-center"
+          />
+        </picture>
         {/* Soft vignette so the frosted card reads against the photo. */}
         <div
           className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/35"
