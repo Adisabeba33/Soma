@@ -13,6 +13,7 @@ import {
   Wand2,
   Search,
   GitCompareArrows,
+  History,
 } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { getUserIdReadOnly } from "@/lib/user";
@@ -245,6 +246,7 @@ function LoggedInHome({
           <nav className="flex items-center justify-around rounded-2xl border border-white/55 bg-white/55 px-2 py-2 shadow-lg backdrop-blur-md">
             <TabLink href="/compare" icon={GitCompareArrows} label="Compare" />
             <TabLink href="/catalog" icon={Search} label="Harvest" />
+            <TabLink href="/saved" icon={History} label="History" />
             <TabLink href="/account" icon={User} label="Account" />
           </nav>
         </div>
