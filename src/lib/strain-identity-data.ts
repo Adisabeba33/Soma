@@ -8213,4 +8213,360 @@ export const IDENTITIES: StrainIdentity[] = [
     artStatus: "none",
     sourceConfidence: "high",
   },
+  {
+    canonicalName: "Lemon Skrilla",
+    marketNames: ["Lemon Skrilla"],
+    breeder: "Angry Bears",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["House-brand (Angry Bears) — pedigree unverified", "Sun-grown; lemon-forward citrus nose with a soft earthy backbone"],
+    curatorNote:
+      "Lemon Skrilla is a sun-grown house product from Angry Bears rather than a documented genetic line, so we built this profile from the name and the brand's outdoor style. Expect a bright lemon-citrus lead over earthy, herbal sweetness — pleasant and approachable, but treat the lineage as unverified.",
+    curatorQuote:
+      "Sunshine in a citrus wrapper.",
+    tagline: "Bright sun-grown lemon",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Cookie Dough",
+    marketNames: ["Cookie Dough", "Cookie Dough OG"],
+    breeder: "Flavour Chasers",
+    lineage: {
+      parents: ["GSC", "Do-Si-Dos"],
+      cross: "GSC x Do-Si-Dos",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Cookies-family dessert hybrid bred by Flavour Chasers", "Sweet doughy nose with a cool minty edge; caryophyllene-dominant"],
+    curatorNote:
+      "A genuine Cookies-family cultivar from Flavour Chasers, Cookie Dough crosses GSC with Do-Si-Dos for a rich, doughy-sweet profile with vanilla and a cool minty lift. The high is the classic relaxed, euphoric Cookies sit-down. Well-documented genetics carried here by Herb.",
+    curatorQuote:
+      "Sweet enough to eat raw.",
+    tagline: "Sweet Cookies dough",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Lemon Berry Kush",
+    marketNames: ["Lemon Berry Kush", "Lemonberry Kush"],
+    breeder: "Plug Pack",
+    lineage: {
+      parents: ["LemonBerry", "Kush"],
+      cross: "LemonBerry x Kush",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Citrus-berry Kush cross; lineage loosely documented (LemonBerry x Kush line)", "Sold as infused pre-ground, so milled aroma reads sweeter and softer"],
+    curatorNote:
+      "Lemon Berry Kush leans on a recognizable citrus-and-berry Kush concept (the LemonBerry x Kush family), though Plug Pack's exact source isn't fully nailed down. Offered as an infused pre-ground, so expect a sweeter, softer milled nose with lemon and berry over an earthy Kush base.",
+    curatorQuote:
+      "Lemon and berry, ground and ready.",
+    tagline: "Citrus-berry Kush",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Uptown Haze",
+    marketNames: ["Uptown Haze", "NYC Piff", "Piff"],
+    breeder: "Plug Pack",
+    lineage: {
+      parents: ["Northern Lights #5", "Haze"],
+      cross: "Northern Lights #5 x Haze",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["NYC 'Piff' Haze lineage (NL5 x Haze family)", "Incense-like herbal/citrus nose; soaring sativa head-high"],
+    curatorNote:
+      "Uptown Haze is the legendary NYC 'Piff' — a Northern Lights #5 x Haze sativa famous in Harlem and Washington Heights for its church-incense, herbal-citrus nose and soaring, racy head-high. Documented as a Haze family line, here offered by Plug Pack as an infused pre-ground.",
+    curatorQuote:
+      "That uptown incense bag.",
+    tagline: "NYC Piff Haze",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grape Nuts",
+    marketNames: ["Grape Nuts"],
+    breeder: "Hashtag Honey",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["House-brand (Hashtag Honey) — pedigree unverified", "Grape-berry sweetness with a toasty nutty close; lineage listed as unknown across databases"],
+    curatorNote:
+      "Grape Nuts is a brand product from Hashtag Honey; despite appearing in a few databases, its lineage is consistently listed as unknown, so we treat it as unverified. The name and consensus notes point to a sweet grape-and-berry indica with a toasty, nutty finish and a relaxed, sleepy lean.",
+    curatorQuote:
+      "Grape jam with a toasty crust.",
+    tagline: "Grape, sweet, nutty",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Garlic Bud",
+    marketNames: ["Garlic Bud", "Garlic"],
+    breeder: "Hudson Cannabis",
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Classic Sensi Seeds Afghani-derived garlic phenotype", "Savory garlic-funk over spicy hash earth; heavy indica body"],
+    curatorNote:
+      "Garlic Bud is a true classic — an Afghani-derived indica popularized by Sensi Seeds for its savory, garlic-funk pungency. Hudson Cannabis grows it sun-style here. Expect a gassy, cheesy, spicy-earth nose and a heavy, sedating body stone. Genetics are documented to Afghani hash-plant stock.",
+    curatorQuote:
+      "Savory funk you can taste.",
+    tagline: "Savory garlic funk",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lemon OG Haze",
+    marketNames: ["Lemon OG Haze"],
+    breeder: "Hudson Cannabis",
+    lineage: {
+      parents: ["Lemon OG", "Haze"],
+      cross: "Lemon OG x Haze",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Documented Lemon OG x Haze line (Nirvana)", "Lemon-forward with Haze herbal lift and OG pine; balanced head-and-body"],
+    curatorNote:
+      "Lemon OG Haze is a documented cross of Lemon OG and Haze (released by Nirvana) that marries OG Kush's piney, body-kind backbone with bright lemon and an uplifting Haze head. Hudson Cannabis's sun-grown take should read citrus-forward and energizing. Solid, traceable genetics.",
+    curatorQuote:
+      "Lemon zest with a Haze kick.",
+    tagline: "Lemon Haze lift",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Hickory Hash",
+    marketNames: ["Hickory Hash"],
+    breeder: "Find",
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["House-brand (Find) — pedigree unverified", "Smoky, hickory-nutty earthiness over a hashy spice; consensus from name only"],
+    curatorNote:
+      "Hickory Hash is a Find brand product with no documented genetics, so this profile is built from the name and Find's funky, hash-leaning style. Expect a smoky, nutty, hickory-earth character with a hashy spice and a calm, weighty finish. Treat lineage as unverified.",
+    curatorQuote:
+      "Smoked nut and hash spice.",
+    tagline: "Smoky nutty hash",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Muffin Grease",
+    marketNames: ["Muffin Grease"],
+    breeder: "Find",
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["House-brand (Find) — pedigree unverified", "Sweet baked-muffin nose wrapped in a greasy gas funk; name-driven consensus"],
+    curatorNote:
+      "Muffin Grease is a Find brand name without verified genetics, so we read it off the name and Find's gassy-dessert style. The concept is a sweet, doughy baked-muffin top over a greasy, gassy base — rich and dessert-forward with a relaxing payoff. Lineage unconfirmed.",
+    curatorQuote:
+      "Sweet muffin, greasy finish.",
+    tagline: "Sweet greasy dessert",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Gas Lit",
+    marketNames: ["Gas Lit"],
+    breeder: "Find",
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["House-brand (Find) — pedigree unverified", "Loud fuel-and-diesel funk with a piney OG edge; consensus from name only"],
+    curatorNote:
+      "Gas Lit is a Find brand product with no documented pedigree; the profile here follows the name and Find's gas-forward house style. Expect a loud, fuel-and-diesel funk with a piney, OG-leaning edge and a heavy, euphoric finish. Genetics unverified.",
+    curatorQuote:
+      "Loud fuel, lights out.",
+    tagline: "Loud gas funk",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Sour Glue",
+    marketNames: ["Sour Glue", "Sour GG4"],
+    breeder: "Hudson Cannabis",
+    lineage: {
+      parents: ["Sour Diesel", "GG4"],
+      cross: "Sour Diesel x GG4",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Documented Sour Diesel x GG4 (Original Glue) cross", "Sharp chemical diesel with sour citrus; resin-heavy and potent"],
+    curatorNote:
+      "Sour Glue is a documented cross of Sour Diesel and GG4 (Original Glue), combining razor-sharp diesel funk with the resin-soaked potency of Glue. Hudson Cannabis's version should hit with pungent fuel, sour citrus, and a heavy, gluey euphoria. Well-traced, high-potency genetics.",
+    curatorQuote:
+      "Sour fuel that sticks.",
+    tagline: "Sour diesel glue",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Black Mamba",
+    marketNames: ["Black Mamba", "Black Mamba #6"],
+    breeder: "Untitled",
+    lineage: {
+      parents: ["Granddaddy Purple", "Black Domina"],
+      cross: "Granddaddy Purple x Black Domina",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Widely cited as GDP x Black Domina; origin breeder unknown", "Grape-and-berry sweetness with floral earth; sedating indica body"],
+    curatorNote:
+      "Black Mamba (a.k.a. #6) is an indica widely cited as Granddaddy Purple x Black Domina, though the original breeder is unknown — hence a medium confidence. Expect a grape-and-berry, floral-earthy nose and a relaxing, sleepy body stone. Here grown under the Untitled label.",
+    curatorQuote:
+      "A grape-dark coil of calm.",
+    tagline: "Grape indica sedation",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Baller Mints",
+    marketNames: ["Baller Mints"],
+    breeder: "Grocery",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["House-brand (Grocery) — pedigree unverified", "Cool minty-cookie sweetness with a gassy edge; name-driven consensus"],
+    curatorNote:
+      "Baller Mints is a Grocery brand name without documented genetics (distinct from the unrelated 'Baller's Game' / 'Ballerz' lines), so we read it off the name and the Mints/dessert style it evokes. Expect cool mint over creamy-sweet cookie with a faint gas edge and a relaxed, euphoric lean. Lineage unverified.",
+    curatorQuote:
+      "Cool mint, sweet finish.",
+    tagline: "Minty dessert exotic",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Slapaya",
+    marketNames: ["Slapaya"],
+    breeder: "Grocery",
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["House-brand (Grocery) — pedigree unverified", "Tropical papaya-sweet fruit over a light gas funk; name-driven consensus"],
+    curatorNote:
+      "Slapaya is a Grocery brand name that riffs on the 'Slapz' and papaya themes but isn't a documented genetic line, so this is a best-consensus read from the name. Expect a tropical, papaya-sweet fruitiness over a light gassy funk with a bright, giggly, euphoric lift. Treat lineage as unverified.",
+    curatorQuote:
+      "Tropical fruit with a slap.",
+    tagline: "Tropical papaya punch",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Space Burger",
+    marketNames: ["Space Burger"],
+    breeder: "Grocery",
+    lineage: {
+      parents: ["Space Queen", "Donny Burger"],
+      cross: "Space Queen x Donny Burger",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Loosely documented as Space Queen x Donny Burger", "Savory garlic-gas funk with a peppery, slightly sweet edge"],
+    curatorNote:
+      "Space Burger is offered by Grocery and is loosely documented as Space Queen x Donny Burger, putting it in the GMO-adjacent garlic-burger camp. Expect a savory, garlic-gas funk with peppery spice and a faint sweetness, plus a relaxing, munchie-friendly body. Genetics are community-cited, so medium confidence.",
+    curatorQuote:
+      "Garlic-gas burger from orbit.",
+    tagline: "Savory garlic gas",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Animal Tsunami",
+    marketNames: ["Animal Tsunami"],
+    breeder: "Papa's Herb",
+    lineage: {
+      parents: ["Animal Cookies", "Caramel Tsunami"],
+      cross: "Animal Cookies x Caramel Tsunami",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Documented as Animal Cookies x Caramel Tsunami", "Sweet caramel-cookie nose with gassy earth; heavy indica-dominant body"],
+    curatorNote:
+      "Animal Tsunami is an indica-dominant hybrid documented as Animal Cookies x Caramel Tsunami, pairing the dessert-leaning Animal/Cookies line with a sweeter, caramelized Tsunami parent. Papa's Herb's version should be sweet and creamy over gassy earth, with a heavy, sedating body. Strong, traceable genetics.",
+    curatorQuote:
+      "A sweet wave of couch.",
+    tagline: "Sweet cookie tsunami",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Singapore Sling",
+    marketNames: ["Singapore Sling"],
+    breeder: "Papa's Herb",
+    lineage: {
+      parents: ["Creamsicle", "Tiki Cookies"],
+      cross: "Creamsicle x Tiki Cookies",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Documented as Creamsicle x Tiki Cookies (Tiki Madman)", "Citrus-creamsicle and tropical fruit; bright, energetic sativa high"],
+    curatorNote:
+      "Singapore Sling is a documented Tiki Madman sativa, crossing Creamsicle with Tiki Cookies for a bright citrus-creamsicle and tropical-fruit profile. Papa's Herb's run should deliver an uplifting, energetic, creative high with high potency. Clear genetics and a refreshing daytime lean.",
+    curatorQuote:
+      "A tropical cocktail buzz.",
+    tagline: "Tropical citrus sativa",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Baked Limez",
+    marketNames: ["Baked Limez", "Baked Limes"],
+    breeder: "Knack",
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["House-brand (Knack) — pedigree unverified", "Lime-candy citrus with a sweet doughy finish; official lineage listed 'coming soon'"],
+    curatorNote:
+      "Baked Limez is a Knack brand product whose lineage is officially 'coming soon' — i.e., undocumented — so we built this from the name and Knack's candy-citrus style. Expect a zesty lime candy nose with sweet, doughy depth and a calming, lightly uplifting effect. Treat genetics as unverified.",
+    curatorQuote:
+      "Lime candy, fresh-baked.",
+    tagline: "Candy lime zest",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Pinnacle",
+    marketNames: ["Pinnacle"],
+    breeder: "Rolling Green",
+    lineage: {
+      parents: ["Slurty3", "Gush Mints"],
+      cross: "Slurty3 x Gush Mints",
+    },
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Modern Purple City Genetics line: Slurty3 x Gush Mints", "Sweet gelato-mint with a gassy edge; frosty, high-potency indica lean"],
+    curatorNote:
+      "Pinnacle from Rolling Green is the modern Purple City Genetics cultivar — Slurty3 x Gush Mints — known for frosty, purple-tinged buds and high potency. Expect sweet gelato-and-mint with a gassy edge and a relaxing, euphoric body lean. Documented modern genetics (a separate legacy Blue Dream x Hindu Kush 'Pinnacle' also exists).",
+    curatorQuote:
+      "Frosty peak of gelato-mint.",
+    tagline: "Frosty gelato mint",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Clockwork Orange",
+    marketNames: ["Clockwork Orange", "Clockwork"],
+    breeder: "Dank By Definition",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Clone-only original later released by Riot Seeds; exact lineage uncertain (G13/Black Widow theories)", "Orange-citrus forward with earthy spice; balanced euphoric high"],
+    curatorNote:
+      "Clockwork Orange is a recognized but genetically murky cultivar — a clone-only original later seeded by Riot Seeds, with disputed lineage (G13/Black Widow and Haze theories circulate, but nothing is confirmed). Carried here by Dank By Definition, it reads orange-citrus forward over earthy spice with a balanced, euphoric high. Medium confidence given the uncertain pedigree.",
+    curatorQuote:
+      "Citrus clockwork, well wound.",
+    tagline: "Orange-citrus enigma",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Soap x Purple Punch",
+    marketNames: ["Soap x Purple Punch"],
+    breeder: "Grocery",
+    lineage: {
+      parents: ["The Soap", "Purple Punch"],
+      cross: "The Soap x Purple Punch",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Cross of two documented parents: The Soap (Animal Mints x Kush Mints) and Purple Punch (Larry OG x GDP)", "Clean floral-soapy lift over grape-berry candy; relaxing body"],
+    curatorNote:
+      "This is a Grocery cross of two well-documented parents — The Soap (Animal Mints x Kush Mints, Seed Junky) and Purple Punch (Larry OG x Granddaddy Purple). The combination should pair Soap's clean, floral-minty lift with Purple Punch's grape-berry candy sweetness and a relaxing, euphoric body. Both parents are real, so medium confidence on the cross.",
+    curatorQuote:
+      "Clean floral meets grape candy.",
+    tagline: "Soapy grape punch",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Chiesel x Burnham Redeye",
+    marketNames: ["Chiesel x Burnham Redeye"],
+    breeder: "Black Pheasant Farm",
+    lineage: {
+      parents: ["Chiesel", "Burnham Redeye"],
+      cross: "Chiesel x Burnham Redeye",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Cross with one documented parent (Chiesel = Big Buddha Cheese x NYC Diesel) and one undocumented Maine clone-only parent (Burnham Redeye)", "Grapefruit-diesel meets skunky cheese funk; lively hybrid lift"],
+    curatorNote:
+      "This Black Pheasant Farm cross pairs Chiesel — a documented Big Buddha Cheese x NYC Diesel — with Burnham Redeye, a regional Maine clone-only line whose genetics are undocumented. Because one parent's pedigree can't be verified, confidence is low. Expect the Chiesel side to lead: skunky cheese funk with sharp grapefruit-diesel and a lively, uplifting hybrid effect.",
+    curatorQuote:
+      "Cheese and fuel, eyes wide.",
+    tagline: "Cheesy diesel cross",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
 ];
