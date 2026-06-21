@@ -836,7 +836,7 @@ export const STRAINS: StrainProfile[] = [
   },
   {
     name: "LA Kush Cake",
-    aliases: ["LAKC"],
+    aliases: ["LAKC", "Kush Cake"],
     type: "indica",
     aromas: ["sweet", "earthy", "gassy", "vanilla"],
     flavors: ["sweet", "earthy", "vanilla", "creamy"],
@@ -4652,7 +4652,7 @@ export const STRAINS: StrainProfile[] = [
   },
   {
     name: "Banana Cream",
-    aliases: ["Banana Cream Cake"],
+    aliases: ["Banana Cream Cake", "Banana Cream Gelato"],
     type: "indica",
     aromas: ["sweet", "tropical", "creamy", "earthy"],
     flavors: ["sweet", "tropical", "creamy", "vanilla"],
