@@ -10,14 +10,10 @@ export const metadata = {
 // Last updated date for the terms. Bump whenever the substance changes.
 const LAST_UPDATED = "21 June 2026";
 
-// PLACEHOLDERS — confirm/replace before publishing (and have a lawyer review,
-// especially given the cannabis context and App Store submission):
-//   • CONTACT_EMAIL — the address users write to.
-//   • OPERATOR      — the legal entity / person operating SŌMA.
-//   • JURISDICTION  — governing law / venue.
-const CONTACT_EMAIL = "support@soma.app";
-const OPERATOR = "the operator of SŌMA";
-const JURISDICTION = "[your jurisdiction]";
+// Operator and legal details for SŌMA.
+const CONTACT_EMAIL = "Somasensory@somasensory.com";
+const OPERATOR = "SōMA Sensory, LLC";
+const JURISDICTION = "the State of New York, USA";
 
 function Section({
   title,
