@@ -24,7 +24,7 @@ import {
 } from "@/lib/profile-completeness";
 import { ProfileProgressRing } from "@/components/profile-progress";
 import type { TasteProfileInput } from "@/lib/types";
-import { STRAINS } from "@/lib/strain-data";
+import { STRAINS, findStrain, normalizeStrainName } from "@/lib/strain-data";
 import { scoreStrain } from "@/lib/taste-engine";
 import { getFeedbackSignals } from "@/lib/api";
 import { strainSlug } from "@/lib/catalog";
@@ -84,16 +84,27 @@ export default async function HomePage() {
     if (profile && percent >= MATCH_GATE_PERCENT) {
       const feedback = await getFeedbackSignals(userId!);
       const p = profile as unknown as TasteProfileInput;
-      topMatches = STRAINS.map((s) => {
-        const m = scoreStrain(s.name, p, feedback);
-        return {
-          name: s.name,
-          slug: strainSlug(s.name),
-          type: s.type,
-          score: m.matchScore,
-          category: m.category,
-        };
-      })
+      // Exclude the user's own favourites — they anchor near the top (94–96%)
+      // and the carousel is for DISCOVERY, not strains they already love.
+      // Resolved to canonical names so aliases (e.g. Gorilla Glue → GG4) match.
+      const favourites = new Set(
+        (p.favoriteStrains ?? [])
+          .map((f) => normalizeStrainName(findStrain(f)?.name ?? f))
+          .filter(Boolean),
+      );
+      topMatches = STRAINS.filter(
+        (s) => !favourites.has(normalizeStrainName(s.name)),
+      )
+        .map((s) => {
+          const m = scoreStrain(s.name, p, feedback);
+          return {
+            name: s.name,
+            slug: strainSlug(s.name),
+            type: s.type,
+            score: m.matchScore,
+            category: m.category,
+          };
+        })
         .sort((a, b) => b.score - a.score)
         .slice(0, 12);
     }
