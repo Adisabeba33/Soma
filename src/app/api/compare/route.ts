@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getActiveProfile } from "@/lib/active-profile";
+import { isOwner, redactAuditFields } from "@/lib/owner";
 import { getUserId } from "@/lib/user";
 import {
   asArray,
@@ -120,6 +121,15 @@ export async function POST(req: NextRequest) {
     console.error("compare audit failed", err);
   }
 
-  return NextResponse.json({ items, closestName: closest.strainName });
+  // Audit mode is owner-only; strip the engine internals for everyone else
+  // before the response leaves the server (see redactAuditFields).
+  const owner = await isOwner(userId);
+  const safeItems = owner ? items : items.map(redactAuditFields);
+
+  return NextResponse.json({
+    items: safeItems,
+    closestName: closest.strainName,
+    isOwner: owner,
+  });
 }
 
