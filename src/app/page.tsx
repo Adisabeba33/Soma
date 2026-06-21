@@ -70,43 +70,51 @@ export default async function HomePage() {
     : null;
 
   if (user?.passwordHash) {
-    const profile = await prisma.tasteProfile.findFirst({
-      where: { userId: userId! },
-      orderBy: { updatedAt: "desc" },
-    });
-    const percent = profile
-      ? profileCompleteness(profile as unknown as TasteProfileInput).percent
-      : 0;
-
-    // Top catalog matches for the carousel — only once the profile clears the
-    // gate, so we never show a "best match" off a too-thin profile.
+    // The dashboard data (profile + per-strain scoring) must never take the
+    // home page — and the post-login redirect to it — down. Anything that
+    // throws here degrades gracefully to the shell without the carousel.
+    let percent = 0;
     let topMatches: TopMatch[] = [];
-    if (profile && percent >= MATCH_GATE_PERCENT) {
-      const feedback = await getFeedbackSignals(userId!);
-      const p = profile as unknown as TasteProfileInput;
-      // Exclude the user's own favourites — they anchor near the top (94–96%)
-      // and the carousel is for DISCOVERY, not strains they already love.
-      // Resolved to canonical names so aliases (e.g. Gorilla Glue → GG4) match.
-      const favourites = new Set(
-        (p.favoriteStrains ?? [])
-          .map((f) => normalizeStrainName(findStrain(f)?.name ?? f))
-          .filter(Boolean),
-      );
-      topMatches = STRAINS.filter(
-        (s) => !favourites.has(normalizeStrainName(s.name)),
-      )
-        .map((s) => {
-          const m = scoreStrain(s.name, p, feedback);
-          return {
-            name: s.name,
-            slug: strainSlug(s.name),
-            type: s.type,
-            score: m.matchScore,
-            category: m.category,
-          };
-        })
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 12);
+    try {
+      const profile = await prisma.tasteProfile.findFirst({
+        where: { userId: userId! },
+        orderBy: { updatedAt: "desc" },
+      });
+      if (profile) {
+        const p = profile as unknown as TasteProfileInput;
+        percent = profileCompleteness(p).percent;
+
+        // Top catalog matches for the carousel — only once the profile clears
+        // the gate, so we never show a "best match" off a too-thin profile.
+        if (percent >= MATCH_GATE_PERCENT) {
+          const feedback = await getFeedbackSignals(userId!);
+          // Exclude the user's own favourites — they anchor near the top
+          // (94–96%) and the carousel is for DISCOVERY. Resolved to canonical
+          // names so aliases (e.g. Gorilla Glue → GG4) match.
+          const favourites = new Set(
+            (p.favoriteStrains ?? [])
+              .map((f) => normalizeStrainName(findStrain(f)?.name ?? f))
+              .filter(Boolean),
+          );
+          topMatches = STRAINS.filter(
+            (s) => !favourites.has(normalizeStrainName(s.name)),
+          )
+            .map((s) => {
+              const m = scoreStrain(s.name, p, feedback);
+              return {
+                name: s.name,
+                slug: strainSlug(s.name),
+                type: s.type,
+                score: m.matchScore,
+                category: m.category,
+              };
+            })
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 12);
+        }
+      }
+    } catch (err) {
+      console.error("home dashboard data failed", err);
     }
 
     return (
