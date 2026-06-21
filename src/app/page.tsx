@@ -9,8 +9,20 @@ import {
   User,
   BookOpen,
   ChevronDown,
+  Mic,
+  Wand2,
 } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
+import { getUserIdReadOnly } from "@/lib/user";
+import { prisma } from "@/lib/prisma";
+import {
+  profileCompleteness,
+  MATCH_GATE_PERCENT,
+} from "@/lib/profile-completeness";
+import { ProfileProgressRing } from "@/components/profile-progress";
+import type { TasteProfileInput } from "@/lib/types";
+
+export const dynamic = "force-dynamic";
 
 const STEPS = [
   {
@@ -30,7 +42,135 @@ const STEPS = [
   },
 ];
 
-export default function HomePage() {
+// The home page adapts to who's here: anonymous / first-time visitors get the
+// "meet the sommelier" marketing greeting; a registered, logged-in user lands on
+// their account dashboard instead — no re-running the questionnaire or login.
+export default async function HomePage() {
+  const userId = await getUserIdReadOnly();
+  const user = userId
+    ? await prisma.user.findUnique({
+        where: { id: userId },
+        select: { passwordHash: true, username: true },
+      })
+    : null;
+
+  if (user?.passwordHash) {
+    const profile = await prisma.tasteProfile.findFirst({
+      where: { userId: userId! },
+      orderBy: { updatedAt: "desc" },
+    });
+    const percent = profile
+      ? profileCompleteness(profile as unknown as TasteProfileInput).percent
+      : 0;
+    return <LoggedInHome username={user.username} percent={percent} />;
+  }
+
+  return <AnonymousHome />;
+}
+
+// Registered users' dashboard: the deterministic engine on their saved profile,
+// plus a placeholder for the conversational/voice LLM quick-pick (ships once the
+// AI layer is activated — it builds a throwaway profile from a description, not
+// the saved one).
+function LoggedInHome({
+  username,
+  percent,
+}: {
+  username: string | null;
+  percent: number;
+}) {
+  const canMatch = percent >= MATCH_GATE_PERCENT;
+  return (
+    <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
+      <p className="text-xs uppercase tracking-[0.28em] text-brass">
+        Sensory Sommelier
+      </p>
+      <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+        Welcome back{username ? `, @${username}` : ""}.
+      </h1>
+      <p className="mt-3 max-w-xl text-lg leading-relaxed text-muted-foreground">
+        Two ways to find your flower.
+      </p>
+
+      <div className="mt-10 grid gap-5 sm:grid-cols-2">
+        {/* Element 1 — the deterministic engine on the saved profile. */}
+        <div className="flex flex-col rounded-2xl border border-accent/40 bg-accent/5 p-6">
+          <div className="flex items-center gap-3">
+            <Leaf className="h-6 w-6 text-accent" />
+            <h2 className="font-display text-xl font-semibold tracking-tight">
+              Taste Match
+            </h2>
+          </div>
+          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+            Score any menu against your saved sensory profile — ranked Best Match
+            to Avoid, with the reasoning and the honest risks.
+          </p>
+          <div className="mt-5 flex items-center gap-3">
+            <ProfileProgressRing percent={percent} size={52} />
+            <div className="text-sm">
+              <p className="font-medium">{percent}% profile</p>
+              <p className="text-muted-foreground">
+                {canMatch ? "Ready to match" : `Need ${MATCH_GATE_PERCENT}% to match`}
+              </p>
+            </div>
+          </div>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link
+              href={canMatch ? "/taste-match" : "/profile"}
+              className={buttonClass("primary", "md")}
+            >
+              {canMatch ? "Find my flower" : `Finish to ${MATCH_GATE_PERCENT}%`}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/profile" className={buttonClass("outline", "md")}>
+              Sensory profile
+            </Link>
+          </div>
+        </div>
+
+        {/* Element 2 — the conversational / voice LLM quick-pick (stub). */}
+        <div className="relative flex flex-col rounded-2xl border border-border bg-card p-6">
+          <span className="absolute right-4 top-4 rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+            Coming soon
+          </span>
+          <div className="flex items-center gap-3">
+            <Wand2 className="h-6 w-6 text-brass" />
+            <h2 className="font-display text-xl font-semibold tracking-tight">
+              Talk to SŌMA
+            </h2>
+          </div>
+          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+            No time for the profile? Just say what you&apos;re after — &ldquo;something
+            mellow for an evening film&rdquo; — and SŌMA builds a one-off read on the
+            spot and picks for you. Voice &amp; AI, landing soon.
+          </p>
+          <div className="mt-5 flex items-center gap-2 text-sm text-muted-foreground">
+            <Mic className="h-4 w-4" />
+            <span>Voice-driven, no profile needed</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick links to the rest. */}
+      <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        <Link href="/compare" className="text-muted-foreground hover:text-foreground">
+          Compare a few
+        </Link>
+        <Link href="/catalog" className="text-muted-foreground hover:text-foreground">
+          Browse the Harvest
+        </Link>
+        <Link href="/saved" className="text-muted-foreground hover:text-foreground">
+          Saved
+        </Link>
+        <Link href="/account" className="text-muted-foreground hover:text-foreground">
+          Account
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function AnonymousHome() {
   return (
     <div>
       {/* ── Greeting — a full-screen "meeting the sommelier" moment. ──────
