@@ -41,6 +41,17 @@ export function SiteFooter() {
                 About
               </Link>
             </div>
+            <div className="flex flex-col gap-2">
+              <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                Legal
+              </span>
+              <Link href="/privacy" className="hover:text-accent">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-accent">
+                Terms
+              </Link>
+            </div>
           </nav>
         </div>
         <div className="mt-10 border-t border-border pt-6 text-xs leading-relaxed text-muted-foreground">
