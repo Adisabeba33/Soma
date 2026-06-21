@@ -25,15 +25,18 @@ import { cn } from "@/lib/utils";
 const PANEL =
   "rounded-3xl border border-border/60 bg-card/70 shadow-[0_1px_4px_rgba(40,49,40,0.05)] backdrop-blur-sm";
 
-// Faint botanical watermark behind the whole page (see public/textures). Fixed
-// so it stays put as the page scrolls; cream-based so it blends with the body.
+// Apothecary backdrop behind the whole page (see public/textures). The photo
+// is moody/dark, so a soft cream veil sits on top to keep header text and the
+// frosted panels readable. Fixed so it stays put as the page scrolls.
 function ApothecaryBg() {
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/textures/botanical-light.webp')" }}
-    />
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/textures/account-bg.webp')" }}
+      />
+      <div className="absolute inset-0 bg-background/55" />
+    </div>
   );
 }
 
