@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { getActiveProfile } from "@/lib/active-profile";
+import { isOwner, redactAuditFields } from "@/lib/owner";
 import { getUserId } from "@/lib/user";
 import {
   asArray,
@@ -148,10 +149,17 @@ export async function POST(req: NextRequest) {
     console.error("taste-match audit failed", err);
   }
 
-  const recommendations = result.recommendations.map((r) => ({
-    ...r,
-    id: session.recommendations.find((d) => d.strainName === r.strainName)?.id,
-  }));
+  // Audit mode (the engine-internal breakdown) is owner-only. For everyone
+  // else the audit fields are stripped server-side, so they never reach the
+  // browser at all — the panel is hidden AND there's nothing to read.
+  const owner = await isOwner(userId);
+  const recommendations = result.recommendations.map((r) => {
+    const withId = {
+      ...r,
+      id: session.recommendations.find((d) => d.strainName === r.strainName)?.id,
+    };
+    return owner ? withId : redactAuditFields(withId);
+  });
 
   return NextResponse.json({
     session: {
@@ -166,5 +174,6 @@ export async function POST(req: NextRequest) {
     recommendations,
     engine: result.engine,
     menuQuality,
+    isOwner: owner,
   });
 }

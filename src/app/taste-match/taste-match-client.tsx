@@ -44,6 +44,8 @@ export function TasteMatchClient() {
   const [savingProfile, setSavingProfile] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recommendations, setRecommendations] = useState<Rec[]>([]);
+  // Audit mode is owner-only; the API reports whether this account is the owner.
+  const [isOwner, setIsOwner] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [engine, setEngine] = useState<"builtin" | "openai">("builtin");
   const [menuQuality, setMenuQuality] = useState<MenuQuality | null>(null);
@@ -153,6 +155,7 @@ export function TasteMatchClient() {
         return;
       }
       setRecommendations(data.recommendations ?? []);
+      setIsOwner(Boolean(data.isOwner));
       setSessionId(data.session?.id ?? null);
       setEngine(data.engine === "openai" ? "openai" : "builtin");
       setMenuQuality(data.menuQuality ?? null);
@@ -377,10 +380,12 @@ export function TasteMatchClient() {
             depends on the grower, freshness and storage.
           </p>
 
-          {/* Audit mode — the engine's reasoning per strain. */}
-          <div className="mt-6">
-            <AuditPanel items={recommendations} />
-          </div>
+          {/* Audit mode — the engine's reasoning per strain. Owner-only. */}
+          {isOwner && (
+            <div className="mt-6">
+              <AuditPanel items={recommendations} />
+            </div>
+          )}
 
           <div className="mt-10">
             <ResultsView
