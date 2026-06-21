@@ -11,6 +11,9 @@ import {
   ChevronDown,
   Mic,
   Wand2,
+  Bookmark,
+  Search,
+  GitCompareArrows,
 } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { getUserIdReadOnly } from "@/lib/user";
@@ -81,92 +84,126 @@ function LoggedInHome({
 }) {
   const canMatch = percent >= MATCH_GATE_PERCENT;
   return (
-    <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
-      <p className="text-xs uppercase tracking-[0.28em] text-brass">
-        Sensory Sommelier
-      </p>
-      <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-        Welcome back{username ? `, @${username}` : ""}.
-      </h1>
-      <p className="mt-3 max-w-xl text-lg leading-relaxed text-muted-foreground">
-        Two ways to find your flower.
-      </p>
+    <section className="relative flex min-h-[calc(100vh-4rem)] flex-col overflow-hidden">
+      {/* Soft apothecary backdrop; frosted cards float over it. */}
+      <img
+        src="/hero/dashboard.png"
+        alt=""
+        aria-hidden
+        className="absolute inset-0 h-full w-full object-cover object-top"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background/75"
+        aria-hidden
+      />
 
-      <div className="mt-10 grid gap-5 sm:grid-cols-2">
-        {/* Element 1 — the deterministic engine on the saved profile. */}
-        <div className="flex flex-col rounded-2xl border border-accent/40 bg-accent/5 p-6">
-          <div className="flex items-center gap-3">
-            <Leaf className="h-6 w-6 text-accent" />
-            <h2 className="font-display text-xl font-semibold tracking-tight">
-              Taste Match
-            </h2>
-          </div>
-          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-            Score any menu against your saved sensory profile — ranked Best Match
-            to Avoid, with the reasoning and the honest risks.
-          </p>
-          <div className="mt-5 flex items-center gap-3">
-            <ProfileProgressRing percent={percent} size={52} />
-            <div className="text-sm">
-              <p className="font-medium">{percent}% profile</p>
-              <p className="text-muted-foreground">
-                {canMatch ? "Ready to match" : `Need ${MATCH_GATE_PERCENT}% to match`}
-              </p>
+      <div className="relative z-10 mx-auto flex w-full max-w-editorial flex-1 flex-col px-5 py-12 sm:px-8">
+        <p className="text-xs uppercase tracking-[0.28em] text-brass">
+          Sensory Sommelier
+        </p>
+        <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          Welcome back{username ? `, @${username}` : ""}.
+        </h1>
+        <p className="mt-3 max-w-xl text-lg leading-relaxed text-foreground/70">
+          Two ways to find your flower.
+        </p>
+
+        <div className="mt-9 grid gap-5 sm:grid-cols-2">
+          {/* Element 1 — the deterministic engine on the saved profile. */}
+          <div className="flex flex-col rounded-2xl border border-accent/40 bg-white/60 p-6 shadow-xl backdrop-blur-md">
+            <div className="flex items-center gap-3">
+              <Leaf className="h-6 w-6 text-accent" />
+              <h2 className="font-display text-xl font-semibold tracking-tight">
+                Taste Match
+              </h2>
+            </div>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+              Score any menu against your saved sensory profile — ranked Best
+              Match to Avoid, with the reasoning and the honest risks.
+            </p>
+            <div className="mt-5 flex items-center gap-3">
+              <ProfileProgressRing percent={percent} size={52} />
+              <div className="text-sm">
+                <p className="font-medium">{percent}% profile</p>
+                <p className="text-muted-foreground">
+                  {canMatch
+                    ? "Ready to match"
+                    : `Need ${MATCH_GATE_PERCENT}% to match`}
+                </p>
+              </div>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link
+                href={canMatch ? "/taste-match" : "/profile"}
+                className={buttonClass("primary", "md")}
+              >
+                {canMatch ? "Find my flower" : `Finish to ${MATCH_GATE_PERCENT}%`}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/profile"
+                className="inline-flex items-center justify-center rounded-xl border border-border bg-white/50 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-white/80"
+              >
+                Sensory profile
+              </Link>
             </div>
           </div>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Link
-              href={canMatch ? "/taste-match" : "/profile"}
-              className={buttonClass("primary", "md")}
-            >
-              {canMatch ? "Find my flower" : `Finish to ${MATCH_GATE_PERCENT}%`}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link href="/profile" className={buttonClass("outline", "md")}>
-              Sensory profile
-            </Link>
+
+          {/* Element 2 — conversational / voice LLM quick-pick (stub). */}
+          <div className="relative flex flex-col rounded-2xl border border-white/55 bg-white/45 p-6 shadow-xl backdrop-blur-md">
+            <span className="absolute right-4 top-4 rounded-full bg-white/70 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+              Coming soon
+            </span>
+            <div className="flex items-center gap-3">
+              <Wand2 className="h-6 w-6 text-brass" />
+              <h2 className="font-display text-xl font-semibold tracking-tight">
+                Talk to SŌMA
+              </h2>
+            </div>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+              No time for the profile? Just say what you&apos;re after —
+              &ldquo;something mellow for an evening film&rdquo; — and SŌMA builds
+              a one-off read on the spot and picks for you. Voice &amp; AI,
+              landing soon.
+            </p>
+            <div className="mt-5 flex items-center gap-2 text-sm text-muted-foreground">
+              <Mic className="h-4 w-4" />
+              <span>Voice-driven, no profile needed</span>
+            </div>
           </div>
         </div>
 
-        {/* Element 2 — the conversational / voice LLM quick-pick (stub). */}
-        <div className="relative flex flex-col rounded-2xl border border-border bg-card p-6">
-          <span className="absolute right-4 top-4 rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
-            Coming soon
-          </span>
-          <div className="flex items-center gap-3">
-            <Wand2 className="h-6 w-6 text-brass" />
-            <h2 className="font-display text-xl font-semibold tracking-tight">
-              Talk to SŌMA
-            </h2>
-          </div>
-          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-            No time for the profile? Just say what you&apos;re after — &ldquo;something
-            mellow for an evening film&rdquo; — and SŌMA builds a one-off read on the
-            spot and picks for you. Voice &amp; AI, landing soon.
-          </p>
-          <div className="mt-5 flex items-center gap-2 text-sm text-muted-foreground">
-            <Mic className="h-4 w-4" />
-            <span>Voice-driven, no profile needed</span>
-          </div>
+        {/* Bottom tab bar — frosted, icon + label. */}
+        <div className="mt-auto pt-10">
+          <nav className="flex items-center justify-around rounded-2xl border border-white/55 bg-white/55 px-2 py-2 shadow-lg backdrop-blur-md">
+            <TabLink href="/compare" icon={GitCompareArrows} label="Compare" />
+            <TabLink href="/catalog" icon={Search} label="Harvest" />
+            <TabLink href="/saved" icon={Bookmark} label="Saved" />
+            <TabLink href="/account" icon={User} label="Account" />
+          </nav>
         </div>
       </div>
+    </section>
+  );
+}
 
-      {/* Quick links to the rest. */}
-      <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-        <Link href="/compare" className="text-muted-foreground hover:text-foreground">
-          Compare a few
-        </Link>
-        <Link href="/catalog" className="text-muted-foreground hover:text-foreground">
-          Browse the Harvest
-        </Link>
-        <Link href="/saved" className="text-muted-foreground hover:text-foreground">
-          Saved
-        </Link>
-        <Link href="/account" className="text-muted-foreground hover:text-foreground">
-          Account
-        </Link>
-      </div>
-    </div>
+function TabLink({
+  href,
+  icon: Icon,
+  label,
+}: {
+  href: string;
+  icon: typeof Leaf;
+  label: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="flex flex-1 flex-col items-center gap-1 rounded-xl py-1.5 text-muted-foreground transition-colors hover:text-foreground"
+    >
+      <Icon className="h-5 w-5" />
+      <span className="text-[0.7rem] font-medium">{label}</span>
+    </Link>
   );
 }
 
