@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Sparkles, Lock, Clock } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ChipSelect, TagInput } from "@/components/ui/selectors";
 import { cn } from "@/lib/utils";
@@ -94,6 +95,7 @@ export default function QuickOnboardingPage() {
   const [bodyFeel, setBodyFeel] = useState("");
   const [potency, setPotency] = useState("");
 
+  const [started, setStarted] = useState(false);
   const [review, setReview] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -148,6 +150,60 @@ export default function QuickOnboardingPage() {
       setReview(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
+  }
+
+  // ── Intro / why-this-matters ───────────────────────────────────────
+  if (!started) {
+    return (
+      <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Home
+        </Link>
+
+        <p className="mt-8 text-xs uppercase tracking-[0.24em] text-brass">
+          Your sensory profile
+        </p>
+        <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
+          First, let&apos;s learn your taste.
+        </h1>
+        <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
+          SŌMA doesn&apos;t ask <span className="italic">what a strain is</span> —
+          it works out whether it&apos;s right for <span className="italic">you</span>.
+          To do that it needs to learn your taste: the aromas, effects and feel
+          you reach for.
+        </p>
+
+        <ul className="mt-8 space-y-4">
+          <IntroPoint icon={Sparkles}>
+            The more you fill in, the sharper your matches — aim for{" "}
+            <span className="font-medium text-foreground">100%</span> for the most
+            precise reads.
+          </IntroPoint>
+          <IntroPoint icon={Lock}>
+            You need at least{" "}
+            <span className="font-medium text-foreground">
+              {MATCH_GATE_PERCENT}%
+            </span>{" "}
+            before Taste Match unlocks.
+          </IntroPoint>
+          <IntroPoint icon={Clock}>
+            Takes about a minute — mostly tapping, no typing required (beyond a
+            strain name, if you have one).
+          </IntroPoint>
+        </ul>
+
+        <div className="mt-10">
+          <Button onClick={() => setStarted(true)} size="lg">
+            Let&apos;s begin
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   // ── Final summary / read-back ──────────────────────────────────────
@@ -608,6 +664,25 @@ function OptionRow({
         );
       })}
     </div>
+  );
+}
+
+function IntroPoint({
+  icon: Icon,
+  children,
+}: {
+  icon: LucideIcon;
+  children: React.ReactNode;
+}) {
+  return (
+    <li className="flex items-start gap-3.5">
+      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+        <Icon className="h-4 w-4" />
+      </span>
+      <p className="text-[0.97rem] leading-relaxed text-muted-foreground">
+        {children}
+      </p>
+    </li>
   );
 }
 
