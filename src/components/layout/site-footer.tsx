@@ -35,7 +35,7 @@ export function SiteFooter() {
                 More
               </span>
               <Link href="/saved" className="hover:text-accent">
-                Saved
+                History
               </Link>
               <Link href="/about" className="hover:text-accent">
                 About

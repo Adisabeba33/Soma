@@ -391,7 +391,7 @@ export function TasteMatchClient() {
 
           <div className="mt-12 flex flex-wrap items-center gap-3 border-t border-border pt-8">
             <Link href="/saved" className={buttonClass("primary", "md")}>
-              View saved recommendations
+              View history
             </Link>
             <Link href="/compare" className={buttonClass("outline", "md")}>
               Compare strains side by side

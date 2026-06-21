@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Check, ChevronRight } from "lucide-react";
+import { Check, ChevronRight, History } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -149,6 +149,28 @@ export default function AccountPage() {
           className="mt-3 px-1"
         />
       )}
+
+      {/* History — past Taste Match runs and bookmarked picks. */}
+      <p className="mt-10 text-xs uppercase tracking-[0.24em] text-brass">
+        History
+      </p>
+      <Link
+        href="/saved"
+        className="mt-3 flex items-center gap-4 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-accent/40"
+      >
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brass/10 text-brass">
+          <History className="h-5 w-5" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <span className="font-display text-lg font-semibold tracking-tight">
+            Your reads
+          </span>
+          <p className="mt-0.5 text-sm text-muted-foreground">
+            Past Taste Match runs and the picks you bookmarked.
+          </p>
+        </div>
+        <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
+      </Link>
 
       <button onClick={logout} className={buttonClass("outline", "md", "mt-8")}>
         Sign out
