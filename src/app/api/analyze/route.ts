@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { getActiveProfile } from "@/lib/active-profile";
 import { getUserId } from "@/lib/user";
 import {
   asArray,
@@ -36,10 +37,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const profile = await prisma.tasteProfile.findFirst({
-    where: { userId },
-    orderBy: { updatedAt: "desc" },
-  });
+  const profile = await getActiveProfile(userId);
 
   if (!profile) {
     return NextResponse.json(

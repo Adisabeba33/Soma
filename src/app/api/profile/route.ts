@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
+import { getActiveProfile } from "@/lib/active-profile";
 import { asArray, asText } from "@/lib/api";
 import { detectProfileContradictions } from "@/lib/profile-contradictions";
 import { isFamilyKey } from "@/lib/strain-families";
@@ -31,12 +32,14 @@ const asPotency = (value: unknown): "mild" | "balanced" | "strong" | null =>
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+// ?id=<profileId> reads that specific profile (for editing a named profile);
+// otherwise the active profile.
+export async function GET(req: NextRequest) {
   const userId = await getUserId();
-  const profile = await prisma.tasteProfile.findFirst({
-    where: { userId },
-    orderBy: { updatedAt: "desc" },
-  });
+  const id = new URL(req.url).searchParams.get("id");
+  const profile = id
+    ? await prisma.tasteProfile.findFirst({ where: { id, userId } })
+    : await getActiveProfile(userId);
   const contradictions = profile
     ? detectProfileContradictions(profile as unknown as TasteProfileInput)
     : [];
@@ -75,14 +78,19 @@ async function upsertProfile(req: NextRequest) {
     notes: asText(body.notes, 2000),
   };
 
-  const existing = await prisma.tasteProfile.findFirst({
-    where: { userId },
-    orderBy: { updatedAt: "desc" },
-  });
+  // Edit a specific named profile when profileId is given (the form passes it);
+  // otherwise the active profile. With no profile at all, create the first one
+  // as the active "Main".
+  const profileId = typeof body.profileId === "string" ? body.profileId : null;
+  const existing = profileId
+    ? await prisma.tasteProfile.findFirst({ where: { id: profileId, userId } })
+    : await getActiveProfile(userId);
 
   const profile = existing
     ? await prisma.tasteProfile.update({ where: { id: existing.id }, data })
-    : await prisma.tasteProfile.create({ data: { ...data, userId } });
+    : await prisma.tasteProfile.create({
+        data: { ...data, userId, name: "Main", isActive: true },
+      });
 
   const contradictions = detectProfileContradictions(
     profile as unknown as TasteProfileInput,

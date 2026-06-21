@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { buildCatalog, type CatalogMatch } from "@/lib/catalog";
-import { prisma } from "@/lib/prisma";
+import { getActiveProfile } from "@/lib/active-profile";
 import { getUserIdReadOnly } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
 import { scoreStrain } from "@/lib/taste-engine";
@@ -27,10 +27,7 @@ async function loadMatches(): Promise<{
   const userId = await getUserIdReadOnly();
   if (!userId) return { matches: {}, hasProfile: false };
 
-  const profile = await prisma.tasteProfile.findFirst({
-    where: { userId },
-    orderBy: { updatedAt: "desc" },
-  });
+  const profile = await getActiveProfile(userId);
   if (!profile) return { matches: {}, hasProfile: false };
 
   const feedback = await getFeedbackSignals(userId);

@@ -54,6 +54,11 @@ model TasteProfile {
   id                 String   @id @default(uuid())
   userId             String
   user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Multiple named profiles per account (max 3, enforced in the API). Exactly
+  // one isActive=true per user drives all matching. Existing rows backfilled to
+  // name "Main" + active.
+  name               String?
+  isActive           Boolean  @default(false)
   favoriteStrains    String[]
   dislikedStrains    String[]
   likedTraits        String[]
