@@ -233,6 +233,9 @@ export interface SessionSummary {
   inputType: string;
   createdAt: string;
   strainCount: number;
+  // Name of the sensory profile this run was scored against. Null for older
+  // runs or ones whose profile was since deleted (tasteProfileId → SetNull).
+  profileName?: string | null;
 }
 
 export interface SessionDetail extends SessionSummary {

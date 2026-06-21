@@ -153,8 +153,15 @@ function Group({
                     )}
                   />
                   <div className="min-w-0">
-                    <p className="truncate font-medium">
-                      {session.title ?? `Menu — ${formatDate(session.createdAt)}`}
+                    <p className="flex items-center gap-2 truncate font-medium">
+                      <span className="truncate">
+                        {session.title ?? `Menu — ${formatDate(session.createdAt)}`}
+                      </span>
+                      {session.profileName && (
+                        <span className="inline-flex shrink-0 items-center rounded-full bg-brass/10 px-2 py-0.5 text-xs font-medium text-brass">
+                          {session.profileName}
+                        </span>
+                      )}
                     </p>
                     <p className="truncate text-sm text-muted-foreground">
                       {session.strainCount} strain
