@@ -3,12 +3,39 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Check, ChevronRight, History, Plus } from "lucide-react";
+import {
+  Check,
+  CheckCircle2,
+  ChevronRight,
+  History,
+  Mail,
+  Pencil,
+  PenLine,
+  Plus,
+  ShieldCheck,
+  Trash2,
+  User,
+} from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { ProfileProgressRing } from "@/components/profile-progress";
 import { MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
 import { cn } from "@/lib/utils";
+
+// Frosted "apothecary" panel — translucent cream over the botanical backdrop.
+const PANEL =
+  "rounded-3xl border border-border/60 bg-card/70 shadow-[0_1px_4px_rgba(40,49,40,0.05)] backdrop-blur-sm";
+
+// Faint botanical watermark behind the whole page (see public/textures). Fixed
+// so it stays put as the page scrolls; cream-based so it blends with the body.
+function ApothecaryBg() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/textures/botanical-light.webp')" }}
+    />
+  );
+}
 
 type Me = {
   registered: boolean;
@@ -124,12 +151,20 @@ export default function AccountPage() {
   }
 
   if (!me) {
-    return <div className="mx-auto max-w-md px-5 py-20 text-muted-foreground">Loading…</div>;
+    return (
+      <>
+        <ApothecaryBg />
+        <div className="mx-auto max-w-md px-5 py-20 text-muted-foreground">
+          Loading…
+        </div>
+      </>
+    );
   }
 
   if (!me.registered) {
     return (
       <div className="mx-auto max-w-md px-5 py-16">
+        <ApothecaryBg />
         <h1 className="font-display text-4xl font-semibold tracking-tight">Your account</h1>
         <p className="mt-3 leading-relaxed text-muted-foreground">
           You're browsing anonymously — your taste profile and history are saved
@@ -146,31 +181,29 @@ export default function AccountPage() {
 
   return (
     <div className="mx-auto max-w-md px-5 py-16">
+      <ApothecaryBg />
       <p className="text-xs uppercase tracking-[0.24em] text-brass">Account</p>
       <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight">
         @{me.username}
       </h1>
 
-      <Card className="mt-8 divide-y divide-border">
-        <div className="flex items-center justify-between p-5">
-          <span className="text-sm text-muted-foreground">Username</span>
+      <div className={cn("mt-8 space-y-2 p-3", PANEL)}>
+        <DetailRow icon={<User className="h-4 w-4" />} label="Username">
           <span className="font-medium">@{me.username}</span>
-        </div>
-        <div className="flex items-center justify-between p-5">
-          <span className="text-sm text-muted-foreground">Email</span>
-          <span className="font-medium">{me.email}</span>
-        </div>
-        <div className="flex items-center justify-between p-5">
-          <span className="text-sm text-muted-foreground">Email status</span>
+        </DetailRow>
+        <DetailRow icon={<Mail className="h-4 w-4" />} label="Email">
+          <span className="truncate font-medium">{me.email}</span>
+        </DetailRow>
+        <DetailRow icon={<ShieldCheck className="h-4 w-4" />} label="Email status">
           {me.emailVerified ? (
-            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+            <span className="inline-flex items-center gap-1.5 font-medium text-accent">
               <Check size={15} /> Verified
             </span>
           ) : (
-            <span className="text-sm font-medium text-brass">Not verified</span>
+            <span className="font-medium text-brass">Not verified</span>
           )}
-        </div>
-      </Card>
+        </DetailRow>
+      </div>
 
       {/* Sensory Profiles — up to `limit` named profiles; the active one drives
           every match. A profile must reach 60% before it can be made active. */}
@@ -193,19 +226,20 @@ export default function AccountPage() {
             <div
               key={p.id}
               className={cn(
-                "rounded-2xl border bg-card p-4",
-                p.isActive ? "border-accent/50" : "border-border",
+                "p-4",
+                PANEL,
+                p.isActive && "border-brass/50 ring-1 ring-brass/30",
               )}
             >
               <div className="flex items-center gap-3">
-                <ProfileProgressRing percent={p.percent} size={48} />
+                <ProfileProgressRing percent={p.percent} size={52} />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span className="truncate font-display text-base font-semibold tracking-tight">
                       {p.name}
                     </span>
                     {p.isActive && (
-                      <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+                      <span className="shrink-0 rounded-full bg-brass/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-brass">
                         Active
                       </span>
                     )}
@@ -217,41 +251,41 @@ export default function AccountPage() {
                   </p>
                 </div>
               </div>
-              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border/50 pt-3 text-sm">
                 <Link
                   href={`/profile?id=${p.id}`}
-                  className="font-medium text-accent hover:underline"
+                  className="inline-flex items-center gap-1.5 font-medium text-accent hover:underline"
                 >
-                  Edit
+                  <Pencil className="h-3.5 w-3.5" /> Edit
                 </Link>
                 {!p.isActive &&
                   (ready ? (
                     <button
                       type="button"
                       onClick={() => activateProfile(p.id)}
-                      className="font-medium text-foreground hover:underline"
+                      className="inline-flex items-center gap-1.5 font-medium text-foreground hover:underline"
                     >
-                      Set active
+                      <CheckCircle2 className="h-3.5 w-3.5 text-brass" /> Set active
                     </button>
                   ) : (
-                    <span className="text-muted-foreground">
+                    <span className="text-xs text-muted-foreground">
                       Finish to {MATCH_GATE_PERCENT}% to activate
                     </span>
                   ))}
                 <button
                   type="button"
                   onClick={() => renameProfile(p.id, p.name)}
-                  className="text-muted-foreground hover:text-foreground"
+                  className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground"
                 >
-                  Rename
+                  <PenLine className="h-3.5 w-3.5" /> Rename
                 </button>
                 {profiles.length > 1 && (
                   <button
                     type="button"
                     onClick={() => removeProfile(p.id, p.name)}
-                    className="text-[#a23b2c] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-[#a23b2c] hover:underline"
                   >
-                    Delete
+                    <Trash2 className="h-3.5 w-3.5" /> Delete
                   </button>
                 )}
               </div>
@@ -291,7 +325,7 @@ export default function AccountPage() {
         ) : (
           <button
             onClick={() => setAdding(true)}
-            className="mt-3 inline-flex items-center gap-1.5 rounded-xl border border-dashed border-border px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-accent/40 hover:text-foreground"
+            className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-2xl border border-dashed border-brass/40 bg-card/40 px-4 py-3 text-sm font-medium text-muted-foreground backdrop-blur-sm transition-colors hover:border-brass/60 hover:text-foreground"
           >
             <Plus className="h-4 w-4" />
             Add profile
@@ -304,7 +338,10 @@ export default function AccountPage() {
       </p>
       <Link
         href="/saved"
-        className="mt-3 flex items-center gap-4 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-accent/40"
+        className={cn(
+          "mt-3 flex items-center gap-4 p-5 transition-colors hover:border-brass/40",
+          PANEL,
+        )}
       >
         <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brass/10 text-brass">
           <History className="h-5 w-5" />
@@ -361,6 +398,30 @@ export default function AccountPage() {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+// One row inside the frosted account-info panel: a tinted icon chip, a label,
+// and the value pushed to the right.
+function DetailRow({
+  icon,
+  label,
+  children,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex items-center gap-3 rounded-2xl border border-border/50 bg-background/40 px-3 py-3">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brass/10 text-brass">
+        {icon}
+      </span>
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="ml-auto min-w-0 truncate text-right text-sm">
+        {children}
+      </span>
     </div>
   );
 }
