@@ -24,8 +24,20 @@ import {
 } from "@/lib/profile-completeness";
 import { ProfileProgressRing } from "@/components/profile-progress";
 import type { TasteProfileInput } from "@/lib/types";
+import { STRAINS } from "@/lib/strain-data";
+import { scoreStrain } from "@/lib/taste-engine";
+import { getFeedbackSignals } from "@/lib/api";
+import { strainSlug } from "@/lib/catalog";
 
 export const dynamic = "force-dynamic";
+
+type TopMatch = {
+  name: string;
+  slug: string;
+  type: string;
+  score: number;
+  category: string;
+};
 
 const STEPS = [
   {
@@ -65,7 +77,34 @@ export default async function HomePage() {
     const percent = profile
       ? profileCompleteness(profile as unknown as TasteProfileInput).percent
       : 0;
-    return <LoggedInHome username={user.username} percent={percent} />;
+
+    // Top catalog matches for the carousel — only once the profile clears the
+    // gate, so we never show a "best match" off a too-thin profile.
+    let topMatches: TopMatch[] = [];
+    if (profile && percent >= MATCH_GATE_PERCENT) {
+      const feedback = await getFeedbackSignals(userId!);
+      const p = profile as unknown as TasteProfileInput;
+      topMatches = STRAINS.map((s) => {
+        const m = scoreStrain(s.name, p, feedback);
+        return {
+          name: s.name,
+          slug: strainSlug(s.name),
+          type: s.type,
+          score: m.matchScore,
+          category: m.category,
+        };
+      })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 12);
+    }
+
+    return (
+      <LoggedInHome
+        username={user.username}
+        percent={percent}
+        topMatches={topMatches}
+      />
+    );
   }
 
   return <AnonymousHome />;
@@ -78,9 +117,11 @@ export default async function HomePage() {
 function LoggedInHome({
   username,
   percent,
+  topMatches,
 }: {
   username: string | null;
   percent: number;
+  topMatches: TopMatch[];
 }) {
   const canMatch = percent >= MATCH_GATE_PERCENT;
   return (
@@ -173,8 +214,8 @@ function LoggedInHome({
           </div>
         </div>
 
-        {/* Bottom tab bar — frosted, icon + label. */}
-        <div className="mt-auto pt-10">
+        {/* Tab bar — frosted, icon + label. */}
+        <div className="mt-8">
           <nav className="flex items-center justify-around rounded-2xl border border-white/55 bg-white/55 px-2 py-2 shadow-lg backdrop-blur-md">
             <TabLink href="/compare" icon={GitCompareArrows} label="Compare" />
             <TabLink href="/catalog" icon={Search} label="Harvest" />
@@ -182,6 +223,37 @@ function LoggedInHome({
             <TabLink href="/account" icon={User} label="Account" />
           </nav>
         </div>
+
+        {/* Best matches carousel — horizontal scroll, compact frosted cards. */}
+        {topMatches.length > 0 && (
+          <section className="mt-10">
+            <h2 className="font-display text-xl font-semibold tracking-tight">
+              Best match for your sensory profile
+            </h2>
+            <div className="mt-4 -mx-5 flex snap-x gap-3 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0">
+              {topMatches.map((m) => (
+                <Link
+                  key={m.slug}
+                  href={`/catalog/${m.slug}`}
+                  className="flex w-36 shrink-0 snap-start flex-col rounded-2xl border border-white/55 bg-white/55 p-4 shadow-md backdrop-blur-md transition-colors hover:bg-white/80 sm:w-40"
+                >
+                  <span className="text-[0.62rem] uppercase tracking-[0.14em] text-muted-foreground">
+                    {m.type}
+                  </span>
+                  <span className="mt-1 line-clamp-2 font-display text-sm font-semibold leading-tight tracking-tight">
+                    {m.name}
+                  </span>
+                  <span className="mt-4 font-display text-2xl font-semibold text-accent">
+                    {m.score}%
+                  </span>
+                  <span className="text-[0.7rem] text-muted-foreground">
+                    {m.category}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </section>
   );
