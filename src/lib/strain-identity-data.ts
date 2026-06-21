@@ -7918,4 +7918,299 @@ export const IDENTITIES: StrainIdentity[] = [
     artStatus: "none",
     sourceConfidence: "medium",
   },
+  {
+    canonicalName: "Agent Z",
+    marketNames: ["Agent-Z"],
+    breeder: "unknown",
+    lineage: {
+      parents: ["Agent X", "Orange Z"],
+      cross: "Agent X x Orange Z",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Lime-green and deep purple foliage with orange hairs and milky calyxes.", "Daytime-leaning despite candy-fruit nose."],
+    curatorNote:
+      "Agent Z reads as a citrus-candy daytime exotic, documented by Leafly as Agent X x Orange Z with above-average THC and an energizing, creative tilt. The Orange Z parent anchors the bright citrus-candy nose. Reasonably sourced for an obscure cut, but terpene and effect data come from limited samples, so treat the energetic profile as consensus rather than gospel.",
+    curatorQuote:
+      "Citrus-candy clarity for a working afternoon.",
+    tagline: "Bright candy daytime",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Bomboloni",
+    marketNames: ["Bomboloni Doughnut"],
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Named for the Italian filled doughnut; dense resinous buds with pastry-sweet nose.", "Lineage varies by label; one circulated cut is Notorious T.H.C. x Jelly Breath (inferred, not confirmed)."],
+    curatorNote:
+      "Bomboloni is a dessert-leaning indica named after the Italian cream-filled doughnut, and that is exactly what the nose promises: sweet, creamy pastry with soft fruit. Multiple labels carry the name with differing pedigrees, so I have not asserted fixed parents; the most-cited path is Notorious T.H.C. x Jelly Breath but that is unverified. Sensory consensus (sweet-creamy, relaxing) is solid; lineage is not, hence low confidence.",
+    curatorQuote:
+      "A cream-filled nightcap in flower form.",
+    tagline: "Sweet pastry indica",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Modified Goat",
+    marketNames: ["Mod Goat"],
+    lineage: {
+      parents: ["GMO", "Golden Goat"],
+      cross: "GMO x Golden Goat",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["GMO garlic-gas funk collides with Golden Goat citrus energy; loud, dough-and-diesel nose.", "Trichome-heavy buds; high THC (reported 25-28%)."],
+    curatorNote:
+      "Modified Goat marries GMO's savory garlic-gas funk to Golden Goat's bright citrus lift, and the result is a loud, high-THC hybrid that opens cerebral before settling into body calm. Per the garlic mapping I have routed the GMO funk to gassy/cheese/earthy. Lineage is consistently reported but the breeder of record is unclear and THC figures come from marketing copy, so I keep this at medium.",
+    curatorQuote:
+      "Garlic gas with a citrus afterburner.",
+    tagline: "Funky citrus gas",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Secret Stash",
+    marketNames: ["Secret Stash OG"],
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Lemon-lime and pepper over a flowery diesel base; caryophyllene-forward.", "Multiple lineages circulate; Archive Seed Bank lists White Fire x Face Off BX2 (not universally confirmed)."],
+    curatorNote:
+      "Secret Stash is a lift-then-sink hybrid: buzzy citrus euphoria up front, couch-bound calm on the back end. Sources cluster it around Chem/OG and Cookies heritage, with Archive Seed Bank's White Fire x Face Off BX2 the most concrete claim, but the name is used loosely across markets so I leave parents out of the structured fields. Sensory profile (lemon-lime, pepper, diesel) is well attested; lineage is muddy.",
+    curatorQuote:
+      "Lemon-pepper diesel that drops you gently.",
+    tagline: "Citrus diesel unwind",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Slapz",
+    marketNames: ["Slappz"],
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["Runtz", "Grease Monkey"],
+      cross: "Runtz x Grease Monkey",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Face-smacking skunk-diesel-pine nose over candy sweetness from the Runtz side.", "High THC (reported 20-30%); fast, knockout body onset."],
+    curatorNote:
+      "Slapz is Exotic Genetix's Runtz x Grease Monkey, and it earns its name with a face-slap of skunk, diesel, and pine layered over Runtz candy. The high hits fast and euphoric before collapsing into heavy body sedation. Breeder and lineage are well documented here, and the loud gassy-candy profile is consistent across sources, so this one rates high.",
+    curatorQuote:
+      "A candy-coated slap of pure gas.",
+    tagline: "Loud gassy knockout",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Guava Runtz",
+    marketNames: ["Guava Runts"],
+    breeder: "Cookies Fam",
+    lineage: {
+      parents: ["Guava", "Runtz"],
+      cross: "Guava x Runtz",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Tropical-fruit candy over a light diesel funk; talkative, giggly lift.", "Guava is a Gelato phenotype; Runtz is Zkittlez x Gelato."],
+    curatorNote:
+      "Guava Runtz, from Cookies Fam, pairs the tropical Guava (a Gelato pheno) with candy-sweet Runtz for a fruity-gassy exotic that runs balanced: uplifting and giggly first, gently relaxing later. Lineage is well documented and the tropical-candy-diesel profile is consistent across Leafly and dispensary sources, so I rate it high.",
+    curatorQuote:
+      "Tropical candy with a giggle on top.",
+    tagline: "Tropical candy lift",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Black Scotti",
+    marketNames: ["Black Biscotti"],
+    lineage: {
+      parents: ["Biscotti", "Zhit"],
+      cross: "Biscotti x Zhit",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Creamy vanilla and almond inhale with peppery, piney exhale; grape undertone.", "Biscotti-line indica (~70% indica); dark, frosty buds."],
+    curatorNote:
+      "Black Scotti is a Biscotti-line indica (reported Biscotti x Zhit) that leads with creamy-nutty cookie sweetness and a grape edge, then settles into chill, content relaxation that can tip toward couch-lock. The Biscotti pedigree and the nutty-sweet-grape profile are reasonably documented on Leafly and dispensary pages, though the Zhit parent is less firmly sourced, so medium confidence.",
+    curatorQuote:
+      "Cookie cream with a grape shadow.",
+    tagline: "Dark cookie indica",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cookie Burger",
+    marketNames: ["Cookie Burgerz"],
+    lineage: {
+      parents: ["Girl Scout Cookies", "Johnny Burger"],
+      cross: "Girl Scout Cookies x Johnny Burger",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Skunky, savory meat-like overtone with sour citrusy nutty cookies; pungent and dank.", "Indica-dominant (~70%); very high THC (reported 28-30%)."],
+    curatorNote:
+      "Cookie Burger crosses Girl Scout Cookies with Johnny Burger into a pungent, savory indica-dominant hybrid: skunky meat-and-funk over sour-citrus nutty cookies, with a heady-happy lift sliding into body calm. Lineage and the loud savory-cookie profile are documented on AllBud; THC figures are marketing-grade. Medium confidence.",
+    curatorQuote:
+      "Savory funk wrapped in citrus cookies.",
+    tagline: "Savory cookie funk",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grape Scotti",
+    marketNames: ["Grape Biscotti"],
+    lineage: {
+      parents: ["Biscotti", "Grape Pie"],
+      cross: "Biscotti x Grape Pie",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Bakery-and-fuel base layered with grape-jam sweetness; dense resinous flowers.", "Biscotti-line indica; lineage varies (Biscotti x Grape Pie or Grape Ape)."],
+    curatorNote:
+      "Grape Scotti sits in the Biscotti family with a grape-forward twist, most often cited as Biscotti x Grape Pie (sometimes Grape Ape). It reads indica: grape-jam sweetness over a bakery-fuel base, drifting toward sleepy and hungry. The grape-cookie profile is consistent, but the exact grape parent is breeder-dependent, so I rate this medium and flag the variable cross.",
+    curatorQuote:
+      "Grape jam folded into warm cookies.",
+    tagline: "Grape cookie indica",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Insane Pound Cake",
+    marketNames: ["Insane Poundcake"],
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Buttery cake and vanilla frosting with zesty citrus and a faint herbal-gas finish.", "Traces to London Pound Cake neighborhood; one cited cut is Pound Cake x Kush Mints (inferred)."],
+    curatorNote:
+      "Insane Pound Cake is a pound-cake dessert hybrid in the London Pound Cake lineage, delivering buttery vanilla-cake sweetness with citrus zest and an easy slide from clear euphoria to body comfort. Breeder of record varies by market and the Pound Cake x Kush Mints cross is only one reported path, so I keep lineage out of the structured fields. Dessert profile is consistent; pedigree is not, hence low confidence.",
+    curatorQuote:
+      "A double slice of buttery calm.",
+    tagline: "Buttery cake calm",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Mango Runtz",
+    marketNames: ["Mango Runts"],
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Ripe mango pulp over candy sweetness with orange zest and a sherbet-cream finish.", "Multiple cuts exist; Mephisto's autoflower is (Creme de la Chem x Mango Smile) x White Runtz."],
+    curatorNote:
+      "Mango Runtz is a tropical Runtz-family exotic built on ripe mango and candy sweetness with a creamy sherbet finish, running creative and easy-going at lower doses and more body-forward higher up. Several distinct cuts share the name (Mephisto's autoflower has a documented pedigree; the dispensary photo-period cuts are looser), so I leave parents unstructured. Sensory consensus is strong; lineage depends on which cut you get, so medium.",
+    curatorQuote:
+      "Fresh-cut mango dipped in sherbet.",
+    tagline: "Tropical mango candy",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Perm Li Hi",
+    marketNames: ["Permanent Lee Hi", "Perm Lee"],
+    breeder: "Stardust Cultivation",
+    lineage: {
+      parents: ["Permanent Marker", "Supreme Lee Hi"],
+      cross: "Permanent Marker x Supreme Lee Hi",
+    },
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Fruit, licorice, and chemical funk with sherb-cream and inky gas echoing Permanent Marker.", "Indica-dominant; above-average THC; very frosty."],
+    curatorNote:
+      "Perm Li Hi (Permanent Lee Hi) is Stardust Cultivation's Permanent Marker x Supreme Lee Hi, a frosty, funk-forward indica that opens upbeat and euphoric before melting into body-forward calm. Expect Permanent Marker's signature inky-gas-and-cream funk with fruity, licorice-chemical edges. Breeder and lineage are documented on Leafly, though it is a newer cut with limited reviews, so medium confidence.",
+    curatorQuote:
+      "Marker funk with a fruity-gas core.",
+    tagline: "Frosty funk indica",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cherry Maui Wowie",
+    marketNames: ["Cherry Maui"],
+    breeder: "Rythm",
+    lineage: {
+      parents: ["Cherry Pie", "Maui Wowie"],
+      cross: "Cherry Pie x Maui Wowie",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Candy-cherry inhale with tropical pineapple and sweet-and-sour funk; conical bright-green buds.", "Energetic, social daytime tilt from the Maui line; up to ~28% THC."],
+    curatorNote:
+      "Cherry Maui Wowie, released by Rythm, crosses Cherry Pie with the Hawaiian Maui Wowie line, pairing candy-cherry sweetness with tropical pineapple energy. It leans upbeat, social, and creative with a grounded body relaxation underneath. Lineage and the cherry-tropical profile are well documented on Leafly and Rythm pages, so this rates high.",
+    curatorQuote:
+      "Cherry candy on a tropical breeze.",
+    tagline: "Cherry tropical daytime",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Donut Trip",
+    marketNames: ["Donut Trip"],
+    breeder: "Rythm",
+    lineage: {
+      parents: ["FC4N x VCP-S2", "Donutz Triploid"],
+      cross: "(FC4N x VCP-S2) x Donutz Triploid",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Sweet doughnut nose with vanilla and cinnamon; dessert-forward.", "Triploid-influenced Rythm cut; effect data limited."],
+    curatorNote:
+      "Donut Trip is a Rythm dessert hybrid with a sweet vanilla-and-cinnamon doughnut profile, built on a triploid Donutz cross ((FC4N x VCP-S2) x Donutz Triploid). The flavor is well described, but published effect data is thin, so the relaxed-happy read is partly inferred from the broader donut/dessert family. Lineage is documented by Rythm; reviews are sparse, so medium confidence.",
+    curatorQuote:
+      "Cinnamon-sugar doughnut in a jar.",
+    tagline: "Cinnamon doughnut dessert",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "L'Orange",
+    marketNames: ["L Orange", "LOrange"],
+    breeder: "Cannabiotix",
+    lineage: {
+      parents: ["Orange Crush", "Lemonburst"],
+      cross: "Orange Crush x Lemonburst",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Fresh-squeezed orange and tangerine zest with a clean citrus-oil, faintly menthol finish.", "Terpinolene/limonene-forward sativa; bright focused daytime high."],
+    curatorNote:
+      "L'Orange is Cannabiotix's citrus showcase, a sativa cross of Orange Crush and Lemonburst that smells like fresh-squeezed oranges and tangerine zest with a clean, faintly menthol finish. The high is bright, focused, and motivating. Breeder lineage and the citrus profile are well documented; THC figures vary widely by batch (15% to high-20s), so I anchor potency at strong and rate the entry high.",
+    curatorQuote:
+      "Fresh-squeezed focus in a glass.",
+    tagline: "Zesty citrus sativa",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Taffy Twist",
+    marketNames: ["Taffy Twist"],
+    breeder: "Rythm",
+    lineage: {
+      parents: ["Lomelo 18", "Sour Animal Cherries"],
+      cross: "Lomelo 18 x Sour Animal Cherries",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Sweet-and-sour, citrus-forward candy profile with a berry-cherry edge.", "Indica-leaning Rythm cut; dense frosty buds."],
+    curatorNote:
+      "Taffy Twist is an indica-leaning Rythm release that blends its parents' sweet-and-sour candy character, citrus-forward with a sour-cherry berry edge per the taffy mapping. It runs relaxed and happy. Leafly lists the cross as Lomelo 18 x Sour Animal Cherries, but reviews are limited and the obscure parents are hard to corroborate, so I rate this medium and lean on the candy sensory consensus.",
+    curatorQuote:
+      "Sour-sweet candy that winds you down.",
+    tagline: "Sour candy indica",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Strawberry Slushie",
+    marketNames: ["Strawberry Slush", "Strawberry Slushy"],
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Ripe strawberry and syrupy sweetness over a fuel-forward diesel base; frost-heavy buds.", "No single accepted pedigree; a family of strawberry x dessert/slushie crosses."],
+    curatorNote:
+      "Strawberry Slushie is best understood as a family of strawberry-anchored dessert crosses rather than one fixed strain: the berry side ranges across Strawberry Cough/Banana/Sherbet and the slushie side traces to Gushers/Gelato/Slurricane-type genetics. It reads upbeat, giggly, and creative with ripe strawberry over diesel. Sensory profile is consistent; lineage is genuinely unsettled, so I assign low confidence and assert no parents.",
+    curatorQuote:
+      "A frozen strawberry rush with a fuel kick.",
+    tagline: "Strawberry candy slush",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Pistachio",
+    marketNames: ["Pistachio Ice Cream"],
+    breeder: "Humboldt Seed Company",
+    lineage: {
+      parents: ["P-61", "Fortune Cookies"],
+      cross: "P-61 x Fortune Cookies",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Creamy, gassy, nutty notes with vanilla ice cream and a hint of fruit; tall sparkling green buds.", "Slightly indica-dominant (~65%); THC reported 25-30%."],
+    curatorNote:
+      "Pistachio is Humboldt Seed Company's nutty dessert cut, a P-61 x Fortune Cookies selection from their 2019 pheno hunt that delivers creamy, gassy, nutty flavor with vanilla-ice-cream sweetness. Per the pistachio/nut mapping the lead flavor is nutty/creamy. Effects skew euphoric and focused-energizing despite the slight indica lean. Breeder and lineage are well documented, so this rates high.",
+    curatorQuote:
+      "Pistachio gelato with a gassy finish.",
+    tagline: "Creamy nutty dessert",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
 ];
