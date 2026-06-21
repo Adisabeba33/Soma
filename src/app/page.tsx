@@ -17,6 +17,7 @@ import {
 import { buttonClass } from "@/components/ui/button";
 import { getUserIdReadOnly } from "@/lib/user";
 import { prisma } from "@/lib/prisma";
+import { getActiveProfile } from "@/lib/active-profile";
 import {
   profileCompleteness,
   MATCH_GATE_PERCENT,
@@ -81,10 +82,7 @@ export default async function HomePage() {
     let percent = 0;
     let topMatches: TopMatch[] = [];
     try {
-      const profile = await prisma.tasteProfile.findFirst({
-        where: { userId: userId! },
-        orderBy: { updatedAt: "desc" },
-      });
+      const profile = await getActiveProfile(userId!);
       if (profile) {
         const p = profile as unknown as TasteProfileInput;
         percent = profileCompleteness(p).percent;

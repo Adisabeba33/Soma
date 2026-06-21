@@ -3,18 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Check, ChevronRight, History } from "lucide-react";
+import { Check, ChevronRight, History, Plus } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-  ProfileProgressRing,
-  ProfileMissingList,
-} from "@/components/profile-progress";
-import {
-  profileCompleteness,
-  type ProfileCompleteness,
-} from "@/lib/profile-completeness";
-import type { TasteProfileInput } from "@/lib/types";
+import { ProfileProgressRing } from "@/components/profile-progress";
+import { MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
+import { cn } from "@/lib/utils";
 
 type Me = {
   registered: boolean;
@@ -23,31 +17,94 @@ type Me = {
   emailVerified: boolean;
 };
 
+type ProfileItem = {
+  id: string;
+  name: string;
+  isActive: boolean;
+  percent: number;
+};
+
 export default function AccountPage() {
   const router = useRouter();
   const [me, setMe] = useState<Me | null>(null);
-  const [completeness, setCompleteness] = useState<ProfileCompleteness | null>(
-    null,
-  );
+  const [profiles, setProfiles] = useState<ProfileItem[]>([]);
+  const [limit, setLimit] = useState(3);
+  const [adding, setAdding] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [busy, setBusy] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
+
+  async function loadProfiles() {
+    const d = await fetch("/api/profiles")
+      .then((r) => r.json())
+      .catch(() => null);
+    if (d?.profiles) {
+      setProfiles(d.profiles);
+      if (typeof d.limit === "number") setLimit(d.limit);
+    }
+  }
 
   useEffect(() => {
     fetch("/api/auth/me")
       .then((r) => r.json())
       .then(setMe)
       .catch(() => setMe(null));
-    fetch("/api/profile")
-      .then((r) => r.json())
-      .then((d) =>
-        setCompleteness(
-          d?.profile
-            ? profileCompleteness(d.profile as TasteProfileInput)
-            : null,
-        ),
-      )
-      .catch(() => {});
+    loadProfiles();
   }, []);
+
+  async function addProfile() {
+    const name = newName.trim();
+    if (!name) return;
+    setBusy(true);
+    const res = await fetch("/api/profiles", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name }),
+    });
+    setBusy(false);
+    if (res.ok) {
+      const p = await res.json();
+      setAdding(false);
+      setNewName("");
+      router.push(`/profile?id=${p.id}`);
+    } else {
+      const e = await res.json().catch(() => ({}));
+      alert(e.error ?? "Couldn't create the profile.");
+    }
+  }
+
+  async function renameProfile(id: string, current: string) {
+    const name = window.prompt("Rename profile", current);
+    if (name == null || !name.trim()) return;
+    await fetch(`/api/profiles/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "rename", name: name.trim() }),
+    });
+    loadProfiles();
+  }
+
+  async function activateProfile(id: string) {
+    const res = await fetch(`/api/profiles/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "activate" }),
+    });
+    if (res.ok) {
+      await loadProfiles();
+      router.refresh();
+    } else {
+      const e = await res.json().catch(() => ({}));
+      alert(e.error ?? "Couldn't activate that profile.");
+    }
+  }
+
+  async function removeProfile(id: string, name: string) {
+    if (!window.confirm(`Delete "${name}"? This can't be undone.`)) return;
+    await fetch(`/api/profiles/${id}`, { method: "DELETE" });
+    loadProfiles();
+  }
 
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -115,40 +172,131 @@ export default function AccountPage() {
         </div>
       </Card>
 
-      {/* Sensory Profile lives inside the account. One profile for now;
-          saving more (e.g. a morning vs evening profile) comes later. */}
-      <p className="mt-10 text-xs uppercase tracking-[0.24em] text-brass">
-        Sensory Profile
+      {/* Sensory Profiles — up to `limit` named profiles; the active one drives
+          every match. A profile must reach 60% before it can be made active. */}
+      <div className="mt-10 flex items-baseline justify-between">
+        <p className="text-xs uppercase tracking-[0.24em] text-brass">
+          Sensory Profiles
+        </p>
+        <span className="text-xs text-muted-foreground">
+          {profiles.length} / {limit}
+        </span>
+      </div>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Pick which profile SŌMA searches under. Switch anytime.
       </p>
-      <Link
-        href="/profile"
-        className="mt-3 flex items-center gap-4 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-accent/40"
-      >
-        <ProfileProgressRing percent={completeness?.percent ?? 0} size={64} />
-        <div className="min-w-0 flex-1">
-          {completeness?.isComplete ? (
-            <span className="font-display text-lg font-semibold tracking-tight text-accent">
-              Profile complete
-            </span>
-          ) : (
-            <span className="font-display text-lg font-semibold tracking-tight">
-              {completeness?.percent ?? 0}% complete
-            </span>
-          )}
-          <p className="mt-0.5 text-sm text-muted-foreground">
-            {completeness?.isComplete
-              ? "SŌMA has the full picture of your taste."
-              : "Tap to edit — a fuller profile sharpens every match."}
-          </p>
-        </div>
-        <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
-      </Link>
-      {completeness && !completeness.isComplete && (
-        <ProfileMissingList
-          missing={completeness.missing.slice(0, 3)}
-          className="mt-3 px-1"
-        />
-      )}
+
+      <div className="mt-3 space-y-3">
+        {profiles.map((p) => {
+          const ready = p.percent >= MATCH_GATE_PERCENT;
+          return (
+            <div
+              key={p.id}
+              className={cn(
+                "rounded-2xl border bg-card p-4",
+                p.isActive ? "border-accent/50" : "border-border",
+              )}
+            >
+              <div className="flex items-center gap-3">
+                <ProfileProgressRing percent={p.percent} size={48} />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="truncate font-display text-base font-semibold tracking-tight">
+                      {p.name}
+                    </span>
+                    {p.isActive && (
+                      <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+                        Active
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-0.5 text-sm text-muted-foreground">
+                    {ready
+                      ? `${p.percent}% complete`
+                      : `${p.percent}% — finish to ${MATCH_GATE_PERCENT}% to use`}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+                <Link
+                  href={`/profile?id=${p.id}`}
+                  className="font-medium text-accent hover:underline"
+                >
+                  Edit
+                </Link>
+                {!p.isActive &&
+                  (ready ? (
+                    <button
+                      type="button"
+                      onClick={() => activateProfile(p.id)}
+                      className="font-medium text-foreground hover:underline"
+                    >
+                      Set active
+                    </button>
+                  ) : (
+                    <span className="text-muted-foreground">
+                      Finish to {MATCH_GATE_PERCENT}% to activate
+                    </span>
+                  ))}
+                <button
+                  type="button"
+                  onClick={() => renameProfile(p.id, p.name)}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  Rename
+                </button>
+                {profiles.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeProfile(p.id, p.name)}
+                    className="text-[#a23b2c] hover:underline"
+                  >
+                    Delete
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {profiles.length < limit &&
+        (adding ? (
+          <div className="mt-3 flex items-center gap-2">
+            <input
+              autoFocus
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && addProfile()}
+              placeholder="Profile name, e.g. Morning sativa"
+              className="flex-1 rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+            />
+            <button
+              onClick={addProfile}
+              disabled={busy || !newName.trim()}
+              className={buttonClass("primary", "md")}
+            >
+              {busy ? "Creating…" : "Create"}
+            </button>
+            <button
+              onClick={() => {
+                setAdding(false);
+                setNewName("");
+              }}
+              className="px-2 text-sm text-muted-foreground hover:text-foreground"
+            >
+              Cancel
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => setAdding(true)}
+            className="mt-3 inline-flex items-center gap-1.5 rounded-xl border border-dashed border-border px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-accent/40 hover:text-foreground"
+          >
+            <Plus className="h-4 w-4" />
+            Add profile
+          </button>
+        ))}
 
       {/* History — past Taste Match runs and bookmarked picks. */}
       <p className="mt-10 text-xs uppercase tracking-[0.24em] text-brass">

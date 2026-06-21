@@ -35,14 +35,20 @@ export default function ProfilePage() {
   const [completeness, setCompleteness] = useState<ProfileCompleteness | null>(
     null,
   );
+  // Which named profile we're editing (?id=…); null edits the active one.
+  const [profileId, setProfileId] = useState<string | null>(null);
+  const [profileName, setProfileName] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/profile")
+    const id = new URLSearchParams(window.location.search).get("id");
+    setProfileId(id);
+    fetch(`/api/profile${id ? `?id=${encodeURIComponent(id)}` : ""}`)
       .then((r) => r.json())
       .then((d) => {
         const result = profileFromApi(d.profile);
         setInitial(result.state);
         setExists(result.exists);
+        setProfileName(d.profile?.name ?? null);
         setContradictions(d.contradictions ?? []);
         setCompleteness(
           d.profile
@@ -61,7 +67,7 @@ export default function ProfilePage() {
       const res = await fetch("/api/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(state),
+        body: JSON.stringify(profileId ? { ...state, profileId } : state),
       });
       if (!res.ok) throw new Error();
       const data = await res.json().catch(() => ({}));
@@ -85,7 +91,7 @@ export default function ProfilePage() {
         Sensory Profile
       </p>
       <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
-        Your sensory profile
+        {profileName ?? "Your sensory profile"}
       </h1>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         This is what every Taste Match is measured against. Edit it whenever

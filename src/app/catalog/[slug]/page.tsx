@@ -9,6 +9,7 @@ import {
 import { STRAINS } from "@/lib/strain-data";
 import { getIdentity } from "@/lib/strain-identity";
 import { prisma } from "@/lib/prisma";
+import { getActiveProfile } from "@/lib/active-profile";
 import { getUserIdReadOnly } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
 import { scoreStrain } from "@/lib/taste-engine";
@@ -42,10 +43,7 @@ async function loadMatch(strainName: string): Promise<CatalogMatch | undefined> 
   const userId = await getUserIdReadOnly();
   if (!userId) return undefined;
 
-  const profile = await prisma.tasteProfile.findFirst({
-    where: { userId },
-    orderBy: { updatedAt: "desc" },
-  });
+  const profile = await getActiveProfile(userId);
   if (!profile) return undefined;
 
   const feedback = await getFeedbackSignals(userId);

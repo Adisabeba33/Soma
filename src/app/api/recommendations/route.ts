@@ -12,6 +12,10 @@ export async function GET() {
     orderBy: { createdAt: "desc" },
     take: 50,
     include: {
+      // The profile this run was scored against, so History can show which
+      // sensory profile each recommendation belongs to. Nullable: older runs
+      // (or ones whose profile was later deleted) carry no link.
+      tasteProfile: { select: { name: true } },
       recommendations: {
         orderBy: { matchScore: "desc" },
         include: { feedback: { where: { userId } } },
@@ -26,6 +30,7 @@ export async function GET() {
     engine: session.engine,
     inputType: session.inputType,
     createdAt: session.createdAt,
+    profileName: session.tasteProfile?.name ?? null,
     strainCount: session.recommendations.length,
     recommendations: session.recommendations.map((r) =>
       dbRecToView(r, r.feedback[0] ?? null),
