@@ -54,9 +54,9 @@ export default function SavedPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
-      <p className="text-xs uppercase tracking-[0.24em] text-brass">Saved</p>
+      <p className="text-xs uppercase tracking-[0.24em] text-brass">History</p>
       <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
-        Saved recommendations
+        History
       </h1>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Every analysis you run is kept here. Save the ones worth returning to,
@@ -84,7 +84,7 @@ export default function SavedPage() {
         <div className="mt-10 space-y-12">
           {saved.length > 0 && (
             <Group
-              title="Saved"
+              title="Bookmarked"
               sessions={saved}
               expanded={expanded}
               onExpand={setExpanded}
