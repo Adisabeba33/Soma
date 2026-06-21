@@ -7802,4 +7802,120 @@ export const IDENTITIES: StrainIdentity[] = [
     artStatus: "none",
     sourceConfidence: "low",
   },
+  {
+    canonicalName: "Half Moonana",
+    marketNames: ["Half Moonana"],
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Banana-forward, creamy dessert nose with a soft berry backnote.", "Pedigree (Half Moon Bay Gelato x Strawberry Banana) is inferred from a single dispensary listing, not breeder-confirmed."],
+    curatorNote:
+      "Half Moonana is a banana-and-cream dessert hybrid most visible through the Find brand and a handful of East Coast dispensary menus, where batches have tested in the high 20s for THC. The widely repeated lineage of Half Moon Bay Gelato crossed with Strawberry Banana traces to a single retail listing rather than any breeder documentation, so treat it as plausible-but-unverified. What is consistent across sources is the sensory read: tropical banana, sweet cream, light berry, and a frosty, terpy bag appeal. I am confident on the profile, cautious on the pedigree.",
+    curatorQuote:
+      "Banana split in a jar, with the lights dimmed.",
+    tagline: "Creamy banana dessert",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Tourist Trap",
+    marketNames: ["Tourist Trap"],
+    breeder: "Find",
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Bright citrus-berry rose nose over light earth and herbal spice.", "Marketed by Find; some menus label it sativa, but body character reads as a Gelato/rose-leaning hybrid."],
+    curatorNote:
+      "Tourist Trap is a Find-brand exotic that surfaced in New York's competitive market with no public breeding credit. Lab batches commonly land 22 to 26 percent THC, occasionally higher. There is no documented lineage; grower consensus suspects a Pink Rozay or rose-leaning Gelato-family input based on the chilled-champagne-and-wild-berry top note, so I have not asserted parents. Classification is contested, sativa on some menus but a euphoric hybrid in practice. The citrus-berry-rose profile is the consistent thread.",
+    curatorQuote:
+      "Sweet rose and citrus that lures you in, then keeps you.",
+    tagline: "Citrus berry rose",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Zowah",
+    marketNames: ["Zowahh", "Zowahh 2.0"],
+    breeder: "Karma Genetics",
+    lineage: {
+      parents: ["Zkittlez", "Karma Sour D BX"],
+      cross: "Zkittlez x Karma Sour D BX",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Sour-diesel fuel layered over candy-sweet Zkittlez fruit.", "Zowahh 2.0 uses an improved Original Z BX2 mother over the same Karma Sour D BX father."],
+    curatorNote:
+      "Zowahh is a well-documented Karma Genetics release (launched in regular seed form around 2020) pairing Zkittlez with Karma's Sour Diesel BX. It is the rare modern exotic with a clear breeder paper trail, and SeedFinder, Leafly, and Karma's own shop agree on the cross. Expect loud sour-fuel gas marrying sweet candied fruit, leaning indica-ish in growth with potent, body-forward effects. The 2.0 swaps in a refined Z mother. Strong sourcing here, hence higher confidence than most of this set.",
+    curatorQuote:
+      "Sour diesel dipped in candy.",
+    tagline: "Sour candy gas",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Astro GMO",
+    marketNames: ["Astro GMO"],
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Savory garlic-onion-sulfur funk with Chem-derived fuel and rubber underneath.", "GMO (Garlic Cookies = GSC x Chemdawg) is the documented backbone; the 'Astro' parent/cut is not breeder-confirmed, so the full cross is inferred."],
+    curatorNote:
+      "Astro GMO is a gas-forward, GMO-Cookies-driven exotic prized for heavy resin and a deeply savory, garlic-and-fuel nose. The GMO heritage (GSC x Chemdawg via Garlic Cookies) is well established, but what 'Astro' contributes is not documented across the sources I found, so I have not listed a full cross. Effects read as a slow creeper into spaced-out euphoria and muscular, couch-locking body weight, classic late-afternoon-into-evening material. Profile is solid; the precise pedigree is the soft spot.",
+    curatorQuote:
+      "Garlic, fuel, and a one-way ticket to the couch.",
+    tagline: "Savory gas funk",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Atomic Breath",
+    marketNames: ["Atomic Breath"],
+    breeder: "Grassroots",
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Fuel and earth up front with doughy, nutty 'Breath'-family sweetness behind.", "Multiple cuts exist: vendors variously cite Motorbreath (Chem D x SFV OG) or a Mendo/Peanut Butter Breath parent, so parentage is region-dependent and not asserted here."],
+    curatorNote:
+      "Atomic Breath is commonly seen as a Grassroots production and exists as more than one cut, which is exactly why I have left the lineage open. Some regions justify the fuel and resin density with a Motorbreath influence; others point to a Mendo Breath or Peanut Butter Breath parent to explain the nutty, doughy sweetness. Both stories are credible and neither is firmly documented. What is reliable is the read: pungent fuel-and-earth on the nose, nutty Breath sweetness underneath, a fast euphoric onset settling into calm body weight.",
+    curatorQuote:
+      "Fuel on the inhale, peanut-butter calm on the comedown.",
+    tagline: "Fuel meets dough",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Novarine",
+    marketNames: ["Novarine", "Novarine THCV"],
+    breeder: "Elite Seeds",
+    lineage: {
+      parents: ["Caprichosa Thai", "Thai THCV landrace"],
+      cross: "Caprichosa Thai x Thai THCV landrace",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["THCV-rich with a near 1:1 THC:THCV ratio; clear-headed, appetite-suppressing daytime effect.", "Orange-citrus and chestnut-nutty notes over earthy, woody spice from a terpinolene-leaning profile."],
+    curatorNote:
+      "Novarine is an Elite Seeds sativa-dominant cultivar built specifically for high THCV, with a documented Caprichosa Thai by Thai-landrace cross on SeedFinder. The standout is the cannabinoid profile: a near-balanced THC to THCV ratio that drives a clear, energetic, focused head experience and notably curbs appetite rather than triggering it, making it a genuine daytime productivity strain. Expect citrus-orange and chestnut-nutty flavors over earthy, woody spice. Higher doses can edge toward anxiety in sensitive users. Well-sourced for a niche release.",
+    curatorQuote:
+      "Clear, sharp, and zero snack attack.",
+    tagline: "THCV daytime focus",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Jungle Gemz",
+    marketNames: ["Jungle Gemz"],
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Mango and citrus-zest nose with creamy sweetness over a soft earthy-herbal finish.", "Despite the name, not a confirmed Jungle Boys release; appears to be a curated, producer-specific product with no documented lineage."],
+    curatorNote:
+      "Jungle Gemz is best understood as a marketed product name rather than a fixed, breeder-defined cultivar. Despite the Jungle Boys-adjacent naming, sources find no official Jungle Boys release, and different producers (seen via Leal and others) sell it under their own banners with no documented genetics. I am not asserting any lineage or Jungle Boys connection. The consistent description is a balanced, uplifting tropical hybrid: mango, citrus zest, creamy sweetness, gentle body relaxation suitable day or night. Treat the name as branding, the profile as the reliable part.",
+    curatorQuote:
+      "A handful of tropical gems, name first, genetics unknown.",
+    tagline: "Tropical citrus cream",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Stank Breath",
+    marketNames: ["Stank Breath"],
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Pungent garlic-savory funk with skunky, earthy gas; aptly named.", "Most-cited lineage is GMO x a Mendo Breath descendant (OGKB influence), but an alternate Sharksbreath x OG Kush story circulates; clone-only with no single-breeder attribution."],
+    curatorNote:
+      "Stank Breath is a clone-only, indica-dominant funk bomb that has passed through several hands, so its lineage is genuinely contested. The most repeated cross is GMO (Garlic Cookies) with a Mendo Breath descendant carrying OGKB traits, while other sources push a Sharksbreath by OG Kush origin. Without single-breeder attribution I have left the cross out of the structured fields and flagged both stories. What everyone agrees on: savory garlic-skunk gas, roughly 22 to 24 percent THC, and a heavy, numbing, couch-locking body high that drifts toward sleep. Buy it for the funk and the body weight.",
+    curatorQuote:
+      "Earns the name on the open, earns the couch by the finish.",
+    tagline: "Garlic skunk funk",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
 ];
