@@ -28,6 +28,9 @@ import { STRAINS, findStrain, normalizeStrainName } from "@/lib/strain-data";
 import { scoreStrain } from "@/lib/taste-engine";
 import { getFeedbackSignals } from "@/lib/api";
 import { strainSlug } from "@/lib/catalog";
+import { getIdentity } from "@/lib/strain-identity";
+import { artImageSrc, artFocusOf, timeProfileOf } from "@/lib/strain-art";
+import { paletteForTime } from "@/lib/sensory-family-palette";
 
 export const dynamic = "force-dynamic";
 
@@ -37,6 +40,9 @@ type TopMatch = {
   type: string;
   score: number;
   category: string;
+  img: string | null;
+  focus: string;
+  bg: string;
 };
 
 const STEPS = [
@@ -101,12 +107,16 @@ export default async function HomePage() {
           )
             .map((s) => {
               const m = scoreStrain(s.name, p, feedback);
+              const identity = getIdentity(s.name);
               return {
                 name: s.name,
                 slug: strainSlug(s.name),
                 type: s.type,
                 score: m.matchScore,
                 category: m.category,
+                img: artImageSrc(s, identity),
+                focus: artFocusOf(identity),
+                bg: paletteForTime(timeProfileOf(s, identity)).background,
               };
             })
             .sort((a, b) => b.score - a.score)
@@ -254,20 +264,34 @@ function LoggedInHome({
                 <Link
                   key={m.slug}
                   href={`/catalog/${m.slug}`}
-                  className="flex w-36 shrink-0 snap-start flex-col rounded-2xl border border-white/55 bg-white/55 p-4 shadow-md backdrop-blur-md transition-colors hover:bg-white/80 sm:w-40"
+                  className="w-36 shrink-0 snap-start overflow-hidden rounded-2xl border border-white/55 bg-white/55 shadow-md backdrop-blur-md transition-colors hover:bg-white/80 sm:w-40"
                 >
-                  <span className="text-[0.62rem] uppercase tracking-[0.14em] text-muted-foreground">
-                    {m.type}
-                  </span>
-                  <span className="mt-1 line-clamp-2 font-display text-sm font-semibold leading-tight tracking-tight">
-                    {m.name}
-                  </span>
-                  <span className="mt-4 font-display text-2xl font-semibold text-accent">
-                    {m.score}%
-                  </span>
-                  <span className="text-[0.7rem] text-muted-foreground">
-                    {m.category}
-                  </span>
+                  <div className="relative aspect-[3/4]">
+                    {m.img ? (
+                      <img
+                        src={m.img}
+                        alt=""
+                        className="absolute inset-0 h-full w-full object-cover"
+                        style={{ objectPosition: m.focus }}
+                      />
+                    ) : (
+                      <div
+                        className="absolute inset-0"
+                        style={{ background: m.bg }}
+                      />
+                    )}
+                    <span className="absolute right-2 top-2 rounded-full bg-black/45 px-2 py-0.5 font-display text-xs font-semibold text-white backdrop-blur-sm">
+                      {m.score}%
+                    </span>
+                  </div>
+                  <div className="p-3">
+                    <span className="line-clamp-2 font-display text-sm font-semibold leading-tight tracking-tight">
+                      {m.name}
+                    </span>
+                    <span className="mt-0.5 block text-[0.62rem] uppercase tracking-[0.14em] text-muted-foreground">
+                      {m.type}
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>

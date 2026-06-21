@@ -1,4 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
 import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
 import type { ProfileContradiction } from "@/lib/profile-contradictions";
@@ -69,6 +74,8 @@ export function TasteProfileSummary({
   const single = (value: string, label: string): string[] =>
     value ? [label] : [];
 
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
       <div className="flex items-center justify-between">
@@ -84,7 +91,15 @@ export function TasteProfileSummary({
           </Link>
         )}
       </div>
-      <div className="mt-3 space-y-2">
+
+      {/* Collapsed: a one-line teaser. Expanded: the full read-back. */}
+      {!open && state.favoriteStrains.length > 0 && (
+        <p className="mt-2 truncate text-sm text-muted-foreground">
+          {state.favoriteStrains.join(", ")}
+        </p>
+      )}
+
+      <div className={cn("mt-3 space-y-2", !open && "hidden")}>
         <Row label="Favourites" values={state.favoriteStrains} />
         <Row label="Aromas & flavours" values={sensory} />
         <Row
@@ -152,6 +167,16 @@ export function TasteProfileSummary({
         <Row label="Past dealbreakers" values={state.dislikedTraits.map(labelFor)} />
       </div>
       <ProfileContradictionBanner contradictions={contradictions} compact />
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="mt-3 flex w-full items-center justify-center gap-1.5 border-t border-border pt-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        {open ? "Hide" : "View full profile"}
+        <ChevronDown
+          className={cn("h-4 w-4 transition-transform", open && "rotate-180")}
+        />
+      </button>
     </div>
   );
 }
