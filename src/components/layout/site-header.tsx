@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 // "Sensory Profile" — and never see an Account button, since they have none.
 const BASE_NAV = [
   { href: "/taste-match", label: "Taste Match" },
-  { href: "/compare", label: "Compare" },
+  // Compare lives on the dashboard tab bar, not the top nav.
   { href: "/catalog", label: "Harvest" },
 ];
 const TAIL_NAV = [
