@@ -1,9 +1,10 @@
 "use client";
 
 // The gentle, persistent "finish your profile for a sharper match" bar. Shows
-// app-wide once a person has STARTED a profile but not completed it
-// (0 < percent < 100). Honest framing — a fuller profile narrows the target
-// and breaks ties; we never promise a fabricated accuracy multiplier.
+// app-wide while a person has STARTED but not nearly-finished their profile
+// (0 < percent <= NUDGE_HIDE_AT). Past 90% the profile is essentially done, so
+// we stop nudging to avoid nagging. Honest framing — a fuller profile narrows
+// the target and breaks ties; we never promise a fabricated accuracy multiplier.
 //
 // Deliberately quiet: a slim strip, dismissible for the session (remembered in
 // localStorage), and hidden on the entry/auth/onboarding screens where it would
@@ -17,6 +18,8 @@ import { profileCompleteness } from "@/lib/profile-completeness";
 import type { TasteProfileInput } from "@/lib/types";
 
 const DISMISS_KEY = "soma_nudge_dismissed";
+// Above this the profile is "done enough" — the nudge stops showing.
+const NUDGE_HIDE_AT = 90;
 
 // Routes that are themselves about onboarding / auth / the greeting — a nudge
 // there is redundant or distracting.
@@ -55,7 +58,14 @@ export function FinishProfileNudge() {
   const onHidden =
     pathname === "/" || HIDDEN_PREFIXES.some((p) => pathname.startsWith(p));
 
-  if (onHidden || dismissed || percent === null || percent <= 0 || percent >= 100) {
+  // At 91%+ the profile is essentially complete — stop following the user.
+  if (
+    onHidden ||
+    dismissed ||
+    percent === null ||
+    percent <= 0 ||
+    percent > NUDGE_HIDE_AT
+  ) {
     return null;
   }
 
