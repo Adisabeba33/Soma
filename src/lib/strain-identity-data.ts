@@ -4097,7 +4097,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Fruity Pebbles OG",
-    marketNames: ["FPOG", "Fruity Pebbles"],
+    marketNames: ["FPOG", "Fruity Pebbles", "Fruity OG"],
     breeder: "Alien Genetics",
     lineage: {
       parents: ["Green Ribbon", "Granddaddy Purple", "Tahoe OG", "Alien Kush"],
@@ -8676,5 +8676,215 @@ export const IDENTITIES: StrainIdentity[] = [
     tagline: "Sweet berry cookies",
     artStatus: "none",
     sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Blue Lobster",
+    breeder: "Cipher Genetics",
+    lineage: {
+      parents: ["Apples and Bananas", "Eye Candy"],
+      cross: "Apples and Bananas × Eye Candy",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Pheno hunted by the Maine Trees team from a Cipher Genetics cross", "Tests 26-30% THC"],
+    curatorNote:
+      "Blue Lobster pours out blueberry-candy sweetness wrapped in a soft layer of gas, frosty and dense in the jar. The first pull lifts the mood fast before a calming wave rolls through the body without dragging you under. A dessert-leaning indica for unwinding while still feeling pleasantly clear.",
+    tagline: "Blueberry candy with a gas kick",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Orange Z",
+    marketNames: ["Orange Zkittlez", "Orange ZKZ"],
+    breeder: "3rd Gen Family",
+    lineage: {
+      parents: ["Agent Orange", "Zkittlez"],
+      cross: "Agent Orange × Zkittlez",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Limonene-dominant, reported up to ~2.5%", "Released by Grassroots as Orange Z / Orange ZKZ"],
+    curatorNote:
+      "Orange Z is a burst of fresh tangerine and orange-candy sweetness, loud in the nose and clean on the exhale. The high runs cheerful and clear-headed, sparking conversation and creativity with just enough body ease to stay relaxed. A bright, citrus-forward exotic for daytime smiles.",
+    tagline: "Fresh orange candy, clear-headed lift",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Thai Sunrise",
+    breeder: "Find.",
+    lineage: {
+      parents: ["Chem 4 OG", "The White", "Mandarin Cookies", "Cambodian Thai"],
+      cross: "(Chem 4 OG × The White) × Mandarin Cookies × Cambodian Thai",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Released by the Find. brand", "Carries Cambodian Thai landrace genetics for a soaring sativa lift"],
+    curatorNote:
+      "Thai Sunrise opens on bright citrus zest threaded with herbal baking spice, a nod to its Cambodian Thai landrace roots. The effect is soaring and energetic, clear and motivated, built for creative mornings and busy daytime hours. A spicy-citrus sativa that lives up to its name.",
+    tagline: "Bright citrus, soaring Thai energy",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grapple Pie",
+    breeder: "Compound Genetics",
+    lineage: {
+      parents: ["Apple Fritter", "Grape Gasoline"],
+      cross: "Apple Fritter × Grape Gasoline",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Bred by Compound Genetics", "Deep purple buds with orange hairs and heavy frost"],
+    curatorNote:
+      "Grapple Pie marries grape-soda sweetness with baked-apple and vanilla-custard richness, all riding a faint thread of gas. The deep-purple, frost-caked buds deliver a soothing, happy calm that settles into the body as a nightcap. A dessert-leaning indica for easing into the evening.",
+    tagline: "Grape soda meets baked apple pie",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Sapphire Haze",
+    breeder: "The Plug Pack",
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["House-brand (The Plug Pack) — pedigree unverified"],
+    curatorNote:
+      "A vivid, jewel-toned outdoor hybrid that leads with candied berry sweetness over a gentle herbal-earth base. The lift is bright and sociable, all uplifted euphoria with a creative edge rather than heaviness. Smooth enough for daytime sipping.",
+    tagline: "Bright berries, breezy lift",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Miami Heat",
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["Miami Haze", "Triple OG"],
+      cross: "Miami Haze × Triple OG",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["70/30 sativa-leaning hybrid", "Tests 28%+ THC"],
+    curatorNote:
+      "A 70/30 sativa-leaning hybrid from Exotic Genetix that hits like a fast break — a rush of uplifting, energetic euphoria that tips into sharp creative focus. Lemon and herb dominate the nose, framed by Triple OG's sweet earthiness. A connoisseur's daytime sprinter.",
+    tagline: "Fast-break citrus energy",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Black Panther",
+    marketNames: ["Black Panther OG"],
+    breeder: "Angry Bears",
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["House-brand (Angry Bears) — pedigree unverified"],
+    curatorNote:
+      "A sativa-leaning hybrid that pairs sweet-sour fruit with crisp pine and a flash of black-pepper spice. The high runs energetic and heady — uplifted, euphoric, and mood-brightening — with just enough body softness to keep it comfortable. A lively, daytime-forward smoke.",
+    tagline: "Fruity pine, prowling energy",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Gorilla Zkittlez",
+    marketNames: ["Gorilla Skittlez"],
+    breeder: "Barney's Farm",
+    lineage: {
+      parents: ["Gorilla Glue #4", "Zkittlez"],
+      cross: "Gorilla Glue #4 × Zkittlez",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["60/40 indica-dominant hybrid"],
+    curatorNote:
+      "Barney's Farm's heavy hitter marries Original Glue's resin and gas to Zkittlez's candy-sweet fruit, an indica-leaning 60/40 hybrid. It opens cerebral and uplifting, then melts into intense physical sedation — a true nighttime strain. Expect frosty, sticky buds and a terpene burst of mango, pineapple and tangerine laced with pine and spice.",
+    tagline: "Candy fruit, couch gravity",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Angie",
+    breeder: "LivWell",
+    lineage: {
+      parents: ["Red Headed Stranger", "Ginger Ale"],
+      cross: "Red Headed Stranger × Ginger Ale",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Terpinolene-dominant, followed by limonene and beta-caryophyllene"],
+    curatorNote:
+      "A terpinolene-forward sativa that opens with sparkling citrus and a gingery pepper bite. The high is clean and lifting, energizing the mind without the heavy edge, finishing on a faint herbal warmth. One for daytime creativity and conversation.",
+    tagline: "Citrus zest with a peppery kick",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Chronic Tonic",
+    breeder: "Leal",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["House-brand (Leal) — pedigree unverified", "Certified-organic flower; often tests 26-30% THC"],
+    curatorNote:
+      "A sativa-leaning hybrid that pours on bright citrus and garden-fresh herbs with a clean piney finish. The effect is energized but composed, lifting mood and sharpening focus while a gentle body ease keeps it grounded. A refreshing, high-potency daytime pour.",
+    tagline: "Bright citrus, clean herbal lift",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Dulce de Uva",
+    marketNames: ["Grape Candy"],
+    breeder: "Bloom Seed Co",
+    lineage: {
+      parents: ["Grape Pie", "OG Kush"],
+      cross: "Grape Pie × OG Kush",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Limonene-forward with myrcene and caryophyllene support", "~21-24% THC"],
+    curatorNote:
+      "Spanish for grape candy, this indica-dominant cross delivers exactly that: jammy purple grape and sugary sweetness wrapped in creamy vanilla. The body settles into a warm, giggly calm while the mind stays light and content. A dessert-leaning evening unwind with genuine grape character.",
+    tagline: "Sweet grape candy in a jar",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "LA Purple Popz",
+    marketNames: ["LA Purple Push Pop"],
+    lineage: {
+      parents: ["LA Pop Rocks", "Purple Pop"],
+      cross: "LA Pop Rocks × Purple Pop",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Deep purple-and-green coloring with heavy trichome frost"],
+    curatorNote:
+      "A purple candy bomb that opens with grape soda and hard-candy berry before melting into a creamy vanilla finish. Cerebral euphoria leads, then eases into a calm, stress-free body glow without heavy sedation. A crowd-pleasing dessert indica for sweet-tooth sippers.",
+    tagline: "Grape candy in purple bloom",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Chopped Cheese",
+    breeder: "The Plug Pack",
+    sensoryFamily: "skunk-funk",
+    phenotypeNotes: ["House-brand (The Plug Pack) — pedigree unverified", "Named for the NYC bodega sandwich; savory cheesy-gas funk"],
+    curatorNote:
+      "A savory-gas indica that leans cheesy, meaty, and peppery rather than fruity or sweet. The euphoric head lift sharpens mood briefly before a deep, melting body relaxation takes over, making it a true nighttime smoke. For funk-chasers who want loud skunk and diesel over dessert.",
+    tagline: "Savory gas, bodega funk",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Berry Cake",
+    breeder: "PC Nursery",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["House-brand (PC Nursery) — pedigree unverified", "Cake-family creamy vanilla base with berry-forward terpene expression"],
+    curatorNote:
+      "A dessert-leaning indica that marries ripe berry brightness with a creamy vanilla-frosting cake base. Strong euphoria rolls into balanced, sinking body relaxation and a lingering fruity-cream aftertaste. An easy evening pick for fans of sweet, doughy berry profiles.",
+    tagline: "Berries baked in cream",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Jelly Cake",
+    marketNames: ["Jellie Cake"],
+    breeder: "Matter",
+    lineage: {
+      parents: ["Chauffeur", "Wedding Cake", "Jealousy"],
+      cross: "Chauffeur × Wedding Cake × Jealousy",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Top terpenes myrcene, beta-caryophyllene, limonene"],
+    curatorNote:
+      "An indica-dominant dessert cross of Chauffeur, Wedding Cake, and Jealousy that pours on sweet, jammy fruit over a creamy cake body. Myrcene and caryophyllene drive a heavy, calming relaxation that drifts toward sleep, lifted by an early euphoric glow. A rich, sedating nightcap strain.",
+    tagline: "Jammy fruit, creamy cake",
+    artStatus: "none",
+    sourceConfidence: "high",
   },
 ];
