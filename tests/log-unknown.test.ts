@@ -48,6 +48,7 @@ function match(strainName: string, knownStrain: boolean): StrainMatch {
       sensory: 0,
       potency: 0,
       familyPref: 0,
+      density: 0,
     },
     purchaseConfidence: emptyPurchaseConfidence(),
   };

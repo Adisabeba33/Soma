@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { StrainInput } from "@/components/strain-input";
+import { DensitySlider } from "@/components/density-slider";
 import { TasteProfileSummary } from "@/components/taste-profile-summary";
 import { ResultsView } from "@/components/results-view";
 import { MenuQualityReport } from "@/components/menu-quality-report";
@@ -41,6 +42,8 @@ export function TasteMatchClient() {
   const [strains, setStrains] = useState<string[]>([]);
   const [parsedItems, setParsedItems] = useState<ParsedMenuItem[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
+  // Per-run dense↔fluffy preference (−1…+1). 0 = no preference (default).
+  const [densityPref, setDensityPref] = useState(0);
   const [savingProfile, setSavingProfile] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recommendations, setRecommendations] = useState<Rec[]>([]);
@@ -147,6 +150,7 @@ export function TasteMatchClient() {
             ? parsedItems.map((i) => i.rawLine).join("\n")
             : strains.join("\n"),
           parsedItems,
+          densityPreference: densityPref,
         }),
       });
       const data = await res.json();
@@ -298,6 +302,11 @@ export function TasteMatchClient() {
               contradictions={contradictions}
             />
           </div>
+          <DensitySlider
+            value={densityPref}
+            onChange={setDensityPref}
+            className="mt-6"
+          />
           <div className="mt-8">
             <StrainInput
               strains={strains}

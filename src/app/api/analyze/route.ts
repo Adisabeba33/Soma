@@ -27,6 +27,12 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
 
   const strains = asArray(body.strains, 60);
+  // Per-run dense↔fluffy slider (−1 fluffy … +1 dense). Clamped; 0/absent =
+  // no structure preference for this run. Does not touch the saved profile.
+  const densityPreference =
+    typeof body.densityPreference === "number" && !Number.isNaN(body.densityPreference)
+      ? Math.max(-1, Math.min(1, body.densityPreference))
+      : 0;
   const inputType = body.inputType === "paste" ? "paste" : "manual";
   const rawInput = asText(body.rawInput, 12_000) ?? strains.join("\n");
   const parsedItems = sanitizeParsedItems(body.parsedItems, 60);
@@ -68,7 +74,7 @@ export async function POST(req: NextRequest) {
   // key is added; with one, unknown names get a vocab-constrained profile.
   const unknownNames = strains.filter((name) => !resolveStrain(name).known);
   const overrides = await inferStrainsAI(unknownNames);
-  let result = analyze(strains, profile, feedback, overrides);
+  let result = analyze(strains, profile, feedback, overrides, densityPreference);
   // The optional AI layer only rewrites prose; scores stay untouched.
   if (isOpenAIEnabled()) {
     result = await enhanceWithOpenAI(result, profile);
