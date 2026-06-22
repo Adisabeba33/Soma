@@ -976,6 +976,11 @@ export function scoreStrain(
   profile: TasteProfileInput,
   feedback: FeedbackSignal[] = [],
   overrides?: Map<string, StrainProfile>,
+  // Per-run dense↔fluffy preference (−1 fluffy … 0 none … +1 dense). When
+  // omitted, falls back to the stored profile's budStructure. Lets the
+  // pre-run slider override structure for a single Taste Match without
+  // mutating the saved profile.
+  densityPreference?: number,
 ): StrainMatch {
   const { strain, known } = resolveStrain(rawName, overrides);
 
@@ -1284,7 +1289,7 @@ export function scoreStrain(
   // when the user has no structure preference.
   const densityMod = densityBonus(
     strain,
-    densityPreferenceFromProfile(profile.budStructure),
+    densityPreference ?? densityPreferenceFromProfile(profile.budStructure),
   );
 
   // Multi-modal selection: credit the candidate by the taste mode it fits
@@ -1660,6 +1665,7 @@ export function analyze(
   profile: TasteProfileInput,
   feedback: FeedbackSignal[] = [],
   overrides?: Map<string, StrainProfile>,
+  densityPreference?: number,
 ): AnalysisResult {
   const seen = new Set<string>();
   const recommendations: StrainMatch[] = [];
@@ -1670,7 +1676,9 @@ export function analyze(
     const key = normalizeStrainName(trimmed);
     if (!key || seen.has(key)) continue;
     seen.add(key);
-    recommendations.push(scoreStrain(trimmed, profile, feedback, overrides));
+    recommendations.push(
+      scoreStrain(trimmed, profile, feedback, overrides, densityPreference),
+    );
   }
 
   // Primary sort by visible matchScore; tie-breaker on unclampedScore so
