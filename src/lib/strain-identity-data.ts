@@ -8569,4 +8569,112 @@ export const IDENTITIES: StrainIdentity[] = [
     artStatus: "none",
     sourceConfidence: "low",
   },
+  {
+    canonicalName: "Pinyatti",
+    marketNames: ["Pinata", "Pinata Candy", "Piñata Candy", "Pinyata"],
+    breeder: "Compound Genetics",
+    lineage: {
+      parents: ["Birthday Cake", "Jet Fuel Gelato"],
+      cross: "Birthday Cake x Jet Fuel Gelato",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Brand spelling of Piñata Candy", "Vanilla-cake sweetness over a gassy, sour-citrus candy backbone"],
+    curatorNote:
+      "Cheevo's 'Pinyatti' is a phonetic rebrand of Piñata Candy, the Compound Genetics cross of Birthday Cake and Jet Fuel Gelato. It lives up to the candy name: a sweet vanilla-cake overtone layered with sour-citrus and fruity candy notes, all riding on a funky, gassy chassis from the Jet Fuel side. The effect is the festive part of the package, a fast euphoric, giggly mood lift that settles into easygoing relaxation without locking you down, making it a sociable evening hybrid. Densely built and frosty, it reads as a true dessert-candy exotic rather than a sleeper.",
+    curatorQuote:
+      "Smash the piñata and out spills vanilla-cake candy on a bed of gas.",
+    tagline: "Sweet candy gas",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Mint Snackz",
+    marketNames: ["Mintz Snackz", "Snackz"],
+    breeder: "Dying Breed Seeds",
+    lineage: {
+      parents: ["London Pound Cake", "Wedding Cake x Greasy Runtz"],
+      cross: "London Pound Cake x (Wedding Cake x Greasy Runtz)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Find. brand cut of the Snackz / Mintz Snackz line", "Minty dessert profile with chocolate-cream undertones"],
+    curatorNote:
+      "Find.'s Mint Snackz traces to the Snackz line from Dying Breed Seeds, a London Pound Cake crossed onto a Wedding Cake x Greasy Runtz mother. The signature here is a minty dessert: cool spearmint-cream up front giving way to sweet, doughy cake and a whisper of chocolate, all wrapped in a soft, earthy finish. Myrcene-forward and indica-leaning in feel, it lands as a mellow, happy relaxer rather than a knockout, keeping the mind light while easing the body. A polished, well-cured dessert hybrid for unwinding.",
+    curatorQuote:
+      "Cool mint folded into warm cake batter.",
+    tagline: "Minty dessert calm",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Bubba Mints",
+    marketNames: ["Bubba Kush Mints"],
+    breeder: "Grocery",
+    lineage: {
+      parents: ["Bubba Kush", "Animal Mints"],
+      cross: "Bubba Kush x Animal Mints",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Bubba Kush backbone with a Mints-family mint top note", "Cocoa-coffee earthiness lifted by cool menthol"],
+    curatorNote:
+      "Grocery's Bubba Mints pairs a Bubba Kush backbone with the trendy Mints family, most commonly reported as Bubba Kush crossed with Animal Mints. The result reads classic-kush at its core, warm roasted-coffee and cocoa-nib earthiness over sweet soil, with a distinctly cool, peppermint-menthol lift on top. Effects stay true to Bubba: a deeply relaxing, couch-friendly indica that eases into sleepy, body-heavy calm, with the mint giving it a crisp, refined finish. Dense and smooth, it is a comforting end-of-day indica with a modern minty twist.",
+    curatorQuote:
+      "Old-school kush comfort with an icy mint exhale.",
+    tagline: "Minty kush comfort",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grape Cake",
+    marketNames: ["Grape Cake Head"],
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Grape Stomper", "Cherry Pie", "Wedding Cake"],
+      cross: "Grape Stomper x Cherry Pie x Wedding Cake F4",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Seed Junky cross with grape-forward sweetness and gassy cake undertones", "Indica-leaning hybrid"],
+    curatorNote:
+      "LEAL's Grape Cake is the Seed Junky Genetics cross of Grape Stomper, Cherry Pie, and Wedding Cake. It is grape-forward and unmistakable: juicy purple-grape and dark berry up front, sweetened by Wedding Cake's bakery richness and grounded by a gassy, earthy undertone. The high is the relaxed, happy euphoria you expect from this dessert-and-fruit lineage, an indica-leaning lift that mellows into calm, eventually sleepy comfort. Dense, frosty, and terpy, it is a flavor-chaser's grape exotic with real backbone.",
+    curatorQuote:
+      "Grape soda poured over warm cake and a splash of fuel.",
+    tagline: "Grape dessert gas",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cookie Stash",
+    marketNames: ["Cookie Stash CST", "CST"],
+    breeder: "Ethos Genetics",
+    lineage: {
+      parents: ["Grandpa's Stash", "Ethos Cookies"],
+      cross: "Grandpa's Stash x Ethos Cookies",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["LivWell flower cut of Cookie Stash", "Incense and sweet-pine nose with citric flavor and skunk undertones"],
+    curatorNote:
+      "LivWell's Cookie Stash (CST) is documented as a sativa-dominant cross of Grandpa's Stash and Ethos Cookies. It runs against the dessert-cookie grain you might expect from the name, leading instead with incense and sweet pine, citric flavors, and a skunky undertone, a complex, classic-cannabis bouquet. The effect leans upbeat and clear: an uplifting, euphoric head lift that keeps you light and focused with just enough body ease to round it off. Loud-smelling and terpy, it is a daytime sativa for energy and mood rather than sedation.",
+    curatorQuote:
+      "Sweet pine and incense with a bright citrus snap.",
+    tagline: "Bright pine sativa",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Strawberry OG Cookies",
+    marketNames: ["Strawberry Cookies", "Strawberry OG Cookies"],
+    breeder: "Connoisseur Genetics",
+    lineage: {
+      parents: ["Animal Cookies", "Strawberry Fields"],
+      cross: "Animal Cookies x Strawberry Fields",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Leafly-documented alias of Strawberry Cookies", "Sweet strawberry-berry over a doughy cookie base"],
+    curatorNote:
+      "LivWell's Strawberry OG Cookies is a documented alias of Strawberry Cookies, the Connoisseur Genetics cross of Animal Cookies and Strawberry Fields. It delivers a bright, sweet strawberry-berry nose over a doughy, earthy cookie base, with a faint herbal-spice edge from the Cookies side. Leaning sativa in its effect, it brings an euphoric, uplifted mood and a creative head lift before easing toward gentle relaxation. Frosty, dense, and terpy, it is a flavorful, balanced hybrid that pairs dessert sweetness with real berry character.",
+    curatorQuote:
+      "Fresh strawberries crumbled over warm cookie dough.",
+    tagline: "Sweet berry cookies",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
 ];
