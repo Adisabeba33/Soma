@@ -15,6 +15,7 @@ const BASE_NAV = [
   { href: "/catalog", label: "Harvest" },
 ];
 const TAIL_NAV = [
+  { href: "/learn", label: "Learn" },
   // "Saved" became "History" and now lives inside the Account page.
   { href: "/about", label: "About" },
 ];

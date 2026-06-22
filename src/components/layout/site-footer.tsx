@@ -34,6 +34,9 @@ export function SiteFooter() {
               <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
                 More
               </span>
+              <Link href="/learn" className="hover:text-accent">
+                Learn
+              </Link>
               <Link href="/saved" className="hover:text-accent">
                 History
               </Link>
