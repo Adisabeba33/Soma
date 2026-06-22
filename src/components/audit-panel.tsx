@@ -33,6 +33,7 @@ function buildAuditText(items: AuditItem[]): string {
       ["potency", "Potency"],
       ["texture", "Texture"],
       ["familyPref", "Family pref"],
+      ["density", "Structure"],
     ];
     const activeBz = bz
       .map(([k, l]) => [l, item.bonuses[k]] as const)

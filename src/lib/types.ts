@@ -188,6 +188,9 @@ export interface StrainMatch {
     sensory: number;
     potency: number;
     familyPref: number;
+    // Bud-structure (density) nudge — soft, confidence-weighted (see
+    // src/lib/bud-structure.ts). 0 when the user has no structure preference.
+    density: number;
   };
   // Second axis: how confident we are about THIS purchase, separate from
   // the sensory match score. See src/lib/purchase-confidence.ts.

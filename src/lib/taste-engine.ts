@@ -20,6 +20,7 @@ import { primaryAromaTokens, type ResolvedTarget } from "./profile-target";
 import { deriveTasteModes } from "./taste-modes";
 import { familyMatches } from "./strain-families";
 import { riskEntryFor, riskTagsFor, RISK_EFFECT_OVERLAP } from "./risk-tags";
+import { densityBonus, densityPreferenceFromProfile } from "./bud-structure";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
 import type {
   AnalysisResult,
@@ -1277,6 +1278,14 @@ export function scoreStrain(
     profile.preferredFamilies,
     profile.avoidedFamilies,
   );
+  // Bud structure (#density): soft, confidence-weighted nudge toward the
+  // density the user asked for (dense ↔ fluffy slider). Presumed leans from
+  // genetics are a near-silent 0.33; real curation lifts the weight. No-op
+  // when the user has no structure preference.
+  const densityMod = densityBonus(
+    strain,
+    densityPreferenceFromProfile(profile.budStructure),
+  );
 
   // Multi-modal selection: credit the candidate by the taste mode it fits
   // best (highest target-driven value at the current weights). deriveTasteModes
@@ -1328,7 +1337,8 @@ export function scoreStrain(
     familyMod +
     sensoryMod +
     potencyMod +
-    familyPrefMod;
+    familyPrefMod +
+    densityMod;
   // Sum the per-conflict weights (hard 15 vs tiered dislike 8/4), capped at 42.
   const rawConflictPenalty = conflictHits.reduce((sum, c) => sum + c.points, 0);
   const penalty = Math.min(42, rawConflictPenalty);
@@ -1485,6 +1495,7 @@ export function scoreStrain(
     sensory: sensoryMod,
     potency: potencyMod,
     familyPref: familyPrefMod,
+    density: densityMod,
   };
 
   return {

@@ -327,6 +327,7 @@ export function dbRecToView(
       sensory: 0,
       potency: 0,
       familyPref: 0,
+      density: 0,
     },
     feedback: toFeedbackData(feedback),
     purchaseConfidence,

@@ -56,6 +56,7 @@ export function redactAuditFields<T extends StrainMatch>(item: T): T {
       sensory: 0,
       potency: 0,
       familyPref: 0,
+      density: 0,
     },
   };
 }
