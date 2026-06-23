@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   Check,
   ChevronDown,
@@ -20,7 +20,7 @@ import { CompareBasketTray } from "@/components/compare-basket-tray";
 import { effectIconFor } from "@/components/effect-icon";
 import { paletteForTime } from "@/lib/sensory-family-palette";
 import { timeProfileOf, artImageSrc, artFocusOf } from "@/lib/strain-art";
-import { tierOf, TIER_STYLE } from "@/lib/collection-tier";
+import { tierOf } from "@/lib/collection-tier";
 import {
   BASKET_EVENT,
   addToBasket,
@@ -586,9 +586,6 @@ function CatalogRow({
   const badgeLabel = match ? "MATCH" : "CURATED";
   const tier = tierOf(strain.name);
   const tagline = identity?.tagline;
-  // Over a published image the cover scrim is dark, so identity text is white;
-  // otherwise it follows the time-of-day gradient's content tone.
-  const coverLight = artSrc ? true : palette.contentTone === "light";
 
   return (
     <li className="relative">
@@ -600,14 +597,10 @@ function CatalogRow({
         href={`/catalog/${strainSlug(strain.name)}`}
         className="group flex items-stretch overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-lg active:scale-[0.995]"
       >
-        {/* Cover — the artwork carries the identity (match, tier, name,
-            tagline) so the card reads as one collectible piece, not an
-            [art][data] split. Fills the row height; art is cropped to fill. */}
+        {/* Art cover — carries the match score and tagline only; name/tier and
+            the data live on the cream info panel to the right. */}
         <div
-          className={cn(
-            "relative w-[42%] min-w-[132px] max-w-[230px] shrink-0 self-stretch overflow-hidden",
-            coverLight ? "text-white" : "text-foreground",
-          )}
+          className="relative w-[32%] min-w-[108px] max-w-[180px] shrink-0 self-stretch overflow-hidden text-white"
           style={{ background: palette.background }}
         >
           {artSrc && (
@@ -625,81 +618,114 @@ function CatalogRow({
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 72%)",
+                    "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 78%)",
                 }}
               />
             </>
           )}
-          {/* Match score + collection tier, top-left */}
-          <div className="absolute left-2.5 top-2.5 z-10 flex flex-col items-start gap-1.5">
-            <span className="inline-flex h-10 w-10 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md">
-              <span className="font-display text-sm font-semibold leading-none">
-                {Math.round(badgeValue)}
-              </span>
-              <span className="text-[6px] uppercase tracking-[0.14em] text-muted-foreground">
-                {badgeLabel}
-              </span>
+          <span className="absolute left-2 top-2 z-10 inline-flex h-10 w-10 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md">
+            <span className="font-display text-sm font-semibold leading-none">
+              {Math.round(badgeValue)}
             </span>
+            <span className="text-[6px] uppercase tracking-[0.14em] text-muted-foreground">
+              {badgeLabel}
+            </span>
+          </span>
+          {tagline && (
+            <span
+              className="absolute inset-x-2.5 bottom-2.5 z-10 font-display text-[11px] italic leading-snug"
+              style={{
+                color: artSrc
+                  ? undefined
+                  : palette.contentTone === "light"
+                    ? undefined
+                    : palette.accent,
+              }}
+            >
+              {tagline}
+            </span>
+          )}
+        </div>
+
+        {/* Info panel — name + tier, then a three-column sensory teaser, then
+            an explore affordance (the whole card is the link). */}
+        <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
+          <div className="pr-24">
+            <Badge variant="outline" className="capitalize">
+              {strain.type}
+            </Badge>
+            <h3 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight line-clamp-1">
+              {strain.name}
+            </h3>
             {tier && (
-              <span
-                className={cn(
-                  "rounded-full px-2 py-0.5 text-[8px] font-semibold uppercase tracking-[0.1em] shadow-sm backdrop-blur-sm",
-                  TIER_STYLE[tier],
-                )}
-              >
+              <span className="mt-1.5 inline-block rounded-full border border-brass/40 bg-brass/5 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-brass">
                 {tier}
               </span>
             )}
           </div>
-          {/* Name + tagline, bottom */}
-          <div className="absolute inset-x-3 bottom-3 z-10">
-            <h3 className="font-display text-lg font-semibold leading-tight tracking-tight line-clamp-2">
-              {identity?.shortName ?? strain.name}
-            </h3>
-            {tagline && (
-              <p
-                className="mt-0.5 font-display text-[11px] italic leading-snug"
-                style={{ color: artSrc ? undefined : palette.accent }}
-              >
-                {tagline}
-              </p>
-            )}
-          </div>
-        </div>
 
-        {/* Sensory teaser — tease, don't explain: top effects + 3 aromas + 3
-            flavours. */}
-        <div className="min-w-0 flex-1 p-4 sm:p-5">
-          <Badge variant="outline" className="capitalize">
-            {strain.type}
-          </Badge>
-
-          <div className="mt-3">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              Top effects
-            </p>
-            <ul className="mt-1.5 space-y-1">
+          <div className="mt-4 grid grid-cols-3 gap-3">
+            <TeaserColumn label="Top effects">
               {strain.effects.slice(0, 3).map((e) => {
                 const Icon = effectIconFor(e);
                 return (
-                  <li key={`effect-${e}`} className="flex items-center gap-2 text-sm">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted/50 text-muted-foreground">
-                      <Icon className="h-3.5 w-3.5" aria-hidden />
-                    </span>
-                    <span className="text-foreground">{labelFor(e)}</span>
+                  <li
+                    key={`effect-${e}`}
+                    className="flex items-center gap-1.5 text-xs text-foreground"
+                  >
+                    <Icon
+                      className="h-3 w-3 shrink-0 text-muted-foreground"
+                      aria-hidden
+                    />
+                    <span className="truncate">{labelFor(e)}</span>
                   </li>
                 );
               })}
-            </ul>
+            </TeaserColumn>
+            <TeaserColumn label="Aroma">
+              {strain.aromas.slice(0, 3).map((a) => (
+                <li key={`aroma-${a}`}>
+                  <span className="inline-block rounded-full bg-brass/10 px-2 py-0.5 text-[10px] text-brass">
+                    {labelFor(a)}
+                  </span>
+                </li>
+              ))}
+            </TeaserColumn>
+            <TeaserColumn label="Flavor">
+              {strain.flavors.slice(0, 3).map((f) => (
+                <li key={`flavor-${f}`}>
+                  <span className="inline-block rounded-full bg-accent/10 px-2 py-0.5 text-[10px] text-accent">
+                    {labelFor(f)}
+                  </span>
+                </li>
+              ))}
+            </TeaserColumn>
           </div>
 
-          <div className="mt-3 space-y-2">
-            <TagRow label="Aroma" values={strain.aromas.slice(0, 3)} kind="aroma" />
-            <TagRow label="Flavor" values={strain.flavors.slice(0, 3)} kind="flavor" />
-          </div>
+          <span className="mt-4 flex items-center justify-center gap-1.5 rounded-xl border border-border bg-background py-2 text-xs font-medium text-foreground transition-colors group-hover:border-accent/40 group-hover:bg-card">
+            Explore full profile →
+          </span>
         </div>
       </Link>
     </li>
+  );
+}
+
+// One column of the row card's sensory teaser (label + a short list).
+function TeaserColumn({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="min-w-0">
+      <p className="text-[9px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
+        {label}
+      </p>
+      <ul className="mt-1.5 space-y-1">{children}</ul>
+    </div>
   );
 }
 
