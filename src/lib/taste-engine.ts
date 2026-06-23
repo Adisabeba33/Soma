@@ -981,6 +981,10 @@ export function scoreStrain(
   // pre-run slider override structure for a single Taste Match without
   // mutating the saved profile.
   densityPreference?: number,
+  // Per-run channel priorities (−1…0…+1 each). `senses` scales the aroma+flavor
+  // weight, `effect` scales the effect weight, so a user can say "I care most
+  // about effect this time" and effect-matching strains rise. 0 = no change.
+  priorities?: { senses?: number; effect?: number },
 ): StrainMatch {
   const { strain, known } = resolveStrain(rawName, overrides);
 
@@ -1182,6 +1186,18 @@ export function scoreStrain(
         texture: 0.03,
         quality: 0.02,
       };
+
+  // Per-run priority sliders: scale the sensory channels by ±50% at the
+  // extremes (centre = ×1, untouched). `senses` moves aroma+flavor together
+  // (smell ≈ taste); `effect` moves the effect channel. Applied to W before
+  // any scoring uses it, so mode selection and the raw score both reflect it.
+  if (priorities) {
+    const sMul = 1 + clamp(priorities.senses ?? 0, -1, 1) * 0.5;
+    const eMul = 1 + clamp(priorities.effect ?? 0, -1, 1) * 0.5;
+    W.aroma *= sMul;
+    W.flavor *= sMul;
+    W.effect *= eMul;
+  }
 
   // Per-tag contribution to the score, weighted by category — surfaced in
   // Audit mode as "Top matches" with each tag's point strength. Aggregate
@@ -1666,6 +1682,7 @@ export function analyze(
   feedback: FeedbackSignal[] = [],
   overrides?: Map<string, StrainProfile>,
   densityPreference?: number,
+  priorities?: { senses?: number; effect?: number },
 ): AnalysisResult {
   const seen = new Set<string>();
   const recommendations: StrainMatch[] = [];
@@ -1677,7 +1694,14 @@ export function analyze(
     if (!key || seen.has(key)) continue;
     seen.add(key);
     recommendations.push(
-      scoreStrain(trimmed, profile, feedback, overrides, densityPreference),
+      scoreStrain(
+        trimmed,
+        profile,
+        feedback,
+        overrides,
+        densityPreference,
+        priorities,
+      ),
     );
   }
 

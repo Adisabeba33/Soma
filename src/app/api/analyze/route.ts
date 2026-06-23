@@ -33,6 +33,14 @@ export async function POST(req: NextRequest) {
     typeof body.densityPreference === "number" && !Number.isNaN(body.densityPreference)
       ? Math.max(-1, Math.min(1, body.densityPreference))
       : 0;
+  // Per-run channel priority sliders (−1…+1 each). Clamped; 0/absent = no
+  // change. Does not touch the saved profile.
+  const clampPref = (v: unknown) =>
+    typeof v === "number" && !Number.isNaN(v) ? Math.max(-1, Math.min(1, v)) : 0;
+  const priorities = {
+    senses: clampPref(body.priorities?.senses),
+    effect: clampPref(body.priorities?.effect),
+  };
   const inputType = body.inputType === "paste" ? "paste" : "manual";
   const rawInput = asText(body.rawInput, 12_000) ?? strains.join("\n");
   const parsedItems = sanitizeParsedItems(body.parsedItems, 60);
@@ -74,7 +82,14 @@ export async function POST(req: NextRequest) {
   // key is added; with one, unknown names get a vocab-constrained profile.
   const unknownNames = strains.filter((name) => !resolveStrain(name).known);
   const overrides = await inferStrainsAI(unknownNames);
-  let result = analyze(strains, profile, feedback, overrides, densityPreference);
+  let result = analyze(
+    strains,
+    profile,
+    feedback,
+    overrides,
+    densityPreference,
+    priorities,
+  );
   // The optional AI layer only rewrites prose; scores stay untouched.
   if (isOpenAIEnabled()) {
     result = await enhanceWithOpenAI(result, profile);
