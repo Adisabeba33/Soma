@@ -37,6 +37,9 @@ export function SiteFooter() {
               <Link href="/learn" className="hover:text-accent">
                 Learn
               </Link>
+              <Link href="/how-it-works" className="hover:text-accent">
+                How it works
+              </Link>
               <Link href="/saved" className="hover:text-accent">
                 History
               </Link>
