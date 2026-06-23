@@ -13,7 +13,7 @@
 // Both are curated in batches; an unseeded strain falls back to a presumed lean
 // from its `type`, scaled by how far the split leans from 50/50.
 
-import type { StrainProfile } from "./types";
+import type { StrainProfile, StrainType } from "./types";
 
 export type DensityLean = "dense" | "fluffy" | "mixed";
 // presumed — genotype theory only, no real-world confirmation
@@ -192,6 +192,57 @@ function geneticsFromType(type: string): Genetics {
   return { indica: 50, sativa: 50 }; // hybrid → neutral until curated
 }
 
+// The strain's indica/sativa split — curated when we have it, otherwise a flat
+// read from its `type`. `curated` flags which, so UI can be honest about it.
+export function geneticsFor(
+  name: string,
+  type: StrainType,
+): Genetics & { curated: boolean } {
+  const g = GENETICS[name];
+  return g ? { ...g, curated: true } : { ...geneticsFromType(type), curated: false };
+}
+
+// Resolve density lean / confidence / bonus weight from a name + type. A
+// curated DENSITY entry wins; otherwise a PRESUMED lean from genetics (curated
+// split, else type), scaled by dominance.
+export function densityFor(
+  name: string,
+  type: StrainType,
+): { lean: DensityLean; confidence: DensityConfidence; weight: number } {
+  const curated = DENSITY[name];
+  if (curated) {
+    const weight = curated.lean === "mixed" ? 0 : DENSITY_BONUS[curated.confidence];
+    return { lean: curated.lean, confidence: curated.confidence, weight };
+  }
+  const g = GENETICS[name] ?? geneticsFromType(type);
+  const dominance = Math.abs(g.indica - g.sativa) / 100; // 0 at 50/50, 1 at 100/0
+  if (dominance === 0) return { lean: "mixed", confidence: "presumed", weight: 0 };
+  return {
+    lean: g.indica > g.sativa ? "dense" : "fluffy",
+    confidence: "presumed",
+    weight: DENSITY_BONUS.presumed * dominance,
+  };
+}
+
+// Human-readable density label that is honest about how sure we are.
+export function densityLabel(
+  lean: DensityLean,
+  confidence: DensityConfidence,
+): string {
+  if (lean === "mixed") return "No clear lean";
+  const word = lean === "dense" ? "Dense" : "Fluffy / airy";
+  switch (confidence) {
+    case "high":
+      return `${word} — well documented`;
+    case "medium":
+      return `${word} — fairly consistent`;
+    case "low":
+      return `Tends ${lean} — varies by grow`;
+    case "presumed":
+      return `Presumed ${lean} (from genetics)`;
+  }
+}
+
 // Resolve a strain's effective density lean, confidence and the raw-score bonus
 // magnitude. A curated real-world DENSITY entry wins; otherwise a PRESUMED lean
 // from genetics (curated split, else `type`), scaled by dominance — so 100/0
@@ -201,19 +252,7 @@ export function densityProfileOf(strain: StrainProfile): {
   confidence: DensityConfidence;
   weight: number;
 } {
-  const curated = DENSITY[strain.name];
-  if (curated) {
-    const weight = curated.lean === "mixed" ? 0 : DENSITY_BONUS[curated.confidence];
-    return { lean: curated.lean, confidence: curated.confidence, weight };
-  }
-  const g = GENETICS[strain.name] ?? geneticsFromType(strain.type);
-  const dominance = Math.abs(g.indica - g.sativa) / 100; // 0 at 50/50, 1 at 100/0
-  if (dominance === 0) return { lean: "mixed", confidence: "presumed", weight: 0 };
-  return {
-    lean: g.indica > g.sativa ? "dense" : "fluffy",
-    confidence: "presumed",
-    weight: DENSITY_BONUS.presumed * dominance,
-  };
+  return densityFor(strain.name, strain.type);
 }
 
 // Bridge the existing budStructure enum to a slider value (−1 fully fluffy … 0
