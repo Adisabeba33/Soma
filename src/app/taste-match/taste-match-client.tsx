@@ -7,6 +7,7 @@ import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { StrainInput } from "@/components/strain-input";
 import { DensitySlider } from "@/components/density-slider";
+import { PrioritySliders } from "@/components/priority-sliders";
 import { TasteProfileSummary } from "@/components/taste-profile-summary";
 import { ResultsView } from "@/components/results-view";
 import { MenuQualityReport } from "@/components/menu-quality-report";
@@ -44,6 +45,9 @@ export function TasteMatchClient() {
   const [analyzing, setAnalyzing] = useState(false);
   // Per-run dense↔fluffy preference (−1…+1). 0 = no preference (default).
   const [densityPref, setDensityPref] = useState(0);
+  // Per-run channel priorities (−1…+1 each). 0 = normal balance (default).
+  const [prioSenses, setPrioSenses] = useState(0);
+  const [prioEffect, setPrioEffect] = useState(0);
   const [savingProfile, setSavingProfile] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recommendations, setRecommendations] = useState<Rec[]>([]);
@@ -151,6 +155,7 @@ export function TasteMatchClient() {
             : strains.join("\n"),
           parsedItems,
           densityPreference: densityPref,
+          priorities: { senses: prioSenses, effect: prioEffect },
         }),
       });
       const data = await res.json();
@@ -302,10 +307,17 @@ export function TasteMatchClient() {
               contradictions={contradictions}
             />
           </div>
+          <PrioritySliders
+            senses={prioSenses}
+            effect={prioEffect}
+            onSenses={setPrioSenses}
+            onEffect={setPrioEffect}
+            className="mt-6"
+          />
           <DensitySlider
             value={densityPref}
             onChange={setDensityPref}
-            className="mt-6"
+            className="mt-4"
           />
           <div className="mt-8">
             <StrainInput
