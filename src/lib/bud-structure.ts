@@ -13,7 +13,7 @@
 // Both are curated in batches; an unseeded strain falls back to a presumed lean
 // from its `type`, scaled by how far the split leans from 50/50.
 
-import type { StrainProfile } from "./types";
+import type { StrainProfile, StrainType } from "./types";
 
 export type DensityLean = "dense" | "fluffy" | "mixed";
 // presumed — genotype theory only, no real-world confirmation
@@ -74,6 +74,39 @@ export const GENETICS: Record<string, Genetics> = {
   "Green Crack": { indica: 35, sativa: 65 },
   "Durban Poison": { indica: 10, sativa: 90 },
   "Blue Dream": { indica: 40, sativa: 60 },
+  // Batch 2 — hazes / landrace sativas + common dense indicas.
+  "Acapulco Gold": { indica: 20, sativa: 80 },
+  Chocolope: { indica: 15, sativa: 85 },
+  "Lamb's Bread": { indica: 15, sativa: 85 },
+  "Chocolate Thai": { indica: 10, sativa: 90 },
+  Hawaiian: { indica: 20, sativa: 80 },
+  "Hawaiian Haze": { indica: 20, sativa: 80 },
+  "Lemon Haze": { indica: 25, sativa: 75 },
+  Harlequin: { indica: 25, sativa: 75 },
+  Clementine: { indica: 35, sativa: 65 },
+  Congolese: { indica: 10, sativa: 90 },
+  "Jack the Ripper": { indica: 30, sativa: 70 },
+  "Cinderella 99": { indica: 25, sativa: 75 },
+  Candyland: { indica: 40, sativa: 60 },
+  "AK-47": { indica: 45, sativa: 55 },
+  Chemdawg: { indica: 45, sativa: 55 },
+  Gushers: { indica: 60, sativa: 40 },
+  Biscotti: { indica: 60, sativa: 40 },
+  "Grape Ape": { indica: 90, sativa: 10 },
+  "Purple Kush": { indica: 100, sativa: 0 },
+  "Hindu Kush": { indica: 100, sativa: 0 },
+  Afghani: { indica: 100, sativa: 0 },
+  "Blackberry Kush": { indica: 80, sativa: 20 },
+  "9 Pound Hammer": { indica: 80, sativa: 20 },
+  "Animal Cookies": { indica: 75, sativa: 25 },
+  "Animal Mints": { indica: 60, sativa: 40 },
+  "Kush Mints": { indica: 50, sativa: 50 },
+  "London Pound Cake": { indica: 70, sativa: 30 },
+  "Gary Payton": { indica: 50, sativa: 50 },
+  "Apple Fritter": { indica: 50, sativa: 50 },
+  "Critical Mass": { indica: 80, sativa: 20 },
+  "Ghost OG": { indica: 70, sativa: 30 },
+  "God Bud": { indica: 75, sativa: 25 },
 };
 
 // Curated real-world density observations. Overrides the genetics-presumed lean
@@ -115,12 +148,99 @@ export const DENSITY: Record<string, DensityEntry> = {
   Tangie: { lean: "fluffy", confidence: "medium", sources: "Airy, sativa-leaning" },
   "Pineapple Express": { lean: "fluffy", confidence: "low", sources: "Medium structure, slightly airy" },
   "Blue Dream": { lean: "fluffy", confidence: "low", sources: "Medium density, slightly airy" },
+
+  // — Batch 2: fluffy / airy hazes & landrace sativas —
+  "Acapulco Gold": { lean: "fluffy", confidence: "medium", sources: "Classic airy landrace sativa" },
+  Chocolope: { lean: "fluffy", confidence: "medium", sources: "Light, airy sativa nugs" },
+  "Lamb's Bread": { lean: "fluffy", confidence: "medium", sources: "Light, wispy sativa structure" },
+  "Chocolate Thai": { lean: "fluffy", confidence: "medium", sources: "Wispy, airy landrace sativa" },
+  Hawaiian: { lean: "fluffy", confidence: "low", sources: "Airy island sativa" },
+  "Hawaiian Haze": { lean: "fluffy", confidence: "medium", sources: "Airy haze structure" },
+  "Lemon Haze": { lean: "fluffy", confidence: "medium", sources: "Airy haze nugs" },
+  Harlequin: { lean: "fluffy", confidence: "medium", sources: "Loose, open CBD sativa structure" },
+  Clementine: { lean: "fluffy", confidence: "low", sources: "Slightly airy, sativa-leaning" },
+  Congolese: { lean: "fluffy", confidence: "low", sources: "Airy landrace sativa" },
+  "Jack the Ripper": { lean: "fluffy", confidence: "low", sources: "Airy, sativa-leaning" },
+  // — Batch 2: sativa-line correction cases (actually dense) —
+  "Cinderella 99": { lean: "dense", confidence: "low", sources: "Correction vs sativa presumed: prized for dense, compact buds" },
+  Candyland: { lean: "dense", confidence: "low", sources: "Correction vs sativa presumed: dense, compact, frosty" },
+  "AK-47": { lean: "dense", confidence: "low", sources: "Correction vs sativa-lean presumed: dense, resinous buds" },
+  // — Batch 2: common dense indicas / hybrids —
+  Chemdawg: { lean: "dense", confidence: "medium", sources: "Dense, sticky, gassy" },
+  Gushers: { lean: "dense", confidence: "medium", sources: "Dense, indica-leaning" },
+  Biscotti: { lean: "dense", confidence: "medium", sources: "Dense, dark, compact" },
+  "Grape Ape": { lean: "dense", confidence: "medium", sources: "Very dense purple indica" },
+  "Purple Kush": { lean: "dense", confidence: "medium", sources: "Dense Kush-line indica" },
+  "Hindu Kush": { lean: "dense", confidence: "medium", sources: "Classic dense landrace indica" },
+  Afghani: { lean: "dense", confidence: "high", sources: "Archetypal dense landrace indica" },
+  "Blackberry Kush": { lean: "dense", confidence: "medium", sources: "Dense, dark indica nugs" },
+  "9 Pound Hammer": { lean: "dense", confidence: "medium", sources: "Dense, heavy indica" },
+  "Animal Cookies": { lean: "dense", confidence: "medium", sources: "Dense, frosty cookies-line" },
+  "Animal Mints": { lean: "dense", confidence: "medium", sources: "Dense, frosty" },
+  "Kush Mints": { lean: "dense", confidence: "medium", sources: "Dense, compact" },
+  "London Pound Cake": { lean: "dense", confidence: "medium", sources: "Dense, tight cake-line nugs" },
+  "Gary Payton": { lean: "dense", confidence: "medium", sources: "Dense, frosty" },
+  "Apple Fritter": { lean: "dense", confidence: "medium", sources: "Dense, frosty hybrid" },
+  "Critical Mass": { lean: "dense", confidence: "high", sources: "Famously very dense, heavy buds" },
+  "Ghost OG": { lean: "dense", confidence: "medium", sources: "Dense OG-line nugs" },
+  "God Bud": { lean: "dense", confidence: "low", sources: "Dense indica nugs" },
 };
 
 function geneticsFromType(type: string): Genetics {
   if (type === "indica") return { indica: 100, sativa: 0 };
   if (type === "sativa") return { indica: 0, sativa: 100 };
   return { indica: 50, sativa: 50 }; // hybrid → neutral until curated
+}
+
+// The strain's indica/sativa split — curated when we have it, otherwise a flat
+// read from its `type`. `curated` flags which, so UI can be honest about it.
+export function geneticsFor(
+  name: string,
+  type: StrainType,
+): Genetics & { curated: boolean } {
+  const g = GENETICS[name];
+  return g ? { ...g, curated: true } : { ...geneticsFromType(type), curated: false };
+}
+
+// Resolve density lean / confidence / bonus weight from a name + type. A
+// curated DENSITY entry wins; otherwise a PRESUMED lean from genetics (curated
+// split, else type), scaled by dominance.
+export function densityFor(
+  name: string,
+  type: StrainType,
+): { lean: DensityLean; confidence: DensityConfidence; weight: number } {
+  const curated = DENSITY[name];
+  if (curated) {
+    const weight = curated.lean === "mixed" ? 0 : DENSITY_BONUS[curated.confidence];
+    return { lean: curated.lean, confidence: curated.confidence, weight };
+  }
+  const g = GENETICS[name] ?? geneticsFromType(type);
+  const dominance = Math.abs(g.indica - g.sativa) / 100; // 0 at 50/50, 1 at 100/0
+  if (dominance === 0) return { lean: "mixed", confidence: "presumed", weight: 0 };
+  return {
+    lean: g.indica > g.sativa ? "dense" : "fluffy",
+    confidence: "presumed",
+    weight: DENSITY_BONUS.presumed * dominance,
+  };
+}
+
+// Human-readable density label that is honest about how sure we are.
+export function densityLabel(
+  lean: DensityLean,
+  confidence: DensityConfidence,
+): string {
+  if (lean === "mixed") return "No clear lean";
+  const word = lean === "dense" ? "Dense" : "Fluffy / airy";
+  switch (confidence) {
+    case "high":
+      return `${word} — well documented`;
+    case "medium":
+      return `${word} — fairly consistent`;
+    case "low":
+      return `Tends ${lean} — varies by grow`;
+    case "presumed":
+      return `Presumed ${lean} (from genetics)`;
+  }
 }
 
 // Resolve a strain's effective density lean, confidence and the raw-score bonus
@@ -132,19 +252,7 @@ export function densityProfileOf(strain: StrainProfile): {
   confidence: DensityConfidence;
   weight: number;
 } {
-  const curated = DENSITY[strain.name];
-  if (curated) {
-    const weight = curated.lean === "mixed" ? 0 : DENSITY_BONUS[curated.confidence];
-    return { lean: curated.lean, confidence: curated.confidence, weight };
-  }
-  const g = GENETICS[strain.name] ?? geneticsFromType(strain.type);
-  const dominance = Math.abs(g.indica - g.sativa) / 100; // 0 at 50/50, 1 at 100/0
-  if (dominance === 0) return { lean: "mixed", confidence: "presumed", weight: 0 };
-  return {
-    lean: g.indica > g.sativa ? "dense" : "fluffy",
-    confidence: "presumed",
-    weight: DENSITY_BONUS.presumed * dominance,
-  };
+  return densityFor(strain.name, strain.type);
 }
 
 // Bridge the existing budStructure enum to a slider value (−1 fully fluffy … 0
