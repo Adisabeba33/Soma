@@ -6,8 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { StrainInput } from "@/components/strain-input";
-import { DensitySlider } from "@/components/density-slider";
-import { PrioritySliders } from "@/components/priority-sliders";
+import { RunPrioritiesModal } from "@/components/run-priorities-modal";
 import { TasteProfileSummary } from "@/components/taste-profile-summary";
 import { ResultsView } from "@/components/results-view";
 import { MenuQualityReport } from "@/components/menu-quality-report";
@@ -48,6 +47,8 @@ export function TasteMatchClient() {
   // Per-run channel priorities (−1…+1 each). 0 = normal balance (default).
   const [prioSenses, setPrioSenses] = useState(0);
   const [prioEffect, setPrioEffect] = useState(0);
+  // The priorities popup shown after the user hits "Run Taste Match".
+  const [showPriorities, setShowPriorities] = useState(false);
   // Slider values captured at the moment of the run, so the Audit reflects what
   // was applied even if the user moves the sliders afterwards.
   const [runSettings, setRunSettings] = useState({
@@ -319,29 +320,31 @@ export function TasteMatchClient() {
               contradictions={contradictions}
             />
           </div>
-          <PrioritySliders
-            senses={prioSenses}
-            effect={prioEffect}
-            onSenses={setPrioSenses}
-            onEffect={setPrioEffect}
-            className="mt-6"
-          />
-          <DensitySlider
-            value={densityPref}
-            onChange={setDensityPref}
-            className="mt-4"
-          />
           <div className="mt-8">
             <StrainInput
               strains={strains}
               onChange={setStrains}
-              onAnalyze={runAnalysis}
+              onAnalyze={() => setShowPriorities(true)}
               analyzing={analyzing}
               error={error}
               parsedItems={parsedItems}
               onParsedItemsChange={setParsedItems}
             />
           </div>
+          <RunPrioritiesModal
+            open={showPriorities}
+            onClose={() => setShowPriorities(false)}
+            onContinue={() => {
+              setShowPriorities(false);
+              runAnalysis();
+            }}
+            senses={prioSenses}
+            effect={prioEffect}
+            density={densityPref}
+            onSenses={setPrioSenses}
+            onEffect={setPrioEffect}
+            onDensity={setDensityPref}
+          />
         </>
       )}
 
