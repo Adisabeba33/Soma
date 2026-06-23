@@ -42,13 +42,80 @@ export interface DensityEntry {
 }
 
 // Curated reported indica/sativa split. Keyed by canonical strain name.
-// Filled in batches — e.g. "GMO": { indica: 90, sativa: 10 }.
-export const GENETICS: Record<string, Genetics> = {};
+// Filled in batches — "reported lineage ratio", not botanical truth.
+export const GENETICS: Record<string, Genetics> = {
+  // Batch 1 — iconic / common strains.
+  "GMO Cookies": { indica: 90, sativa: 10 },
+  "OG Kush": { indica: 75, sativa: 25 },
+  "Bubba Kush": { indica: 80, sativa: 20 },
+  "Granddaddy Purple": { indica: 70, sativa: 30 },
+  "Northern Lights": { indica: 90, sativa: 10 },
+  "Wedding Cake": { indica: 60, sativa: 40 },
+  "Do-Si-Dos": { indica: 70, sativa: 30 },
+  "Girl Scout Cookies": { indica: 60, sativa: 40 },
+  "Skywalker OG": { indica: 85, sativa: 15 },
+  "Purple Punch": { indica: 80, sativa: 20 },
+  "Ice Cream Cake": { indica: 75, sativa: 25 },
+  "Master Kush": { indica: 80, sativa: 20 },
+  Zkittlez: { indica: 70, sativa: 30 },
+  Gelato: { indica: 55, sativa: 45 },
+  Runtz: { indica: 50, sativa: 50 },
+  MAC: { indica: 50, sativa: 50 },
+  GG4: { indica: 50, sativa: 50 },
+  "Sour Diesel": { indica: 10, sativa: 90 },
+  "Super Lemon Haze": { indica: 20, sativa: 80 },
+  "Amnesia Haze": { indica: 20, sativa: 80 },
+  "Ghost Train Haze": { indica: 30, sativa: 70 },
+  "Jack Herer": { indica: 45, sativa: 55 },
+  "Maui Wowie": { indica: 20, sativa: 80 },
+  "Strawberry Cough": { indica: 20, sativa: 80 },
+  Tangie: { indica: 30, sativa: 70 },
+  "Pineapple Express": { indica: 40, sativa: 60 },
+  "Green Crack": { indica: 35, sativa: 65 },
+  "Durban Poison": { indica: 10, sativa: 90 },
+  "Blue Dream": { indica: 40, sativa: 60 },
+};
 
 // Curated real-world density observations. Overrides the genetics-presumed lean
-// once we have actual confirmation — e.g.
-//   "GMO": { lean: "dense", confidence: "high", sources: "Leafly, AllBud, grower reports" }
-export const DENSITY: Record<string, DensityEntry> = {};
+// once we have actual confirmation. `sources` is an honest note on the basis —
+// knowledge-based consensus here, not a live multi-source audit. Confidence is
+// conservative: high = broad consensus, medium = solid with some grow variance,
+// low = weaker / single signal.
+export const DENSITY: Record<string, DensityEntry> = {
+  // — Dense, well-documented —
+  "GMO Cookies": { lean: "dense", confidence: "high", sources: "Consensus: very dense, chunky resinous nugs" },
+  "OG Kush": { lean: "dense", confidence: "high", sources: "Consensus: classic dense OG nug" },
+  "Bubba Kush": { lean: "dense", confidence: "high", sources: "Consensus: dense, rounded indica nugs" },
+  "Granddaddy Purple": { lean: "dense", confidence: "high", sources: "Consensus: dense purple nugs" },
+  "Northern Lights": { lean: "dense", confidence: "high", sources: "Consensus: classic dense indica" },
+  "Wedding Cake": { lean: "dense", confidence: "high", sources: "Consensus: dense, frosty, tight" },
+  "Do-Si-Dos": { lean: "dense", confidence: "high", sources: "Consensus: dense, OGKB-line nugs" },
+  "Girl Scout Cookies": { lean: "dense", confidence: "high", sources: "Consensus: dense, tight, frosty" },
+  // GG4 is a balanced hybrid (presumed would read mixed/0) but is famously dense.
+  GG4: { lean: "dense", confidence: "high", sources: "Correction vs 50/50 presumed: famously dense, chunky, resin-coated" },
+  "Skywalker OG": { lean: "dense", confidence: "medium", sources: "Dense OG-line nugs" },
+  "Purple Punch": { lean: "dense", confidence: "medium", sources: "Dense, compact, frosty" },
+  "Ice Cream Cake": { lean: "dense", confidence: "medium", sources: "Dense, tight cake-line nugs" },
+  "Master Kush": { lean: "dense", confidence: "medium", sources: "Dense indica nugs" },
+  Zkittlez: { lean: "dense", confidence: "medium", sources: "Fairly dense, compact, colourful" },
+  Gelato: { lean: "dense", confidence: "medium", sources: "Dense, resinous" },
+  Runtz: { lean: "dense", confidence: "medium", sources: "Dense, tight, colourful nugs" },
+  MAC: { lean: "dense", confidence: "low", sources: "Moderately dense; some phenos run airier" },
+  // Sativa-line correction cases — denser than lineage suggests.
+  "Green Crack": { lean: "dense", confidence: "medium", sources: "Correction vs sativa presumed: compact, fairly dense small nugs" },
+  "Durban Poison": { lean: "dense", confidence: "medium", sources: "Correction vs sativa presumed: chunky, foxtailing, dense for a pure sativa" },
+  // — Fluffy / airy, well-documented —
+  "Sour Diesel": { lean: "fluffy", confidence: "high", sources: "Consensus: spindly, airy sativa structure" },
+  "Super Lemon Haze": { lean: "fluffy", confidence: "high", sources: "Consensus: airy haze structure" },
+  "Amnesia Haze": { lean: "fluffy", confidence: "high", sources: "Consensus: airy, wispy haze nugs" },
+  "Ghost Train Haze": { lean: "fluffy", confidence: "medium", sources: "Airy haze structure (resinous)" },
+  "Jack Herer": { lean: "fluffy", confidence: "medium", sources: "Sativa-leaning, somewhat airy" },
+  "Maui Wowie": { lean: "fluffy", confidence: "medium", sources: "Airy island sativa" },
+  "Strawberry Cough": { lean: "fluffy", confidence: "medium", sources: "Airy, light sativa nugs" },
+  Tangie: { lean: "fluffy", confidence: "medium", sources: "Airy, sativa-leaning" },
+  "Pineapple Express": { lean: "fluffy", confidence: "low", sources: "Medium structure, slightly airy" },
+  "Blue Dream": { lean: "fluffy", confidence: "low", sources: "Medium density, slightly airy" },
+};
 
 function geneticsFromType(type: string): Genetics {
   if (type === "indica") return { indica: 100, sativa: 0 };
