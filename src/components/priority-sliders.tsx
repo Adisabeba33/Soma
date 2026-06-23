@@ -42,7 +42,8 @@ export function PrioritySliders({
         </button>
       </div>
       <p className="mt-1 text-sm text-muted-foreground">
-        Nudge how much each side counts. Centre keeps the normal balance.
+        What you care about most this time — your priorities, not a way to
+        search. Centre means no preference.
       </p>
 
       <Row label="Smell &amp; taste" value={senses} onChange={onSenses} />
