@@ -48,6 +48,13 @@ export function TasteMatchClient() {
   // Per-run channel priorities (−1…+1 each). 0 = normal balance (default).
   const [prioSenses, setPrioSenses] = useState(0);
   const [prioEffect, setPrioEffect] = useState(0);
+  // Slider values captured at the moment of the run, so the Audit reflects what
+  // was applied even if the user moves the sliders afterwards.
+  const [runSettings, setRunSettings] = useState({
+    senses: 0,
+    effect: 0,
+    density: 0,
+  });
   const [savingProfile, setSavingProfile] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recommendations, setRecommendations] = useState<Rec[]>([]);
@@ -164,6 +171,11 @@ export function TasteMatchClient() {
         return;
       }
       setRecommendations(data.recommendations ?? []);
+      setRunSettings({
+        senses: prioSenses,
+        effect: prioEffect,
+        density: densityPref,
+      });
       setIsOwner(Boolean(data.isOwner));
       setSessionId(data.session?.id ?? null);
       setEngine(data.engine === "openai" ? "openai" : "builtin");
@@ -404,7 +416,7 @@ export function TasteMatchClient() {
           {/* Audit mode — the engine's reasoning per strain. Owner-only. */}
           {isOwner && (
             <div className="mt-6">
-              <AuditPanel items={recommendations} />
+              <AuditPanel items={recommendations} runSettings={runSettings} />
             </div>
           )}
 
