@@ -7,14 +7,32 @@ import type { StrainMatch } from "@/lib/types";
 
 type AuditItem = StrainMatch & { id?: string };
 
+// Per-run slider settings, surfaced so the owner can see what was actually
+// applied to the run (priorities reweight channels and the density slider adds
+// the Structure bonus — neither is obvious from the per-strain numbers alone).
+export type RunSettings = { senses: number; effect: number; density: number };
+
+function formatRunSettings(rs: RunSettings): string {
+  const mul = (v: number) => (1 + v * 0.5).toFixed(2);
+  const parts: string[] = [];
+  if (rs.senses !== 0) parts.push(`Smell & taste ×${mul(rs.senses)}`);
+  if (rs.effect !== 0) parts.push(`Effect ×${mul(rs.effect)}`);
+  if (rs.density !== 0) {
+    const dir = rs.density > 0 ? "dense" : "fluffy";
+    parts.push(`Structure: ${dir} ${Math.abs(rs.density).toFixed(2)}`);
+  }
+  return parts.length > 0 ? parts.join(" · ") : "all neutral (defaults)";
+}
+
 // Serialize the full audit to plain text so the owner can copy it in one tap
 // and paste it back for engine tuning. Mirrors what the panel shows, but holds
 // nothing back (no top-N slicing) — the copy is the complete read.
-function buildAuditText(items: AuditItem[]): string {
+function buildAuditText(items: AuditItem[], runSettings?: RunSettings): string {
   const lines: string[] = [
     `SOMA Audit — ${items.length} strain${items.length === 1 ? "" : "s"}`,
-    "",
   ];
+  if (runSettings) lines.push(`Run settings: ${formatRunSettings(runSettings)}`);
+  lines.push("");
   for (const item of items) {
     lines.push(`${item.strainName} — Final ${formatScore(item.matchScore)}`);
     const fb =
@@ -83,7 +101,13 @@ function buildAuditText(items: AuditItem[]): string {
 // Audit Mode — the engine's reasoning per strain, shared by Taste Match and
 // Compare. Shows how the score was reached (raw → potential × decay → applied)
 // and WHY it ranks where it does (top matches + penalties).
-export function AuditPanel({ items }: { items: AuditItem[] }) {
+export function AuditPanel({
+  items,
+  runSettings,
+}: {
+  items: AuditItem[];
+  runSettings?: RunSettings;
+}) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   if (items.length === 0) return null;
@@ -93,7 +117,7 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
   );
 
   const handleCopy = async () => {
-    const text = buildAuditText(sorted);
+    const text = buildAuditText(sorted, runSettings);
     try {
       await navigator.clipboard.writeText(text);
     } catch {
@@ -139,6 +163,12 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
               {copied ? "Copied ✓" : "Copy audit"}
             </button>
           </div>
+          {runSettings && (
+            <p className="rounded-md bg-muted/60 px-2.5 py-1.5 text-[11px] text-foreground">
+              <span className="font-medium">Run settings:</span>{" "}
+              <span className="font-mono">{formatRunSettings(runSettings)}</span>
+            </p>
+          )}
           <p className="text-[11px] leading-relaxed text-muted-foreground/80">
             <span className="font-mono">raw</span> = score before feedback ·{" "}
             <span className="font-mono">potential</span> = feedback at full
