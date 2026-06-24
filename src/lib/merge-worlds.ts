@@ -1,202 +1,256 @@
-// "Merge" — blend a user's taste profiles into one set of catalog matches.
+// "Merge" / "Taste Blender" — blend a user's taste profiles into one result.
 //
-// Each profile flagged `merged` is a separate "world" (a distinct side of the
-// same person's taste). We run the deterministic engine once PER profile and
-// merge the per-strain results — we do NOT union the profiles into one, which
-// dilutes each world's signal and cross-contaminates their avoids (verified by
-// simulation). Merge rules, locked with the user:
+// Each profile is a separate "world" (a distinct side of the same person's
+// taste). We run the deterministic engine once PER profile and merge the
+// per-strain results — never unioning the profiles into one (which dilutes
+// each world and cross-contaminates avoids). Rules, locked with the user:
 //
-//   • POSITIVE → MAX (best-of). A strain keeps the score of its best world, so
-//     a pick one side loves isn't dragged down by another side that doesn't.
-//     Ties on the visible score break on the engine's unclamped raw (same as
-//     analyze()), surfaced via CatalogMatch.sort so the catalog orders close
-//     picks instead of dumping them into flat clusters.
-//   • NEGATIVE → UNION veto. A strain avoided in ANY profile is pushed to its
-//     LOWEST world score everywhere: it's the same person consuming it, and
-//     merging can't make a dealbreaker enjoyable.
+//   • POSITIVE → MAX (best-of), after subtracting each world's lean penalty.
+//     A strain keeps the score of its best (penalised) world; ties on the
+//     visible score break on the engine's unclamped raw (CatalogMatch.sort).
+//   • NEGATIVE → UNION veto. A strain avoided in ANY world is pushed to its
+//     LOWEST world: same person consuming it, merging can't fix a dealbreaker.
 //
-// Drives the catalog (Harvest) when two or more profiles are merged; returns
-// null otherwise, so callers fall back to the single active profile.
+// `resolveBlend` is the single brain that decides which profiles take part and
+// each one's penalty:
+//   • base pair  = the profiles flagged `merged`. ≥2 → there's something to
+//     blend; the optional per-run pair lean penalises one side.
+//   • Taste Blender = when there are exactly 3 profiles (2 merged + 1 third)
+//     and User.blenderActive, the third joins as an admixed world (lean2) on
+//     top of the pair (lean1), and the whole blend drives every surface.
 
 import { prisma } from "./prisma";
 import { scoreStrain, analyze } from "./taste-engine";
 import { getFeedbackSignals } from "./api";
 import { STRAINS, findStrain } from "./strain-data";
-import type { TasteProfileInput, StrainMatch, AnalysisResult, FeedbackSignal, StrainProfile } from "./types";
+import type {
+  TasteProfileInput,
+  StrainMatch,
+  AnalysisResult,
+  FeedbackSignal,
+  StrainProfile,
+} from "./types";
 import type { CatalogMatch } from "./catalog";
 import type { TasteProfile } from "@prisma/client";
 
-// Lean lever (Taste Match): at full lean, the non-preferred world loses at most
-// this many points, so it's a tilt — its best picks still surface — not a hard
-// switch to one profile. Tunable; see analyzeMerged.
-const BIAS_CAP = 25;
+// Pair lean: at full lean a pair member loses at most this many points — a
+// tilt, not a switch. Third admix: at lean2=0 the third is dosed down by this
+// (still slightly present), at lean2=1 it's a full equal world.
+const PAIR_CAP = 25;
+const ADMIX_CAP = 30;
 
-export type MergedMatches = {
-  worlds: string[]; // names of the merged profiles, display order
-  matches: Record<string, CatalogMatch>; // per-strain best-of (or vetoed-low)
-  veto: string[]; // strains globally avoided (union of dislikes)
-};
-
-// Composite sort key: visible score dominates (×1000), unclamped raw breaks
-// ties within a band. Used only for ordering; the displayed number stays
-// CatalogMatch.score.
-const sortKey = (score: number, unclamped: number) => score * 1000 + unclamped;
-
-export async function mergedMatches(
-  userId: string,
-): Promise<MergedMatches | null> {
-  const profiles = await prisma.tasteProfile
-    .findMany({
-      where: { userId, merged: true },
-      orderBy: { createdAt: "asc" },
-    })
-    .catch(() => []);
-  // Merge only means something with two or more worlds to blend.
-  if (profiles.length < 2) return null;
-
-  const feedback = await getFeedbackSignals(userId);
-
-  // Global avoid: union of every merged profile's disliked strains, canonical.
-  const veto = new Set<string>();
-  for (const p of profiles) {
-    for (const d of p.dislikedStrains ?? []) {
-      veto.add(findStrain(d)?.name ?? d);
-    }
-  }
-
-  const worlds = profiles.map((p, i) => p.name?.trim() || `Profile ${i + 1}`);
-  const matches: Record<string, CatalogMatch> = {};
-
-  for (const strain of STRAINS) {
-    const perWorld = profiles.map((p) => {
-      const m = scoreStrain(
-        strain.name,
-        p as unknown as TasteProfileInput,
-        feedback,
-      );
-      return { score: m.matchScore, unclamped: m.unclampedScore, category: m.category };
-    });
-
-    let pick = perWorld[0];
-    if (veto.has(strain.name)) {
-      // Vetoed: take the LOWEST world (the avoiding side wins), so it ranks low
-      // everywhere rather than riding its best world.
-      for (const w of perWorld) {
-        if (w.score < pick.score || (w.score === pick.score && w.unclamped < pick.unclamped)) {
-          pick = w;
-        }
-      }
-    } else {
-      // Best-of: highest world, ties broken on unclamped.
-      for (const w of perWorld) {
-        if (w.score > pick.score || (w.score === pick.score && w.unclamped > pick.unclamped)) {
-          pick = w;
-        }
-      }
-    }
-
-    matches[strain.name] = {
-      score: pick.score,
-      category: pick.category,
-      sort: sortKey(pick.score, pick.unclamped),
-    };
-  }
-
-  return { worlds, matches, veto: [...veto] };
-}
-
-// Single-strain merged match, for the catalog detail page — same best-of /
-// veto rules as mergedMatches, scoring just one strain so the detail view
-// agrees with the list. Returns null when fewer than two profiles are merged.
-export async function mergedMatchForStrain(
-  userId: string,
-  strainName: string,
-): Promise<CatalogMatch | null> {
-  const profiles = await prisma.tasteProfile
-    .findMany({ where: { userId, merged: true }, orderBy: { createdAt: "asc" } })
-    .catch(() => []);
-  if (profiles.length < 2) return null;
-
-  const feedback = await getFeedbackSignals(userId);
-  const vetoed = profiles.some((p) =>
-    (p.dislikedStrains ?? []).some(
-      (d) => (findStrain(d)?.name ?? d) === strainName,
-    ),
-  );
-
-  const perWorld = profiles.map((p) => {
-    const m = scoreStrain(
-      strainName,
-      p as unknown as TasteProfileInput,
-      feedback,
-    );
-    return { score: m.matchScore, unclamped: m.unclampedScore, category: m.category };
-  });
-
-  let pick = perWorld[0];
-  for (const w of perWorld) {
-    const better = vetoed
-      ? w.score < pick.score || (w.score === pick.score && w.unclamped < pick.unclamped)
-      : w.score > pick.score || (w.score === pick.score && w.unclamped > pick.unclamped);
-    if (better) pick = w;
-  }
-  return { score: pick.score, category: pick.category, sort: sortKey(pick.score, pick.unclamped) };
-}
-
-// ── Taste Match merge (with a lean lever) ───────────────────────────────────
-
-export type MergeProfiles = {
-  profiles: TasteProfile[]; // the merged set
-  primaryId: string; // the "Main" end of the lean slider
-};
-
-// Load the merge set for Taste Match. Primary (the slider's Main end) is the
-// active profile when it's in the set, else the oldest merged one. Returns null
-// when fewer than two profiles are merged, so callers use the single profile.
-export async function getMergeProfiles(
-  userId: string,
-): Promise<MergeProfiles | null> {
-  const profiles = await prisma.tasteProfile
-    .findMany({ where: { userId, merged: true }, orderBy: { createdAt: "asc" } })
-    .catch(() => [] as TasteProfile[]);
-  if (profiles.length < 2) return null;
-  const primary = profiles.find((p) => p.isActive) ?? profiles[0];
-  return { profiles, primaryId: primary.id };
-}
+const clamp = (n: number, lo: number, hi: number) =>
+  Math.max(lo, Math.min(hi, n));
 
 const worldNameOf = (p: TasteProfile, i: number) =>
   p.name?.trim() || `Profile ${i + 1}`;
 
-// Per-strain raw score in each world (pre-lean), keyed by strain name. Lets the
-// audit show how a leaned pick was reached (e.g. gas 94 · skunk 49 → 94).
+// Composite sort key: visible score dominates (×1000), unclamped raw breaks
+// ties within a band. Ordering only; the displayed number stays score.
+const sortKey = (score: number, unclamped: number) => score * 1000 + unclamped;
+
 export type MergeBreakdown = Record<
   string,
   Array<{ world: string; score: number }>
 >;
 
-// Run Taste Match across the merged profiles and blend them.
-//   • each profile is analysed independently (full engine, feedback, sliders);
-//   • a per-run lean `bias` (−1…+1, + = toward primary) penalises the
-//     non-preferred world by |bias|×BIAS_CAP before the best-of pick, so the
-//     list tilts without erasing the other world (its gems still surface);
-//   • avoids union across profiles → a vetoed strain takes its LOWEST world.
-// The winning world's full recommendation (prose, sub-scores) is kept; only the
-// visible matchScore reflects the leaned blend, and `world` tags its origin.
+export type MergedMatches = {
+  worlds: string[]; // names of the participating worlds, display order
+  matches: Record<string, CatalogMatch>; // per-strain best-of (or vetoed-low)
+  veto: string[]; // strains globally avoided (union of dislikes)
+  blenderActive: boolean; // true when the 3-way Taste Blender is driving this
+};
+
+// The resolved blend: which worlds take part and each one's penalty.
+export type BlendSpec = {
+  profiles: TasteProfile[]; // 2 (pair) or 3 (pair + third)
+  penalties: Record<string, number>; // per-profile penalty points (≥0)
+  primaryId: string; // the pair's "Main" end
+  worlds: string[]; // names aligned with `profiles`
+  pairLean: number; // the applied pair lean (for the audit)
+  blenderActive: boolean; // 3-way Taste Blender on
+  thirdName?: string; // present in blender mode
+};
+
+// Distribute the pair lean as a penalty on one side. lean>0 favours primary
+// (penalise the other pair member); lean<0 penalises primary.
+function applyPairLean(
+  penalties: Record<string, number>,
+  pair: TasteProfile[],
+  primaryId: string,
+  lean: number,
+) {
+  const l = clamp(lean, -1, 1);
+  if (l === 0) return;
+  for (const p of pair) {
+    const isPrimary = p.id === primaryId;
+    if (l > 0 && !isPrimary) penalties[p.id] = l * PAIR_CAP;
+    else if (l < 0 && isPrimary) penalties[p.id] = -l * PAIR_CAP;
+  }
+}
+
+export async function resolveBlend(
+  userId: string,
+  opts?: { pairBias?: number },
+): Promise<BlendSpec | null> {
+  const [user, all] = await Promise.all([
+    prisma.user
+      .findUnique({
+        where: { id: userId },
+        select: { blenderActive: true, blenderLean1: true, blenderLean2: true },
+      })
+      .catch(() => null),
+    prisma.tasteProfile
+      .findMany({ where: { userId }, orderBy: { createdAt: "asc" } })
+      .catch(() => [] as TasteProfile[]),
+  ]);
+
+  const pair = all.filter((p) => p.merged);
+  if (pair.length < 2) return null; // no base pair → no blend
+
+  const primary = pair.find((p) => p.isActive) ?? pair[0];
+  const penalties: Record<string, number> = {};
+
+  // Taste Blender: 3 profiles, 2 merged (pair) + 1 third, and switched on.
+  const third =
+    all.length === 3 && pair.length === 2 && user?.blenderActive
+      ? all.find((p) => !p.merged) ?? null
+      : null;
+
+  if (third) {
+    const lean1 = clamp(user!.blenderLean1, -1, 1);
+    const lean2 = clamp(user!.blenderLean2, 0, 1);
+    applyPairLean(penalties, pair, primary.id, lean1);
+    penalties[third.id] = (1 - lean2) * ADMIX_CAP; // dosed admix
+    const profiles = [...pair, third];
+    return {
+      profiles,
+      penalties,
+      primaryId: primary.id,
+      worlds: profiles.map(worldNameOf),
+      pairLean: lean1,
+      blenderActive: true,
+      thirdName: worldNameOf(third, 2),
+    };
+  }
+
+  // Plain merge: just the merged set, with the optional per-run pair lean.
+  const pairLean = clamp(opts?.pairBias ?? 0, -1, 1);
+  applyPairLean(penalties, pair, primary.id, pairLean);
+  return {
+    profiles: pair,
+    penalties,
+    primaryId: primary.id,
+    worlds: pair.map(worldNameOf),
+    pairLean,
+    blenderActive: false,
+  };
+}
+
+// Pick the winning world for one strain: highest penalised score (or, for a
+// vetoed strain, the lowest), ties broken on the engine's unclamped raw.
+// Generic so callers keep their own candidate fields (e.g. the full rec).
+function pickWorld<T extends { eff: number; unclamped: number }>(
+  cands: T[],
+  vetoed: boolean,
+): T {
+  let pick = cands[0];
+  for (const c of cands) {
+    const better = vetoed
+      ? c.eff < pick.eff || (c.eff === pick.eff && c.unclamped < pick.unclamped)
+      : c.eff > pick.eff || (c.eff === pick.eff && c.unclamped > pick.unclamped);
+    if (better) pick = c;
+  }
+  return pick;
+}
+
+function vetoSet(profiles: TasteProfile[]): Set<string> {
+  const veto = new Set<string>();
+  for (const p of profiles) {
+    for (const d of p.dislikedStrains ?? []) veto.add(findStrain(d)?.name ?? d);
+  }
+  return veto;
+}
+
+export async function mergedMatches(
+  userId: string,
+): Promise<MergedMatches | null> {
+  const spec = await resolveBlend(userId);
+  if (!spec) return null;
+
+  const feedback = await getFeedbackSignals(userId);
+  const veto = vetoSet(spec.profiles);
+  const matches: Record<string, CatalogMatch> = {};
+
+  for (const strain of STRAINS) {
+    const cands = spec.profiles.map((p, i) => {
+      const m = scoreStrain(strain.name, p as unknown as TasteProfileInput, feedback);
+      return {
+        world: spec.worlds[i],
+        eff: m.matchScore - (spec.penalties[p.id] ?? 0),
+        unclamped: m.unclampedScore,
+        category: m.category,
+      };
+    });
+    const pick = pickWorld(cands, veto.has(strain.name));
+    const score = clamp(Math.round(pick.eff), 4, 99);
+    matches[strain.name] = {
+      score,
+      category: pick.category,
+      sort: sortKey(score, pick.unclamped),
+    };
+  }
+
+  return {
+    worlds: spec.worlds,
+    matches,
+    veto: [...veto],
+    blenderActive: spec.blenderActive,
+  };
+}
+
+// Single-strain version for the catalog detail page, so it agrees with the list.
+export async function mergedMatchForStrain(
+  userId: string,
+  strainName: string,
+): Promise<CatalogMatch | null> {
+  const spec = await resolveBlend(userId);
+  if (!spec) return null;
+
+  const feedback = await getFeedbackSignals(userId);
+  const veto = vetoSet(spec.profiles);
+  const cands = spec.profiles.map((p, i) => {
+    const m = scoreStrain(strainName, p as unknown as TasteProfileInput, feedback);
+    return {
+      world: spec.worlds[i],
+      eff: m.matchScore - (spec.penalties[p.id] ?? 0),
+      unclamped: m.unclampedScore,
+      category: m.category,
+    };
+  });
+  const pick = pickWorld(cands, veto.has(strainName));
+  const score = clamp(Math.round(pick.eff), 4, 99);
+  return { score, category: pick.category, sort: sortKey(score, pick.unclamped) };
+}
+
+// Taste Match across a blend. Each profile is analysed in full (prose,
+// sub-scores), then merged best-of after subtracting each world's penalty.
+// The winning world's recommendation is kept; only matchScore reflects the
+// blend, and `world` tags its origin. `mergeBreakdown` carries raw per-world
+// scores for the audit.
 export function analyzeMerged(opts: {
   strains: string[];
   profiles: TasteProfile[];
-  primaryId: string;
+  penalties: Record<string, number>;
   feedback: FeedbackSignal[];
   overrides?: Map<string, StrainProfile>;
   density?: number;
   priorities?: { senses?: number; effect?: number };
-  bias: number; // −1…+1, + favours the primary world
 }): AnalysisResult & { mergeBreakdown: MergeBreakdown } {
-  const bias = Math.max(-1, Math.min(1, opts.bias || 0));
   const per = opts.profiles.map((p, i) => ({
     p,
-    isPrimary: p.id === opts.primaryId,
     world: worldNameOf(p, i),
+    penalty: opts.penalties[p.id] ?? 0,
     res: analyze(
       opts.strains,
       p as unknown as TasteProfileInput,
@@ -207,11 +261,7 @@ export function analyzeMerged(opts: {
     ),
   }));
 
-  const veto = new Set<string>();
-  for (const { p } of per) {
-    for (const d of p.dislikedStrains ?? []) veto.add(findStrain(d)?.name ?? d);
-  }
-
+  const veto = vetoSet(opts.profiles);
   const maps = per.map(
     (pp) => new Map(pp.res.recommendations.map((r) => [r.strainName, r])),
   );
@@ -220,29 +270,20 @@ export function analyzeMerged(opts: {
   const recommendations: StrainMatch[] = [];
   const mergeBreakdown: MergeBreakdown = {};
   for (const key of keys) {
-    const cands = per.map((pp, i) => {
-      const rec = maps[i].get(key)!;
-      let eff = rec.matchScore;
-      // Lean penalty: + leans to primary (penalise the rest), − leans away.
-      if (bias > 0 && !pp.isPrimary) eff -= bias * BIAS_CAP;
-      else if (bias < 0 && pp.isPrimary) eff -= -bias * BIAS_CAP;
-      return { rec, world: pp.world, eff };
+    const cands = per.map((pp, idx) => {
+      const rec = maps[idx].get(key)!;
+      return {
+        rec,
+        world: pp.world,
+        eff: rec.matchScore - pp.penalty,
+        unclamped: rec.unclampedScore,
+        category: rec.category,
+      };
     });
-    // Raw per-world scores (pre-lean) for the audit.
     mergeBreakdown[key] = cands.map((c) => ({ world: c.world, score: c.rec.matchScore }));
 
-    const isVetoed = veto.has(cands[0].rec.resolvedName);
-    let pick = cands[0];
-    for (const c of cands) {
-      const better = isVetoed
-        ? c.eff < pick.eff ||
-          (c.eff === pick.eff && c.rec.unclampedScore < pick.rec.unclampedScore)
-        : c.eff > pick.eff ||
-          (c.eff === pick.eff && c.rec.unclampedScore > pick.rec.unclampedScore);
-      if (better) pick = c;
-    }
-
-    const score = Math.max(4, Math.min(99, Math.round(pick.eff)));
+    const pick = pickWorld(cands, veto.has(cands[0].rec.resolvedName));
+    const score = clamp(Math.round(pick.eff), 4, 99);
     recommendations.push({ ...pick.rec, matchScore: score, world: pick.world });
   }
 

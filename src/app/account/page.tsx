@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { ProfileProgressRing } from "@/components/profile-progress";
+import { TasteBlenderBlock } from "@/components/taste-blender-block";
 import { MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
 import { cn } from "@/lib/utils";
 
@@ -383,6 +384,8 @@ export default function AccountPage() {
             Add profile
           </button>
         ))}
+
+      <TasteBlenderBlock />
 
       {/* History — past Taste Match runs and bookmarked picks. */}
       <p className="mt-10 text-xs uppercase tracking-[0.24em] text-brass">

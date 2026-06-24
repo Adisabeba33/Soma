@@ -24,6 +24,15 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // Taste Blender — a virtual "4th profile" that mixes all three real profiles.
+  // blenderActive makes it the profile that drives every surface (Harvest,
+  // Collection, Taste Match, dashboard). lean1 is the lean inside the merged
+  // pair (−1…+1); lean2 is how much the third profile is blended in (0…1).
+  // Only meaningful with 3 profiles (2 merged into the pair, 1 the third).
+  blenderActive Boolean @default(false)
+  blenderLean1  Float   @default(0)
+  blenderLean2  Float   @default(0)
+
   tasteProfiles    TasteProfile[]
   analysisSessions AnalysisSession[]
   feedback         Feedback[]

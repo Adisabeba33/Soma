@@ -19,6 +19,7 @@ import { buttonClass } from "@/components/ui/button";
 import { getUserIdReadOnly } from "@/lib/user";
 import { prisma } from "@/lib/prisma";
 import { getActiveProfile } from "@/lib/active-profile";
+import { mergedMatches } from "@/lib/merge-worlds";
 import {
   profileCompleteness,
   MATCH_GATE_PERCENT,
@@ -92,6 +93,9 @@ export default async function HomePage() {
         // the gate, so we never show a "best match" off a too-thin profile.
         if (percent >= MATCH_GATE_PERCENT) {
           const feedback = await getFeedbackSignals(userId!);
+          // Blend mode (merged profiles / Taste Blender) drives the carousel
+          // too, so the dashboard agrees with Harvest.
+          const merged = await mergedMatches(userId!);
           // Exclude the user's own favourites — they anchor near the top
           // (94–96%) and the carousel is for DISCOVERY. Resolved to canonical
           // names so aliases (e.g. Gorilla Glue → GG4) match.
@@ -104,7 +108,10 @@ export default async function HomePage() {
             (s) => !favourites.has(normalizeStrainName(s.name)),
           )
             .map((s) => {
-              const m = scoreStrain(s.name, p, feedback);
+              const mm = merged?.matches[s.name];
+              const m = mm
+                ? { matchScore: mm.score, category: mm.category }
+                : scoreStrain(s.name, p, feedback);
               const identity = getIdentity(s.name);
               return {
                 name: s.name,

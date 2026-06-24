@@ -26,19 +26,27 @@ async function loadMatches(): Promise<{
   matches: Record<string, CatalogMatch>;
   hasProfile: boolean;
   mergedWorlds: string[]; // non-empty when the catalog is blending profiles
+  blenderActive: boolean; // the 3-way Taste Blender is driving it
 }> {
   const userId = await getUserIdReadOnly();
-  if (!userId) return { matches: {}, hasProfile: false, mergedWorlds: [] };
+  if (!userId)
+    return { matches: {}, hasProfile: false, mergedWorlds: [], blenderActive: false };
 
-  // Merge mode wins: when two or more profiles are merged, Harvest scores every
-  // strain best-of across them instead of the single active profile.
+  // Blend mode wins: when profiles are merged (or Taste Blender is on), Harvest
+  // scores every strain best-of across them instead of the single profile.
   const merged = await mergedMatches(userId);
   if (merged) {
-    return { matches: merged.matches, hasProfile: true, mergedWorlds: merged.worlds };
+    return {
+      matches: merged.matches,
+      hasProfile: true,
+      mergedWorlds: merged.worlds,
+      blenderActive: merged.blenderActive,
+    };
   }
 
   const profile = await getActiveProfile(userId);
-  if (!profile) return { matches: {}, hasProfile: false, mergedWorlds: [] };
+  if (!profile)
+    return { matches: {}, hasProfile: false, mergedWorlds: [], blenderActive: false };
 
   const feedback = await getFeedbackSignals(userId);
   const matches: Record<string, CatalogMatch> = {};
@@ -50,12 +58,12 @@ async function loadMatches(): Promise<{
     );
     matches[strain.name] = { score: m.matchScore, category: m.category };
   }
-  return { matches, hasProfile: true, mergedWorlds: [] };
+  return { matches, hasProfile: true, mergedWorlds: [], blenderActive: false };
 }
 
 export default async function CatalogPage() {
   const entries = buildCatalog();
-  const { matches, hasProfile, mergedWorlds } = await loadMatches();
+  const { matches, hasProfile, mergedWorlds, blenderActive } = await loadMatches();
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
@@ -74,9 +82,9 @@ export default async function CatalogPage() {
       {mergedWorlds.length >= 2 && (
         <p className="mt-5 inline-flex flex-wrap items-center gap-2 rounded-xl border border-brass/30 bg-brass/5 px-4 py-2.5 text-sm text-foreground">
           <span className="text-xs font-semibold uppercase tracking-[0.14em] text-brass">
-            Merged
+            {blenderActive ? "Taste Blender" : "Merged"}
           </span>
-          Matches blend your profiles{" "}
+          Matches blend{" "}
           <span className="font-medium">{mergedWorlds.join(" · ")}</span> — each
           strain takes its best world. Manage in{" "}
           <Link href="/account" className="text-accent hover:underline">

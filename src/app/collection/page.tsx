@@ -19,6 +19,7 @@ import { getUserIdReadOnly } from "@/lib/user";
 import { getActiveProfile } from "@/lib/active-profile";
 import { getFeedbackSignals } from "@/lib/api";
 import { scoreStrain } from "@/lib/taste-engine";
+import { mergedMatches } from "@/lib/merge-worlds";
 import { prisma } from "@/lib/prisma";
 import { CatalogCollectibleCard } from "@/components/catalog-collectible-card";
 import { cn } from "@/lib/utils";
@@ -134,22 +135,34 @@ async function load(): Promise<{
   // "loved" card just reads as the system contradicting you (match measures fit
   // to your stated profile, not how much you liked it). Collected cards fall
   // back to the curated quality score instead.
-  const profile = await getActiveProfile(userId);
+  // Blend mode (merged profiles / Taste Blender) wins, so the shelf agrees with
+  // Harvest; otherwise the single active profile scores the wishlist.
+  const merged = await mergedMatches(userId);
   const matchByName: Record<string, CatalogMatch> = {};
-  if (profile) {
-    const feedback = await getFeedbackSignals(userId);
+  let hasProfile = false;
+  if (merged) {
+    hasProfile = true;
     for (const name of wishlist) {
-      if (!entryByName.has(name)) continue;
-      const m = scoreStrain(
-        name,
-        profile as unknown as TasteProfileInput,
-        feedback,
-      );
-      matchByName[name] = { score: m.matchScore, category: m.category };
+      if (merged.matches[name]) matchByName[name] = merged.matches[name];
+    }
+  } else {
+    const profile = await getActiveProfile(userId);
+    hasProfile = Boolean(profile);
+    if (profile) {
+      const feedback = await getFeedbackSignals(userId);
+      for (const name of wishlist) {
+        if (!entryByName.has(name)) continue;
+        const m = scoreStrain(
+          name,
+          profile as unknown as TasteProfileInput,
+          feedback,
+        );
+        matchByName[name] = { score: m.matchScore, category: m.category };
+      }
     }
   }
 
-  return { rows, wishlist, entryByName, matchByName, hasProfile: Boolean(profile) };
+  return { rows, wishlist, entryByName, matchByName, hasProfile };
 }
 
 export default async function CollectionPage() {

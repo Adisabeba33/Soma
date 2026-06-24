@@ -105,12 +105,25 @@ export function TasteMatchClient() {
 
   // Detect the merge set, so the run popup can offer the lean lever. The lever
   // is a single axis (Main ↔ other), so it's offered only for exactly two
-  // merged profiles; Main is the active one when it's in the set.
+  // merged profiles. When Taste Blender is active it owns the recipe (stored,
+  // 3-way), so the per-run lever is hidden.
   useEffect(() => {
-    fetch("/api/profiles")
-      .then((r) => r.json())
-      .then((d: { profiles?: Array<{ name: string; isActive: boolean; merged: boolean }> }) => {
-        const merged = (d?.profiles ?? []).filter((p) => p.merged);
+    Promise.all([
+      fetch("/api/profiles").then((r) => r.json()).catch(() => null),
+      fetch("/api/blender").then((r) => r.json()).catch(() => null),
+    ])
+      .then(([profilesRes, blender]) => {
+        if (blender?.active) {
+          setMergeInfo(null); // Blender drives it; no per-run lever
+          return;
+        }
+        const merged = (
+          (profilesRes?.profiles ?? []) as Array<{
+            name: string;
+            isActive: boolean;
+            merged: boolean;
+          }>
+        ).filter((p) => p.merged);
         if (merged.length !== 2) {
           setMergeInfo(null);
           return;

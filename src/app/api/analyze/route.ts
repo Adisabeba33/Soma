@@ -14,7 +14,7 @@ import {
   sanitizeParsedItems,
 } from "@/lib/api";
 import { analyze, resolveStrain } from "@/lib/taste-engine";
-import { getMergeProfiles, analyzeMerged } from "@/lib/merge-worlds";
+import { resolveBlend, analyzeMerged } from "@/lib/merge-worlds";
 import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
@@ -89,21 +89,23 @@ export async function POST(req: NextRequest) {
 
   // Merge mode: when two or more profiles are merged, blend them best-of with
   // the per-run lean. Otherwise the single active profile drives the run.
-  const merge = await getMergeProfiles(userId);
+  // The blend brain: pair (+ third, if Taste Blender is on) with per-world
+  // penalties. The per-run pair lean is ignored when the Blender is active
+  // (it owns the recipe).
+  const blend = await resolveBlend(userId, { pairBias: mergeBias });
   let result: AnalysisResult;
   let mergeBreakdown:
     | Record<string, Array<{ world: string; score: number }>>
     | undefined;
-  if (merge) {
+  if (blend) {
     const m = analyzeMerged({
       strains,
-      profiles: merge.profiles,
-      primaryId: merge.primaryId,
+      profiles: blend.profiles,
+      penalties: blend.penalties,
       feedback,
       overrides,
       density: densityPreference,
       priorities,
-      bias: mergeBias,
     });
     result = m;
     mergeBreakdown = m.mergeBreakdown;
@@ -191,12 +193,12 @@ export async function POST(req: NextRequest) {
         menuQuality,
         engine: result.engine,
       },
-      merge: merge
+      merge: blend
         ? {
-            bias: mergeBias,
-            profiles: merge.profiles.map((p, i) => ({
-              name: p.name?.trim() || `Profile ${i + 1}`,
-              primary: p.id === merge.primaryId,
+            bias: blend.pairLean,
+            profiles: blend.profiles.map((p, i) => ({
+              name: blend.worlds[i],
+              primary: p.id === blend.primaryId,
               profile: p as unknown as TasteProfileInput,
             })),
             breakdown: mergeBreakdown ?? {},
