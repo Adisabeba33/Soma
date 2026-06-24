@@ -167,6 +167,13 @@ export async function getMergeProfiles(
 const worldNameOf = (p: TasteProfile, i: number) =>
   p.name?.trim() || `Profile ${i + 1}`;
 
+// Per-strain raw score in each world (pre-lean), keyed by strain name. Lets the
+// audit show how a leaned pick was reached (e.g. gas 94 · skunk 49 → 94).
+export type MergeBreakdown = Record<
+  string,
+  Array<{ world: string; score: number }>
+>;
+
 // Run Taste Match across the merged profiles and blend them.
 //   • each profile is analysed independently (full engine, feedback, sliders);
 //   • a per-run lean `bias` (−1…+1, + = toward primary) penalises the
@@ -184,7 +191,7 @@ export function analyzeMerged(opts: {
   density?: number;
   priorities?: { senses?: number; effect?: number };
   bias: number; // −1…+1, + favours the primary world
-}): AnalysisResult {
+}): AnalysisResult & { mergeBreakdown: MergeBreakdown } {
   const bias = Math.max(-1, Math.min(1, opts.bias || 0));
   const per = opts.profiles.map((p, i) => ({
     p,
@@ -211,6 +218,7 @@ export function analyzeMerged(opts: {
   const keys = per[0].res.recommendations.map((r) => r.strainName);
 
   const recommendations: StrainMatch[] = [];
+  const mergeBreakdown: MergeBreakdown = {};
   for (const key of keys) {
     const cands = per.map((pp, i) => {
       const rec = maps[i].get(key)!;
@@ -220,6 +228,8 @@ export function analyzeMerged(opts: {
       else if (bias < 0 && pp.isPrimary) eff -= -bias * BIAS_CAP;
       return { rec, world: pp.world, eff };
     });
+    // Raw per-world scores (pre-lean) for the audit.
+    mergeBreakdown[key] = cands.map((c) => ({ world: c.world, score: c.rec.matchScore }));
 
     const isVetoed = veto.has(cands[0].rec.resolvedName);
     let pick = cands[0];
@@ -243,5 +253,6 @@ export function analyzeMerged(opts: {
     recommendations,
     engine: per[0].res.engine,
     generatedAt: per[0].res.generatedAt,
+    mergeBreakdown,
   };
 }
