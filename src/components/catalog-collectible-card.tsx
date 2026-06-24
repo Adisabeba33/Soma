@@ -33,6 +33,7 @@ export function CatalogCollectibleCard({
   className,
   wishlist = false,
   wishlistSource,
+  worldLabel,
 }: {
   entry: CatalogEntry;
   match?: CatalogMatch;
@@ -44,6 +45,9 @@ export function CatalogCollectibleCard({
   // every card has already been tried.
   wishlist?: boolean;
   wishlistSource?: string;
+  // "All my worlds" feed: which taste profile produced this card's score
+  // (e.g. "via your Skunk side"), or "Both worlds" for a universal pick.
+  worldLabel?: string;
 }) {
   const { strain, identity } = entry;
   // Other names people know this strain by (e.g. WiFi OG for White Fire OG),
@@ -130,6 +134,11 @@ export function CatalogCollectibleCard({
               )}
             >
               {tier}
+            </span>
+          )}
+          {worldLabel && (
+            <span className="rounded-full bg-foreground/85 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-background shadow-sm backdrop-blur-sm">
+              {worldLabel}
             </span>
           )}
         </div>
