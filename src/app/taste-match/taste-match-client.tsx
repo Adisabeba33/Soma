@@ -47,6 +47,13 @@ export function TasteMatchClient() {
   // Per-run channel priorities (−1…+1 each). 0 = normal balance (default).
   const [prioSenses, setPrioSenses] = useState(0);
   const [prioEffect, setPrioEffect] = useState(0);
+  // Per-run merge lean (−1…+1, + toward Main). Only meaningful, and only shown,
+  // when exactly two profiles are merged.
+  const [mergeBias, setMergeBias] = useState(0);
+  const [mergeInfo, setMergeInfo] = useState<{
+    mainLabel: string;
+    otherLabel: string;
+  } | null>(null);
   // The priorities popup shown after the user hits "Run Taste Match".
   const [showPriorities, setShowPriorities] = useState(false);
   // Slider values captured at the moment of the run, so the Audit reflects what
@@ -94,6 +101,25 @@ export function TasteMatchClient() {
         setVerdicts(m);
       })
       .catch(() => {});
+  }, []);
+
+  // Detect the merge set, so the run popup can offer the lean lever. The lever
+  // is a single axis (Main ↔ other), so it's offered only for exactly two
+  // merged profiles; Main is the active one when it's in the set.
+  useEffect(() => {
+    fetch("/api/profiles")
+      .then((r) => r.json())
+      .then((d: { profiles?: Array<{ name: string; isActive: boolean; merged: boolean }> }) => {
+        const merged = (d?.profiles ?? []).filter((p) => p.merged);
+        if (merged.length !== 2) {
+          setMergeInfo(null);
+          return;
+        }
+        const main = merged.find((p) => p.isActive) ?? merged[0];
+        const other = merged.find((p) => p !== main) ?? merged[1];
+        setMergeInfo({ mainLabel: main.name, otherLabel: other.name });
+      })
+      .catch(() => setMergeInfo(null));
   }, []);
 
   useEffect(() => {
@@ -164,6 +190,7 @@ export function TasteMatchClient() {
           parsedItems,
           densityPreference: densityPref,
           priorities: { senses: prioSenses, effect: prioEffect },
+          mergeBias: mergeInfo ? mergeBias : 0,
         }),
       });
       const data = await res.json();
@@ -344,6 +371,16 @@ export function TasteMatchClient() {
             onSenses={setPrioSenses}
             onEffect={setPrioEffect}
             onDensity={setDensityPref}
+            merge={
+              mergeInfo
+                ? {
+                    bias: mergeBias,
+                    onBias: setMergeBias,
+                    mainLabel: mergeInfo.mainLabel,
+                    otherLabel: mergeInfo.otherLabel,
+                  }
+                : undefined
+            }
           />
         </>
       )}

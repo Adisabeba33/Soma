@@ -3,6 +3,7 @@
 import { X } from "lucide-react";
 import { PrioritySliders } from "@/components/priority-sliders";
 import { DensitySlider } from "@/components/density-slider";
+import { MergeLeanSlider } from "@/components/merge-lean-slider";
 import { buttonClass } from "@/components/ui/button";
 
 // A one-step popup shown after the user hits "Run Taste Match": before the
@@ -19,6 +20,8 @@ export function RunPrioritiesModal({
   onSenses,
   onEffect,
   onDensity,
+  // Merge lean — present only when exactly two profiles are merged.
+  merge,
 }: {
   open: boolean;
   onClose: () => void;
@@ -29,6 +32,12 @@ export function RunPrioritiesModal({
   onSenses: (v: number) => void;
   onEffect: (v: number) => void;
   onDensity: (v: number) => void;
+  merge?: {
+    bias: number;
+    onBias: (v: number) => void;
+    mainLabel: string;
+    otherLabel: string;
+  };
 }) {
   if (!open) return null;
   return (
@@ -83,6 +92,14 @@ export function RunPrioritiesModal({
             onEffect={onEffect}
           />
           <DensitySlider value={density} onChange={onDensity} />
+          {merge && (
+            <MergeLeanSlider
+              value={merge.bias}
+              onChange={merge.onBias}
+              mainLabel={merge.mainLabel}
+              otherLabel={merge.otherLabel}
+            />
+          )}
         </div>
 
         <button

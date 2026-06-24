@@ -127,6 +127,10 @@ export interface StrainMatch {
   knownStrain: boolean;
   category: Category;
   matchScore: number;
+  // Which merged profile ("world") produced this score, set only by the Taste
+  // Match merge (analyzeMerged). Lets results show "via <profile>". Absent for
+  // single-profile runs.
+  world?: string;
   // Pre-calibration internal score (no anchor floor, no 99 cap, no 88
   // non-anchor ceiling). Carries decimal precision so ties at matchScore
   // can be broken deterministically by what the engine actually thinks.

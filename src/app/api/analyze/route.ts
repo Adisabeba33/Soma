@@ -14,6 +14,7 @@ import {
   sanitizeParsedItems,
 } from "@/lib/api";
 import { analyze, resolveStrain } from "@/lib/taste-engine";
+import { getMergeProfiles, analyzeMerged } from "@/lib/merge-worlds";
 import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
@@ -41,6 +42,9 @@ export async function POST(req: NextRequest) {
     senses: clampPref(body.priorities?.senses),
     effect: clampPref(body.priorities?.effect),
   };
+  // Per-run merge lean (−1…+1, + toward the primary/Main profile). Only used
+  // when two or more profiles are merged; 0/absent = balanced best-of.
+  const mergeBias = clampPref(body.mergeBias);
   const inputType = body.inputType === "paste" ? "paste" : "manual";
   const rawInput = asText(body.rawInput, 12_000) ?? strains.join("\n");
   const parsedItems = sanitizeParsedItems(body.parsedItems, 60);
@@ -82,17 +86,36 @@ export async function POST(req: NextRequest) {
   // key is added; with one, unknown names get a vocab-constrained profile.
   const unknownNames = strains.filter((name) => !resolveStrain(name).known);
   const overrides = await inferStrainsAI(unknownNames);
-  let result = analyze(
-    strains,
-    profile,
-    feedback,
-    overrides,
-    densityPreference,
-    priorities,
-  );
-  // The optional AI layer only rewrites prose; scores stay untouched.
-  if (isOpenAIEnabled()) {
-    result = await enhanceWithOpenAI(result, profile);
+
+  // Merge mode: when two or more profiles are merged, blend them best-of with
+  // the per-run lean. Otherwise the single active profile drives the run.
+  const merge = await getMergeProfiles(userId);
+  let result;
+  if (merge) {
+    result = analyzeMerged({
+      strains,
+      profiles: merge.profiles,
+      primaryId: merge.primaryId,
+      feedback,
+      overrides,
+      density: densityPreference,
+      priorities,
+      bias: mergeBias,
+    });
+  } else {
+    result = analyze(
+      strains,
+      profile,
+      feedback,
+      overrides,
+      densityPreference,
+      priorities,
+    );
+    // The optional AI layer only rewrites prose; scores stay untouched. Skipped
+    // in merge mode, where prose comes from each pick's own winning world.
+    if (isOpenAIEnabled()) {
+      result = await enhanceWithOpenAI(result, profile);
+    }
   }
 
   const menuQuality = computeMenuQuality(parsedItems, result.recommendations);
