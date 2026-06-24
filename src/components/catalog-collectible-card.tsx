@@ -29,10 +29,14 @@ export function CatalogCollectibleCard({
   entry,
   match,
   score,
+  className,
 }: {
   entry: CatalogEntry;
   match?: CatalogMatch;
   score: number;
+  // Optional styling on the outer <li> — the Collection shelf uses it to
+  // frame a card by the user's verdict (glow for loved, dim for avoid).
+  className?: string;
 }) {
   const { strain, identity } = entry;
   // Other names people know this strain by (e.g. WiFi OG for White Fire OG),
@@ -53,7 +57,7 @@ export function CatalogCollectibleCard({
   const tier = tierOf(strain.name);
 
   return (
-    <li className="relative">
+    <li className={cn("relative", className)}>
       <Link
         href={`/catalog/${strainSlug(strain.name)}`}
         className={cn(
