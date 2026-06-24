@@ -128,21 +128,24 @@ async function load(): Promise<{
     .catch(() => [] as Array<{ strainName: string }>);
   const wishlist = wishRaw.map((w) => w.strainName);
 
-  // Personal match % on each card when a profile exists — computed only for
-  // the collected strains (cheap), so the shelf shows *your* score, not the
-  // curated index. Falls back to the curated score otherwise.
+  // Personal match % — computed only for WISHLIST strains, where it's a useful
+  // forward-looking "would this fit me?" signal. Deliberately NOT shown on
+  // collected cards: there your verdict is the truth, and a low match next to a
+  // "loved" card just reads as the system contradicting you (match measures fit
+  // to your stated profile, not how much you liked it). Collected cards fall
+  // back to the curated quality score instead.
   const profile = await getActiveProfile(userId);
   const matchByName: Record<string, CatalogMatch> = {};
   if (profile) {
     const feedback = await getFeedbackSignals(userId);
-    for (const row of rows) {
-      if (!entryByName.has(row.strainName)) continue;
+    for (const name of wishlist) {
+      if (!entryByName.has(name)) continue;
       const m = scoreStrain(
-        row.strainName,
+        name,
         profile as unknown as TasteProfileInput,
         feedback,
       );
-      matchByName[row.strainName] = { score: m.matchScore, category: m.category };
+      matchByName[name] = { score: m.matchScore, category: m.category };
     }
   }
 
@@ -234,7 +237,6 @@ export default async function CollectionPage() {
                         <CatalogCollectibleCard
                           key={row.strainName}
                           entry={entry}
-                          match={matchByName[row.strainName]}
                           score={curatedScore(entry)}
                           className={g.frame}
                         />
@@ -276,6 +278,7 @@ export default async function CollectionPage() {
                     <CatalogCollectibleCard
                       key={name}
                       entry={entry}
+                      match={matchByName[name]}
                       score={curatedScore(entry)}
                       className={GHOST_FRAME}
                       wishlist
