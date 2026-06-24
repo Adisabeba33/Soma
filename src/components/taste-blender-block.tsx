@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 type State = {
   active: boolean;
   ready: boolean;
+  balance: boolean;
   lean1: number;
   lean2: number;
   profileCount: number;
@@ -122,8 +123,47 @@ export function TasteBlenderBlock() {
             </button>
           </div>
 
-          {/* Slider 1 — lean inside the pair */}
+          {/* Mode — best-of (discovery) vs balance (bridge across all sides) */}
           <div className="mt-5 border-t border-border/60 pt-4">
+            <p className="text-sm font-medium">Mode</p>
+            <div className="mt-2 inline-flex overflow-hidden rounded-xl border border-border text-sm">
+              <button
+                type="button"
+                onClick={() => patch({ balance: false })}
+                className={cn(
+                  "px-3 py-1.5 transition-colors",
+                  !s.balance
+                    ? "bg-accent/10 font-medium text-accent"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                Best of each
+              </button>
+              <button
+                type="button"
+                onClick={() => patch({ balance: true })}
+                className={cn(
+                  "border-l border-border px-3 py-1.5 transition-colors",
+                  s.balance
+                    ? "bg-accent/10 font-medium text-accent"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                Balance (bridge)
+              </button>
+            </div>
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+              {s.balance
+                ? "Surfaces strains strong across ALL your sides at once — the bridge. Fewer, more all-round picks; leans don't apply."
+                : "Each strain takes its best side — widest coverage, leans tilt the mix."}
+            </p>
+          </div>
+
+          {/* Leans apply in best-of only; balance weighs every side equally. */}
+          {s.balance ? null : (
+          <>
+          {/* Slider 1 — lean inside the pair */}
+          <div className="mt-4 border-t border-border/60 pt-4">
             <div className="flex items-baseline justify-between">
               <p className="text-sm font-medium">Lean within the pair</p>
               <button
@@ -179,6 +219,8 @@ export function TasteBlenderBlock() {
               <span>Full third</span>
             </div>
           </div>
+          </>
+          )}
         </div>
       )}
     </div>

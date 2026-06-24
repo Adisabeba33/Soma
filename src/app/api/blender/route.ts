@@ -21,7 +21,12 @@ async function readState(userId: string) {
   const [user, profiles] = await Promise.all([
     prisma.user.findUnique({
       where: { id: userId },
-      select: { blenderActive: true, blenderLean1: true, blenderLean2: true },
+      select: {
+        blenderActive: true,
+        blenderLean1: true,
+        blenderLean2: true,
+        blenderBalance: true,
+      },
     }),
     prisma.tasteProfile.findMany({
       where: { userId },
@@ -46,6 +51,7 @@ async function readState(userId: string) {
   return {
     active,
     ready,
+    balance: user?.blenderBalance ?? false,
     lean1: user?.blenderLean1 ?? 0,
     lean2: user?.blenderLean2 ?? 0,
     profileCount: profiles.length,
@@ -68,9 +74,11 @@ export async function PATCH(req: NextRequest) {
     blenderActive?: boolean;
     blenderLean1?: number;
     blenderLean2?: number;
+    blenderBalance?: boolean;
   } = {};
 
   if (typeof body.active === "boolean") data.blenderActive = body.active;
+  if (typeof body.balance === "boolean") data.blenderBalance = body.balance;
   const l1 = clampNum(body.lean1, -1, 1);
   if (l1 !== null) data.blenderLean1 = l1;
   const l2 = clampNum(body.lean2, 0, 1);

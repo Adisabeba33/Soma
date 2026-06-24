@@ -32,6 +32,10 @@ model User {
   blenderActive Boolean @default(false)
   blenderLean1  Float   @default(0)
   blenderLean2  Float   @default(0)
+  // Blend mode: false = best-of (max — best under any one side); true = balance
+  // (min — strains strong across ALL sides at once, the "bridge"). Leans don't
+  // apply in balance mode (it weighs every world equally).
+  blenderBalance Boolean @default(false)
 
   tasteProfiles    TasteProfile[]
   analysisSessions AnalysisSession[]

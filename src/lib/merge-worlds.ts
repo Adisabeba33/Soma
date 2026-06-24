@@ -69,6 +69,7 @@ export type BlendSpec = {
   worlds: string[]; // names aligned with `profiles`
   pairLean: number; // the applied pair lean (for the audit)
   blenderActive: boolean; // 3-way Taste Blender on
+  balance: boolean; // true = bridge mode (min across worlds); false = best-of
   thirdName?: string; // present in blender mode
 };
 
@@ -97,7 +98,12 @@ export async function resolveBlend(
     prisma.user
       .findUnique({
         where: { id: userId },
-        select: { blenderActive: true, blenderLean1: true, blenderLean2: true },
+        select: {
+          blenderActive: true,
+          blenderLean1: true,
+          blenderLean2: true,
+          blenderBalance: true,
+        },
       })
       .catch(() => null),
     prisma.tasteProfile
@@ -118,18 +124,24 @@ export async function resolveBlend(
       : null;
 
   if (third) {
+    const balance = Boolean(user!.blenderBalance);
     const lean1 = clamp(user!.blenderLean1, -1, 1);
-    const lean2 = clamp(user!.blenderLean2, 0, 1);
-    applyPairLean(penalties, pair, primary.id, lean1);
-    penalties[third.id] = (1 - lean2) * ADMIX_CAP; // dosed admix
+    // Balance (bridge) mode weighs every world equally — no lean penalties, so
+    // min() finds strains strong across ALL sides at once.
+    if (!balance) {
+      const lean2 = clamp(user!.blenderLean2, 0, 1);
+      applyPairLean(penalties, pair, primary.id, lean1);
+      penalties[third.id] = (1 - lean2) * ADMIX_CAP; // dosed admix
+    }
     const profiles = [...pair, third];
     return {
       profiles,
       penalties,
       primaryId: primary.id,
       worlds: profiles.map(worldNameOf),
-      pairLean: lean1,
+      pairLean: balance ? 0 : lean1,
       blenderActive: true,
+      balance,
       thirdName: worldNameOf(third, 2),
     };
   }
@@ -144,19 +156,22 @@ export async function resolveBlend(
     worlds: pair.map(worldNameOf),
     pairLean,
     blenderActive: false,
+    balance: false,
   };
 }
 
-// Pick the winning world for one strain: highest penalised score (or, for a
-// vetoed strain, the lowest), ties broken on the engine's unclamped raw.
-// Generic so callers keep their own candidate fields (e.g. the full rec).
+// Pick the representative world for one strain. Normally the highest penalised
+// score (best-of). When `low` — a vetoed strain, or balance/bridge mode — the
+// LOWEST world instead: for a veto it sinks the strain, for balance it IS the
+// bridge score (a strain is only as good as its weakest side). Ties break on
+// the engine's unclamped raw. Generic so callers keep their own fields.
 function pickWorld<T extends { eff: number; unclamped: number }>(
   cands: T[],
-  vetoed: boolean,
+  low: boolean,
 ): T {
   let pick = cands[0];
   for (const c of cands) {
-    const better = vetoed
+    const better = low
       ? c.eff < pick.eff || (c.eff === pick.eff && c.unclamped < pick.unclamped)
       : c.eff > pick.eff || (c.eff === pick.eff && c.unclamped > pick.unclamped);
     if (better) pick = c;
@@ -192,7 +207,7 @@ export async function mergedMatches(
         category: m.category,
       };
     });
-    const pick = pickWorld(cands, veto.has(strain.name));
+    const pick = pickWorld(cands, veto.has(strain.name) || spec.balance);
     const score = clamp(Math.round(pick.eff), 4, 99);
     matches[strain.name] = {
       score,
@@ -228,7 +243,7 @@ export async function mergedMatchForStrain(
       category: m.category,
     };
   });
-  const pick = pickWorld(cands, veto.has(strainName));
+  const pick = pickWorld(cands, veto.has(strainName) || spec.balance);
   const score = clamp(Math.round(pick.eff), 4, 99);
   return { score, category: pick.category, sort: sortKey(score, pick.unclamped) };
 }
@@ -246,6 +261,7 @@ export function analyzeMerged(opts: {
   overrides?: Map<string, StrainProfile>;
   density?: number;
   priorities?: { senses?: number; effect?: number };
+  balance?: boolean; // bridge mode: rank by the weakest world (min)
 }): AnalysisResult & { mergeBreakdown: MergeBreakdown } {
   const per = opts.profiles.map((p, i) => ({
     p,
@@ -282,7 +298,10 @@ export function analyzeMerged(opts: {
     });
     mergeBreakdown[key] = cands.map((c) => ({ world: c.world, score: c.rec.matchScore }));
 
-    const pick = pickWorld(cands, veto.has(cands[0].rec.resolvedName));
+    const pick = pickWorld(
+      cands,
+      veto.has(cands[0].rec.resolvedName) || Boolean(opts.balance),
+    );
     const score = clamp(Math.round(pick.eff), 4, 99);
     recommendations.push({ ...pick.rec, matchScore: score, world: pick.world });
   }
