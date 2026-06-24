@@ -91,6 +91,17 @@ export interface TasteProfileInput {
   primaryAroma?: string | null;
   primaryEffect?: string | null;
   useTime?: string | null;
+  // How the person consumes (joint | blunt | pipe | bong | vape). Multi-select
+  // now (smokingMethods); the legacy single `smokingMethod` is read-only.
+  // Contextual signal kept for future logic; optional, no-op in scoring for now.
+  smokingMethod?: string | null;
+  smokingMethods?: string[];
+  // Preferred bud structure (dense | airy | fluffy | popcorn | larfy). Captured
+  // now; no-op in scoring until the catalog carries these tags.
+  budStructure?: string | null;
+  // Preferred plant type (indica | sativa | hybrid | any). Soft signal; "any" =
+  // no preference. No-op in scoring for now.
+  preferredType?: string | null;
   bodyFeel?: number | null;
   // Desired overall strength ("mild" | "balanced" | "strong"). Typed loosely
   // (like primaryAroma) so raw DB rows assign cleanly; absent/"balanced"/an
@@ -177,6 +188,9 @@ export interface StrainMatch {
     sensory: number;
     potency: number;
     familyPref: number;
+    // Bud-structure (density) nudge — soft, confidence-weighted (see
+    // src/lib/bud-structure.ts). 0 when the user has no structure preference.
+    density: number;
   };
   // Second axis: how confident we are about THIS purchase, separate from
   // the sensory match score. See src/lib/purchase-confidence.ts.
@@ -222,6 +236,9 @@ export interface SessionSummary {
   inputType: string;
   createdAt: string;
   strainCount: number;
+  // Name of the sensory profile this run was scored against. Null for older
+  // runs or ones whose profile was since deleted (tasteProfileId → SetNull).
+  profileName?: string | null;
 }
 
 export interface SessionDetail extends SessionSummary {

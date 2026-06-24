@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   Check,
   ChevronDown,
@@ -20,6 +20,7 @@ import { CompareBasketTray } from "@/components/compare-basket-tray";
 import { effectIconFor } from "@/components/effect-icon";
 import { paletteForTime } from "@/lib/sensory-family-palette";
 import { timeProfileOf, artImageSrc, artFocusOf } from "@/lib/strain-art";
+import { tierOf } from "@/lib/collection-tier";
 import {
   BASKET_EVENT,
   addToBasket,
@@ -583,27 +584,23 @@ function CatalogRow({
   const artSrc = artImageSrc(strain, identity);
   const badgeValue = match ? match.score : score;
   const badgeLabel = match ? "MATCH" : "CURATED";
-  const aliasPreview = (strain.aliases ?? []).slice(0, 3).join(" · ");
+  const tier = tierOf(strain.name);
+  const tagline = identity?.tagline;
 
   return (
     <li className="relative">
       <CompareToggle
         name={strain.name}
-        className="absolute right-4 top-4 z-10"
+        className="absolute right-3 top-3 z-20"
       />
       <Link
         href={`/catalog/${strainSlug(strain.name)}`}
-        className="flex items-stretch overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-accent/50"
+        className="group flex items-stretch overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-lg active:scale-[0.995]"
       >
-        {/* Artwork column — flush to the card's left/top/bottom edges (no
-            inner border or padding), so the image *is* the start of the
-            block and flows straight into the content. A fixed-width left
-            panel that fills the full row height: the art is cropped to fill
-            (object-cover) rather than shown whole, because a full-height 3:4
-            portrait would blow the row up to a full screen and hide the
-            strain's own data. Without art it's the time-of-day gradient. */}
+        {/* Art cover — carries the match score and tagline only; name/tier and
+            the data live on the cream info panel to the right. */}
         <div
-          className="relative w-[124px] shrink-0 self-stretch overflow-hidden sm:w-[160px]"
+          className="relative w-[32%] min-w-[108px] max-w-[180px] shrink-0 self-stretch overflow-hidden text-white"
           style={{ background: palette.background }}
         >
           {artSrc && (
@@ -614,86 +611,121 @@ function CatalogRow({
                 alt=""
                 aria-hidden
                 loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-hover:brightness-[1.08]"
                 style={{ objectPosition: artFocusOf(identity) }}
               />
               <div
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.08) 55%, rgba(0,0,0,0) 80%)",
+                    "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 78%)",
                 }}
               />
             </>
           )}
-          <span className="absolute left-2 top-2 z-10 inline-flex h-9 w-9 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md">
-            <span className="font-display text-xs font-semibold leading-none">
-              {badgeValue}
+          <span className="absolute left-2 top-2 z-10 inline-flex h-10 w-10 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md">
+            <span className="font-display text-sm font-semibold leading-none">
+              {Math.round(badgeValue)}
             </span>
             <span className="text-[6px] uppercase tracking-[0.14em] text-muted-foreground">
               {badgeLabel}
             </span>
           </span>
-          {identity?.tagline && (
+          {tagline && (
             <span
-              className="absolute bottom-2 left-2 right-2 z-10 font-display text-[10px] italic leading-tight"
-              style={{ color: palette.accent }}
+              className="absolute inset-x-2.5 bottom-2.5 z-10 font-display text-[11px] italic leading-snug"
+              style={{
+                color: artSrc
+                  ? undefined
+                  : palette.contentTone === "light"
+                    ? undefined
+                    : palette.accent,
+              }}
             >
-              {identity.tagline}
+              {tagline}
             </span>
           )}
         </div>
 
-        {/* Main info column */}
-        <div className="min-w-0 flex-1 p-4 sm:p-5">
-          {/* pr reserves room for the absolute Compare control top-right. */}
-          <div className="flex flex-wrap items-center gap-1.5 pr-28">
+        {/* Info panel — name + tier, then a three-column sensory teaser, then
+            an explore affordance (the whole card is the link). */}
+        <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
+          <div className="pr-24">
             <Badge variant="outline" className="capitalize">
               {strain.type}
             </Badge>
+            <h3 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight line-clamp-1">
+              {strain.name}
+            </h3>
+            {tier && (
+              <span className="mt-1.5 inline-block rounded-full border border-brass/40 bg-brass/5 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-brass">
+                {tier}
+              </span>
+            )}
           </div>
-          <h3 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight">
-            {strain.name}
-          </h3>
-          {aliasPreview && (
-            <p className="mt-0.5 truncate text-xs text-muted-foreground">
-              aka {aliasPreview}
-              {(strain.aliases?.length ?? 0) > 3 ? " …" : ""}
-            </p>
-          )}
 
-          {/* Effect glyphs with labels */}
-          <div className="mt-3">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              Effect
-            </p>
-            <ul className="mt-1.5 flex flex-wrap gap-x-4 gap-y-2">
-              {strain.effects.slice(0, 4).map((e) => {
+          <div className="mt-4 grid grid-cols-3 gap-3">
+            <TeaserColumn label="Top effects">
+              {strain.effects.slice(0, 3).map((e) => {
                 const Icon = effectIconFor(e);
                 return (
                   <li
                     key={`effect-${e}`}
-                    className="flex flex-col items-center gap-1 text-[10px] text-muted-foreground"
+                    className="flex items-center gap-1.5 text-xs text-foreground"
                   >
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-muted/40">
-                      <Icon className="h-4 w-4" aria-hidden />
-                    </span>
-                    {labelFor(e)}
+                    <Icon
+                      className="h-3 w-3 shrink-0 text-muted-foreground"
+                      aria-hidden
+                    />
+                    <span className="truncate">{labelFor(e)}</span>
                   </li>
                 );
               })}
-            </ul>
+            </TeaserColumn>
+            <TeaserColumn label="Aroma">
+              {strain.aromas.slice(0, 3).map((a) => (
+                <li key={`aroma-${a}`}>
+                  <span className="inline-block rounded-full bg-brass/10 px-2 py-0.5 text-[10px] text-brass">
+                    {labelFor(a)}
+                  </span>
+                </li>
+              ))}
+            </TeaserColumn>
+            <TeaserColumn label="Flavor">
+              {strain.flavors.slice(0, 3).map((f) => (
+                <li key={`flavor-${f}`}>
+                  <span className="inline-block rounded-full bg-accent/10 px-2 py-0.5 text-[10px] text-accent">
+                    {labelFor(f)}
+                  </span>
+                </li>
+              ))}
+            </TeaserColumn>
           </div>
 
-          {/* Aroma / Flavor chips — single column at every width, matching
-              the reference (no separate desktop rail). */}
-          <div className="mt-3 space-y-2">
-            <TagRow label="Aroma" values={strain.aromas.slice(0, 4)} kind="aroma" />
-            <TagRow label="Flavor" values={strain.flavors.slice(0, 3)} kind="flavor" />
-          </div>
+          <span className="mt-4 flex items-center justify-center gap-1.5 rounded-xl border border-border bg-background py-2 text-xs font-medium text-foreground transition-colors group-hover:border-accent/40 group-hover:bg-card">
+            Explore full profile →
+          </span>
         </div>
       </Link>
     </li>
+  );
+}
+
+// One column of the row card's sensory teaser (label + a short list).
+function TeaserColumn({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="min-w-0">
+      <p className="text-[9px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
+        {label}
+      </p>
+      <ul className="mt-1.5 space-y-1">{children}</ul>
+    </div>
   );
 }
 

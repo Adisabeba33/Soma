@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { StrainInput } from "@/components/strain-input";
+import { RunPrioritiesModal } from "@/components/run-priorities-modal";
 import { TasteProfileSummary } from "@/components/taste-profile-summary";
 import { ResultsView } from "@/components/results-view";
 import { MenuQualityReport } from "@/components/menu-quality-report";
@@ -17,12 +18,18 @@ import {
 } from "@/lib/profile-state";
 import type { ParsedMenuItem } from "@/lib/parse-menu";
 import type { ProfileContradiction } from "@/lib/profile-contradictions";
-import type { MenuQuality, StrainMatch } from "@/lib/types";
+import type { MenuQuality, StrainMatch, TasteProfileInput } from "@/lib/types";
 import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
+import {
+  profileCompleteness,
+  MATCH_GATE_PERCENT,
+  type CompletenessItem,
+} from "@/lib/profile-completeness";
+import { ProfileProgressRing, ProfileMissingList } from "@/components/profile-progress";
 import type { Verdict } from "@/components/feedback-pill";
 import { AuditPanel } from "@/components/audit-panel";
 
-type Phase = "loading" | "profile" | "input" | "results";
+type Phase = "loading" | "profile" | "gated" | "input" | "results";
 type Rec = StrainMatch & { id?: string };
 
 export function TasteMatchClient() {
@@ -35,9 +42,25 @@ export function TasteMatchClient() {
   const [strains, setStrains] = useState<string[]>([]);
   const [parsedItems, setParsedItems] = useState<ParsedMenuItem[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
+  // Per-run dense↔fluffy preference (−1…+1). 0 = no preference (default).
+  const [densityPref, setDensityPref] = useState(0);
+  // Per-run channel priorities (−1…+1 each). 0 = normal balance (default).
+  const [prioSenses, setPrioSenses] = useState(0);
+  const [prioEffect, setPrioEffect] = useState(0);
+  // The priorities popup shown after the user hits "Run Taste Match".
+  const [showPriorities, setShowPriorities] = useState(false);
+  // Slider values captured at the moment of the run, so the Audit reflects what
+  // was applied even if the user moves the sliders afterwards.
+  const [runSettings, setRunSettings] = useState({
+    senses: 0,
+    effect: 0,
+    density: 0,
+  });
   const [savingProfile, setSavingProfile] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recommendations, setRecommendations] = useState<Rec[]>([]);
+  // Audit mode is owner-only; the API reports whether this account is the owner.
+  const [isOwner, setIsOwner] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [engine, setEngine] = useState<"builtin" | "openai">("builtin");
   const [menuQuality, setMenuQuality] = useState<MenuQuality | null>(null);
@@ -47,6 +70,11 @@ export function TasteMatchClient() {
   // The visitor's own verdicts (loved/good/neutral/avoid) per strain, so a
   // result they've already rated can show a "You loved it" badge.
   const [verdicts, setVerdicts] = useState<Record<string, Verdict>>({});
+  // Profile completeness — matching is gated until MATCH_GATE_PERCENT.
+  const [completion, setCompletion] = useState<{
+    percent: number;
+    missing: CompletenessItem[];
+  }>({ percent: 0, missing: [] });
 
   useEffect(() => {
     fetch("/api/strain-feedback")
@@ -75,7 +103,13 @@ export function TasteMatchClient() {
         const result = profileFromApi(d.profile);
         setProfile(result.state);
         setContradictions(d.contradictions ?? []);
-        setPhase(result.exists ? "input" : "profile");
+        const c = d.profile
+          ? profileCompleteness(d.profile as TasteProfileInput)
+          : null;
+        setCompletion({ percent: c?.percent ?? 0, missing: c?.missing ?? [] });
+        if (!result.exists) setPhase("profile");
+        else if ((c?.percent ?? 0) < MATCH_GATE_PERCENT) setPhase("gated");
+        else setPhase("input");
       })
       .catch(() => setPhase("profile"));
   }, []);
@@ -128,6 +162,8 @@ export function TasteMatchClient() {
             ? parsedItems.map((i) => i.rawLine).join("\n")
             : strains.join("\n"),
           parsedItems,
+          densityPreference: densityPref,
+          priorities: { senses: prioSenses, effect: prioEffect },
         }),
       });
       const data = await res.json();
@@ -136,6 +172,12 @@ export function TasteMatchClient() {
         return;
       }
       setRecommendations(data.recommendations ?? []);
+      setRunSettings({
+        senses: prioSenses,
+        effect: prioEffect,
+        density: densityPref,
+      });
+      setIsOwner(Boolean(data.isOwner));
       setSessionId(data.session?.id ?? null);
       setEngine(data.engine === "openai" ? "openai" : "builtin");
       setMenuQuality(data.menuQuality ?? null);
@@ -219,6 +261,49 @@ export function TasteMatchClient() {
         </>
       )}
 
+      {phase === "gated" && (
+        <>
+          <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
+            Let&apos;s finish your profile first
+          </h1>
+          <p className="mt-3 leading-relaxed text-muted-foreground">
+            SŌMA needs a bit more to read your taste with confidence. Get your
+            sensory profile to {MATCH_GATE_PERCENT}% and matching unlocks.
+          </p>
+          <div className="mt-8 flex items-start gap-5 rounded-2xl border border-border bg-card p-6">
+            <ProfileProgressRing percent={completion.percent} size={76} />
+            <div className="min-w-0">
+              <p className="font-display text-lg font-semibold tracking-tight">
+                {completion.percent}% complete
+                <span className="text-muted-foreground">
+                  {" "}
+                  · need {MATCH_GATE_PERCENT}%
+                </span>
+              </p>
+              <p className="mt-1 text-sm text-muted-foreground">Still missing:</p>
+              <ProfileMissingList
+                missing={completion.missing.slice(0, 4)}
+                className="mt-2"
+              />
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="/onboarding/quick"
+                  className={buttonClass("primary", "md")}
+                >
+                  Continue the questionnaire
+                </Link>
+                <Link
+                  href="/profile"
+                  className={buttonClass("outline", "md")}
+                >
+                  Edit full profile
+                </Link>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
       {phase === "input" && (
         <>
           <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
@@ -239,13 +324,27 @@ export function TasteMatchClient() {
             <StrainInput
               strains={strains}
               onChange={setStrains}
-              onAnalyze={runAnalysis}
+              onAnalyze={() => setShowPriorities(true)}
               analyzing={analyzing}
               error={error}
               parsedItems={parsedItems}
               onParsedItemsChange={setParsedItems}
             />
           </div>
+          <RunPrioritiesModal
+            open={showPriorities}
+            onClose={() => setShowPriorities(false)}
+            onContinue={() => {
+              setShowPriorities(false);
+              runAnalysis();
+            }}
+            senses={prioSenses}
+            effect={prioEffect}
+            density={densityPref}
+            onSenses={setPrioSenses}
+            onEffect={setPrioEffect}
+            onDensity={setDensityPref}
+          />
         </>
       )}
 
@@ -317,10 +416,12 @@ export function TasteMatchClient() {
             depends on the grower, freshness and storage.
           </p>
 
-          {/* Audit mode — the engine's reasoning per strain. */}
-          <div className="mt-6">
-            <AuditPanel items={recommendations} />
-          </div>
+          {/* Audit mode — the engine's reasoning per strain. Owner-only. */}
+          {isOwner && (
+            <div className="mt-6">
+              <AuditPanel items={recommendations} runSettings={runSettings} />
+            </div>
+          )}
 
           <div className="mt-10">
             <ResultsView
@@ -331,7 +432,7 @@ export function TasteMatchClient() {
 
           <div className="mt-12 flex flex-wrap items-center gap-3 border-t border-border pt-8">
             <Link href="/saved" className={buttonClass("primary", "md")}>
-              View saved recommendations
+              View history
             </Link>
             <Link href="/compare" className={buttonClass("outline", "md")}>
               Compare strains side by side

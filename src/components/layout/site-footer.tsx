@@ -24,7 +24,7 @@ export function SiteFooter() {
                 Compare
               </Link>
               <Link href="/catalog" className="hover:text-accent">
-                Catalog
+                Harvest
               </Link>
               <Link href="/profile" className="hover:text-accent">
                 My Profile
@@ -34,11 +34,28 @@ export function SiteFooter() {
               <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
                 More
               </span>
+              <Link href="/learn" className="hover:text-accent">
+                Learn
+              </Link>
+              <Link href="/how-it-works" className="hover:text-accent">
+                How it works
+              </Link>
               <Link href="/saved" className="hover:text-accent">
-                Saved
+                History
               </Link>
               <Link href="/about" className="hover:text-accent">
                 About
+              </Link>
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                Legal
+              </span>
+              <Link href="/privacy" className="hover:text-accent">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-accent">
+                Terms
               </Link>
             </div>
           </nav>

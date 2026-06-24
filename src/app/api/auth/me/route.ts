@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
+import { isOwnerUsername } from "@/lib/owner";
 
 export const dynamic = "force-dynamic";
 
@@ -15,5 +16,6 @@ export async function GET() {
     username: user?.username ?? null,
     email: user?.email ?? null,
     emailVerified: Boolean(user?.emailVerified),
+    isOwner: isOwnerUsername(user?.username),
   });
 }

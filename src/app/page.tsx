@@ -1,6 +1,50 @@
 import Link from "next/link";
-import { ArrowRight, Leaf, ListChecks, Sparkles, Heart, Sprout } from "lucide-react";
+import {
+  ArrowRight,
+  Leaf,
+  ListChecks,
+  Sparkles,
+  Heart,
+  Sprout,
+  User,
+  BookOpen,
+  ChevronDown,
+  Mic,
+  Wand2,
+  Search,
+  GitCompareArrows,
+  History,
+} from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
+import { getUserIdReadOnly } from "@/lib/user";
+import { prisma } from "@/lib/prisma";
+import { getActiveProfile } from "@/lib/active-profile";
+import {
+  profileCompleteness,
+  MATCH_GATE_PERCENT,
+} from "@/lib/profile-completeness";
+import { ProfileProgressRing } from "@/components/profile-progress";
+import type { TasteProfileInput } from "@/lib/types";
+import { STRAINS, findStrain, normalizeStrainName } from "@/lib/strain-data";
+import { scoreStrain } from "@/lib/taste-engine";
+import { getFeedbackSignals } from "@/lib/api";
+import { strainSlug } from "@/lib/catalog";
+import { getIdentity } from "@/lib/strain-identity";
+import { artImageSrc, artFocusOf, timeProfileOf } from "@/lib/strain-art";
+import { paletteForTime } from "@/lib/sensory-family-palette";
+
+export const dynamic = "force-dynamic";
+
+type TopMatch = {
+  name: string;
+  slug: string;
+  type: string;
+  score: number;
+  category: string;
+  img: string | null;
+  focus: string;
+  bg: string;
+};
 
 const STEPS = [
   {
@@ -20,90 +64,344 @@ const STEPS = [
   },
 ];
 
-export default function HomePage() {
+// The home page adapts to who's here: anonymous / first-time visitors get the
+// "meet the sommelier" marketing greeting; a registered, logged-in user lands on
+// their account dashboard instead — no re-running the questionnaire or login.
+export default async function HomePage() {
+  const userId = await getUserIdReadOnly();
+  const user = userId
+    ? await prisma.user.findUnique({
+        where: { id: userId },
+        select: { passwordHash: true, username: true },
+      })
+    : null;
+
+  if (user?.passwordHash) {
+    // The dashboard data (profile + per-strain scoring) must never take the
+    // home page — and the post-login redirect to it — down. Anything that
+    // throws here degrades gracefully to the shell without the carousel.
+    let percent = 0;
+    let topMatches: TopMatch[] = [];
+    try {
+      const profile = await getActiveProfile(userId!);
+      if (profile) {
+        const p = profile as unknown as TasteProfileInput;
+        percent = profileCompleteness(p).percent;
+
+        // Top catalog matches for the carousel — only once the profile clears
+        // the gate, so we never show a "best match" off a too-thin profile.
+        if (percent >= MATCH_GATE_PERCENT) {
+          const feedback = await getFeedbackSignals(userId!);
+          // Exclude the user's own favourites — they anchor near the top
+          // (94–96%) and the carousel is for DISCOVERY. Resolved to canonical
+          // names so aliases (e.g. Gorilla Glue → GG4) match.
+          const favourites = new Set(
+            (p.favoriteStrains ?? [])
+              .map((f) => normalizeStrainName(findStrain(f)?.name ?? f))
+              .filter(Boolean),
+          );
+          topMatches = STRAINS.filter(
+            (s) => !favourites.has(normalizeStrainName(s.name)),
+          )
+            .map((s) => {
+              const m = scoreStrain(s.name, p, feedback);
+              const identity = getIdentity(s.name);
+              return {
+                name: s.name,
+                slug: strainSlug(s.name),
+                type: s.type,
+                score: m.matchScore,
+                category: m.category,
+                img: artImageSrc(s, identity),
+                focus: artFocusOf(identity),
+                bg: paletteForTime(timeProfileOf(s, identity)).background,
+              };
+            })
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 12);
+        }
+      }
+    } catch (err) {
+      console.error("home dashboard data failed", err);
+    }
+
+    return (
+      <LoggedInHome
+        username={user.username}
+        percent={percent}
+        topMatches={topMatches}
+      />
+    );
+  }
+
+  return <AnonymousHome />;
+}
+
+// Registered users' dashboard: the deterministic engine on their saved profile,
+// plus a placeholder for the conversational/voice LLM quick-pick (ships once the
+// AI layer is activated — it builds a throwaway profile from a description, not
+// the saved one).
+function LoggedInHome({
+  username,
+  percent,
+  topMatches,
+}: {
+  username: string | null;
+  percent: number;
+  topMatches: TopMatch[];
+}) {
+  const canMatch = percent >= MATCH_GATE_PERCENT;
   return (
-    <div>
-      {/* Hero */}
-      <section className="mx-auto max-w-editorial px-5 pb-20 pt-20 sm:px-8 sm:pt-28">
+    <section className="relative flex min-h-[calc(100vh-4rem)] flex-col overflow-hidden">
+      {/* Soft apothecary backdrop; frosted cards float over it. */}
+      <img
+        src="/hero/dashboard.png"
+        alt=""
+        aria-hidden
+        className="absolute inset-0 h-full w-full object-cover object-top"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background/75"
+        aria-hidden
+      />
+
+      <div className="relative z-10 mx-auto flex w-full max-w-editorial flex-1 flex-col px-5 py-12 sm:px-8">
         <p className="text-xs uppercase tracking-[0.28em] text-brass">
           Sensory Sommelier
         </p>
-        <h1 className="mt-5 max-w-3xl font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
-          Stop paying for flower you&apos;ll{" "}
-          <span className="italic text-accent">never love</span>.
+        <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          Welcome back{username ? `, @${username}` : ""}.
         </h1>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-          SŌMA reads your taste and tells you what&apos;s worth your money on any
-          menu — <span className="italic">before</span> you buy.
+        <p className="mt-3 max-w-xl text-lg leading-relaxed text-foreground/70">
+          Two ways to find your flower.
         </p>
 
-        <div className="mt-12">
-          <p className="font-display text-2xl font-semibold tracking-tight">
-            What brought you here today?
-          </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            {/* Primary path — most visitors are standing at a menu. */}
-            <Link
-              href="/taste-match"
-              className="group flex flex-col rounded-2xl border border-accent bg-accent/5 p-6 text-left transition-colors hover:bg-accent/10"
-            >
+        <div className="mt-9 grid gap-5 sm:grid-cols-2">
+          {/* Element 1 — the deterministic engine on the saved profile. */}
+          <div className="flex flex-col rounded-2xl border border-accent/40 bg-white/60 p-6 shadow-xl backdrop-blur-md">
+            <div className="flex items-center gap-3">
               <Leaf className="h-6 w-6 text-accent" />
-              <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
-                I&apos;m choosing from a menu
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                &ldquo;I have strains in front of me.&rdquo;
-              </p>
-              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
-                Find My Flower
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
-            </Link>
-
-            <Link
-              href="/onboarding/experience"
-              className="group flex flex-col rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
-            >
-              <Heart className="h-6 w-6 text-brass" />
-              <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
-                I already know what I love
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                &ldquo;I want similar recommendations.&rdquo;
-              </p>
-              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
-                Build From Experience
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
-            </Link>
-
-            <Link
-              href="/onboarding/quick"
-              className="group flex flex-col rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
-            >
-              <Sprout className="h-6 w-6 text-brass" />
-              <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
-                I&apos;m new to cannabis
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                &ldquo;I need help discovering my taste.&rdquo;
-              </p>
-              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
-                Guide Me
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
-            </Link>
+              <h2 className="font-display text-xl font-semibold tracking-tight">
+                Taste Match
+              </h2>
+            </div>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+              Score any menu against your saved sensory profile — ranked Best
+              Match to Avoid, with the reasoning and the honest risks.
+            </p>
+            <div className="mt-5 flex items-center gap-3">
+              <ProfileProgressRing percent={percent} size={52} />
+              <div className="text-sm">
+                <p className="font-medium">{percent}% profile</p>
+                <p className="text-muted-foreground">
+                  {canMatch
+                    ? "Ready to match"
+                    : `Need ${MATCH_GATE_PERCENT}% to match`}
+                </p>
+              </div>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link
+                href={canMatch ? "/taste-match" : "/profile"}
+                className={buttonClass("primary", "md")}
+              >
+                {canMatch ? "Find my flower" : `Finish to ${MATCH_GATE_PERCENT}%`}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/profile"
+                className="inline-flex items-center justify-center rounded-xl border border-border bg-white/50 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-white/80"
+              >
+                Sensory profile
+              </Link>
+            </div>
           </div>
-          <div className="mt-5">
-            <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground">
-              How it works →
-            </Link>
+
+          {/* Element 2 — conversational / voice LLM quick-pick (stub). */}
+          <div className="relative flex flex-col rounded-2xl border border-white/55 bg-white/45 p-6 shadow-xl backdrop-blur-md">
+            <span className="absolute right-4 top-4 rounded-full bg-white/70 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+              Coming soon
+            </span>
+            <div className="flex items-center gap-3">
+              <Wand2 className="h-6 w-6 text-brass" />
+              <h2 className="font-display text-xl font-semibold tracking-tight">
+                Talk to SŌMA
+              </h2>
+            </div>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+              No time for the profile? Just say what you&apos;re after —
+              &ldquo;something mellow for an evening film&rdquo; — and SŌMA builds
+              a one-off read on the spot and picks for you. Voice &amp; AI,
+              landing soon.
+            </p>
+            <div className="mt-5 flex items-center gap-2 text-sm text-muted-foreground">
+              <Mic className="h-4 w-4" />
+              <span>Voice-driven, no profile needed</span>
+            </div>
           </div>
         </div>
+
+        {/* Tab bar — frosted, icon + label. */}
+        <div className="mt-8">
+          <nav className="flex items-center justify-around rounded-2xl border border-white/55 bg-white/55 px-2 py-2 shadow-lg backdrop-blur-md">
+            <TabLink href="/compare" icon={GitCompareArrows} label="Compare" />
+            <TabLink href="/catalog" icon={Search} label="Harvest" />
+            <TabLink href="/saved" icon={History} label="History" />
+            <TabLink href="/account" icon={User} label="Account" />
+          </nav>
+        </div>
+
+        {/* Best matches carousel — horizontal scroll, compact frosted cards. */}
+        {topMatches.length > 0 && (
+          <section className="mt-10">
+            <h2 className="font-display text-xl font-semibold tracking-tight">
+              Best match for your sensory profile
+            </h2>
+            <div className="mt-4 -mx-5 flex snap-x gap-3 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0">
+              {topMatches.map((m) => (
+                <Link
+                  key={m.slug}
+                  href={`/catalog/${m.slug}`}
+                  className="w-36 shrink-0 snap-start overflow-hidden rounded-2xl border border-white/55 bg-white/55 shadow-md backdrop-blur-md transition-colors hover:bg-white/80 sm:w-40"
+                >
+                  <div className="relative aspect-[3/4]">
+                    {m.img ? (
+                      <img
+                        src={m.img}
+                        alt=""
+                        className="absolute inset-0 h-full w-full object-cover"
+                        style={{ objectPosition: m.focus }}
+                      />
+                    ) : (
+                      <div
+                        className="absolute inset-0"
+                        style={{ background: m.bg }}
+                      />
+                    )}
+                    <span className="absolute right-2 top-2 rounded-full bg-black/45 px-2 py-0.5 font-display text-xs font-semibold text-white backdrop-blur-sm">
+                      {m.score}%
+                    </span>
+                  </div>
+                  <div className="p-3">
+                    <span className="line-clamp-2 font-display text-sm font-semibold leading-tight tracking-tight">
+                      {m.name}
+                    </span>
+                    <span className="mt-0.5 block text-[0.62rem] uppercase tracking-[0.14em] text-muted-foreground">
+                      {m.type}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function TabLink({
+  href,
+  icon: Icon,
+  label,
+}: {
+  href: string;
+  icon: typeof Leaf;
+  label: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="flex flex-1 flex-col items-center gap-1 rounded-xl py-1.5 text-muted-foreground transition-colors hover:text-foreground"
+    >
+      <Icon className="h-5 w-5" />
+      <span className="text-[0.7rem] font-medium">{label}</span>
+    </Link>
+  );
+}
+
+function AnonymousHome() {
+  return (
+    <div>
+      {/* ── Greeting — a full-screen "meeting the sommelier" moment. ──────
+          A portrait shot of the SŌMA apothecary; object-top keeps the branded
+          sign + jars in frame while the card sits over the counter below. The
+          gradient is a fallback behind the photo. */}
+      <section className="relative flex min-h-[calc(100vh-4rem)] items-end justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[#e9e1d2] via-[#d9cdb8] to-[#cdbfa6]"
+          aria-hidden
+        />
+        <img
+          src="/hero/hero.png"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover object-top"
+        />
+        {/* Gentle bottom scrim so the cream card reads over the light counter. */}
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent"
+          aria-hidden
+        />
+
+        <div className="relative z-10 mx-4 mb-14 w-full max-w-md rounded-[1.75rem] border border-white/40 bg-[#f4eee2]/85 p-7 text-center shadow-2xl backdrop-blur-xl sm:mb-20 sm:p-8">
+          <h1 className="font-display text-[2.1rem] font-semibold leading-[1.1] tracking-tight text-[#2a2018] sm:text-4xl">
+            Your personal cannabis sommelier.
+          </h1>
+
+          <div className="mt-4 flex items-center justify-center gap-2 text-brass/70">
+            <span className="h-px w-8 bg-current opacity-50" />
+            <Sparkles className="h-3.5 w-3.5" />
+            <span className="h-px w-8 bg-current opacity-50" />
+          </div>
+
+          <p className="mt-4 text-sm leading-relaxed text-[#5c5040]">
+            Hi, I&apos;m <span className="font-medium text-[#2a2018]">SŌMA</span>,
+            a professional cannabis sommelier. My job is to save you money on
+            flower you were never going to love.
+          </p>
+
+          <div className="mt-7 space-y-3">
+            <Link
+              href="/login"
+              className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-[#2a2018]/20 bg-white/50 px-5 py-3.5 text-sm font-medium text-[#2a2018] transition-colors hover:bg-white/70"
+            >
+              <User className="h-4 w-4" />
+              I already have an account
+            </Link>
+            <Link
+              href="/onboarding/quick"
+              className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-[#2a2018] px-5 py-3.5 text-sm font-semibold text-[#f4eee2] transition-colors hover:bg-[#3a2e1f]"
+            >
+              <Sparkles className="h-4 w-4 text-brass" />
+              I&apos;m new — continue
+            </Link>
+            <a
+              href="#learn-more"
+              className="flex w-full items-center justify-center gap-2.5 rounded-xl px-5 py-3 text-sm font-medium text-[#5c5040] transition-colors hover:bg-white/40"
+            >
+              <BookOpen className="h-4 w-4" />
+              Learn more about the product
+            </a>
+          </div>
+        </div>
+
+        {/* Scroll hint — same destination as "Learn more". */}
+        <a
+          href="#learn-more"
+          aria-label="Learn more"
+          className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 text-white/70 transition-colors hover:text-white"
+        >
+          <ChevronDown className="h-6 w-6 animate-bounce" />
+        </a>
       </section>
 
-      {/* Problem */}
-      <section className="border-y border-border bg-card">
+      {/* ── Learn more — the project, explained, for anyone who wants the
+          full story before they start. ─────────────────────────────────── */}
+      <section
+        id="learn-more"
+        className="scroll-mt-20 border-y border-border bg-card"
+      >
         <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
           <div className="grid gap-10 sm:grid-cols-[1fr_1.2fr] sm:gap-16">
             <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight">
@@ -195,22 +493,81 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="mx-auto max-w-editorial px-5 py-24 text-center sm:px-8">
-        <h2 className="mx-auto max-w-2xl font-display text-4xl font-semibold leading-tight tracking-tight">
-          Stop guessing at the counter.
-        </h2>
-        <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-          Build your taste profile once. Bring SŌMA to every menu after that.
+      {/* Branch — for anyone who'd rather pick their own path. */}
+      <section className="mx-auto max-w-editorial px-5 py-20 sm:px-8">
+        <p className="font-display text-2xl font-semibold tracking-tight">
+          What brought you here today?
         </p>
-        <div className="mt-8">
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {/* Primary path — most visitors are standing at a menu. */}
           <Link
             href="/taste-match"
-            className={buttonClass("primary", "lg")}
+            className="group flex flex-col rounded-2xl border border-accent bg-accent/5 p-6 text-left transition-colors hover:bg-accent/10"
           >
-            Find My Flower
-            <ArrowRight className="h-4 w-4" />
+            <Leaf className="h-6 w-6 text-accent" />
+            <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
+              I&apos;m choosing from a menu
+            </h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+              &ldquo;I have strains in front of me.&rdquo;
+            </p>
+            <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+              Find My Flower
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </span>
           </Link>
+
+          <Link
+            href="/onboarding/experience"
+            className="group flex flex-col rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
+          >
+            <Heart className="h-6 w-6 text-brass" />
+            <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
+              I already know what I love
+            </h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+              &ldquo;I want similar recommendations.&rdquo;
+            </p>
+            <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
+              Build From Experience
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+
+          <Link
+            href="/onboarding/quick"
+            className="group flex flex-col rounded-2xl border border-border bg-card p-6 text-left transition-colors hover:border-accent/40"
+          >
+            <Sprout className="h-6 w-6 text-brass" />
+            <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
+              I&apos;m new to cannabis
+            </h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+              &ldquo;I need help discovering my taste.&rdquo;
+            </p>
+            <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass">
+              Guide Me
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="border-t border-border bg-card">
+        <div className="mx-auto max-w-editorial px-5 py-24 text-center sm:px-8">
+          <h2 className="mx-auto max-w-2xl font-display text-4xl font-semibold leading-tight tracking-tight">
+            Stop guessing at the counter.
+          </h2>
+          <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
+            Build your taste profile once. Bring SŌMA to every menu after that.
+          </p>
+          <div className="mt-8">
+            <Link href="/onboarding/quick" className={buttonClass("primary", "lg")}>
+              Get started
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
     </div>

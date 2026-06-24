@@ -1,8 +1,7 @@
 import { Suspense } from "react";
-import { cookies } from "next/headers";
 import { buildCatalog, type CatalogMatch } from "@/lib/catalog";
-import { prisma } from "@/lib/prisma";
-import { SOMA_UID_COOKIE } from "@/lib/user";
+import { getActiveProfile } from "@/lib/active-profile";
+import { getUserIdReadOnly } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
 import { scoreStrain } from "@/lib/taste-engine";
 import { STRAINS } from "@/lib/strain-data";
@@ -13,7 +12,7 @@ import { FeedbackReset } from "@/components/feedback-reset";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Catalog — SŌMA",
+  title: "Harvest — SŌMA",
   description:
     "Every strain SOMA knows about. Sensory data, aliases, archetype and nearest matches — the same source the Taste Match Engine reads.",
 };
@@ -25,14 +24,10 @@ async function loadMatches(): Promise<{
   matches: Record<string, CatalogMatch>;
   hasProfile: boolean;
 }> {
-  const store = await cookies();
-  const userId = store.get(SOMA_UID_COOKIE)?.value;
+  const userId = await getUserIdReadOnly();
   if (!userId) return { matches: {}, hasProfile: false };
 
-  const profile = await prisma.tasteProfile.findFirst({
-    where: { userId },
-    orderBy: { updatedAt: "desc" },
-  });
+  const profile = await getActiveProfile(userId);
   if (!profile) return { matches: {}, hasProfile: false };
 
   const feedback = await getFeedbackSignals(userId);
@@ -54,7 +49,7 @@ export default async function CatalogPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
-      <p className="text-xs uppercase tracking-[0.24em] text-brass">Catalog</p>
+      <p className="text-xs uppercase tracking-[0.24em] text-brass">Harvest</p>
       <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
         What SŌMA knows
       </h1>

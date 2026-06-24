@@ -54,6 +54,11 @@ model TasteProfile {
   id                 String   @id @default(uuid())
   userId             String
   user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Multiple named profiles per account (max 3, enforced in the API). Exactly
+  // one isActive=true per user drives all matching. Existing rows backfilled to
+  // name "Main" + active.
+  name               String?
+  isActive           Boolean  @default(false)
   favoriteStrains    String[]
   dislikedStrains    String[]
   likedTraits        String[]
@@ -76,6 +81,16 @@ model TasteProfile {
   primaryAroma       String?  // gas | earthfunk | citrus | sweet | fruit | pineherb
   primaryEffect      String?  // calm | knockout | social | lifted | sharp
   useTime            String?  // morning | daytime | evening | bed
+  // How the person consumes. Legacy single value (smokingMethod) kept for
+  // back-compat; smokingMethods is the multi-select successor. Values: joint |
+  // blunt | pipe | bong | vape. Nullable / default-empty so old rows stay valid.
+  smokingMethod      String?
+  smokingMethods     String[] @default([])
+  // Preferred bud structure: dense | airy | fluffy | popcorn | larfy. Nullable;
+  // captured now, scored once the catalog carries these tags.
+  budStructure       String?
+  // Preferred plant type: indica | sativa | hybrid | any. Soft signal, nullable.
+  preferredType      String?
   bodyFeel           Int?     // 0 (clear/light) .. 100 (heavy/couch-lock)
   potencyPreference  String?  // mild | balanced | strong (how hard-hitting)
   // Strain "families" the user seeks out / usually avoids (buying behaviour,

@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
+import { isOwner } from "@/lib/owner";
 
 export const dynamic = "force-dynamic";
 
-// One-call dump of the requester's RunAudit rows (both Taste Match and
-// Compare). Owner-only: scoped by the anonymous user cookie. Returns a
-// downloadable JSON array of full snapshots so the local jq /
-// pattern-review workflow keeps working in production.
+// One-call dump of the owner's RunAudit rows (both Taste Match and Compare).
+// Gated to the owner account (see isOwner); everyone else gets a 404. Returns
+// a downloadable JSON array of full snapshots so the local jq / pattern-review
+// workflow keeps working in production.
 //
 // Query params:
 //   ?since=ISO_DATE   — only runs after this timestamp
@@ -15,6 +16,13 @@ export const dynamic = "force-dynamic";
 //   ?source=NAME      — filter to "taste-match" or "compare" only
 export async function GET(req: NextRequest) {
   const userId = await getUserId();
+
+  // Owner-only. 404 (not 403) so the endpoint's existence isn't confirmed to
+  // anyone but the owner account.
+  if (!(await isOwner(userId))) {
+    return NextResponse.json({ error: "Not found." }, { status: 404 });
+  }
+
   const params = req.nextUrl.searchParams;
   const limit = Math.min(
     Math.max(parseInt(params.get("limit") ?? "500", 10) || 500, 1),

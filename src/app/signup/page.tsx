@@ -11,12 +11,17 @@ export default function SignupPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (password !== confirm) {
+      setError("Passwords don't match — please re-enter them.");
+      return;
+    }
     setBusy(true);
     setError(null);
     try {
@@ -91,10 +96,32 @@ export default function SignupPage() {
             autoComplete="new-password"
           />
         </div>
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">
+            Confirm password
+          </label>
+          <input
+            className={inputClass}
+            type="password"
+            value={confirm}
+            onChange={(e) => setConfirm(e.target.value)}
+            placeholder="re-enter your password"
+            autoComplete="new-password"
+          />
+          {confirm.length > 0 && confirm !== password && (
+            <p className="mt-1.5 text-xs text-[#a23b2c]">
+              Passwords don&apos;t match yet.
+            </p>
+          )}
+        </div>
         {error && (
           <p className="rounded-xl bg-[#a23b2c]/10 px-4 py-3 text-sm text-[#a23b2c]">{error}</p>
         )}
-        <button type="submit" disabled={busy} className={buttonClass("primary", "lg", "w-full")}>
+        <button
+          type="submit"
+          disabled={busy || password.length === 0 || password !== confirm}
+          className={buttonClass("primary", "lg", "w-full")}
+        >
           {busy ? "Creating…" : "Create account"}
         </button>
       </form>

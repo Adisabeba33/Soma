@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { getActiveProfile } from "@/lib/active-profile";
+import { isOwner, redactAuditFields } from "@/lib/owner";
 import { getUserId } from "@/lib/user";
 import {
   asArray,
@@ -16,6 +18,7 @@ import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
 import type { TasteProfileInput } from "@/lib/types";
+import { profileCompleteness, MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +27,20 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
 
   const strains = asArray(body.strains, 60);
+  // Per-run dense↔fluffy slider (−1 fluffy … +1 dense). Clamped; 0/absent =
+  // no structure preference for this run. Does not touch the saved profile.
+  const densityPreference =
+    typeof body.densityPreference === "number" && !Number.isNaN(body.densityPreference)
+      ? Math.max(-1, Math.min(1, body.densityPreference))
+      : 0;
+  // Per-run channel priority sliders (−1…+1 each). Clamped; 0/absent = no
+  // change. Does not touch the saved profile.
+  const clampPref = (v: unknown) =>
+    typeof v === "number" && !Number.isNaN(v) ? Math.max(-1, Math.min(1, v)) : 0;
+  const priorities = {
+    senses: clampPref(body.priorities?.senses),
+    effect: clampPref(body.priorities?.effect),
+  };
   const inputType = body.inputType === "paste" ? "paste" : "manual";
   const rawInput = asText(body.rawInput, 12_000) ?? strains.join("\n");
   const parsedItems = sanitizeParsedItems(body.parsedItems, 60);
@@ -35,14 +52,24 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const profile = await prisma.tasteProfile.findFirst({
-    where: { userId },
-    orderBy: { updatedAt: "desc" },
-  });
+  const profile = await getActiveProfile(userId);
 
   if (!profile) {
     return NextResponse.json(
       { error: "Build your taste profile before running an analysis." },
+      { status: 400 },
+    );
+  }
+
+  // Gate: matching needs enough of the profile to read a taste with confidence.
+  const completion = profileCompleteness(profile as unknown as TasteProfileInput);
+  if (completion.percent < MATCH_GATE_PERCENT) {
+    return NextResponse.json(
+      {
+        error: `Finish your sensory profile to ${MATCH_GATE_PERCENT}% to start matching.`,
+        gated: true,
+        percent: completion.percent,
+      },
       { status: 400 },
     );
   }
@@ -55,7 +82,14 @@ export async function POST(req: NextRequest) {
   // key is added; with one, unknown names get a vocab-constrained profile.
   const unknownNames = strains.filter((name) => !resolveStrain(name).known);
   const overrides = await inferStrainsAI(unknownNames);
-  let result = analyze(strains, profile, feedback, overrides);
+  let result = analyze(
+    strains,
+    profile,
+    feedback,
+    overrides,
+    densityPreference,
+    priorities,
+  );
   // The optional AI layer only rewrites prose; scores stay untouched.
   if (isOpenAIEnabled()) {
     result = await enhanceWithOpenAI(result, profile);
@@ -136,10 +170,17 @@ export async function POST(req: NextRequest) {
     console.error("taste-match audit failed", err);
   }
 
-  const recommendations = result.recommendations.map((r) => ({
-    ...r,
-    id: session.recommendations.find((d) => d.strainName === r.strainName)?.id,
-  }));
+  // Audit mode (the engine-internal breakdown) is owner-only. For everyone
+  // else the audit fields are stripped server-side, so they never reach the
+  // browser at all — the panel is hidden AND there's nothing to read.
+  const owner = await isOwner(userId);
+  const recommendations = result.recommendations.map((r) => {
+    const withId = {
+      ...r,
+      id: session.recommendations.find((d) => d.strainName === r.strainName)?.id,
+    };
+    return owner ? withId : redactAuditFields(withId);
+  });
 
   return NextResponse.json({
     session: {
@@ -154,5 +195,6 @@ export async function POST(req: NextRequest) {
     recommendations,
     engine: result.engine,
     menuQuality,
+    isOwner: owner,
   });
 }
