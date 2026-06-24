@@ -12,7 +12,7 @@
 // separate Phase 2 layer and deliberately absent here.
 
 import Link from "next/link";
-import { ArrowLeft, Heart, Meh, Smile, ThumbsDown } from "lucide-react";
+import { ArrowLeft, Bookmark, Heart, Meh, Smile, ThumbsDown } from "lucide-react";
 import { buildCatalog, curatedScore, strainSlug } from "@/lib/catalog";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 import { getUserIdReadOnly } from "@/lib/user";
@@ -83,8 +83,13 @@ const GROUPS: Array<{
 
 const VALID = new Set<Verdict>(["loved", "good", "neutral", "avoid"]);
 
+// Wishlist cards read as "ghosts": present but faded, since they haven't been
+// tried yet. They brighten on hover so they still feel reachable.
+const GHOST_FRAME = "rounded-2xl opacity-70 transition-opacity hover:opacity-100";
+
 async function load(): Promise<{
   rows: Row[];
+  wishlist: string[];
   entryByName: Map<string, CatalogEntry>;
   matchByName: Record<string, CatalogMatch>;
   hasProfile: boolean;
@@ -94,7 +99,7 @@ async function load(): Promise<{
 
   const userId = await getUserIdReadOnly();
   if (!userId) {
-    return { rows: [], entryByName, matchByName: {}, hasProfile: false };
+    return { rows: [], wishlist: [], entryByName, matchByName: {}, hasProfile: false };
   }
 
   // Graceful degrade if the StrainFeedback table hasn't been provisioned yet
@@ -111,6 +116,17 @@ async function load(): Promise<{
   const rows: Row[] = raw
     .filter((r): r is Row => VALID.has(r.verdict as Verdict))
     .map((r) => ({ ...r, verdict: r.verdict as Verdict }));
+
+  // The "want to try" layer — kept in its own table, never scored. Disjoint
+  // from rows by construction (a verdict graduates a strain off the wishlist).
+  const wishRaw = await prisma.wishlist
+    .findMany({
+      where: { userId },
+      select: { strainName: true },
+      orderBy: { createdAt: "desc" },
+    })
+    .catch(() => [] as Array<{ strainName: string }>);
+  const wishlist = wishRaw.map((w) => w.strainName);
 
   // Personal match % on each card when a profile exists — computed only for
   // the collected strains (cheap), so the shelf shows *your* score, not the
@@ -130,12 +146,13 @@ async function load(): Promise<{
     }
   }
 
-  return { rows, entryByName, matchByName, hasProfile: Boolean(profile) };
+  return { rows, wishlist, entryByName, matchByName, hasProfile: Boolean(profile) };
 }
 
 export default async function CollectionPage() {
-  const { rows, entryByName, matchByName } = await load();
+  const { rows, wishlist, entryByName, matchByName } = await load();
   const total = rows.length;
+  const wishCount = wishlist.length;
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
@@ -164,11 +181,15 @@ export default async function CollectionPage() {
         .
       </p>
 
-      {total === 0 ? (
+      {total === 0 && wishCount === 0 ? (
         <div className="mt-12 rounded-2xl border border-dashed border-border bg-muted/30 px-6 py-14 text-center">
           <p className="text-sm text-muted-foreground">
             Your shelf is empty. Rate a strain anywhere — the catalog, Compare,
-            or Taste Match — and it lands here.
+            or Taste Match — and it lands here. Tap{" "}
+            <span className="whitespace-nowrap font-medium text-foreground">
+              Want to try
+            </span>{" "}
+            on any strain to start a wishlist.
           </p>
           <Link
             href="/catalog"
@@ -179,49 +200,92 @@ export default async function CollectionPage() {
         </div>
       ) : (
         <div className="mt-10 space-y-12">
-          {GROUPS.map((g) => {
-            const items = rows.filter((r) => r.verdict === g.value);
-            if (items.length === 0) return null;
-            return (
-              <section key={g.value}>
-                <div className="flex items-baseline gap-2">
-                  <g.Icon className={cn("h-4 w-4", g.tone)} aria-hidden />
-                  <h2 className={cn("font-display text-xl font-semibold", g.tone)}>
-                    {g.label}
-                  </h2>
-                  <span className="text-sm text-muted-foreground">
-                    {items.length}
-                  </span>
-                </div>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                  {g.blurb}
-                </p>
-                <ul className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4">
-                  {items.map((row) => {
-                    const entry = entryByName.get(row.strainName);
-                    if (!entry) {
+          {total > 0 &&
+            GROUPS.map((g) => {
+              const items = rows.filter((r) => r.verdict === g.value);
+              if (items.length === 0) return null;
+              return (
+                <section key={g.value}>
+                  <div className="flex items-baseline gap-2">
+                    <g.Icon className={cn("h-4 w-4", g.tone)} aria-hidden />
+                    <h2 className={cn("font-display text-xl font-semibold", g.tone)}>
+                      {g.label}
+                    </h2>
+                    <span className="text-sm text-muted-foreground">
+                      {items.length}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    {g.blurb}
+                  </p>
+                  <ul className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4">
+                    {items.map((row) => {
+                      const entry = entryByName.get(row.strainName);
+                      if (!entry) {
+                        return (
+                          <UncataloguedCard
+                            key={row.strainName}
+                            name={row.strainName}
+                            frame={g.frame}
+                          />
+                        );
+                      }
                       return (
-                        <UncataloguedCard
+                        <CatalogCollectibleCard
                           key={row.strainName}
-                          name={row.strainName}
-                          frame={g.frame}
+                          entry={entry}
+                          match={matchByName[row.strainName]}
+                          score={curatedScore(entry)}
+                          className={g.frame}
                         />
                       );
-                    }
+                    })}
+                  </ul>
+                </section>
+              );
+            })}
+
+          {/* Wishlist — "want to try". A separate layer: not yet tried, never
+              scored. Ghost cards keep it visibly distinct from the shelf. */}
+          {wishCount > 0 && (
+            <section>
+              <div className="flex items-baseline gap-2">
+                <Bookmark className="h-4 w-4 text-brass" aria-hidden />
+                <h2 className="font-display text-xl font-semibold text-brass">
+                  Wishlist
+                </h2>
+                <span className="text-sm text-muted-foreground">{wishCount}</span>
+              </div>
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                Strains you want to try. Rate one and it graduates onto the shelf
+                above. Doesn&apos;t touch your recommendations.
+              </p>
+              <ul className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4">
+                {wishlist.map((name) => {
+                  const entry = entryByName.get(name);
+                  if (!entry) {
                     return (
-                      <CatalogCollectibleCard
-                        key={row.strainName}
-                        entry={entry}
-                        match={matchByName[row.strainName]}
-                        score={curatedScore(entry)}
-                        className={g.frame}
+                      <UncataloguedCard
+                        key={name}
+                        name={name}
+                        frame={GHOST_FRAME}
                       />
                     );
-                  })}
-                </ul>
-              </section>
-            );
-          })}
+                  }
+                  return (
+                    <CatalogCollectibleCard
+                      key={name}
+                      entry={entry}
+                      score={curatedScore(entry)}
+                      className={GHOST_FRAME}
+                      wishlist
+                      wishlistSource="collection"
+                    />
+                  );
+                })}
+              </ul>
+            </section>
+          )}
         </div>
       )}
     </div>

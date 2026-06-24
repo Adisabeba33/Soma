@@ -28,6 +28,7 @@ model User {
   analysisSessions AnalysisSession[]
   feedback         Feedback[]
   strainFeedback   StrainFeedback[]
+  wishlist         Wishlist[]
   unknownStrains   UnknownStrain[]
   runAudits        RunAudit[]
   authTokens       AuthToken[]
@@ -195,6 +196,31 @@ model StrainFeedback {
   source     String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  @@unique([userId, strainName])
+  @@index([userId])
+}
+
+// Lightweight "want to try" intent — strains the user has tapped to save
+// before ever trying them. Deliberately SEPARATE from StrainFeedback: a
+// wishlist entry is intent, not a verdict, and must NEVER reach the engine.
+// The scoring loop (getFeedbackSignals -> evaluateFeedback) reads
+// StrainFeedback only; keeping wishlist in its own table makes leakage into
+// recommendations structurally impossible, not just filtered-out.
+//
+// Disjoint from the collection by construction: setting any StrainFeedback
+// verdict graduates a strain off the wishlist (see /api/strain-feedback POST,
+// which deletes the matching row). So a strain is either "want" (here) or
+// "tried" (StrainFeedback), never both.
+//
+// source values: informational, "catalog" | "taste-match" | "compare"
+model Wishlist {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  strainName String   // resolved canonical name (same resolution as StrainFeedback)
+  source     String?
+  createdAt  DateTime @default(now())
 
   @@unique([userId, strainName])
   @@index([userId])

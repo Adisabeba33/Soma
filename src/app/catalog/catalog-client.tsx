@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { CatalogCollectibleCard } from "@/components/catalog-collectible-card";
 import { CompareBasketTray } from "@/components/compare-basket-tray";
+import { WishlistButton } from "@/components/wishlist-button";
 import { effectIconFor } from "@/components/effect-icon";
 import { paletteForTime } from "@/lib/sensory-family-palette";
 import { timeProfileOf, artImageSrc, artFocusOf } from "@/lib/strain-art";
@@ -444,6 +445,8 @@ export function CatalogClient({
                 entry={entry}
                 match={matches[entry.strain.name]}
                 score={scored.get(entry.strain.name) ?? 0}
+                wishlist
+                wishlistSource="catalog"
               />
             ))}
           </ul>
@@ -589,10 +592,10 @@ function CatalogRow({
 
   return (
     <li className="relative">
-      <CompareToggle
-        name={strain.name}
-        className="absolute right-3 top-3 z-20"
-      />
+      <div className="absolute right-3 top-3 z-20 flex items-center gap-1.5">
+        <WishlistButton name={strain.name} source="catalog" label={false} />
+        <CompareToggle name={strain.name} />
+      </div>
       <Link
         href={`/catalog/${strainSlug(strain.name)}`}
         className="group flex items-stretch overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-lg active:scale-[0.995]"

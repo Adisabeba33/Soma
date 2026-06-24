@@ -88,6 +88,14 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  // Graduation: rating a strain moves it from "want to try" onto the shelf, so
+  // the two stay disjoint. deleteMany is a no-op when it was never wishlisted;
+  // the catch keeps an older deploy without the Wishlist table from breaking
+  // feedback (the table is an additive layer, see /api/wishlist).
+  await prisma.wishlist
+    .deleteMany({ where: { userId, strainName: canonical } })
+    .catch(() => {});
+
   return NextResponse.json({
     ok: true,
     verdict: {

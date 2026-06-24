@@ -9,6 +9,7 @@ import { paletteForTime } from "@/lib/sensory-family-palette";
 import { timeProfileOf, artImageSrc, artFocusOf } from "@/lib/strain-art";
 import { tierOf, TIER_STYLE } from "@/lib/collection-tier";
 import { FitText } from "@/components/fit-text";
+import { WishlistButton } from "@/components/wishlist-button";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 
 // Poster-style collectible card. The atmospheric gradient *is* the
@@ -30,6 +31,8 @@ export function CatalogCollectibleCard({
   match,
   score,
   className,
+  wishlist = false,
+  wishlistSource,
 }: {
   entry: CatalogEntry;
   match?: CatalogMatch;
@@ -37,6 +40,10 @@ export function CatalogCollectibleCard({
   // Optional styling on the outer <li> — the Collection shelf uses it to
   // frame a card by the user's verdict (glow for loved, dim for avoid).
   className?: string;
+  // Show a "want to try" overlay (catalog browsing). Off on the shelf, where
+  // every card has already been tried.
+  wishlist?: boolean;
+  wishlistSource?: string;
 }) {
   const { strain, identity } = entry;
   // Other names people know this strain by (e.g. WiFi OG for White Fire OG),
@@ -58,6 +65,14 @@ export function CatalogCollectibleCard({
 
   return (
     <li className={cn("relative", className)}>
+      {wishlist && (
+        <WishlistButton
+          name={strain.name}
+          source={wishlistSource}
+          label={false}
+          className="absolute right-3 top-3 z-20"
+        />
+      )}
       <Link
         href={`/catalog/${strainSlug(strain.name)}`}
         className={cn(
