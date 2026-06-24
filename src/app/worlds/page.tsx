@@ -66,7 +66,9 @@ export default async function WorldsPage({
   }
 
   const recs = allRounder
-    ? [...result.recs].sort((a, b) => b.avgScore - a.avgScore)
+    ? [...result.recs].sort(
+        (a, b) => b.avgScore - a.avgScore || b.avgUnclamped - a.avgUnclamped,
+      )
     : result.recs;
   const shown = recs.slice(0, SHOWN);
 
