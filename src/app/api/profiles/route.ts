@@ -25,6 +25,7 @@ export async function GET() {
       id: p.id,
       name: p.name ?? "Main",
       isActive: p.isActive,
+      merged: p.merged,
       percent: profileCompleteness(p as unknown as TasteProfileInput).percent,
     })),
   });

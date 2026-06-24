@@ -93,6 +93,10 @@ export function catalogSize(): number {
 export interface CatalogMatch {
   score: number;
   category: string;
+  // Optional ordering key that outranks `score` for sorting (used by merged
+  // profiles to break visible-score ties on the engine's unclamped raw). The
+  // displayed badge always uses `score`; this only affects sort order.
+  sort?: number;
 }
 
 // A derived, deterministic "Curated" index (0–100) used for the badge and the

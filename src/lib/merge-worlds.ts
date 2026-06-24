@@ -1,75 +1,56 @@
-// "All my worlds" — merge a user's taste profiles into one recommendation feed.
+// "Merge" — blend a user's taste profiles into one set of catalog matches.
 //
-// Each profile is a separate "world" (a distinct side of the same person's
-// taste). We run the deterministic engine once PER profile and merge the
-// results — we do NOT union the profiles into one, because that dilutes each
-// world's signal and cross-contaminates their avoids. The merge rules, locked
-// after simulating real profiles:
+// Each profile flagged `merged` is a separate "world" (a distinct side of the
+// same person's taste). We run the deterministic engine once PER profile and
+// merge the per-strain results — we do NOT union the profiles into one, which
+// dilutes each world's signal and cross-contaminates their avoids (verified by
+// simulation). Merge rules, locked with the user:
 //
-//   • POSITIVE signals → MAX (best-of). A strain is a good pick if it shines
-//     in ANY world; it keeps that world's full score and is tagged with it.
-//     (You don't smoke in "average mood" — you're in one world at a time, so
-//     a skunk gem should score high even if your gas side rates it low.)
-//   • NEGATIVE signals → UNION veto. A strain avoided in ANY profile is
-//     dropped everywhere: it's the same person consuming it, and merging
-//     profiles can't make a dealbreaker enjoyable.
+//   • POSITIVE → MAX (best-of). A strain keeps the score of its best world, so
+//     a pick one side loves isn't dragged down by another side that doesn't.
+//     Ties on the visible score break on the engine's unclamped raw (same as
+//     analyze()), surfaced via CatalogMatch.sort so the catalog orders close
+//     picks instead of dumping them into flat clusters.
+//   • NEGATIVE → UNION veto. A strain avoided in ANY profile is pushed to its
+//     LOWEST world score everywhere: it's the same person consuming it, and
+//     merging can't make a dealbreaker enjoyable.
 //
-// `avgScore` is also returned so the page can offer a secondary "all-rounder"
-// sort (strains decent across every world) without recomputing.
+// Drives the catalog (Harvest) when two or more profiles are merged; returns
+// null otherwise, so callers fall back to the single active profile.
 
 import { prisma } from "./prisma";
 import { scoreStrain } from "./taste-engine";
 import { getFeedbackSignals } from "./api";
 import { STRAINS, findStrain } from "./strain-data";
 import type { TasteProfileInput } from "./types";
+import type { CatalogMatch } from "./catalog";
 
-export type WorldScore = {
-  world: string;
-  score: number;
-  category: string;
-  // Pre-calibration raw score. Below the 89-92 elite band the visible score is
-  // a whole integer, so many strains share one value; the engine itself breaks
-  // those ties on this (see analyze() in taste-engine). The merge has to carry
-  // it too, or the feed collapses into flat clusters (84/85/86…).
-  unclamped: number;
+export type MergedMatches = {
+  worlds: string[]; // names of the merged profiles, display order
+  matches: Record<string, CatalogMatch>; // per-strain best-of (or vetoed-low)
+  veto: string[]; // strains globally avoided (union of dislikes)
 };
 
-export type MergedRec = {
-  strainName: string;
-  score: number; // MAX across worlds — the headline
-  avgScore: number; // mean across worlds — for the all-rounder sort
-  // Tie-breakers mirroring the engine's own ordering, so equal visible scores
-  // still rank in a stable, meaningful order rather than arbitrarily.
-  tiebreak: number; // winning world's unclamped score (for best-of sort)
-  avgUnclamped: number; // mean unclamped (for the all-rounder sort)
-  world: string; // the world that produced the MAX
-  category: string;
-  perWorld: WorldScore[];
-  universal: boolean; // strong in every world
-};
+// Composite sort key: visible score dominates (×1000), unclamped raw breaks
+// ties within a band. Used only for ordering; the displayed number stays
+// CatalogMatch.score.
+const sortKey = (score: number, unclamped: number) => score * 1000 + unclamped;
 
-export type MergeResult = {
-  worlds: string[]; // profile names, in display order
-  recs: MergedRec[]; // ranked by MAX score, descending
-  vetoed: string[]; // strains globally avoided (union of dislikes)
-};
-
-// A strain counts as "universal" (works for every side of you) when it clears
-// this in all worlds — drives the "works for both" badge.
-const UNIVERSAL_FLOOR = 75;
-
-export async function mergeWorlds(userId: string): Promise<MergeResult | null> {
+export async function mergedMatches(
+  userId: string,
+): Promise<MergedMatches | null> {
   const profiles = await prisma.tasteProfile
-    .findMany({ where: { userId }, orderBy: { updatedAt: "desc" } })
+    .findMany({
+      where: { userId, merged: true },
+      orderBy: { createdAt: "asc" },
+    })
     .catch(() => []);
-  if (profiles.length === 0) return null;
+  // Merge only means something with two or more worlds to blend.
+  if (profiles.length < 2) return null;
 
-  // Feedback is per-user (not per-profile), so the same signal feeds every
-  // world's scoring.
   const feedback = await getFeedbackSignals(userId);
 
-  // Global avoid: the union of every profile's disliked strains, canonicalised
-  // so an alias in one profile still vetoes the canonical strain.
+  // Global avoid: union of every merged profile's disliked strains, canonical.
   const veto = new Set<string>();
   for (const p of profiles) {
     for (const d of p.dislikedStrains ?? []) {
@@ -78,54 +59,80 @@ export async function mergeWorlds(userId: string): Promise<MergeResult | null> {
   }
 
   const worlds = profiles.map((p, i) => p.name?.trim() || `Profile ${i + 1}`);
+  const matches: Record<string, CatalogMatch> = {};
 
-  const recs: MergedRec[] = [];
   for (const strain of STRAINS) {
-    if (veto.has(strain.name)) continue; // global veto — never recommended
-
-    const perWorld: WorldScore[] = profiles.map((p, i) => {
+    const perWorld = profiles.map((p) => {
       const m = scoreStrain(
         strain.name,
         p as unknown as TasteProfileInput,
         feedback,
       );
-      return {
-        world: worlds[i],
-        score: m.matchScore,
-        category: m.category,
-        unclamped: m.unclampedScore,
-      };
+      return { score: m.matchScore, unclamped: m.unclampedScore, category: m.category };
     });
 
-    // Best world = highest visible score, ties broken on unclamped (same order
-    // the engine uses), so the winning world is deterministic, not first-wins.
-    let best = perWorld[0];
-    for (const w of perWorld) {
-      if (w.score > best.score || (w.score === best.score && w.unclamped > best.unclamped)) {
-        best = w;
+    let pick = perWorld[0];
+    if (veto.has(strain.name)) {
+      // Vetoed: take the LOWEST world (the avoiding side wins), so it ranks low
+      // everywhere rather than riding its best world.
+      for (const w of perWorld) {
+        if (w.score < pick.score || (w.score === pick.score && w.unclamped < pick.unclamped)) {
+          pick = w;
+        }
+      }
+    } else {
+      // Best-of: highest world, ties broken on unclamped.
+      for (const w of perWorld) {
+        if (w.score > pick.score || (w.score === pick.score && w.unclamped > pick.unclamped)) {
+          pick = w;
+        }
       }
     }
-    const avg =
-      perWorld.reduce((sum, w) => sum + w.score, 0) / perWorld.length;
-    const avgUnclamped =
-      perWorld.reduce((sum, w) => sum + w.unclamped, 0) / perWorld.length;
 
-    recs.push({
-      strainName: strain.name,
-      score: best.score,
-      avgScore: Math.round(avg * 10) / 10,
-      tiebreak: best.unclamped,
-      avgUnclamped,
-      world: best.world,
-      category: best.category,
-      perWorld,
-      universal: perWorld.every((w) => w.score >= UNIVERSAL_FLOOR),
-    });
+    matches[strain.name] = {
+      score: pick.score,
+      category: pick.category,
+      sort: sortKey(pick.score, pick.unclamped),
+    };
   }
 
-  // Primary on the visible MAX, tie-break on the winning world's unclamped —
-  // mirrors analyze()'s sort so the merged feed orders close picks instead of
-  // dumping them into flat clusters.
-  recs.sort((a, b) => b.score - a.score || b.tiebreak - a.tiebreak);
-  return { worlds, recs, vetoed: [...veto] };
+  return { worlds, matches, veto: [...veto] };
+}
+
+// Single-strain merged match, for the catalog detail page — same best-of /
+// veto rules as mergedMatches, scoring just one strain so the detail view
+// agrees with the list. Returns null when fewer than two profiles are merged.
+export async function mergedMatchForStrain(
+  userId: string,
+  strainName: string,
+): Promise<CatalogMatch | null> {
+  const profiles = await prisma.tasteProfile
+    .findMany({ where: { userId, merged: true }, orderBy: { createdAt: "asc" } })
+    .catch(() => []);
+  if (profiles.length < 2) return null;
+
+  const feedback = await getFeedbackSignals(userId);
+  const vetoed = profiles.some((p) =>
+    (p.dislikedStrains ?? []).some(
+      (d) => (findStrain(d)?.name ?? d) === strainName,
+    ),
+  );
+
+  const perWorld = profiles.map((p) => {
+    const m = scoreStrain(
+      strainName,
+      p as unknown as TasteProfileInput,
+      feedback,
+    );
+    return { score: m.matchScore, unclamped: m.unclampedScore, category: m.category };
+  });
+
+  let pick = perWorld[0];
+  for (const w of perWorld) {
+    const better = vetoed
+      ? w.score < pick.score || (w.score === pick.score && w.unclamped < pick.unclamped)
+      : w.score > pick.score || (w.score === pick.score && w.unclamped > pick.unclamped);
+    if (better) pick = w;
+  }
+  return { score: pick.score, category: pick.category, sort: sortKey(pick.score, pick.unclamped) };
 }

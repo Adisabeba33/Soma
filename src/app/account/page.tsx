@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   ChevronRight,
   History,
+  Layers,
   Mail,
   Pencil,
   PenLine,
@@ -51,6 +52,7 @@ type ProfileItem = {
   id: string;
   name: string;
   isActive: boolean;
+  merged: boolean;
   percent: number;
 };
 
@@ -127,6 +129,21 @@ export default function AccountPage() {
     } else {
       const e = await res.json().catch(() => ({}));
       alert(e.error ?? "Couldn't activate that profile.");
+    }
+  }
+
+  async function toggleMerge(id: string, on: boolean) {
+    const res = await fetch(`/api/profiles/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "merge", on }),
+    });
+    if (res.ok) {
+      await loadProfiles();
+      router.refresh();
+    } else {
+      const e = await res.json().catch(() => ({}));
+      alert(e.error ?? "Couldn't update the merge.");
     }
   }
 
@@ -219,8 +236,22 @@ export default function AccountPage() {
         </span>
       </div>
       <p className="mt-1 text-sm text-muted-foreground">
-        Pick which profile SŌMA searches under. Switch anytime.
+        Pick which profile SŌMA searches under. Switch anytime. Or{" "}
+        <strong className="text-foreground">Merge</strong> two or more — Harvest
+        then blends them, each strain taking its best world.
       </p>
+      {(() => {
+        const n = profiles.filter((p) => p.merged).length;
+        if (n === 0) return null;
+        return (
+          <p className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-accent/10 px-3 py-1.5 text-xs text-accent">
+            <Layers className="h-3.5 w-3.5" />
+            {n >= 2
+              ? `${n} profiles merged — Harvest is blending them now.`
+              : "1 profile merged — add one more to start blending."}
+          </p>
+        );
+      })()}
 
       <div className="mt-3 space-y-3">
         {profiles.map((p) => {
@@ -244,6 +275,11 @@ export default function AccountPage() {
                     {p.isActive && (
                       <span className="shrink-0 rounded-full bg-brass/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-brass">
                         Active
+                      </span>
+                    )}
+                    {p.merged && (
+                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+                        <Layers className="h-3 w-3" /> Merged
                       </span>
                     )}
                   </div>
@@ -275,6 +311,19 @@ export default function AccountPage() {
                       Finish to {MATCH_GATE_PERCENT}% to activate
                     </span>
                   ))}
+                {ready && (
+                  <button
+                    type="button"
+                    onClick={() => toggleMerge(p.id, !p.merged)}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 font-medium hover:underline",
+                      p.merged ? "text-accent" : "text-foreground",
+                    )}
+                  >
+                    <Layers className="h-3.5 w-3.5" />
+                    {p.merged ? "Unmerge" : "Merge"}
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => renameProfile(p.id, p.name)}

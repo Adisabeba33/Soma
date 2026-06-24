@@ -1,8 +1,10 @@
 import { Suspense } from "react";
+import Link from "next/link";
 import { buildCatalog, type CatalogMatch } from "@/lib/catalog";
 import { getActiveProfile } from "@/lib/active-profile";
 import { getUserIdReadOnly } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
+import { mergedMatches } from "@/lib/merge-worlds";
 import { scoreStrain } from "@/lib/taste-engine";
 import { STRAINS } from "@/lib/strain-data";
 import type { TasteProfileInput } from "@/lib/types";
@@ -23,12 +25,20 @@ export const metadata = {
 async function loadMatches(): Promise<{
   matches: Record<string, CatalogMatch>;
   hasProfile: boolean;
+  mergedWorlds: string[]; // non-empty when the catalog is blending profiles
 }> {
   const userId = await getUserIdReadOnly();
-  if (!userId) return { matches: {}, hasProfile: false };
+  if (!userId) return { matches: {}, hasProfile: false, mergedWorlds: [] };
+
+  // Merge mode wins: when two or more profiles are merged, Harvest scores every
+  // strain best-of across them instead of the single active profile.
+  const merged = await mergedMatches(userId);
+  if (merged) {
+    return { matches: merged.matches, hasProfile: true, mergedWorlds: merged.worlds };
+  }
 
   const profile = await getActiveProfile(userId);
-  if (!profile) return { matches: {}, hasProfile: false };
+  if (!profile) return { matches: {}, hasProfile: false, mergedWorlds: [] };
 
   const feedback = await getFeedbackSignals(userId);
   const matches: Record<string, CatalogMatch> = {};
@@ -40,12 +50,12 @@ async function loadMatches(): Promise<{
     );
     matches[strain.name] = { score: m.matchScore, category: m.category };
   }
-  return { matches, hasProfile: true };
+  return { matches, hasProfile: true, mergedWorlds: [] };
 }
 
 export default async function CatalogPage() {
   const entries = buildCatalog();
-  const { matches, hasProfile } = await loadMatches();
+  const { matches, hasProfile, mergedWorlds } = await loadMatches();
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
@@ -60,6 +70,21 @@ export default async function CatalogPage() {
         view to see what we know about each strain, where data is thin, and
         which strains sit near each other in sensory space.
       </p>
+
+      {mergedWorlds.length >= 2 && (
+        <p className="mt-5 inline-flex flex-wrap items-center gap-2 rounded-xl border border-brass/30 bg-brass/5 px-4 py-2.5 text-sm text-foreground">
+          <span className="text-xs font-semibold uppercase tracking-[0.14em] text-brass">
+            Merged
+          </span>
+          Matches blend your profiles{" "}
+          <span className="font-medium">{mergedWorlds.join(" · ")}</span> — each
+          strain takes its best world. Manage in{" "}
+          <Link href="/account" className="text-accent hover:underline">
+            your account
+          </Link>
+          .
+        </p>
+      )}
 
       <FeedbackReset />
 

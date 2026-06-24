@@ -60,6 +60,10 @@ model TasteProfile {
   // name "Main" + active.
   name               String?
   isActive           Boolean  @default(false)
+  // Profiles flagged into the "merge" set. When two or more are merged, the
+  // catalog (Harvest) blends them best-of instead of using the single active
+  // profile. Independent of isActive. Default false so existing rows are valid.
+  merged             Boolean  @default(false)
   favoriteStrains    String[]
   dislikedStrains    String[]
   likedTraits        String[]

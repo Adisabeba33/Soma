@@ -129,11 +129,11 @@ export function CatalogClient({
 
     const sorted = [...list];
     if (hasProfile && sortBy === "match") {
-      sorted.sort(
-        (a, b) =>
-          (matches[b.strain.name]?.score ?? -1) -
-          (matches[a.strain.name]?.score ?? -1),
-      );
+      // Prefer the optional `sort` key (merged profiles set it to break
+      // visible-score ties on the engine's raw); fall back to the score.
+      const key = (name: string) =>
+        matches[name]?.sort ?? matches[name]?.score ?? -1;
+      sorted.sort((a, b) => key(b.strain.name) - key(a.strain.name));
     } else if (sortBy === "curated") {
       sorted.sort(
         (a, b) =>

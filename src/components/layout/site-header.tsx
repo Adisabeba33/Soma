@@ -15,8 +15,6 @@ const BASE_NAV = [
   { href: "/catalog", label: "Harvest" },
   // The personal shelf — strains you've rated, as a visual collection.
   { href: "/collection", label: "Collection" },
-  // Merged recommendations across all your taste profiles ("worlds").
-  { href: "/worlds", label: "My Worlds" },
 ];
 const TAIL_NAV = [
   { href: "/how-it-works", label: "How it works" },
