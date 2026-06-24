@@ -59,7 +59,7 @@ export function MergeLeanSlider({
         type="range"
         min={-100}
         max={100}
-        step={10}
+        step={20}
         value={pct}
         onChange={(e) => onChange(Number(e.target.value) / 100)}
         aria-label={`Lean between ${otherLabel} and ${mainLabel}`}
