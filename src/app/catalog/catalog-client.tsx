@@ -18,6 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { CatalogCollectibleCard } from "@/components/catalog-collectible-card";
 import { CompareBasketTray } from "@/components/compare-basket-tray";
 import { WishlistButton } from "@/components/wishlist-button";
+import { FitText } from "@/components/fit-text";
 import { effectIconFor } from "@/components/effect-icon";
 import { paletteForTime } from "@/lib/sensory-family-palette";
 import { timeProfileOf, artImageSrc, artFocusOf } from "@/lib/strain-art";
@@ -657,8 +658,8 @@ function CatalogRow({
             <Badge variant="outline" className="capitalize">
               {strain.type}
             </Badge>
-            <h3 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight line-clamp-1">
-              {strain.name}
+            <h3 className="mt-1.5 font-display font-semibold leading-tight tracking-tight">
+              <FitText text={strain.name} maxPx={24} minPx={13} />
             </h3>
             {tier && (
               <span className="mt-1.5 inline-block rounded-full border border-brass/40 bg-brass/5 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-brass">
