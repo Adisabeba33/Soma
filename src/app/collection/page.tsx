@@ -13,7 +13,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, Bookmark, Heart, Meh, Smile, Star, ThumbsDown } from "lucide-react";
-import { findStrain } from "@/lib/strain-data";
+import { getFavoriteStrainNames } from "@/lib/favorites";
 import { buildCatalog, curatedScore, strainSlug } from "@/lib/catalog";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 import { getUserIdReadOnly } from "@/lib/user";
@@ -134,19 +134,10 @@ async function load(): Promise<{
     .catch(() => [] as Array<{ strainName: string }>);
   const wishlist = wishRaw.map((w) => w.strainName);
 
-  // Favourites — the union of every profile's favoriteStrains, canonicalised
-  // and de-duped. These are the user's declared anchors; the shelf is their
-  // home (and why they're kept OUT of the discovery feeds).
-  const profileRows = await prisma.tasteProfile
-    .findMany({ where: { userId }, select: { favoriteStrains: true } })
-    .catch(() => [] as Array<{ favoriteStrains: string[] }>);
-  const favSet = new Set<string>();
-  for (const pr of profileRows) {
-    for (const f of pr.favoriteStrains ?? []) {
-      favSet.add(findStrain(f)?.name ?? f);
-    }
-  }
-  const favorites = [...favSet];
+  // Favourites — the union of every profile's favoriteStrains. These are the
+  // user's declared anchors; the shelf is their home (and why they're kept OUT
+  // of the discovery feeds).
+  const favorites = await getFavoriteStrainNames(userId);
 
   // Personal match % — computed only for WISHLIST strains, where it's a useful
   // forward-looking "would this fit me?" signal. Deliberately NOT shown on

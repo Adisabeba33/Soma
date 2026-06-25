@@ -62,10 +62,14 @@ export function CatalogClient({
   entries,
   matches = {},
   hasProfile = false,
+  favorites = [],
 }: {
   entries: CatalogEntry[];
   matches?: Record<string, CatalogMatch>;
   hasProfile?: boolean;
+  // The user's favourites across all profiles — hidden from the "Your match"
+  // ranking (they live on the Collection shelf), but still findable via search.
+  favorites?: string[];
 }) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
@@ -95,6 +99,11 @@ export function CatalogClient({
     () =>
       new Map(entries.map((e) => [e.strain.name, curatedScore(e)] as const)),
     [entries],
+  );
+
+  const favSet = useMemo(
+    () => new Set(favorites.map((f) => f.toLowerCase())),
+    [favorites],
   );
 
   const filtered = useMemo(() => {
@@ -128,7 +137,15 @@ export function CatalogClient({
       return true;
     });
 
-    const sorted = [...list];
+    // In the "Your match" ranking, hide the user's favourites — they're known
+    // anchors that otherwise pad the top, and they live on the Collection shelf.
+    // Kept when searching (q present), so a favourite is still findable by name.
+    const discoverable =
+      hasProfile && sortBy === "match" && q === "" && favSet.size > 0
+        ? list.filter((e) => !favSet.has(e.strain.name.toLowerCase()))
+        : list;
+
+    const sorted = [...discoverable];
     if (hasProfile && sortBy === "match") {
       // Prefer the optional `sort` key (merged profiles set it to break
       // visible-score ties on the engine's raw); fall back to the score.
@@ -155,6 +172,7 @@ export function CatalogClient({
     sortBy,
     matches,
     scored,
+    favSet,
   ]);
 
   function makeToggle(setter: typeof setAromaFilters) {

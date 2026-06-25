@@ -5,6 +5,7 @@ import { getActiveProfile } from "@/lib/active-profile";
 import { getUserIdReadOnly } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
 import { mergedMatches } from "@/lib/merge-worlds";
+import { getFavoriteStrainNames } from "@/lib/favorites";
 import { scoreStrain } from "@/lib/taste-engine";
 import { STRAINS } from "@/lib/strain-data";
 import type { TasteProfileInput } from "@/lib/types";
@@ -64,6 +65,8 @@ async function loadMatches(): Promise<{
 export default async function CatalogPage() {
   const entries = buildCatalog();
   const { matches, hasProfile, mergedWorlds, blenderActive } = await loadMatches();
+  const favUserId = await getUserIdReadOnly();
+  const favorites = favUserId ? await getFavoriteStrainNames(favUserId) : [];
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
@@ -101,6 +104,7 @@ export default async function CatalogPage() {
           entries={entries}
           matches={matches}
           hasProfile={hasProfile}
+          favorites={favorites}
         />
       </Suspense>
     </div>
