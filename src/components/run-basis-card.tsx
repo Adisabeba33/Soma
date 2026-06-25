@@ -56,6 +56,12 @@ export function RunBasisCard({
           ) : null}
           {blender.balance ? " · balance mode" : ""}
         </p>
+        {blender.balance && (
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+            Bridge mode is stricter — scores may look lower because each strain
+            must fit across all your profiles, not just one.
+          </p>
+        )}
       </div>
     );
   }

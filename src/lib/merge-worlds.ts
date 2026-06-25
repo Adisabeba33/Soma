@@ -190,6 +190,11 @@ function vetoSet(profiles: TasteProfile[]): Set<string> {
   return veto;
 }
 
+// The canonical names a single profile avoids, for "who vetoed this" reporting.
+function avoidNamesOf(p: TasteProfile): Set<string> {
+  return new Set((p.dislikedStrains ?? []).map((d) => findStrain(d)?.name ?? d));
+}
+
 export async function mergedMatches(
   userId: string,
 ): Promise<MergedMatches | null> {
@@ -281,6 +286,8 @@ export function analyzeMerged(opts: {
   }));
 
   const veto = vetoSet(opts.profiles);
+  // Per-world avoid sets, so a vetoed strain can name WHICH worlds avoid it.
+  const avoidByWorld = per.map((pp) => ({ world: pp.world, names: avoidNamesOf(pp.p) }));
   const maps = per.map(
     (pp) => new Map(pp.res.recommendations.map((r) => [r.strainName, r])),
   );
@@ -301,12 +308,19 @@ export function analyzeMerged(opts: {
     });
     mergeBreakdown[key] = cands.map((c) => ({ world: c.world, score: c.rec.matchScore }));
 
-    const pick = pickWorld(
-      cands,
-      veto.has(cands[0].rec.resolvedName) || Boolean(opts.balance),
-    );
+    const resolved = cands[0].rec.resolvedName;
+    const vetoed = veto.has(resolved);
+    const pick = pickWorld(cands, vetoed || Boolean(opts.balance));
     const score = clamp(Math.round(pick.eff), 4, 99);
-    recommendations.push({ ...pick.rec, matchScore: score, world: pick.world });
+    const avoidedBy = vetoed
+      ? avoidByWorld.filter((a) => a.names.has(resolved)).map((a) => a.world)
+      : [];
+    recommendations.push({
+      ...pick.rec,
+      matchScore: score,
+      world: pick.world,
+      avoidedBy: avoidedBy.length > 0 ? avoidedBy : undefined,
+    });
   }
 
   recommendations.sort(

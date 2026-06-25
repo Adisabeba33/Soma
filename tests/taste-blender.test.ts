@@ -116,6 +116,11 @@ describe("Taste Blender invariants", () => {
     assert.equal(bd.matchScore, Math.min(...worlds), "vetoed strain should take its LOWEST world");
     const top3 = r.recommendations.slice(0, 3).map((x) => x.strainName);
     assert.ok(!top3.includes("Blue Dream"), "vetoed strain must not be in the top 3");
+    // The audit needs to NAME who vetoed it (else a low score with "no
+    // penalties" reads like a bug).
+    assert.deepEqual(bd.avoidedBy, ["fruit"], "vetoed strain should name the avoiding world");
+    const gg4 = r.recommendations.find((x) => x.strainName === "GG4")!;
+    assert.equal(gg4.avoidedBy, undefined, "un-vetoed strain should carry no avoidedBy");
   });
 
   it("is deterministic — same inputs, identical output", () => {

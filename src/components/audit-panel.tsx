@@ -67,11 +67,23 @@ function buildAuditText(
   if (runSettings) lines.push(`Run settings: ${formatRunSettings(runSettings)}`);
   if (blend) lines.push(`Blend: ${formatBlend(blend)}`);
   lines.push("");
+  // In balance/bridge mode the shown world is the LOWEST (limiting) side, not
+  // the winner — label it so "via" can't read as "best world".
+  const bridge = Boolean(blend?.balance);
   for (const item of items) {
-    const via = item.world ? `  [via ${item.world}]` : "";
+    const worldTag = item.world
+      ? bridge
+        ? `  [limited by ${item.world}]`
+        : `  [via ${item.world}]`
+      : "";
     lines.push(
-      `${item.strainName} — Final ${formatScore(item.matchScore)}${via}`,
+      `${item.strainName} — Final ${formatScore(item.matchScore)}${worldTag}`,
     );
+    if (item.avoidedBy && item.avoidedBy.length > 0) {
+      lines.push(
+        `  Global avoid — sunk to weakest world (avoided by: ${item.avoidedBy.join(", ")})`,
+      );
+    }
     const fb =
       item.feedbackPotential !== 0
         ? `potential ${item.feedbackPotential > 0 ? "+" : ""}${item.feedbackPotential} × decay ${item.feedbackDecay.toFixed(2)} → applied ${item.feedbackAdjustment > 0 ? "+" : ""}${item.feedbackAdjustment}`
@@ -212,6 +224,16 @@ export function AuditPanel({
             <p className="rounded-md bg-accent/10 px-2.5 py-1.5 text-[11px] text-foreground">
               <span className="font-medium text-accent">Blend:</span>{" "}
               <span className="font-mono">{formatBlend(blend)}</span>
+              {blend.balance && (
+                <span className="mt-1 block text-muted-foreground">
+                  Bridge mode: each Final is the strain&apos;s{" "}
+                  <span className="font-medium text-foreground">weakest</span>{" "}
+                  world (min across all sides), and{" "}
+                  <span className="font-medium text-foreground">limited by</span>{" "}
+                  marks that world. Single-world stars score lower here — that is
+                  the point.
+                </span>
+              )}
             </p>
           )}
           <p className="text-[11px] leading-relaxed text-muted-foreground/80">
@@ -235,8 +257,15 @@ export function AuditPanel({
                   <span className="text-sm font-medium">
                     {item.strainName}
                     {item.world && (
-                      <span className="ml-1.5 rounded bg-accent/15 px-1.5 py-0.5 align-middle text-[9px] font-semibold uppercase tracking-wide text-accent">
-                        via {item.world}
+                      <span
+                        className="ml-1.5 rounded bg-accent/15 px-1.5 py-0.5 align-middle text-[9px] font-semibold uppercase tracking-wide text-accent"
+                        title={
+                          blend?.balance
+                            ? "Bridge mode: the weakest world — the side that constrained this strain's score"
+                            : "Best-of: the world that produced this strain's best score"
+                        }
+                      >
+                        {blend?.balance ? "limited by" : "via"} {item.world}
                       </span>
                     )}
                   </span>
@@ -261,6 +290,17 @@ export function AuditPanel({
                     " · no feedback"
                   )}
                 </div>
+                {item.avoidedBy && item.avoidedBy.length > 0 && (
+                  <p className="mt-1.5 rounded bg-[#a23b2c]/10 px-2 py-1 text-[11px] text-[#a23b2c]">
+                    <span className="font-semibold">⚠ Global avoid</span> — sunk
+                    to its weakest world (avoid is shared across the blend).
+                    Avoided by:{" "}
+                    <span className="font-medium">
+                      {item.avoidedBy.join(", ")}
+                    </span>
+                    . This is why the final sits far below the visible channels.
+                  </p>
+                )}
                 <div className="mt-2">
                   <p className="font-medium uppercase tracking-[0.1em] text-muted-foreground text-[11px]">
                     Channels{" "}

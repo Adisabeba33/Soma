@@ -168,9 +168,16 @@ export function TasteBlenderBlock() {
             </div>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
               {s.balance
-                ? "Surfaces strains strong across ALL your sides at once — the bridge. Fewer, more all-round picks; leans don't apply."
-                : "Each strain takes its best side — widest coverage, leans tilt the mix."}
+                ? "Shows strains that work across ALL your blended profiles. A strain is only as good as its weakest side. Single-profile winners score lower here — leans don't apply."
+                : "Shows strains that are excellent for at least one of your blended profiles. Widest coverage; leans tilt the mix."}
             </p>
+            {s.balance && (
+              <p className="mt-2 rounded-lg bg-brass/10 px-3 py-2 text-xs leading-relaxed text-foreground">
+                <span className="font-medium">Bridge is stricter.</span> Scores
+                look lower because each strain must hold up across several
+                profiles at once — that&apos;s expected, not a worse menu.
+              </p>
+            )}
           </div>
 
           {/* Leans apply in best-of only; balance weighs every side equally. */}

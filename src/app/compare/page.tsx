@@ -28,6 +28,16 @@ export default function ComparePage() {
   const [closestName, setClosestName] = useState<string | null>(null);
   // Audit mode is owner-only; the API reports whether this account is the owner.
   const [isOwner, setIsOwner] = useState(false);
+  // Blend recipe for the owner audit (mode/worlds/lean/admix), so Compare's
+  // panel reads the same as Taste Match.
+  const [blendAudit, setBlendAudit] = useState<{
+    mode: "merge" | "blender";
+    balance: boolean;
+    worlds: string[];
+    pairLean: number;
+    lean2: number;
+    thirdName: string | null;
+  } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [needProfile, setNeedProfile] = useState(false);
@@ -127,6 +137,7 @@ export default function ComparePage() {
       }
       setItems(data.items ?? []);
       setIsOwner(Boolean(data.isOwner));
+      setBlendAudit(data.blend ?? null);
       setClosestName(data.closestName ?? null);
     } catch {
       setError("Comparison failed. Please try again.");
@@ -198,7 +209,7 @@ export default function ComparePage() {
           {/* Audit mode — the engine's reasoning per strain. Owner-only. */}
           {isOwner && (
             <div className="mt-3">
-              <AuditPanel items={items} />
+              <AuditPanel items={items} blend={blendAudit} />
             </div>
           )}
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

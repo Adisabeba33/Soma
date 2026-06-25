@@ -42,6 +42,7 @@ export function redactAuditFields<T extends StrainMatch>(item: T): T {
     feedbackDecay: 0,
     matchStrengths: [],
     penaltyStrengths: [],
+    avoidedBy: undefined,
     missingTags: { critical: [], secondary: [], effect: [] },
     channels: {
       ref: { score: 0, contribution: 0 },

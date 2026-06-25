@@ -129,8 +129,14 @@ export interface StrainMatch {
   matchScore: number;
   // Which merged profile ("world") produced this score, set only by the Taste
   // Match merge (analyzeMerged). Lets results show "via <profile>". Absent for
-  // single-profile runs.
+  // single-profile runs. In balance/bridge mode this is the LOWEST (limiting)
+  // world, not the best — the audit labels it accordingly.
   world?: string;
+  // Merge mode only: names of the blended profiles that AVOID this strain. When
+  // non-empty the strain was globally vetoed (union avoid) and sunk to its
+  // weakest world. Surfaced in the owner audit so a low score with "no
+  // penalties" isn't mistaken for a bug. Absent/empty otherwise.
+  avoidedBy?: string[];
   // Pre-calibration internal score (no anchor floor, no 99 cap, no 88
   // non-anchor ceiling). Carries decimal precision so ties at matchScore
   // can be broken deterministically by what the engine actually thinks.

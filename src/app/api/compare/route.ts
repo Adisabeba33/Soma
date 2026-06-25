@@ -170,6 +170,19 @@ export async function POST(req: NextRequest) {
     items: safeItems,
     closestName: closest.strainName,
     isOwner: owner,
+    // Blend recipe for the owner audit, so Compare's panel reads the same as
+    // Taste Match (mode/worlds/lean/admix, and bridge-vs-best-of wording).
+    blend:
+      owner && blend
+        ? {
+            mode: blend.blenderActive ? "blender" : "merge",
+            balance: blend.balance,
+            worlds: blend.worlds,
+            pairLean: blend.pairLean,
+            lean2: blend.lean2,
+            thirdName: blend.thirdName ?? null,
+          }
+        : null,
   });
 }
 
