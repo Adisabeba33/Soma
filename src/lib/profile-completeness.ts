@@ -56,13 +56,12 @@ function items(p: Partial<TasteProfileInput>): CompletenessItem[] {
     { key: "avoidedRisks", label: "Risks in the high to avoid", weight: 2, filled: nonEmpty(p.avoidedRisks), section: "base" },
     { key: "dislikedStrains", label: "Strains to steer away from", weight: 2, filled: nonEmpty(p.dislikedStrains), section: "base" },
     { key: "dislikedTraits", label: "Past-pickup dealbreakers", weight: 1, filled: nonEmpty(p.dislikedTraits), section: "base" },
-    // ── Full-profile refinement (25): the extra precision questions ──
+    // ── Full-profile refinement (23): the extra precision questions ──
     { key: "likedTraits", label: "What you liked about your favourites", weight: 7, filled: nonEmpty(p.likedTraits), section: "depth" },
     { key: "families", label: "Strain families you seek or avoid", weight: 6, filled: familiesSet, section: "depth" },
     { key: "preferredType", label: "Indica / sativa / hybrid preference", weight: 4, filled: isPreferredType(p.preferredType), section: "depth" },
     { key: "qualityPriorities", label: "Quality priorities", weight: 4, filled: nonEmpty(p.qualityPriorities), section: "depth" },
     { key: "texturePreferences", label: "Texture you like", weight: 2, filled: nonEmpty(p.texturePreferences), section: "depth" },
-    { key: "extras", label: "Free notes", weight: 2, filled: hasText(p.notes), section: "depth" },
   ];
 }
 

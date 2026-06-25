@@ -74,8 +74,8 @@ test("empty profile is 0% and has no base", () => {
 
 test("after screen 1, a real chunk is filled but it's far from done", () => {
   const c = profileCompleteness(afterScreen1());
-  // favouriteStrains(13) + smokingMethods(2) + useTime(8) = 23.
-  assert.equal(c.percent, 23);
+  // favouriteStrains(13) + smokingMethods(2) + useTime(8) = 23 of 96.
+  assert.equal(c.percent, 24);
   assert.equal(c.isComplete, false);
   const keys = c.filled.map((i) => i.key);
   assert.ok(keys.includes("favoriteStrains"));
@@ -83,7 +83,7 @@ test("after screen 1, a real chunk is filled but it's far from done", () => {
   assert.ok(keys.includes("useTime"));
 });
 
-test("the four directional answers are worth 40% together", () => {
+test("the four directional answers are worth 41% together", () => {
   const c = profileCompleteness(
     empty({
       favoriteStrains: ["GG4"],
@@ -92,11 +92,11 @@ test("the four directional answers are worth 40% together", () => {
       primaryAroma: "citrus",
     }),
   );
-  assert.equal(c.percent, 40);
+  assert.equal(c.percent, 41);
 });
 
-test("the onboarding questions max out at 74% (extras live in the profile)", () => {
-  // Everything except the five depth/extra questions.
+test("the onboarding questions max out at 76% (extras live in the profile)", () => {
+  // Everything except the depth/refinement questions.
   const c = profileCompleteness({
     ...everything(),
     likedTraits: [],
@@ -107,7 +107,7 @@ test("the onboarding questions max out at 74% (extras live in the profile)", () 
     texturePreferences: [],
     notes: "",
   });
-  assert.equal(c.percent, 74);
+  assert.equal(c.percent, 76);
 });
 
 test("a fully filled profile is 100% and complete", () => {

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { ChipSelect, SingleSelect, TagInput } from "@/components/ui/selectors";
 import {
   AROMAS,
@@ -398,15 +397,6 @@ export function TasteProfileForm({
           options={TEXTURE_PREFERENCES}
           value={state.texturePreferences}
           onChange={(v) => set("texturePreferences", v)}
-        />
-      </Section>
-
-      <Section index={20} title="Anything else?" hint="Free notes.">
-        <Textarea
-          rows={3}
-          value={state.notes}
-          onChange={(e) => set("notes", e.target.value)}
-          placeholder="e.g. I smoke mostly in the evening, sensitive to harsh smoke."
         />
       </Section>
 
