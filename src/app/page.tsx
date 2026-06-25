@@ -68,14 +68,27 @@ const STEPS = [
 // The home page adapts to who's here: anonymous / first-time visitors get the
 // "meet the sommelier" marketing greeting; a registered, logged-in user lands on
 // their account dashboard instead — no re-running the questionnaire or login.
+// Resolve the session + user, but never let a DB hiccup take the landing page
+// down. Both getUserIdReadOnly and the user lookup hit the database; if it's
+// briefly unreachable (e.g. Supabase pausing), degrade to the anonymous home
+// instead of a hard "Application error" 500.
+async function resolveUser() {
+  try {
+    const userId = await getUserIdReadOnly();
+    if (!userId) return { userId: null, user: null };
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { passwordHash: true, username: true },
+    });
+    return { userId, user };
+  } catch (err) {
+    console.error("home: session/user lookup failed (DB unreachable?)", err);
+    return { userId: null, user: null };
+  }
+}
+
 export default async function HomePage() {
-  const userId = await getUserIdReadOnly();
-  const user = userId
-    ? await prisma.user.findUnique({
-        where: { id: userId },
-        select: { passwordHash: true, username: true },
-      })
-    : null;
+  const { userId, user } = await resolveUser();
 
   if (user?.passwordHash) {
     // The dashboard data (profile + per-strain scoring) must never take the
