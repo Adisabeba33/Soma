@@ -12,7 +12,8 @@
 // separate Phase 2 layer and deliberately absent here.
 
 import Link from "next/link";
-import { ArrowLeft, Bookmark, Heart, Meh, Smile, ThumbsDown } from "lucide-react";
+import { ArrowLeft, Bookmark, Heart, Meh, Smile, Star, ThumbsDown } from "lucide-react";
+import { findStrain } from "@/lib/strain-data";
 import { buildCatalog, curatedScore, strainSlug } from "@/lib/catalog";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 import { getUserIdReadOnly } from "@/lib/user";
@@ -88,9 +89,13 @@ const VALID = new Set<Verdict>(["loved", "good", "neutral", "avoid"]);
 // tried yet. They brighten on hover so they still feel reachable.
 const GHOST_FRAME = "rounded-2xl opacity-70 transition-opacity hover:opacity-100";
 
+// Favourites get a brass frame — the prestige tier of the shelf.
+const FAV_FRAME = "rounded-2xl ring-2 ring-brass/50 shadow-lg shadow-brass/10";
+
 async function load(): Promise<{
   rows: Row[];
   wishlist: string[];
+  favorites: string[];
   entryByName: Map<string, CatalogEntry>;
   matchByName: Record<string, CatalogMatch>;
   hasProfile: boolean;
@@ -100,7 +105,7 @@ async function load(): Promise<{
 
   const userId = await getUserIdReadOnly();
   if (!userId) {
-    return { rows: [], wishlist: [], entryByName, matchByName: {}, hasProfile: false };
+    return { rows: [], wishlist: [], favorites: [], entryByName, matchByName: {}, hasProfile: false };
   }
 
   // Graceful degrade if the StrainFeedback table hasn't been provisioned yet
@@ -128,6 +133,20 @@ async function load(): Promise<{
     })
     .catch(() => [] as Array<{ strainName: string }>);
   const wishlist = wishRaw.map((w) => w.strainName);
+
+  // Favourites — the union of every profile's favoriteStrains, canonicalised
+  // and de-duped. These are the user's declared anchors; the shelf is their
+  // home (and why they're kept OUT of the discovery feeds).
+  const profileRows = await prisma.tasteProfile
+    .findMany({ where: { userId }, select: { favoriteStrains: true } })
+    .catch(() => [] as Array<{ favoriteStrains: string[] }>);
+  const favSet = new Set<string>();
+  for (const pr of profileRows) {
+    for (const f of pr.favoriteStrains ?? []) {
+      favSet.add(findStrain(f)?.name ?? f);
+    }
+  }
+  const favorites = [...favSet];
 
   // Personal match % — computed only for WISHLIST strains, where it's a useful
   // forward-looking "would this fit me?" signal. Deliberately NOT shown on
@@ -162,13 +181,14 @@ async function load(): Promise<{
     }
   }
 
-  return { rows, wishlist, entryByName, matchByName, hasProfile };
+  return { rows, wishlist, favorites, entryByName, matchByName, hasProfile };
 }
 
 export default async function CollectionPage() {
-  const { rows, wishlist, entryByName, matchByName } = await load();
+  const { rows, wishlist, favorites, entryByName, matchByName } = await load();
   const total = rows.length;
   const wishCount = wishlist.length;
+  const favCount = favorites.length;
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
@@ -197,7 +217,7 @@ export default async function CollectionPage() {
         .
       </p>
 
-      {total === 0 && wishCount === 0 ? (
+      {total === 0 && wishCount === 0 && favCount === 0 ? (
         <div className="mt-12 rounded-2xl border border-dashed border-border bg-muted/30 px-6 py-14 text-center">
           <p className="text-sm text-muted-foreground">
             Your shelf is empty. Rate a strain anywhere — the catalog, Compare,
@@ -216,6 +236,41 @@ export default async function CollectionPage() {
         </div>
       ) : (
         <div className="mt-10 space-y-12">
+          {/* Favourites — every profile's declared anchors, gathered on the
+              shelf. Their home, and why they stay out of the discovery feeds. */}
+          {favCount > 0 && (
+            <section>
+              <div className="flex items-baseline gap-2">
+                <Star className="h-4 w-4 text-brass" aria-hidden />
+                <h2 className="font-display text-xl font-semibold text-brass">
+                  Favourites
+                </h2>
+                <span className="text-sm text-muted-foreground">{favCount}</span>
+              </div>
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                The strains you anchored across your profiles. Known and loved —
+                so SŌMA keeps them here, not in your recommendations.
+              </p>
+              <ul className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4">
+                {favorites.map((name) => {
+                  const entry = entryByName.get(name);
+                  if (!entry) {
+                    return <UncataloguedCard key={name} name={name} frame={FAV_FRAME} />;
+                  }
+                  return (
+                    <CatalogCollectibleCard
+                      key={name}
+                      entry={entry}
+                      score={curatedScore(entry)}
+                      className={FAV_FRAME}
+                      worldLabel="★ Favourite"
+                    />
+                  );
+                })}
+              </ul>
+            </section>
+          )}
+
           {total > 0 &&
             GROUPS.map((g) => {
               const items = rows.filter((r) => r.verdict === g.value);
