@@ -9,6 +9,7 @@ import {
   ChevronRight,
   History,
   Layers,
+  LayoutGrid,
   Mail,
   Pencil,
   PenLine,
@@ -386,6 +387,32 @@ export default function AccountPage() {
         ))}
 
       <TasteBlenderBlock />
+
+      {/* Collection — the personal shelf, on its own page. */}
+      <p className="mt-10 text-xs uppercase tracking-[0.24em] text-brass">
+        Collection
+      </p>
+      <Link
+        href="/collection"
+        className={cn(
+          "mt-3 flex items-center gap-4 p-5 transition-colors hover:border-brass/40",
+          PANEL,
+        )}
+      >
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brass/10 text-brass">
+          <LayoutGrid className="h-5 w-5" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <span className="font-display text-lg font-semibold tracking-tight">
+            Your shelf
+          </span>
+          <p className="mt-0.5 text-sm text-muted-foreground">
+            Every strain you&apos;ve tried, as a visual collection — plus your
+            wishlist.
+          </p>
+        </div>
+        <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
+      </Link>
 
       {/* History — past Taste Match runs and bookmarked picks. */}
       <p className="mt-10 text-xs uppercase tracking-[0.24em] text-brass">

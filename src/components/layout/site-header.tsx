@@ -13,8 +13,6 @@ const BASE_NAV = [
   { href: "/taste-match", label: "Taste Match" },
   // Compare lives on the dashboard tab bar, not the top nav.
   { href: "/catalog", label: "Harvest" },
-  // The personal shelf — strains you've rated, as a visual collection.
-  { href: "/collection", label: "Collection" },
 ];
 const TAIL_NAV = [
   { href: "/how-it-works", label: "How it works" },
