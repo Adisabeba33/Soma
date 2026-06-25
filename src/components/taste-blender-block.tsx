@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Blend, Check } from "lucide-react";
+import { ArrowRight, Blend, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Taste Blender — the virtual "4th profile" that mixes all three real profiles.
@@ -122,6 +123,19 @@ export function TasteBlenderBlock() {
               {s.active ? "Using Blender" : "Use Blender"}
             </button>
           </div>
+
+          {/* Run straight from the blend — so it's unmistakable the run came
+              from this mix, not the lone active profile. Only when the Blender
+              is on (off → the active profile drives Taste Match anyway). */}
+          {s.active && (
+            <Link
+              href="/taste-match"
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
+            >
+              Run Taste Match with this blend
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          )}
 
           {/* Mode — best-of (discovery) vs balance (bridge across all sides) */}
           <div className="mt-5 border-t border-border/60 pt-4">
