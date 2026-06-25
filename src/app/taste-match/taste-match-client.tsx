@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Blend, Bookmark, Check, Download, RotateCcw } from "lucide-react";
+import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { StrainInput } from "@/components/strain-input";
 import { RunPrioritiesModal } from "@/components/run-priorities-modal";
 import { TasteProfileSummary } from "@/components/taste-profile-summary";
+import { RunBasisCard } from "@/components/run-basis-card";
 import { ResultsView } from "@/components/results-view";
 import { MenuQualityReport } from "@/components/menu-quality-report";
 import { Button, buttonClass } from "@/components/ui/button";
@@ -54,6 +55,9 @@ export function TasteMatchClient() {
     mainLabel: string;
     otherLabel: string;
   } | null>(null);
+  // The active profile's name (single-profile runs), so the summary can name
+  // which account is in play — it matters once there are several.
+  const [activeName, setActiveName] = useState<string>("");
   // When Taste Blender is on, the run scores against the blend (not the single
   // active profile) — surfaced so the page says so instead of staying silent.
   const [blenderInfo, setBlenderInfo] = useState<{
@@ -131,6 +135,12 @@ export function TasteMatchClient() {
       fetch("/api/blender").then((r) => r.json()).catch(() => null),
     ])
       .then(([profilesRes, blender]) => {
+        const all = (profilesRes?.profiles ?? []) as Array<{
+          name: string;
+          isActive: boolean;
+          merged: boolean;
+        }>;
+        setActiveName(all.find((p) => p.isActive)?.name ?? "");
         if (blender?.active) {
           setMergeInfo(null); // Blender drives it; no per-run lever
           setBlenderInfo({
@@ -142,13 +152,7 @@ export function TasteMatchClient() {
           return;
         }
         setBlenderInfo(null);
-        const merged = (
-          (profilesRes?.profiles ?? []) as Array<{
-            name: string;
-            isActive: boolean;
-            merged: boolean;
-          }>
-        ).filter((p) => p.merged);
+        const merged = all.filter((p) => p.merged);
         if (merged.length !== 2) {
           setMergeInfo(null);
           return;
@@ -377,34 +381,28 @@ export function TasteMatchClient() {
           </h1>
           <p className="mt-3 leading-relaxed text-muted-foreground">
             Add the strains available to you. SŌMA will score each one against{" "}
-            {blenderInfo ? "your blended profiles" : "your profile"} and tell you
-            what is worth your money.
+            {blenderInfo
+              ? "your blended profiles"
+              : mergeInfo
+                ? "your merged profiles"
+                : "your profile"}{" "}
+            and tell you what is worth your money.
           </p>
           <ProfileContradictionBanner contradictions={contradictions} />
-          {blenderInfo && (
-            <div className="mt-5 flex items-start gap-2.5 rounded-xl border border-accent/40 bg-accent/5 px-4 py-2.5 text-sm">
-              <Blend className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-              <span className="leading-relaxed">
-                <strong className="text-foreground">Taste Blender is on.</strong>{" "}
-                This run scores against the blend —{" "}
-                <span className="font-medium">{blenderInfo.pair.join(" + ")}</span>
-                {blenderInfo.third
-                  ? ` blended with ${blenderInfo.third} (${blenderInfo.admix}%)`
-                  : ""}
-                {blenderInfo.balance ? ", balance mode" : ""} — not just one
-                profile. Manage in{" "}
-                <Link href="/account" className="text-accent hover:underline">
-                  your account
-                </Link>
-                .
-              </span>
-            </div>
-          )}
           <div className="mt-8">
-            <TasteProfileSummary
-              state={profile}
-              contradictions={contradictions}
-            />
+            {blenderInfo ? (
+              <RunBasisCard blender={blenderInfo} />
+            ) : mergeInfo ? (
+              <RunBasisCard
+                merge={{ names: [mergeInfo.mainLabel, mergeInfo.otherLabel] }}
+              />
+            ) : (
+              <TasteProfileSummary
+                state={profile}
+                contradictions={contradictions}
+                profileName={activeName}
+              />
+            )}
           </div>
           <div className="mt-8">
             <StrainInput
@@ -495,10 +493,19 @@ export function TasteMatchClient() {
           </div>
 
           <div className="mt-8">
-            <TasteProfileSummary
-              state={profile}
-              contradictions={contradictions}
-            />
+            {blenderInfo ? (
+              <RunBasisCard blender={blenderInfo} />
+            ) : mergeInfo ? (
+              <RunBasisCard
+                merge={{ names: [mergeInfo.mainLabel, mergeInfo.otherLabel] }}
+              />
+            ) : (
+              <TasteProfileSummary
+                state={profile}
+                contradictions={contradictions}
+                profileName={activeName}
+              />
+            )}
           </div>
 
           {menuQuality && menuQuality.totalParsed > 0 && (

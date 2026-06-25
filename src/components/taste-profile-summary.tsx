@@ -60,10 +60,14 @@ export function TasteProfileSummary({
   state,
   showEdit = true,
   contradictions = [],
+  profileName,
 }: {
   state: TasteProfileState;
   showEdit?: boolean;
   contradictions?: ProfileContradiction[];
+  // The active account's name. When several profiles exist, naming the one in
+  // play removes the "which account is this?" ambiguity.
+  profileName?: string;
 }) {
   // Aroma + flavour are one question for the user — show the deduped union.
   const sensory = Array.from(
@@ -80,6 +84,12 @@ export function TasteProfileSummary({
       <div className="flex items-center justify-between">
         <h3 className="font-display text-base font-semibold">
           Your taste profile
+          {profileName ? (
+            <span className="font-normal text-muted-foreground">
+              {" · "}
+              {profileName}
+            </span>
+          ) : null}
         </h3>
         {showEdit && (
           <Link
