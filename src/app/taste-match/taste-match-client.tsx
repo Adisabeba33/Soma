@@ -9,6 +9,11 @@ import { StrainInput } from "@/components/strain-input";
 import { RunPrioritiesModal } from "@/components/run-priorities-modal";
 import { TasteProfileSummary } from "@/components/taste-profile-summary";
 import { RunBasisCard } from "@/components/run-basis-card";
+import { ActiveProfileCard, TIME_ICON } from "@/components/active-profile-card";
+import { paletteForTime } from "@/lib/sensory-family-palette";
+import { timeProfileForHour, TIME_HEADLINE } from "@/lib/time-of-day";
+import type { TimeProfile } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { ResultsView } from "@/components/results-view";
 import { MenuQualityReport } from "@/components/menu-quality-report";
 import { Button, buttonClass } from "@/components/ui/button";
@@ -58,6 +63,10 @@ export function TasteMatchClient() {
   // The active profile's name (single-profile runs), so the summary can name
   // which account is in play — it matters once there are several.
   const [activeName, setActiveName] = useState<string>("");
+  // Current time-of-day, for the themed hero + active-profile card. Null until
+  // mounted so the server and first client render agree (the clock is read
+  // client-side, after hydration, to avoid a timezone mismatch).
+  const [timeOfDay, setTimeOfDay] = useState<TimeProfile | null>(null);
   // When Taste Blender is on, the run scores against the blend (not the single
   // active profile) — surfaced so the page says so instead of staying silent.
   const [blenderInfo, setBlenderInfo] = useState<{
@@ -104,6 +113,10 @@ export function TasteMatchClient() {
     percent: number;
     missing: CompletenessItem[];
   }>({ percent: 0, missing: [] });
+
+  useEffect(() => {
+    setTimeOfDay(timeProfileForHour(new Date().getHours()));
+  }, []);
 
   useEffect(() => {
     fetch("/api/strain-feedback")
@@ -376,25 +389,83 @@ export function TasteMatchClient() {
 
       {phase === "input" && (
         <>
-          <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
-            What&apos;s on the menu?
-          </h1>
-          <p className="mt-3 leading-relaxed text-muted-foreground">
-            Add the strains available to you. SŌMA will score each one against{" "}
-            {blenderInfo
+          {(() => {
+            const menuWord = timeOfDay ? TIME_HEADLINE[timeOfDay] : "today";
+            const against = blenderInfo
               ? "your blended profiles"
               : mergeInfo
                 ? "your merged profiles"
-                : "your profile"}{" "}
-            and tell you what is worth your money.
-          </p>
+                : "your profile";
+            // Themed hero once we know the local time; a plain header until
+            // then (so SSR and first client render match).
+            if (!timeOfDay) {
+              return (
+                <>
+                  <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
+                    What&apos;s on the menu {menuWord}?
+                  </h1>
+                  <p className="mt-3 leading-relaxed text-muted-foreground">
+                    Add the strains available to you. SŌMA will score each one
+                    against {against} and tell you what is worth your money.
+                  </p>
+                </>
+              );
+            }
+            const palette = paletteForTime(timeOfDay);
+            const Icon = TIME_ICON[timeOfDay];
+            const light = palette.contentTone === "light";
+            return (
+              <div
+                className="relative mt-4 overflow-hidden rounded-3xl p-6 sm:p-8"
+                style={{
+                  background: palette.background,
+                  color: light ? "#fff" : "#11131f",
+                }}
+              >
+                <Icon
+                  className="pointer-events-none absolute -right-8 -top-8 h-44 w-44 opacity-15"
+                  strokeWidth={1}
+                />
+                <h1 className="relative font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                  What&apos;s on the menu {menuWord}?
+                </h1>
+                <p
+                  className={cn(
+                    "relative mt-3 max-w-lg leading-relaxed",
+                    light ? "text-white/80" : "text-black/70",
+                  )}
+                >
+                  Add the strains available to you. SŌMA will score each one
+                  against {against} and tell you what is worth your money.
+                </p>
+              </div>
+            );
+          })()}
           <ProfileContradictionBanner contradictions={contradictions} />
-          <div className="mt-8">
+          <div className="mt-6">
             {blenderInfo ? (
               <RunBasisCard blender={blenderInfo} />
             ) : mergeInfo ? (
               <RunBasisCard
                 merge={{ names: [mergeInfo.mainLabel, mergeInfo.otherLabel] }}
+              />
+            ) : timeOfDay ? (
+              <ActiveProfileCard
+                name={activeName}
+                percent={completion.percent}
+                aromas={Array.from(
+                  new Set([
+                    ...profile.preferredAromas,
+                    ...(profile.primaryAroma ? [profile.primaryAroma] : []),
+                  ]),
+                ).slice(0, 3)}
+                effects={Array.from(
+                  new Set([
+                    ...profile.preferredEffects,
+                    ...(profile.primaryEffect ? [profile.primaryEffect] : []),
+                  ]),
+                ).slice(0, 3)}
+                time={timeOfDay}
               />
             ) : (
               <TasteProfileSummary
