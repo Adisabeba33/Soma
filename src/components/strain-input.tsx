@@ -86,17 +86,20 @@ export function StrainInput({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+      {/* On the table */}
       <div>
-        <p className="flex items-center gap-2 text-sm font-medium">
-          <UtensilsCrossed className="h-4 w-4 text-brass" />
-          Strains on the table
+        <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] text-brass">
+          <UtensilsCrossed className="h-3.5 w-3.5" />
+          On the table
         </p>
-        <p className="mt-0.5 text-sm text-muted-foreground">
-          Add what is actually available to you — type each name, or paste a
-          menu below.
+        <h2 className="mt-2 font-display text-xl font-semibold tracking-tight">
+          What&apos;s available to you
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Type each strain and press Enter — or paste a whole menu below.
         </p>
-        <div className="mt-3">
+        <div className="mt-4">
           <TagInput
             value={strains}
             onChange={onChange}
@@ -106,35 +109,46 @@ export function StrainInput({
         </div>
       </div>
 
-      <div className="rounded-2xl border border-border bg-muted/40 p-5">
-        <label className="flex items-center gap-2 text-sm font-medium">
-          <ClipboardList className="h-4 w-4 text-brass" />
-          Paste a dispensary menu
-        </label>
-        <p className="mt-0.5 text-sm text-muted-foreground">
-          Prices, percentages and weights are stripped automatically.
-        </p>
-        <Textarea
-          rows={5}
-          value={pasteText}
-          onChange={(e) => setPasteText(e.target.value)}
-          placeholder={
-            "Blue Dream — Sativa — 24% THC — $45\nGG4 1/8 $50\nWedding Cake by Jungle Boys 3.5g 28%"
-          }
-          className="mt-3 bg-card"
-        />
-        <div className="mt-3 flex items-center gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={extract}
-            disabled={parsing || !pasteText.trim()}
-          >
-            {parsing ? "Reading…" : "Extract strains"}
-          </Button>
-          {parseNote && (
-            <span className="text-sm text-muted-foreground">{parseNote}</span>
-          )}
+      {/* Paste a menu — warm panel, not a form box */}
+      <div className="relative">
+        <div className="mb-5 flex items-center gap-4">
+          <span className="h-px flex-1 bg-border" />
+          <span className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+            or
+          </span>
+          <span className="h-px flex-1 bg-border" />
+        </div>
+        <div className="rounded-3xl border border-border bg-card p-6 shadow-[0_24px_50px_-40px_rgba(80,64,40,0.45)] sm:p-7">
+          <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] text-brass">
+            <ClipboardList className="h-3.5 w-3.5" />
+            Paste a dispensary menu
+          </p>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            Prices, percentages and weights are stripped automatically.
+          </p>
+          <Textarea
+            rows={6}
+            value={pasteText}
+            onChange={(e) => setPasteText(e.target.value)}
+            placeholder={
+              "Blue Dream — Sativa — 24% THC — $45\nGG4 1/8 $50\nWedding Cake by Jungle Boys 3.5g 28%"
+            }
+            className="mt-4 rounded-2xl bg-background/50"
+          />
+          <div className="mt-4 flex items-center gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-full px-4"
+              onClick={extract}
+              disabled={parsing || !pasteText.trim()}
+            >
+              {parsing ? "Reading…" : "Extract strains"}
+            </Button>
+            {parseNote && (
+              <span className="text-sm text-muted-foreground">{parseNote}</span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -149,27 +163,38 @@ export function StrainInput({
       )}
 
       {strains.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-muted/30 px-6 py-8 text-center">
-          <ConciergeBell className="h-7 w-7 text-brass" />
+        <div className="flex flex-col items-center gap-4 rounded-3xl border border-border bg-card px-6 py-10 text-center shadow-[0_24px_50px_-40px_rgba(80,64,40,0.45)]">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brass/10">
+            <ConciergeBell className="h-6 w-6 text-brass" />
+          </span>
           <div>
-            <p className="text-sm font-medium">No strains added yet.</p>
-            <p className="mx-auto mt-0.5 max-w-xs text-sm text-muted-foreground">
-              Add a menu or strains above to see your personalised
-              recommendations.
+            <p className="font-display text-lg font-semibold tracking-tight">
+              Nothing on the table yet
+            </p>
+            <p className="mx-auto mt-1 max-w-xs text-sm text-muted-foreground">
+              Add a strain or paste a menu above, and SŌMA will pour your
+              ranking.
             </p>
           </div>
-          <Button size="lg" disabled>
+          <Button size="lg" className="rounded-full" disabled>
             <Sparkles className="h-4 w-4" />
             Run Taste Match
           </Button>
         </div>
       ) : (
-        <div className="flex items-center justify-between gap-4 border-t border-border pt-5">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6">
           <p className="text-sm text-muted-foreground">
-            {strains.length} strain{strains.length === 1 ? "" : "s"} ready to
-            analyze.
+            <span className="font-display text-lg font-semibold text-foreground">
+              {strains.length}
+            </span>{" "}
+            strain{strains.length === 1 ? "" : "s"} ready to read.
           </p>
-          <Button size="lg" onClick={onAnalyze} disabled={analyzing}>
+          <Button
+            size="lg"
+            className="rounded-full"
+            onClick={onAnalyze}
+            disabled={analyzing}
+          >
             <Sparkles className="h-4 w-4" />
             {analyzing ? "Analyzing…" : "Run Taste Match"}
           </Button>
