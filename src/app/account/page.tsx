@@ -21,6 +21,7 @@ import {
 import { buttonClass } from "@/components/ui/button";
 import { ProfileProgressRing } from "@/components/profile-progress";
 import { TasteBlenderBlock } from "@/components/taste-blender-block";
+import { ProfileSimilarityHint } from "@/components/profile-similarity-hint";
 import { MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
 import { cn } from "@/lib/utils";
 
@@ -385,6 +386,8 @@ export default function AccountPage() {
             Add profile
           </button>
         ))}
+
+      <ProfileSimilarityHint />
 
       <TasteBlenderBlock />
 
