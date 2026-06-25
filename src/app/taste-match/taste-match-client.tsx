@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
+import { Blend, Bookmark, Check, Download, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { StrainInput } from "@/components/strain-input";
 import { RunPrioritiesModal } from "@/components/run-priorities-modal";
@@ -53,6 +53,14 @@ export function TasteMatchClient() {
   const [mergeInfo, setMergeInfo] = useState<{
     mainLabel: string;
     otherLabel: string;
+  } | null>(null);
+  // When Taste Blender is on, the run scores against the blend (not the single
+  // active profile) — surfaced so the page says so instead of staying silent.
+  const [blenderInfo, setBlenderInfo] = useState<{
+    pair: string[];
+    third: string;
+    admix: number;
+    balance: boolean;
   } | null>(null);
   // The priorities popup shown after the user hits "Run Taste Match".
   const [showPriorities, setShowPriorities] = useState(false);
@@ -115,8 +123,15 @@ export function TasteMatchClient() {
       .then(([profilesRes, blender]) => {
         if (blender?.active) {
           setMergeInfo(null); // Blender drives it; no per-run lever
+          setBlenderInfo({
+            pair: ((blender.pair ?? []) as Array<{ name: string }>).map((p) => p.name),
+            third: blender.third?.name ?? "",
+            admix: Math.round((blender.lean2 ?? 0) * 100),
+            balance: Boolean(blender.balance),
+          });
           return;
         }
+        setBlenderInfo(null);
         const merged = (
           (profilesRes?.profiles ?? []) as Array<{
             name: string;
@@ -350,10 +365,30 @@ export function TasteMatchClient() {
             What&apos;s on the menu?
           </h1>
           <p className="mt-3 leading-relaxed text-muted-foreground">
-            Add the strains available to you. SŌMA will score each one against
-            your profile and tell you what is worth your money.
+            Add the strains available to you. SŌMA will score each one against{" "}
+            {blenderInfo ? "your blended profiles" : "your profile"} and tell you
+            what is worth your money.
           </p>
           <ProfileContradictionBanner contradictions={contradictions} />
+          {blenderInfo && (
+            <div className="mt-5 flex items-start gap-2.5 rounded-xl border border-accent/40 bg-accent/5 px-4 py-2.5 text-sm">
+              <Blend className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+              <span className="leading-relaxed">
+                <strong className="text-foreground">Taste Blender is on.</strong>{" "}
+                This run scores against the blend —{" "}
+                <span className="font-medium">{blenderInfo.pair.join(" + ")}</span>
+                {blenderInfo.third
+                  ? ` blended with ${blenderInfo.third} (${blenderInfo.admix}%)`
+                  : ""}
+                {blenderInfo.balance ? ", balance mode" : ""} — not just one
+                profile. Manage in{" "}
+                <Link href="/account" className="text-accent hover:underline">
+                  your account
+                </Link>
+                .
+              </span>
+            </div>
+          )}
           <div className="mt-8">
             <TasteProfileSummary
               state={profile}
