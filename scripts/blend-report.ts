@@ -86,3 +86,30 @@ console.log("\n■ BRIDGE (works for ALL sides) — top 8 (favourites hidden)");
 console.log("   " + noFav(bridge.recommendations).slice(0, 8).map((r) => `${r.strainName}(${r.matchScore})`).join(", "));
 const strong = bridge.recommendations.filter((r) => r.matchScore >= 70).length;
 console.log(`\n   strains good in ALL ${PROFILES.length} profiles (min>=70): ${strong}`);
+
+// ── Tag sensitivity: how much do the broad preference tags actually move the
+// result? "Tighten" a profile to its core (favourites + primary aroma/effect +
+// the hard avoids), drop the broad aroma/flavour/effect lists, and see how the
+// bridge count shifts. Big shift = your tags are doing real narrowing; tiny
+// shift = those tags are noise you could trim.
+type Prof = typeof P1;
+const tighten = (p: Prof): Prof => ({
+  ...p,
+  preferredAromas: p.primaryAroma ? [p.primaryAroma] : [],
+  preferredFlavors: [],
+  preferredEffects: p.primaryEffect ? [p.primaryEffect] : [],
+});
+const bridges = (profs: Prof[]) =>
+  analyzeMerged({ strains: KNOWN_STRAIN_NAMES, profiles: profs as never, penalties: {}, feedback: [], balance: true })
+    .recommendations.filter((r) => r.matchScore >= 70).length;
+
+console.log("\n■ TAG SENSITIVITY — bridges (min>=70) as profiles are tightened to their core");
+const full = bridges(PROFILES);
+console.log(`   full profiles (all tags):     ${full}`);
+console.log(`   all tightened to core:        ${bridges(PROFILES.map(tighten))}`);
+PROFILES.forEach((p, i) => {
+  const variant = PROFILES.map((q, j) => (j === i ? tighten(q) : q));
+  console.log(`   tighten only ${p.name.padEnd(6)}        ${bridges(variant)}  (vs ${full})`);
+});
+console.log("   big shift = those tags narrow the result; tiny shift = they're noise to trim");
+
