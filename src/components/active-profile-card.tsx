@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Sunrise, Sun, Sunset, Moon, Leaf, ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Sunrise, Sun, Sunset, Moon, ArrowRight } from "lucide-react";
 import { labelFor } from "@/lib/vocab";
 import { TIME_LABEL } from "@/lib/time-of-day";
 import type { TimeProfile } from "@/lib/types";
@@ -14,34 +13,23 @@ export const TIME_ICON: Record<TimeProfile, typeof Moon> = {
   night: Moon,
 };
 
-// Brand-dark surface for the "who's driving this run" cards (active profile +
-// blend). Warm charcoal-olive with brass/gold accents — matches the brand
-// (cream bg, dark-green accent, brass), NOT the saturated catalogue palettes.
-export const DARK_CARD =
-  "linear-gradient(155deg, hsl(120 12% 15%) 0%, hsl(120 14% 9%) 100%)";
-export const GOLD = "#c99a4e";
-
-// A thin brass progress ring around the completeness number — the gold circle
-// from the mockup. Pure CSS (conic-gradient), no SVG.
+// A thin brass completeness ring — the engraved gauge from the Atelier study,
+// on a light card.
 function CompletionRing({ percent }: { percent: number }) {
   const deg = Math.max(0, Math.min(100, percent)) * 3.6;
   return (
-    <div className="relative h-16 w-16 shrink-0">
+    <div className="relative h-[4.75rem] w-[4.75rem] shrink-0">
       <div
         className="absolute inset-0 rounded-full"
         style={{
-          background: `conic-gradient(${GOLD} ${deg}deg, rgba(255,255,255,0.12) ${deg}deg)`,
+          background: `conic-gradient(hsl(var(--brass)) ${deg}deg, hsl(var(--border)) ${deg}deg)`,
         }}
       />
-      <div
-        className="absolute inset-[3px] rounded-full"
-        style={{ background: "hsl(120 14% 10%)" }}
-      />
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="font-display text-base font-bold leading-none text-white">
-          {percent}%
+      <div className="absolute inset-[5px] flex flex-col items-center justify-center rounded-full bg-card">
+        <span className="font-display text-xl font-semibold leading-none">
+          {percent}
         </span>
-        <span className="mt-0.5 text-[7px] uppercase tracking-[0.12em] text-white/55">
+        <span className="mt-0.5 text-[8px] uppercase tracking-[0.16em] text-muted-foreground">
           complete
         </span>
       </div>
@@ -49,10 +37,24 @@ function CompletionRing({ percent }: { percent: number }) {
   );
 }
 
-// The active-profile hero on Taste Match: who's driving the run — name,
-// sensory + effect chips, completeness ring — themed by the time of day (the
-// icon only; the surface stays brand-dark). Replaces the plain text summary in
-// the single-profile case; merge / blender runs use the RunBasisCard instead.
+function Note({ label, items }: { label: string; items: string[] }) {
+  if (items.length === 0) return null;
+  return (
+    <div>
+      <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+        {label}
+      </p>
+      <p className="mt-1.5 text-[15px] text-foreground">
+        {items.map(labelFor).join(" · ")}
+      </p>
+    </div>
+  );
+}
+
+// The active-profile card on Taste Match — the "Sensory Atelier" light
+// treatment: warm paper, brass completeness ring, refined serif name, Nose /
+// Effect notes. Replaces the plain summary in the single-profile case; merge /
+// blender runs use the RunBasisCard.
 export function ActiveProfileCard({
   name,
   percent,
@@ -69,22 +71,10 @@ export function ActiveProfileCard({
   const Icon = TIME_ICON[time];
 
   return (
-    <div
-      className="relative overflow-hidden rounded-3xl p-5 text-white shadow-md sm:p-6"
-      style={{ background: DARK_CARD }}
-    >
-      {/* faint time-of-day glow in the corner */}
-      <Icon
-        className="pointer-events-none absolute -right-7 -top-7 h-36 w-36 opacity-[0.07]"
-        strokeWidth={1}
-      />
-
-      <div className="relative flex items-start justify-between gap-4">
+    <div className="overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-[0_24px_50px_-40px_rgba(80,64,40,0.45)] sm:p-7">
+      <div className="flex items-start justify-between gap-5">
         <div className="min-w-0">
-          <p
-            className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.2em]"
-            style={{ color: GOLD }}
-          >
+          <p className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.22em] text-brass">
             <Icon className="h-3.5 w-3.5" />
             {TIME_LABEL[time]} · your active profile
           </p>
@@ -96,50 +86,22 @@ export function ActiveProfileCard({
       </div>
 
       {(aromas.length > 0 || effects.length > 0) && (
-        <div className="relative mt-4 space-y-2">
-          {aromas.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {aromas.map((a) => (
-                <span
-                  key={`a-${a}`}
-                  className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium"
-                  style={{
-                    background: "rgba(201,154,78,0.16)",
-                    color: "#e7cfa0",
-                  }}
-                >
-                  <Leaf className="h-3 w-3" style={{ color: GOLD }} />
-                  {labelFor(a)}
-                </span>
-              ))}
-            </div>
-          )}
-          {effects.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {effects.map((e) => (
-                <span
-                  key={`e-${e}`}
-                  className="rounded-full px-2.5 py-1 text-xs text-white/75 ring-1 ring-white/15"
-                >
-                  {labelFor(e)}
-                </span>
-              ))}
-            </div>
-          )}
+        <div className="mt-5 grid grid-cols-1 gap-5 border-t border-border pt-4 sm:grid-cols-2">
+          <Note label="Nose" items={aromas} />
+          <Note label="Effect" items={effects} />
         </div>
       )}
 
-      <div className="relative mt-5 flex items-center gap-4 border-t border-white/10 pt-3.5 text-sm font-medium">
+      <div className="mt-5 flex items-center gap-5 text-sm">
         <Link
           href="/account"
-          className="inline-flex items-center gap-0.5 underline-offset-4 hover:underline"
-          style={{ color: GOLD }}
+          className="inline-flex items-center gap-1 font-medium text-accent underline-offset-4 hover:underline"
         >
-          Switch profile <ChevronRight className="h-4 w-4" />
+          Switch profile <ArrowRight className="h-3.5 w-3.5" />
         </Link>
         <Link
           href="/profile"
-          className="text-white/55 underline-offset-4 hover:text-white/80 hover:underline"
+          className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
         >
           Edit
         </Link>

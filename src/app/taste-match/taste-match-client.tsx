@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Bookmark, Check, Download, Leaf, RotateCcw } from "lucide-react";
+import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { StrainInput } from "@/components/strain-input";
 import { RunPrioritiesModal } from "@/components/run-priorities-modal";
@@ -36,14 +36,18 @@ import { AuditPanel } from "@/components/audit-panel";
 type Phase = "loading" | "profile" | "gated" | "input" | "results";
 type Rec = StrainMatch & { id?: string };
 
-// Warm, brand-aligned hero backdrop per time of day — a placeholder standing in
-// for real photography. All sepia/amber so it sits inside the cream brand,
-// never the saturated catalogue palettes (the earlier "blue box" mistake).
-const HERO_TINT: Record<TimeProfile, string> = {
-  morning: "linear-gradient(135deg, #f3e7cf 0%, #e6c49a 100%)",
-  daytime: "linear-gradient(135deg, #efd9b0 0%, #d7a868 100%)",
-  sunset: "linear-gradient(135deg, #e6ad66 0%, #a9583a 100%)",
-  night: "linear-gradient(135deg, #5b4a38 0%, #271d15 100%)",
+// Soft, light placeholder "photograph" per time of day — warm and airy to sit
+// inside the Atelier cream palette (never the saturated catalogue gradients).
+// Real artwork drops in here later.
+const ART_TINT: Record<TimeProfile, string> = {
+  morning:
+    "radial-gradient(120% 90% at 80% 10%, rgba(214,178,100,0.5), transparent 60%), linear-gradient(155deg,#f0e7d0 0%,#dcc9a0 50%,#c2d0b4 100%)",
+  daytime:
+    "radial-gradient(120% 90% at 80% 10%, rgba(199,155,86,0.55), transparent 60%), linear-gradient(155deg,#efe2c4 0%,#d8c4a0 45%,#a8b894 100%)",
+  sunset:
+    "radial-gradient(120% 90% at 80% 10%, rgba(230,170,90,0.55), transparent 60%), linear-gradient(155deg,#f1d6a8 0%,#d99a63 50%,#b06a52 100%)",
+  night:
+    "radial-gradient(120% 90% at 80% 10%, rgba(214,178,100,0.4), transparent 60%), linear-gradient(155deg,#d9c7a0 0%,#a98f6a 50%,#6f6a5a 100%)",
 };
 
 export function TasteMatchClient() {
@@ -420,32 +424,32 @@ export function TasteMatchClient() {
               );
             }
             const Icon = TIME_ICON[timeOfDay];
+            // Atelier hero: copy on the left, a soft placeholder "photograph"
+            // on the right (stacked on mobile, art first).
             return (
-              <div className="relative mt-4 overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
-                {/* Placeholder "photo" band — warm sepia, time-of-day tinted. */}
+              <div className="mt-6 grid grid-cols-1 items-center gap-6 sm:grid-cols-[1.4fr_1fr] sm:gap-8">
+                <div className="order-2 sm:order-1">
+                  <p className="text-[11px] uppercase tracking-[0.3em] text-brass">
+                    Tonight&apos;s tasting
+                  </p>
+                  <h1 className="mt-4 font-display text-[2.6rem] font-medium leading-[1.02] tracking-tight sm:text-5xl">
+                    What&apos;s on the menu{" "}
+                    <span className="italic text-brass">{menuWord}</span>?
+                  </h1>
+                  <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
+                    <Icon className="mr-1.5 inline-block h-4 w-4 align-[-2px] text-brass" />
+                    Add the strains available to you. SŌMA scores each one
+                    against {against} and ranks them by what is worth your money.
+                  </p>
+                </div>
                 <div
-                  className="relative h-24 w-full sm:h-28"
-                  style={{ background: HERO_TINT[timeOfDay] }}
+                  className="relative order-1 aspect-[16/10] overflow-hidden rounded-3xl shadow-[0_30px_60px_-34px_rgba(80,64,40,0.5)] sm:order-2 sm:aspect-[3/4]"
+                  style={{ background: ART_TINT[timeOfDay] }}
+                  aria-hidden
                 >
-                  <Leaf
-                    className="pointer-events-none absolute -right-3 -top-4 h-28 w-28 text-white/20"
-                    strokeWidth={1}
-                  />
-                  <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-foreground/80 text-background">
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  <span className="absolute bottom-3 left-5 rounded-full bg-foreground/70 px-2 py-0.5 text-[10px] uppercase tracking-[0.18em] text-background">
+                  <span className="absolute bottom-3 left-3 rounded-full bg-foreground/75 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.18em] text-background">
                     Artwork coming
                   </span>
-                </div>
-                <div className="p-6 sm:p-7">
-                  <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-                    What&apos;s on the menu {menuWord}?
-                  </h1>
-                  <p className="mt-3 max-w-lg leading-relaxed text-muted-foreground">
-                    Add the strains available to you. SŌMA will score each one
-                    against {against} and tell you what is worth your money.
-                  </p>
                 </div>
               </div>
             );
