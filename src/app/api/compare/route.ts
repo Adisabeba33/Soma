@@ -140,10 +140,14 @@ export async function POST(req: NextRequest) {
       closestName: closest.strainName,
       merge: blend
         ? {
+            mode: blend.blenderActive ? "blender" : "merge",
+            balance: blend.balance,
             bias: blend.pairLean,
+            lean2: blend.lean2,
             profiles: blend.profiles.map((p, i) => ({
               name: blend.worlds[i],
               primary: p.id === blend.primaryId,
+              penalty: blend.penalties[p.id] ?? 0,
               profile: p as unknown as TasteProfileInput,
             })),
             breakdown: mergeBreakdown ?? {},

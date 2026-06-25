@@ -131,7 +131,7 @@ describe("buildAuditEntry — Compare run", () => {
     });
     assert.equal(entry.source, "compare");
     assert.equal(entry.userId, "user-123");
-    assert.equal(entry.schemaVersion, 3);
+    assert.equal(entry.schemaVersion, 4);
     assert.equal(entry.taste, undefined);
     assert.equal(entry.merge, undefined);
     assert.equal(entry.modeSnapshot.trustMode, true);
@@ -296,20 +296,27 @@ describe("buildAuditEntry — merge run", () => {
       matches,
       closestName: "GG4",
       merge: {
+        mode: "blender",
+        balance: false,
         bias: 0.6,
+        lean2: 0.4,
         profiles: [
-          { name: "Gas", primary: true, profile: gas },
-          { name: "Skunk", primary: false, profile: skunk },
+          { name: "Gas", primary: true, penalty: 0, profile: gas },
+          { name: "Skunk", primary: false, penalty: 15, profile: skunk },
         ],
         breakdown,
       },
     });
 
-    assert.equal(entry.schemaVersion, 3);
+    assert.equal(entry.schemaVersion, 4);
     assert.ok(entry.merge);
+    assert.equal(entry.merge?.mode, "blender");
+    assert.equal(entry.merge?.balance, false);
     assert.equal(entry.merge?.bias, 0.6);
+    assert.equal(entry.merge?.lean2, 0.4);
     assert.equal(entry.merge?.profiles.length, 2);
     assert.equal(entry.merge?.profiles[0].primary, true);
+    assert.equal(entry.merge?.profiles[1].penalty, 15);
     // Every merged world carries its own derived snapshot.
     assert.ok(entry.merge?.profiles[0].modeSnapshot);
     assert.ok(entry.merge?.profiles[1].modeSnapshot);

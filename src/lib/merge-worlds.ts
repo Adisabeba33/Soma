@@ -68,6 +68,7 @@ export type BlendSpec = {
   primaryId: string; // the pair's "Main" end
   worlds: string[]; // names aligned with `profiles`
   pairLean: number; // the applied pair lean (for the audit)
+  lean2: number; // the third-admix recipe value (0 when no third)
   blenderActive: boolean; // 3-way Taste Blender on
   balance: boolean; // true = bridge mode (min across worlds); false = best-of
   thirdName?: string; // present in blender mode
@@ -140,6 +141,7 @@ export async function resolveBlend(
       primaryId: primary.id,
       worlds: profiles.map(worldNameOf),
       pairLean: balance ? 0 : lean1,
+      lean2: clamp(user!.blenderLean2, 0, 1),
       blenderActive: true,
       balance,
       thirdName: worldNameOf(third, 2),
@@ -155,6 +157,7 @@ export async function resolveBlend(
     primaryId: primary.id,
     worlds: pair.map(worldNameOf),
     pairLean,
+    lean2: 0,
     blenderActive: false,
     balance: false,
   };

@@ -102,12 +102,19 @@ export interface RunAuditModeSnapshot {
 }
 
 // Merge runs only. One snapshot per merged profile (so each world reconciles
-// independently), plus the per-run lean. Absent for single-profile runs.
+// independently), plus the full recipe. Absent for single-profile runs.
 export interface RunAuditMerge {
-  bias: number; // −1…+1, + toward the primary profile
+  // "merge" = a plain merged pair; "blender" = the 3-way Taste Blender.
+  mode: "merge" | "blender";
+  // Bridge mode (min across worlds) vs best-of (max). Leans don't apply in
+  // balance mode — penalties below are then all 0.
+  balance: boolean;
+  bias: number; // pair lean (lean1), −1…+1, + toward the primary profile
+  lean2: number; // third-admix recipe value (0…1); 0 when there's no third
   profiles: Array<{
     name: string;
     primary: boolean; // the lean's "Main" end
+    penalty: number; // points subtracted from this world before the pick
     profile: TasteProfileInput;
     modeSnapshot: RunAuditModeSnapshot;
   }>;
@@ -115,7 +122,7 @@ export interface RunAuditMerge {
 
 export interface RunAuditEntry {
   runAt: string;
-  schemaVersion: 3;
+  schemaVersion: 4;
   source: RunAuditSource;
   userId: string;
   // The active profile (top-level, unchanged for single runs). On merge runs
@@ -191,8 +198,16 @@ export interface BuildAuditEntryArgs {
   // per-world modeSnapshot, which this builder fills in); `breakdown` maps each
   // strain to its raw pre-lean score in every world.
   merge?: {
+    mode: "merge" | "blender";
+    balance: boolean;
     bias: number;
-    profiles: Array<{ name: string; primary: boolean; profile: TasteProfileInput }>;
+    lean2: number;
+    profiles: Array<{
+      name: string;
+      primary: boolean;
+      penalty: number;
+      profile: TasteProfileInput;
+    }>;
     breakdown: Record<string, Array<{ world: string; score: number }>>;
   };
 }
@@ -200,7 +215,7 @@ export interface BuildAuditEntryArgs {
 export function buildAuditEntry(args: BuildAuditEntryArgs): RunAuditEntry {
   const entry: RunAuditEntry = {
     runAt: new Date().toISOString(),
-    schemaVersion: 3,
+    schemaVersion: 4,
     source: args.source,
     userId: args.userId,
     profile: args.profile,
@@ -226,10 +241,14 @@ export function buildAuditEntry(args: BuildAuditEntryArgs): RunAuditEntry {
   if (args.taste) entry.taste = args.taste;
   if (args.merge) {
     entry.merge = {
+      mode: args.merge.mode,
+      balance: args.merge.balance,
       bias: args.merge.bias,
+      lean2: args.merge.lean2,
       profiles: args.merge.profiles.map((p) => ({
         name: p.name,
         primary: p.primary,
+        penalty: p.penalty,
         profile: p.profile,
         modeSnapshot: buildModeSnapshot(p.profile),
       })),
