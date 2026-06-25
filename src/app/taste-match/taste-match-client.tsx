@@ -36,20 +36,6 @@ import { AuditPanel } from "@/components/audit-panel";
 type Phase = "loading" | "profile" | "gated" | "input" | "results";
 type Rec = StrainMatch & { id?: string };
 
-// Soft, light placeholder "photograph" per time of day — warm and airy to sit
-// inside the Atelier cream palette (never the saturated catalogue gradients).
-// Real artwork drops in here later.
-const ART_TINT: Record<TimeProfile, string> = {
-  morning:
-    "radial-gradient(120% 90% at 80% 10%, rgba(214,178,100,0.5), transparent 60%), linear-gradient(155deg,#f0e7d0 0%,#dcc9a0 50%,#c2d0b4 100%)",
-  daytime:
-    "radial-gradient(120% 90% at 80% 10%, rgba(199,155,86,0.55), transparent 60%), linear-gradient(155deg,#efe2c4 0%,#d8c4a0 45%,#a8b894 100%)",
-  sunset:
-    "radial-gradient(120% 90% at 80% 10%, rgba(230,170,90,0.55), transparent 60%), linear-gradient(155deg,#f1d6a8 0%,#d99a63 50%,#b06a52 100%)",
-  night:
-    "radial-gradient(120% 90% at 80% 10%, rgba(214,178,100,0.4), transparent 60%), linear-gradient(155deg,#d9c7a0 0%,#a98f6a 50%,#6f6a5a 100%)",
-};
-
 export function TasteMatchClient() {
   const searchParams = useSearchParams();
   const [phase, setPhase] = useState<Phase>("loading");
@@ -442,14 +428,15 @@ export function TasteMatchClient() {
                     against {against} and ranks them by what is worth your money.
                   </p>
                 </div>
-                <div
-                  className="relative order-1 aspect-[16/10] overflow-hidden rounded-3xl shadow-[0_30px_60px_-34px_rgba(80,64,40,0.5)] sm:order-2 sm:aspect-[3/4]"
-                  style={{ background: ART_TINT[timeOfDay] }}
-                  aria-hidden
-                >
-                  <span className="absolute bottom-3 left-3 rounded-full bg-foreground/75 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.18em] text-background">
-                    Artwork coming
-                  </span>
+                <div className="relative order-1 aspect-[16/10] overflow-hidden rounded-3xl shadow-[0_30px_60px_-34px_rgba(80,64,40,0.5)] sm:order-2 sm:aspect-[3/4]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/hero/evening.webp"
+                    alt=""
+                    aria-hidden
+                    loading="eager"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
                 </div>
               </div>
             );
