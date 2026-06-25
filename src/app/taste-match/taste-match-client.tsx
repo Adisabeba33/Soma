@@ -3,17 +3,15 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
+import { Bookmark, Check, Download, Leaf, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { StrainInput } from "@/components/strain-input";
 import { RunPrioritiesModal } from "@/components/run-priorities-modal";
 import { TasteProfileSummary } from "@/components/taste-profile-summary";
 import { RunBasisCard } from "@/components/run-basis-card";
 import { ActiveProfileCard, TIME_ICON } from "@/components/active-profile-card";
-import { paletteForTime } from "@/lib/sensory-family-palette";
 import { timeProfileForHour, TIME_HEADLINE } from "@/lib/time-of-day";
 import type { TimeProfile } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import { ResultsView } from "@/components/results-view";
 import { MenuQualityReport } from "@/components/menu-quality-report";
 import { Button, buttonClass } from "@/components/ui/button";
@@ -37,6 +35,16 @@ import { AuditPanel } from "@/components/audit-panel";
 
 type Phase = "loading" | "profile" | "gated" | "input" | "results";
 type Rec = StrainMatch & { id?: string };
+
+// Warm, brand-aligned hero backdrop per time of day — a placeholder standing in
+// for real photography. All sepia/amber so it sits inside the cream brand,
+// never the saturated catalogue palettes (the earlier "blue box" mistake).
+const HERO_TINT: Record<TimeProfile, string> = {
+  morning: "linear-gradient(135deg, #f3e7cf 0%, #e6c49a 100%)",
+  daytime: "linear-gradient(135deg, #efd9b0 0%, #d7a868 100%)",
+  sunset: "linear-gradient(135deg, #e6ad66 0%, #a9583a 100%)",
+  night: "linear-gradient(135deg, #5b4a38 0%, #271d15 100%)",
+};
 
 export function TasteMatchClient() {
   const searchParams = useSearchParams();
@@ -411,33 +419,34 @@ export function TasteMatchClient() {
                 </>
               );
             }
-            const palette = paletteForTime(timeOfDay);
             const Icon = TIME_ICON[timeOfDay];
-            const light = palette.contentTone === "light";
             return (
-              <div
-                className="relative mt-4 overflow-hidden rounded-3xl p-6 sm:p-8"
-                style={{
-                  background: palette.background,
-                  color: light ? "#fff" : "#11131f",
-                }}
-              >
-                <Icon
-                  className="pointer-events-none absolute -right-8 -top-8 h-44 w-44 opacity-15"
-                  strokeWidth={1}
-                />
-                <h1 className="relative font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-                  What&apos;s on the menu {menuWord}?
-                </h1>
-                <p
-                  className={cn(
-                    "relative mt-3 max-w-lg leading-relaxed",
-                    light ? "text-white/80" : "text-black/70",
-                  )}
+              <div className="relative mt-4 overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
+                {/* Placeholder "photo" band — warm sepia, time-of-day tinted. */}
+                <div
+                  className="relative h-24 w-full sm:h-28"
+                  style={{ background: HERO_TINT[timeOfDay] }}
                 >
-                  Add the strains available to you. SŌMA will score each one
-                  against {against} and tell you what is worth your money.
-                </p>
+                  <Leaf
+                    className="pointer-events-none absolute -right-3 -top-4 h-28 w-28 text-white/20"
+                    strokeWidth={1}
+                  />
+                  <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-foreground/80 text-background">
+                    <Icon className="h-4 w-4" />
+                  </div>
+                  <span className="absolute bottom-3 left-5 rounded-full bg-foreground/70 px-2 py-0.5 text-[10px] uppercase tracking-[0.18em] text-background">
+                    Artwork coming
+                  </span>
+                </div>
+                <div className="p-6 sm:p-7">
+                  <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                    What&apos;s on the menu {menuWord}?
+                  </h1>
+                  <p className="mt-3 max-w-lg leading-relaxed text-muted-foreground">
+                    Add the strains available to you. SŌMA will score each one
+                    against {against} and tell you what is worth your money.
+                  </p>
+                </div>
               </div>
             );
           })()}

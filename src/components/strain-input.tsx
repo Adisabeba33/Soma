@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { AlertTriangle, ClipboardList, Sparkles, X } from "lucide-react";
+import {
+  AlertTriangle,
+  ClipboardList,
+  ConciergeBell,
+  Sparkles,
+  UtensilsCrossed,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { TagInput } from "@/components/ui/selectors";
@@ -81,7 +88,10 @@ export function StrainInput({
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-sm font-medium">Strains on the table</p>
+        <p className="flex items-center gap-2 text-sm font-medium">
+          <UtensilsCrossed className="h-4 w-4 text-brass" />
+          Strains on the table
+        </p>
         <p className="mt-0.5 text-sm text-muted-foreground">
           Add what is actually available to you — type each name, or paste a
           menu below.
@@ -96,7 +106,7 @@ export function StrainInput({
         </div>
       </div>
 
-      <div className="rounded-xl border border-border bg-muted/40 p-4">
+      <div className="rounded-2xl border border-border bg-muted/40 p-5">
         <label className="flex items-center gap-2 text-sm font-medium">
           <ClipboardList className="h-4 w-4 text-brass" />
           Paste a dispensary menu
@@ -138,21 +148,33 @@ export function StrainInput({
         </p>
       )}
 
-      <div className="flex items-center justify-between gap-4 border-t border-border pt-5">
-        <p className="text-sm text-muted-foreground">
-          {strains.length === 0
-            ? "No strains added yet."
-            : `${strains.length} strain${strains.length === 1 ? "" : "s"} ready to analyze.`}
-        </p>
-        <Button
-          size="lg"
-          onClick={onAnalyze}
-          disabled={analyzing || strains.length === 0}
-        >
-          <Sparkles className="h-4 w-4" />
-          {analyzing ? "Analyzing…" : "Run Taste Match"}
-        </Button>
-      </div>
+      {strains.length === 0 ? (
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-muted/30 px-6 py-8 text-center">
+          <ConciergeBell className="h-7 w-7 text-brass" />
+          <div>
+            <p className="text-sm font-medium">No strains added yet.</p>
+            <p className="mx-auto mt-0.5 max-w-xs text-sm text-muted-foreground">
+              Add a menu or strains above to see your personalised
+              recommendations.
+            </p>
+          </div>
+          <Button size="lg" disabled>
+            <Sparkles className="h-4 w-4" />
+            Run Taste Match
+          </Button>
+        </div>
+      ) : (
+        <div className="flex items-center justify-between gap-4 border-t border-border pt-5">
+          <p className="text-sm text-muted-foreground">
+            {strains.length} strain{strains.length === 1 ? "" : "s"} ready to
+            analyze.
+          </p>
+          <Button size="lg" onClick={onAnalyze} disabled={analyzing}>
+            <Sparkles className="h-4 w-4" />
+            {analyzing ? "Analyzing…" : "Run Taste Match"}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
