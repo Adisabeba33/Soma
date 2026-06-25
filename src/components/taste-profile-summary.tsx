@@ -12,7 +12,6 @@ import {
   PRIMARY_AROMAS,
   PRIMARY_EFFECTS,
   SMOKING_METHODS,
-  BUD_STRUCTURES,
   PREFERRED_TYPES,
 } from "@/lib/profile-target";
 import { NAMED_FAMILIES } from "@/lib/strain-families";
@@ -144,13 +143,6 @@ export function TasteProfileSummary({
         <Row
           label="Smokes with"
           values={state.smokingMethods.map((v) => optLabel(SMOKING_METHODS, v))}
-        />
-        <Row
-          label="Bud structure"
-          values={single(
-            state.budStructure,
-            optLabel(BUD_STRUCTURES, state.budStructure),
-          )}
         />
         <Row label="Likes" values={state.likedTraits.map(labelFor)} />
         <Row

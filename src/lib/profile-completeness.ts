@@ -12,7 +12,6 @@ import {
   isPrimaryAroma,
   isPrimaryEffect,
   isUseTime,
-  isBudStructure,
   isPreferredType,
 } from "./profile-target";
 import type { TasteProfileInput } from "./types";
@@ -42,7 +41,7 @@ function items(p: Partial<TasteProfileInput>): CompletenessItem[] {
     nonEmpty(p.preferredFamilies) || nonEmpty(p.avoidedFamilies);
 
   return [
-    // ── Onboarding (75): the 15 questions, weighted by directional value ──
+    // ── Onboarding (73): the questions, weighted by directional value ──
     { key: "favoriteStrains", label: "A few strains you already love", weight: 13, filled: nonEmpty(p.favoriteStrains), section: "base" },
     { key: "primaryEffect", label: "Your one-word session (primary effect)", weight: 10, filled: isPrimaryEffect(p.primaryEffect), section: "base" },
     { key: "useTime", label: "When you usually reach for it", weight: 8, filled: isUseTime(p.useTime), section: "base" },
@@ -54,7 +53,6 @@ function items(p: Partial<TasteProfileInput>): CompletenessItem[] {
     { key: "potencyPreference", label: "How hard-hitting you want it", weight: 4, filled: hasText(p.potencyPreference), section: "base" },
     { key: "dislikedAromas", label: "Aromas that are an instant no", weight: 3, filled: nonEmpty(p.dislikedAromas), section: "base" },
     { key: "smokingMethods", label: "How you like to smoke it", weight: 2, filled: nonEmpty(p.smokingMethods), section: "base" },
-    { key: "budStructure", label: "The bud structure you like", weight: 2, filled: isBudStructure(p.budStructure), section: "base" },
     { key: "avoidedRisks", label: "Risks in the high to avoid", weight: 2, filled: nonEmpty(p.avoidedRisks), section: "base" },
     { key: "dislikedStrains", label: "Strains to steer away from", weight: 2, filled: nonEmpty(p.dislikedStrains), section: "base" },
     { key: "dislikedTraits", label: "Past-pickup dealbreakers", weight: 1, filled: nonEmpty(p.dislikedTraits), section: "base" },

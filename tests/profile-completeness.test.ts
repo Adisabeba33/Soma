@@ -83,7 +83,7 @@ test("after screen 1, a real chunk is filled but it's far from done", () => {
   assert.ok(keys.includes("useTime"));
 });
 
-test("the four directional answers are worth 39% together", () => {
+test("the four directional answers are worth 40% together", () => {
   const c = profileCompleteness(
     empty({
       favoriteStrains: ["GG4"],
@@ -92,10 +92,10 @@ test("the four directional answers are worth 39% together", () => {
       primaryAroma: "citrus",
     }),
   );
-  assert.equal(c.percent, 39);
+  assert.equal(c.percent, 40);
 });
 
-test("the onboarding questions max out at 75% (extras live in the profile)", () => {
+test("the onboarding questions max out at 74% (extras live in the profile)", () => {
   // Everything except the five depth/extra questions.
   const c = profileCompleteness({
     ...everything(),
@@ -107,7 +107,7 @@ test("the onboarding questions max out at 75% (extras live in the profile)", () 
     texturePreferences: [],
     notes: "",
   });
-  assert.equal(c.percent, 75);
+  assert.equal(c.percent, 74);
 });
 
 test("a fully filled profile is 100% and complete", () => {

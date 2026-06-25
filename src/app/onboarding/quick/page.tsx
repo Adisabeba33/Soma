@@ -13,7 +13,6 @@ import {
   USE_TIMES,
   PRIMARY_AROMAS,
   PRIMARY_EFFECTS,
-  BUD_STRUCTURES,
 } from "@/lib/profile-target";
 import {
   AROMAS,
@@ -81,7 +80,6 @@ export default function QuickOnboardingPage() {
   // Screen 2
   const [sensoryNotes, setSensoryNotes] = useState<string[]>([]);
   const [primaryAroma, setPrimaryAroma] = useState("");
-  const [budStructure, setBudStructure] = useState("");
   // Screen 3
   const [preferredEffects, setPreferredEffects] = useState<string[]>([]);
   const [primaryEffect, setPrimaryEffect] = useState("");
@@ -108,7 +106,6 @@ export default function QuickOnboardingPage() {
     preferredAromas: sensoryNotes.filter((t) => AROMA_VALUES.has(t)),
     preferredFlavors: sensoryNotes.filter((t) => FLAVOR_VALUES.has(t)),
     primaryAroma,
-    budStructure,
     preferredEffects,
     primaryEffect,
     dislikedEffects,
@@ -414,18 +411,6 @@ export default function QuickOnboardingPage() {
               options={PRIMARY_AROMAS}
               selected={primaryAroma}
               onSelect={(v) => setPrimaryAroma(v === primaryAroma ? "" : v)}
-            />
-          </Question>
-
-          <Question
-            n={3}
-            title="Opening the jar — how should the bud look and feel?"
-            sub="Visually and to the touch."
-          >
-            <OptionRow
-              options={BUD_STRUCTURES}
-              selected={budStructure}
-              onSelect={(v) => setBudStructure(v === budStructure ? "" : v)}
             />
           </Question>
         </>

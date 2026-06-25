@@ -20,7 +20,6 @@ import {
   PRIMARY_EFFECTS,
   USE_TIMES,
   SMOKING_METHODS,
-  BUD_STRUCTURES,
   PREFERRED_TYPES,
 } from "@/lib/profile-target";
 import { NAMED_FAMILIES } from "@/lib/strain-families";
@@ -173,7 +172,7 @@ export function TasteProfileForm({
 
       <GroupHeader
         title="Now your nose"
-        sub="What you're drawn to in the jar — smell, taste and structure."
+        sub="What you're drawn to in the jar — smell and taste."
       />
       <Section
         index={4}
@@ -199,24 +198,12 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section
-        index={6}
-        title="Opening the jar — how should the bud look and feel?"
-        hint="Visually and to the touch."
-      >
-        <SingleSelect
-          options={BUD_STRUCTURES}
-          value={state.budStructure}
-          onChange={(v) => set("budStructure", v)}
-        />
-      </Section>
-
       <GroupHeader
         title="Now the high"
         sub="The effects you want — and the ones to steer clear of."
       />
       <Section
-        index={7}
+        index={6}
         title="What effect are you looking for?"
         hint="Pick everything that fits — head and body."
       >
@@ -228,7 +215,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={8}
+        index={7}
         title="A perfect session — in one word, how do you feel?"
         hint="Pick one. This is the outcome that matters most to you."
       >
@@ -240,7 +227,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={9}
+        index={8}
         title="Any effects you want to avoid?"
         hint="Couch-lock, paranoia, head-heavy spin. SŌMA penalises these and silences the dislike if your favourites already deliver it."
       >
@@ -256,7 +243,7 @@ export function TasteProfileForm({
         sub="What to steer you away from — each answer sharpens the match."
       />
       <Section
-        index={10}
+        index={9}
         title="Anything in the high you'd rather avoid?"
         hint="For daytime energy without the nervous edge. SŌMA gently lowers strains known to run this way — never if your own favourites already do."
       >
@@ -268,7 +255,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={11}
+        index={10}
         title="What disappointed you in past pickups?"
         hint="Honest dealbreakers. Some come down to freshness and storage rather than the strain — SŌMA accounts for that."
       >
@@ -280,7 +267,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={12}
+        index={11}
         title="Strains to steer away from"
         hint="Anything you already know is not for you."
       >
@@ -298,7 +285,7 @@ export function TasteProfileForm({
         sub="A few checks to sharpen — and sanity-check — your profile."
       />
       <Section
-        index={13}
+        index={12}
         title="Any aroma that's an instant no?"
         hint="The opposite of what you reach for — helps catch contradictions."
       >
@@ -310,7 +297,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={14}
+        index={13}
         title="When it hits right, how heavy is the body?"
         hint="Clear-headed and light, or sunk into the couch?"
       >
@@ -322,7 +309,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={15}
+        index={14}
         title="How hard should it hit?"
         hint="Your preferred strength."
       >
@@ -338,7 +325,7 @@ export function TasteProfileForm({
         sub="Extra detail that takes your profile to 100% and sharpens the match."
       />
       <Section
-        index={16}
+        index={15}
         title="Which type usually treats you best?"
         hint="A soft preference — pick 'No difference' if the indica/sativa label doesn't matter to you."
       >
@@ -350,7 +337,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={17}
+        index={16}
         title="What did you like about your favourites?"
         hint="The traits that made those picks feel good."
       >
@@ -362,7 +349,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={18}
+        index={17}
         title="Strain families you seek out or avoid"
         hint="Buying behaviour, distinct from the sensory match."
       >
@@ -391,7 +378,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={19}
+        index={18}
         title="What matters most in quality?"
         hint="Tie-breakers when picks are close."
       >
@@ -403,7 +390,7 @@ export function TasteProfileForm({
       </Section>
 
       <Section
-        index={20}
+        index={19}
         title="Texture you like"
         hint="How the flower feels and breaks down."
       >
@@ -414,7 +401,7 @@ export function TasteProfileForm({
         />
       </Section>
 
-      <Section index={21} title="Anything else?" hint="Free notes.">
+      <Section index={20} title="Anything else?" hint="Free notes.">
         <Textarea
           rows={3}
           value={state.notes}
