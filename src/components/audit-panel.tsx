@@ -27,14 +27,51 @@ function formatRunSettings(rs: RunSettings): string {
 // Serialize the full audit to plain text so the owner can copy it in one tap
 // and paste it back for engine tuning. Mirrors what the panel shows, but holds
 // nothing back (no top-N slicing) — the copy is the complete read.
-function buildAuditText(items: AuditItem[], runSettings?: RunSettings): string {
+// The blend recipe behind a run, so the owner sees the run was blended (and
+// how) instead of guessing from the per-strain numbers.
+export type BlendAudit = {
+  mode: "merge" | "blender";
+  balance: boolean;
+  worlds: string[];
+  pairLean: number;
+  lean2: number;
+  thirdName: string | null;
+};
+
+function formatBlend(b: BlendAudit): string {
+  const lean = Math.round(b.pairLean * 100);
+  const leanStr =
+    lean === 0
+      ? "balanced pair"
+      : lean > 0
+        ? `pair lean +${lean}% to primary`
+        : `pair lean ${lean}% to other`;
+  const parts = [
+    b.mode === "blender" ? "Taste Blender (3-way)" : "Merge (pair)",
+    b.worlds.join(" + "),
+    b.thirdName ? `+ ${b.thirdName} admix ${Math.round(b.lean2 * 100)}%` : null,
+    leanStr,
+    b.balance ? "mode: balance (min/bridge)" : "mode: best-of (max)",
+  ].filter(Boolean);
+  return parts.join(" · ");
+}
+
+function buildAuditText(
+  items: AuditItem[],
+  runSettings?: RunSettings,
+  blend?: BlendAudit | null,
+): string {
   const lines: string[] = [
     `SOMA Audit — ${items.length} strain${items.length === 1 ? "" : "s"}`,
   ];
   if (runSettings) lines.push(`Run settings: ${formatRunSettings(runSettings)}`);
+  if (blend) lines.push(`Blend: ${formatBlend(blend)}`);
   lines.push("");
   for (const item of items) {
-    lines.push(`${item.strainName} — Final ${formatScore(item.matchScore)}`);
+    const via = item.world ? `  [via ${item.world}]` : "";
+    lines.push(
+      `${item.strainName} — Final ${formatScore(item.matchScore)}${via}`,
+    );
     const fb =
       item.feedbackPotential !== 0
         ? `potential ${item.feedbackPotential > 0 ? "+" : ""}${item.feedbackPotential} × decay ${item.feedbackDecay.toFixed(2)} → applied ${item.feedbackAdjustment > 0 ? "+" : ""}${item.feedbackAdjustment}`
@@ -104,9 +141,11 @@ function buildAuditText(items: AuditItem[], runSettings?: RunSettings): string {
 export function AuditPanel({
   items,
   runSettings,
+  blend,
 }: {
   items: AuditItem[];
   runSettings?: RunSettings;
+  blend?: BlendAudit | null;
 }) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -117,7 +156,7 @@ export function AuditPanel({
   );
 
   const handleCopy = async () => {
-    const text = buildAuditText(sorted, runSettings);
+    const text = buildAuditText(sorted, runSettings, blend);
     try {
       await navigator.clipboard.writeText(text);
     } catch {
@@ -169,6 +208,12 @@ export function AuditPanel({
               <span className="font-mono">{formatRunSettings(runSettings)}</span>
             </p>
           )}
+          {blend && (
+            <p className="rounded-md bg-accent/10 px-2.5 py-1.5 text-[11px] text-foreground">
+              <span className="font-medium text-accent">Blend:</span>{" "}
+              <span className="font-mono">{formatBlend(blend)}</span>
+            </p>
+          )}
           <p className="text-[11px] leading-relaxed text-muted-foreground/80">
             <span className="font-mono">raw</span> = score before feedback ·{" "}
             <span className="font-mono">potential</span> = feedback at full
@@ -187,7 +232,14 @@ export function AuditPanel({
                 className="border-t border-border/60 pt-2 first:border-0 first:pt-0"
               >
                 <div className="flex items-baseline justify-between gap-2">
-                  <span className="text-sm font-medium">{item.strainName}</span>
+                  <span className="text-sm font-medium">
+                    {item.strainName}
+                    {item.world && (
+                      <span className="ml-1.5 rounded bg-accent/15 px-1.5 py-0.5 align-middle text-[9px] font-semibold uppercase tracking-wide text-accent">
+                        via {item.world}
+                      </span>
+                    )}
+                  </span>
                   <span className="font-mono text-xs">
                     Final {formatScore(item.matchScore)}
                   </span>

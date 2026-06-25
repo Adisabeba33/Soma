@@ -76,6 +76,16 @@ export function TasteMatchClient() {
   const [recommendations, setRecommendations] = useState<Rec[]>([]);
   // Audit mode is owner-only; the API reports whether this account is the owner.
   const [isOwner, setIsOwner] = useState(false);
+  // Blend recipe for the owner audit (mode/worlds/lean/admix), so the panel
+  // shows what actually drove the run.
+  const [blendAudit, setBlendAudit] = useState<{
+    mode: "merge" | "blender";
+    balance: boolean;
+    worlds: string[];
+    pairLean: number;
+    lean2: number;
+    thirdName: string | null;
+  } | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [engine, setEngine] = useState<"builtin" | "openai">("builtin");
   const [menuQuality, setMenuQuality] = useState<MenuQuality | null>(null);
@@ -233,6 +243,7 @@ export function TasteMatchClient() {
         density: densityPref,
       });
       setIsOwner(Boolean(data.isOwner));
+      setBlendAudit(data.blend ?? null);
       setSessionId(data.session?.id ?? null);
       setEngine(data.engine === "openai" ? "openai" : "builtin");
       setMenuQuality(data.menuQuality ?? null);
@@ -504,7 +515,11 @@ export function TasteMatchClient() {
           {/* Audit mode — the engine's reasoning per strain. Owner-only. */}
           {isOwner && (
             <div className="mt-6">
-              <AuditPanel items={recommendations} runSettings={runSettings} />
+              <AuditPanel
+                items={recommendations}
+                runSettings={runSettings}
+                blend={blendAudit}
+              />
             </div>
           )}
 

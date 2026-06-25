@@ -243,5 +243,18 @@ export async function POST(req: NextRequest) {
     engine: result.engine,
     menuQuality,
     isOwner: owner,
+    // The blend recipe for the owner audit, so the panel can show what actually
+    // drove the run (mode, worlds, lean, admix) instead of leaving it implicit.
+    blend:
+      owner && blend
+        ? {
+            mode: blend.blenderActive ? "blender" : "merge",
+            balance: blend.balance,
+            worlds: blend.worlds,
+            pairLean: blend.pairLean,
+            lean2: blend.lean2,
+            thirdName: blend.thirdName ?? null,
+          }
+        : null,
   });
 }
