@@ -9656,4 +9656,71 @@ export const IDENTITIES: StrainIdentity[] = [
     artStatus: "none",
     sourceConfidence: "medium",
   },
+  {
+    canonicalName: "Some Pulp",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Limonene-dominant with beta-caryophyllene and myrcene support", "Sugar-dusted bag appeal, candy-orange terps"],
+    curatorNote:
+      "Tangerine zest leaps from the jar before the grinder even touches it, all sunshine and candied peel. A second pass reveals soft floral sweetness and a peppery warmth that keeps the citrus from going one-note. Daytime-clear with a smile that lingers.",
+    tagline: "Sun-soaked orange with bite",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Sunshine OG",
+    breeder: "805 Strainz",
+    lineage: {
+      parents: ["Larry OG", "East Coast Sour Diesel"],
+      cross: "Larry OG × East Coast Sour Diesel",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Limonene-dominant terp profile", "OG-Kush chassis with Sour Diesel lift", "Sativa-leaning daytime expression"],
+    curatorNote:
+      "First pull is a snap of lemon verbena and crushed pine needles, then the Diesel side steps in with chemmy fuel. The OG roots show up late, lending a piney, earthy ballast that keeps things from racing away. A bright, focused buzz that doesn't nap.",
+    tagline: "Lemon fuel, daylight clarity",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Gush Mints",
+    marketNames: ["Gush Mintz"],
+    breeder: "Purple City Genetics",
+    lineage: {
+      parents: ["Kush Mints", "F1 Durb", "Gushers"],
+      cross: "Kush Mints × F1 Durb × Gushers",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Cookies-family triple cross", "Limonene and caryophyllene forward", "Tests up to ~30% THC; notes of new tennis ball and epoxy"],
+    curatorNote:
+      "Pop the jar and a wave of creamy gasoline hits first, almost epoxy-sharp, before the mint cools the room. Underneath, gummy candy sweetness and a faint pine kush bite tie it together. The body sinks deep and slow, a true nightcap.",
+    tagline: "Creamy gas with cool finish",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Muffin Bomb",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Pedigree unverified — likely Modified Muffin × Atomic Bomb-style cross based on naming", "Dessert-diesel hybrid expression"],
+    curatorNote:
+      "Bakery-warm berry and brown sugar lift off the jar like a fresh muffin, then something sharper crashes the party — fuel and damp earth. The two halves balance into a comforting, slightly heady chew. Couch-friendly without the full shutdown.",
+    tagline: "Bakery sweet meets sharp fuel",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Mint Chocolate Chip",
+    marketNames: ["MCC", "Mint Chip"],
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["SinMint Cookies", "Green Ribbon BX"],
+      cross: "SinMint Cookies × Green Ribbon BX",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Even 50/50 hybrid expression", "Tests in the 18-24% THC range", "Distinct mint-on-cookie terp signature"],
+    curatorNote:
+      "It really does smell like the ice cream — cool mint riding on a creamy cookie base, with a whisper of toasted nut underneath. The lift is immediate and chatty, the kind of buzz that makes a slow afternoon feel social. A gentle body ease keeps it from getting too wired.",
+    tagline: "Cool mint over warm cookie",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
 ];
