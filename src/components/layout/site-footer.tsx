@@ -30,8 +30,8 @@ const COLUMNS: { heading: string; links: { href: string; label: string }[] }[] =
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border/60">
-      <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8 sm:py-24">
+    <footer className="border-t border-border/50 bg-[hsl(38_18%_93%)]">
+      <div className="mx-auto max-w-editorial px-5 py-20 sm:px-8 sm:py-28">
         <div className="flex flex-col gap-12 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-xs">
             <p className="font-display text-lg font-medium tracking-tight text-foreground/90">

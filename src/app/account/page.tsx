@@ -260,15 +260,18 @@ export default function AccountPage() {
       {/* ── Header row — name left, membership card top-right ───── */}
       <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-md">
-          <p className="text-xs uppercase tracking-[0.3em] text-brass">Account</p>
-          <h1 className="mt-3 font-display text-5xl font-medium tracking-tight">
+          <p className="text-xs uppercase tracking-[0.3em] text-brass">
+            Private Lounge
+          </p>
+          <p className="mt-4 text-sm text-muted-foreground">Welcome back,</p>
+          <h1 className="mt-1 font-display text-5xl font-medium tracking-tight">
             @{me.username}
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Your private member dossier
+            Your private tasting room
             <span className="text-muted-foreground/60">
               {" "}
-              — your taste identity at a glance.
+              — taste identity, palates and discoveries, kept to yourself.
             </span>
           </p>
         </div>
