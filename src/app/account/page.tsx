@@ -10,7 +10,6 @@ import {
   History,
   Layers,
   LayoutGrid,
-  Lock,
   Pencil,
   PenLine,
   Plus,
@@ -68,6 +67,17 @@ function Ring({ percent, size = 64 }: { percent: number; size?: number }) {
         </span>
       </div>
     </div>
+  );
+}
+
+function Tick({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex items-center gap-2.5">
+      <span className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] bg-accent text-accent-foreground">
+        <Check className="h-3 w-3" strokeWidth={3} />
+      </span>
+      {children}
+    </li>
   );
 }
 
@@ -284,20 +294,15 @@ export default function AccountPage() {
               S
             </span>
           </div>
-          <ul className="mt-5 space-y-2.5 border-t border-border/60 pt-4 text-sm">
-            <li className="flex items-center gap-2.5">
-              <Check className="h-4 w-4 text-accent" />
+          <ul className="mt-5 space-y-3 border-t border-border/60 pt-4 text-sm">
+            <Tick>
               {me.emailVerified ? "Verified member" : "Email not verified"}
-            </li>
-            <li className="flex items-center gap-2.5">
-              <Check className="h-4 w-4 text-accent" />
+            </Tick>
+            <Tick>
               {profiles.length} {profiles.length === 1 ? "profile" : "profiles"} ·{" "}
               {active ? "1 active" : "none active"}
-            </li>
-            <li className="flex items-center gap-2.5">
-              <Lock className="h-4 w-4 text-accent" />
-              Private by design
-            </li>
+            </Tick>
+            <Tick>Private by design</Tick>
           </ul>
         </div>
       </div>
@@ -315,7 +320,9 @@ export default function AccountPage() {
                 <p className="font-display text-xl font-semibold tracking-tight">
                   {active?.name ?? "No active profile"}
                 </p>
-                <p className="text-sm text-muted-foreground">identity complete</p>
+                <p className="text-sm text-muted-foreground">
+                  Your preferences in focus
+                </p>
               </div>
             </div>
             {active && active.topAromas.length > 0 && (
@@ -364,19 +371,20 @@ export default function AccountPage() {
       </div>
 
       {/* ── Sensory profiles ───────────────────────────────────── */}
-      <div className="mt-14 flex items-end justify-between">
+      <div className="mt-16 flex items-start justify-between gap-4">
         <div>
           <p className="text-[11px] uppercase tracking-[0.24em] text-brass">
             Sensory profiles
           </p>
-          <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight">
-            Your palates
-          </h2>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            Each profile defines what SŌMA searches under. Switch or merge
+            anytime.
+          </p>
         </div>
         {profiles.length < limit && !adding && (
           <button
             onClick={() => setAdding(true)}
-            className="soma-ease inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-medium transition-colors hover:border-brass/50 hover:text-brass"
+            className="soma-ease inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-medium transition-colors hover:border-brass/50 hover:text-brass"
           >
             <Plus className="h-4 w-4" /> Add profile
           </button>
@@ -537,19 +545,19 @@ export default function AccountPage() {
 
       {/* ── Last matches & discoveries ─────────────────────────── */}
       {discoveries.length > 0 && (
-        <div className="mt-14">
-          <div className="flex items-end justify-between">
+        <div className="mt-16">
+          <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-[11px] uppercase tracking-[0.24em] text-brass">
                 Last matches &amp; discoveries
               </p>
-              <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight">
-                Worth a look tonight
-              </h2>
+              <p className="mt-1.5 text-sm text-muted-foreground">
+                Tonight&apos;s strongest picks for your taste.
+              </p>
             </div>
             <Link
               href="/catalog"
-              className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
+              className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-accent hover:underline"
             >
               All <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -559,12 +567,15 @@ export default function AccountPage() {
               <Link
                 key={d.slug}
                 href={`/catalog/${d.slug}`}
-                className={cn(CARD, "flex items-center justify-between gap-3 p-4")}
+                className={cn(CARD, "flex items-center gap-3 p-4")}
               >
-                <span className="min-w-0 truncate font-display text-base font-semibold tracking-tight">
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brass/10 font-display text-sm font-semibold text-brass">
+                  {d.name.charAt(0)}
+                </span>
+                <span className="min-w-0 flex-1 truncate font-display text-[15px] font-semibold tracking-tight">
                   {d.name}
                 </span>
-                <span className="shrink-0 font-display text-lg font-semibold text-brass">
+                <span className="shrink-0 font-display text-base font-semibold text-brass">
                   {d.score}%
                 </span>
               </Link>
@@ -606,7 +617,7 @@ export default function AccountPage() {
       </div>
 
       {/* ── Account actions ────────────────────────────────────── */}
-      <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-border/60 pt-8">
+      <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-border/60 pt-8">
         <button
           onClick={logout}
           className={buttonClass("outline", "md", "rounded-full")}
@@ -614,12 +625,17 @@ export default function AccountPage() {
           Sign out
         </button>
         {!confirmDelete ? (
-          <button
-            onClick={() => setConfirmDelete(true)}
-            className="text-sm font-medium text-[#a23b2c] hover:underline"
-          >
-            Delete account
-          </button>
+          <div className="text-right">
+            <button
+              onClick={() => setConfirmDelete(true)}
+              className="text-sm font-medium text-[#a23b2c] hover:underline"
+            >
+              Delete account
+            </button>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              This action cannot be undone.
+            </p>
+          </div>
         ) : null}
       </div>
 
