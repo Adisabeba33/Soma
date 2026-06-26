@@ -10,6 +10,7 @@ import {
   computeMenuQuality,
   flattenParserWarnings,
   getFeedbackSignals,
+  isPlausibleStrainName,
   logUnknownStrains,
   sanitizeParsedItems,
 } from "@/lib/api";
@@ -27,7 +28,7 @@ export async function POST(req: NextRequest) {
   const userId = await getUserId();
   const body = await req.json().catch(() => ({}));
 
-  const strains = asArray(body.strains, 60);
+  const strains = asArray(body.strains, 60).filter(isPlausibleStrainName);
   // Per-run dense↔fluffy slider (−1 fluffy … +1 dense). Clamped; 0/absent =
   // no structure preference for this run. Does not touch the saved profile.
   const densityPreference =

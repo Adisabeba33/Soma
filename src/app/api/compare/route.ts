@@ -6,6 +6,7 @@ import { getUserId } from "@/lib/user";
 import {
   asArray,
   getFeedbackSignals,
+  isPlausibleStrainName,
   logUnknownStrains,
 } from "@/lib/api";
 import { resolveStrain, scoreStrain, useCaseFor } from "@/lib/taste-engine";
@@ -20,7 +21,7 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest) {
   const userId = await getUserId();
   const body = await req.json().catch(() => ({}));
-  const strains = asArray(body.strains, 5);
+  const strains = asArray(body.strains, 5).filter(isPlausibleStrainName);
 
   if (strains.length < 2) {
     return NextResponse.json(
