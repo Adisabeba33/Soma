@@ -19,33 +19,15 @@ import { buttonClass } from "@/components/ui/button";
 import { getUserIdReadOnly } from "@/lib/user";
 import { prisma } from "@/lib/prisma";
 import { getActiveProfile } from "@/lib/active-profile";
-import { mergedMatches } from "@/lib/merge-worlds";
 import {
   profileCompleteness,
   MATCH_GATE_PERCENT,
 } from "@/lib/profile-completeness";
 import { ProfileProgressRing } from "@/components/profile-progress";
 import type { TasteProfileInput } from "@/lib/types";
-import { STRAINS, findStrain, normalizeStrainName } from "@/lib/strain-data";
-import { scoreStrain } from "@/lib/taste-engine";
-import { getFeedbackSignals } from "@/lib/api";
-import { strainSlug } from "@/lib/catalog";
-import { getIdentity } from "@/lib/strain-identity";
-import { artImageSrc, artFocusOf, timeProfileOf } from "@/lib/strain-art";
-import { paletteForTime } from "@/lib/sensory-family-palette";
+import { getTopMatches, type TopMatch } from "@/lib/top-matches";
 
 export const dynamic = "force-dynamic";
-
-type TopMatch = {
-  name: string;
-  slug: string;
-  type: string;
-  score: number;
-  category: string;
-  img: string | null;
-  focus: string;
-  bg: string;
-};
 
 const STEPS = [
   {
@@ -95,55 +77,20 @@ export default async function HomePage() {
     // home page — and the post-login redirect to it — down. Anything that
     // throws here degrades gracefully to the shell without the carousel.
     let percent = 0;
-    let topMatches: TopMatch[] = [];
     try {
       const profile = await getActiveProfile(userId!);
       if (profile) {
-        const p = profile as unknown as TasteProfileInput;
-        percent = profileCompleteness(p).percent;
-
-        // Top catalog matches for the carousel — only once the profile clears
-        // the gate, so we never show a "best match" off a too-thin profile.
-        if (percent >= MATCH_GATE_PERCENT) {
-          const feedback = await getFeedbackSignals(userId!);
-          // Blend mode (merged profiles / Taste Blender) drives the carousel
-          // too, so the dashboard agrees with Harvest.
-          const merged = await mergedMatches(userId!);
-          // Exclude the user's own favourites — they anchor near the top
-          // (94–96%) and the carousel is for DISCOVERY. Resolved to canonical
-          // names so aliases (e.g. Gorilla Glue → GG4) match.
-          const favourites = new Set(
-            (p.favoriteStrains ?? [])
-              .map((f) => normalizeStrainName(findStrain(f)?.name ?? f))
-              .filter(Boolean),
-          );
-          topMatches = STRAINS.filter(
-            (s) => !favourites.has(normalizeStrainName(s.name)),
-          )
-            .map((s) => {
-              const mm = merged?.matches[s.name];
-              const m = mm
-                ? { matchScore: mm.score, category: mm.category }
-                : scoreStrain(s.name, p, feedback);
-              const identity = getIdentity(s.name);
-              return {
-                name: s.name,
-                slug: strainSlug(s.name),
-                type: s.type,
-                score: m.matchScore,
-                category: m.category,
-                img: artImageSrc(s, identity),
-                focus: artFocusOf(identity),
-                bg: paletteForTime(timeProfileOf(s, identity)).background,
-              };
-            })
-            .sort((a, b) => b.score - a.score)
-            .slice(0, 12);
-        }
+        percent = profileCompleteness(
+          profile as unknown as TasteProfileInput,
+        ).percent;
       }
     } catch (err) {
-      console.error("home dashboard data failed", err);
+      console.error("home: profile completeness failed", err);
     }
+    // Blend-aware top catalog matches for the carousel (shared with the account
+    // discoveries strip). Self-guarding — returns [] on a thin profile or a DB
+    // hiccup, so it never takes the home page down.
+    const topMatches = userId ? await getTopMatches(userId) : [];
 
     return (
       <LoggedInHome
