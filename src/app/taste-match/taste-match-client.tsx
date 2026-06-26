@@ -413,7 +413,7 @@ export function TasteMatchClient() {
             // Atelier hero: copy on the left, a soft placeholder "photograph"
             // on the right (stacked on mobile, art first).
             return (
-              <div className="mt-6 grid grid-cols-1 items-center gap-6 sm:grid-cols-[1.4fr_1fr] sm:gap-8">
+              <div className="mt-8 grid grid-cols-1 items-center gap-8 sm:grid-cols-[1.4fr_1fr] sm:gap-12">
                 <div className="order-2 sm:order-1">
                   <p className="text-[11px] uppercase tracking-[0.3em] text-brass">
                     Tonight&apos;s tasting
@@ -428,21 +428,30 @@ export function TasteMatchClient() {
                     against {against} and ranks them by what is worth your money.
                   </p>
                 </div>
-                <div className="relative order-1 aspect-[16/10] overflow-hidden rounded-3xl shadow-[0_30px_60px_-34px_rgba(80,64,40,0.5)] sm:order-2 sm:aspect-[3/4]">
+                <div className="relative order-1 aspect-[16/11] overflow-hidden rounded-[1.75rem] shadow-[0_44px_90px_-34px_rgba(55,40,20,0.6)] ring-1 ring-black/5 sm:order-2 sm:aspect-[3/4]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/hero/evening.webp"
                     alt=""
                     aria-hidden
                     loading="eager"
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="soma-hero-img absolute inset-0 h-full w-full object-cover"
+                  />
+                  {/* Slow drifting warm light/smoke — the hero feels alive. */}
+                  <div
+                    className="soma-hero-glow pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "radial-gradient(55% 45% at 70% 32%, rgba(255,208,135,0.4), transparent 70%)",
+                      mixBlendMode: "screen",
+                    }}
                   />
                 </div>
               </div>
             );
           })()}
           <ProfileContradictionBanner contradictions={contradictions} />
-          <div className="mt-6">
+          <div className="mt-12 sm:mt-14">
             {blenderInfo ? (
               <RunBasisCard blender={blenderInfo} />
             ) : mergeInfo ? (
@@ -475,7 +484,7 @@ export function TasteMatchClient() {
               />
             )}
           </div>
-          <div className="mt-8">
+          <div className="mt-16 sm:mt-20">
             <StrainInput
               strains={strains}
               onChange={setStrains}

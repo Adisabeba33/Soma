@@ -71,7 +71,7 @@ export function ActiveProfileCard({
   const Icon = TIME_ICON[time];
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-[0_24px_50px_-40px_rgba(80,64,40,0.45)] sm:p-7">
+    <div className="soma-lift overflow-hidden rounded-[1.75rem] border border-border/70 bg-card p-7 shadow-[0_28px_60px_-42px_rgba(60,45,20,0.45)] hover:shadow-[0_34px_70px_-40px_rgba(60,45,20,0.55)] sm:p-8">
       <div className="flex items-start justify-between gap-5">
         <div className="min-w-0">
           <p className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.22em] text-brass">
