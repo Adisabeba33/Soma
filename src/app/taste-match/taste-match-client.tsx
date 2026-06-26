@@ -32,6 +32,7 @@ import {
 import { ProfileProgressRing, ProfileMissingList } from "@/components/profile-progress";
 import type { Verdict } from "@/components/feedback-pill";
 import { AuditPanel } from "@/components/audit-panel";
+import { BlendOverview } from "@/components/blend-overview";
 
 type Phase = "loading" | "profile" | "gated" | "input" | "results";
 type Rec = StrainMatch & { id?: string };
@@ -96,6 +97,13 @@ export function TasteMatchClient() {
     pairLean: number;
     lean2: number;
     thirdName: string | null;
+  } | null>(null);
+  // Per-world breakdown for a blend run — drives the results overview (top
+  // picks per profile + the all-rounders). Null for single-profile runs.
+  const [blendResult, setBlendResult] = useState<{
+    worlds: string[];
+    balance: boolean;
+    breakdown: Record<string, Array<{ world: string; score: number }>>;
   } | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [engine, setEngine] = useState<"builtin" | "openai">("builtin");
@@ -259,6 +267,7 @@ export function TasteMatchClient() {
       });
       setIsOwner(Boolean(data.isOwner));
       setBlendAudit(data.blend ?? null);
+      setBlendResult(data.blendResult ?? null);
       setSessionId(data.session?.id ?? null);
       setEngine(data.engine === "openai" ? "openai" : "builtin");
       setMenuQuality(data.menuQuality ?? null);
@@ -591,6 +600,17 @@ export function TasteMatchClient() {
           {menuQuality && menuQuality.totalParsed > 0 && (
             <div className="mt-6">
               <MenuQualityReport quality={menuQuality} />
+            </div>
+          )}
+
+          {/* Blend overview — top picks per profile + the all-rounders, so a
+              3-profile run is scannable before reading each pick below. */}
+          {blendResult && blendResult.worlds.length >= 2 && (
+            <div className="mt-8">
+              <BlendOverview
+                worlds={blendResult.worlds}
+                breakdown={blendResult.breakdown}
+              />
             </div>
           )}
 

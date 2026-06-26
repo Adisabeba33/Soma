@@ -256,5 +256,15 @@ export async function POST(req: NextRequest) {
             thirdName: blend.thirdName ?? null,
           }
         : null,
+    // The per-world breakdown for the user's OWN blend run (not owner-gated):
+    // powers the results overview — top picks per profile + the all-rounders.
+    blendResult:
+      blend && blend.worlds.length >= 2
+        ? {
+            worlds: blend.worlds,
+            balance: blend.balance,
+            breakdown: mergeBreakdown ?? {},
+          }
+        : null,
   });
 }
