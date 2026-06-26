@@ -246,24 +246,25 @@ export default function AccountPage() {
     : null;
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
-      {/* ── Header ─────────────────────────────────────────────── */}
-      <p className="text-xs uppercase tracking-[0.3em] text-brass">Account</p>
-      <h1 className="mt-3 font-display text-5xl font-medium tracking-tight">
-        @{me.username}
-      </h1>
-      <p className="mt-3 text-lg text-muted-foreground">
-        Your private member dossier
-        <span className="text-muted-foreground/60">
-          {" "}
-          — your taste identity at a glance.
-        </span>
-      </p>
+    <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8">
+      {/* ── Header row — name left, membership card top-right ───── */}
+      <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+        <div className="max-w-md">
+          <p className="text-xs uppercase tracking-[0.3em] text-brass">Account</p>
+          <h1 className="mt-3 font-display text-5xl font-medium tracking-tight">
+            @{me.username}
+          </h1>
+          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+            Your private member dossier
+            <span className="text-muted-foreground/60">
+              {" "}
+              — your taste identity at a glance.
+            </span>
+          </p>
+        </div>
 
-      {/* ── Top row: membership + taste identity ───────────────── */}
-      <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-2">
         {/* Membership */}
-        <div className={cn(CARD, "p-6 sm:p-7")}>
+        <div className={cn(CARD, "w-full p-6 sm:p-7 lg:w-[20rem] lg:shrink-0")}>
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
@@ -273,7 +274,6 @@ export default function AccountPage() {
                 {memberSince ?? "—"}
               </p>
             </div>
-            {/* Brass seal medallion */}
             <span
               className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full font-display text-xl font-semibold text-[#2a1d06] shadow-[inset_0_0_0_1px_rgba(247,236,198,0.5),0_8px_20px_-10px_rgba(169,128,63,0.7)]"
               style={{
@@ -300,45 +300,65 @@ export default function AccountPage() {
             </li>
           </ul>
         </div>
+      </div>
 
-        {/* Taste identity */}
-        <div className={cn(CARD, "relative overflow-hidden p-6 sm:p-7")}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/hero/evening.webp"
-            alt=""
-            aria-hidden
-            className="pointer-events-none absolute -right-6 top-0 h-full w-40 object-cover opacity-25 [mask-image:linear-gradient(to_left,black,transparent)]"
-          />
-          <div className="relative">
+      {/* ── Taste identity — wide card, prominent artwork ──────── */}
+      <div className={cn(CARD, "mt-8 overflow-hidden")}>
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_15rem]">
+          <div className="p-6 sm:p-8">
             <p className="text-[11px] uppercase tracking-[0.22em] text-brass">
               Your taste identity
             </p>
-            <div className="mt-3 flex items-center gap-4">
-              <Ring percent={active?.percent ?? 0} size={64} />
+            <div className="mt-4 flex items-center gap-4">
+              <Ring percent={active?.percent ?? 0} size={72} />
               <div>
-                <p className="font-display text-lg font-semibold tracking-tight">
+                <p className="font-display text-xl font-semibold tracking-tight">
                   {active?.name ?? "No active profile"}
                 </p>
-                <p className="text-sm text-muted-foreground">
-                  identity complete
-                </p>
+                <p className="text-sm text-muted-foreground">identity complete</p>
               </div>
             </div>
-            {active && (active.topAromas.length > 0 || active.topEffects.length > 0) && (
-              <div className="mt-4 space-y-2">
-                <div className="flex flex-wrap gap-1.5">
+            {active && active.topAromas.length > 0 && (
+              <div className="mt-5">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  Top aromas
+                </p>
+                <div className="mt-2 flex flex-wrap gap-1.5">
                   {active.topAromas.map((a) => (
                     <AromaChip key={a} token={a} />
                   ))}
                 </div>
-                <div className="flex flex-wrap gap-1.5">
+              </div>
+            )}
+            {active && active.topEffects.length > 0 && (
+              <div className="mt-4">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  Top effects
+                </p>
+                <div className="mt-2 flex flex-wrap gap-1.5">
                   {active.topEffects.map((e) => (
                     <EffectChip key={e} token={e} />
                   ))}
                 </div>
               </div>
             )}
+          </div>
+          {/* Prominent bud artwork — full strength, blends at the seam. */}
+          <div className="relative h-40 sm:h-auto">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/hero/evening.webp"
+              alt=""
+              aria-hidden
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div
+              className="absolute inset-0 hidden sm:block"
+              style={{
+                background:
+                  "linear-gradient(to right, hsl(var(--card)) 2%, transparent 45%)",
+              }}
+            />
           </div>
         </div>
       </div>
