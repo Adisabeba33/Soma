@@ -1,21 +1,40 @@
 "use client";
 
-import { Blend, Sparkles } from "lucide-react";
+import { Blend, Sparkles, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Results overview for a Taste Blender run. Instead of one long ranked list
-// where the origin of each pick is invisible, this shows — on one screen —
-// the best picks FROM EACH profile ("world"), plus the Bridge picks that hold
-// up across all of them. Two distinct kinds of score are labelled explicitly:
-//   • profile score — the strain's strength INSIDE one profile (best-of)
-//   • bridge score  — its WEAKEST side across all profiles (how universal it is)
-// so the same strain showing 94% in one block and 76% in Bridge never reads
-// as a bug. The full ranked list still sits below for reading each in detail.
+// Results overview for a Taste Blender run. On one screen:
+//   • Top picks overall — the best of the WHOLE menu (best-of across worlds)
+//   • Best from each profile — the strongest picks inside each profile
+//   • Bridge picks — the all-rounders that hold up across every profile
+// Three score kinds are labelled explicitly (best / profile / bridge) so the
+// same strain showing different numbers never reads as a bug. Ranks are
+// tie-aware: two strains at the same score share one place, joined with " / ".
 
 type WorldScore = { world: string; score: number };
 type Breakdown = Record<string, WorldScore[]>;
+type Tier = { rank: number; names: string[]; score: number };
 
-// Soft tiers for a bridge score, so a 76 and a 56 don't look equally strong.
+// Rank into tiers, top `maxRanks` distinct scores. Strains tied at a score
+// share a tier (one place, both names).
+function rankTiers(
+  items: { name: string; score: number }[],
+  maxRanks = 3,
+): Tier[] {
+  const sorted = [...items].sort((a, b) => b.score - a.score);
+  const tiers: { score: number; names: string[] }[] = [];
+  for (const it of sorted) {
+    const last = tiers[tiers.length - 1];
+    if (last && last.score === it.score) {
+      last.names.push(it.name);
+    } else {
+      if (tiers.length >= maxRanks) break;
+      tiers.push({ score: it.score, names: [it.name] });
+    }
+  }
+  return tiers.map((t, i) => ({ rank: i + 1, names: t.names, score: t.score }));
+}
+
 function bridgeTier(score: number): { label: string; cls: string } {
   if (score >= 75) return { label: "Strong bridge", cls: "text-accent" };
   if (score >= 60) return { label: "Balanced", cls: "text-brass" };
@@ -23,42 +42,45 @@ function bridgeTier(score: number): { label: string; cls: string } {
   return { label: "Weak bridge", cls: "text-muted-foreground/70" };
 }
 
-function Row({
-  rank,
-  name,
-  score,
+function TierRow({
+  tier,
   unit,
   badge,
-  tier,
+  tierLabel,
 }: {
-  rank: number;
-  name: string;
-  score: number;
-  unit: "profile" | "bridge";
+  tier: Tier;
+  unit: string;
   badge?: string;
-  tier?: { label: string; cls: string };
+  tierLabel?: { label: string; cls: string };
 }) {
+  const shown = tier.names.slice(0, 4);
+  const extra = tier.names.length - shown.length;
   return (
-    <div className="flex items-center gap-2.5 py-2">
-      <span className="font-display text-xs font-semibold tabular-nums text-brass/70">
-        {rank}
+    <div className="flex items-start gap-2.5 py-2">
+      <span className="mt-0.5 font-display text-xs font-semibold tabular-nums text-brass/70">
+        {tier.rank}
       </span>
       <div className="min-w-0 flex-1">
-        <span className="block truncate text-sm">{name}</span>
-        {(badge || tier) && (
+        <span className="block text-sm">
+          {shown.join("  /  ")}
+          {extra > 0 && (
+            <span className="text-muted-foreground"> +{extra}</span>
+          )}
+        </span>
+        {(badge || tierLabel) && (
           <span
             className={cn(
               "text-[10px] uppercase tracking-[0.1em]",
-              tier ? tier.cls : "text-accent/80",
+              tierLabel ? tierLabel.cls : "text-accent/80",
             )}
           >
-            {tier ? tier.label : badge}
+            {tierLabel ? tierLabel.label : badge}
           </span>
         )}
       </div>
       <div className="shrink-0 text-right leading-none">
         <span className="font-display text-sm font-semibold text-brass">
-          {Math.round(score)}%
+          {Math.round(tier.score)}%
         </span>
         <span className="ml-1 text-[9px] uppercase tracking-[0.1em] text-muted-foreground">
           {unit}
@@ -81,33 +103,35 @@ export function BlendOverview({
   const scoreIn = (name: string, world: string) =>
     breakdown[name].find((b) => b.world === world)?.score ?? 0;
 
-  // Top 3 strains for each profile, by that profile's own (best-of) score.
+  // Top of the whole menu — each strain at its best world (best-of).
+  const overall = rankTiers(
+    names.map((name) => ({
+      name,
+      score: Math.max(...breakdown[name].map((b) => b.score)),
+    })),
+  );
+
+  // Per profile.
   const perWorld = worlds.map((world) => ({
     world,
-    picks: names
-      .map((name) => ({ name, score: scoreIn(name, world) }))
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 3),
+    tiers: rankTiers(names.map((name) => ({ name, score: scoreIn(name, world) }))),
   }));
 
-  // How many profiles' top-3 a strain lands in — so a repeat reads as
-  // "strong in N profiles", not a duplicate.
+  // How many profiles' top-3 a strain lands in (for the cross-profile badge).
   const appearances = new Map<string, number>();
-  for (const { picks } of perWorld) {
-    for (const p of picks) {
-      appearances.set(p.name, (appearances.get(p.name) ?? 0) + 1);
+  for (const { tiers } of perWorld) {
+    for (const t of tiers) for (const n of t.names) {
+      appearances.set(n, (appearances.get(n) ?? 0) + 1);
     }
   }
 
-  // Bridge picks: ranked by the WEAKEST world (a strain is only universal if it
-  // holds up everywhere, so the min across worlds is the bar).
-  const bridge = names
-    .map((name) => ({
+  // Bridge — each strain at its weakest world.
+  const bridge = rankTiers(
+    names.map((name) => ({
       name,
       score: Math.min(...breakdown[name].map((b) => b.score)),
-    }))
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 3);
+    })),
+  );
 
   return (
     <div className="rounded-[1.75rem] border border-border/70 bg-card p-6 shadow-[0_28px_60px_-42px_rgba(60,45,20,0.45)] sm:p-7">
@@ -116,16 +140,32 @@ export function BlendOverview({
         Blend overview
       </p>
       <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-        Each profile keeps its own winners. Bridge picks reveal the strains that
-        carry across every side of your taste.
+        The best of your whole menu, the winners inside each profile, and the
+        bridge picks that carry across every side of your taste.
       </p>
+
+      {/* ── Top picks overall ───────────────────────────────────── */}
+      <div className="mt-5 rounded-2xl border border-accent/30 bg-accent/[0.05] p-4">
+        <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
+          <Trophy className="h-3.5 w-3.5" />
+          Top picks overall
+        </p>
+        <div className="mt-1.5 divide-y divide-border/40">
+          {overall.map((t) => (
+            <TierRow key={t.rank} tier={t} unit="best" />
+          ))}
+        </div>
+        <p className="mt-2 text-xs text-muted-foreground">
+          The strongest strains across your whole menu — each at its best side.
+        </p>
+      </div>
 
       {/* ── Best from each profile ──────────────────────────────── */}
       <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground/70">
         Best from each profile
       </p>
       <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {perWorld.map(({ world, picks }) => (
+        {perWorld.map(({ world, tiers }) => (
           <div
             key={world}
             className="rounded-2xl border border-border/60 bg-background/40 p-4"
@@ -134,16 +174,14 @@ export function BlendOverview({
               {world}
             </p>
             <div className="mt-1.5 divide-y divide-border/50">
-              {picks.map((p, i) => (
-                <Row
-                  key={p.name}
-                  rank={i + 1}
-                  name={p.name}
-                  score={p.score}
+              {tiers.map((t) => (
+                <TierRow
+                  key={t.rank}
+                  tier={t}
                   unit="profile"
                   badge={
-                    (appearances.get(p.name) ?? 0) >= 2
-                      ? `Strong in ${appearances.get(p.name)} profiles`
+                    t.names.length === 1 && (appearances.get(t.names[0]) ?? 0) >= 2
+                      ? `Strong in ${appearances.get(t.names[0])} profiles`
                       : undefined
                   }
                 />
@@ -159,22 +197,15 @@ export function BlendOverview({
           <Sparkles className="h-3.5 w-3.5" />
           Bridge picks · work across all
         </p>
-        <div className="mt-1.5 grid grid-cols-1 gap-x-6 sm:grid-cols-3">
-          {bridge.map((p, i) => (
-            <Row
-              key={p.name}
-              rank={i + 1}
-              name={p.name}
-              score={p.score}
-              unit="bridge"
-              tier={bridgeTier(p.score)}
-            />
+        <div className="mt-1.5 divide-y divide-brass/15">
+          {bridge.map((t) => (
+            <TierRow key={t.rank} tier={t} unit="bridge" tierLabel={bridgeTier(t.score)} />
           ))}
         </div>
         <p className="mt-3 border-t border-brass/20 pt-3 text-xs leading-relaxed text-muted-foreground">
           Bridge score is based on a strain&apos;s weakest side. These hold up
           across all your profiles — the most balanced, not necessarily the
-          strongest. A higher bridge score means every side agrees.
+          strongest.
         </p>
       </div>
     </div>
