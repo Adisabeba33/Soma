@@ -622,22 +622,20 @@ export function TasteMatchClient() {
 
           <div className="mt-10">
             {blendResult && blendResult.worlds.length >= 2 ? (
-              // Blend run: a winners board + the rest of the ranking (all
-              // selectable to compare), then the per-profile / bridge lenses.
-              <>
-                <BlendResultsList
-                  recommendations={recommendations}
-                  verdicts={verdicts}
-                  worlds={blendResult.worlds}
-                  breakdown={blendResult.breakdown}
-                />
-                <div className="mt-14">
+              // Blend run: winners board → the per-profile / bridge lenses →
+              // the rest of the ranking (all selectable to compare).
+              <BlendResultsList
+                recommendations={recommendations}
+                verdicts={verdicts}
+                worlds={blendResult.worlds}
+                breakdown={blendResult.breakdown}
+                middle={
                   <BlendOverview
                     worlds={blendResult.worlds}
                     breakdown={blendResult.breakdown}
                   />
-                </div>
-              </>
+                }
+              />
             ) : (
               <ResultsView
                 recommendations={recommendations}

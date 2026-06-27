@@ -46,11 +46,15 @@ export function BlendResultsList({
   verdicts,
   worlds,
   breakdown,
+  middle,
 }: {
   recommendations: Rec[];
   verdicts?: Record<string, Verdict>;
   worlds: string[];
   breakdown: Breakdown;
+  // Rendered between the winners board and the rest of the ranking — used to
+  // slot the Blend Overview (per-profile + bridge lenses) in the middle.
+  middle?: React.ReactNode;
 }) {
   const [open, setOpen] = useState<string | null>(null);
   const [picked, setPicked] = useState<string[]>([]);
@@ -172,9 +176,12 @@ export function BlendResultsList({
         </div>
       )}
 
+      {/* Lenses (per-profile + bridge) sit between the winners and the rest. */}
+      {middle && <div className="mt-14">{middle}</div>}
+
       {/* The rest of the ranking. */}
       {rest.length > 0 && (
-        <div className="mt-8">
+        <div className="mt-14">
           <p className="text-[11px] uppercase tracking-[0.24em] text-brass">
             The rest of the ranking
           </p>
