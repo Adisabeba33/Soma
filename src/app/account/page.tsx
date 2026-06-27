@@ -15,10 +15,13 @@ import {
   Plus,
   Sparkles,
   Trash2,
+  X,
 } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { TasteBlenderBlock } from "@/components/taste-blender-block";
 import { ProfileSimilarityHint } from "@/components/profile-similarity-hint";
+import { PresetPicker } from "@/components/preset-picker";
+import type { Preset } from "@/lib/profile-presets";
 import { labelFor } from "@/lib/vocab";
 import { MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
 import { cn } from "@/lib/utils";
@@ -102,8 +105,8 @@ export default function AccountPage() {
   const [profiles, setProfiles] = useState<ProfileItem[]>([]);
   const [discoveries, setDiscoveries] = useState<Discovery[]>([]);
   const [limit, setLimit] = useState(3);
-  const [adding, setAdding] = useState(false);
-  const [newName, setNewName] = useState("");
+  const [showPicker, setShowPicker] = useState(false);
+  const [creatingId, setCreatingId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -130,20 +133,46 @@ export default function AccountPage() {
       .catch(() => {});
   }, []);
 
-  async function addProfile() {
-    const name = newName.trim();
-    if (!name) return;
+  // Quick-start a new profile from a preset: create the named profile, then
+  // save the preset's taste data into it. Great for assembling a Blender out
+  // of two or three archetypes without the questionnaire.
+  async function pickPreset(preset: Preset) {
+    setCreatingId(preset.id);
+    try {
+      const res = await fetch("/api/profiles", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: preset.name }),
+      });
+      if (!res.ok) {
+        const e = await res.json().catch(() => ({}));
+        alert(e.error ?? "Couldn't create the profile.");
+        return;
+      }
+      const p = await res.json();
+      await fetch("/api/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...preset.profile, profileId: p.id }),
+      });
+      await loadProfiles();
+      setShowPicker(false);
+    } finally {
+      setCreatingId(null);
+    }
+  }
+
+  // Build my own: create an empty named profile and open the full questionnaire.
+  async function buildCustom() {
     setBusy(true);
     const res = await fetch("/api/profiles", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name: "New profile" }),
     });
     setBusy(false);
     if (res.ok) {
       const p = await res.json();
-      setAdding(false);
-      setNewName("");
       router.push(`/profile?id=${p.id}`);
     } else {
       const e = await res.json().catch(() => ({}));
@@ -384,9 +413,9 @@ export default function AccountPage() {
             anytime.
           </p>
         </div>
-        {profiles.length < limit && !adding && (
+        {profiles.length < limit && (
           <button
-            onClick={() => setAdding(true)}
+            onClick={() => setShowPicker(true)}
             className="soma-ease inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-medium transition-colors hover:border-brass/50 hover:text-brass"
           >
             <Plus className="h-4 w-4" /> Add profile
@@ -512,35 +541,55 @@ export default function AccountPage() {
           );
         })}
 
-        {adding && (
-          <div className={cn(CARD, "flex items-center gap-2 p-4")}>
-            <input
-              autoFocus
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && addProfile()}
-              placeholder="Profile name, e.g. Morning sativa"
-              className="soma-ease flex-1 rounded-xl border border-border/60 bg-background/50 px-4 py-2.5 text-sm outline-none focus:ring-4 focus:ring-accent/10"
-            />
-            <button
-              onClick={addProfile}
-              disabled={busy || !newName.trim()}
-              className={buttonClass("primary", "md", "rounded-full")}
-            >
-              {busy ? "Creating…" : "Create"}
-            </button>
-            <button
-              onClick={() => {
-                setAdding(false);
-                setNewName("");
-              }}
-              className="px-2 text-sm text-muted-foreground hover:text-foreground"
-            >
-              Cancel
-            </button>
-          </div>
-        )}
       </div>
+
+      {/* New-profile picker — presets (instant) or build your own. */}
+      {showPicker && (
+        <div
+          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 p-4 backdrop-blur-sm sm:items-center"
+          onClick={() => !creatingId && setShowPicker(false)}
+        >
+          <div
+            className="my-8 w-full max-w-2xl rounded-[1.75rem] border border-border/70 bg-card p-6 shadow-2xl sm:p-7"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.24em] text-brass">
+                  New profile
+                </p>
+                <h3 className="mt-1 font-display text-2xl font-semibold tracking-tight">
+                  Pick a taste to start
+                </h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Choose an archetype (instant) or build your own. Add two or
+                  three to blend them.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => !creatingId && setShowPicker(false)}
+                aria-label="Close"
+                className="soma-ease grid h-9 w-9 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="mt-5">
+              <PresetPicker
+                onPick={pickPreset}
+                onCustom={buildCustom}
+                busyId={creatingId}
+              />
+            </div>
+            {busy && (
+              <p className="mt-3 text-sm text-muted-foreground">
+                Opening the questionnaire…
+              </p>
+            )}
+          </div>
+        </div>
+      )}
 
       <ProfileSimilarityHint />
 
