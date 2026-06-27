@@ -19,7 +19,7 @@ import { resolveBlend, analyzeMerged } from "@/lib/merge-worlds";
 import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
-import type { AnalysisResult, TasteProfileInput } from "@/lib/types";
+import type { AnalysisResult, TasteProfileInput, FeedbackSignal } from "@/lib/types";
 import { profileCompleteness, MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
 
 export const dynamic = "force-dynamic";
@@ -57,7 +57,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const profile = await getActiveProfile(userId);
+  let profile;
+  try {
+    profile = await getActiveProfile(userId);
+  } catch (err) {
+    console.error("analyze: profile read failed (DB unreachable?)", err);
+    return NextResponse.json(
+      { error: "SŌMA is waking up — please try again in a moment." },
+      { status: 503 },
+    );
+  }
 
   if (!profile) {
     return NextResponse.json(
@@ -81,7 +90,14 @@ export async function POST(req: NextRequest) {
 
   // Deterministic engine first — it always produces the structured result.
   // Confirmed feedback from past sessions is folded into the scoring.
-  const feedback = await getFeedbackSignals(userId);
+  // Feedback is non-essential — if its read fails, score without it rather
+  // than failing the whole run.
+  let feedback: FeedbackSignal[] = [];
+  try {
+    feedback = await getFeedbackSignals(userId);
+  } catch (err) {
+    console.error("analyze: feedback read failed, scoring without it", err);
+  }
   // Resolve any menu strains not in the catalog via the optional AI layer.
   // No-op (empty map) without OPENAI_API_KEY — scoring stays identical until a
   // key is added; with one, unknown names get a vocab-constrained profile.
@@ -130,44 +146,57 @@ export async function POST(req: NextRequest) {
 
   const menuQuality = computeMenuQuality(parsedItems, result.recommendations);
 
-  const session = await prisma.analysisSession.create({
-    data: {
-      userId,
-      tasteProfileId: profile.id,
-      inputType,
-      rawInput,
-      engine: result.engine,
-      parsedItems:
-        parsedItems.length > 0
-          ? (parsedItems as unknown as Prisma.InputJsonValue)
-          : undefined,
-      parserWarnings: flattenParserWarnings(parsedItems),
-      menuQuality: menuQuality as unknown as Prisma.InputJsonValue,
-      recommendations: {
-        create: result.recommendations.map((r) => ({
-          strainName: r.strainName,
-          resolvedName: r.resolvedName,
-          knownStrain: r.knownStrain,
-          category: r.category,
-          matchScore: r.matchScore,
-          confidence: r.confidence,
-          aromaMatch: r.aromaMatch,
-          flavorMatch: r.flavorMatch,
-          effectMatch: r.effectMatch,
-          whyItFits: r.whyItFits,
-          riskNotes: r.riskNotes,
-          explanation: r.explanation,
-          feedbackNote: r.feedbackNote,
-          purchaseConfidence: r.purchaseConfidence as unknown as Prisma.InputJsonValue,
-        })),
+  // Persist the run. The scoring above is already done in memory, so a DB write
+  // blip must NOT throw away the user's results — on failure we return them
+  // anyway (without a saved session: "Save results" is simply disabled).
+  let session: Prisma.AnalysisSessionGetPayload<{
+    include: { recommendations: true };
+  }> | null = null;
+  try {
+    session = await prisma.analysisSession.create({
+      data: {
+        userId,
+        tasteProfileId: profile.id,
+        inputType,
+        rawInput,
+        engine: result.engine,
+        parsedItems:
+          parsedItems.length > 0
+            ? (parsedItems as unknown as Prisma.InputJsonValue)
+            : undefined,
+        parserWarnings: flattenParserWarnings(parsedItems),
+        menuQuality: menuQuality as unknown as Prisma.InputJsonValue,
+        recommendations: {
+          create: result.recommendations.map((r) => ({
+            strainName: r.strainName,
+            resolvedName: r.resolvedName,
+            knownStrain: r.knownStrain,
+            category: r.category,
+            matchScore: r.matchScore,
+            confidence: r.confidence,
+            aromaMatch: r.aromaMatch,
+            flavorMatch: r.flavorMatch,
+            effectMatch: r.effectMatch,
+            whyItFits: r.whyItFits,
+            riskNotes: r.riskNotes,
+            explanation: r.explanation,
+            feedbackNote: r.feedbackNote,
+            purchaseConfidence: r.purchaseConfidence as unknown as Prisma.InputJsonValue,
+          })),
+        },
       },
-    },
-    include: { recommendations: true },
-  });
+      include: { recommendations: true },
+    });
+  } catch (err) {
+    console.error(
+      "analyze: session persist failed (DB?), returning results unsaved",
+      err,
+    );
+  }
 
   // Fire-and-forget on the unknown-strain queue. A failure here must not
   // block the user's analysis response.
-  logUnknownStrains(userId, session.id, result.recommendations, parsedItems).catch(
+  logUnknownStrains(userId, session?.id ?? null, result.recommendations, parsedItems).catch(
     (err) => console.error("logUnknownStrains failed", err),
   );
 
@@ -189,7 +218,7 @@ export async function POST(req: NextRequest) {
       matches: result.recommendations,
       closestName: closest?.strainName ?? "",
       taste: {
-        sessionId: session.id,
+        sessionId: session?.id ?? "",
         inputType,
         parsedItems: parsedItems.length > 0 ? parsedItems : null,
         menuQuality,
@@ -221,25 +250,32 @@ export async function POST(req: NextRequest) {
   // Audit mode (the engine-internal breakdown) is owner-only. For everyone
   // else the audit fields are stripped server-side, so they never reach the
   // browser at all — the panel is hidden AND there's nothing to read.
-  const owner = await isOwner(userId);
+  let owner = false;
+  try {
+    owner = await isOwner(userId);
+  } catch (err) {
+    console.error("analyze: owner check failed, treating as non-owner", err);
+  }
   const recommendations = result.recommendations.map((r) => {
     const withId = {
       ...r,
-      id: session.recommendations.find((d) => d.strainName === r.strainName)?.id,
+      id: session?.recommendations.find((d) => d.strainName === r.strainName)?.id,
     };
     return owner ? withId : redactAuditFields(withId);
   });
 
   return NextResponse.json({
-    session: {
-      id: session.id,
-      title: session.title,
-      saved: session.saved,
-      engine: session.engine,
-      inputType: session.inputType,
-      createdAt: session.createdAt,
-      strainCount: session.recommendations.length,
-    },
+    session: session
+      ? {
+          id: session.id,
+          title: session.title,
+          saved: session.saved,
+          engine: session.engine,
+          inputType: session.inputType,
+          createdAt: session.createdAt,
+          strainCount: session.recommendations.length,
+        }
+      : null,
     recommendations,
     engine: result.engine,
     menuQuality,
