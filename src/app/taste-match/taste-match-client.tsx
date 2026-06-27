@@ -33,6 +33,7 @@ import { ProfileProgressRing, ProfileMissingList } from "@/components/profile-pr
 import type { Verdict } from "@/components/feedback-pill";
 import { AuditPanel } from "@/components/audit-panel";
 import { BlendOverview } from "@/components/blend-overview";
+import { BlendResultsList } from "@/components/blend-results-list";
 
 type Phase = "loading" | "profile" | "gated" | "input" | "results";
 type Rec = StrainMatch & { id?: string };
@@ -610,6 +611,10 @@ export function TasteMatchClient() {
               <BlendOverview
                 worlds={blendResult.worlds}
                 breakdown={blendResult.breakdown}
+                overall={recommendations.map((r) => ({
+                  name: r.strainName,
+                  score: r.matchScore,
+                }))}
               />
             </div>
           )}
@@ -631,10 +636,20 @@ export function TasteMatchClient() {
           )}
 
           <div className="mt-10">
-            <ResultsView
-              recommendations={recommendations}
-              verdicts={verdicts}
-            />
+            {blendResult && blendResult.worlds.length >= 2 ? (
+              // Blend run: the top is in the overview above; continue the
+              // ranking from place 4 as a tap-to-expand list.
+              <BlendResultsList
+                recommendations={recommendations}
+                verdicts={verdicts}
+                startPlace={4}
+              />
+            ) : (
+              <ResultsView
+                recommendations={recommendations}
+                verdicts={verdicts}
+              />
+            )}
           </div>
 
           <div className="mt-12 flex flex-wrap items-center gap-3 border-t border-border pt-8">

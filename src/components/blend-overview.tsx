@@ -93,9 +93,14 @@ function TierRow({
 export function BlendOverview({
   worlds,
   breakdown,
+  overall: overallScores,
 }: {
   worlds: string[];
   breakdown: Breakdown;
+  // The final displayed ranking (matchScore per strain). When given, the
+  // "Top picks overall" block uses it — so it lines up with the continued
+  // list below. Falls back to best-of across worlds from the breakdown.
+  overall?: { name: string; score: number }[];
 }) {
   const names = Object.keys(breakdown);
   if (names.length === 0 || worlds.length < 2) return null;
@@ -103,12 +108,13 @@ export function BlendOverview({
   const scoreIn = (name: string, world: string) =>
     breakdown[name].find((b) => b.world === world)?.score ?? 0;
 
-  // Top of the whole menu — each strain at its best world (best-of).
+  // Top of the whole menu — the final ranking (or best-of across worlds).
   const overall = rankTiers(
-    names.map((name) => ({
-      name,
-      score: Math.max(...breakdown[name].map((b) => b.score)),
-    })),
+    overallScores ??
+      names.map((name) => ({
+        name,
+        score: Math.max(...breakdown[name].map((b) => b.score)),
+      })),
   );
 
   // Per profile.
