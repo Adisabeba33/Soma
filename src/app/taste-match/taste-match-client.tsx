@@ -642,6 +642,8 @@ export function TasteMatchClient() {
               <BlendResultsList
                 recommendations={recommendations}
                 verdicts={verdicts}
+                worlds={blendResult.worlds}
+                breakdown={blendResult.breakdown}
                 startPlace={4}
               />
             ) : (

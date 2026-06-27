@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { ChevronDown, Circle, CheckCircle2, GitCompareArrows, X } from "lucide-react";
 import { cn, formatScore } from "@/lib/utils";
 import { RecommendationCard } from "@/components/recommendation-card";
-import { clearBasket, addToBasket } from "@/lib/compare-basket";
+import { BlendCompare } from "@/components/blend-compare";
 import type { Verdict } from "@/components/feedback-pill";
 import type { StrainMatch } from "@/lib/types";
 
 type Rec = StrainMatch & { id?: string };
+type Breakdown = Record<string, Array<{ world: string; score: number }>>;
 
 // Tie-aware dense places by the displayed score: strains sharing a score share
 // one place number (so the list lines up with the overview's tie handling).
@@ -36,15 +36,19 @@ function placesOf(recs: Rec[]): Map<string, number> {
 export function BlendResultsList({
   recommendations,
   verdicts,
+  worlds,
+  breakdown,
   startPlace = 4,
 }: {
   recommendations: Rec[];
   verdicts?: Record<string, Verdict>;
+  worlds: string[];
+  breakdown: Breakdown;
   startPlace?: number;
 }) {
-  const router = useRouter();
   const [open, setOpen] = useState<string | null>(null);
   const [picked, setPicked] = useState<string[]>([]);
+  const [comparing, setComparing] = useState(false);
 
   const places = placesOf(recommendations);
   const sorted = [...recommendations].sort(
@@ -58,12 +62,14 @@ export function BlendResultsList({
       p.includes(name) ? p.filter((x) => x !== name) : [...p, name],
     );
 
-  function compareNow() {
-    if (picked.length < 2) return;
-    clearBasket();
-    for (const name of picked) addToBasket(name);
-    router.push("/compare");
-  }
+  // Picked strains, ordered by their place in the ranking, as full records.
+  const pickedRecs = picked
+    .map((name) => recommendations.find((r) => r.strainName === name))
+    .filter((r): r is Rec => Boolean(r))
+    .sort(
+      (a, b) =>
+        (places.get(a.strainName) ?? 0) - (places.get(b.strainName) ?? 0),
+    );
 
   return (
     <div>
@@ -171,7 +177,7 @@ export function BlendResultsList({
               </button>
               <button
                 type="button"
-                onClick={compareNow}
+                onClick={() => picked.length >= 2 && setComparing(true)}
                 disabled={picked.length < 2}
                 className="soma-ease inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-all hover:opacity-90 active:scale-[0.97] disabled:opacity-40"
               >
@@ -181,6 +187,15 @@ export function BlendResultsList({
             </div>
           </div>
         </div>
+      )}
+
+      {comparing && pickedRecs.length >= 2 && (
+        <BlendCompare
+          recs={pickedRecs}
+          worlds={worlds}
+          breakdown={breakdown}
+          onClose={() => setComparing(false)}
+        />
       )}
     </div>
   );
