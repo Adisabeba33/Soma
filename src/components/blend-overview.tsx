@@ -1,6 +1,6 @@
 "use client";
 
-import { Blend, Sparkles, Trophy } from "lucide-react";
+import { Blend, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Results overview for a Taste Blender run. On one screen:
@@ -93,29 +93,15 @@ function TierRow({
 export function BlendOverview({
   worlds,
   breakdown,
-  overall: overallScores,
 }: {
   worlds: string[];
   breakdown: Breakdown;
-  // The final displayed ranking (matchScore per strain). When given, the
-  // "Top picks overall" block uses it — so it lines up with the continued
-  // list below. Falls back to best-of across worlds from the breakdown.
-  overall?: { name: string; score: number }[];
 }) {
   const names = Object.keys(breakdown);
   if (names.length === 0 || worlds.length < 2) return null;
 
   const scoreIn = (name: string, world: string) =>
     breakdown[name].find((b) => b.world === world)?.score ?? 0;
-
-  // Top of the whole menu — the final ranking (or best-of across worlds).
-  const overall = rankTiers(
-    overallScores ??
-      names.map((name) => ({
-        name,
-        score: Math.max(...breakdown[name].map((b) => b.score)),
-      })),
-  );
 
   // Per profile.
   const perWorld = worlds.map((world) => ({
@@ -146,28 +132,12 @@ export function BlendOverview({
         Blend overview
       </p>
       <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-        The best of your whole menu, the winners inside each profile, and the
+        Two more lenses on your menu: the winners inside each profile, and the
         bridge picks that carry across every side of your taste.
       </p>
 
-      {/* ── Top picks overall ───────────────────────────────────── */}
-      <div className="mt-5 rounded-2xl border border-accent/30 bg-accent/[0.05] p-4">
-        <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
-          <Trophy className="h-3.5 w-3.5" />
-          Top picks overall
-        </p>
-        <div className="mt-1.5 divide-y divide-border/40">
-          {overall.map((t) => (
-            <TierRow key={t.rank} tier={t} unit="best" />
-          ))}
-        </div>
-        <p className="mt-2 text-xs text-muted-foreground">
-          The strongest strains across your whole menu — each at its best side.
-        </p>
-      </div>
-
       {/* ── Best from each profile ──────────────────────────────── */}
-      <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground/70">
+      <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground/70">
         Best from each profile
       </p>
       <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-3">

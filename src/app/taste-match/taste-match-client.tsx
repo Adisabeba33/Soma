@@ -604,21 +604,6 @@ export function TasteMatchClient() {
             </div>
           )}
 
-          {/* Blend overview — top picks per profile + the all-rounders, so a
-              3-profile run is scannable before reading each pick below. */}
-          {blendResult && blendResult.worlds.length >= 2 && (
-            <div className="mt-8">
-              <BlendOverview
-                worlds={blendResult.worlds}
-                breakdown={blendResult.breakdown}
-                overall={recommendations.map((r) => ({
-                  name: r.strainName,
-                  score: r.matchScore,
-                }))}
-              />
-            </div>
-          )}
-
           <p className="mt-6 rounded-xl border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
             These are sensory matches, not guarantees. Real quality still
             depends on the grower, freshness and storage.
@@ -637,15 +622,22 @@ export function TasteMatchClient() {
 
           <div className="mt-10">
             {blendResult && blendResult.worlds.length >= 2 ? (
-              // Blend run: the top is in the overview above; continue the
-              // ranking from place 4 as a tap-to-expand list.
-              <BlendResultsList
-                recommendations={recommendations}
-                verdicts={verdicts}
-                worlds={blendResult.worlds}
-                breakdown={blendResult.breakdown}
-                startPlace={4}
-              />
+              // Blend run: a winners board + the rest of the ranking (all
+              // selectable to compare), then the per-profile / bridge lenses.
+              <>
+                <BlendResultsList
+                  recommendations={recommendations}
+                  verdicts={verdicts}
+                  worlds={blendResult.worlds}
+                  breakdown={blendResult.breakdown}
+                />
+                <div className="mt-14">
+                  <BlendOverview
+                    worlds={blendResult.worlds}
+                    breakdown={blendResult.breakdown}
+                  />
+                </div>
+              </>
             ) : (
               <ResultsView
                 recommendations={recommendations}
