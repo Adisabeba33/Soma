@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
+import { PresetPicker } from "@/components/preset-picker";
+import type { Preset } from "@/lib/profile-presets";
 import { StrainInput } from "@/components/strain-input";
 import { RunPrioritiesModal } from "@/components/run-priorities-modal";
 import { TasteProfileSummary } from "@/components/taste-profile-summary";
@@ -42,6 +44,10 @@ export function TasteMatchClient() {
   const searchParams = useSearchParams();
   const [phase, setPhase] = useState<Phase>("loading");
   const [profile, setProfile] = useState<TasteProfileState>(EMPTY_PROFILE);
+  // Quick-start: the new-profile screen offers preset archetypes first; "Build
+  // my own" reveals the full questionnaire.
+  const [customProfile, setCustomProfile] = useState(false);
+  const [presetBusy, setPresetBusy] = useState<string | null>(null);
   const [contradictions, setContradictions] = useState<ProfileContradiction[]>(
     [],
   );
@@ -331,10 +337,45 @@ export function TasteMatchClient() {
         <p className="mt-6 text-sm text-muted-foreground">Loading…</p>
       )}
 
-      {phase === "profile" && (
+      {phase === "profile" && !customProfile && (
         <>
           <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
-            Let&apos;s build your taste profile
+            Find your taste in one tap
+          </h1>
+          <p className="mt-3 max-w-xl leading-relaxed text-muted-foreground">
+            Pick the profile that fits you and start matching right away — or
+            build your own. You can refine it anytime.
+          </p>
+          {error && (
+            <p className="mt-4 rounded-xl bg-[#a23b2c]/10 px-4 py-3 text-sm text-[#a23b2c]">
+              {error}
+            </p>
+          )}
+          <div className="mt-8">
+            <PresetPicker
+              onPick={async (p: Preset) => {
+                setPresetBusy(p.id);
+                await saveProfile(p.profile);
+                setPresetBusy(null);
+              }}
+              onCustom={() => setCustomProfile(true)}
+              busyId={presetBusy}
+            />
+          </div>
+        </>
+      )}
+
+      {phase === "profile" && customProfile && (
+        <>
+          <button
+            type="button"
+            onClick={() => setCustomProfile(false)}
+            className="mt-4 text-sm text-muted-foreground hover:text-foreground"
+          >
+            ← Back to quick start
+          </button>
+          <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight">
+            Build your taste profile
           </h1>
           <p className="mt-3 leading-relaxed text-muted-foreground">
             A short sensory questionnaire. It takes a minute, and every Taste
