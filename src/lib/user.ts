@@ -24,19 +24,13 @@ export async function getUserId(): Promise<string> {
   const session = store.get(SESSION_COOKIE)?.value;
   if (session) {
     const uid = verifySessionToken(session);
-    if (uid) {
-      // The signed token IS the proof of auth; the DB lookup only confirms the
-      // account still exists. A transient DB error must NOT log the user out —
-      // trust the token on failure, and only fall through to the anonymous
-      // path if the lookup succeeds and the account is genuinely gone.
-      try {
-        const user = await prisma.user.findUnique({ where: { id: uid } });
-        if (user) return uid;
-      } catch (err) {
-        console.error("session: DB confirm failed, trusting signed token", err);
-        return uid;
-      }
-    }
+    // A valid signed (HMAC) token IS the authentication. Return it WITHOUT a DB
+    // round-trip: a database hiccup must never downgrade a logged-in member to
+    // a freshly created anonymous user (which overwrote their cookie and read
+    // as a logout — the "Run Taste Match logs me out" bug). Account deletion
+    // clears the cookie, and rotating AUTH_SECRET invalidates all tokens, so
+    // skipping the existence check here is safe.
+    if (uid) return uid;
   }
 
   const existing = store.get(SOMA_UID_COOKIE)?.value;
@@ -68,20 +62,9 @@ export async function getUserIdReadOnly(): Promise<string | null> {
   const session = store.get(SESSION_COOKIE)?.value;
   if (session) {
     const uid = verifySessionToken(session);
-    if (uid) {
-      // Same as getUserId: trust the signed token when the DB confirm fails,
-      // so a Supabase blip doesn't read a logged-in member as anonymous.
-      try {
-        const user = await prisma.user.findUnique({ where: { id: uid } });
-        if (user) return uid;
-      } catch (err) {
-        console.error(
-          "session(readonly): DB confirm failed, trusting signed token",
-          err,
-        );
-        return uid;
-      }
-    }
+    // Trust the signed token directly — no DB round-trip — so a Supabase blip
+    // never reads a logged-in member as anonymous.
+    if (uid) return uid;
   }
 
   return store.get(SOMA_UID_COOKIE)?.value ?? null;
