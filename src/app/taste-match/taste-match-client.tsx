@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
+import { Bookmark, Check, Download, Heart, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { PresetPicker } from "@/components/preset-picker";
 import type { Preset } from "@/lib/profile-presets";
@@ -93,6 +93,9 @@ export function TasteMatchClient() {
   const [savingProfile, setSavingProfile] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recommendations, setRecommendations] = useState<Rec[]>([]);
+  // Strains on the menu that are the user's own favourites — pulled out of the
+  // ranking (they already know them) and shown in a small callout instead.
+  const [favoritesInMenu, setFavoritesInMenu] = useState<string[]>([]);
   // Audit mode is owner-only; the API reports whether this account is the owner.
   const [isOwner, setIsOwner] = useState(false);
   // Blend recipe for the owner audit (mode/worlds/lean/admix), so the panel
@@ -267,6 +270,9 @@ export function TasteMatchClient() {
         return;
       }
       setRecommendations(data.recommendations ?? []);
+      setFavoritesInMenu(
+        Array.isArray(data.favoritesInMenu) ? data.favoritesInMenu : [],
+      );
       setRunSettings({
         senses: prioSenses,
         effect: prioEffect,
@@ -326,6 +332,20 @@ export function TasteMatchClient() {
     setPhase("input");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
+  // Favourites on the menu are pulled out of the ranking (the user knows them);
+  // everything else is what's actually worth ranking and discovering.
+  const favSet = new Set(favoritesInMenu);
+  const favRecs = recommendations.filter((r) => favSet.has(r.strainName));
+  const rankedRecs = recommendations.filter((r) => !favSet.has(r.strainName));
+  const rankedBreakdown: Record<
+    string,
+    Array<{ world: string; score: number }>
+  > = blendResult
+    ? Object.fromEntries(
+        Object.entries(blendResult.breakdown).filter(([n]) => !favSet.has(n)),
+      )
+    : {};
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
@@ -645,6 +665,29 @@ export function TasteMatchClient() {
             </div>
           )}
 
+          {favRecs.length > 0 && (
+            <div className="mt-6 rounded-2xl border border-brass/30 bg-brass/[0.05] px-5 py-4">
+              <p className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.18em] text-brass">
+                <Heart className="h-3.5 w-3.5" />
+                Your favourites on this menu
+              </p>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {favRecs.map((r) => (
+                  <span
+                    key={r.strainName}
+                    className="rounded-full bg-card px-3 py-1 text-sm font-medium ring-1 ring-brass/30"
+                  >
+                    {r.strainName}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                You already know these — kept out of the ranking below, which
+                scores only the strains you haven&apos;t tried.
+              </p>
+            </div>
+          )}
+
           <p className="mt-6 rounded-xl border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
             These are sensory matches, not guarantees. Real quality still
             depends on the grower, freshness and storage.
@@ -666,20 +709,20 @@ export function TasteMatchClient() {
               // Blend run: winners board → the per-profile / bridge lenses →
               // the rest of the ranking (all selectable to compare).
               <BlendResultsList
-                recommendations={recommendations}
+                recommendations={rankedRecs}
                 verdicts={verdicts}
                 worlds={blendResult.worlds}
-                breakdown={blendResult.breakdown}
+                breakdown={rankedBreakdown}
                 middle={
                   <BlendOverview
                     worlds={blendResult.worlds}
-                    breakdown={blendResult.breakdown}
+                    breakdown={rankedBreakdown}
                   />
                 }
               />
             ) : (
               <ResultsView
-                recommendations={recommendations}
+                recommendations={rankedRecs}
                 verdicts={verdicts}
               />
             )}

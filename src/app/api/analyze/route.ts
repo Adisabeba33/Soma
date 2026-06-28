@@ -15,6 +15,7 @@ import {
   sanitizeParsedItems,
 } from "@/lib/api";
 import { analyze, resolveStrain } from "@/lib/taste-engine";
+import { findStrain } from "@/lib/strain-data";
 import { resolveBlend, analyzeMerged } from "@/lib/merge-worlds";
 import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
@@ -145,6 +146,23 @@ export async function POST(req: NextRequest) {
   }
 
   const menuQuality = computeMenuQuality(parsedItems, result.recommendations);
+
+  // Favourites on the menu: the user already knows these by name, and they
+  // anchor near the top (94–96), so they crowd out discovery. Flag them so the
+  // client can pull them into a small "your favourites" callout and rank only
+  // the strains the user doesn't already know. Favourites span all blended
+  // profiles (union); a single run uses the active profile.
+  const favProfiles = blend ? blend.profiles : [profile];
+  const favSet = new Set<string>();
+  for (const p of favProfiles) {
+    for (const f of (p as unknown as TasteProfileInput).favoriteStrains ?? []) {
+      const canon = findStrain(f)?.name;
+      if (canon) favSet.add(canon);
+    }
+  }
+  const favoritesInMenu = result.recommendations
+    .filter((r) => favSet.has(r.resolvedName))
+    .map((r) => r.strainName);
 
   // Persist the run. The scoring above is already done in memory, so a DB write
   // blip must NOT throw away the user's results — on failure we return them
@@ -277,6 +295,7 @@ export async function POST(req: NextRequest) {
         }
       : null,
     recommendations,
+    favoritesInMenu,
     engine: result.engine,
     menuQuality,
     isOwner: owner,
