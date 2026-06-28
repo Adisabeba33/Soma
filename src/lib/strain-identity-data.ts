@@ -10364,4 +10364,49 @@ export const IDENTITIES: StrainIdentity[] = [
     artStatus: "none",
     sourceConfidence: "low",
   },
+  {
+    canonicalName: "Sunset Runtz",
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["Sunset Sherbet", "Runtz"],
+      cross: "Sunset Sherbet × Runtz",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Indica dominance from the Sunset Sherbet side, candy sweetness from Runtz", "Limonene-dominant with caryophyllene and linalool support"],
+    curatorNote:
+      "Imagine biting into a peach gummy at golden hour, sticky citrus juice running down a creamy core. The diesel hum underneath keeps it from being too saccharine, grounding the sweetness in something loud and resinous. This is dessert with a gas chaser.",
+    tagline: "Peach candy at golden hour",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Rainbow Runtz",
+    marketNames: ["Rainbow Runts"],
+    breeder: "Wizard Trees",
+    lineage: {
+      parents: ["Rainbow Sherbet", "Runtz"],
+      cross: "Rainbow Sherbet × Runtz",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Multiple breeder versions exist; Zkittlez-family candy crosses with a Wizard Trees Runtz × RS11 line also circulating", "Limonene and myrcene forward with a floral linalool lift"],
+    curatorNote:
+      "This is the rainbow candy bag tipped out across the table, every fruit at once but somehow harmonized. A giggly cerebral sparkle arrives first, brightening the room before a warm, smooth body glow settles in. Pure sensory confetti without the crash.",
+    tagline: "Rainbow candy bag, tipped out",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Venom Runtz",
+    lineage: {
+      parents: ["Venom OG", "Runtz"],
+      cross: "Venom OG × Runtz",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["A darker, heavier Runtz expression; Venom OG contributes gas and sedation, Runtz the candy sweetness", "Myrcene, caryophyllene and limonene dominant"],
+    curatorNote:
+      "The sweet inhale is a trap, all juicy berry and tropical candy, before Venom OG slams the door with diesel, pepper and damp earth. The high lands fast and lays heavy across the body while the mind floats blissed and unbothered. Sweet bite, gassy venom, deep couch.",
+    tagline: "Sweet bite, gassy venom",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
 ];

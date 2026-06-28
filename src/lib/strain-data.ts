@@ -8591,6 +8591,52 @@ export const STRAINS: StrainProfile[] = [
     potency: "moderate",
     note: "Sugary fruit punch with lemon-lime fizz and a cool berry-cream undertow.",
   },
+  {
+    name: "Sunset Runtz",
+    type: "indica",
+    aromas: ["sweet", "citrus", "fruity", "creamy", "diesel"],
+    flavors: ["sweet", "citrus", "fruity", "creamy"],
+    effects: ["euphoric", "giggly", "creative", "relaxed", "happy"],
+    primaryAromas: ["sweet", "citrus", "creamy"],
+    primaryFlavors: ["sweet", "citrus"],
+    primaryEffects: ["euphoric", "giggly", "creative"],
+    traceAromas: ["spicy", "tropical"],
+    traceFlavors: ["spicy", "tropical"],
+    traits: ["frosty", "potent", "terpy", "sticky", "loud-smell"],
+    potency: "strong",
+    note: "A sun-warmed wash of peach and citrus candy rolls over a soft cream base, finishing with a faint tangy diesel snap.",
+  },
+  {
+    name: "Rainbow Runtz",
+    aliases: ["Rainbow Runts"],
+    type: "hybrid",
+    aromas: ["sweet", "fruity", "berry", "floral", "citrus"],
+    flavors: ["sweet", "fruity", "berry", "tropical"],
+    effects: ["happy", "giggly", "uplifted", "relaxed", "euphoric"],
+    primaryAromas: ["sweet", "fruity", "berry"],
+    primaryFlavors: ["sweet", "fruity"],
+    primaryEffects: ["happy", "giggly", "uplifted"],
+    traceAromas: ["grape", "tropical"],
+    traceFlavors: ["grape", "citrus"],
+    traits: ["terpy", "frosty", "loud-smell", "smooth", "dense-buds"],
+    potency: "moderate",
+    note: "A bright burst of mixed fruit candy and ripe berries lifts off a soft floral sweetness, smooth and playful from inhale to exhale.",
+  },
+  {
+    name: "Venom Runtz",
+    type: "indica",
+    aromas: ["gassy", "fruity", "sweet", "berry", "earthy"],
+    flavors: ["fruity", "sweet", "gassy", "spicy"],
+    effects: ["relaxed", "body-heavy", "euphoric", "happy", "sleepy"],
+    primaryAromas: ["gassy", "fruity", "berry"],
+    primaryFlavors: ["fruity", "gassy"],
+    primaryEffects: ["relaxed", "body-heavy", "euphoric"],
+    traceAromas: ["pine", "citrus"],
+    traceFlavors: ["earthy", "diesel"],
+    traits: ["gassy", "potent", "heavy-body", "dense-buds", "frosty", "loud-smell"],
+    potency: "very-strong",
+    note: "Candy-sweet tropical fruit and sour berries hit the inhale, then a heavy diesel-and-pepper gas rolls out on the exhale.",
+  },
 ];
 
 export function normalizeStrainName(name: string): string {
@@ -8610,13 +8656,26 @@ export function findStrain(name: string): StrainProfile | null {
   if (!norm) return null;
   const exact = STRAIN_INDEX.get(norm);
   if (exact) return exact;
-  // Loose containment match for menu noise (e.g. "Gelato #41 3.5g").
+  // Loose match ONLY for trailing menu noise: the query is a catalog name
+  // followed by non-letter junk (e.g. "Gelato #41 3.5g" → "gelato4135g"
+  // starts with "gelato41"). We must NOT collapse a distinct cultivar whose
+  // name merely ENDS WITH a shorter catalog name — "Sunset Runtz",
+  // "Rainbow Runtz" and "Venom Runtz" are their own strains, not "Runtz".
+  // Pick the longest matching prefix so "Gelato 41" beats "Gelato".
+  let best: StrainProfile | null = null;
+  let bestLen = 0;
   for (const [key, strain] of STRAIN_INDEX) {
-    if (key.length >= 4 && (norm.includes(key) || key.includes(norm))) {
-      return strain;
+    if (
+      key.length >= 4 &&
+      key.length > bestLen &&
+      norm.startsWith(key) &&
+      !/[a-z]/.test(norm.slice(key.length))
+    ) {
+      best = strain;
+      bestLen = key.length;
     }
   }
-  return null;
+  return best;
 }
 
 // Catalog strain names (sorted), for client-side autocomplete suggestions —
