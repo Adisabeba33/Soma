@@ -1951,12 +1951,11 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "UK Cheese",
-    marketNames: ["Cheese", "Original Cheese", "Exodus", "Exodus Cheese"],
     lineage: {
       parents: ["Skunk #1"],
       cross: "Skunk #1 phenotype — Exodus Cheese, an inbred clone-only selection (early-90s UK)",
     },
-    marketNames: ["Exodus Cheese", "Cheese"],
+    marketNames: ["Exodus Cheese", "Cheese", "Original Cheese", "Exodus"],
     sensoryFamily: "skunk-funk",
     phenotypeNotes: ["The original 'cheese' Skunk #1 pheno"],
     curatorNote:
