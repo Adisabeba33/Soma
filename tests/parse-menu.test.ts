@@ -57,6 +57,21 @@ describe("parseMenuRich — structured extraction", () => {
     ]);
   });
 
+  it("splits a combined 'A / B / C' listing into separate strains", () => {
+    const names = parseMenuRich(
+      "Permanent Shade / Xeno / Brain Wash",
+    ).map((i) => i.strainName);
+    assert.deepEqual(names, ["Permanent Shade", "Xeno", "Brain Wash"]);
+  });
+
+  it("does not split a name with an internal slash (AC/DC) or fraction weight", () => {
+    assert.equal(parseFirst("AC/DC 3.5g $40").strainName, "AC/DC");
+    // Spaced slash splits, but "1 / 8" reads as a weight, leaving one strain.
+    const items = parseMenuRich("Gelato 1 / 8 $50");
+    assert.equal(items.length, 1);
+    assert.equal(items[0].strainName, "Gelato");
+  });
+
   it("preserves rawLine for unclear rows rather than dropping them", () => {
     const items = parseMenuRich(
       "🔥 SPECIAL: Lemon Cherry Gelato — 30% THC — was $70 now $55",
