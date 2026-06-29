@@ -156,7 +156,7 @@ export function BlendResultsList({
         </div>
         {isOpen && (
           <div className="border-t border-border/50 bg-background/30 px-3 py-4 sm:px-4">
-            <RecommendationCard match={r as never} verdict={verdict ?? null} />
+            <RecommendationCard match={r as never} verdict={verdict ?? null} nested />
           </div>
         )}
       </div>
