@@ -23,7 +23,7 @@ const sans = Inter({
 
 const SITE_TITLE = "SŌMA — Sensory Sommelier for Cannabis";
 const SITE_DESCRIPTION =
-  "SŌMA is an AI cannabis sommelier. Find flower that matches your taste — not just the strain name.";
+  "SŌMA is a sensory sommelier for cannabis. It scores any menu against your own taste — aroma, effect and feel — to find the flower you'll love, not just a strain name.";
 
 export const metadata: Metadata = {
   // Resolves all relative URLs in metadata (canonical, OG images) against the

@@ -605,8 +605,8 @@ export function TasteMatchClient() {
                 {recommendations.length === 1 ? "" : "s"} read against your
                 profile ·{" "}
                 {engine === "openai"
-                  ? "Taste Match Engine, refined by the AI sommelier"
-                  : "Built-in Taste Match Engine"}
+                  ? "Taste Match Engine · wording refined for clarity"
+                  : "Taste Match Engine"}
               </p>
             </div>
             <div className="flex items-center gap-2">
