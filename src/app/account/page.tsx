@@ -28,7 +28,7 @@ import { cn } from "@/lib/utils";
 
 // Premium card surface, shared across the dossier.
 const CARD =
-  "soma-lift rounded-[1.75rem] border border-white/50 bg-[hsl(42_46%_95%)]/36 backdrop-blur-lg shadow-[0_30px_60px_-38px_rgba(60,45,20,0.6),0_2px_4px_-2px_rgba(60,45,20,0.25)] hover:shadow-[0_36px_72px_-36px_rgba(60,45,20,0.68),0_3px_6px_-2px_rgba(60,45,20,0.3)]";
+  "soma-lift rounded-[1.75rem] border border-white/50 bg-[hsl(42_46%_95%)]/42 backdrop-blur-[2px] shadow-[0_30px_60px_-38px_rgba(60,45,20,0.6),0_2px_4px_-2px_rgba(60,45,20,0.25)] hover:shadow-[0_36px_72px_-36px_rgba(60,45,20,0.68),0_3px_6px_-2px_rgba(60,45,20,0.3)]";
 
 type Me = {
   registered: boolean;
