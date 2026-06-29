@@ -335,6 +335,14 @@ export default function AccountPage() {
             </Tick>
             <Tick>Private by design</Tick>
           </ul>
+          {/* House signature — signs off the membership card, bottom-right. */}
+          <div className="mt-5 flex justify-end">
+            <img
+              src="/brand/soma-signature.png"
+              alt="SŌMA signature"
+              className="h-12 w-auto opacity-90"
+            />
+          </div>
         </div>
       </div>
 
