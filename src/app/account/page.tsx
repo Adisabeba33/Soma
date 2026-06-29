@@ -28,7 +28,7 @@ import { cn } from "@/lib/utils";
 
 // Premium card surface, shared across the dossier.
 const CARD =
-  "soma-lift rounded-[1.75rem] border border-border/70 bg-card shadow-[0_30px_60px_-38px_rgba(60,45,20,0.6),0_2px_4px_-2px_rgba(60,45,20,0.25)] hover:shadow-[0_36px_72px_-36px_rgba(60,45,20,0.68),0_3px_6px_-2px_rgba(60,45,20,0.3)]";
+  "soma-lift rounded-[1.75rem] border border-white/55 bg-[hsl(42_46%_95%)]/62 backdrop-blur-md shadow-[0_30px_60px_-38px_rgba(60,45,20,0.6),0_2px_4px_-2px_rgba(60,45,20,0.25)] hover:shadow-[0_36px_72px_-36px_rgba(60,45,20,0.68),0_3px_6px_-2px_rgba(60,45,20,0.3)]";
 
 type Me = {
   registered: boolean;
@@ -61,7 +61,7 @@ function Ring({ percent, size = 64 }: { percent: number; size?: number }) {
           background: `conic-gradient(hsl(var(--brass)) ${deg}deg, hsl(var(--border)) ${deg}deg)`,
         }}
       />
-      <div className="absolute inset-[4px] flex flex-col items-center justify-center rounded-full bg-card">
+      <div className="absolute inset-[4px] flex flex-col items-center justify-center rounded-full bg-[hsl(42_44%_94%)]">
         <span className="font-display font-semibold leading-none" style={{ fontSize: size * 0.28 }}>
           {percent}
         </span>
@@ -286,19 +286,20 @@ export default function AccountPage() {
 
   return (
     <div className="relative">
-      {/* Lounge backdrop — embossed plaster + gilded leaves frame the top of
-          the room, then fade into the page so lower sections stay clean and
-          readable. Full-bleed behind the centred content. */}
+      {/* Lounge backdrop — embossed plaster + gilded leaves. Fixed to the
+          viewport so it "sticks" while the cards scroll over it; a light wash
+          keeps any off-card text readable. The footer's own opaque background
+          closes it off at the bottom. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[1100px] overflow-hidden"
+        className="pointer-events-none fixed inset-0 -z-10"
       >
         <img
           src="/textures/lounge.webp"
           alt=""
-          className="h-full w-full object-cover object-top"
+          className="h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/35 to-background" />
+        <div className="absolute inset-0 bg-background/25" />
       </div>
 
       <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8">
