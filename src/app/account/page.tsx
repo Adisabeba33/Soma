@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -32,23 +32,6 @@ import { cn } from "@/lib/utils";
 const CARD =
   "soma-lift rounded-[1.75rem] border border-white/50 bg-[hsl(42_46%_95%)]/42 backdrop-blur-[2px] shadow-[0_30px_60px_-38px_rgba(60,45,20,0.6),0_2px_4px_-2px_rgba(60,45,20,0.25)] hover:shadow-[0_36px_72px_-36px_rgba(60,45,20,0.68),0_3px_6px_-2px_rgba(60,45,20,0.3)]";
 
-// The profile cards read a touch more solid than the rest of the dossier so
-// the chips and gilded ring sit on cream rather than the busy backdrop.
-const PROFILE_CARD =
-  "rounded-[1.6rem] bg-[hsl(43_47%_95.5%)]/92 backdrop-blur-md";
-
-// Soft champagne gold — pale and smooth, the way the reference reads, rather
-// than a brassy, high-contrast metal. GOLD_BAND is the gentle sheen that rings
-// the medallion (two soft highlights, low contrast = smooth hoop); GOLD_FRAME
-// is the polished bezel for the active card; GOLD_PILL is a slightly deeper
-// gold for the ACTIVE badge so white text stays legible.
-const GOLD_BAND =
-  "conic-gradient(from 215deg, #c7ac72 0deg, #ecddb2 95deg, #cbae72 185deg, #e6d2a0 280deg, #c7ac72 360deg)";
-const GOLD_FRAME =
-  "linear-gradient(135deg, #efe1ba 0%, #d4bd86 26%, #c6a96c 47%, #f0e3bd 54%, #c6a96c 63%, #d4bd86 80%, #efe1ba 100%)";
-const GOLD_PILL =
-  "linear-gradient(135deg, #ddc17c 0%, #c19a45 50%, #d4b163 100%)";
-
 type Me = {
   registered: boolean;
   username: string | null;
@@ -69,55 +52,22 @@ type ProfileItem = {
 
 type Discovery = { name: string; slug: string; score: number };
 
-// A gilded completeness medallion — a thick, sculpted gold torus carrying the
-// progress, with a recessed cream centre for the percent. Layers: a metallic
-// gold band, the incomplete slice painted in a soft track tone, a diagonal
-// gloss, an etched outer rim, and a debossed cream well.
+// A thin brass completeness ring.
 function Ring({ percent, size = 64 }: { percent: number; size?: number }) {
-  const pct = Math.max(0, Math.min(100, Math.round(percent)));
-  const deg = pct * 3.6;
-  const band = Math.round(size * 0.13); // thin gold hoop, large cream centre
+  const deg = Math.max(0, Math.min(100, percent)) * 3.6;
   return (
-    <div
-      className="relative shrink-0 rounded-full"
-      style={{
-        width: size,
-        height: size,
-        boxShadow:
-          "0 14px 26px -14px rgba(120,92,40,0.55), 0 2px 4px -2px rgba(120,92,40,0.35)",
-      }}
-    >
-      {/* Smooth champagne-gold hoop */}
-      <div className="absolute inset-0 rounded-full" style={{ background: GOLD_BAND }} />
-      {/* Incomplete arc — covers the remaining slice in a soft track tone */}
-      <div
-        className="absolute inset-0 rounded-full"
-        style={{ background: `conic-gradient(transparent ${deg}deg, hsl(42 20% 84%) ${deg}deg)` }}
-      />
-      {/* Gentle top-left sheen — adds a soft bevel without darkening the gold */}
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
       <div
         className="absolute inset-0 rounded-full"
         style={{
-          background:
-            "linear-gradient(145deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0) 70%, rgba(255,255,255,0.3) 100%)",
+          background: `conic-gradient(hsl(var(--brass)) ${deg}deg, hsl(var(--border)) ${deg}deg)`,
         }}
       />
-      {/* Recessed cream well — soft debossed shadow + a faint gold lip */}
-      <div
-        className="absolute flex flex-col items-center justify-center rounded-full bg-[hsl(44_46%_96.5%)]"
-        style={{
-          inset: band,
-          boxShadow:
-            "inset 0 2px 5px rgba(110,82,32,0.28), inset 0 -1px 2px rgba(255,255,255,0.8), 0 0 0 1px rgba(150,118,55,0.2)",
-        }}
-      >
-        <span
-          className="font-display font-semibold leading-none text-foreground"
-          style={{ fontSize: size * 0.33 }}
-        >
-          {pct}
+      <div className="absolute inset-[4px] flex flex-col items-center justify-center rounded-full bg-[hsl(42_44%_94%)]">
+        <span className="font-display font-semibold leading-none" style={{ fontSize: size * 0.28 }}>
+          {percent}
         </span>
-        <span className="mt-0.5 text-[8px] uppercase tracking-[0.16em] text-muted-foreground">
+        <span className="text-[7px] uppercase tracking-[0.14em] text-muted-foreground">
           %
         </span>
       </div>
@@ -138,14 +88,14 @@ function Tick({ children }: { children: React.ReactNode }) {
 
 function AromaChip({ token }: { token: string }) {
   return (
-    <span className="rounded-full bg-brass/[0.14] px-3.5 py-1.5 text-[13px] font-medium text-brass ring-1 ring-inset ring-brass/15">
+    <span className="rounded-full bg-brass/10 px-2.5 py-1 text-xs font-medium text-brass">
       {labelFor(token)}
     </span>
   );
 }
 function EffectChip({ token }: { token: string }) {
   return (
-    <span className="rounded-full bg-[hsl(40_14%_88%)]/80 px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground ring-1 ring-inset ring-black/[0.04]">
+    <span className="rounded-full px-2.5 py-1 text-xs text-muted-foreground ring-1 ring-border">
       {labelFor(token)}
     </span>
   );
@@ -519,10 +469,9 @@ export default function AccountPage() {
           const Emblem = profileEmblem(p.topAromas, p.topEffects);
           const menuOpen = openMenuId === p.id;
 
-          // Footer actions, in the reference's order — rendered as an evenly
-          // divided button bar with hairline separators between them.
+          // Footer actions, ruled into evenly divided button-like segments.
           const act =
-            "inline-flex items-center justify-center gap-1.5 whitespace-nowrap font-medium soma-ease transition-colors";
+            "inline-flex items-center justify-center gap-1.5 whitespace-nowrap font-medium";
           const actions: React.ReactNode[] = [];
           if (!p.isActive) {
             actions.push(
@@ -581,19 +530,19 @@ export default function AccountPage() {
             );
           }
 
-          const card = (
+          return (
             <div
               key={p.id}
               className={cn(
-                "relative p-6 sm:p-7",
-                PROFILE_CARD,
-                !p.isActive &&
-                  "soma-lift border border-white/60 shadow-[0_26px_54px_-34px_rgba(60,45,20,0.6),0_2px_4px_-2px_rgba(60,45,20,0.25)] hover:shadow-[0_34px_66px_-32px_rgba(60,45,20,0.66),0_3px_6px_-2px_rgba(60,45,20,0.3)]",
+                CARD,
+                "p-5 sm:p-6",
+                // Active card: a thin gold hairline + a soft gold glow — a
+                // restrained accent on the frosted surface, not a heavy frame.
+                p.isActive &&
+                  "border-brass/55 ring-1 ring-brass/20 shadow-[0_22px_50px_-22px_rgba(186,148,72,0.5),0_2px_6px_-2px_rgba(60,45,20,0.25)]",
               )}
             >
-              {/* Profile number + overflow menu — its own top line, so a long
-                  profile name below can use the full card width (as the
-                  reference does) without colliding with the corner. */}
+              {/* Profile number + overflow menu — quiet top line. */}
               <div className="mb-3 flex items-center justify-end gap-1.5">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/70">
                   Profile {String(idx + 1).padStart(2, "0")}
@@ -652,35 +601,32 @@ export default function AccountPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 sm:gap-5">
-                <Ring percent={p.percent} size={76} />
+              <div className="flex items-center gap-4">
+                <Ring percent={p.percent} size={60} />
                 <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
                     <Emblem
-                      className="h-7 w-7 shrink-0 text-brass"
-                      strokeWidth={1.5}
+                      className="h-5 w-5 shrink-0 text-brass"
+                      strokeWidth={1.6}
                     />
                     <Link
                       href={`/profile?id=${p.id}`}
-                      className="soma-ease truncate font-display text-xl font-semibold tracking-tight transition-colors hover:text-brass sm:text-2xl"
+                      className="soma-ease truncate font-display text-lg font-semibold tracking-tight transition-colors hover:text-brass"
                     >
                       {p.name}
                     </Link>
                     {p.isActive && (
-                      <span
-                        className="inline-flex shrink-0 items-center gap-1 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-[0_6px_14px_-6px_rgba(120,90,30,0.7),inset_0_1px_1px_rgba(255,255,255,0.5)] [text-shadow:0_1px_1px_rgba(90,60,10,0.35)]"
-                        style={{ background: GOLD_PILL }}
-                      >
-                        Active <Sparkles className="h-3 w-3" strokeWidth={2.5} />
+                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-brass/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-brass">
+                        <Sparkles className="h-3 w-3" /> Active
+                      </span>
+                    )}
+                    {p.merged && (
+                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+                        <Layers className="h-3 w-3" /> Merged
                       </span>
                     )}
                   </div>
-                  {p.merged && (
-                    <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
-                      <Layers className="h-3 w-3" /> Merged
-                    </span>
-                  )}
-                  <p className="mt-2 text-sm text-muted-foreground">
+                  <p className="mt-0.5 text-sm text-muted-foreground">
                     {ready
                       ? `${p.percent}% complete`
                       : `${p.percent}% — finish to ${MATCH_GATE_PERCENT}% to use`}
@@ -689,7 +635,7 @@ export default function AccountPage() {
               </div>
 
               {(p.topAromas.length > 0 || p.topEffects.length > 0) && (
-                <div className="mt-4 flex flex-wrap gap-1.5">
+                <div className="mt-3 flex flex-wrap gap-1.5">
                   {p.topAromas.map((a) => (
                     <AromaChip key={`a-${a}`} token={a} />
                   ))}
@@ -699,54 +645,22 @@ export default function AccountPage() {
                 </div>
               )}
 
-              <div className="mt-5 flex items-center justify-between gap-2 border-t border-border/50 pt-4 text-[13px]">
+              <div className="mt-4 flex items-center border-t border-border/60 pt-3 text-sm">
                 {actions.map((node, i) => (
-                  <div key={i} className="flex flex-1 justify-center">
-                    {node}
-                  </div>
+                  <Fragment key={i}>
+                    {i > 0 && (
+                      <span
+                        aria-hidden
+                        className="h-4 w-px shrink-0 bg-border/70"
+                      />
+                    )}
+                    <div className="flex flex-1 items-center justify-center px-1">
+                      {node}
+                    </div>
+                  </Fragment>
                 ))}
               </div>
             </div>
-          );
-
-          // The active profile gets a glossy gold bezel with a glint hanging
-          // off its lower-left edge; the others sit on plain cream.
-          return p.isActive ? (
-            <div
-              key={p.id}
-              className="soma-lift relative rounded-[1.75rem] p-[3px] shadow-[0_34px_64px_-30px_rgba(110,82,35,0.6),0_0_26px_-8px_rgba(206,176,108,0.45)]"
-              style={{ background: GOLD_FRAME }}
-            >
-              {/* Soft golden ambient glow pooling under the active card. */}
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] opacity-60 blur-xl"
-                style={{
-                  background:
-                    "radial-gradient(60% 50% at 50% 60%, rgba(206,176,108,0.4), transparent 75%)",
-                }}
-              />
-              {/* Crisp sparkle glint hanging off the bezel's lower-left edge. */}
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -left-3.5 bottom-12 z-20 h-14 w-14"
-              >
-                <span
-                  className="absolute inset-0 rounded-full"
-                  style={{
-                    background:
-                      "radial-gradient(circle, rgba(255,252,240,0.98) 0%, rgba(245,226,156,0.5) 30%, transparent 68%)",
-                  }}
-                />
-                <span className="absolute left-1/2 top-1/2 h-[1.5px] w-14 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-white to-transparent" />
-                <span className="absolute left-1/2 top-1/2 h-14 w-[1.5px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-white to-transparent" />
-                <span className="absolute left-1/2 top-1/2 h-9 w-[1px] -translate-x-1/2 -translate-y-1/2 rotate-45 bg-gradient-to-b from-transparent via-white/70 to-transparent" />
-                <span className="absolute left-1/2 top-1/2 h-9 w-[1px] -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-gradient-to-b from-transparent via-white/70 to-transparent" />
-              </span>
-              {card}
-            </div>
-          ) : (
-            card
           );
         })}
 
