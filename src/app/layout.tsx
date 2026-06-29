@@ -75,6 +75,31 @@ const organizationLd = {
   url: siteUrl(),
   logo: absoluteUrl("/icon.png"),
   description: SITE_DESCRIPTION,
+  email: "Somasensory@somasensory.com",
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "Somasensory@somasensory.com",
+    contactType: "customer support",
+  },
+};
+
+// WebSite structured data with a SearchAction — tells Google the site is
+// searchable (enabling a sitelinks search box) and points at the catalog's
+// real query param (/catalog?q=…), which catalog-client.tsx reads.
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "SŌMA",
+  url: siteUrl(),
+  description: SITE_DESCRIPTION,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${siteUrl()}/catalog?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export const viewport: Viewport = {
@@ -91,6 +116,7 @@ export default function RootLayout({
     <html lang="en" className={`${display.variable} ${sans.variable} scroll-smooth`}>
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <JsonLd data={organizationLd} />
+        <JsonLd data={websiteLd} />
         <SiteHeader />
         <FinishProfileNudge />
         <main className="flex-1">{children}</main>
