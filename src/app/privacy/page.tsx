@@ -13,7 +13,7 @@ const LAST_UPDATED = "21 June 2026";
 
 // Operator and legal details for SŌMA.
 const CONTACT_EMAIL = "Somasensory@somasensory.com";
-const OPERATOR = "SōMA Sensory, LLC";
+const OPERATOR = "Rasveda Labs, LLC";
 const JURISDICTION = "the State of New York, USA";
 
 function Section({
@@ -63,7 +63,7 @@ export default function PrivacyPage() {
           SŌMA (&quot;SŌMA&quot;, &quot;we&quot;, &quot;us&quot;) is a sensory
           matching tool that recommends cannabis flower based on your stated
           taste preferences. This policy explains what we collect, why, and the
-          control you have. SŌMA is operated by {OPERATOR}.
+          control you have. SŌMA Sensory Sommelier is operated by {OPERATOR}.
         </p>
       </Section>
 

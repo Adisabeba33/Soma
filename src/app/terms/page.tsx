@@ -13,7 +13,7 @@ const LAST_UPDATED = "21 June 2026";
 
 // Operator and legal details for SŌMA.
 const CONTACT_EMAIL = "Somasensory@somasensory.com";
-const OPERATOR = "SōMA Sensory, LLC";
+const OPERATOR = "Rasveda Labs, LLC";
 const JURISDICTION = "the State of New York, USA";
 
 function Section({
