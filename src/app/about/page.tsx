@@ -5,6 +5,14 @@ export const metadata = {
   title: "About — SŌMA",
   description:
     "SŌMA is a sensory sommelier for cannabis — built to help you avoid bad purchases, not to be another strain encyclopedia.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    type: "website",
+    title: "About — SŌMA",
+    description:
+      "SŌMA is a sensory sommelier for cannabis — built to help you avoid bad purchases, not to be another strain encyclopedia.",
+    url: "/about",
+  },
 };
 
 const PRINCIPLES = [
