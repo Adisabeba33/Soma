@@ -13700,7 +13700,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "An evenly balanced haze whose aroma reads like a fruit cornucopia, from melon and peach to raspberry with a tangerine top. The buzz is upbeat and creative, sparking energy and social warmth while the body stays relaxed.",
     tagline: "Fruit-basket haze, sunny lift",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
