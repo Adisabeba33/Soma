@@ -13950,7 +13950,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Dessert Lime (also seen as Desert Lime) is a citrus-forward hybrid whose exact parents are kept quiet by multiple breeders. The nose is sparkling lime over sweet skunk, and the high runs bright, upbeat, and motivating rather than sedating.",
     tagline: "Sparkling sweet lime zest",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "low",
   },
   {
