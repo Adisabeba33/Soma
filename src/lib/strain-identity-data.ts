@@ -11685,7 +11685,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Opulent resin and a pungent fuel nose make this a card-carrying member of the OG/Chem gas family. Lemon and peppery earth cut the diesel before a luxurious, heavyweight body settle.",
     tagline: "Loud fuel-forward OG gas",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
