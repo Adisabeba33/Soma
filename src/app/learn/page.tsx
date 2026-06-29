@@ -8,7 +8,10 @@ export const metadata: Metadata = {
   title: "Learn — SŌMA",
   description:
     "Plain-language guides to choosing, reading and storing cannabis flower — freshness, sensory vocabulary, and how to read a dispensary menu.",
-  alternates: { canonical: "/learn" },
+  alternates: {
+    canonical: "/learn",
+    types: { "application/rss+xml": "/learn/feed.xml" },
+  },
   openGraph: {
     type: "website",
     title: "Learn — SŌMA",
