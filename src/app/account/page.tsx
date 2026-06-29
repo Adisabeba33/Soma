@@ -32,6 +32,15 @@ import { cn } from "@/lib/utils";
 const CARD =
   "soma-lift rounded-[1.75rem] border border-white/50 bg-[hsl(42_46%_95%)]/42 backdrop-blur-[2px] shadow-[0_30px_60px_-38px_rgba(60,45,20,0.6),0_2px_4px_-2px_rgba(60,45,20,0.25)] hover:shadow-[0_36px_72px_-36px_rgba(60,45,20,0.68),0_3px_6px_-2px_rgba(60,45,20,0.3)]";
 
+// ── Gilded tokens, straight from the design spec sheet ──────────────────
+// Gold gradients are linear 135°; depth comes from a soft inner shadow; the
+// accent "shine" is a small warm star-glow (#F6D88A).
+const GOLD_RING = "linear-gradient(135deg, #f0dca8 0%, #c8a76a 55%, #b58f4c 100%)";
+const GOLD_FRAME = "linear-gradient(135deg, #ecd49a 0%, #c8a76a 50%, #b88f4d 100%)";
+const GOLD_BADGE = "linear-gradient(135deg, #d4af37 0%, #b8860b 100%)";
+const RING_MATTE = "#f6f3ee"; // matte inner
+const ACCENT_SHINE = "#f6d88a"; // star glow
+
 type Me = {
   registered: boolean;
   username: string | null;
@@ -52,26 +61,86 @@ type ProfileItem = {
 
 type Discovery = { name: string; slug: string; score: number };
 
-// A thin brass completeness ring.
+// Percentage circle, per the spec: a gold frame (#C8A76A, 135° gradient)
+// carrying the progress, a matte inner well (#F6F3EE) with a soft inner bevel
+// for depth, and a small star-shine accent (#F6D88A) on the upper-left edge.
 function Ring({ percent, size = 64 }: { percent: number; size?: number }) {
-  const deg = Math.max(0, Math.min(100, percent)) * 3.6;
+  const pct = Math.max(0, Math.min(100, Math.round(percent)));
+  const deg = pct * 3.6;
+  const band = Math.round(size * 0.14);
+  const star = Math.max(8, Math.round(size * 0.16));
   return (
-    <div className="relative shrink-0" style={{ width: size, height: size }}>
+    <div
+      className="relative shrink-0 rounded-full"
+      style={{
+        width: size,
+        height: size,
+        boxShadow:
+          "0 10px 22px -10px rgba(120,92,40,0.5), 0 2px 4px -2px rgba(120,92,40,0.32)",
+      }}
+    >
+      {/* Gold frame */}
+      <div className="absolute inset-0 rounded-full" style={{ background: GOLD_RING }} />
+      {/* Incomplete arc — remaining slice in a soft track tone */}
       <div
         className="absolute inset-0 rounded-full"
-        style={{
-          background: `conic-gradient(hsl(var(--brass)) ${deg}deg, hsl(var(--border)) ${deg}deg)`,
-        }}
+        style={{ background: `conic-gradient(transparent ${deg}deg, hsl(42 22% 86%) ${deg}deg)` }}
       />
-      <div className="absolute inset-[4px] flex flex-col items-center justify-center rounded-full bg-[hsl(42_44%_94%)]">
-        <span className="font-display font-semibold leading-none" style={{ fontSize: size * 0.28 }}>
-          {percent}
+      {/* Matte inner well with a soft inner bevel */}
+      <div
+        className="absolute flex flex-col items-center justify-center rounded-full"
+        style={{
+          inset: band,
+          background: RING_MATTE,
+          boxShadow:
+            "inset 0 2px 4px rgba(120,92,40,0.22), inset 0 -1px 1px rgba(255,255,255,0.85)",
+        }}
+      >
+        <span
+          className="font-display font-semibold leading-none text-foreground"
+          style={{ fontSize: size * 0.32 }}
+        >
+          {pct}
         </span>
-        <span className="text-[7px] uppercase tracking-[0.14em] text-muted-foreground">
+        <span className="text-[8px] uppercase tracking-[0.16em] text-muted-foreground">
           %
         </span>
       </div>
+      {/* Accent star-shine on the upper-left edge */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute"
+        style={{ left: -star * 0.18, top: size * 0.06, width: star, height: star }}
+      >
+        <span
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: `radial-gradient(circle, ${ACCENT_SHINE} 0%, rgba(246,216,138,0.4) 36%, transparent 70%)`,
+          }}
+        />
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white" style={{ height: 1, width: star }} />
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white" style={{ width: 1, height: star }} />
+      </span>
     </div>
+  );
+}
+
+// Small star-shine glint (#F6D88A) that hangs off the active card's frame.
+function Glint({ className }: { className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={cn("pointer-events-none absolute z-20 h-11 w-11", className)}
+    >
+      <span
+        className="absolute inset-0 rounded-full"
+        style={{
+          background: `radial-gradient(circle, ${ACCENT_SHINE} 0%, rgba(246,216,138,0.4) 32%, transparent 68%)`,
+        }}
+      />
+      <span className="absolute left-1/2 top-1/2 h-[1.5px] w-11 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-white to-transparent" />
+      <span className="absolute left-1/2 top-1/2 h-11 w-[1.5px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-white to-transparent" />
+    </span>
   );
 }
 
@@ -530,18 +599,8 @@ export default function AccountPage() {
             );
           }
 
-          return (
-            <div
-              key={p.id}
-              className={cn(
-                CARD,
-                "p-5 sm:p-6",
-                // Active card: a thin gold hairline + a soft gold glow — a
-                // restrained accent on the frosted surface, not a heavy frame.
-                p.isActive &&
-                  "border-brass/55 ring-1 ring-brass/20 shadow-[0_22px_50px_-22px_rgba(186,148,72,0.5),0_2px_6px_-2px_rgba(60,45,20,0.25)]",
-              )}
-            >
+          const body = (
+            <div key={p.id} className={cn(CARD, "relative p-5 sm:p-6")}>
               {/* Profile number + overflow menu — quiet top line. */}
               <div className="mb-3 flex items-center justify-end gap-1.5">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/70">
@@ -606,8 +665,9 @@ export default function AccountPage() {
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
                     <Emblem
-                      className="h-5 w-5 shrink-0 text-brass"
-                      strokeWidth={1.6}
+                      className="h-[22px] w-[22px] shrink-0"
+                      strokeWidth={1.8}
+                      style={{ color: "#c8a76a" }}
                     />
                     <Link
                       href={`/profile?id=${p.id}`}
@@ -616,8 +676,16 @@ export default function AccountPage() {
                       {p.name}
                     </Link>
                     {p.isActive && (
-                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-brass/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-brass">
-                        <Sparkles className="h-3 w-3" /> Active
+                      <span
+                        className="inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-[0_4px_10px_-3px_rgba(120,90,30,0.6),inset_0_1px_1px_rgba(255,255,255,0.5)] [text-shadow:0_1px_1px_rgba(90,60,10,0.35)]"
+                        style={{ background: GOLD_BADGE }}
+                      >
+                        Active{" "}
+                        <Sparkles
+                          className="h-3 w-3"
+                          strokeWidth={2.5}
+                          style={{ color: ACCENT_SHINE }}
+                        />
                       </span>
                     )}
                     {p.merged && (
@@ -661,6 +729,23 @@ export default function AccountPage() {
                 ))}
               </div>
             </div>
+          );
+
+          // The active card wears the gilded frame (#C8A76A, 135° gradient)
+          // with a soft shadow and star-shine glints at two corners; the
+          // others stay on the plain frosted surface.
+          return p.isActive ? (
+            <div
+              key={p.id}
+              className="soma-lift relative rounded-[1.85rem] p-[3px] shadow-[0_30px_60px_-30px_rgba(120,92,40,0.55),0_0_22px_-8px_rgba(206,176,108,0.45)]"
+              style={{ background: GOLD_FRAME }}
+            >
+              <Glint className="-left-2.5 bottom-10" />
+              <Glint className="-right-2.5 top-7 h-9 w-9" />
+              {body}
+            </div>
+          ) : (
+            body
           );
         })}
 
