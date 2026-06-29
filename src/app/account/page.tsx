@@ -37,11 +37,14 @@ const CARD =
 const PROFILE_CARD =
   "rounded-[1.6rem] bg-[hsl(43_47%_95.5%)]/92 backdrop-blur-md";
 
-// A polished, beveled gold — used for the active card's frame and the ring rim.
-const GOLD_RIM =
-  "conic-gradient(from 210deg, hsl(36 46% 50%) 0deg, hsl(41 60% 78%) 78deg, hsl(45 66% 88%) 138deg, hsl(34 42% 48%) 210deg, hsl(31 38% 38%) 268deg, hsl(41 60% 76%) 330deg, hsl(36 46% 50%) 360deg)";
+// Polished, beveled gold. GOLD_BAND is the metallic sheen that rings the
+// medallion (light reflecting off a brushed-gold torus); GOLD_FRAME is the
+// glossy bezel for the active card and the ACTIVE pill — kept genuinely golden
+// (no muddy browns) with bright/shadow bands so it reads as polished metal.
+const GOLD_BAND =
+  "conic-gradient(from 128deg, #8a6526 0deg, #d7b76d 58deg, #f6e7bd 104deg, #e4ca8a 150deg, #9a7430 212deg, #c8a258 286deg, #f2e2b4 332deg, #8a6526 360deg)";
 const GOLD_FRAME =
-  "linear-gradient(140deg, hsl(45 66% 88%) 0%, hsl(37 50% 56%) 24%, hsl(30 40% 38%) 50%, hsl(39 54% 60%) 74%, hsl(45 66% 90%) 100%)";
+  "linear-gradient(135deg, #f6e6b6 0%, #cfa95c 20%, #b88a3d 38%, #ecd28c 54%, #b88a3d 70%, #cfa95c 82%, #f6e6b6 100%)";
 
 type Me = {
   registered: boolean;
@@ -63,12 +66,14 @@ type ProfileItem = {
 
 type Discovery = { name: string; slug: string; score: number };
 
-// A gilded completeness medallion — a polished gold rim (the filled portion of
-// the ring) with a cream centre carrying the percent. The remaining slice is
-// painted in a soft track tone, and a diagonal sheen gives the rim its gloss.
+// A gilded completeness medallion — a thick, sculpted gold torus carrying the
+// progress, with a recessed cream centre for the percent. Layers: a metallic
+// gold band, the incomplete slice painted in a soft track tone, a diagonal
+// gloss, an etched outer rim, and a debossed cream well.
 function Ring({ percent, size = 64 }: { percent: number; size?: number }) {
   const pct = Math.max(0, Math.min(100, Math.round(percent)));
   const deg = pct * 3.6;
+  const band = Math.round(size * 0.17); // thickness of the gold ring
   return (
     <div
       className="relative shrink-0 rounded-full"
@@ -76,40 +81,40 @@ function Ring({ percent, size = 64 }: { percent: number; size?: number }) {
         width: size,
         height: size,
         boxShadow:
-          "0 12px 24px -12px rgba(120,90,30,0.65), 0 2px 4px -1px rgba(120,90,30,0.4)",
+          "0 16px 28px -12px rgba(110,80,25,0.7), 0 3px 6px -2px rgba(110,80,25,0.5), inset 0 0 0 1px rgba(120,88,28,0.35)",
       }}
     >
-      {/* Polished gold rim */}
-      <div className="absolute inset-0 rounded-full" style={{ background: GOLD_RIM }} />
+      {/* Metallic gold band */}
+      <div className="absolute inset-0 rounded-full" style={{ background: GOLD_BAND }} />
       {/* Incomplete arc — covers the remaining slice in a soft track tone */}
       <div
         className="absolute inset-0 rounded-full"
-        style={{ background: `conic-gradient(transparent ${deg}deg, hsl(40 18% 81%) ${deg}deg)` }}
+        style={{ background: `conic-gradient(transparent ${deg}deg, hsl(40 16% 78%) ${deg}deg)` }}
       />
-      {/* Glossy diagonal sheen across the rim */}
+      {/* Diagonal gloss highlight across the band */}
       <div
-        className="absolute inset-0 rounded-full"
+        className="absolute inset-0 rounded-full mix-blend-soft-light"
         style={{
           background:
-            "linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 42%, rgba(255,255,255,0) 64%, rgba(255,255,255,0.28) 100%)",
+            "linear-gradient(140deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 34%, rgba(0,0,0,0.18) 70%, rgba(255,255,255,0.45) 100%)",
         }}
       />
-      {/* Cream centre */}
+      {/* Recessed cream well — debossed inner shadow + thin bright lip */}
       <div
-        className="absolute flex flex-col items-center justify-center rounded-full bg-[hsl(43_47%_95.5%)]"
+        className="absolute flex flex-col items-center justify-center rounded-full bg-[hsl(43_48%_96%)]"
         style={{
-          inset: Math.max(5, Math.round(size * 0.085)),
+          inset: band,
           boxShadow:
-            "inset 0 2px 5px rgba(120,90,30,0.2), inset 0 -1px 1px rgba(255,255,255,0.7)",
+            "inset 0 3px 7px rgba(95,68,20,0.4), inset 0 -2px 3px rgba(255,255,255,0.85), 0 0 0 1px rgba(120,88,28,0.25)",
         }}
       >
         <span
           className="font-display font-semibold leading-none text-foreground"
-          style={{ fontSize: size * 0.3 }}
+          style={{ fontSize: size * 0.33 }}
         >
           {pct}
         </span>
-        <span className="text-[8px] uppercase tracking-[0.16em] text-muted-foreground">
+        <span className="mt-0.5 text-[8px] uppercase tracking-[0.16em] text-muted-foreground">
           %
         </span>
       </div>
@@ -130,14 +135,14 @@ function Tick({ children }: { children: React.ReactNode }) {
 
 function AromaChip({ token }: { token: string }) {
   return (
-    <span className="rounded-full bg-brass/15 px-3 py-1 text-[13px] font-medium text-brass">
+    <span className="rounded-full bg-brass/[0.14] px-3.5 py-1.5 text-[13px] font-medium text-brass ring-1 ring-inset ring-brass/15">
       {labelFor(token)}
     </span>
   );
 }
 function EffectChip({ token }: { token: string }) {
   return (
-    <span className="rounded-full bg-[hsl(40_16%_87%)]/80 px-3 py-1 text-[13px] font-medium text-muted-foreground">
+    <span className="rounded-full bg-[hsl(40_14%_88%)]/80 px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground ring-1 ring-inset ring-black/[0.04]">
       {labelFor(token)}
     </span>
   );
@@ -649,8 +654,8 @@ export default function AccountPage() {
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
                     <Emblem
-                      className="h-6 w-6 shrink-0 text-brass"
-                      strokeWidth={1.6}
+                      className="h-7 w-7 shrink-0 text-brass"
+                      strokeWidth={1.5}
                     />
                     <Link
                       href={`/profile?id=${p.id}`}
@@ -691,16 +696,16 @@ export default function AccountPage() {
                 </div>
               )}
 
-              <div className="mt-5 flex items-stretch border-t border-border/60 pt-4 text-[13px]">
+              <div className="mt-5 flex items-center border-t border-border/50 pt-4 text-[13px]">
                 {actions.map((node, i) => (
                   <Fragment key={i}>
                     {i > 0 && (
                       <span
                         aria-hidden
-                        className="my-0.5 w-px self-stretch bg-border/70"
+                        className="h-3.5 w-px shrink-0 bg-border/60"
                       />
                     )}
-                    <div className="flex flex-1 justify-center px-1">{node}</div>
+                    <div className="flex flex-1 justify-center px-1.5">{node}</div>
                   </Fragment>
                 ))}
               </div>
@@ -712,22 +717,34 @@ export default function AccountPage() {
           return p.isActive ? (
             <div
               key={p.id}
-              className="soma-lift relative rounded-[1.75rem] p-[3px] shadow-[0_34px_66px_-30px_rgba(120,90,30,0.7),0_10px_34px_-12px_rgba(180,140,60,0.45)]"
+              className="soma-lift relative rounded-[1.75rem] p-[3.5px] shadow-[0_36px_70px_-28px_rgba(110,80,25,0.72),0_0_30px_-6px_rgba(214,178,96,0.55)]"
               style={{ background: GOLD_FRAME }}
             >
+              {/* Soft golden ambient glow pooling under the active card. */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute -left-3 bottom-10 z-20 h-12 w-12"
+                className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] opacity-70 blur-xl"
+                style={{
+                  background:
+                    "radial-gradient(60% 50% at 50% 60%, rgba(214,178,96,0.45), transparent 75%)",
+                }}
+              />
+              {/* Crisp sparkle glint hanging off the bezel's lower-left edge. */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -left-3.5 bottom-12 z-20 h-14 w-14"
               >
                 <span
                   className="absolute inset-0 rounded-full"
                   style={{
                     background:
-                      "radial-gradient(circle, rgba(255,251,236,0.95) 0%, rgba(243,223,150,0.45) 34%, transparent 70%)",
+                      "radial-gradient(circle, rgba(255,252,240,0.98) 0%, rgba(245,226,156,0.5) 30%, transparent 68%)",
                   }}
                 />
-                <span className="absolute left-1/2 top-1/2 h-[2px] w-12 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-white to-transparent" />
-                <span className="absolute left-1/2 top-1/2 h-12 w-[2px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-white to-transparent" />
+                <span className="absolute left-1/2 top-1/2 h-[1.5px] w-14 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-white to-transparent" />
+                <span className="absolute left-1/2 top-1/2 h-14 w-[1.5px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-white to-transparent" />
+                <span className="absolute left-1/2 top-1/2 h-9 w-[1px] -translate-x-1/2 -translate-y-1/2 rotate-45 bg-gradient-to-b from-transparent via-white/70 to-transparent" />
+                <span className="absolute left-1/2 top-1/2 h-9 w-[1px] -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-gradient-to-b from-transparent via-white/70 to-transparent" />
               </span>
               {card}
             </div>
