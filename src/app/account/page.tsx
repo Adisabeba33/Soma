@@ -10,7 +10,6 @@ import {
   History,
   Layers,
   LayoutGrid,
-  Pencil,
   PenLine,
   Plus,
   Sparkles,
@@ -18,6 +17,7 @@ import {
   X,
 } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
+import { profileEmblem } from "@/components/aroma-icon";
 import { TasteBlenderBlock } from "@/components/taste-blender-block";
 import { ProfileSimilarityHint } from "@/components/profile-similarity-hint";
 import { PresetPicker } from "@/components/preset-picker";
@@ -461,52 +461,59 @@ export default function AccountPage() {
       })()}
 
       <div className="mt-4 space-y-4">
-        {profiles.map((p) => {
+        {profiles.map((p, idx) => {
           const ready = p.percent >= MATCH_GATE_PERCENT;
+          const Emblem = profileEmblem(p.topAromas, p.topEffects);
           return (
             <div
               key={p.id}
               className={cn(
                 CARD,
-                "p-5 sm:p-6",
-                p.isActive && "border-brass/50 ring-1 ring-brass/25",
+                "relative p-5 sm:p-6",
+                p.isActive && "border-brass/60 ring-1 ring-brass/30",
               )}
             >
-              <div className="flex items-center gap-4">
-                <Ring percent={p.percent} size={56} />
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="truncate font-display text-lg font-semibold tracking-tight">
+              {/* Profile number — top-right eyebrow, like a numbered dossier
+                  entry. Sits over the header; the name column reserves room. */}
+              <span className="pointer-events-none absolute right-5 top-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/70 sm:right-6 sm:top-6">
+                Profile {String(idx + 1).padStart(2, "0")}
+              </span>
+
+              <div className="flex items-start gap-4 sm:gap-5">
+                <Ring percent={p.percent} size={72} />
+                <div className="min-w-0 flex-1 pr-16 sm:pr-20">
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+                    <Emblem
+                      className="h-6 w-6 shrink-0 text-brass"
+                      strokeWidth={1.6}
+                    />
+                    <Link
+                      href={`/profile?id=${p.id}`}
+                      className="soma-ease truncate font-display text-xl font-semibold tracking-tight transition-colors hover:text-brass"
+                    >
                       {p.name}
-                    </span>
+                    </Link>
                     {p.isActive && (
-                      <span className="shrink-0 rounded-full bg-brass/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-brass">
-                        Active
-                      </span>
-                    )}
-                    {p.merged && (
-                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
-                        <Layers className="h-3 w-3" /> Merged
+                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-gradient-to-r from-brass to-[hsl(34_44%_58%)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_6px_14px_-6px_rgba(120,90,30,0.8)]">
+                        Active <Sparkles className="h-3 w-3" strokeWidth={2.5} />
                       </span>
                     )}
                   </div>
-                  <p className="mt-0.5 text-sm text-muted-foreground">
+                  {p.merged && (
+                    <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-accent/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+                      <Layers className="h-3 w-3" /> Merged
+                    </span>
+                  )}
+                  <p className="mt-2 text-sm text-muted-foreground">
                     {ready
                       ? `${p.percent}% complete`
                       : `${p.percent}% — finish to ${MATCH_GATE_PERCENT}% to use`}
                   </p>
                 </div>
-                <Link
-                  href={`/profile?id=${p.id}`}
-                  className="soma-ease grid h-9 w-9 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-brass/10 hover:text-brass"
-                  aria-label="Edit profile"
-                >
-                  <Pencil className="h-4 w-4" />
-                </Link>
               </div>
 
               {(p.topAromas.length > 0 || p.topEffects.length > 0) && (
-                <div className="mt-3 flex flex-wrap gap-1.5">
+                <div className="mt-4 flex flex-wrap gap-1.5">
                   {p.topAromas.map((a) => (
                     <AromaChip key={`a-${a}`} token={a} />
                   ))}
@@ -516,7 +523,7 @@ export default function AccountPage() {
                 </div>
               )}
 
-              <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border/60 pt-3 text-sm">
+              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border/60 pt-4 text-sm">
                 {!p.isActive &&
                   (ready ? (
                     <button
