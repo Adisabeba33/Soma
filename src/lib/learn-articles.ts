@@ -312,6 +312,250 @@ export const LEARN_ARTICLES: LearnArticle[] = [
       },
     ],
   },
+  {
+    slug: "what-are-terpenes",
+    title: "What are terpenes, and why they shape your experience",
+    description:
+      "Terpenes are the aromatic compounds behind a strain's smell and much of its character — here is what the main families are and why they matter more than a single percentage.",
+    readingTime: "5 min read",
+    updated: "2026-06-29",
+    intro: [
+      "Ask what makes one strain smell like lemon and another like diesel, and the answer is mostly terpenes — the aromatic compounds the cannabis plant shares with citrus peel, pine needles, lavender and pepper. They are why two batches with the same THC number can feel like different plants.",
+      "You do not need chemistry to use them. A working sense of the main aroma families is enough to describe what you like and find more of it.",
+    ],
+    body: [
+      { kind: "h2", text: "What terpenes actually are" },
+      {
+        kind: "p",
+        text: "Terpenes are volatile aromatic molecules produced across the plant world; in cannabis they are made in the same resin glands as the cannabinoids. Because they are volatile, they are also the first thing to fade as flower ages or is stored badly — which is why freshness shows up first in the nose.",
+      },
+      { kind: "h2", text: "The main aroma families" },
+      {
+        kind: "p",
+        text: "Rather than memorise individual terpene names, it helps to think in families you can actually smell:",
+      },
+      {
+        kind: "ul",
+        items: [
+          "Earthy and herbaceous — soil, musk, cloves, a settled heaviness.",
+          "Pine and woody — fresh forest, sawn timber, resin.",
+          "Citrus — lemon, orange, grapefruit; bright and lifting.",
+          "Floral — lavender, rose, a soft perfumed edge.",
+          "Pepper and spice — black pepper, a warm sharpness.",
+          "Fuel and funk — diesel, gas, sharp cheese.",
+        ],
+      },
+      { kind: "h2", text: "Aroma, flavour and the “entourage” idea" },
+      {
+        kind: "p",
+        text: "There is a popular idea — often called the entourage effect — that terpenes and cannabinoids work together, so the whole is more than the sum of the parts. It is a plausible and widely discussed hypothesis rather than a settled fact, and the science is still developing. Treat it as a reason to pay attention to the full aromatic picture, not as a formula.",
+      },
+      { kind: "h2", text: "Why this beats chasing a percentage" },
+      {
+        kind: "p",
+        text: "A single THC figure tells you almost nothing about how flower will smell, taste or feel. The terpene picture — what you can actually sense — is a richer guide. Noticing which families you reach for again and again is the start of a profile you can use.",
+      },
+      {
+        kind: "p",
+        text: "That is exactly how SŌMA works: it describes strains in this aroma language and matches them to the families you prefer.",
+      },
+    ],
+    faq: [
+      {
+        q: "What are terpenes in simple terms?",
+        a: "They are the aromatic compounds responsible for a strain's smell and much of its flavour — the same kind of molecules that make citrus, pine and lavender smell the way they do. In cannabis they are produced in the same resin glands as the cannabinoids.",
+      },
+      {
+        q: "Do terpenes get you high?",
+        a: "Terpenes are aromatic compounds, not the intoxicating cannabinoid (THC). They shape aroma and flavour and are thought by some to influence the character of the experience, but they are not what produces the high.",
+      },
+      {
+        q: "Is the entourage effect real?",
+        a: "It is a widely discussed hypothesis that terpenes and cannabinoids interact to shape the overall experience. It is plausible and much talked about, but the science is still developing — treat it as a reason to consider the full aroma picture, not as an established rule.",
+      },
+      {
+        q: "Why do terpenes matter more than the THC percentage?",
+        a: "Because the THC number does not predict smell, flavour or how flower will feel, whereas the terpene picture — what you can actually sense — describes the experience you are choosing. It is a more useful guide than a single figure.",
+      },
+    ],
+  },
+  {
+    slug: "indica-sativa-hybrid-explained",
+    title: "Indica, sativa and hybrid: what the labels really mean",
+    description:
+      "The indica/sativa/hybrid split is the most common shorthand on any menu — and the most misunderstood. Here is what it does and does not tell you.",
+    readingTime: "5 min read",
+    updated: "2026-06-29",
+    intro: [
+      "Almost every menu sorts cannabis into indica, sativa or hybrid, and almost every newcomer is told indica means “relaxing” and sativa means “energising.” It is a useful starting vocabulary — and a shaky predictor. Here is how to hold it.",
+    ],
+    body: [
+      { kind: "h2", text: "Where the labels come from" },
+      {
+        kind: "p",
+        text: "The terms began as botanical descriptions of plants that grew in different regions and looked different — broad versus narrow leaves, short versus tall. Over decades of crossbreeding, almost everything on a modern menu is a hybrid, and the original botanical lines have largely blurred.",
+      },
+      { kind: "h2", text: "What they loosely signal" },
+      {
+        kind: "p",
+        text: "As shorthand, the labels still carry rough associations: “indica” for a heavier, settling feel, “sativa” for a brighter, more active one, “hybrid” for somewhere between. Plenty of people find these hints directionally useful, especially when paired with the aroma and effect notes on a listing.",
+      },
+      { kind: "h2", text: "Why they are unreliable on their own" },
+      {
+        kind: "p",
+        text: "The trouble is that effect is driven by the plant's actual chemistry — its mix of cannabinoids and terpenes — plus dose, setting and you. Two “sativas” can feel nothing alike, and a given plant can cut right across the label. The category is a hint, not a guarantee.",
+      },
+      { kind: "h3", text: "A more reliable approach" },
+      {
+        kind: "ul",
+        items: [
+          "Read the aroma and effect description, not just the category.",
+          "Note the experiences you actually want — calm, focus, social, sleep.",
+          "Track what worked by its sensory profile, not only its label.",
+        ],
+      },
+      { kind: "h2", text: "How SŌMA treats the labels" },
+      {
+        kind: "p",
+        text: "SŌMA records the type for orientation but matches on sensory qualities — aroma, flavour and effect — because that describes the experience far more precisely than a three-way split ever could.",
+      },
+    ],
+    faq: [
+      {
+        q: "Is indica always relaxing and sativa always energising?",
+        a: "No. Those associations are a rough shorthand, not a rule. The felt effect depends on the plant's full chemistry plus dose, setting and the individual, so the label is a hint rather than a guarantee.",
+      },
+      {
+        q: "What is a hybrid?",
+        a: "A hybrid is a cross between different lineages, which today describes the large majority of cannabis on the market. Decades of crossbreeding mean most strains are hybrids to some degree.",
+      },
+      {
+        q: "If the labels are unreliable, why do menus still use them?",
+        a: "Because they are a simple, familiar starting vocabulary. They give a broad sense of direction; they just should not be treated as a precise prediction of how flower will feel.",
+      },
+      {
+        q: "What should I rely on instead?",
+        a: "Lean on the aroma and effect description and on the experiences you actually want, and track what worked by its sensory profile. That is more reliable than the indica/sativa/hybrid split alone.",
+      },
+    ],
+  },
+  {
+    slug: "why-freshness-matters",
+    title: "Why freshness matters: harvest date and the cure",
+    description:
+      "Cannabis is perishable, and freshness shapes aroma, smoothness and strength. Here is what curing does, why the harvest date matters, and how to read freshness.",
+    readingTime: "5 min read",
+    updated: "2026-06-29",
+    intro: [
+      "Cannabis is an agricultural product, and like coffee or tea it is at its best within a window rather than forever. Two things decide where flower sits in that window: how well it was cured after harvest, and how long ago that was.",
+    ],
+    body: [
+      { kind: "h2", text: "What curing does" },
+      {
+        kind: "p",
+        text: "After harvest and an initial dry, flower is cured — rested in controlled conditions over a period of time. A careful cure lets harshness mellow and the aroma settle and deepen. A rushed or careless cure leaves flower that smells flat or feels rough, no matter how good the genetics were.",
+      },
+      { kind: "h2", text: "Why the harvest date matters" },
+      {
+        kind: "p",
+        text: "Once flower is finished, time keeps working on it. The aromatic terpenes are volatile and fade first, so the nose dulls before anything else. That is why a harvest or packaging date is one of the most useful pieces of information on a label — it tells you roughly where in the window you are buying.",
+      },
+      { kind: "h3", text: "Reading freshness for yourself" },
+      {
+        kind: "ul",
+        items: [
+          "A clear, recent harvest or packaging date.",
+          "A lively, distinct aroma rather than a faint or hay-like one.",
+          "Flower that is neither crumbling-dry nor damp to the touch.",
+          "Storage that protects it — sealed, cool and out of bright light.",
+        ],
+      },
+      { kind: "h2", text: "Freshness is part of quality" },
+      {
+        kind: "p",
+        text: "It is worth remembering that the same strain can be excellent from one source and flat from another, largely because of curing, freshness and storage. Good genetics are a starting point; freshness is what carries them to you.",
+      },
+      {
+        kind: "p",
+        text: "Once you have fresh flower, storing it well keeps it that way — see our guide on storing cannabis — and matching by sensory qualities helps you recognise what good actually smells like.",
+      },
+    ],
+    faq: [
+      {
+        q: "Does cannabis go bad?",
+        a: "It does not spoil like food overnight, but it is perishable: aroma, smoothness and potency decline over time, especially if it is stored warm, bright or in air. Improperly stored damp flower can also develop mould.",
+      },
+      {
+        q: "What does curing do?",
+        a: "Curing rests flower in controlled conditions after the initial dry, letting harshness mellow and the aroma settle and deepen. A careful cure is a large part of why some flower smells and smokes far better than another batch of the same strain.",
+      },
+      {
+        q: "Why is the harvest date important?",
+        a: "Because the volatile aromatic terpenes fade with time, so the harvest or packaging date tells you roughly how fresh the flower is. A clear, recent date is one of the better quality signals on a label.",
+      },
+      {
+        q: "How can I tell if flower is fresh?",
+        a: "Look for a recent date, a lively and distinct aroma, and flower that is neither crumbling-dry nor damp. Storage that keeps it sealed, cool and out of light is another good sign.",
+      },
+    ],
+  },
+  {
+    slug: "how-to-taste-cannabis",
+    title: "How to taste cannabis like a sommelier",
+    description:
+      "A simple, repeatable way to assess cannabis by appearance, aroma and flavour — the same sensory approach behind SŌMA's Taste Match.",
+    readingTime: "5 min read",
+    updated: "2026-06-29",
+    intro: [
+      "Wine has a tasting ritual; so does coffee. Cannabis rewards the same kind of attention. Slowing down to actually observe what is in front of you turns a vague impression into something you can describe, remember and ask for again.",
+      "Here is a simple, repeatable sequence — no special equipment, just your senses.",
+    ],
+    body: [
+      { kind: "h2", text: "1. Look" },
+      {
+        kind: "p",
+        text: "Start with the eyes. Note the colour and the frosting of resin on the surface. Well-kept flower looks alive rather than dull or grey. This is observation, not judgement — you are building a habit of noticing.",
+      },
+      { kind: "h2", text: "2. Smell" },
+      {
+        kind: "p",
+        text: "Aroma is where most of the character lives. Take a gentle sniff and try to place it in a family — earthy, citrus, pine, floral, fuel, spice. Then look for a second and third note underneath the first. Naming what you smell is the single most useful tasting skill.",
+      },
+      { kind: "h2", text: "3. Note the flavour" },
+      {
+        kind: "p",
+        text: "Flavour often echoes aroma but not always — sometimes a citrus nose carries a peppery or earthy taste. Ask whether the flavour matches the smell, and which notes stand out.",
+      },
+      { kind: "h2", text: "4. Record it" },
+      {
+        kind: "p",
+        text: "The step most people skip. Jot down a few words — the aroma family, what stood out, how it felt and when you used it. Over a handful of entries a pattern appears: the qualities you reliably enjoy. That record is worth more than any strain name.",
+      },
+      { kind: "h2", text: "Turning notes into matches" },
+      {
+        kind: "p",
+        text: "This is the method SŌMA is built around. Taste Match captures the aromas and effects you respond to and finds flower whose sensory profile lines up — so your own palate, not a label, does the choosing.",
+      },
+    ],
+    faq: [
+      {
+        q: "How do I taste cannabis properly?",
+        a: "Move through the senses in order: look at the flower, smell it and try to name the aroma families, note whether the flavour matches the smell, and record a few words afterwards. Slowing down and naming what you sense is the core of it.",
+      },
+      {
+        q: "What should I smell for?",
+        a: "Try to place the aroma in a family — earthy, citrus, pine, floral, fuel or spice — and then look for secondary notes underneath the first. Identifying these families is the most useful sensory skill.",
+      },
+      {
+        q: "Do I need any special equipment?",
+        a: "No. The approach uses only your eyes and nose and a place to jot a few notes. The discipline is in paying attention and writing it down, not in any tool.",
+      },
+      {
+        q: "How does this relate to SŌMA's Taste Match?",
+        a: "Taste Match is the same idea, organised: it captures the aromas and effects you respond to and matches flower with a similar sensory profile, so your palate guides the choice rather than a strain name.",
+      },
+    ],
+  },
 ];
 
 export function getArticle(slug: string): LearnArticle | undefined {
