@@ -1,15 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   Check,
   ChevronRight,
+  EllipsisVertical,
   History,
   Layers,
   LayoutGrid,
+  Pencil,
   PenLine,
   Plus,
   Sparkles,
@@ -29,6 +31,17 @@ import { cn } from "@/lib/utils";
 // Premium card surface, shared across the dossier.
 const CARD =
   "soma-lift rounded-[1.75rem] border border-white/50 bg-[hsl(42_46%_95%)]/42 backdrop-blur-[2px] shadow-[0_30px_60px_-38px_rgba(60,45,20,0.6),0_2px_4px_-2px_rgba(60,45,20,0.25)] hover:shadow-[0_36px_72px_-36px_rgba(60,45,20,0.68),0_3px_6px_-2px_rgba(60,45,20,0.3)]";
+
+// The profile cards read a touch more solid than the rest of the dossier so
+// the chips and gilded ring sit on cream rather than the busy backdrop.
+const PROFILE_CARD =
+  "rounded-[1.6rem] bg-[hsl(43_47%_95.5%)]/92 backdrop-blur-md";
+
+// A polished, beveled gold — used for the active card's frame and the ring rim.
+const GOLD_RIM =
+  "conic-gradient(from 210deg, hsl(36 46% 50%) 0deg, hsl(41 60% 78%) 78deg, hsl(45 66% 88%) 138deg, hsl(34 42% 48%) 210deg, hsl(31 38% 38%) 268deg, hsl(41 60% 76%) 330deg, hsl(36 46% 50%) 360deg)";
+const GOLD_FRAME =
+  "linear-gradient(140deg, hsl(45 66% 88%) 0%, hsl(37 50% 56%) 24%, hsl(30 40% 38%) 50%, hsl(39 54% 60%) 74%, hsl(45 66% 90%) 100%)";
 
 type Me = {
   registered: boolean;
@@ -50,22 +63,53 @@ type ProfileItem = {
 
 type Discovery = { name: string; slug: string; score: number };
 
-// A thin brass completeness ring.
+// A gilded completeness medallion — a polished gold rim (the filled portion of
+// the ring) with a cream centre carrying the percent. The remaining slice is
+// painted in a soft track tone, and a diagonal sheen gives the rim its gloss.
 function Ring({ percent, size = 64 }: { percent: number; size?: number }) {
-  const deg = Math.max(0, Math.min(100, percent)) * 3.6;
+  const pct = Math.max(0, Math.min(100, Math.round(percent)));
+  const deg = pct * 3.6;
   return (
-    <div className="relative shrink-0" style={{ width: size, height: size }}>
+    <div
+      className="relative shrink-0 rounded-full"
+      style={{
+        width: size,
+        height: size,
+        boxShadow:
+          "0 12px 24px -12px rgba(120,90,30,0.65), 0 2px 4px -1px rgba(120,90,30,0.4)",
+      }}
+    >
+      {/* Polished gold rim */}
+      <div className="absolute inset-0 rounded-full" style={{ background: GOLD_RIM }} />
+      {/* Incomplete arc — covers the remaining slice in a soft track tone */}
+      <div
+        className="absolute inset-0 rounded-full"
+        style={{ background: `conic-gradient(transparent ${deg}deg, hsl(40 18% 81%) ${deg}deg)` }}
+      />
+      {/* Glossy diagonal sheen across the rim */}
       <div
         className="absolute inset-0 rounded-full"
         style={{
-          background: `conic-gradient(hsl(var(--brass)) ${deg}deg, hsl(var(--border)) ${deg}deg)`,
+          background:
+            "linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 42%, rgba(255,255,255,0) 64%, rgba(255,255,255,0.28) 100%)",
         }}
       />
-      <div className="absolute inset-[4px] flex flex-col items-center justify-center rounded-full bg-[hsl(42_44%_94%)]">
-        <span className="font-display font-semibold leading-none" style={{ fontSize: size * 0.28 }}>
-          {percent}
+      {/* Cream centre */}
+      <div
+        className="absolute flex flex-col items-center justify-center rounded-full bg-[hsl(43_47%_95.5%)]"
+        style={{
+          inset: Math.max(5, Math.round(size * 0.085)),
+          boxShadow:
+            "inset 0 2px 5px rgba(120,90,30,0.2), inset 0 -1px 1px rgba(255,255,255,0.7)",
+        }}
+      >
+        <span
+          className="font-display font-semibold leading-none text-foreground"
+          style={{ fontSize: size * 0.3 }}
+        >
+          {pct}
         </span>
-        <span className="text-[7px] uppercase tracking-[0.14em] text-muted-foreground">
+        <span className="text-[8px] uppercase tracking-[0.16em] text-muted-foreground">
           %
         </span>
       </div>
@@ -86,14 +130,14 @@ function Tick({ children }: { children: React.ReactNode }) {
 
 function AromaChip({ token }: { token: string }) {
   return (
-    <span className="rounded-full bg-brass/10 px-2.5 py-1 text-xs font-medium text-brass">
+    <span className="rounded-full bg-brass/15 px-3 py-1 text-[13px] font-medium text-brass">
       {labelFor(token)}
     </span>
   );
 }
 function EffectChip({ token }: { token: string }) {
   return (
-    <span className="rounded-full px-2.5 py-1 text-xs text-muted-foreground ring-1 ring-border">
+    <span className="rounded-full bg-[hsl(40_16%_87%)]/80 px-3 py-1 text-[13px] font-medium text-muted-foreground">
       {labelFor(token)}
     </span>
   );
@@ -110,6 +154,7 @@ export default function AccountPage() {
   const [busy, setBusy] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
 
   async function loadProfiles() {
     const d = await fetch("/api/profiles")
@@ -464,24 +509,144 @@ export default function AccountPage() {
         {profiles.map((p, idx) => {
           const ready = p.percent >= MATCH_GATE_PERCENT;
           const Emblem = profileEmblem(p.topAromas, p.topEffects);
-          return (
+          const menuOpen = openMenuId === p.id;
+
+          // Footer actions, in the reference's order — rendered as an evenly
+          // divided button bar with hairline separators between them.
+          const act =
+            "inline-flex items-center justify-center gap-1.5 whitespace-nowrap font-medium soma-ease transition-colors";
+          const actions: React.ReactNode[] = [];
+          if (!p.isActive) {
+            actions.push(
+              ready ? (
+                <button
+                  key="activate"
+                  type="button"
+                  onClick={() => activateProfile(p.id)}
+                  className={cn(act, "text-brass hover:text-foreground")}
+                >
+                  <Sparkles className="h-3.5 w-3.5" /> Set active
+                </button>
+              ) : (
+                <span key="finish" className={cn(act, "text-muted-foreground")}>
+                  Finish to {MATCH_GATE_PERCENT}%
+                </span>
+              ),
+            );
+          }
+          if (ready) {
+            actions.push(
+              <button
+                key="merge"
+                type="button"
+                onClick={() => toggleMerge(p.id, !p.merged)}
+                className={cn(
+                  act,
+                  p.merged ? "text-accent" : "text-foreground hover:text-brass",
+                )}
+              >
+                <Layers className="h-3.5 w-3.5" />
+                {p.merged ? "Unmerge" : "Merge"}
+              </button>,
+            );
+          }
+          actions.push(
+            <button
+              key="rename"
+              type="button"
+              onClick={() => renameProfile(p.id, p.name)}
+              className={cn(act, "text-foreground hover:text-brass")}
+            >
+              <PenLine className="h-3.5 w-3.5" /> Rename
+            </button>,
+          );
+          if (profiles.length > 1) {
+            actions.push(
+              <button
+                key="delete"
+                type="button"
+                onClick={() => removeProfile(p.id, p.name)}
+                className={cn(act, "text-[#a23b2c] hover:text-[#8f3326]")}
+              >
+                <Trash2 className="h-3.5 w-3.5" /> Delete
+              </button>,
+            );
+          }
+
+          const card = (
             <div
               key={p.id}
               className={cn(
-                CARD,
                 "relative p-5 sm:p-6",
-                p.isActive && "border-brass/60 ring-1 ring-brass/30",
+                PROFILE_CARD,
+                !p.isActive &&
+                  "soma-lift border border-white/60 shadow-[0_26px_54px_-34px_rgba(60,45,20,0.6),0_2px_4px_-2px_rgba(60,45,20,0.25)] hover:shadow-[0_34px_66px_-32px_rgba(60,45,20,0.66),0_3px_6px_-2px_rgba(60,45,20,0.3)]",
               )}
             >
-              {/* Profile number — top-right eyebrow, like a numbered dossier
-                  entry. Sits over the header; the name column reserves room. */}
-              <span className="pointer-events-none absolute right-5 top-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/70 sm:right-6 sm:top-6">
-                Profile {String(idx + 1).padStart(2, "0")}
-              </span>
+              {/* Profile number + overflow menu — its own top line, so a long
+                  profile name below can use the full card width (as the
+                  reference does) without colliding with the corner. */}
+              <div className="mb-3 flex items-center justify-end gap-1.5">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/70">
+                  Profile {String(idx + 1).padStart(2, "0")}
+                </span>
+                <div className="relative">
+                  <button
+                    type="button"
+                    aria-label="Profile menu"
+                    aria-expanded={menuOpen}
+                    onClick={() => setOpenMenuId(menuOpen ? null : p.id)}
+                    className="soma-ease -mr-1 grid h-7 w-7 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-brass/10 hover:text-brass"
+                  >
+                    <EllipsisVertical className="h-4 w-4" />
+                  </button>
+                  {menuOpen && (
+                    <>
+                      <button
+                        type="button"
+                        aria-hidden
+                        tabIndex={-1}
+                        className="fixed inset-0 z-40 cursor-default"
+                        onClick={() => setOpenMenuId(null)}
+                      />
+                      <div className="absolute right-0 top-9 z-50 w-44 overflow-hidden rounded-xl border border-border/70 bg-card py-1 shadow-[0_20px_44px_-18px_rgba(60,45,20,0.6)]">
+                        <Link
+                          href={`/profile?id=${p.id}`}
+                          className="flex items-center gap-2.5 px-4 py-2.5 text-sm hover:bg-brass/10 hover:text-brass"
+                        >
+                          <Pencil className="h-3.5 w-3.5" /> Edit details
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setOpenMenuId(null);
+                            renameProfile(p.id, p.name);
+                          }}
+                          className="flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm hover:bg-brass/10 hover:text-brass"
+                        >
+                          <PenLine className="h-3.5 w-3.5" /> Rename
+                        </button>
+                        {profiles.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setOpenMenuId(null);
+                              removeProfile(p.id, p.name);
+                            }}
+                            className="flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm text-[#a23b2c] hover:bg-[#a23b2c]/10"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" /> Delete
+                          </button>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
 
-              <div className="flex items-start gap-4 sm:gap-5">
-                <Ring percent={p.percent} size={72} />
-                <div className="min-w-0 flex-1 pr-16 sm:pr-20">
+              <div className="flex items-center gap-4 sm:gap-5">
+                <Ring percent={p.percent} size={76} />
+                <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
                     <Emblem
                       className="h-6 w-6 shrink-0 text-brass"
@@ -489,18 +654,21 @@ export default function AccountPage() {
                     />
                     <Link
                       href={`/profile?id=${p.id}`}
-                      className="soma-ease truncate font-display text-xl font-semibold tracking-tight transition-colors hover:text-brass"
+                      className="soma-ease truncate font-display text-xl font-semibold tracking-tight transition-colors hover:text-brass sm:text-2xl"
                     >
                       {p.name}
                     </Link>
                     {p.isActive && (
-                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-gradient-to-r from-brass to-[hsl(34_44%_58%)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_6px_14px_-6px_rgba(120,90,30,0.8)]">
+                      <span
+                        className="inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-[0_6px_14px_-6px_rgba(120,90,30,0.85),inset_0_1px_1px_rgba(255,255,255,0.45)]"
+                        style={{ background: GOLD_FRAME }}
+                      >
                         Active <Sparkles className="h-3 w-3" strokeWidth={2.5} />
                       </span>
                     )}
                   </div>
                   {p.merged && (
-                    <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-accent/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+                    <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
                       <Layers className="h-3 w-3" /> Merged
                     </span>
                   )}
@@ -523,52 +691,48 @@ export default function AccountPage() {
                 </div>
               )}
 
-              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border/60 pt-4 text-sm">
-                {!p.isActive &&
-                  (ready ? (
-                    <button
-                      type="button"
-                      onClick={() => activateProfile(p.id)}
-                      className="inline-flex items-center gap-1.5 font-medium text-foreground hover:text-brass"
-                    >
-                      <Sparkles className="h-3.5 w-3.5 text-brass" /> Set active
-                    </button>
-                  ) : (
-                    <span className="text-xs text-muted-foreground">
-                      Finish to {MATCH_GATE_PERCENT}% to activate
-                    </span>
-                  ))}
-                {ready && (
-                  <button
-                    type="button"
-                    onClick={() => toggleMerge(p.id, !p.merged)}
-                    className={cn(
-                      "inline-flex items-center gap-1.5 font-medium hover:underline",
-                      p.merged ? "text-accent" : "text-foreground",
+              <div className="mt-5 flex items-stretch border-t border-border/60 pt-4 text-[13px]">
+                {actions.map((node, i) => (
+                  <Fragment key={i}>
+                    {i > 0 && (
+                      <span
+                        aria-hidden
+                        className="my-0.5 w-px self-stretch bg-border/70"
+                      />
                     )}
-                  >
-                    <Layers className="h-3.5 w-3.5" />
-                    {p.merged ? "Unmerge" : "Merge"}
-                  </button>
-                )}
-                <button
-                  type="button"
-                  onClick={() => renameProfile(p.id, p.name)}
-                  className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground"
-                >
-                  <PenLine className="h-3.5 w-3.5" /> Rename
-                </button>
-                {profiles.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => removeProfile(p.id, p.name)}
-                    className="inline-flex items-center gap-1.5 text-[#a23b2c] hover:underline"
-                  >
-                    <Trash2 className="h-3.5 w-3.5" /> Delete
-                  </button>
-                )}
+                    <div className="flex flex-1 justify-center px-1">{node}</div>
+                  </Fragment>
+                ))}
               </div>
             </div>
+          );
+
+          // The active profile gets a glossy gold bezel with a glint hanging
+          // off its lower-left edge; the others sit on plain cream.
+          return p.isActive ? (
+            <div
+              key={p.id}
+              className="soma-lift relative rounded-[1.75rem] p-[3px] shadow-[0_34px_66px_-30px_rgba(120,90,30,0.7),0_10px_34px_-12px_rgba(180,140,60,0.45)]"
+              style={{ background: GOLD_FRAME }}
+            >
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -left-3 bottom-10 z-20 h-12 w-12"
+              >
+                <span
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background:
+                      "radial-gradient(circle, rgba(255,251,236,0.95) 0%, rgba(243,223,150,0.45) 34%, transparent 70%)",
+                  }}
+                />
+                <span className="absolute left-1/2 top-1/2 h-[2px] w-12 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-white to-transparent" />
+                <span className="absolute left-1/2 top-1/2 h-12 w-[2px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-white to-transparent" />
+              </span>
+              {card}
+            </div>
+          ) : (
+            card
           );
         })}
 
