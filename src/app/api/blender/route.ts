@@ -31,7 +31,17 @@ async function readState(userId: string) {
     prisma.tasteProfile.findMany({
       where: { userId },
       orderBy: { createdAt: "asc" },
-      select: { id: true, name: true, merged: true, isActive: true },
+      select: {
+        id: true,
+        name: true,
+        merged: true,
+        isActive: true,
+        primaryAroma: true,
+        preferredAromas: true,
+        preferredFlavors: true,
+        primaryEffect: true,
+        preferredEffects: true,
+      },
     }),
   ]);
 
@@ -48,6 +58,16 @@ async function readState(userId: string) {
   const name = (p: { name: string | null } | null | undefined) =>
     p?.name?.trim() || "Profile";
 
+  // Top dominant aroma/effect tokens — let the diagram pick each node's
+  // emblem (gas pump / moon / pineapple) the same way the account cards do.
+  const top = (...lists: (string[] | null | undefined)[]): string[] =>
+    Array.from(new Set(lists.flatMap((l) => l ?? []).filter(Boolean))).slice(0, 3);
+  type Prof = (typeof profiles)[number];
+  const aromas = (p: Prof) =>
+    top(p.primaryAroma ? [p.primaryAroma] : [], p.preferredAromas, p.preferredFlavors);
+  const effects = (p: Prof) =>
+    top(p.primaryEffect ? [p.primaryEffect] : [], p.preferredEffects);
+
   return {
     active,
     ready,
@@ -56,8 +76,21 @@ async function readState(userId: string) {
     lean2: user?.blenderLean2 ?? 0,
     profileCount: profiles.length,
     pairCount: pair.length,
-    pair: pair.map((p) => ({ id: p.id, name: name(p), primary: p.isActive })),
-    third: third ? { id: third.id, name: name(third) } : null,
+    pair: pair.map((p) => ({
+      id: p.id,
+      name: name(p),
+      primary: p.isActive,
+      topAromas: aromas(p),
+      topEffects: effects(p),
+    })),
+    third: third
+      ? {
+          id: third.id,
+          name: name(third),
+          topAromas: aromas(third),
+          topEffects: effects(third),
+        }
+      : null,
   };
 }
 
