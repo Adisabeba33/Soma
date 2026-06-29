@@ -316,15 +316,14 @@ export default function AccountPage() {
                 {memberSince ?? "—"}
               </p>
             </div>
-            <span
-              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full font-display text-xl font-semibold text-[#2a1d06] shadow-[inset_0_0_0_1px_rgba(247,236,198,0.5),0_8px_20px_-10px_rgba(169,128,63,0.7)]"
-              style={{
-                background:
-                  "radial-gradient(circle at 35% 30%, #f3e3b6, #c99a4e 45%, #8a6a2c 100%)",
-              }}
-            >
-              S
-            </span>
+            {/* The SŌMA wax-seal — the house mark, in place of a plain initial. */}
+            <img
+              src="/brand/soma-seal.png"
+              alt="SŌMA — Sensory Sommelier seal"
+              width={64}
+              height={64}
+              className="h-16 w-16 shrink-0 rounded-full object-cover ring-1 ring-brass/25 shadow-[0_8px_20px_-10px_rgba(169,128,63,0.6)]"
+            />
           </div>
           <ul className="mt-5 space-y-3 border-t border-border/60 pt-4 text-sm">
             <Tick>
