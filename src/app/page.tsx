@@ -11,6 +11,9 @@ import {
   ChevronDown,
   Mic,
   Wand2,
+  Fingerprint,
+  Compass,
+  Lock,
 } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { getUserIdReadOnly } from "@/lib/user";
@@ -337,13 +340,73 @@ function AnonymousHome() {
         </a>
       </section>
 
-      {/* ── Learn more — the project, explained, for anyone who wants the
-          full story before they start. ─────────────────────────────────── */}
+      {/* ── What SŌMA is — the first thing a curious visitor reads on scroll:
+          a private, personal instrument that matches flower to YOUR taste and
+          keeps it between you and the engine. ──────────────────────────── */}
       <section
         id="learn-more"
         className="scroll-mt-20 border-y border-border bg-card"
       >
         <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
+          <p className="text-xs uppercase tracking-[0.28em] text-brass">
+            What SŌMA is
+          </p>
+          <h2 className="mt-4 max-w-2xl font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+            A personal instrument — tuned to your taste, and no one else&apos;s.
+          </h2>
+          <p className="mt-5 max-w-2xl text-[0.97rem] leading-relaxed text-muted-foreground">
+            SŌMA isn&apos;t a review site and it isn&apos;t a leaderboard.
+            It&apos;s a private tool that learns what <em>you</em> like and reads
+            every menu through that lens. The more you tell it — and the more you
+            rate what it suggests — the closer it gets to your real taste.
+          </p>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-3">
+            <div className="rounded-2xl border border-border bg-background p-6">
+              <Fingerprint className="h-6 w-6 text-accent" />
+              <h3 className="mt-4 font-display text-lg font-semibold tracking-tight">
+                Built around you
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Your profile is yours alone. Every score is measured against your
+                preferences — not a crowd&apos;s. Give it feedback and it keeps
+                tuning to you; nobody else&apos;s taste ever changes your
+                results.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border bg-background p-6">
+              <Compass className="h-6 w-6 text-accent" />
+              <h3 className="mt-4 font-display text-lg font-semibold tracking-tight">
+                It matches, it doesn&apos;t judge
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                SŌMA never calls a strain &ldquo;good&rdquo; or
+                &ldquo;bad.&rdquo; It only answers whether a strain fits{" "}
+                <em>you</em>. The same flower can be a perfect match for one
+                person and the wrong call for another — that&apos;s the whole
+                point.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border bg-background p-6">
+              <Lock className="h-6 w-6 text-accent" />
+              <h3 className="mt-4 font-display text-lg font-semibold tracking-tight">
+                Private by design
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                No feed, no public profile, nothing to share — you&apos;re
+                one-on-one with SŌMA. Your data stays in your account: never
+                sold, never handed to advertisers or other services. It exists
+                to serve your taste, full stop.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Learn more — the project, explained, for anyone who wants the
+          full story before they start. ─────────────────────────────────── */}
+      <section className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
+        <div>
           <div className="grid gap-10 sm:grid-cols-[1fr_1.2fr] sm:gap-16">
             <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight">
               The menu is long. The guidance is not.
