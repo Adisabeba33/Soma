@@ -43,11 +43,12 @@ type Node = {
 type State = {
   active: boolean;
   ready: boolean;
+  threeWay: boolean; // 3 merged → third blends in; 2 merged → pair-only
   balance: boolean;
   lean1: number;
   lean2: number;
   profileCount: number;
-  pairCount: number;
+  mergedCount: number;
   pair: Node[];
   third: Node | null;
 };
@@ -93,8 +94,9 @@ export function TasteBlenderBlock() {
         <Blend className="h-3.5 w-3.5" /> Taste Blender
       </p>
       <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-muted-foreground">
-        One mix of all three profiles — a merged pair, plus a third blended in.
-        When on, it drives every match: Harvest, Collection, Taste Match.
+        Merge two profiles for a blend of the pair; merge a third and it splits
+        evenly across all three. When on, it drives every match: Harvest,
+        Collection, Taste Match.
       </p>
     </div>
   );
@@ -104,16 +106,16 @@ export function TasteBlenderBlock() {
       <section>
         {Heading}
         <div className="mt-4 rounded-[1.75rem] border border-dashed border-brass/40 bg-[hsl(42_46%_95%)]/50 px-6 py-8 text-sm leading-relaxed text-muted-foreground backdrop-blur-[2px]">
-          {s.profileCount < 3 ? (
+          {s.profileCount < 2 ? (
             <>
-              Add a <strong className="text-foreground">third profile</strong> to
+              Add a <strong className="text-foreground">second profile</strong> to
               unlock the Blender. You have {s.profileCount} of 3.
             </>
           ) : (
             <>
-              Almost there — <strong className="text-foreground">merge two</strong>{" "}
-              profiles into a base pair (the Merge button above), and leave the
-              third unmerged. Then blend it in here.
+              <strong className="text-foreground">Merge two</strong> profiles (the
+              Merge button above) to start a blend of the pair. Merge a third and
+              it blends in evenly across all three.
             </>
           )}
         </div>
@@ -125,17 +127,20 @@ export function TasteBlenderBlock() {
   // right/energized side; the other is the left/relaxed side.
   const main = s.pair.find((p) => p.primary) ?? s.pair[0];
   const other = s.pair.find((p) => p.id !== main?.id) ?? s.pair[1];
-  const third = s.third!;
+  const third = s.threeWay ? s.third : null; // null in a 2-way (pair) blend
 
   const MainIcon = profileEmblem(main?.topAromas ?? [], main?.topEffects ?? []);
   const OtherIcon = profileEmblem(other?.topAromas ?? [], other?.topEffects ?? []);
-  const ThirdIcon = profileEmblem(third.topAromas ?? [], third.topEffects ?? []);
+  const ThirdIcon = third
+    ? profileEmblem(third.topAromas ?? [], third.topEffects ?? [])
+    : MainIcon;
 
   // ── Presentation math — node + slider percentages ────────────────────
-  // The third is "blended in" up to a full, equal third (33%); its share is
-  // lean2 scaled onto that 0–33% range. The pair splits the remainder, tilted
-  // by lean1 (−1 → all "other"/relaxed, +1 → all "main"/energized).
-  const thirdPct = Math.round((s.lean2 ?? 0) * 33);
+  // 2-way: the pair splits 100% by lean1 (50/50 balanced). 3-way: the third is
+  // "blended in" up to a full, equal third (33%) — its share is lean2 scaled
+  // onto 0–33% — and the pair splits the remainder, tilted by lean1 (−1 → all
+  // "other"/relaxed, +1 → all "main"/energized).
+  const thirdPct = third ? Math.round((s.lean2 ?? 0) * 33) : 0;
   const pairTotal = 100 - thirdPct;
   const mainPct = Math.round((pairTotal * (1 + s.lean1)) / 2);
   const otherPct = pairTotal - mainPct;
@@ -167,10 +172,15 @@ export function TasteBlenderBlock() {
             </p>
             <h3 className="mt-2 font-display text-[1.7rem] font-semibold leading-[1.18] tracking-tight text-foreground sm:text-[2rem]">
               {main?.name} +<br />
-              {other?.name}{" "}
-              <span className="font-normal italic text-muted-foreground">
-                blended with {third.name}
-              </span>
+              {other?.name}
+              {third && (
+                <>
+                  {" "}
+                  <span className="font-normal italic text-muted-foreground">
+                    blended with {third.name}
+                  </span>
+                </>
+              )}
             </h3>
           </div>
 
@@ -179,7 +189,11 @@ export function TasteBlenderBlock() {
             <BlendDiagram
               main={{ name: main?.name ?? "", pct: mainPct, Icon: MainIcon, live: s.active }}
               other={{ name: other?.name ?? "", pct: otherPct, Icon: OtherIcon, live: s.active }}
-              third={{ name: third.name, pct: thirdPct, Icon: ThirdIcon, live: s.active }}
+              third={
+                third
+                  ? { name: third.name, pct: thirdPct, Icon: ThirdIcon, live: s.active }
+                  : null
+              }
             />
           </div>
 
@@ -266,34 +280,37 @@ export function TasteBlenderBlock() {
                 </div>
               </div>
 
-              {/* Slider 2 — how much of the third profile to blend in */}
-              <div className="mt-6 border-t border-brass/15 pt-6">
-                <div className="flex items-center gap-1.5">
-                  <p className="text-[11px] uppercase tracking-[0.22em] text-brass">
-                    Blend in {third.name}
-                  </p>
-                  <Info className="h-3.5 w-3.5 text-brass/60" />
-                </div>
-                <div className="mt-3 flex items-center gap-3 sm:gap-4">
-                  <NodeLabel Icon={ThirdIcon} name="A touch" align="left" muted />
-                  <div className="min-w-0 flex-1">
-                    <PremiumSlider
-                      min={0}
-                      max={100}
-                      step={10}
-                      value={Math.round(s.lean2 * 100)}
-                      position={Math.round(s.lean2 * 100)}
-                      pill={`${thirdPct}%`}
-                      onChange={(v) => patch({ lean2: v / 100 })}
-                      ariaLabel={`How much of ${third.name} to blend in`}
-                    />
+              {/* Slider 2 — how much of the third profile to blend in. Only in
+                  a 3-way blend (three profiles merged). */}
+              {third && (
+                <div className="mt-6 border-t border-brass/15 pt-6">
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-[11px] uppercase tracking-[0.22em] text-brass">
+                      Blend in {third.name}
+                    </p>
+                    <Info className="h-3.5 w-3.5 text-brass/60" />
                   </div>
-                  <div className="shrink-0 text-right">
-                    <p className="text-sm font-medium text-foreground">Full third</p>
-                    <p className="text-[11px] text-muted-foreground">(33%)</p>
+                  <div className="mt-3 flex items-center gap-3 sm:gap-4">
+                    <NodeLabel Icon={ThirdIcon} name="A touch" align="left" muted />
+                    <div className="min-w-0 flex-1">
+                      <PremiumSlider
+                        min={0}
+                        max={100}
+                        step={10}
+                        value={Math.round(s.lean2 * 100)}
+                        position={Math.round(s.lean2 * 100)}
+                        pill={`${thirdPct}%`}
+                        onChange={(v) => patch({ lean2: v / 100 })}
+                        ariaLabel={`How much of ${third.name} to blend in`}
+                      />
+                    </div>
+                    <div className="shrink-0 text-right">
+                      <p className="text-sm font-medium text-foreground">Full third</p>
+                      <p className="text-[11px] text-muted-foreground">(33%)</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </>
           ) : (
             <p className="mt-6 rounded-2xl bg-brass/10 px-4 py-3 text-xs leading-relaxed text-foreground">
@@ -353,7 +370,7 @@ function ActiveIndicator({ active, onToggle }: { active: boolean; onToggle: () =
   );
 }
 
-// ── Blend diagram — three nodes ringed in gold around a medallion ───────
+// ── Blend diagram — two or three nodes ringed in gold around a medallion ──
 function BlendDiagram({
   main,
   other,
@@ -361,8 +378,13 @@ function BlendDiagram({
 }: {
   main: { name: string; pct: number; Icon: EmblemIcon; live: boolean };
   other: { name: string; pct: number; Icon: EmblemIcon; live: boolean };
-  third: { name: string; pct: number; Icon: EmblemIcon; live: boolean };
+  third: { name: string; pct: number; Icon: EmblemIcon; live: boolean } | null;
 }) {
+  // 3-way → two top nodes + a bottom third; 2-way → two nodes flanking the
+  // medallion. Medallion sits a touch higher in 3-way to leave room below.
+  const medallion = third
+    ? { left: "32%", top: "29%", width: "36%" }
+    : { left: "35%", top: "31%", width: "30%" };
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[19rem] sm:max-w-[21rem]">
       {/* Connector rings — thin gold, perfume-blending feel */}
@@ -381,23 +403,32 @@ function BlendDiagram({
         aria-hidden
         className="absolute rounded-full"
         style={{
-          left: "31%",
-          top: "27%",
-          width: "38%",
-          height: "38%",
+          left: medallion.left,
+          top: third ? "27%" : "29%",
+          width: third ? "38%" : "30%",
+          height: third ? "38%" : "30%",
           border: "1px solid rgba(184,143,76,0.4)",
         }}
       />
 
       {/* Profile nodes */}
-      <BlendNode {...other} style={{ left: "1%", top: "8%", width: "39%" }} />
-      <BlendNode {...main} style={{ left: "60%", top: "8%", width: "39%" }} />
-      <BlendNode {...third} style={{ left: "32%", top: "61%", width: "36%" }} />
+      {third ? (
+        <>
+          <BlendNode {...other} style={{ left: "1%", top: "8%", width: "39%" }} />
+          <BlendNode {...main} style={{ left: "60%", top: "8%", width: "39%" }} />
+          <BlendNode {...third} style={{ left: "32%", top: "61%", width: "36%" }} />
+        </>
+      ) : (
+        <>
+          <BlendNode {...other} style={{ left: "-3%", top: "22%", width: "42%" }} />
+          <BlendNode {...main} style={{ left: "61%", top: "22%", width: "42%" }} />
+        </>
+      )}
 
       {/* Central medallion */}
       <div
         className="absolute z-20 grid aspect-square place-items-center rounded-full p-[3px]"
-        style={{ left: "32%", top: "29%", width: "36%", background: T.goldRing }}
+        style={{ ...medallion, background: T.goldRing }}
       >
         <div
           className="relative grid h-full w-full place-items-center overflow-hidden rounded-full text-center"

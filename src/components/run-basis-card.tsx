@@ -64,7 +64,8 @@ export function RunBasisCard({
           {blender.pair.join(" + ")}
         </p>
         <p className="relative mt-1.5 text-sm text-muted-foreground">
-          Not one profile — a blend of all three is scoring this run.
+          Not one profile — a blend of{" "}
+          {blender.third ? "all three" : "the pair"} is scoring this run.
         </p>
 
         <div className="relative mt-5 flex flex-wrap items-center gap-2">

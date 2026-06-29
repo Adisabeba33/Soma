@@ -35,6 +35,8 @@ async function readState(userId: string) {
         id: true,
         name: true,
         merged: true,
+        mergedAt: true,
+        createdAt: true,
         isActive: true,
         primaryAroma: true,
         preferredAromas: true,
@@ -45,14 +47,25 @@ async function readState(userId: string) {
     }),
   ]);
 
-  const pair = profiles.filter((p) => p.merged);
-  const third = profiles.length === 3 && pair.length === 2
-    ? profiles.find((p) => !p.merged) ?? null
-    : null;
-  const ready = Boolean(third);
+  // The blend is driven by the MERGE set, ordered by when each profile joined
+  // it (legacy rows fall back to createdAt). The first two merged are the
+  // adjustable pair; once a third is merged it becomes the "third" that blends
+  // in. 2 merged → 2-way (pair lean only); 3 merged → 3-way (33/33/33 start).
+  const mergedSorted = profiles
+    .filter((p) => p.merged)
+    .sort(
+      (a, b) =>
+        (a.mergedAt ?? a.createdAt).getTime() -
+        (b.mergedAt ?? b.createdAt).getTime(),
+    );
 
-  // If the shape is no longer valid (e.g. a profile was deleted), the Blender
-  // can't be "on" — report it off so the UI and scoring stay consistent.
+  const threeWay = mergedSorted.length >= 3;
+  const pairProfiles = threeWay ? mergedSorted.slice(0, 2) : mergedSorted;
+  const thirdProfile = threeWay ? mergedSorted[mergedSorted.length - 1] : null;
+  const ready = mergedSorted.length >= 2;
+
+  // If the shape is no longer valid (e.g. a profile was unmerged/deleted), the
+  // Blender can't be "on" — report it off so the UI and scoring stay consistent.
   const active = ready && Boolean(user?.blenderActive);
 
   const name = (p: { name: string | null } | null | undefined) =>
@@ -71,24 +84,25 @@ async function readState(userId: string) {
   return {
     active,
     ready,
+    threeWay,
     balance: user?.blenderBalance ?? false,
     lean1: user?.blenderLean1 ?? 0,
-    lean2: user?.blenderLean2 ?? 0,
+    lean2: user?.blenderLean2 ?? 1,
     profileCount: profiles.length,
-    pairCount: pair.length,
-    pair: pair.map((p) => ({
+    mergedCount: mergedSorted.length,
+    pair: pairProfiles.map((p) => ({
       id: p.id,
       name: name(p),
       primary: p.isActive,
       topAromas: aromas(p),
       topEffects: effects(p),
     })),
-    third: third
+    third: thirdProfile
       ? {
-          id: third.id,
-          name: name(third),
-          topAromas: aromas(third),
-          topEffects: effects(third),
+          id: thirdProfile.id,
+          name: name(thirdProfile),
+          topAromas: aromas(thirdProfile),
+          topEffects: effects(thirdProfile),
         }
       : null,
   };
@@ -117,14 +131,15 @@ export async function PATCH(req: NextRequest) {
   const l2 = clampNum(body.lean2, 0, 1);
   if (l2 !== null) data.blenderLean2 = l2;
 
-  // Turning the Blender on requires the ready shape (3 profiles, 2 merged + 1).
+  // Turning the Blender on requires at least two merged profiles (2-way blend);
+  // merging a third makes it 3-way.
   if (data.blenderActive === true) {
     const state = await readState(userId);
     if (!state.ready) {
       return NextResponse.json(
         {
           error:
-            "Taste Blender needs three profiles — two merged into a pair, plus a third to blend in.",
+            "Taste Blender needs at least two merged profiles. Merge two to start, and a third to blend all three.",
         },
         { status: 400 },
       );

@@ -112,50 +112,77 @@ export async function resolveBlend(
       .catch(() => [] as TasteProfile[]),
   ]);
 
-  const pair = all.filter((p) => p.merged);
-  if (pair.length < 2) return null; // no base pair → no blend
+  // The merge set, ordered by when each profile joined it (legacy rows fall
+  // back to createdAt). First two merged = the adjustable pair; a third merged
+  // profile is the "third" that blends in.
+  const mergedSorted = all
+    .filter((p) => p.merged)
+    .sort(
+      (a, b) =>
+        (a.mergedAt ?? a.createdAt).getTime() -
+        (b.mergedAt ?? b.createdAt).getTime(),
+    );
+  if (mergedSorted.length < 2) return null; // no base pair → no blend
 
-  const primary = pair.find((p) => p.isActive) ?? pair[0];
   const penalties: Record<string, number> = {};
 
-  // Taste Blender: 3 profiles, 2 merged (pair) + 1 third, and switched on.
-  const third =
-    all.length === 3 && pair.length === 2 && user?.blenderActive
-      ? all.find((p) => !p.merged) ?? null
-      : null;
+  // ── Taste Blender ON — the merge set drives every surface via the recipe ──
+  if (user?.blenderActive) {
+    const balance = Boolean(user.blenderBalance);
+    const lean1 = clamp(user.blenderLean1, -1, 1);
 
-  if (third) {
-    const balance = Boolean(user!.blenderBalance);
-    const lean1 = clamp(user!.blenderLean1, -1, 1);
-    // Balance (bridge) mode weighs every world equally — no lean penalties, so
-    // min() finds strains strong across ALL sides at once.
-    if (!balance) {
-      const lean2 = clamp(user!.blenderLean2, 0, 1);
-      applyPairLean(penalties, pair, primary.id, lean1);
-      penalties[third.id] = (1 - lean2) * ADMIX_CAP; // dosed admix
+    // 3-way: pair (first two merged) + a third (last merged) blended in.
+    if (mergedSorted.length >= 3) {
+      const pair = mergedSorted.slice(0, 2);
+      const third = mergedSorted[mergedSorted.length - 1];
+      const primary = pair.find((p) => p.isActive) ?? pair[0];
+      // Balance (bridge) mode weighs every world equally — no lean penalties,
+      // so min() finds strains strong across ALL sides at once.
+      if (!balance) {
+        const lean2 = clamp(user.blenderLean2, 0, 1);
+        applyPairLean(penalties, pair, primary.id, lean1);
+        penalties[third.id] = (1 - lean2) * ADMIX_CAP; // dosed admix
+      }
+      const profiles = [...pair, third];
+      return {
+        profiles,
+        penalties,
+        primaryId: primary.id,
+        worlds: profiles.map(worldNameOf),
+        pairLean: balance ? 0 : lean1,
+        lean2: clamp(user.blenderLean2, 0, 1),
+        blenderActive: true,
+        balance,
+        thirdName: worldNameOf(third, 2),
+      };
     }
-    const profiles = [...pair, third];
+
+    // 2-way: exactly two merged — a blend of the pair, pair lean only.
+    const pair = mergedSorted;
+    const primary = pair.find((p) => p.isActive) ?? pair[0];
+    if (!balance) applyPairLean(penalties, pair, primary.id, lean1);
     return {
-      profiles,
+      profiles: pair,
       penalties,
       primaryId: primary.id,
-      worlds: profiles.map(worldNameOf),
+      worlds: pair.map(worldNameOf),
       pairLean: balance ? 0 : lean1,
-      lean2: clamp(user!.blenderLean2, 0, 1),
+      lean2: 0,
       blenderActive: true,
       balance,
-      thirdName: worldNameOf(third, 2),
     };
   }
 
-  // Plain merge: just the merged set, with the optional per-run pair lean.
+  // ── Blender OFF — plain merge of the full merged set (Harvest), with the
+  //    optional per-run pair lean. Keeps every merged profile in play. ───────
+  const primary = mergedSorted.find((p) => p.isActive) ?? mergedSorted[0];
   const pairLean = clamp(opts?.pairBias ?? 0, -1, 1);
-  applyPairLean(penalties, pair, primary.id, pairLean);
+  applyPairLean(penalties, mergedSorted, primary.id, pairLean);
   return {
-    profiles: pair,
+    profiles: mergedSorted,
     penalties,
     primaryId: primary.id,
-    worlds: pair.map(worldNameOf),
+    worlds: mergedSorted.map(worldNameOf),
     pairLean,
     lean2: 0,
     blenderActive: false,
