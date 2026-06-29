@@ -599,8 +599,37 @@ export default function AccountPage() {
             );
           }
 
-          const body = (
-            <div key={p.id} className={cn(CARD, "relative p-5 sm:p-6")}>
+          return (
+            <div
+              key={p.id}
+              className={cn(
+                CARD,
+                "relative p-5 sm:p-6",
+                p.isActive &&
+                  "shadow-[0_30px_60px_-30px_rgba(120,92,40,0.5),0_0_22px_-8px_rgba(206,176,108,0.4)]",
+              )}
+            >
+              {p.isActive && (
+                <>
+                  {/* Gold frame — a hollow ring drawn ONLY on the 3px border
+                      (via a mask), so the card interior stays the same frosted
+                      glass as the other cards instead of flooding with gold. */}
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-[1.75rem]"
+                    style={{
+                      padding: "3px",
+                      background: GOLD_FRAME,
+                      WebkitMask:
+                        "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                      WebkitMaskComposite: "xor",
+                      maskComposite: "exclude",
+                    }}
+                  />
+                  <Glint className="-left-2.5 bottom-10" />
+                  <Glint className="-right-2.5 top-7 h-9 w-9" />
+                </>
+              )}
               {/* Profile number + overflow menu — quiet top line. */}
               <div className="mb-3 flex items-center justify-end gap-1.5">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/70">
@@ -729,23 +758,6 @@ export default function AccountPage() {
                 ))}
               </div>
             </div>
-          );
-
-          // The active card wears the gilded frame (#C8A76A, 135° gradient)
-          // with a soft shadow and star-shine glints at two corners; the
-          // others stay on the plain frosted surface.
-          return p.isActive ? (
-            <div
-              key={p.id}
-              className="soma-lift relative rounded-[1.85rem] p-[3px] shadow-[0_30px_60px_-30px_rgba(120,92,40,0.55),0_0_22px_-8px_rgba(206,176,108,0.45)]"
-              style={{ background: GOLD_FRAME }}
-            >
-              <Glint className="-left-2.5 bottom-10" />
-              <Glint className="-right-2.5 top-7 h-9 w-9" />
-              {body}
-            </div>
-          ) : (
-            body
           );
         })}
 
