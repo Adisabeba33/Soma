@@ -28,7 +28,7 @@ import { cn } from "@/lib/utils";
 
 // Premium card surface, shared across the dossier.
 const CARD =
-  "soma-lift rounded-[1.75rem] border border-border/70 bg-card shadow-[0_28px_60px_-42px_rgba(60,45,20,0.45)] hover:shadow-[0_34px_70px_-40px_rgba(60,45,20,0.55)]";
+  "soma-lift rounded-[1.75rem] border border-border/70 bg-card shadow-[0_30px_60px_-38px_rgba(60,45,20,0.6),0_2px_4px_-2px_rgba(60,45,20,0.25)] hover:shadow-[0_36px_72px_-36px_rgba(60,45,20,0.68),0_3px_6px_-2px_rgba(60,45,20,0.3)]";
 
 type Me = {
   registered: boolean;
@@ -285,7 +285,23 @@ export default function AccountPage() {
     : null;
 
   return (
-    <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8">
+    <div className="relative">
+      {/* Lounge backdrop — embossed plaster + gilded leaves frame the top of
+          the room, then fade into the page so lower sections stay clean and
+          readable. Full-bleed behind the centred content. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[1100px] overflow-hidden"
+      >
+        <img
+          src="/textures/lounge.webp"
+          alt=""
+          className="h-full w-full object-cover object-top"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/35 to-background" />
+      </div>
+
+      <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8">
       {/* ── Header row — name left, membership card top-right ───── */}
       <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-md">
@@ -322,10 +338,10 @@ export default function AccountPage() {
               alt="SŌMA — Sensory Sommelier seal"
               width={64}
               height={64}
-              className="h-16 w-16 shrink-0 rounded-full object-cover ring-1 ring-brass/25 shadow-[0_8px_20px_-10px_rgba(169,128,63,0.6)]"
+              className="h-16 w-16 shrink-0 rounded-full object-cover ring-1 ring-brass/30 shadow-[0_14px_28px_-10px_rgba(110,80,30,0.6),0_3px_6px_-2px_rgba(110,80,30,0.45)]"
             />
           </div>
-          <ul className="mt-5 space-y-3 border-t border-border/60 pt-4 text-sm">
+          <ul className="mt-5 space-y-3 border-t border-brass/25 pt-4 text-sm">
             <Tick>
               {me.emailVerified ? "Verified member" : "Email not verified"}
             </Tick>
@@ -725,6 +741,7 @@ export default function AccountPage() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }
