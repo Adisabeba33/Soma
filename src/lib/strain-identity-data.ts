@@ -11146,7 +11146,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Tear Gas earns its name with a heavy, sulfurous gas-and-diesel assault that turns chemical-spicy on the exhale. It opens with a sharp cerebral euphoria before sinking into deep body relaxation. A potent evening pick for serious gas lovers.",
     tagline: "Explosive sulfurous chem gas",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
