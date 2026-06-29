@@ -10257,7 +10257,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Twist the cap and a wood-fired pizza kitchen explodes outward — raw garlic, oregano, scorched crust. The Pure Michigan side adds Oreo-cookie sweetness like dessert after dinner. Couch gravity arrives politely and stays the night.",
     tagline: "Roasted garlic diesel funk",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
