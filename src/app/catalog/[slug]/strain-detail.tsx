@@ -51,20 +51,66 @@ export interface LineageParent {
 
 export function StrainDetail({
   entry,
-  match,
-  initialVerdict,
   curatedScore,
   similar,
   lineageParents,
+  faq,
 }: {
   entry: CatalogEntry;
-  match?: CatalogMatch;
-  initialVerdict?: Verdict | null;
   curatedScore: number;
   similar: SimilarStrainEntry[];
   lineageParents: LineageParent[];
+  // Data-derived FAQ from the server, also emitted as FAQPage JSON-LD.
+  faq: { q: string; a: string }[];
 }) {
   const { strain, identity } = entry;
+
+  // The page is statically rendered so it indexes well; the visitor's personal
+  // match score and prior verdict are therefore fetched on the client after
+  // mount. Anonymous visitors (and crawlers) simply see the curated view.
+  const [match, setMatch] = useState<CatalogMatch | undefined>(undefined);
+  const [initialVerdict, setInitialVerdict] = useState<Verdict | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/api/strain-match?name=${encodeURIComponent(strain.name)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { match?: CatalogMatch | null } | null) => {
+        if (!cancelled && d?.match) setMatch(d.match);
+      })
+      .catch(() => {
+        // Non-fatal: the curated score stays visible.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [strain.name]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/strain-feedback")
+      .then((r) => (r.ok ? r.json() : null))
+      .then(
+        (
+          d: {
+            verdicts?: Array<{ strainName: string; verdict: string }>;
+          } | null,
+        ) => {
+          if (cancelled || !d?.verdicts) return;
+          const v = d.verdicts.find((x) => x.strainName === strain.name)?.verdict;
+          if (v === "loved" || v === "good" || v === "neutral" || v === "avoid") {
+            setInitialVerdict(v);
+          }
+        },
+      )
+      .catch(() => {
+        // Non-fatal: the verdict pill just starts empty.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [strain.name]);
+
   const knownAs = knownAsNames(strain.aliases, identity);
   const radar = buildRadar(strain);
   const artSrc = artImageSrc(strain, identity);
@@ -180,6 +226,9 @@ export function StrainDetail({
             </div>
             <div className="mt-5 border-t border-border pt-4">
               <FeedbackPill
+                // Remount once when the async verdict arrives, so the pill
+                // (which seeds its state from `initial` at mount) reflects it.
+                key={initialVerdict ?? "none"}
                 strainName={strain.name}
                 initial={initialVerdict ?? null}
                 source="catalog"
@@ -384,6 +433,30 @@ export function StrainDetail({
           )}
         </aside>
       </div>
+
+      {faq.length > 0 && (
+        <section className="mt-12 max-w-2xl">
+          <h2 className="font-display text-xl font-semibold tracking-tight">
+            Frequently asked questions
+          </h2>
+          <div className="mt-4 space-y-6">
+            {faq.map((f) => (
+              <div key={f.q}>
+                <h3 className="font-display text-base font-medium tracking-tight text-foreground">
+                  {f.q}
+                </h3>
+                <p className="mt-2 leading-relaxed text-muted-foreground">
+                  {f.a}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 text-xs leading-relaxed text-muted-foreground">
+            Sensory guidance for adults 21+ where legal — not medical or legal
+            advice.
+          </p>
+        </section>
+      )}
     </div>
   );
 }
