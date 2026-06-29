@@ -11339,7 +11339,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "A skunk-lineage name without verifiable genetics under this exact label, sitting near Island Sweet Skunk in sensory terms. Expect sweet, tropical-grapefruit funk over a classic Skunk #1 base, driving energetic, creative daytime uplift.",
     tagline: "Sweet tropical skunk lift",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "low",
   },
   {
