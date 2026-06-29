@@ -1470,7 +1470,6 @@ export function scoreStrain(
   const riskNotes = buildRiskNotes(strain, known, conflicts, profile, softRisk.notes);
   const explanation = buildExplanation(
     strain,
-    matchScore,
     category,
     confidence,
     favoriteAnchorName,
@@ -1648,22 +1647,25 @@ function buildRiskNotes(
 
 function buildExplanation(
   strain: StrainProfile,
-  score: number,
   category: Category,
   confidence: Confidence,
   favoriteAnchorName: string | null,
   favoriteMatchKind: "canonical" | "alias",
   favoriteSurface: string | null,
 ): string {
+  // The numeric match is shown prominently in the card header, so the prose
+  // deliberately doesn't repeat it: in blend mode the displayed score is the
+  // balance (lowest world) while this copy is the winning world's, so quoting a
+  // number here would contradict the headline. Words, not digits.
   if (favoriteAnchorName) {
     const opener =
       favoriteMatchKind === "alias" && favoriteSurface
         ? `${strain.name} matches one of your saved favourites by alias — you listed it as “${favoriteSurface}”. It's the same strain canonically, so SŌMA treats it as a direct sensory anchor.`
         : `${strain.name} is one of your saved favourites, so SŌMA treats it as a direct sensory anchor.`;
-    const cap = `It lands at ${score}% — not 100% — because grower, batch freshness, package date and storage are not captured here. Sensory identity matches your preference; purchase quality is still unknown.`;
+    const cap = `It's about as close as SŌMA scores — not 100% — because grower, batch freshness, package date and storage are not captured here. Sensory identity matches your preference; purchase quality is still unknown.`;
     return `${opener} ${cap}`;
   }
-  const opener = `${strain.name} lands at ${score}% — a ${category.toLowerCase()} for your profile.`;
+  const opener = `${strain.name} — a ${category.toLowerCase()} for your profile.`;
   const direction =
     category === "Avoid"
       ? "On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
