@@ -11985,7 +11985,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "A Tangie-fueled hybrid balancing zesty tangerine and diesel against sweet pine and a faint cocoa note. Effects are euphoric and mentally uplifting with gentle body calm, ideal as a functional daytime option.",
     tagline: "Tangerine diesel daytime euphoria",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
