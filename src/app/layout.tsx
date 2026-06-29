@@ -49,13 +49,13 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     url: "/",
-    images: [{ url: "/hero/hero.png", width: 1200, height: 630, alt: "SŌMA" }],
+    // OG image comes from the dynamic file convention (src/app/opengraph-image
+    // .tsx and per-route overrides), so it is not set explicitly here.
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/hero/hero.png"],
   },
   // Lets iOS "Add to Home Screen" launch SŌMA full-screen (no Safari chrome),
   // using the apple-icon. The manifest (app/manifest.ts) covers Android.
