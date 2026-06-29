@@ -19,6 +19,7 @@ import { knownAsNames, lineageConfidenceOf, lineageStatus } from "@/lib/strain-i
 import { artImageSrc, artFocusOf } from "@/lib/strain-art";
 import { strainSlug } from "@/lib/catalog";
 import { layoutParents } from "@/lib/genetics-layout";
+import { geneticsFor, densityFor, densityLabel } from "@/lib/bud-structure";
 import {
   BASKET_EVENT,
   addToBasket,
@@ -516,7 +517,7 @@ function Genetics({
         </p>
       )}
 
-      <GeneticMakeup type={childType} />
+      <GeneticMakeup name={child} type={childType} />
     </div>
   );
 }
@@ -634,13 +635,13 @@ function Center({
   );
 }
 
-// Categorical preview of the strain's makeup. For PR2: replaces with a
-// real percentage split (indica% vs sativa%) when indicaSativaSplit is
-// curated. For now: a single colored bar showing the categorical type —
-// hybrid renders as half-and-half so the visual shape stays consistent.
-function GeneticMakeup({ type }: { type: StrainType }) {
-  const indicaPct = type === "indica" ? 100 : type === "hybrid" ? 50 : 0;
-  const sativaPct = 100 - indicaPct;
+// Genetic makeup (real indica/sativa split when curated, else read from type)
+// plus the curated bud-structure (density) read, each honest about certainty.
+function GeneticMakeup({ name, type }: { name: string; type: StrainType }) {
+  const g = geneticsFor(name, type);
+  const indicaPct = g.indica;
+  const sativaPct = g.sativa;
+  const density = densityFor(name, type);
 
   return (
     <div className="mt-6 border-t border-border pt-5">
@@ -674,8 +675,28 @@ function GeneticMakeup({ type }: { type: StrainType }) {
         </span>
       </div>
       <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
-        Categorical split for now — derived from this strain&apos;s type.
-        Per-strain percentage data is being curated.
+        {g.curated
+          ? "Reported indica/sativa split (lineage ratio, not lab-verified)."
+          : "Categorical split derived from this strain's type — percentage being curated."}
+      </p>
+
+      {/* Bud structure — soft, grow-dependent; labelled with our confidence. */}
+      <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+        Bud structure
+      </p>
+      <div className="mt-2 flex items-center gap-2">
+        <span className="text-sm font-medium text-foreground">
+          {densityLabel(density.lean, density.confidence)}
+        </span>
+        {density.lean !== "mixed" && (
+          <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+            {density.confidence}
+          </span>
+        )}
+      </div>
+      <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+        Density varies with the grower and conditions — treat this as a
+        tendency, not a guarantee.
       </p>
     </div>
   );

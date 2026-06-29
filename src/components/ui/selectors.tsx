@@ -152,7 +152,7 @@ export function TagInput({
 
   return (
     <div className="space-y-2.5">
-      <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-card p-2">
+      <div className="soma-ease flex flex-wrap items-center gap-2 rounded-2xl border border-border/60 bg-card p-3 transition-shadow focus-within:border-accent/30 focus-within:ring-4 focus-within:ring-accent/10">
         {value.map((tag, i) => {
           const state = tagState?.[i];
           const known = state?.known ?? null;
@@ -225,7 +225,7 @@ export function TagInput({
           }}
           onBlur={() => add(draft)}
           placeholder={value.length ? "" : placeholder}
-          className="h-8 min-w-[8rem] flex-1 bg-transparent px-1 text-sm outline-none placeholder:text-muted-foreground"
+          className="h-9 min-w-[8rem] flex-1 bg-transparent px-1.5 text-sm outline-none placeholder:text-muted-foreground"
         />
         {value.length > 0 && (
           <button

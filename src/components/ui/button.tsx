@@ -25,9 +25,10 @@ export function buttonClass(
   className?: string,
 ) {
   return cn(
-    "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-colors",
+    "inline-flex items-center justify-center gap-2 rounded-xl font-medium",
+    "transition-[transform,background-color,box-shadow,opacity] duration-200 ease-out active:scale-[0.97]",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-    "disabled:cursor-not-allowed disabled:opacity-70",
+    "disabled:cursor-not-allowed disabled:opacity-70 disabled:active:scale-100",
     VARIANTS[variant],
     SIZES[size],
     className,

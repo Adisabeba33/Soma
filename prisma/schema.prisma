@@ -24,10 +24,24 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // Taste Blender — a virtual "4th profile" that mixes all three real profiles.
+  // blenderActive makes it the profile that drives every surface (Harvest,
+  // Collection, Taste Match, dashboard). lean1 is the lean inside the merged
+  // pair (−1…+1); lean2 is how much the third profile is blended in (0…1).
+  // Only meaningful with 3 profiles (2 merged into the pair, 1 the third).
+  blenderActive Boolean @default(false)
+  blenderLean1  Float   @default(0)
+  blenderLean2  Float   @default(0)
+  // Blend mode: false = best-of (max — best under any one side); true = balance
+  // (min — strains strong across ALL sides at once, the "bridge"). Leans don't
+  // apply in balance mode (it weighs every world equally).
+  blenderBalance Boolean @default(false)
+
   tasteProfiles    TasteProfile[]
   analysisSessions AnalysisSession[]
   feedback         Feedback[]
   strainFeedback   StrainFeedback[]
+  wishlist         Wishlist[]
   unknownStrains   UnknownStrain[]
   runAudits        RunAudit[]
   authTokens       AuthToken[]
@@ -59,6 +73,10 @@ model TasteProfile {
   // name "Main" + active.
   name               String?
   isActive           Boolean  @default(false)
+  // Profiles flagged into the "merge" set. When two or more are merged, the
+  // catalog (Harvest) blends them best-of instead of using the single active
+  // profile. Independent of isActive. Default false so existing rows are valid.
+  merged             Boolean  @default(false)
   favoriteStrains    String[]
   dislikedStrains    String[]
   likedTraits        String[]
@@ -195,6 +213,31 @@ model StrainFeedback {
   source     String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  @@unique([userId, strainName])
+  @@index([userId])
+}
+
+// Lightweight "want to try" intent — strains the user has tapped to save
+// before ever trying them. Deliberately SEPARATE from StrainFeedback: a
+// wishlist entry is intent, not a verdict, and must NEVER reach the engine.
+// The scoring loop (getFeedbackSignals -> evaluateFeedback) reads
+// StrainFeedback only; keeping wishlist in its own table makes leakage into
+// recommendations structurally impossible, not just filtered-out.
+//
+// Disjoint from the collection by construction: setting any StrainFeedback
+// verdict graduates a strain off the wishlist (see /api/strain-feedback POST,
+// which deletes the matching row). So a strain is either "want" (here) or
+// "tried" (StrainFeedback), never both.
+//
+// source values: informational, "catalog" | "taste-match" | "compare"
+model Wishlist {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  strainName String   // resolved canonical name (same resolution as StrainFeedback)
+  source     String?
+  createdAt  DateTime @default(now())
 
   @@unique([userId, strainName])
   @@index([userId])

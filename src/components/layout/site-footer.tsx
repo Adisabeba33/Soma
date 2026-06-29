@@ -1,69 +1,73 @@
 import Link from "next/link";
 
+const COLUMNS: { heading: string; links: { href: string; label: string }[] }[] = [
+  {
+    heading: "Product",
+    links: [
+      { href: "/taste-match", label: "Taste Match" },
+      { href: "/compare", label: "Compare" },
+      { href: "/catalog", label: "Harvest" },
+      { href: "/profile", label: "My Profile" },
+    ],
+  },
+  {
+    heading: "More",
+    links: [
+      { href: "/learn", label: "Learn" },
+      { href: "/how-it-works", label: "How it works" },
+      { href: "/saved", label: "History" },
+      { href: "/about", label: "About" },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { href: "/privacy", label: "Privacy" },
+      { href: "/terms", label: "Terms" },
+    ],
+  },
+];
+
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border">
-      <div className="mx-auto max-w-editorial px-5 py-12 sm:px-8">
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
-          <div className="max-w-sm">
-            <p className="font-display text-xl font-semibold">SŌMA</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              A sensory sommelier for cannabis. SŌMA matches flower to your
-              personal taste — it is not a strain encyclopedia.
+    <footer className="border-t border-border/50 bg-[hsl(38_18%_93%)]">
+      <div className="mx-auto max-w-editorial px-5 py-20 sm:px-8 sm:py-28">
+        <div className="flex flex-col gap-12 sm:flex-row sm:items-start sm:justify-between">
+          <div className="max-w-xs">
+            <p className="font-display text-lg font-medium tracking-tight text-foreground/90">
+              SŌMA
+            </p>
+            <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground/80">
+              A sensory sommelier for cannabis — flower matched to your taste,
+              not an encyclopedia.
             </p>
           </div>
-          <nav className="flex gap-12 text-sm">
-            <div className="flex flex-col gap-2">
-              <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                Product
-              </span>
-              <Link href="/taste-match" className="hover:text-accent">
-                Taste Match
-              </Link>
-              <Link href="/compare" className="hover:text-accent">
-                Compare
-              </Link>
-              <Link href="/catalog" className="hover:text-accent">
-                Harvest
-              </Link>
-              <Link href="/profile" className="hover:text-accent">
-                My Profile
-              </Link>
-            </div>
-            <div className="flex flex-col gap-2">
-              <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                More
-              </span>
-              <Link href="/learn" className="hover:text-accent">
-                Learn
-              </Link>
-              <Link href="/saved" className="hover:text-accent">
-                History
-              </Link>
-              <Link href="/about" className="hover:text-accent">
-                About
-              </Link>
-            </div>
-            <div className="flex flex-col gap-2">
-              <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                Legal
-              </span>
-              <Link href="/privacy" className="hover:text-accent">
-                Privacy
-              </Link>
-              <Link href="/terms" className="hover:text-accent">
-                Terms
-              </Link>
-            </div>
+          <nav className="flex gap-10 sm:gap-14">
+            {COLUMNS.map((col) => (
+              <div key={col.heading} className="flex flex-col gap-2.5">
+                <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground/60">
+                  {col.heading}
+                </span>
+                {col.links.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="text-[13px] text-muted-foreground/85 transition-colors hover:text-foreground"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+            ))}
           </nav>
         </div>
-        <div className="mt-10 border-t border-border pt-6 text-xs leading-relaxed text-muted-foreground">
-          <p>
+        <div className="mt-16 flex flex-col gap-1.5 border-t border-border/50 pt-6 text-[11px] leading-relaxed text-muted-foreground/60">
+          <p className="max-w-xl">
             SŌMA provides sensory guidance, not a guarantee. Real quality
-            depends on grower, freshness, packaging date and storage. For use
-            by adults 21+ where legal. Consume responsibly.
+            depends on grower, freshness and storage. For use by adults 21+
+            where legal.
           </p>
-          <p className="mt-2">© {new Date().getFullYear()} SŌMA</p>
+          <p>© {new Date().getFullYear()} SŌMA</p>
         </div>
       </div>
     </footer>

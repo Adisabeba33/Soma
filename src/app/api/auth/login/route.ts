@@ -16,7 +16,19 @@ export async function POST(req: Request) {
   const email = normalizeEmail(String(body.email ?? ""));
   const password = String(body.password ?? "");
 
-  const user = await prisma.user.findFirst({ where: { email } });
+  // Guard the credential lookup: if the database is briefly unreachable
+  // (e.g. Supabase pausing), return an honest "service waking up" message
+  // instead of a 500 that the client surfaces as a vague "Network error".
+  let user;
+  try {
+    user = await prisma.user.findFirst({ where: { email } });
+  } catch (err) {
+    console.error("login: database unreachable", err);
+    return NextResponse.json(
+      { error: "SŌMA is waking up — please try again in a moment." },
+      { status: 503 },
+    );
+  }
   const ok = user?.passwordHash ? verifyPassword(password, user.passwordHash) : false;
   // Generic message — never reveal whether the email exists.
   if (!user || !ok) {

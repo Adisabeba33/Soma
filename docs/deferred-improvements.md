@@ -1350,19 +1350,26 @@ and didn't do is itself valuable context.
     explainable in the audit ("missed 4/5 of your aroma core").
   - **C. Cap ref/effect compensation** when aroma coverage is low — prevents a
     high `ref` from fully rescuing a strain that misses the nose.
-- **Blocker / hygiene first:** `nutty` is **not** a valid aroma (it's a FLAVOR;
-  absent from `AROMAS`). In the observed profile it sits in `preferredAromas`,
-  so it is **permanently** Critical-Missing on every strain — inflating the
-  miss count and skewing any "missed aroma fraction" math. Before tuning weights
-  on this signal, fix how `nutty` lands in the aroma list (likely the intake
-  parser miscategorising it) so the coverage fraction is honest.
+- **Blocker / hygiene first:** ✓ **RESOLVED.** `nutty` is **not** a valid aroma
+  (it's a FLAVOR; absent from `AROMAS`). It was landing in `preferredAromas`
+  because both intake paths wrote the merged aroma+flavour selection to *both*
+  dimensions, so flavour-only tokens (`nutty`, `mint`, `grape`) parked
+  **permanently** Critical-Missing on every strain — inflating the miss count
+  and skewing any "missed aroma fraction" math. Both intake surfaces now split
+  the union by vocab, so a flavour-only token can never reach `preferredAromas`:
+  the questionnaire (`taste-profile-form.tsx` — `preferredAromas` filtered by
+  `AROMA_VALUES`, `preferredFlavors` by `FLAVOR_VALUES`) and the describe parser
+  (`profile-from-description.ts:320–321` — adds to `aromaSet` only if
+  `AROMA_VALUES.has(token)`, to `flavorSet` only if `FLAVOR_VALUES.has(token)`).
+  The coverage fraction is now honest; the calibration work below can proceed on
+  clean miss counts.
 - **Why deferred:** the owner explicitly wants to **monitor 20–30 test
   sessions** before any weighting change — small, broad weight moves are easy to
   over-correct. Lever B needs its curve + threshold designed and validated.
 - **Trigger to revisit:** after the monitoring window, or if a clear pattern
   emerges where high-`ref` strains with weak aroma cores rank above true
-  aroma-identity matches. Fix the `nutty`-as-aroma issue independently and
-  sooner.
+  aroma-identity matches. (The `nutty`-as-aroma hygiene blocker is already
+  fixed — see above; only the weight-calibration part of #25 remains open.)
 
 ---
 
@@ -1405,6 +1412,58 @@ and didn't do is itself valuable context.
   (`claude/ai-provider-anthropic`), built so Claude is primary and OpenAI an
   option. Pairs with #17/#20 (the conversational brain runs through the same
   provider client).
+
+---
+
+### #27 — Multiple named Sensory Profiles per account ("My Profile" → "Sensory Profile")
+
+- **Found:** 2026-06-20
+- **Source:** Owner — wants the profile to live inside the account and to save
+  **several** named profiles (e.g. an evening/heavy one and a morning one),
+  pick which to run a match against. Rename "My Profile" → "Sensory Profile".
+- **What:** Today the app behaves as one profile per user even though the data
+  model already allows many. `User.tasteProfiles TasteProfile[]` has **no unique
+  constraint on userId** — the schema is already one-to-many. The single-profile
+  behaviour is purely app-level: `GET /api/profile` and the upsert both do
+  `findFirst({ where: { userId }, orderBy: { updatedAt: "desc" } })`, so the
+  latest row is always read/overwritten. The "occasion" fields already exist
+  **per profile row**: `useTime` (morning | daytime | evening | bed), `bodyFeel`,
+  `potencyPreference`, `primaryEffect`. So an "evening heavy" vs "morning lift"
+  profile is exactly these fields living in separate named rows instead of being
+  overwritten.
+- **Why valuable:** on-thesis (time-of-day genuinely changes the desired effect
+  target, which the engine already scores), turns the account from "saves my one
+  profile" into "my personal sensory library" (a real reason to register/return),
+  and shares a language with the time-of-day artwork direction (morning/daytime/
+  sunset/night).
+- **Recommended shape:**
+  - **Schema (additive, safe):** add `name String?` to `TasteProfile` via
+    hand-written SQL in the Supabase SQL Editor (the established drop-proof
+    pattern — never db:push a column add from a stale branch). The one-to-many
+    relation itself needs no change.
+  - **API:** grow the single `/api/profile` into CRUD — `GET /api/profiles`
+    (list), create / rename / delete, and a notion of the **active/selected**
+    profile. Recommend: explicit pick at match time + remember the last used
+    (honest — the user consciously chooses the occasion), rather than the engine
+    guessing.
+  - **Main surface area — wire the chosen profile id** into every site that
+    currently grabs "the latest" profile: `analyze`, `compare`,
+    `recommendations`, `profile`, and audit/stats reads. This call-site audit is
+    the bulk of the work, not the model change.
+  - **UI:** a profile switcher/list (create / rename / delete / select) and the
+    "My Profile → Sensory Profile" relabel (UI only — the `TasteProfile` model
+    name in the DB stays).
+  - **Gating decision:** multiple named profiles = an **account** feature;
+    anonymous (cookie) users keep a single profile (current behaviour). Avoids
+    cookie clutter and keeps identity-less use unchanged.
+  - **Migration:** existing rows have no `name` → default label (e.g. "Default"
+    / "My profile") so nothing breaks.
+- **Estimated effort:** ~1–1.5 days on a dedicated branch. Not a rewrite — the
+  one-to-many bones and the per-occasion fields already exist; the work is CRUD
+  + the call-site rewiring + a switcher UI + naming.
+- **Trigger to revisit:** owner wants it after current testing; purely
+  deterministic (no AI key needed), so independent of #26. Pairs with the
+  time-of-day artwork system.
 
 ---
 

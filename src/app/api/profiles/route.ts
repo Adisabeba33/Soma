@@ -19,13 +19,27 @@ export async function GET() {
     where: { userId },
     orderBy: { createdAt: "asc" },
   });
+  // Dedupe + top-N helper for the account cards' aroma / effect chips.
+  const top = (...lists: (string[] | null | undefined)[]): string[] =>
+    Array.from(new Set(lists.flatMap((l) => l ?? []).filter(Boolean))).slice(0, 3);
+
   return NextResponse.json({
     limit: MAX_PROFILES,
     profiles: profiles.map((p) => ({
       id: p.id,
       name: p.name ?? "Main",
       isActive: p.isActive,
+      merged: p.merged,
       percent: profileCompleteness(p as unknown as TasteProfileInput).percent,
+      topAromas: top(
+        p.primaryAroma ? [p.primaryAroma] : [],
+        p.preferredAromas,
+        p.preferredFlavors,
+      ),
+      topEffects: top(
+        p.primaryEffect ? [p.primaryEffect] : [],
+        p.preferredEffects,
+      ),
     })),
   });
 }

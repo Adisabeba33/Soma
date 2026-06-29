@@ -9,13 +9,20 @@ export async function GET() {
   const userId = await getUserId();
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    select: { username: true, email: true, emailVerified: true, passwordHash: true },
+    select: {
+      username: true,
+      email: true,
+      emailVerified: true,
+      passwordHash: true,
+      createdAt: true,
+    },
   });
   return NextResponse.json({
     registered: Boolean(user?.passwordHash),
     username: user?.username ?? null,
     email: user?.email ?? null,
     emailVerified: Boolean(user?.emailVerified),
+    createdAt: user?.createdAt ?? null,
     isOwner: isOwnerUsername(user?.username),
   });
 }

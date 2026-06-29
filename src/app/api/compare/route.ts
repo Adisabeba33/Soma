@@ -6,9 +6,11 @@ import { getUserId } from "@/lib/user";
 import {
   asArray,
   getFeedbackSignals,
+  isPlausibleStrainName,
   logUnknownStrains,
 } from "@/lib/api";
 import { resolveStrain, scoreStrain, useCaseFor } from "@/lib/taste-engine";
+import { resolveBlend, analyzeMerged } from "@/lib/merge-worlds";
 import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
 import type { ComparisonItem, StrainMatch, TasteProfileInput } from "@/lib/types";
@@ -19,7 +21,7 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest) {
   const userId = await getUserId();
   const body = await req.json().catch(() => ({}));
-  const strains = asArray(body.strains, 5);
+  const strains = asArray(body.strains, 5).filter(isPlausibleStrainName);
 
   if (strains.length < 2) {
     return NextResponse.json(
@@ -62,9 +64,33 @@ export async function POST(req: NextRequest) {
   const unknownNames = strains.filter((name) => !resolveStrain(name).known);
   const overrides = await inferStrainsAI(unknownNames);
 
-  const matches: StrainMatch[] = strains.map((name) =>
-    scoreStrain(name, profile, feedback, overrides),
-  );
+  // Blend mode (merged profiles / Taste Blender) ranks the comparison too, so
+  // Compare agrees with Harvest and Taste Match. No per-run lean here (Compare
+  // has no priorities popup); the Blender's stored recipe applies when on.
+  const blend = await resolveBlend(userId);
+  let matches: StrainMatch[];
+  let mergeBreakdown:
+    | Record<string, Array<{ world: string; score: number }>>
+    | undefined;
+  if (blend) {
+    const m = analyzeMerged({
+      strains,
+      profiles: blend.profiles,
+      penalties: blend.penalties,
+      feedback,
+      overrides,
+      balance: blend.balance,
+    });
+    const byName = new Map(m.recommendations.map((r) => [r.strainName, r]));
+    matches = strains.map(
+      (name) => byName.get(name) ?? scoreStrain(name, profile, feedback, overrides),
+    );
+    mergeBreakdown = m.mergeBreakdown;
+  } else {
+    matches = strains.map((name) =>
+      scoreStrain(name, profile, feedback, overrides),
+    );
+  }
 
   const items: ComparisonItem[] = strains.map((name, i) => {
     const { strain } = resolveStrain(name, overrides);
@@ -113,6 +139,21 @@ export async function POST(req: NextRequest) {
       rawInputs: strains,
       matches,
       closestName: closest.strainName,
+      merge: blend
+        ? {
+            mode: blend.blenderActive ? "blender" : "merge",
+            balance: blend.balance,
+            bias: blend.pairLean,
+            lean2: blend.lean2,
+            profiles: blend.profiles.map((p, i) => ({
+              name: blend.worlds[i],
+              primary: p.id === blend.primaryId,
+              penalty: blend.penalties[p.id] ?? 0,
+              profile: p as unknown as TasteProfileInput,
+            })),
+            breakdown: mergeBreakdown ?? {},
+          }
+        : undefined,
     });
     writeRunAudit(entry).catch((err) =>
       console.error("compare audit failed", err),
@@ -130,6 +171,19 @@ export async function POST(req: NextRequest) {
     items: safeItems,
     closestName: closest.strainName,
     isOwner: owner,
+    // Blend recipe for the owner audit, so Compare's panel reads the same as
+    // Taste Match (mode/worlds/lean/admix, and bridge-vs-best-of wording).
+    blend:
+      owner && blend
+        ? {
+            mode: blend.blenderActive ? "blender" : "merge",
+            balance: blend.balance,
+            worlds: blend.worlds,
+            pairLean: blend.pairLean,
+            lean2: blend.lean2,
+            thirdName: blend.thirdName ?? null,
+          }
+        : null,
   });
 }
 

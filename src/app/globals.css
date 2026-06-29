@@ -58,3 +58,25 @@ body {
     background-position: 0 50%;
   }
 }
+
+/* ── Premium micro-motion ──────────────────────────────────────────────
+   A very slow, near-imperceptible "breathing" of the hero image plus a
+   drifting warm light/smoke glow, so the hero feels alive without being a
+   video. Disabled under prefers-reduced-motion. */
+@keyframes soma-breathe {
+  0%, 100% { transform: scale(1.02); }
+  50%      { transform: scale(1.065); }
+}
+@keyframes soma-drift {
+  0%   { transform: translate3d(-3%, 1%, 0); opacity: 0.35; }
+  50%  { transform: translate3d(3%, -2%, 0); opacity: 0.6; }
+  100% { transform: translate3d(-3%, 1%, 0); opacity: 0.35; }
+}
+.soma-hero-img  { animation: soma-breathe 26s ease-in-out infinite; transform-origin: 68% 42%; }
+.soma-hero-glow { animation: soma-drift 19s ease-in-out infinite; will-change: transform, opacity; }
+.soma-ease { transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1); }
+.soma-lift { transition: box-shadow .5s cubic-bezier(0.22,0.61,0.36,1), transform .5s cubic-bezier(0.22,0.61,0.36,1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .soma-hero-img, .soma-hero-glow { animation: none; }
+}

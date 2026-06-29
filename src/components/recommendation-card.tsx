@@ -194,6 +194,11 @@ export function RecommendationCard({
           <h3 className="mt-1.5 font-display text-2xl font-semibold tracking-tight">
             {match.strainName}
           </h3>
+          {match.world && (
+            <span className="mt-1 inline-flex items-center rounded-full bg-brass/10 px-2.5 py-0.5 text-[11px] font-medium text-brass">
+              via {match.world}
+            </span>
+          )}
           {!match.knownStrain && (
             <p className="text-xs text-muted-foreground">
               Not in our reference set — read inferred from the name.

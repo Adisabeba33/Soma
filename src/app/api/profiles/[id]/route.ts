@@ -37,6 +37,29 @@ export async function PATCH(
     return NextResponse.json({ ok: true });
   }
 
+  // Toggle this profile in/out of the merge set. Like activate, a profile must
+  // be usable (>= the match gate) before it can join — merging an empty profile
+  // would only dilute the blend. Removing from the set is always allowed.
+  if (body.action === "merge") {
+    const on = body.on !== false; // default true
+    if (on) {
+      const percent = profileCompleteness(
+        profile as unknown as TasteProfileInput,
+      ).percent;
+      if (percent < MATCH_GATE_PERCENT) {
+        return NextResponse.json(
+          {
+            error: `Finish this profile to ${MATCH_GATE_PERCENT}% before merging it.`,
+            percent,
+          },
+          { status: 400 },
+        );
+      }
+    }
+    await prisma.tasteProfile.update({ where: { id }, data: { merged: on } });
+    return NextResponse.json({ ok: true, merged: on });
+  }
+
   if (body.action === "activate") {
     const percent = profileCompleteness(
       profile as unknown as TasteProfileInput,

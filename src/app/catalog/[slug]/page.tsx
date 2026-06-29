@@ -12,6 +12,7 @@ import { prisma } from "@/lib/prisma";
 import { getActiveProfile } from "@/lib/active-profile";
 import { getUserIdReadOnly } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
+import { mergedMatchForStrain } from "@/lib/merge-worlds";
 import { scoreStrain } from "@/lib/taste-engine";
 import type { StrainType, TasteProfileInput } from "@/lib/types";
 import { StrainDetail, type LineageParent } from "./strain-detail";
@@ -42,6 +43,10 @@ export async function generateMetadata({
 async function loadMatch(strainName: string): Promise<CatalogMatch | undefined> {
   const userId = await getUserIdReadOnly();
   if (!userId) return undefined;
+
+  // Merge mode wins, so the detail page agrees with the blended list.
+  const merged = await mergedMatchForStrain(userId, strainName);
+  if (merged) return merged;
 
   const profile = await getActiveProfile(userId);
   if (!profile) return undefined;

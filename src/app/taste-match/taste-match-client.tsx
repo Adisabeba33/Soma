@@ -3,10 +3,17 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Bookmark, Check, Download, RotateCcw } from "lucide-react";
+import { Bookmark, Check, Download, Heart, RotateCcw } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
+import { PresetPicker } from "@/components/preset-picker";
+import type { Preset } from "@/lib/profile-presets";
 import { StrainInput } from "@/components/strain-input";
+import { RunPrioritiesModal } from "@/components/run-priorities-modal";
 import { TasteProfileSummary } from "@/components/taste-profile-summary";
+import { RunBasisCard } from "@/components/run-basis-card";
+import { ActiveProfileCard, TIME_ICON } from "@/components/active-profile-card";
+import { timeProfileForHour, TIME_HEADLINE } from "@/lib/time-of-day";
+import type { TimeProfile } from "@/lib/types";
 import { ResultsView } from "@/components/results-view";
 import { MenuQualityReport } from "@/components/menu-quality-report";
 import { Button, buttonClass } from "@/components/ui/button";
@@ -27,6 +34,8 @@ import {
 import { ProfileProgressRing, ProfileMissingList } from "@/components/profile-progress";
 import type { Verdict } from "@/components/feedback-pill";
 import { AuditPanel } from "@/components/audit-panel";
+import { BlendOverview } from "@/components/blend-overview";
+import { BlendResultsList } from "@/components/blend-results-list";
 
 type Phase = "loading" | "profile" | "gated" | "input" | "results";
 type Rec = StrainMatch & { id?: string };
@@ -35,17 +44,77 @@ export function TasteMatchClient() {
   const searchParams = useSearchParams();
   const [phase, setPhase] = useState<Phase>("loading");
   const [profile, setProfile] = useState<TasteProfileState>(EMPTY_PROFILE);
+  // Quick-start: the new-profile screen offers preset archetypes first; "Build
+  // my own" reveals the full questionnaire.
+  const [customProfile, setCustomProfile] = useState(false);
+  const [presetBusy, setPresetBusy] = useState<string | null>(null);
   const [contradictions, setContradictions] = useState<ProfileContradiction[]>(
     [],
   );
   const [strains, setStrains] = useState<string[]>([]);
   const [parsedItems, setParsedItems] = useState<ParsedMenuItem[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
+  // Per-run dense↔fluffy preference (−1…+1). 0 = no preference (default).
+  const [densityPref, setDensityPref] = useState(0);
+  // Per-run channel priorities (−1…+1 each). 0 = normal balance (default).
+  const [prioSenses, setPrioSenses] = useState(0);
+  const [prioEffect, setPrioEffect] = useState(0);
+  // Per-run merge lean (−1…+1, + toward Main). Only meaningful, and only shown,
+  // when exactly two profiles are merged.
+  const [mergeBias, setMergeBias] = useState(0);
+  const [mergeInfo, setMergeInfo] = useState<{
+    mainLabel: string;
+    otherLabel: string;
+  } | null>(null);
+  // The active profile's name (single-profile runs), so the summary can name
+  // which account is in play — it matters once there are several.
+  const [activeName, setActiveName] = useState<string>("");
+  // Current time-of-day, for the themed hero + active-profile card. Null until
+  // mounted so the server and first client render agree (the clock is read
+  // client-side, after hydration, to avoid a timezone mismatch).
+  const [timeOfDay, setTimeOfDay] = useState<TimeProfile | null>(null);
+  // When Taste Blender is on, the run scores against the blend (not the single
+  // active profile) — surfaced so the page says so instead of staying silent.
+  const [blenderInfo, setBlenderInfo] = useState<{
+    pair: string[];
+    third: string;
+    admix: number;
+    balance: boolean;
+  } | null>(null);
+  // The priorities popup shown after the user hits "Run Taste Match".
+  const [showPriorities, setShowPriorities] = useState(false);
+  // Slider values captured at the moment of the run, so the Audit reflects what
+  // was applied even if the user moves the sliders afterwards.
+  const [runSettings, setRunSettings] = useState({
+    senses: 0,
+    effect: 0,
+    density: 0,
+  });
   const [savingProfile, setSavingProfile] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recommendations, setRecommendations] = useState<Rec[]>([]);
+  // Strains on the menu that are the user's own favourites — pulled out of the
+  // ranking (they already know them) and shown in a small callout instead.
+  const [favoritesInMenu, setFavoritesInMenu] = useState<string[]>([]);
   // Audit mode is owner-only; the API reports whether this account is the owner.
   const [isOwner, setIsOwner] = useState(false);
+  // Blend recipe for the owner audit (mode/worlds/lean/admix), so the panel
+  // shows what actually drove the run.
+  const [blendAudit, setBlendAudit] = useState<{
+    mode: "merge" | "blender";
+    balance: boolean;
+    worlds: string[];
+    pairLean: number;
+    lean2: number;
+    thirdName: string | null;
+  } | null>(null);
+  // Per-world breakdown for a blend run — drives the results overview (top
+  // picks per profile + the all-rounders). Null for single-profile runs.
+  const [blendResult, setBlendResult] = useState<{
+    worlds: string[];
+    balance: boolean;
+    breakdown: Record<string, Array<{ world: string; score: number }>>;
+  } | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [engine, setEngine] = useState<"builtin" | "openai">("builtin");
   const [menuQuality, setMenuQuality] = useState<MenuQuality | null>(null);
@@ -60,6 +129,10 @@ export function TasteMatchClient() {
     percent: number;
     missing: CompletenessItem[];
   }>({ percent: 0, missing: [] });
+
+  useEffect(() => {
+    setTimeOfDay(timeProfileForHour(new Date().getHours()));
+  }, []);
 
   useEffect(() => {
     fetch("/api/strain-feedback")
@@ -79,6 +152,45 @@ export function TasteMatchClient() {
         setVerdicts(m);
       })
       .catch(() => {});
+  }, []);
+
+  // Detect the merge set, so the run popup can offer the lean lever. The lever
+  // is a single axis (Main ↔ other), so it's offered only for exactly two
+  // merged profiles. When Taste Blender is active it owns the recipe (stored,
+  // 3-way), so the per-run lever is hidden.
+  useEffect(() => {
+    Promise.all([
+      fetch("/api/profiles").then((r) => r.json()).catch(() => null),
+      fetch("/api/blender").then((r) => r.json()).catch(() => null),
+    ])
+      .then(([profilesRes, blender]) => {
+        const all = (profilesRes?.profiles ?? []) as Array<{
+          name: string;
+          isActive: boolean;
+          merged: boolean;
+        }>;
+        setActiveName(all.find((p) => p.isActive)?.name ?? "");
+        if (blender?.active) {
+          setMergeInfo(null); // Blender drives it; no per-run lever
+          setBlenderInfo({
+            pair: ((blender.pair ?? []) as Array<{ name: string }>).map((p) => p.name),
+            third: blender.third?.name ?? "",
+            admix: Math.round((blender.lean2 ?? 0) * 100),
+            balance: Boolean(blender.balance),
+          });
+          return;
+        }
+        setBlenderInfo(null);
+        const merged = all.filter((p) => p.merged);
+        if (merged.length !== 2) {
+          setMergeInfo(null);
+          return;
+        }
+        const main = merged.find((p) => p.isActive) ?? merged[0];
+        const other = merged.find((p) => p !== main) ?? merged[1];
+        setMergeInfo({ mainLabel: main.name, otherLabel: other.name });
+      })
+      .catch(() => setMergeInfo(null));
   }, []);
 
   useEffect(() => {
@@ -147,6 +259,9 @@ export function TasteMatchClient() {
             ? parsedItems.map((i) => i.rawLine).join("\n")
             : strains.join("\n"),
           parsedItems,
+          densityPreference: densityPref,
+          priorities: { senses: prioSenses, effect: prioEffect },
+          mergeBias: mergeInfo ? mergeBias : 0,
         }),
       });
       const data = await res.json();
@@ -155,7 +270,17 @@ export function TasteMatchClient() {
         return;
       }
       setRecommendations(data.recommendations ?? []);
+      setFavoritesInMenu(
+        Array.isArray(data.favoritesInMenu) ? data.favoritesInMenu : [],
+      );
+      setRunSettings({
+        senses: prioSenses,
+        effect: prioEffect,
+        density: densityPref,
+      });
       setIsOwner(Boolean(data.isOwner));
+      setBlendAudit(data.blend ?? null);
+      setBlendResult(data.blendResult ?? null);
       setSessionId(data.session?.id ?? null);
       setEngine(data.engine === "openai" ? "openai" : "builtin");
       setMenuQuality(data.menuQuality ?? null);
@@ -208,6 +333,20 @@ export function TasteMatchClient() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  // Favourites on the menu are pulled out of the ranking (the user knows them);
+  // everything else is what's actually worth ranking and discovering.
+  const favSet = new Set(favoritesInMenu);
+  const favRecs = recommendations.filter((r) => favSet.has(r.strainName));
+  const rankedRecs = recommendations.filter((r) => !favSet.has(r.strainName));
+  const rankedBreakdown: Record<
+    string,
+    Array<{ world: string; score: number }>
+  > = blendResult
+    ? Object.fromEntries(
+        Object.entries(blendResult.breakdown).filter(([n]) => !favSet.has(n)),
+      )
+    : {};
+
   return (
     <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
       <p className="text-xs uppercase tracking-[0.24em] text-brass">
@@ -218,10 +357,45 @@ export function TasteMatchClient() {
         <p className="mt-6 text-sm text-muted-foreground">Loading…</p>
       )}
 
-      {phase === "profile" && (
+      {phase === "profile" && !customProfile && (
         <>
           <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
-            Let&apos;s build your taste profile
+            Find your taste in one tap
+          </h1>
+          <p className="mt-3 max-w-xl leading-relaxed text-muted-foreground">
+            Pick the profile that fits you and start matching right away — or
+            build your own. You can refine it anytime.
+          </p>
+          {error && (
+            <p className="mt-4 rounded-xl bg-[#a23b2c]/10 px-4 py-3 text-sm text-[#a23b2c]">
+              {error}
+            </p>
+          )}
+          <div className="mt-8">
+            <PresetPicker
+              onPick={async (p: Preset) => {
+                setPresetBusy(p.id);
+                await saveProfile(p.profile);
+                setPresetBusy(null);
+              }}
+              onCustom={() => setCustomProfile(true)}
+              busyId={presetBusy}
+            />
+          </div>
+        </>
+      )}
+
+      {phase === "profile" && customProfile && (
+        <>
+          <button
+            type="button"
+            onClick={() => setCustomProfile(false)}
+            className="mt-4 text-sm text-muted-foreground hover:text-foreground"
+          >
+            ← Back to quick start
+          </button>
+          <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight">
+            Build your taste profile
           </h1>
           <p className="mt-3 leading-relaxed text-muted-foreground">
             A short sensory questionnaire. It takes a minute, and every Taste
@@ -284,31 +458,138 @@ export function TasteMatchClient() {
 
       {phase === "input" && (
         <>
-          <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
-            What&apos;s on the menu?
-          </h1>
-          <p className="mt-3 leading-relaxed text-muted-foreground">
-            Add the strains available to you. SŌMA will score each one against
-            your profile and tell you what is worth your money.
-          </p>
+          {(() => {
+            const menuWord = timeOfDay ? TIME_HEADLINE[timeOfDay] : "today";
+            const against = blenderInfo
+              ? "your blended profiles"
+              : mergeInfo
+                ? "your merged profiles"
+                : "your profile";
+            // Themed hero once we know the local time; a plain header until
+            // then (so SSR and first client render match).
+            if (!timeOfDay) {
+              return (
+                <>
+                  <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
+                    What&apos;s on the menu {menuWord}?
+                  </h1>
+                  <p className="mt-3 leading-relaxed text-muted-foreground">
+                    Add the strains available to you. SŌMA will score each one
+                    against {against} and tell you what is worth your money.
+                  </p>
+                </>
+              );
+            }
+            const Icon = TIME_ICON[timeOfDay];
+            // Atelier hero: copy on the left, a soft placeholder "photograph"
+            // on the right (stacked on mobile, art first).
+            return (
+              <div className="mt-8 grid grid-cols-1 items-center gap-8 sm:grid-cols-[1.4fr_1fr] sm:gap-12">
+                <div className="order-2 sm:order-1">
+                  <p className="text-[11px] uppercase tracking-[0.3em] text-brass">
+                    Tonight&apos;s tasting
+                  </p>
+                  <h1 className="mt-4 font-display text-[2.6rem] font-medium leading-[1.02] tracking-tight sm:text-5xl">
+                    What&apos;s on the menu{" "}
+                    <span className="italic text-brass">{menuWord}</span>?
+                  </h1>
+                  <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
+                    <Icon className="mr-1.5 inline-block h-4 w-4 align-[-2px] text-brass" />
+                    Add the strains available to you. SŌMA scores each one
+                    against {against} and ranks them by what is worth your money.
+                  </p>
+                </div>
+                <div className="relative order-1 aspect-[16/11] overflow-hidden rounded-[1.75rem] shadow-[0_44px_90px_-34px_rgba(55,40,20,0.6)] ring-1 ring-black/5 sm:order-2 sm:aspect-[3/4]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/hero/evening.webp"
+                    alt=""
+                    aria-hidden
+                    loading="eager"
+                    className="soma-hero-img absolute inset-0 h-full w-full object-cover"
+                  />
+                  {/* Slow drifting warm light/smoke — the hero feels alive. */}
+                  <div
+                    className="soma-hero-glow pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "radial-gradient(55% 45% at 70% 32%, rgba(255,208,135,0.4), transparent 70%)",
+                      mixBlendMode: "screen",
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })()}
           <ProfileContradictionBanner contradictions={contradictions} />
-          <div className="mt-8">
-            <TasteProfileSummary
-              state={profile}
-              contradictions={contradictions}
-            />
+          <div className="mt-12 sm:mt-14">
+            {blenderInfo ? (
+              <RunBasisCard blender={blenderInfo} />
+            ) : mergeInfo ? (
+              <RunBasisCard
+                merge={{ names: [mergeInfo.mainLabel, mergeInfo.otherLabel] }}
+              />
+            ) : timeOfDay ? (
+              <ActiveProfileCard
+                name={activeName}
+                percent={completion.percent}
+                aromas={Array.from(
+                  new Set([
+                    ...profile.preferredAromas,
+                    ...(profile.primaryAroma ? [profile.primaryAroma] : []),
+                  ]),
+                ).slice(0, 3)}
+                effects={Array.from(
+                  new Set([
+                    ...profile.preferredEffects,
+                    ...(profile.primaryEffect ? [profile.primaryEffect] : []),
+                  ]),
+                ).slice(0, 3)}
+                time={timeOfDay}
+              />
+            ) : (
+              <TasteProfileSummary
+                state={profile}
+                contradictions={contradictions}
+                profileName={activeName}
+              />
+            )}
           </div>
-          <div className="mt-8">
+          <div className="mt-16 sm:mt-20">
             <StrainInput
               strains={strains}
               onChange={setStrains}
-              onAnalyze={runAnalysis}
+              onAnalyze={() => setShowPriorities(true)}
               analyzing={analyzing}
               error={error}
               parsedItems={parsedItems}
               onParsedItemsChange={setParsedItems}
             />
           </div>
+          <RunPrioritiesModal
+            open={showPriorities}
+            onClose={() => setShowPriorities(false)}
+            onContinue={() => {
+              setShowPriorities(false);
+              runAnalysis();
+            }}
+            senses={prioSenses}
+            effect={prioEffect}
+            density={densityPref}
+            onSenses={setPrioSenses}
+            onEffect={setPrioEffect}
+            onDensity={setDensityPref}
+            merge={
+              mergeInfo
+                ? {
+                    bias: mergeBias,
+                    onBias: setMergeBias,
+                    mainLabel: mergeInfo.mainLabel,
+                    otherLabel: mergeInfo.otherLabel,
+                  }
+                : undefined
+            }
+          />
         </>
       )}
 
@@ -363,15 +644,47 @@ export function TasteMatchClient() {
           </div>
 
           <div className="mt-8">
-            <TasteProfileSummary
-              state={profile}
-              contradictions={contradictions}
-            />
+            {blenderInfo ? (
+              <RunBasisCard blender={blenderInfo} />
+            ) : mergeInfo ? (
+              <RunBasisCard
+                merge={{ names: [mergeInfo.mainLabel, mergeInfo.otherLabel] }}
+              />
+            ) : (
+              <TasteProfileSummary
+                state={profile}
+                contradictions={contradictions}
+                profileName={activeName}
+              />
+            )}
           </div>
 
           {menuQuality && menuQuality.totalParsed > 0 && (
             <div className="mt-6">
               <MenuQualityReport quality={menuQuality} />
+            </div>
+          )}
+
+          {favRecs.length > 0 && (
+            <div className="mt-6 rounded-2xl border border-brass/30 bg-brass/[0.05] px-5 py-4">
+              <p className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.18em] text-brass">
+                <Heart className="h-3.5 w-3.5" />
+                Your favourites on this menu
+              </p>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {favRecs.map((r) => (
+                  <span
+                    key={r.strainName}
+                    className="rounded-full bg-card px-3 py-1 text-sm font-medium ring-1 ring-brass/30"
+                  >
+                    {r.strainName}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                You already know these — kept out of the ranking below, which
+                scores only the strains you haven&apos;t tried.
+              </p>
             </div>
           )}
 
@@ -383,15 +696,36 @@ export function TasteMatchClient() {
           {/* Audit mode — the engine's reasoning per strain. Owner-only. */}
           {isOwner && (
             <div className="mt-6">
-              <AuditPanel items={recommendations} />
+              <AuditPanel
+                items={recommendations}
+                runSettings={runSettings}
+                blend={blendAudit}
+              />
             </div>
           )}
 
           <div className="mt-10">
-            <ResultsView
-              recommendations={recommendations}
-              verdicts={verdicts}
-            />
+            {blendResult && blendResult.worlds.length >= 2 ? (
+              // Blend run: winners board → the per-profile / bridge lenses →
+              // the rest of the ranking (all selectable to compare).
+              <BlendResultsList
+                recommendations={rankedRecs}
+                verdicts={verdicts}
+                worlds={blendResult.worlds}
+                breakdown={rankedBreakdown}
+                middle={
+                  <BlendOverview
+                    worlds={blendResult.worlds}
+                    breakdown={rankedBreakdown}
+                  />
+                }
+              />
+            ) : (
+              <ResultsView
+                recommendations={rankedRecs}
+                verdicts={verdicts}
+              />
+            )}
           </div>
 
           <div className="mt-12 flex flex-wrap items-center gap-3 border-t border-border pt-8">

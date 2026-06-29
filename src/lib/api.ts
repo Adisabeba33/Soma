@@ -119,6 +119,17 @@ export function asArray(value: unknown, max = 40): string[] {
   return out;
 }
 
+// Reject obvious non-strain input before it's scored — a typed question or a
+// chat phrase ("Топ 5 по блендеру?", "what's good tonight?") should never
+// become a scored strain. Strain names never contain a '?', and a real name
+// always has at least one letter. Deliberately conservative so unusual but
+// genuine names (and unknown strains the AI layer can infer) still pass.
+export function isPlausibleStrainName(s: string): boolean {
+  if (s.includes("?")) return false;
+  if (!/[a-zA-Zа-яА-ЯёЁ]/.test(s)) return false;
+  return true;
+}
+
 export function asText(value: unknown, max = 4000): string | null {
   if (typeof value !== "string") return null;
   const trimmed = value.trim();
@@ -327,6 +338,7 @@ export function dbRecToView(
       sensory: 0,
       potency: 0,
       familyPref: 0,
+      density: 0,
     },
     feedback: toFeedbackData(feedback),
     purchaseConfidence,

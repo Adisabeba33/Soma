@@ -131,8 +131,9 @@ describe("buildAuditEntry — Compare run", () => {
     });
     assert.equal(entry.source, "compare");
     assert.equal(entry.userId, "user-123");
-    assert.equal(entry.schemaVersion, 2);
+    assert.equal(entry.schemaVersion, 4);
     assert.equal(entry.taste, undefined);
+    assert.equal(entry.merge, undefined);
     assert.equal(entry.modeSnapshot.trustMode, true);
     assert.equal(entry.modeSnapshot.targetFamily, "nighttime-indica");
     assert.equal(entry.items.length, 2);
@@ -255,5 +256,85 @@ describe("buildAuditEntry — Taste Match run", () => {
     const parsed = JSON.parse(json);
     assert.equal(parsed.source, "compare");
     assert.equal(parsed.items[0].canonical, "Tangie");
+  });
+});
+
+describe("buildAuditEntry — merge run", () => {
+  it("records the lean, a snapshot per world, and per-item world + raw scores", () => {
+    const gas = profile({
+      favoriteStrains: ["GG4"],
+      preferredAromas: ["gassy"],
+      preferredEffects: ["relaxed"],
+    });
+    const skunk = profile({
+      favoriteStrains: ["Skunk #1"],
+      preferredAromas: ["skunky"],
+      preferredEffects: ["happy"],
+    });
+    const inputs = ["GG4", "Skunk #1"];
+    // Merge attaches the winning world to each match; mimic that here.
+    const matches = inputs.map((n) => ({
+      ...scoreStrain(n, gas),
+      world: n === "GG4" ? "Gas" : "Skunk",
+    }));
+    const breakdown = {
+      GG4: [
+        { world: "Gas", score: 94 },
+        { world: "Skunk", score: 40 },
+      ],
+      "Skunk #1": [
+        { world: "Gas", score: 50 },
+        { world: "Skunk", score: 95 },
+      ],
+    };
+
+    const entry = buildAuditEntry({
+      source: "taste-match",
+      userId: "u",
+      profile: gas,
+      rawInputs: inputs,
+      matches,
+      closestName: "GG4",
+      merge: {
+        mode: "blender",
+        balance: false,
+        bias: 0.6,
+        lean2: 0.4,
+        profiles: [
+          { name: "Gas", primary: true, penalty: 0, profile: gas },
+          { name: "Skunk", primary: false, penalty: 15, profile: skunk },
+        ],
+        breakdown,
+      },
+    });
+
+    assert.equal(entry.schemaVersion, 4);
+    assert.ok(entry.merge);
+    assert.equal(entry.merge?.mode, "blender");
+    assert.equal(entry.merge?.balance, false);
+    assert.equal(entry.merge?.bias, 0.6);
+    assert.equal(entry.merge?.lean2, 0.4);
+    assert.equal(entry.merge?.profiles.length, 2);
+    assert.equal(entry.merge?.profiles[0].primary, true);
+    assert.equal(entry.merge?.profiles[1].penalty, 15);
+    // Every merged world carries its own derived snapshot.
+    assert.ok(entry.merge?.profiles[0].modeSnapshot);
+    assert.ok(entry.merge?.profiles[1].modeSnapshot);
+    // Per item: which world won + every world's raw pre-lean score.
+    const gg4 = entry.items.find((i) => i.canonical === "GG4");
+    assert.equal(gg4?.world, "Gas");
+    assert.equal(gg4?.perWorld?.length, 2);
+    assert.equal(gg4?.perWorld?.[0].score, 94);
+    // Single-profile items stay merge-free.
+    const single = buildAuditEntry({
+      source: "compare",
+      userId: "u",
+      profile: gas,
+      rawInputs: ["GG4"],
+      matches: [scoreStrain("GG4", gas)],
+      closestName: "GG4",
+    });
+    assert.equal(single.merge, undefined);
+    assert.equal(single.items[0].world, undefined);
   });
 });

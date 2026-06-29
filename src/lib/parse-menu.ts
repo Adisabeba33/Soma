@@ -182,6 +182,17 @@ export function parseMenuRich(text: string): ParsedMenuItem[] {
       segment.includes(",") && !/\s[-–—|]\s/.test(segment)
         ? segment.split(",")
         : [segment],
+    )
+    // Combined "A / B / C" listings — dispensary bundles/multi-packs and SOMA's
+    // own tie-grouped display ("Wedding Mintz / Sherb Cake") — are split into
+    // separate strains so each resolves to its catalog entry instead of scoring
+    // as one unknown. Only split on a spaced slash flanked by letters, so names
+    // with an internal slash ("AC/DC") and fraction weights ("1/8", "1 / 8")
+    // are left intact.
+    .flatMap((segment) =>
+      /[A-Za-z]\s+\/\s+[A-Za-z]/.test(segment)
+        ? segment.split(/\s+\/\s+/)
+        : [segment],
     );
 
   const seen = new Set<string>();

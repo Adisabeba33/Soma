@@ -11,9 +11,6 @@ import {
   ChevronDown,
   Mic,
   Wand2,
-  Search,
-  GitCompareArrows,
-  History,
 } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { getUserIdReadOnly } from "@/lib/user";
@@ -25,26 +22,9 @@ import {
 } from "@/lib/profile-completeness";
 import { ProfileProgressRing } from "@/components/profile-progress";
 import type { TasteProfileInput } from "@/lib/types";
-import { STRAINS, findStrain, normalizeStrainName } from "@/lib/strain-data";
-import { scoreStrain } from "@/lib/taste-engine";
-import { getFeedbackSignals } from "@/lib/api";
-import { strainSlug } from "@/lib/catalog";
-import { getIdentity } from "@/lib/strain-identity";
-import { artImageSrc, artFocusOf, timeProfileOf } from "@/lib/strain-art";
-import { paletteForTime } from "@/lib/sensory-family-palette";
+import { getTopMatches, type TopMatch } from "@/lib/top-matches";
 
 export const dynamic = "force-dynamic";
-
-type TopMatch = {
-  name: string;
-  slug: string;
-  type: string;
-  score: number;
-  category: string;
-  img: string | null;
-  focus: string;
-  bg: string;
-};
 
 const STEPS = [
   {
@@ -67,63 +47,47 @@ const STEPS = [
 // The home page adapts to who's here: anonymous / first-time visitors get the
 // "meet the sommelier" marketing greeting; a registered, logged-in user lands on
 // their account dashboard instead — no re-running the questionnaire or login.
+// Resolve the session + user, but never let a DB hiccup take the landing page
+// down. Both getUserIdReadOnly and the user lookup hit the database; if it's
+// briefly unreachable (e.g. Supabase pausing), degrade to the anonymous home
+// instead of a hard "Application error" 500.
+async function resolveUser() {
+  try {
+    const userId = await getUserIdReadOnly();
+    if (!userId) return { userId: null, user: null };
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { passwordHash: true, username: true },
+    });
+    return { userId, user };
+  } catch (err) {
+    console.error("home: session/user lookup failed (DB unreachable?)", err);
+    return { userId: null, user: null };
+  }
+}
+
 export default async function HomePage() {
-  const userId = await getUserIdReadOnly();
-  const user = userId
-    ? await prisma.user.findUnique({
-        where: { id: userId },
-        select: { passwordHash: true, username: true },
-      })
-    : null;
+  const { userId, user } = await resolveUser();
 
   if (user?.passwordHash) {
     // The dashboard data (profile + per-strain scoring) must never take the
     // home page — and the post-login redirect to it — down. Anything that
     // throws here degrades gracefully to the shell without the carousel.
     let percent = 0;
-    let topMatches: TopMatch[] = [];
     try {
       const profile = await getActiveProfile(userId!);
       if (profile) {
-        const p = profile as unknown as TasteProfileInput;
-        percent = profileCompleteness(p).percent;
-
-        // Top catalog matches for the carousel — only once the profile clears
-        // the gate, so we never show a "best match" off a too-thin profile.
-        if (percent >= MATCH_GATE_PERCENT) {
-          const feedback = await getFeedbackSignals(userId!);
-          // Exclude the user's own favourites — they anchor near the top
-          // (94–96%) and the carousel is for DISCOVERY. Resolved to canonical
-          // names so aliases (e.g. Gorilla Glue → GG4) match.
-          const favourites = new Set(
-            (p.favoriteStrains ?? [])
-              .map((f) => normalizeStrainName(findStrain(f)?.name ?? f))
-              .filter(Boolean),
-          );
-          topMatches = STRAINS.filter(
-            (s) => !favourites.has(normalizeStrainName(s.name)),
-          )
-            .map((s) => {
-              const m = scoreStrain(s.name, p, feedback);
-              const identity = getIdentity(s.name);
-              return {
-                name: s.name,
-                slug: strainSlug(s.name),
-                type: s.type,
-                score: m.matchScore,
-                category: m.category,
-                img: artImageSrc(s, identity),
-                focus: artFocusOf(identity),
-                bg: paletteForTime(timeProfileOf(s, identity)).background,
-              };
-            })
-            .sort((a, b) => b.score - a.score)
-            .slice(0, 12);
-        }
+        percent = profileCompleteness(
+          profile as unknown as TasteProfileInput,
+        ).percent;
       }
     } catch (err) {
-      console.error("home dashboard data failed", err);
+      console.error("home: profile completeness failed", err);
     }
+    // Blend-aware top catalog matches for the carousel (shared with the account
+    // discoveries strip). Self-guarding — returns [] on a thin profile or a DB
+    // hiccup, so it never takes the home page down.
+    const topMatches = userId ? await getTopMatches(userId) : [];
 
     return (
       <LoggedInHome
@@ -176,9 +140,10 @@ function LoggedInHome({
           Two ways to find your flower.
         </p>
 
-        <div className="mt-9 grid gap-5 sm:grid-cols-2">
-          {/* Element 1 — the deterministic engine on the saved profile. */}
-          <div className="flex flex-col rounded-2xl border border-accent/40 bg-white/60 p-6 shadow-xl backdrop-blur-md">
+        <div className="mt-10 grid items-start gap-5 sm:grid-cols-[1.5fr_1fr]">
+          {/* Element 1 — the deterministic engine on the saved profile. The
+              hero of the dashboard: it always reads stronger than the rest. */}
+          <div className="soma-lift flex flex-col rounded-[1.75rem] border border-accent/50 bg-white/70 p-7 shadow-2xl backdrop-blur-md">
             <div className="flex items-center gap-3">
               <Leaf className="h-6 w-6 text-accent" />
               <h2 className="font-display text-xl font-semibold tracking-tight">
@@ -217,8 +182,10 @@ function LoggedInHome({
             </div>
           </div>
 
-          {/* Element 2 — conversational / voice LLM quick-pick (stub). */}
-          <div className="relative flex flex-col rounded-2xl border border-white/55 bg-white/45 p-6 shadow-xl backdrop-blur-md">
+          {/* Element 2 — conversational / voice LLM quick-pick (stub). Kept
+              deliberately secondary so it never competes with Taste Match:
+              lighter surface, softer shadow, shorter. */}
+          <div className="relative flex flex-col self-start rounded-[1.75rem] border border-white/40 bg-white/30 p-6 shadow-sm backdrop-blur-md">
             <span className="absolute right-4 top-4 rounded-full bg-white/70 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
               Coming soon
             </span>
@@ -241,28 +208,22 @@ function LoggedInHome({
           </div>
         </div>
 
-        {/* Tab bar — frosted, icon + label. */}
-        <div className="mt-8">
-          <nav className="flex items-center justify-around rounded-2xl border border-white/55 bg-white/55 px-2 py-2 shadow-lg backdrop-blur-md">
-            <TabLink href="/compare" icon={GitCompareArrows} label="Compare" />
-            <TabLink href="/catalog" icon={Search} label="Harvest" />
-            <TabLink href="/saved" icon={History} label="History" />
-            <TabLink href="/account" icon={User} label="Account" />
-          </nav>
-        </div>
-
-        {/* Best matches carousel — horizontal scroll, compact frosted cards. */}
+        {/* Best matches carousel — a premium collection to browse. Snap +
+            momentum, cards peek from the edge, soft shadows, a subtle lift. */}
         {topMatches.length > 0 && (
-          <section className="mt-10">
-            <h2 className="font-display text-xl font-semibold tracking-tight">
-              Best match for your sensory profile
+          <section className="mt-16">
+            <p className="text-[11px] uppercase tracking-[0.24em] text-brass">
+              Your collection
+            </p>
+            <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight">
+              Best matches for your taste
             </h2>
-            <div className="mt-4 -mx-5 flex snap-x gap-3 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0">
+            <div className="mt-5 -mx-5 flex snap-x snap-mandatory scroll-smooth gap-4 overflow-x-auto px-5 pb-3 [-ms-overflow-style:none] [scrollbar-width:none] sm:-mx-8 sm:px-8 [&::-webkit-scrollbar]:hidden">
               {topMatches.map((m) => (
                 <Link
                   key={m.slug}
                   href={`/catalog/${m.slug}`}
-                  className="w-36 shrink-0 snap-start overflow-hidden rounded-2xl border border-white/55 bg-white/55 shadow-md backdrop-blur-md transition-colors hover:bg-white/80 sm:w-40"
+                  className="soma-ease w-44 shrink-0 snap-start overflow-hidden rounded-[1.5rem] border border-white/55 bg-white/55 shadow-lg backdrop-blur-md transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-2xl sm:w-48"
                 >
                   <div className="relative aspect-[3/4]">
                     {m.img ? (
@@ -297,26 +258,6 @@ function LoggedInHome({
         )}
       </div>
     </section>
-  );
-}
-
-function TabLink({
-  href,
-  icon: Icon,
-  label,
-}: {
-  href: string;
-  icon: typeof Leaf;
-  label: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="flex flex-1 flex-col items-center gap-1 rounded-xl py-1.5 text-muted-foreground transition-colors hover:text-foreground"
-    >
-      <Icon className="h-5 w-5" />
-      <span className="text-[0.7rem] font-medium">{label}</span>
-    </Link>
   );
 }
 

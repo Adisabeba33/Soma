@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/compare",
     "/catalog",
     "/learn",
+    "/how-it-works",
     "/privacy",
     "/terms",
   ].map((path) => ({

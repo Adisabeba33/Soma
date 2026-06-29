@@ -7,7 +7,9 @@ import { strainSlug } from "@/lib/catalog";
 import { knownAsNames } from "@/lib/strain-identity";
 import { paletteForTime } from "@/lib/sensory-family-palette";
 import { timeProfileOf, artImageSrc, artFocusOf } from "@/lib/strain-art";
+import { tierOf, TIER_STYLE } from "@/lib/collection-tier";
 import { FitText } from "@/components/fit-text";
+import { WishlistButton } from "@/components/wishlist-button";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 
 // Poster-style collectible card. The atmospheric gradient *is* the
@@ -28,10 +30,24 @@ export function CatalogCollectibleCard({
   entry,
   match,
   score,
+  className,
+  wishlist = false,
+  wishlistSource,
+  worldLabel,
 }: {
   entry: CatalogEntry;
   match?: CatalogMatch;
   score: number;
+  // Optional styling on the outer <li> — the Collection shelf uses it to
+  // frame a card by the user's verdict (glow for loved, dim for avoid).
+  className?: string;
+  // Show a "want to try" overlay (catalog browsing). Off on the shelf, where
+  // every card has already been tried.
+  wishlist?: boolean;
+  wishlistSource?: string;
+  // "All my worlds" feed: which taste profile produced this card's score
+  // (e.g. "via your Skunk side"), or "Both worlds" for a universal pick.
+  worldLabel?: string;
 }) {
   const { strain, identity } = entry;
   // Other names people know this strain by (e.g. WiFi OG for White Fire OG),
@@ -49,14 +65,23 @@ export function CatalogCollectibleCard({
   const showMatch = Boolean(match);
   const badgeValue = match ? match.score : score;
   const badgeLabel = showMatch ? "MATCH" : "CURATED";
+  const tier = tierOf(strain.name);
 
   return (
-    <li className="relative">
+    <li className={cn("relative", className)}>
+      {wishlist && (
+        <WishlistButton
+          name={strain.name}
+          source={wishlistSource}
+          label={false}
+          className="absolute right-3 top-3 z-20"
+        />
+      )}
       <Link
         href={`/catalog/${strainSlug(strain.name)}`}
         className={cn(
-          "relative flex aspect-[3/4] h-full flex-col justify-between overflow-hidden rounded-2xl border border-border/40 p-5 transition-all",
-          "hover:scale-[1.01] hover:border-accent/40 hover:shadow-lg",
+          "group relative flex aspect-[3/4] h-full flex-col justify-between overflow-hidden rounded-2xl border border-border/40 p-5 transition-all duration-300 ease-out",
+          "hover:-translate-y-0.5 hover:scale-[1.02] hover:border-accent/40 hover:shadow-xl active:scale-[0.99]",
           lightText ? "text-white" : "text-foreground",
         )}
         style={{ background: palette.background }}
@@ -69,7 +94,7 @@ export function CatalogCollectibleCard({
               alt=""
               aria-hidden
               loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-hover:brightness-[1.08]"
               style={{ objectPosition: artFocusOf(identity) }}
             />
             {/* Bottom scrim keeps the overlaid name/tagline legible over any
@@ -83,9 +108,9 @@ export function CatalogCollectibleCard({
             />
           </>
         )}
-        {/* Top: match badge — leaves the rest of the upper card for
-            the gradient to breathe */}
-        <div className="relative z-10">
+        {/* Top: match badge + collection tier — leaves the rest of the upper
+            card for the gradient/art to breathe */}
+        <div className="relative z-10 flex flex-col items-start gap-2">
           <div
             className="inline-flex h-12 w-12 flex-col items-center justify-center rounded-full bg-white/95 text-foreground shadow-md"
             title={
@@ -101,6 +126,21 @@ export function CatalogCollectibleCard({
               {badgeLabel}
             </span>
           </div>
+          {tier && (
+            <span
+              className={cn(
+                "rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] shadow-sm backdrop-blur-sm",
+                TIER_STYLE[tier],
+              )}
+            >
+              {tier}
+            </span>
+          )}
+          {worldLabel && (
+            <span className="rounded-full bg-foreground/85 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-background shadow-sm backdrop-blur-sm">
+              {worldLabel}
+            </span>
+          )}
         </div>
 
         {/* Bottom: strain identity + tagline + chevron. Sits at the

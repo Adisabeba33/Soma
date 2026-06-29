@@ -7,16 +7,83 @@ import type { StrainMatch } from "@/lib/types";
 
 type AuditItem = StrainMatch & { id?: string };
 
+// Per-run slider settings, surfaced so the owner can see what was actually
+// applied to the run (priorities reweight channels and the density slider adds
+// the Structure bonus — neither is obvious from the per-strain numbers alone).
+export type RunSettings = { senses: number; effect: number; density: number };
+
+function formatRunSettings(rs: RunSettings): string {
+  const mul = (v: number) => (1 + v * 0.5).toFixed(2);
+  const parts: string[] = [];
+  if (rs.senses !== 0) parts.push(`Smell & taste ×${mul(rs.senses)}`);
+  if (rs.effect !== 0) parts.push(`Effect ×${mul(rs.effect)}`);
+  if (rs.density !== 0) {
+    const dir = rs.density > 0 ? "dense" : "fluffy";
+    parts.push(`Structure: ${dir} ${Math.abs(rs.density).toFixed(2)}`);
+  }
+  return parts.length > 0 ? parts.join(" · ") : "all neutral (defaults)";
+}
+
 // Serialize the full audit to plain text so the owner can copy it in one tap
 // and paste it back for engine tuning. Mirrors what the panel shows, but holds
 // nothing back (no top-N slicing) — the copy is the complete read.
-function buildAuditText(items: AuditItem[]): string {
+// The blend recipe behind a run, so the owner sees the run was blended (and
+// how) instead of guessing from the per-strain numbers.
+export type BlendAudit = {
+  mode: "merge" | "blender";
+  balance: boolean;
+  worlds: string[];
+  pairLean: number;
+  lean2: number;
+  thirdName: string | null;
+};
+
+function formatBlend(b: BlendAudit): string {
+  const lean = Math.round(b.pairLean * 100);
+  const leanStr =
+    lean === 0
+      ? "balanced pair"
+      : lean > 0
+        ? `pair lean +${lean}% to primary`
+        : `pair lean ${lean}% to other`;
+  const parts = [
+    b.mode === "blender" ? "Taste Blender (3-way)" : "Merge (pair)",
+    b.worlds.join(" + "),
+    b.thirdName ? `+ ${b.thirdName} admix ${Math.round(b.lean2 * 100)}%` : null,
+    leanStr,
+    b.balance ? "mode: balance (min/bridge)" : "mode: best-of (max)",
+  ].filter(Boolean);
+  return parts.join(" · ");
+}
+
+function buildAuditText(
+  items: AuditItem[],
+  runSettings?: RunSettings,
+  blend?: BlendAudit | null,
+): string {
   const lines: string[] = [
     `SOMA Audit — ${items.length} strain${items.length === 1 ? "" : "s"}`,
-    "",
   ];
+  if (runSettings) lines.push(`Run settings: ${formatRunSettings(runSettings)}`);
+  if (blend) lines.push(`Blend: ${formatBlend(blend)}`);
+  lines.push("");
+  // In balance/bridge mode the shown world is the LOWEST (limiting) side, not
+  // the winner — label it so "via" can't read as "best world".
+  const bridge = Boolean(blend?.balance);
   for (const item of items) {
-    lines.push(`${item.strainName} — Final ${formatScore(item.matchScore)}`);
+    const worldTag = item.world
+      ? bridge
+        ? `  [limited by ${item.world}]`
+        : `  [via ${item.world}]`
+      : "";
+    lines.push(
+      `${item.strainName} — Final ${formatScore(item.matchScore)}${worldTag}`,
+    );
+    if (item.avoidedBy && item.avoidedBy.length > 0) {
+      lines.push(
+        `  Global avoid — sunk to weakest world (avoided by: ${item.avoidedBy.join(", ")})`,
+      );
+    }
     const fb =
       item.feedbackPotential !== 0
         ? `potential ${item.feedbackPotential > 0 ? "+" : ""}${item.feedbackPotential} × decay ${item.feedbackDecay.toFixed(2)} → applied ${item.feedbackAdjustment > 0 ? "+" : ""}${item.feedbackAdjustment}`
@@ -33,6 +100,7 @@ function buildAuditText(items: AuditItem[]): string {
       ["potency", "Potency"],
       ["texture", "Texture"],
       ["familyPref", "Family pref"],
+      ["density", "Structure"],
     ];
     const activeBz = bz
       .map(([k, l]) => [l, item.bonuses[k]] as const)
@@ -82,7 +150,15 @@ function buildAuditText(items: AuditItem[]): string {
 // Audit Mode — the engine's reasoning per strain, shared by Taste Match and
 // Compare. Shows how the score was reached (raw → potential × decay → applied)
 // and WHY it ranks where it does (top matches + penalties).
-export function AuditPanel({ items }: { items: AuditItem[] }) {
+export function AuditPanel({
+  items,
+  runSettings,
+  blend,
+}: {
+  items: AuditItem[];
+  runSettings?: RunSettings;
+  blend?: BlendAudit | null;
+}) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   if (items.length === 0) return null;
@@ -92,7 +168,7 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
   );
 
   const handleCopy = async () => {
-    const text = buildAuditText(sorted);
+    const text = buildAuditText(sorted, runSettings, blend);
     try {
       await navigator.clipboard.writeText(text);
     } catch {
@@ -138,6 +214,28 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
               {copied ? "Copied ✓" : "Copy audit"}
             </button>
           </div>
+          {runSettings && (
+            <p className="rounded-md bg-muted/60 px-2.5 py-1.5 text-[11px] text-foreground">
+              <span className="font-medium">Run settings:</span>{" "}
+              <span className="font-mono">{formatRunSettings(runSettings)}</span>
+            </p>
+          )}
+          {blend && (
+            <p className="rounded-md bg-accent/10 px-2.5 py-1.5 text-[11px] text-foreground">
+              <span className="font-medium text-accent">Blend:</span>{" "}
+              <span className="font-mono">{formatBlend(blend)}</span>
+              {blend.balance && (
+                <span className="mt-1 block text-muted-foreground">
+                  Bridge mode: each Final is the strain&apos;s{" "}
+                  <span className="font-medium text-foreground">weakest</span>{" "}
+                  world (min across all sides), and{" "}
+                  <span className="font-medium text-foreground">limited by</span>{" "}
+                  marks that world. Single-world stars score lower here — that is
+                  the point.
+                </span>
+              )}
+            </p>
+          )}
           <p className="text-[11px] leading-relaxed text-muted-foreground/80">
             <span className="font-mono">raw</span> = score before feedback ·{" "}
             <span className="font-mono">potential</span> = feedback at full
@@ -156,7 +254,21 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
                 className="border-t border-border/60 pt-2 first:border-0 first:pt-0"
               >
                 <div className="flex items-baseline justify-between gap-2">
-                  <span className="text-sm font-medium">{item.strainName}</span>
+                  <span className="text-sm font-medium">
+                    {item.strainName}
+                    {item.world && (
+                      <span
+                        className="ml-1.5 rounded bg-accent/15 px-1.5 py-0.5 align-middle text-[9px] font-semibold uppercase tracking-wide text-accent"
+                        title={
+                          blend?.balance
+                            ? "Bridge mode: the weakest world — the side that constrained this strain's score"
+                            : "Best-of: the world that produced this strain's best score"
+                        }
+                      >
+                        {blend?.balance ? "limited by" : "via"} {item.world}
+                      </span>
+                    )}
+                  </span>
                   <span className="font-mono text-xs">
                     Final {formatScore(item.matchScore)}
                   </span>
@@ -178,6 +290,17 @@ export function AuditPanel({ items }: { items: AuditItem[] }) {
                     " · no feedback"
                   )}
                 </div>
+                {item.avoidedBy && item.avoidedBy.length > 0 && (
+                  <p className="mt-1.5 rounded bg-[#a23b2c]/10 px-2 py-1 text-[11px] text-[#a23b2c]">
+                    <span className="font-semibold">⚠ Global avoid</span> — sunk
+                    to its weakest world (avoid is shared across the blend).
+                    Avoided by:{" "}
+                    <span className="font-medium">
+                      {item.avoidedBy.join(", ")}
+                    </span>
+                    . This is why the final sits far below the visible channels.
+                  </p>
+                )}
                 <div className="mt-2">
                   <p className="font-medium uppercase tracking-[0.1em] text-muted-foreground text-[11px]">
                     Channels{" "}

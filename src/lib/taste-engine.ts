@@ -20,6 +20,7 @@ import { primaryAromaTokens, type ResolvedTarget } from "./profile-target";
 import { deriveTasteModes } from "./taste-modes";
 import { familyMatches } from "./strain-families";
 import { riskEntryFor, riskTagsFor, RISK_EFFECT_OVERLAP } from "./risk-tags";
+import { densityBonus, densityPreferenceFromProfile } from "./bud-structure";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
 import type {
   AnalysisResult,
@@ -614,11 +615,25 @@ function typeMatchBonus(
   return pref && pref === strain.type ? TYPE_MATCH_BONUS : 0;
 }
 
+// Penalty weights for dislike conflicts (points subtracted from raw).
+//   HARD_CONFLICT_PENALTY      — structural trait mismatches (too-light /
+//     too-heavy / sharp-citrus). Genuine wrong-direction picks; full hit.
+//   DISLIKE_PRIMARY_PENALTY    — a disliked aroma/effect that is one of the
+//     strain's DOMINANT (primary) notes. Softer than a structural conflict
+//     (halved from the old flat 15) but still meaningful.
+//   DISLIKE_SECONDARY_PENALTY  — a disliked aroma/effect the strain carries
+//     only as a secondary note. Half again — a nudge, not a cliff.
+// Two-tier so "I'd rather avoid citrus" dents a citrus-forward strain but
+// barely touches one that only has a faint citrus edge.
+const HARD_CONFLICT_PENALTY = 15;
+const DISLIKE_PRIMARY_PENALTY = 8;
+const DISLIKE_SECONDARY_PENALTY = 4;
+
 function dislikedConflicts(
   strain: StrainProfile,
   profile: TasteProfileInput,
   favorites: StrainProfile[],
-): string[] {
+): { text: string; points: number }[] {
   // Reconcile self-contradicting profiles. If any of the user's
   // favourites would themselves trigger a given dislike (e.g., user
   // dislikes "too-heavy" but favourites contain heavy-body indicas),
@@ -638,7 +653,7 @@ function dislikedConflicts(
     (a) => !favorites.some((f) => f.aromas.includes(a) || f.flavors.includes(a)),
   );
 
-  const conflicts: string[] = [];
+  const conflicts: { text: string; points: number }[] = [];
   const has = (...tags: string[]) =>
     tags.some(
       (t) =>
@@ -653,37 +668,52 @@ function dislikedConflicts(
       d === "sharp-citrus" &&
       (strain.aromas.includes("citrus") || strain.flavors.includes("citrus"))
     ) {
-      conflicts.push("citrus-forward, which can read as the sharp citrus you avoid");
+      conflicts.push({
+        text: "citrus-forward, which can read as the sharp citrus you avoid",
+        points: HARD_CONFLICT_PENALTY,
+      });
     }
     if (
       d === "too-light" &&
       strain.type === "sativa" &&
       !has("body-heavy", "heavy-body", "couch-lock")
     ) {
-      conflicts.push("a light, heady lift rather than the weight you tend to want");
+      conflicts.push({
+        text: "a light, heady lift rather than the weight you tend to want",
+        points: HARD_CONFLICT_PENALTY,
+      });
     }
     if (d === "too-heavy" && has("couch-lock", "heavy-body", "body-heavy", "sleepy")) {
-      conflicts.push("a heavy, sedating body that can feel like too much");
+      conflicts.push({
+        text: "a heavy, sedating body that can feel like too much",
+        points: HARD_CONFLICT_PENALTY,
+      });
     }
   }
 
   // Effect dislikes are explicit (vocab-aligned), so no heuristic mapping —
-  // each disliked effect carried by the strain becomes a direct conflict.
-  // Same penalty magnitude as trait conflicts (15pt each, capped at 42).
+  // each disliked effect the strain carries becomes a conflict. Tiered: full
+  // (primary) when it's one of the strain's dominant effects, half otherwise.
   for (const e of reconciledEffects) {
     if (strain.effects.includes(e)) {
-      conflicts.push(
-        `${labelFor(e).toLowerCase()}, which you said you want to avoid`,
-      );
+      const primary = (strain.primaryEffects ?? []).includes(e);
+      conflicts.push({
+        text: `${labelFor(e).toLowerCase()}, which you said you want to avoid`,
+        points: primary ? DISLIKE_PRIMARY_PENALTY : DISLIKE_SECONDARY_PENALTY,
+      });
     }
   }
-  // Aroma dislikes are explicit (vocab-aligned) too — a strain carrying a
-  // smell/flavour the user avoids becomes a conflict, same magnitude.
+  // Aroma dislikes are explicit (vocab-aligned) too — same two-tier logic on
+  // the strain's dominant (primary) aromas/flavours vs secondary notes.
   for (const a of reconciledAromas) {
     if (strain.aromas.includes(a) || strain.flavors.includes(a)) {
-      conflicts.push(
-        `a ${labelFor(a).toLowerCase()} character, which you said you want to avoid`,
-      );
+      const primary =
+        (strain.primaryAromas ?? []).includes(a) ||
+        (strain.primaryFlavors ?? []).includes(a);
+      conflicts.push({
+        text: `a ${labelFor(a).toLowerCase()} character, which you said you want to avoid`,
+        points: primary ? DISLIKE_PRIMARY_PENALTY : DISLIKE_SECONDARY_PENALTY,
+      });
     }
   }
   return conflicts;
@@ -946,6 +976,15 @@ export function scoreStrain(
   profile: TasteProfileInput,
   feedback: FeedbackSignal[] = [],
   overrides?: Map<string, StrainProfile>,
+  // Per-run dense↔fluffy preference (−1 fluffy … 0 none … +1 dense). When
+  // omitted, falls back to the stored profile's budStructure. Lets the
+  // pre-run slider override structure for a single Taste Match without
+  // mutating the saved profile.
+  densityPreference?: number,
+  // Per-run channel priorities (−1…0…+1 each). `senses` scales the aroma+flavor
+  // weight, `effect` scales the effect weight, so a user can say "I care most
+  // about effect this time" and effect-matching strains rise. 0 = no change.
+  priorities?: { senses?: number; effect?: number },
 ): StrainMatch {
   const { strain, known } = resolveStrain(rawName, overrides);
 
@@ -1002,7 +1041,10 @@ export function scoreStrain(
   const resolvedFavorites = profile.favoriteStrains
     .map((f) => findStrain(f))
     .filter((s): s is StrainProfile => Boolean(s));
-  const conflicts = dislikedConflicts(strain, profile, resolvedFavorites);
+  const conflictHits = dislikedConflicts(strain, profile, resolvedFavorites);
+  // Text-only view for the conflicts field, risk notes, and category count
+  // (categorisation still keys off the NUMBER of conflicts, not their weight).
+  const conflicts = conflictHits.map((c) => c.text);
   const softRisk = softRiskAssessment(strain, profile, resolvedFavorites);
 
   // Disliked detection — resolve aliases through findStrain so that flagging
@@ -1145,6 +1187,18 @@ export function scoreStrain(
         quality: 0.02,
       };
 
+  // Per-run priority sliders: scale the sensory channels by ±50% at the
+  // extremes (centre = ×1, untouched). `senses` moves aroma+flavor together
+  // (smell ≈ taste); `effect` moves the effect channel. Applied to W before
+  // any scoring uses it, so mode selection and the raw score both reflect it.
+  if (priorities) {
+    const sMul = 1 + clamp(priorities.senses ?? 0, -1, 1) * 0.5;
+    const eMul = 1 + clamp(priorities.effect ?? 0, -1, 1) * 0.5;
+    W.aroma *= sMul;
+    W.flavor *= sMul;
+    W.effect *= eMul;
+  }
+
   // Per-tag contribution to the score, weighted by category — surfaced in
   // Audit mode as "Top matches" with each tag's point strength. Aggregate
   // bonuses (family, archetype, reference) aren't per-tag, so this is the
@@ -1245,6 +1299,14 @@ export function scoreStrain(
     profile.preferredFamilies,
     profile.avoidedFamilies,
   );
+  // Bud structure (#density): soft, confidence-weighted nudge toward the
+  // density the user asked for (dense ↔ fluffy slider). Presumed leans from
+  // genetics are a near-silent 0.33; real curation lifts the weight. No-op
+  // when the user has no structure preference.
+  const densityMod = densityBonus(
+    strain,
+    densityPreference ?? densityPreferenceFromProfile(profile.budStructure),
+  );
 
   // Multi-modal selection: credit the candidate by the taste mode it fits
   // best (highest target-driven value at the current weights). deriveTasteModes
@@ -1296,14 +1358,17 @@ export function scoreStrain(
     familyMod +
     sensoryMod +
     potencyMod +
-    familyPrefMod;
-  const penalty = Math.min(42, conflicts.length * 15);
-  // Each conflict's share of the (capped) penalty, surfaced in Audit mode as
-  // "Penalties" with each one's negative point hit.
-  const perConflict = conflicts.length > 0 ? penalty / conflicts.length : 0;
-  const penaltyStrengths = conflicts.map((c) => ({
-    label: c.split(",")[0],
-    points: -Math.round(perConflict),
+    familyPrefMod +
+    densityMod;
+  // Sum the per-conflict weights (hard 15 vs tiered dislike 8/4), capped at 42.
+  const rawConflictPenalty = conflictHits.reduce((sum, c) => sum + c.points, 0);
+  const penalty = Math.min(42, rawConflictPenalty);
+  // If the cap bites, scale each conflict's shown hit down proportionally so the
+  // Audit "Penalties" lines still sum to the applied penalty.
+  const conflictScale = rawConflictPenalty > 0 ? penalty / rawConflictPenalty : 0;
+  const penaltyStrengths = conflictHits.map((c) => ({
+    label: c.text.split(",")[0],
+    points: -Math.round(c.points * conflictScale),
   }));
   // Soft-risk penalty is shown in Audit too, but as a single bounded hit that
   // never caps the category (kept out of `conflicts`).
@@ -1451,6 +1516,7 @@ export function scoreStrain(
     sensory: sensoryMod,
     potency: potencyMod,
     familyPref: familyPrefMod,
+    density: densityMod,
   };
 
   return {
@@ -1615,6 +1681,8 @@ export function analyze(
   profile: TasteProfileInput,
   feedback: FeedbackSignal[] = [],
   overrides?: Map<string, StrainProfile>,
+  densityPreference?: number,
+  priorities?: { senses?: number; effect?: number },
 ): AnalysisResult {
   const seen = new Set<string>();
   const recommendations: StrainMatch[] = [];
@@ -1625,7 +1693,16 @@ export function analyze(
     const key = normalizeStrainName(trimmed);
     if (!key || seen.has(key)) continue;
     seen.add(key);
-    recommendations.push(scoreStrain(trimmed, profile, feedback, overrides));
+    recommendations.push(
+      scoreStrain(
+        trimmed,
+        profile,
+        feedback,
+        overrides,
+        densityPreference,
+        priorities,
+      ),
+    );
   }
 
   // Primary sort by visible matchScore; tie-breaker on unclampedScore so

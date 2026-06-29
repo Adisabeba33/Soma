@@ -3,17 +3,17 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, Sparkles, Lock, Clock } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ChipSelect, TagInput } from "@/components/ui/selectors";
+import { PresetPicker } from "@/components/preset-picker";
+import type { Preset } from "@/lib/profile-presets";
 import { cn } from "@/lib/utils";
 import {
   SMOKING_METHODS,
   USE_TIMES,
   PRIMARY_AROMAS,
   PRIMARY_EFFECTS,
-  BUD_STRUCTURES,
 } from "@/lib/profile-target";
 import {
   AROMAS,
@@ -81,7 +81,6 @@ export default function QuickOnboardingPage() {
   // Screen 2
   const [sensoryNotes, setSensoryNotes] = useState<string[]>([]);
   const [primaryAroma, setPrimaryAroma] = useState("");
-  const [budStructure, setBudStructure] = useState("");
   // Screen 3
   const [preferredEffects, setPreferredEffects] = useState<string[]>([]);
   const [primaryEffect, setPrimaryEffect] = useState("");
@@ -98,6 +97,7 @@ export default function QuickOnboardingPage() {
   const [started, setStarted] = useState(false);
   const [review, setReview] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [presetBusy, setPresetBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Single source for both the live progress and the save payload.
@@ -108,7 +108,6 @@ export default function QuickOnboardingPage() {
     preferredAromas: sensoryNotes.filter((t) => AROMA_VALUES.has(t)),
     preferredFlavors: sensoryNotes.filter((t) => FLAVOR_VALUES.has(t)),
     primaryAroma,
-    budStructure,
     preferredEffects,
     primaryEffect,
     dislikedEffects,
@@ -142,6 +141,24 @@ export default function QuickOnboardingPage() {
     }
   }
 
+  // Quick start: one tap saves a ready preset profile and goes to matching.
+  async function pickPreset(preset: Preset) {
+    setPresetBusy(preset.id);
+    setError(null);
+    try {
+      const res = await fetch("/api/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(preset.profile),
+      });
+      if (!res.ok) throw new Error();
+      router.push("/taste-match");
+    } catch {
+      setError("Couldn't save that. Try again.");
+      setPresetBusy(null);
+    }
+  }
+
   function onContinue() {
     if (step < LAST_STEP) {
       setStep((s) => s + 1);
@@ -152,7 +169,7 @@ export default function QuickOnboardingPage() {
     }
   }
 
-  // ── Intro / why-this-matters ───────────────────────────────────────
+  // ── Quick start — pick a preset, or build your own ─────────────────
   if (!started) {
     return (
       <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
@@ -168,39 +185,25 @@ export default function QuickOnboardingPage() {
           Your sensory profile
         </p>
         <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
-          First, let&apos;s learn your taste.
+          Find your taste in one tap.
         </h1>
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
-          SŌMA doesn&apos;t ask <span className="italic">what a strain is</span> —
-          it works out whether it&apos;s right for <span className="italic">you</span>.
-          To do that it needs to learn your taste: the aromas, effects and feel
-          you reach for.
+          Pick the profile that fits you and start matching right away — or build
+          your own for the sharpest read. You can refine it anytime.
         </p>
 
-        <ul className="mt-8 space-y-4">
-          <IntroPoint icon={Sparkles}>
-            The more you fill in, the sharper your matches — aim for{" "}
-            <span className="font-medium text-foreground">100%</span> for the most
-            precise reads.
-          </IntroPoint>
-          <IntroPoint icon={Lock}>
-            You need at least{" "}
-            <span className="font-medium text-foreground">
-              {MATCH_GATE_PERCENT}%
-            </span>{" "}
-            before Taste Match unlocks.
-          </IntroPoint>
-          <IntroPoint icon={Clock}>
-            Takes about a minute — mostly tapping, no typing required (beyond a
-            strain name, if you have one).
-          </IntroPoint>
-        </ul>
+        {error && (
+          <p className="mt-5 rounded-xl bg-[#a23b2c]/10 px-4 py-3 text-sm text-[#a23b2c]">
+            {error}
+          </p>
+        )}
 
-        <div className="mt-10">
-          <Button onClick={() => setStarted(true)} size="lg">
-            Let&apos;s begin
-            <ArrowRight className="h-4 w-4" />
-          </Button>
+        <div className="mt-8">
+          <PresetPicker
+            onPick={pickPreset}
+            onCustom={() => setStarted(true)}
+            busyId={presetBusy}
+          />
         </div>
       </div>
     );
@@ -414,18 +417,6 @@ export default function QuickOnboardingPage() {
               options={PRIMARY_AROMAS}
               selected={primaryAroma}
               onSelect={(v) => setPrimaryAroma(v === primaryAroma ? "" : v)}
-            />
-          </Question>
-
-          <Question
-            n={3}
-            title="Opening the jar — how should the bud look and feel?"
-            sub="Visually and to the touch."
-          >
-            <OptionRow
-              options={BUD_STRUCTURES}
-              selected={budStructure}
-              onSelect={(v) => setBudStructure(v === budStructure ? "" : v)}
             />
           </Question>
         </>
@@ -664,25 +655,6 @@ function OptionRow({
         );
       })}
     </div>
-  );
-}
-
-function IntroPoint({
-  icon: Icon,
-  children,
-}: {
-  icon: LucideIcon;
-  children: React.ReactNode;
-}) {
-  return (
-    <li className="flex items-start gap-3.5">
-      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
-        <Icon className="h-4 w-4" />
-      </span>
-      <p className="text-[0.97rem] leading-relaxed text-muted-foreground">
-        {children}
-      </p>
-    </li>
   );
 }
 

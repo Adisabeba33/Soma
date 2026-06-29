@@ -12,7 +12,6 @@ import {
   PRIMARY_AROMAS,
   PRIMARY_EFFECTS,
   SMOKING_METHODS,
-  BUD_STRUCTURES,
   PREFERRED_TYPES,
 } from "@/lib/profile-target";
 import { NAMED_FAMILIES } from "@/lib/strain-families";
@@ -61,10 +60,14 @@ export function TasteProfileSummary({
   state,
   showEdit = true,
   contradictions = [],
+  profileName,
 }: {
   state: TasteProfileState;
   showEdit?: boolean;
   contradictions?: ProfileContradiction[];
+  // The active account's name. When several profiles exist, naming the one in
+  // play removes the "which account is this?" ambiguity.
+  profileName?: string;
 }) {
   // Aroma + flavour are one question for the user — show the deduped union.
   const sensory = Array.from(
@@ -81,6 +84,12 @@ export function TasteProfileSummary({
       <div className="flex items-center justify-between">
         <h3 className="font-display text-base font-semibold">
           Your taste profile
+          {profileName ? (
+            <span className="font-normal text-muted-foreground">
+              {" · "}
+              {profileName}
+            </span>
+          ) : null}
         </h3>
         {showEdit && (
           <Link
@@ -144,13 +153,6 @@ export function TasteProfileSummary({
         <Row
           label="Smokes with"
           values={state.smokingMethods.map((v) => optLabel(SMOKING_METHODS, v))}
-        />
-        <Row
-          label="Bud structure"
-          values={single(
-            state.budStructure,
-            optLabel(BUD_STRUCTURES, state.budStructure),
-          )}
         />
         <Row label="Likes" values={state.likedTraits.map(labelFor)} />
         <Row

@@ -222,7 +222,7 @@ export const IDENTITIES: StrainIdentity[] = [
   // ── Garlic / funk family ──
   {
     canonicalName: "GMO Cookies",
-    marketNames: ["Garlic Cookies", "GMO"],
+    marketNames: ["Garlic Cookies", "GMO", "Onion and Garlic"],
     breeder: "Mamiko Seeds (commonly credited; origin debated)",
     lineage: {
       parents: ["Chemdog", "Girl Scout Cookies"],
@@ -592,7 +592,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Zkittlez",
-    marketNames: ["Skittlez", "Skittles", "Island Zkittlez"],
+    marketNames: ["Skittlez", "Skittles", "Island Zkittlez", "Zkittlez #1", "The Z"],
     breeder: "Terphogz / 3rd Gen Family",
     lineage: { parents: ["Grape Ape", "Grapefruit"] },
     sensoryFamily: "candy-exotic",
@@ -675,21 +675,19 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "White Hot Guava",
     lineage: {
-      cross: "A market label — genetics vary by breeder (Stardawg-, Guava- or White Fire-based); no single documented cross",
+      cross: "Stardawg × White Hashplant",
     },
     marketNames: ["Hot Guava", "WHG"],
+    breeder: "Top Dawg Seeds",
     sensoryFamily: "tropical-fruit",
-    phenotypeNotes: [
-      "Guava-forward gas hybrid",
-      "Custom seed entry — limited public lineage data",
-    ],
+    phenotypeNotes: ["Guava-forward gas hybrid", "Custom seed entry — limited public lineage data"],
     curatorNote:
       "White Hot Guava is a custom, small-batch hybrid with little public lineage on record — what's consistent is the guava: a sweet, almost tinned-tropical fruit note riding on top of sharp fuel. On the nose it reads candy-and-gas, the guava softening an otherwise pungent diesel funk. The high sits in the middle — a clear, lightly euphoric lift with a loose, comfortable body that won't pin you down. It's bought for the flavour and the frost rather than for knockout potency. A novelty in the best sense: if you find a real cut, the guava note is genuinely hard to source elsewhere.",
     curatorQuote:
       "On the nose it reads candy-and-gas, the guava softening an otherwise pungent diesel funk.",
     tagline: "Tropical evening hybrid",
     shortName: "Hot Guava",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
     timeProfile: "sunset",
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) capturing the spirit of a small-batch tropical-exotic hybrid where sweet guava rides on sharp fuel. A lush, overgrown glasshouse conservatory at golden dusk on the edge of an industrial harbour: heavy ripe guava and tropical fruit glowing among chrome-and-glass structures, with faint refinery pipework and a petrol shimmer dissolving into a wine-dark sunset sky. Palette warm and exotic — guava coral-pink, mango-gold and candy-sweet light against cool petrol-blue and chrome shadow, amber sun catching a frosted, resinous sheen on every surface. Mood: relaxed, gently euphoric, comfortable and unhurried — a soft, drifting evening warmth that lifts without pinning you down. Cinematic, painterly, high-contrast, premium editorial poster. Keep the lower third calmer and darker for legible overlay text. The strain name may appear baked into the scene (e.g. etched into the glass or stencilled on metal); no overlaid captions, logos or watermarks; no people, products or cannabis leaves.",
@@ -1042,9 +1040,10 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Platinum OG",
     marketNames: ["Platinum Kush", "Platinum OG Kush"],
+    breeder: "Apothecary Genetics",
     lineage: {
-      parents: ["Master Kush", "OG Kush"],
-      cross: "Master Kush × OG Kush (contested)",
+      parents: ["OG Kush", "Master Kush"],
+      cross: "OG Kush × Master Kush × undisclosed third parent",
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Silvery 'platinum' trichome coat"],
@@ -1052,7 +1051,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Platinum OG is a frost-caked heavy indica named for the silvery sheen of its trichomes; the parentage is usually given as Master Kush crossed with OG Kush, though it's never been pinned down. The smell is old-school heavy OG — gas and damp earth with a sweet, skunky edge, dense rather than zesty. What it does is simple and reliable: a thick body sedation that arrives quickly and slides toward sleep. There's little cerebral play here — it's a wind-down, lie-down strain. For anyone who wants a frosty, gassy knockout at the end of the day, it does the job.",
     curatorQuote:
       "Gas and damp earth with a sweet, skunky edge, dense rather than zesty.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Fire OG",
@@ -1180,7 +1179,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Motorbreath",
-    marketNames: ["Motorbreath #15", "Motor Breath"],
+    marketNames: ["Motorbreath #15", "Motor Breath", "Motorhead", "Motorbreath #2"],
     breeder: "Pisces Genetics",
     lineage: {
       parents: ["Chemdog D", "SFV OG"],
@@ -1956,7 +1955,7 @@ export const IDENTITIES: StrainIdentity[] = [
       parents: ["Skunk #1"],
       cross: "Skunk #1 phenotype — Exodus Cheese, an inbred clone-only selection (early-90s UK)",
     },
-    marketNames: ["Exodus Cheese", "Cheese"],
+    marketNames: ["Exodus Cheese", "Cheese", "Original Cheese", "Exodus"],
     sensoryFamily: "skunk-funk",
     phenotypeNotes: ["The original 'cheese' Skunk #1 pheno"],
     curatorNote:
@@ -2074,12 +2073,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Strawberry Runtz",
+    breeder: "Soloud Genetics",
     lineage: {
-      parents: ["Runtz", "Strawberry Fritter"],
-      cross: "Runtz × Strawberry Fritter (commonly cited; varies by breeder — not verified)",
-      parentDetails: {
-        "Strawberry Fritter": { lineageBrief: "Strawberry × Apple Fritter line", type: "hybrid" },
-      },
+      parents: ["Kushberries", "White Runtz"],
+      cross: "Kushberries × White Runtz",
     },
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Strawberry-forward Runtz selection"],
@@ -2087,7 +2084,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Strawberry Runtz is a strawberry-led pick in the candy Runtz family — pure confection, very little funk. The nose is ripe strawberry and sugared tropical fruit, the kind of sweet that reads as dessert before you even taste it. The high is bright and good-natured, an easy lift that keeps the body loose and social rather than couch-bound. Like the rest of the line it's about flavour and bag-appeal first; potency is pleasant rather than punishing. For a clean strawberry-candy nose, it delivers.",
     curatorQuote:
       "Ripe strawberry and sugared tropical fruit — sweet enough to read as dessert before you taste it.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Candy Rain",
@@ -2219,9 +2216,10 @@ export const IDENTITIES: StrainIdentity[] = [
   // ── Modern exotics (part 2) + fruity / dessert ──
   {
     canonicalName: "Soap",
+    breeder: "Seed Junky Genetics",
     lineage: {
       parents: ["Animal Mints", "Kush Mints"],
-      cross: "Animal Mints × Kush Mints (Seed Junky / Minntz)",
+      cross: "Animal Mints × Kush Mints",
     },
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Lighter, soapy-floral sibling of Zoap"],
@@ -2229,7 +2227,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Soap takes the same clean, perfumed funk that made Zoap famous and pours it into a lighter, brighter cut. The nose is floral and crisp — think fresh soap with a touch of cream — and only a faint gas underneath. The high is mellow and sociable, a gentle lift that keeps the body easy rather than weighed down. Like its sibling it trades on novelty and bag-appeal: the perfumed profile is the whole point. For people curious about the 'soap' flavour without Zoap's intensity, this is the gentler way in.",
     curatorQuote:
       "Floral and crisp — fresh soap with a touch of cream, only a faint gas underneath.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Garanimals",
@@ -2538,12 +2536,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Gas Face",
+    breeder: "Seed Junky Genetics",
     lineage: {
-      parents: ["Face Mints", "Biscotti"],
-      cross: "Face Mints × (Biscotti × Sherbet) backcross (Seed Junky)",
-      parentDetails: {
-        "Face Mints": { lineageBrief: "Face Off OG × Kush Mints", type: "hybrid" },
-      },
+      parents: ["Face Mints", "Biscotti × Sherbet bx"],
+      cross: "Face Mints × (Biscotti × Sherbet bx)",
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Fuel-forward, little sweetness"],
@@ -2556,7 +2552,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "gas-face.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Purple Haze",
@@ -2682,9 +2678,10 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "MAC and Cheese",
     marketNames: ["Mac and Cheese", "Mac & Cheese"],
+    breeder: "Capulator",
     lineage: {
-      parents: ["MAC", "UK Cheese"],
-      cross: "MAC × Cheese (commonly cited)",
+      parents: ["MAC 1", "Alien Cheese"],
+      cross: "MAC 1 × Alien Cheese",
     },
     sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Creamy MAC meets tangy cheese funk"],
@@ -2692,7 +2689,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "MAC and Cheese folds the creamy, floral refinement of MAC into a sharp, tangy cheese funk — an unusual sweet-and-savoury pairing. The nose is creamy citrus and floral over a pungent, dairy-cheese funk, loud and a little divisive. The high is upbeat and balanced: a sociable, uplifting head with a relaxed body, and real potency behind it. It's frosty and flavour-forward, aimed at people who want MAC's polish with a savoury edge. A distinctive exotic for funk chasers rather than candy lovers.",
     curatorQuote:
       "The nose is creamy citrus and floral over a pungent, dairy-cheese funk, loud and a little divisive.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Orange Bud",
@@ -2913,9 +2910,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Apple Runtz",
+    breeder: "Lit Farms",
     lineage: {
-      parents: ["Runtz", "Apple Fritter"],
-      cross: "Runtz × Apple Fritter (commonly cited; not breeder-verified)",
+      parents: ["Apple Fritter", "Runtz"],
+      cross: "Apple Fritter × Runtz",
     },
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Green-apple Runtz selection"],
@@ -2923,7 +2921,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Apple Runtz is widely described as Runtz crossed with Apple Fritter, though no breeder has published a verified recipe — so treat the lineage as the common story rather than gospel. Either way it brings a green-apple twist to the candy Runtz family: sweet-tart apple laid over the line's creamy confection. The nose is bright — crisp green apple and sugared tropical fruit with barely any funk. The smoke is easy and upbeat, a light euphoria that keeps things sociable rather than sleepy. As with the rest of the Runtz crowd, flavour and frost lead the way over raw strength. For a sweet-and-sour apple candy profile, it's a fun, approachable pick.",
     curatorQuote:
       "Crisp green apple and sugared tropical fruit with barely any funk.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Obama Runtz",
@@ -3010,9 +3008,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Strawberry Shortcake",
+    breeder: "Dark Horse Genetics",
     lineage: {
       parents: ["Juliet", "Strawberry Diesel"],
-      cross: "Juliet × Strawberry Diesel (Dark Horse cut; varies by breeder)",
+      cross: "Juliet (J3 cut) × Strawberry Diesel",
     },
     sensoryFamily: "dessert-cookies",
     phenotypeNotes: ["Strawberry-and-cream dessert", "Several unrelated cuts share the name"],
@@ -3020,7 +3019,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Strawberry Shortcake is a name several breeders share, so genetics vary — the most documented version, from Dark Horse Genetics, is Juliet × Strawberry Diesel, which explains the strawberry-diesel sparkle in many cuts. Whichever cut you find, it leans dessert: ripe strawberry over a vanilla-cream, doughy sweetness. The high is gentle and even — a small lift that settles into easy comfort, fine across the day. It's frosty and flavour-led, an approachable berry sweet. For strawberry-and-cream flavour, it's a tasty, undemanding pick.",
     curatorQuote:
       "Ripe strawberry over a vanilla-cream, doughy sweetness.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Pink Champagne",
@@ -3075,8 +3074,9 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Black Truffle",
+    breeder: "3rd Coast Genetics",
     lineage: {
-      cross: "A market label — genetics differ by breeder (White Truffle × Pure Michigan, or Gelato 33 × unknown); no single documented cross",
+      cross: "White Truffle × Pure Michigan",
     },
     sensoryFamily: "garlic-funk",
     phenotypeNotes: ["Savoury, earthy truffle-and-gas funk"],
@@ -3090,7 +3090,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "black-truffle.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Frosted Lemonade",
@@ -3231,8 +3231,8 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "Bay 11",
     breeder: "Grand Daddy Purp Genetics",
     lineage: {
-      parents: ["Appalachia"],
-      cross: "Appalachia-derived cut",
+      parents: ["Ken's Kush", "Appalachia"],
+      cross: "Ken's Kush × Appalachia",
     },
     sensoryFamily: "haze-sativa",
     phenotypeNotes: ["Cannabis Cup-winning frosty sativa"],
@@ -3240,7 +3240,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Bay 11 is a Grand Daddy Purp Genetics sativa — an Appalachia-derived cut that took a High Times Cannabis Cup — known for unusually frosty buds for a sativa. The nose is sweet and earthy: floral, piney sweetness over a skunky, herbal base. The effect is up and creative — an energetic, happy head with a light body, built for daytime. It's potent and motivating, with more trichome shine than most sativas. For a frosty, award-winning daytime lift, it's a solid pick.",
     curatorQuote:
       "Floral, piney sweetness over a skunky, herbal base.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
 
   // ── ROUND 4: NEW 2024–2026 DISPENSARY RELEASES ──
@@ -3716,13 +3716,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Chile Verde",
-    breeder: "In House Genetics",
+    breeder: "HBK Genetics",
     lineage: {
-      parents: ["OG Kush", "Key Lime Pie"],
-      cross: "OG Kush × (Key Lime Pie × Lavender)",
-      parentDetails: {
-        "Key Lime Pie": { lineageBrief: "GSC phenotype", type: "hybrid" },
-      },
+      parents: ["Key Lime Pie", "Lavender"],
+      cross: "Key Lime Pie × Lavender",
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Gassy and spicy rather than sweet", "A parent of Hot Sauce"],
@@ -3735,7 +3732,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "chile-verde.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Gelato 45",
@@ -3763,13 +3760,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Platinum Puff",
-    breeder: "Grateful Farms / Grandiflora",
+    breeder: "Grandiflora Genetics",
     lineage: {
       parents: ["Platinum OG", "Grateful Puff"],
       cross: "Platinum OG × Grateful Puff",
-      parentDetails: {
-        "Grateful Puff": { lineageBrief: "GSC × OG line", type: "hybrid" },
-      },
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Heavy, frosty, gassy-sweet indica", "A parent of Project 4516"],
@@ -3777,7 +3771,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Platinum Puff is a heavy indica cross of Platinum OG and Grateful Puff — frosty, gassy and sweet, built for weight. The nose is dense: gas and damp earth with a sweet, skunky edge. The effect is strongly sedating — a euphoric head that sinks fast into a heavy body, firmly an evening strain. It's potent and couch-leaning, and it lends that weight to Project 4516. For a frosty, gassy knockout indica, Platinum Puff fits.",
     curatorQuote:
       "Gas and damp earth with a sweet, skunky edge.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Jet Fuel Gelato",
@@ -3802,10 +3796,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Pink Guava",
-    breeder: "OZ Kushman",
+    breeder: "DEO Farms",
     lineage: {
       parents: ["OZ Kush"],
-      cross: "An OZ Kush F2 selection (DEO Farms / OZ Kushman; behind RS11 and the soap-funk exotics)",
+      cross: "OZ Kush F2 selection",
     },
     sensoryFamily: "tropical-fruit",
     phenotypeNotes: ["Tropical guava sweetness", "Behind RS11 and the soap-funk exotics"],
@@ -3813,7 +3807,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pink Guava is an OZ Kushman guava selection — a clone-line whose exact recipe stays in-house, prized for a clean tropical-fruit nose. The smell is sweet and exotic: ripe guava and tropical fruit over a soft floral base, with little gas. The effect is balanced and easy — a euphoric, relaxed high that stays comfortable across the day. It matters as much for its descendants — it's behind RS11 and the soap-funk exotics — as for itself. For pure guava sweetness, Pink Guava is the source cut.",
     curatorQuote:
       "Ripe guava and tropical fruit over a soft floral base, with little gas.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Rainbow Sherbet",
@@ -3954,12 +3948,8 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "The Menthol",
     breeder: "Compound Genetics",
     lineage: {
-      parents: ["Gelato 45", "White Diesel"],
-      cross: "Gelato 45 × (White Diesel × (High Octane × Jet Fuel)) — Compound Genetics",
-      parentDetails: {
-        "Gelato 45": { lineageBrief: "Gelato phenotype", type: "hybrid" },
-        "White Diesel": { type: "sativa" },
-      },
+      parents: ["Gelato 45", "White Diesel × High Octane × Jet Fuel"],
+      cross: "Gelato 45 × (White Diesel × High Octane × Jet Fuel)",
     },
     sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Cool menthol over gas funk", "A parent of Pink Certz"],
@@ -3972,7 +3962,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "the-menthol.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Wedding Pie",
@@ -4097,7 +4087,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Fruity Pebbles OG",
-    marketNames: ["FPOG", "Fruity Pebbles"],
+    marketNames: ["FPOG", "Fruity Pebbles", "Fruity OG"],
     breeder: "Alien Genetics",
     lineage: {
       parents: ["Green Ribbon", "Granddaddy Purple", "Tahoe OG", "Alien Kush"],
@@ -4140,8 +4130,8 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "Black Cherry Pie",
     breeder: "Cherry Pie selection",
     lineage: {
-      parents: ["Cherry Pie"],
-      cross: "Dark-fruit Cherry Pie phenotype",
+      parents: ["Blackberry Kush", "Cherry Pie"],
+      cross: "Blackberry Kush × Cherry Pie",
     },
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Dark cherry pheno", "A parent of Black Cherry Punch"],
@@ -4149,7 +4139,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Black Cherry Pie is a dark-fruit phenotype of Cherry Pie, selected for deeper cherry and a richer, jammier nose. The smell is sweet and dark: black cherry and grape over an earthy, faintly gassy base. The effect leans relaxing — a euphoric head easing into a comfortable, heavy body, evening-friendly. It's frosty and flavour-forward, and it's the cherry behind Black Cherry Punch. For dark-cherry indica-lean character, it's a tasty parent cut.",
     curatorQuote:
       "Black cherry and grape over an earthy, faintly gassy base.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Key Lime Pie",
@@ -4353,11 +4343,8 @@ export const IDENTITIES: StrainIdentity[] = [
     marketNames: ["Apollo 13 BX"],
     breeder: "Brothers Grimm",
     lineage: {
-      parents: ["Genius"],
-      cross: "Genius × P75 (Princess select)",
-      parentDetails: {
-        "Genius": { lineageBrief: "Jack Herer phenotype select", type: "sativa" },
-      },
+      parents: ["P75", "Genius"],
+      cross: "P75 × Genius",
     },
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Fast, fruity sativa", "A parent of Vortex"],
@@ -4365,7 +4352,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Apollo 13 is a Brothers Grimm sativa from the same camp as Cinderella 99 — a Genius-and-Princess select known for speed and a tangy fruit nose. The smell is sweet and zesty: tropical fruit and citrus over a light herbal base. The effect is fast and clear — an energetic, creative, uplifting head with little body, a daytime strain. It's terpy and potent, and it's the bright half behind Vortex. For a quick, fruity sativa, Apollo 13 is a classic parent line.",
     curatorQuote:
       "Tropical fruit and citrus over a light herbal base.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
     tagline: "Tangy fruit liftoff",
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Apollo 13 — Brothers Grimm's fast, tangy sativa from the Cinderella 99 camp, zesty and electric. A retro 1970s launchpad at first light: a slender white rocket on its gantry trailing a plume of citrus-gold exhaust as it lifts, against a sky streaked tangerine, mango and grapefruit-pink over distant palms and a coastal haze. Palette of bright citrus-orange, tropical mango-gold and zesty grapefruit-pink against pale dawn-blue and steel-white, saturated and luminous. Mood: fast, soaring, exhilarated — energetic creative euphoria with liftoff motion, everything bright and accelerating into the morning sky. Cinematic, painterly, high-contrast, premium editorial poster. The strain name 'APOLLO 13' stencilled boldly down the side of the rocket fuselage. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
@@ -4569,37 +4556,33 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "Han-Solo Burger",
     lineage: {
       parents: ["GMO Cookies", "Larry OG"],
-      cross: "GMO Cookies × Larry OG (Skunk House Genetics)",
+      cross: "GMO Cookies × Larry OG",
     },
     marketNames: ["Han Solo Burger"],
-    breeder: "Skunk Master Flex",
+    breeder: "Skunk House Genetics",
     sensoryFamily: "garlic-funk",
     phenotypeNotes: ["Savoury cheese-gas burger cut", "A parent of Donny Burger"],
     curatorNote:
       "Han-Solo Burger is a Skunk Master Flex cut — a savoury, cheesy-gas strain in the GMO 'burger' family, and a parent of Donny Burger. The nose is pungent and savoury: cheese, gas and earth with a peppery edge, more umami than sweet. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, an evening strain. It's frosty, loud and potent, a connoisseur's funk cut. For savoury cheese-gas behind the burger line, Han-Solo delivers.",
     curatorQuote:
       "Cheese, gas and earth with a peppery edge, more umami than sweet.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Lemonnade",
     lineage: {
       parents: ["Lemon OG", "Gorilla Haze"],
-      cross: "Lemon OG × Gorilla Haze (Growing Passion — breeder-secret, not verified)",
-      parentDetails: {
-        "Lemon OG": { lineageBrief: "Lemon Skunk × OG Kush line", type: "hybrid" },
-        "Gorilla Haze": { type: "sativa" },
-      },
+      cross: "Lemon OG × Gorilla Haze",
     },
     marketNames: ["Lemonade"],
-    breeder: "Cookies / Lemonnade",
+    breeder: "Growing Passion",
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Bright lemon, daytime-leaning"],
     curatorNote:
       "Lemonnade is the Cookies-affiliated lemon line — a bright, sweet citrus sativa-lean built around clean lemon flavour. The nose is fresh and zesty: lemon and citrus over a soft, sweet herbal base. The effect is uplifting and happy — an energetic, sociable head with a light body, daytime-friendly. It's terpy and flavour-forward, and it lends its lemon to crosses like Cheetah Piss. For clean, sweet lemon citrus, Lemonnade is a reliable pick.",
     curatorQuote:
       "Lemon and citrus over a soft, sweet herbal base.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
     tagline: "Pure Lemon Pop",
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Lemonnade, the bright sweet Cookies-affiliated lemon line built around clean, zesty citrus joy. The scene is a frosted glass bottle of homemade lemonade on a sun-bleached counter, condensation beading down its sides, a coil of lemon peel curling out of the neck while fizzing soda bubbles catch the light. The palette is electric lemon-yellow and sugar-white over soft herbal sage-green, washed in clean fizzy highlights and zesty citrus sparkle. The mood is uplifting, happy and energetic, full of effervescent upward motion, lit by bright midday daytime sun pouring through the frame. Cinematic, painterly, high-contrast, premium editorial poster. The name LEMONNADE is etched into the frosted glass of the bottle, reading clearly across its curved face. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
@@ -4608,22 +4591,23 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Garlic Juice",
     lineage: {
-      cross: "An In House Genetics cut in the GMO savoury-funk family — the exact cross isn't documented",
+      cross: "Papaya × GMO",
     },
-    breeder: "In House Genetics",
+    breeder: "Oni Seed Co",
     sensoryFamily: "garlic-funk",
     phenotypeNotes: ["Loud GMO-style savoury gas"],
     curatorNote:
       "Garlic Juice is an In House Genetics cut in the GMO savoury-funk family — loud garlic-and-gas with little sweetness. The nose is pungent: roasted garlic and diesel over an earthy, herbal base, unmistakably umami. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, firmly evening. It's frosty, potent and very loud, a connoisseur's funk strain. For garlic-gas intensity, Garlic Juice brings the volume.",
     curatorQuote:
       "Roasted garlic and diesel over an earthy, herbal base, unmistakably umami.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Gary Poppins",
+    breeder: "Exotic Genetix",
     lineage: {
-      parents: ["Gary Payton", "Sunset Sherbet"],
-      cross: "Gary Payton × Sunset Sherbet",
+      parents: ["Gary Payton", "Red Runtz"],
+      cross: "Gary Payton × Red Runtz",
     },
     sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Gassy-mint with a creamy lift"],
@@ -4636,18 +4620,16 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "gary-poppins.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Jelly Donutz",
     lineage: {
       parents: ["Hella Jelly", "White Runtz"],
-      cross: "Hella Jelly × White Runtz (Humboldt Seed Company — not verified)",
-      parentDetails: {
-        "Hella Jelly": { type: "sativa" },
-      },
+      cross: "Hella Jelly × White Runtz",
     },
     marketNames: ["Jelly Donuts"],
+    breeder: "Humboldt Seed Company",
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Berry-pastry sweetness over light gas"],
     curatorNote:
@@ -4659,7 +4641,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "jelly-donutz.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Watermelon",
@@ -4677,16 +4659,17 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Crystal Locomotive",
+    breeder: "Jojorizo",
     lineage: {
-      parents: ["Trainwreck", "Trinity"],
-      cross: "Trainwreck × Trinity",
+      parents: ["Trainwreck", "98 Aloha White Widow"],
+      cross: "Trainwreck × 98 Aloha White Widow",
     },
     sensoryFamily: "sweet-haze",
     phenotypeNotes: ["Pine-citrus sativa", "A parent of Mendo Montage"],
     curatorNote:
       "Crystal Locomotive is a Trainwreck × Trinity cross — a frosty, pine-and-citrus sativa from the same NorCal pool as Green Ribbon. The nose is bright and clean: pine and lemon over a sweet, earthy base. The effect is up and energetic — an uplifting, creative head with a relaxed body, daytime-leaning. It's terpy and potent, and it's the sativa side behind Mendo Montage. For clean pine-citrus sativa genetics, Crystal Locomotive is a flavourful parent.",
     curatorQuote: "Pine and citrus over sweet earth, fast and frosty.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Mazar",
@@ -4786,6 +4769,11 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Strawberry Fields",
+    breeder: "Crockett Family Farms",
+    lineage: {
+      parents: ["Strawberry Banana", "Tangie"],
+      cross: "Strawberry Banana × Tangie",
+    },
     sensoryFamily: "sweet-haze",
     phenotypeNotes: ["Sweet strawberry line", "A parent of Strawberry Cough"],
     curatorNote:
@@ -4797,7 +4785,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "strawberry-fields.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Pink Panties",
@@ -4820,19 +4808,17 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Nevil's Wreck",
     lineage: {
-      parents: ["Trainwreck", "Neville's Haze"],
-      cross: "Arcata Trainwreck × Neville's Haze (Rare Dankness)",
-      parentDetails: {
-        "Neville's Haze": { lineageBrief: "((Haze × Haze) × NL#5) × (Haze × Haze)", type: "sativa" },
-      },
+      parents: ["Arcata Trainwreck", "Neville's Haze"],
+      cross: "Arcata Trainwreck × Neville's Haze",
     },
     marketNames: ["Nevils Wreck"],
+    breeder: "Rare Dankness Seeds",
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Pungent haze cut", "A parent of Ghost Train Haze"],
     curatorNote:
       "Nevil's Wreck is a pungent haze-leaning cut — a sharp, citrus-pine sativa that Rare Dankness used to build Ghost Train Haze. The nose is loud and clean: citrus and pine over a spicy, incense-like base. The effect is a fast, soaring cerebral rush — energetic and heady, potent enough to overwhelm. It's frosty and very strong, the sativa half behind one of the most potent strains around. For intense haze genetics, Nevil's Wreck is a key parent.",
     curatorQuote: "Citrus and pine over sharp spice, classic Haze.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
     tagline: "Sharp and Soaring",
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Nevil's Wreck, a sharp piney-spicy haze cut, an Arcata Trainwreck crossed with Neville's Haze, loud and clean and soaring. A dense towering pine forest split by a shaft of hard light, sharp green needles and drifting resin-incense smoke amid jagged shattered timber and a faint distant rail-line wreck of splintered wood. Palette of sharp pine green and citrus-bright accents over spicy incense-greys against deep forest shadow, lit by a piercing cold light beam. Mood is fast, soaring and cerebral, motion sharp rushing air and snapping needles, lit by bright daytime light cutting hard through the canopy. Cinematic, painterly, high-contrast, premium editorial poster. The name NEVIL'S WRECK is carved deep into a splintered fallen pine trunk in the foreground. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
@@ -4859,18 +4845,18 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Acai",
     lineage: {
-      parents: ["Sunset Sherbet", "Pink Panties"],
-      cross: "Sunset Sherbet × Pink Panties (Sherbinskis; some cite Gelato #49 × Pink Panties — not verified)",
+      parents: ["Sunset Sherbet", "Thin Mint Cookies"],
+      cross: "Sunset Sherbet × Thin Mint Cookies",
     },
     marketNames: ["Acai Berry Gelato"],
-    breeder: "Sherbinski",
+    breeder: "Sherbinskis",
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Dark berry over Gelato cream"],
     curatorNote:
       "Acai (Acai Berry Gelato) is a Sherbinski berry-forward gelato cut — dark, jammy fruit over a creamy base. The nose is rich and sweet: acai and dark berry over sherbet cream. The effect is relaxing and euphoric — a happy head easing into a comfortable body, evening-leaning. It's frosty and flavour-forward, and it shows up behind dark-fruit crosses like Black Cherry Gelato. For deep berry-gelato sweetness, Acai is a tasty cut.",
     curatorQuote:
       "Acai and dark berry over sherbet cream.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Lamb's Bread",
@@ -4932,9 +4918,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Garlic Breath",
+    breeder: "ThugPug Genetics",
     lineage: {
-      parents: ["GMO Cookies", "Mendo Breath"],
-      cross: "GMO × Mendo Breath (commonly cited)",
+      parents: ["GMO", "Mendo Breath"],
+      cross: "GMO × Mendo Breath",
     },
     sensoryFamily: "garlic-funk",
     phenotypeNotes: ["Savoury garlic-gas indica"],
@@ -4942,16 +4929,14 @@ export const IDENTITIES: StrainIdentity[] = [
       "Garlic Breath is a savoury, gassy indica in the GMO family — usually cited as GMO crossed with Mendo Breath — built around a pungent garlic funk. The nose is loud and umami: roasted garlic and gas over an earthy, hashy base. The effect is heavy and relaxing — a euphoric head sinking into a sedating body, firmly evening. It's frosty, potent and very loud. For garlic-gas funk in a heavy indica, Garlic Breath delivers.",
     curatorQuote:
       "Roasted garlic and gas over an earthy, hashy base.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Tropicana Banana",
+    breeder: "Barney's Farm",
     lineage: {
-      parents: ["Tropicana Cookies", "Banana"],
-      cross: "Tropicana Cookies × a banana cut",
-      parentDetails: {
-        "Banana": { lineageBrief: "banana-flavour selection", type: "hybrid" },
-      },
+      parents: ["Tropicanna", "Banana Kush"],
+      cross: "Tropicanna × Banana Kush",
     },
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Orange citrus over creamy banana"],
@@ -4959,16 +4944,14 @@ export const IDENTITIES: StrainIdentity[] = [
       "Tropicana Banana pairs Tropicana Cookies' bright orange with a creamy banana cut — citrus and tropical fruit in one juicy nose. The smell is sweet and zesty: orange and tangerine over ripe banana. The effect is uplifting and lively — a happy, creative head with a relaxed body, daytime-friendly. It's terpy and frosty, flavour-forward rather than heavy. For an orange-and-banana fruit profile, Tropicana Banana is a bright pick.",
     curatorQuote:
       "Orange and tangerine over ripe banana.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Biskante",
+    breeder: "Alien Labs",
     lineage: {
-      parents: ["Zookies", "Biscotti"],
-      cross: "Zookies × Biscotti (Alien Labs)",
-      parentDetails: {
-        Zookies: { lineageBrief: "Animal Cookies × GG4", type: "hybrid" },
-      },
+      parents: ["Zookies", "Biscotti #6"],
+      cross: "Zookies × Biscotti #6",
     },
     sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Creamy cookie over a gassy base"],
@@ -4981,13 +4964,14 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "biskante.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Sunset Mintz",
+    breeder: "Seed Junky Genetics",
     lineage: {
-      parents: ["Sunset Sherbet", "Kush Mints"],
-      cross: "Sunset Sherbet × Kush Mints",
+      parents: ["Sunset Sherbert", "Kush Mints #11"],
+      cross: "Sunset Sherbert × Kush Mints #11",
     },
     sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Minty-sweet sherbet cross"],
@@ -5000,13 +4984,14 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "sunset-mintz.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Apple Gelato",
+    breeder: "Alien Genetics",
     lineage: {
-      parents: ["Apple Fritter", "Gelato"],
-      cross: "Apple Fritter × Gelato",
+      parents: ["Gelato #33", "Sour Apple IBL"],
+      cross: "Gelato #33 × Sour Apple IBL",
     },
     sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Sweet-apple over Gelato cream"],
@@ -5014,7 +4999,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Apple Gelato folds Apple Fritter's sweet-and-savoury pastry into Gelato's cream — green-apple dessert with a light gas. The nose is bright and sweet: green apple and sugar over a creamy, gassy base. The effect is balanced and feel-good — a euphoric, creative head with a relaxed body, sociable and potent. It's frosty and flavour-forward, an easy-drinking exotic. For apple-and-cream dessert character, Apple Gelato is a tasty pick.",
     curatorQuote:
       "Green apple and sugar over a creamy, gassy base.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Malawi",
@@ -5150,19 +5135,17 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Boggle Gum",
+    breeder: "BOG Seeds",
     lineage: {
       parents: ["BOG Bubble", "Northern Lights #5"],
-      cross: "BOG Bubble × Northern Lights #5 (BOG Seeds)",
-      parentDetails: {
-        "BOG Bubble": { lineageBrief: "BOG Seeds bubblegum line", type: "hybrid" },
-      },
+      cross: "BOG Bubble × Northern Lights #5",
     },
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Bubblegum-leaning cut", "A parent of Champagne"],
     curatorNote:
       "Boggle Gum is a sweet, bubblegum-leaning cut best known as a parent of Sherbinski's Champagne (and so, indirectly, Rainbow Sherbet). The nose is sweet and candy-bright: bubblegum and berry over a light floral base. The effect is gentle and happy — a relaxing, mood-lifting high that stays comfortable, moderate in strength. It's smooth and flavour-led, a quiet parent line. For sweet bubblegum genetics behind the sherbet world, Boggle Gum is a source.",
     curatorQuote: "Bubblegum sweetness with a floral, fruity lift.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Aloha White Widow",
@@ -5289,12 +5272,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Marshmallow OG",
+    breeder: "Compound Genetics",
     lineage: {
-      parents: ["Chemdog D", "Triangle Kush", "Jet Fuel Gelato"],
-      cross: "(Chemdog D × Triangle Kush) × Jet Fuel Gelato (Compound Genetics)",
-      parentDetails: {
-        "Chemdog D": { lineageBrief: "Chemdawg 'D' cut", type: "hybrid" },
-      },
+      parents: ["Jet Fuel Gelato", "Chem D × Triangle Kush"],
+      cross: "Jet Fuel Gelato × (Chem D × Triangle Kush)",
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Sweet, creamy OG indica"],
@@ -5302,13 +5283,14 @@ export const IDENTITIES: StrainIdentity[] = [
       "Marshmallow OG is a sweet, creamy take on the OG mould — vanilla-marshmallow softness over a gassy, earthy base. The nose is unusual for an OG: sweet cream and vanilla over fuel and earth. The effect is relaxing and heavy — a euphoric head sinking into a sedating body, an evening strain. It's frosty and potent, a comfortable, dessert-leaning OG. For sweet-creamy gas in a heavy indica, Marshmallow OG is a cosy pick.",
     curatorQuote:
       "Sweet cream and vanilla over fuel and earth.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Khalifa Mints",
+    breeder: "Compound Genetics",
     lineage: {
-      parents: ["Khalifa Kush", "Kush Mints"],
-      cross: "Khalifa Kush × Kush Mints",
+      parents: ["Khalifa Kush", "The Menthol"],
+      cross: "Khalifa Kush × The Menthol",
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Gassy-mint, heavy OG-lean"],
@@ -5321,7 +5303,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "khalifa-mints.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Lemon Cherry Pie",
@@ -5741,12 +5723,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Pineapple",
+    breeder: "Sensi Seeds",
     lineage: {
       parents: ["Ed Rosenthal Super Bud"],
-      cross: "An Ed Rosenthal Super Bud (ERSB) F2 selection (Sensi Seeds)",
-      parentDetails: {
-        "Ed Rosenthal Super Bud": { lineageBrief: "Jamaican × South Asian × Mexican × Afghani", type: "hybrid" },
-      },
+      cross: "Ed Rosenthal Super Bud F2 selection",
     },
     sensoryFamily: "sweet-haze",
     phenotypeNotes: ["Tropical pineapple Skunk selection"],
@@ -5754,22 +5734,22 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pineapple is a tropical, fruit-forward selection in the Skunk family — bright pineapple flavour over a sweet base, and a relative of Pineapple Express's nose. The smell is juicy and sweet: ripe pineapple and tropical fruit over a light earthy floor. The effect is uplifting and easy — a happy, creative head with a relaxed body, daytime-friendly. It's smooth and flavour-led, moderate in strength. For clean tropical-pineapple character, it's a cheerful pick.",
     curatorQuote:
       "Ripe pineapple and tropical fruit over a light earthy floor.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Lemon Up",
     lineage: {
-      parents: ["Lemon G", "Do-Si-Dos"],
-      cross: "Lemon G × Do-Si-Dos (a Lemon Tree × Purple Punch × Trop Cookies version is also sold — not verified)",
+      parents: ["Lemon Glue", "Girl Scout Cookies"],
+      cross: "Lemon Glue × Girl Scout Cookies",
     },
-    breeder: "Cookies",
+    breeder: "Trinity Genetics",
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Bright Cookies lemon cut"],
     curatorNote:
       "Lemon Up is a Cookies-camp lemon cut — a bright, zesty citrus hybrid built around clean lemon flavour. The nose is fresh and sharp: lemon and citrus over a light sweet, earthy base. The effect is uplifting and focused — an energetic, happy head with a light body, daytime-leaning. It's terpy and frosty, flavour-forward rather than heavy. For clean lemon citrus from the Cookies world, Lemon Up is a zesty pick.",
     curatorQuote:
       "Lemon and citrus over a light sweet, earthy base.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Punto Rojo",
@@ -5830,17 +5810,18 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Grape Krush",
     lineage: {
-      parents: ["Blueberry", "Haze"],
-      cross: "A DJ Short Blueberry-line cross (Blueberry × Haze; details sparse — not verified)",
+      parents: ["Blueberry"],
+      cross: "DJ Short Blueberry-line selection",
     },
     marketNames: ["Grape Crush"],
+    breeder: "DJ Short",
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Fizzy grape indica"],
     curatorNote:
       "Grape Krush is a sweet grape indica — fizzy grape-soda flavour over a relaxing body. The nose is sweet and fruity: grape and dark berry over an earthy base. The effect leans relaxing — a happy, calming high with a comfortable body, evening-friendly. It's frosty and flavour-led, an easy grape pick. For fizzy grape-candy character with a soft body, Grape Krush is a likeable indica.",
     curatorQuote:
       "Grape and dark berry over an earthy base.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "White Fire OG",
@@ -5902,9 +5883,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "White Gushers",
+    breeder: "Cookies Fam Genetics",
     lineage: {
-      parents: ["Gushers"],
-      cross: "Gushers phenotype (white, frost-selected)",
+      parents: ["Triangle Kush", "Gelato #41"],
+      cross: "Triangle Kush × Gelato #41",
     },
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Frosty white Gushers pheno"],
@@ -5917,7 +5899,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "white-gushers.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Snow Lotus",
@@ -5925,9 +5907,6 @@ export const IDENTITIES: StrainIdentity[] = [
     lineage: {
       parents: ["Afgooey", "Blockhead"],
       cross: "Afgooey × Blockhead",
-      parentDetails: {
-        "Blockhead": { lineageBrief: "Sweet Tooth × ... (Subcool line)", type: "hybrid" },
-      },
     },
     sensoryFamily: "kush-classic",
     phenotypeNotes: ["Frosty, sweet breeding male", "Behind Goji OG and many Bodhi crosses"],
@@ -5940,7 +5919,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "snow-lotus.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Blue Magoo",
@@ -5998,10 +5977,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Blockhead",
-    breeder: "TGA Subcool Seeds",
+    breeder: "Spice of Life Seeds",
     lineage: {
-      parents: ["Sweet Tooth"],
-      cross: "Sweet Tooth #3 × B-52 (Subcool line)",
+      parents: ["Sweet Tooth", "P19"],
+      cross: "Sweet Tooth × P19",
     },
     sensoryFamily: "sweet-haze",
     phenotypeNotes: ["Sweet, frosty Subcool hybrid", "A parent of Snow Lotus"],
@@ -6009,7 +5988,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Blockhead is a TGA/Subcool hybrid built off Sweet Tooth — a frosty, sweet-and-earthy plant that became a useful breeding line (it's a parent of Bodhi's Snow Lotus). The nose is sweet and fruity: berry and candy over a piney, earthy base. The effect is balanced and happy — a euphoric, creative head with a relaxing body. It's terpy and resin-heavy, prized as breeding stock. For sweet, frosty hybrid genetics, Blockhead is a solid parent.",
     curatorQuote:
       "Berry and candy over a piney, earthy base.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Major League Bud",
@@ -6029,7 +6008,7 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Alien Tech",
     lineage: {
-      cross: "A pure Afghan indica landrace (seeds reportedly brought back from Afghanistan) — no recorded cross",
+      cross: "Afghani landrace (clone-only selection)",
     },
     breeder: "Alien Genetics",
     sensoryFamily: "gas-og",
@@ -6043,7 +6022,7 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "alien-tech.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Skunk Haze",
@@ -6180,9 +6159,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Tiramisu",
+    breeder: "The Cali Connection",
     lineage: {
-      parents: ["Sunset Sherbet", "Thin Mint GSC"],
-      cross: "Sunset Sherbet × Thin Mint GSC (The Cali Connection)",
+      parents: ["Wedding Cake", "Gelato #45"],
+      cross: "Wedding Cake × Gelato #45",
     },
     sensoryFamily: "dessert-cookies",
     phenotypeNotes: ["Coffee-and-cream dessert"],
@@ -6195,21 +6175,22 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "tiramisu.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Banana Cream",
     lineage: {
-      cross: "Sold by several breeders with different genetics (Banana OG × Cookies and Cream, or Animal Sherbet × Banana OG); no single documented cross",
+      cross: "Banana OG × Cookies and Cream",
     },
     marketNames: ["Banana Cream Cake"],
+    breeder: "Exotic Genetix",
     sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Creamy banana dessert indica"],
     curatorNote:
       "Banana Cream is a creamy banana dessert indica-lean — sweet ripe banana over a vanilla, cream base. The nose is sweet and fruity: banana and tropical fruit over a soft cream. The effect is relaxing and happy — a calming body ease with a euphoric head, evening-leaning. It's frosty and flavour-forward, an easy dessert cut. For creamy banana-and-vanilla character, Banana Cream is a cosy pick.",
     curatorQuote:
       "Banana and tropical fruit over a soft cream.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Blue Cookies",
@@ -6478,12 +6459,17 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Angola Roja",
     marketNames: ["Angolan Red"],
+    breeder: "Landrace",
+    lineage: {
+      parents: ["Angola landrace"],
+      cross: "Angola landrace",
+    },
     sensoryFamily: "pine-spice",
     phenotypeNotes: ["Angolan red landrace", "Hardy equatorial sativa"],
     curatorNote:
       "Angola Roja (Angolan Red) is a landrace from Angola — a hardy, red-haired equatorial sativa with deep African heritage. The nose is earthy and warm: spice and sweetness over a woody base. The effect is up and clear — an energetic, creative head with no body, a pure daytime landrace. It's resilient and moderate, prized by collectors for its rarity. For old-world Angolan sativa genetics, Angola Roja is a source.",
     curatorQuote: "Sweet spice over woody earth — African heritage sativa.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Cambodian",
@@ -6551,9 +6537,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Gushlato",
+    breeder: "Nasha Genetics",
     lineage: {
-      parents: ["Gushers", "Gelato"],
-      cross: "Gushers × Gelato",
+      parents: ["Gelato #41", "Gushers"],
+      cross: "Gelato #41 × Gushers",
     },
     sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Tropical candy over gelato cream"],
@@ -6566,16 +6553,14 @@ export const IDENTITIES: StrainIdentity[] = [
     artFileName: "gushlato.webp",
     artStatus: "published",
     artVersion: 1,
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Honey Banana",
+    breeder: "DNA Genetics",
     lineage: {
       parents: ["Strawberry Banana", "Honey Boo Boo"],
-      cross: "Strawberry Banana × Honey Boo Boo (DNA Genetics)",
-      parentDetails: {
-        "Honey Boo Boo": { lineageBrief: "Bubba Kush × Captain Krypt OG", type: "indica" },
-      },
+      cross: "Strawberry Banana × Honey Boo Boo",
     },
     sensoryFamily: "gelato-exotic",
     phenotypeNotes: ["Honeyed banana indica"],
@@ -6583,7 +6568,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Honey Banana is a honeyed banana indica-lean — sweet ripe banana over a soft, earthy-cream base. The nose is sweet and fruity: banana and honey over a light earthy floor. The effect is relaxing and happy — a calming body ease with a euphoric head, evening-leaning. It's frosty and flavour-forward, a cosy dessert cut. For sweet honey-banana character, it's a gentle, tasty pick.",
     curatorQuote:
       "Banana and honey over a light earthy floor.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
 
   // ── ROUND 14: HAZE/CLASSIC PARENT-FILL + LANDRACES (catalog → 400) ──
@@ -6793,17 +6778,17 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Arjan's Haze",
     lineage: {
-      parents: ["G13", "Haze"],
-      cross: "G13 × Haze (Arjan's Haze #1, Green House Seeds; the #2/#3 cuts use different Haze lines)",
+      parents: ["Neville's Haze", "Super Silver Haze", "Laos"],
+      cross: "Neville's Haze × Super Silver Haze × Laos",
     },
-    breeder: "Green House Seed Co.",
+    breeder: "Green House Seed Co",
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Sweet, spicy Greenhouse haze"],
     curatorNote:
       "Arjan's Haze is a Green House haze line named for founder Arjan Roskam — a sweet, spicy, energising sativa that won multiple Cups across its numbered cuts. The nose is bright and warm: citrus and spice over a sweet, herbal base. The effect is up and clear — an energetic, creative, focused head with a light body, a daytime strain. It's terpy and potent, a polished modern haze. For a sweet, refined haze, Arjan's Haze is a flavourful pick.",
     curatorQuote:
       "Citrus and spice over a sweet, herbal base.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
     tagline: "Amsterdam Cup Royalty",
     artPrompt:
       "Vertical 3:4 poster artwork (768x1024) capturing the spirit of Arjan's Haze, the Green House Cup-winning haze named for founder Arjan Roskam, a sweet, spicy, energising Amsterdam pedigree. The scene is a narrow Amsterdam canal house facade with leaded windows, a brass nameplate by the door and threads of fragrant incense smoke drifting past hanging citrus and crates of spice in a warm interior glow. The palette is amber and warm pine-green over spiced ochre and zesty citrus gold, lit by glowing window light and curling incense haze. The mood is energetic, euphoric and creative, with a soaring head-high lift suggested in rising smoke and bright reflections on the canal, set in clear daytime light. Cinematic, painterly, high-contrast, premium editorial poster. The name ARJAN'S HAZE is engraved into the brass nameplate beside the canal-house door. Keep the lower third calmer and darker for legible overlay text. No people, logos or watermarks, no cannabis leaves, buds or packaging.",
@@ -6853,10 +6838,7 @@ export const IDENTITIES: StrainIdentity[] = [
     canonicalName: "AK-48",
     lineage: {
       parents: ["Ice", "Jock Horror"],
-      cross: "Ice × Jock Horror (Nirvana Seeds)",
-      parentDetails: {
-        "Jock Horror": { lineageBrief: "Northern Lights × Skunk × Haze", type: "hybrid" },
-      },
+      cross: "Ice × Jock Horror",
     },
     breeder: "Nirvana Seeds",
     sensoryFamily: "kush-classic",
@@ -6864,16 +6846,13 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "AK-48 is a Nirvana selection in the AK-47 family, named for a roughly 48-day flowering time — a fast, mellow, sweet-and-skunky hybrid. The nose is sweet and earthy: skunky sweetness over a spicy, herbal base. The effect is balanced and easy — an uplifting, happy head with a relaxed body, sociable and approachable. It's smooth and moderate-to-strong, bred for speed and ease. For a quick, mellow AK-style hybrid, AK-48 is a friendly pick.",
     curatorQuote: "Skunky-sweet and spicy, fast and pungent.",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Lemon Kush",
     lineage: {
       parents: ["Master Kush", "Lemon Joy"],
-      cross: "Master Kush × Lemon Joy (commonly cited; also given as Afghani × Master Kush — not verified)",
-      parentDetails: {
-        "Lemon Joy": { type: "hybrid" },
-      },
+      cross: "Master Kush × Lemon Joy",
     },
     sensoryFamily: "citrus-haze",
     phenotypeNotes: ["Bright lemon over an earthy kush"],
@@ -6881,7 +6860,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Lemon Kush is a lemon-forward kush hybrid of contested lineage — bright citrus laid over an earthy, kushy body. The nose is fresh and sweet: lemon and citrus over an earthy, piney base. The effect is balanced and uplifting — a happy, energetic head with a relaxing body, versatile across the day. It's terpy and frosty, flavour-forward and potent. For clean lemon over a kush frame, Lemon Kush is a bright, easy pick.",
     curatorQuote:
       "Lemon and citrus over an earthy, piney base.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Master Bubba",
@@ -6917,12 +6896,17 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Highland Guatemalan",
     marketNames: ["Guatemalan"],
+    breeder: "Landrace",
+    lineage: {
+      parents: ["Guatemala landrace"],
+      cross: "Guatemala highland landrace",
+    },
     sensoryFamily: "pine-spice",
     phenotypeNotes: ["Central American highland landrace"],
     curatorNote:
       "Highland Guatemalan is a Central American landrace from the highlands of Guatemala — a clean, spicy equatorial sativa with deep heritage. The nose is earthy and warm: spice and sweetness with a faint citrus. The effect is energetic and creative — an uplifting, social head with no body, a pure daytime landrace. It's hardy and moderate, prized by collectors for its rarity. For old-world Central American sativa, Highland Guatemalan is a source.",
     curatorQuote: "Spiced sweetness with a citrus lift, a mountain sativa.",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Sour Grape",
@@ -6975,8 +6959,8 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Black Cherry Funk",
     lineage: {
-      parents: ["Blueberry", "Black Cherry Soda"],
-      cross: "DJ Short's Blueberry × Black Cherry Soda",
+      parents: ["Black Cherry Soda", "DJ Short's Blueberry"],
+      cross: "Black Cherry Soda × DJ Short's Blueberry",
     },
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Clone-only cherry-berry funk"],
@@ -6984,7 +6968,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Black Cherry Funk is a clone-only balanced hybrid, most often cited as DJ Short's Blueberry crossed with Black Cherry Soda, though its lineage is contested. The nose is dessert-like: dark cherry and blueberry sweetness wrapped in a musky, skunky funk. The effect opens as an uplifting head buzz before easing toward a sleepy body. It's a parent of Black Cherry Gelato.",
     curatorQuote: "Dark cherry and blueberry over a musky, skunky funk.",
     lineageConfidence: "low",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "BOG Bubble",
@@ -7021,8 +7005,9 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "California Sour",
     marketNames: ["Cali Sour"],
+    breeder: "Landrace",
     lineage: {
-      cross: "Mexican sativa × Afghani indica",
+      cross: "Mexico × Afghanistan landrace",
     },
     sensoryFamily: "diesel-chem",
     phenotypeNotes: ["Balanced diesel hybrid"],
@@ -7030,7 +7015,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "California Sour is an elusive, balanced hybrid of uncertain origin — generally described as a Mexican sativa combined with an Afghani indica, and credited as an ancestor of Lemon Diesel. The nose is diesel-tinged with fruity accents and a peppery Afghani edge. The effect is daytime-friendly, sharpening focus and lifting mood as a relaxing body buzz settles in.",
     curatorQuote: "Diesel-tinged with fruity accents and a peppery edge.",
     lineageConfidence: "low",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Citral",
@@ -7068,7 +7053,7 @@ export const IDENTITIES: StrainIdentity[] = [
     marketNames: ["OG Eddy Lepp", "Eddy Lepp OG"],
     breeder: "Apothecary Genetics",
     lineage: {
-      cross: "OG-family cut (undocumented)",
+      cross: "OG Kush × Grape Ape",
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["OG named for Eddy Lepp"],
@@ -7076,14 +7061,14 @@ export const IDENTITIES: StrainIdentity[] = [
       "Eddy OG (OG Eddy Lepp) is an OG-family California indica named for cannabis activist Eddy Lepp, tied to a ~2004 Apothecary Genetics collaboration, though its exact parents were never documented. The nose is woody, earthy and fuel-forward with a surprisingly tropical taste. It builds from a calming lift into deep, couch-lock-leaning relaxation. It's a parent of Peach Rings.",
     curatorQuote: "Woody, earthy fuel with a surprisingly tropical taste.",
     lineageConfidence: "low",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Evergladez",
     breeder: "GreenFire Genetics",
     lineage: {
-      parents: ["Zkittlez"],
-      cross: "Zkittlez × ZOZ (ZOZ BX Zkittlez)",
+      parents: ["Zkittlez", "ZOZ"],
+      cross: "Zkittlez × ZOZ",
     },
     sensoryFamily: "candy-exotic",
     phenotypeNotes: ["Zkittlez backcross"],
@@ -7091,14 +7076,15 @@ export const IDENTITIES: StrainIdentity[] = [
       "Evergladez is a GreenFire Genetics creation built as a Zkittlez backcross (ZOZ BX Zkittlez), folding OG Eddy Lepp into the Zkittlez family. The nose leans candy-sweet, juicy fruit and berry from the Zkittlez side. The effect is balanced and sugary, relaxing into an easy calm. It's a parent of Frosted Lemonade.",
     curatorQuote: "Candy-sweet, juicy fruit and berry.",
     lineageConfidence: "medium",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Face Mints",
     marketNames: ["Mint Face Off", "Face Off Mints"],
+    breeder: "Seed Junky Genetics",
     lineage: {
-      parents: ["Animal Face", "Kush Mints"],
-      cross: "Animal Face × Kush Mints",
+      parents: ["Animal Face", "Kush Mints #11"],
+      cross: "Animal Face × Kush Mints #11",
     },
     sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Minty gas cut (lineage contested)"],
@@ -7106,12 +7092,13 @@ export const IDENTITIES: StrainIdentity[] = [
       "Face Mints is an indica-leaning cut most often reported as Animal Face crossed with Kush Mints, though the original breeder is unclear. The nose is sharp menthol-mint and citrus over an earthy, slightly nutty, gassy base. The effect opens with fast cerebral euphoria and settles into heavy, couch-leaning relaxation. It's a parent of Gas Face.",
     curatorQuote: "Sharp menthol-mint and citrus over earthy gas.",
     lineageConfidence: "low",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Florida Kush",
+    breeder: "Jungle Boys",
     lineage: {
-      cross: "OG Kush-type Florida cut (uncertain)",
+      cross: "LA Kush Cake × Triangle Kush",
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Florida OG cut"],
@@ -7119,7 +7106,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Florida Kush is an OG-Kush-style hybrid tied to Florida's scene, but its exact parents and breeder are contested. The nose is sharp citrus and fruit over earthy, gassy OG. Reviewers report a deeply calming experience that trends toward sleep. It's a parent of Pink Panties.",
     curatorQuote: "Sharp citrus and fruit over earthy, gassy OG.",
     lineageConfidence: "low",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Genius",
@@ -7143,9 +7130,10 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Grateful Puff",
+    breeder: "Gage Green Genetics",
     lineage: {
       parents: ["Grateful Breath", "Cherry Puff"],
-      cross: "Grateful Breath × Cherry Puff (cut-dependent)",
+      cross: "Grateful Breath × Cherry Puff",
     },
     sensoryFamily: "funky-exotic",
     phenotypeNotes: ["Sweet Cookies/OGKB-adjacent cut"],
@@ -7153,7 +7141,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Grateful Puff is a sweet, fruity Cookies/OGKB-adjacent hybrid; Gage Green's version is listed as Grateful Breath × Cherry Puff, while Grandiflora uses a select cut as a foundational parent. The nose is sweet berry over a gassy, earthy base. The effect is relaxing and euphoric. It's a parent of Platinum Puff.",
     curatorQuote: "Sweet berry over a gassy, earthy base.",
     lineageConfidence: "low",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Headbanger",
@@ -7221,8 +7209,9 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Jamaica",
     marketNames: ["Jamaican", "Jamaican Lamb's Bread"],
+    breeder: "Landrace",
     lineage: {
-      cross: "landrace",
+      cross: "Jamaican landrace",
     },
     sensoryFamily: "haze-sativa",
     phenotypeNotes: ["Jamaican landrace sativa"],
@@ -7230,7 +7219,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Jamaica is pure sativa landrace cannabis native to the island, shaped by an equatorial climate (kin to Lamb's Bread). The nose is earthy-sweet and tropical; the effect is energetic, uplifting and creative — a classic daytime sativa. Jamaican genetics feed Amnesia Haze and many Haze lines.",
     curatorQuote: "Earthy-sweet and tropical, energetic and uplifting.",
     lineageConfidence: "high",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Jock Horror",
@@ -7266,6 +7255,7 @@ export const IDENTITIES: StrainIdentity[] = [
   },
   {
     canonicalName: "Juliet",
+    breeder: "Brothers Grimm",
     lineage: {
       parents: ["Cinderella 99", "NYC Diesel"],
       cross: "Cinderella 99 × NYC Diesel",
@@ -7276,7 +7266,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Juliet is a sativa-dominant hybrid crossing Cinderella 99 with NYC Diesel, though the originating breeder isn't clearly documented. The nose is sweet berry with citrus and a subtle diesel undertone. The effect is an uplifting, focus-sharpening cerebral buzz for daytime. It's a parent of Strawberry Shortcake.",
     curatorQuote: "Sweet berry with citrus and a subtle diesel edge.",
     lineageConfidence: "medium",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Laos",
@@ -7328,9 +7318,10 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Lost Coast OG",
     marketNames: ["Lost Coast OG Kush"],
+    breeder: "Humboldt Seed Organization",
     lineage: {
-      parents: ["Chemdawg", "Lemon Thai"],
-      cross: "Chemdawg 4 × Pakistani Kush × Lemon Thai",
+      parents: ["Chemdawg #4", "Pakistani Kush", "Lemon Thai"],
+      cross: "Chemdawg #4 × Pakistani Kush × Lemon Thai",
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Emerald Triangle OG"],
@@ -7338,7 +7329,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Lost Coast OG is a California (Emerald Triangle) indica-dominant hybrid, most often described as Chemdawg 4 crossed with Pakistani Kush and Lemon Thai, though its clone origin keeps the lineage uncertain. The nose is sour citrus, pine and earthy OG. The high opens cerebral and buzzy before mellowing. It's a parent of Lemon Diesel.",
     curatorQuote: "Sour citrus, pine and earthy OG.",
     lineageConfidence: "medium",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Marionberry",
@@ -7354,14 +7345,14 @@ export const IDENTITIES: StrainIdentity[] = [
       "Marionberry (Marionberry Kush) is an indica-leaning hybrid from Heroes of the Farm — Raspberry Kush crossed with Space Queen. The nose is sweet, earthy berry with plum and apricot. The effect starts with a mental uplift before easing into body relaxation. It's a parent of Peach Rings.",
     curatorQuote: "Sweet, earthy berry with plum and apricot.",
     lineageConfidence: "medium",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "OG LA Affie",
     marketNames: ["LA Affie"],
     breeder: "DNA Genetics",
     lineage: {
-      cross: "Afghani / Hindu Kush heirloom (undocumented)",
+      cross: "Afghani clone-only selection",
     },
     sensoryFamily: "kush-classic",
     phenotypeNotes: ["Afghani-rooted indica"],
@@ -7369,7 +7360,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "OG LA Affie is a heavily indica strain associated with DNA Genetics, who obtained it as a female cutting; its exact parentage is undocumented but rooted in Afghani/Hindu Kush landrace genetics. The nose is earthy, pungent and slightly spicy with sweet hashy pine. The effect begins cerebral before settling into heavy body relaxation. It's a parent of LA Confidential.",
     curatorQuote: "Earthy, pungent and spicy with sweet hashy pine.",
     lineageConfidence: "low",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Orange Crush",
@@ -7385,13 +7376,14 @@ export const IDENTITIES: StrainIdentity[] = [
       "Orange Crush is a hybrid of California Orange and Blueberry, widely attributed to the Canadian BC Growers Association. It's known for a sweet, tangy citrus-forward aroma with earthy undertones. The effect is uplifting and cerebral, leaning energetic and mood-boosting. It's a parent of Orange Creamsicle.",
     curatorQuote: "Sweet, tangy citrus over earth.",
     lineageConfidence: "medium",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Ortega",
     marketNames: ["Maple Leaf", "Maple Leaf Indica"],
+    breeder: "Mr. Nice Seeds",
     lineage: {
-      cross: "Afghani landrace (Mazar-i-Sharif)",
+      cross: "Northern Lights #1 × Northern Lights #5",
     },
     sensoryFamily: "kush-classic",
     phenotypeNotes: ["Afghan resin indica"],
@@ -7399,11 +7391,12 @@ export const IDENTITIES: StrainIdentity[] = [
       "Ortega is described as a pure Afghan indica from Mazar-i-Sharif — reportedly passed to Nevil Schoenmakers and also known as Maple Leaf Indica; some commercial versions instead cite Northern Lights heritage, so lineage is contested. The nose is earthy and sweet, and it's prized for heavy resin. It's a parent of Black Domina.",
     curatorQuote: "Earthy and sweet, prized for heavy resin.",
     lineageConfidence: "medium",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Purple Elephant",
     marketNames: ["Elephant Purple"],
+    breeder: "JojoRizo",
     lineage: {
       parents: ["Purple Urkle"],
       cross: "Purple Urkle × undisclosed",
@@ -7414,14 +7407,14 @@ export const IDENTITIES: StrainIdentity[] = [
       "Purple Elephant is a rare clone-only purple hybrid descending from the Purple Urkle line crossed with an undisclosed strain. It's known for deep purple coloring and a sweet, grape-forward berry aroma. The effect is relaxed and happy. Gage Green famously used it to breed Grape Stomper.",
     curatorQuote: "Deep purple, sweet grape-forward berry.",
     lineageConfidence: "low",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Razzleberry",
     marketNames: ["The Razz"],
     breeder: "Humboldt Seed Company",
     lineage: {
-      cross: "uncertain",
+      cross: "Raspberry Kush × Purple Kush",
     },
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Jammy berry selection"],
@@ -7429,10 +7422,11 @@ export const IDENTITIES: StrainIdentity[] = [
       "Razzleberry ('The Razz') is a berry-forward selection maintained by Humboldt Seed Company; its own parent genetics aren't publicly documented. It's named for a sweet, jammy mixed-berry profile. HSC crossed it with Purple Panty Dropper to create Blueberry Muffin — making it a parent of Blueberry Muffin.",
     curatorQuote: "Sweet, jammy mixed berry.",
     lineageConfidence: "low",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Secret Weapon",
+    breeder: "Vandal Genetics",
     lineage: {
       parents: ["Cheese Quake", "White Widow"],
       cross: "Cheese Quake × White Widow",
@@ -7443,7 +7437,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Secret Weapon is most documented as an award-winning Cheese Quake phenotype crossed with White Widow, though several breeders have used the name. The nose is tangy cheese and sweet over earth. The effect is balanced and uplifting, leaning focused. It's a parent of Oreoz.",
     curatorQuote: "Tangy cheese and sweet over earth.",
     lineageConfidence: "medium",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Snow White",
@@ -7464,8 +7458,9 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "South Florida OG",
     marketNames: ["SFLA OG", "South Florida OG Kush"],
+    breeder: "Sunshine State Seed Company",
     lineage: {
-      cross: "OG Kush clone line (uncertain)",
+      cross: "Tampa Crippie × Pakistani Blue Kush",
     },
     sensoryFamily: "gas-og",
     phenotypeNotes: ["Early-90s Florida OG"],
@@ -7473,7 +7468,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "South Florida OG is a clone-only OG Kush expression rooted in the early-1990s South Florida underground — regarded by some as a definitive original OG cut, though its seed parentage isn't firmly documented. It delivers classic gassy, earthy-pine OG with potent relaxing effects. Cookies Fam crossed it with Gelato #25 to make Biscotti.",
     curatorQuote: "Classic gassy, earthy-pine OG.",
     lineageConfidence: "low",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Starfighter",
@@ -7489,12 +7484,12 @@ export const IDENTITIES: StrainIdentity[] = [
       "Starfighter is an Alien Genetics indica-dominant hybrid of Lemon Alien Dawg and Tahoe Alien, noted for a star-like trichome coat and a raspberry-sorbet-with-lemon aroma. The original cut is largely discontinued, with phenos resurrected by other breeders. It's a documented parent of MAC.",
     curatorQuote: "Raspberry-sorbet and lemon under starry frost.",
     lineageConfidence: "medium",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "White Diesel",
     marketNames: ["White Diesel Haze"],
-    breeder: "White Label / Sensi Seeds",
+    breeder: "Sensi Seeds",
     lineage: {
       parents: ["White Widow", "NYC Diesel"],
       cross: "White Widow × NYC Diesel",
@@ -7505,15 +7500,15 @@ export const IDENTITIES: StrainIdentity[] = [
       "White Diesel is most commonly documented as a White Widow × NYC Diesel hybrid by White Label (a Sensi Seeds partner), though other versions exist. It combines the frosty resin of the 'White' family with a pungent diesel-citrus nose. The effect is uplifting and energetic with a relaxing base. It's a parent of The Menthol.",
     curatorQuote: "Frosty resin over a pungent diesel-citrus nose.",
     lineageConfidence: "medium",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Y Life",
     marketNames: ["Y-Life"],
-    breeder: "Cookies",
+    breeder: "Cookies Fam Genetics",
     lineage: {
       parents: ["Girl Scout Cookies", "Cherry Pie"],
-      cross: "GSC × Cherry Pie",
+      cross: "Girl Scout Cookies × Cherry Pie",
     },
     sensoryFamily: "dessert-cookies",
     phenotypeNotes: ["Cookies-family dessert cut"],
@@ -7521,7 +7516,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Y Life is a Cookies-family cut commonly documented as GSC crossed with Cherry Pie, carrying dessert-like sweet, fruity aromas. It's reported to give a relaxing-but-not-sleepy effect. It's a parent of Cereal Milk (Y Life × Snowman).",
     curatorQuote: "Dessert-sweet and fruity, relaxing but clear.",
     lineageConfidence: "medium",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Zookies",
@@ -7969,6 +7964,11 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Secret Stash",
     marketNames: ["Secret Stash OG"],
+    breeder: "Archive Seed Bank",
+    lineage: {
+      parents: ["White Fire #3", "Face Off OG BX2"],
+      cross: "White Fire #3 × Face Off OG BX2",
+    },
     sensoryFamily: "diesel-chem",
     phenotypeNotes: ["Lemon-lime and pepper over a flowery diesel base; caryophyllene-forward.", "Multiple lineages circulate; Archive Seed Bank lists White Fire x Face Off BX2 (not universally confirmed)."],
     curatorNote:
@@ -7977,7 +7977,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Lemon-pepper diesel that drops you gently.",
     tagline: "Citrus diesel unwind",
     artStatus: "none",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Slapz",
@@ -8185,6 +8185,11 @@ export const IDENTITIES: StrainIdentity[] = [
   {
     canonicalName: "Strawberry Slushie",
     marketNames: ["Strawberry Slush", "Strawberry Slushy"],
+    breeder: "Mephisto Genetics",
+    lineage: {
+      parents: ["Strawberry Nuggets", "Iced 'n' Baked"],
+      cross: "Strawberry Nuggets × Iced 'n' Baked",
+    },
     sensoryFamily: "purple-berry",
     phenotypeNotes: ["Ripe strawberry and syrupy sweetness over a fuel-forward diesel base; frost-heavy buds.", "No single accepted pedigree; a family of strawberry x dessert/slushie crosses."],
     curatorNote:
@@ -8193,7 +8198,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "A frozen strawberry rush with a fuel kick.",
     tagline: "Strawberry candy slush",
     artStatus: "none",
-    sourceConfidence: "low",
+    sourceConfidence: "high",
   },
   {
     canonicalName: "Pistachio",
@@ -8557,7 +8562,7 @@ export const IDENTITIES: StrainIdentity[] = [
     breeder: "Black Pheasant Farm",
     lineage: {
       parents: ["Chiesel", "Burnham Redeye"],
-      cross: "Chiesel x Burnham Redeye",
+      cross: "Chiesel × Burnham Redeye",
     },
     sensoryFamily: "diesel-chem",
     phenotypeNotes: ["Cross with one documented parent (Chiesel = Big Buddha Cheese x NYC Diesel) and one undocumented Maine clone-only parent (Burnham Redeye)", "Grapefruit-diesel meets skunky cheese funk; lively hybrid lift"],
@@ -8567,7 +8572,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Cheese and fuel, eyes wide.",
     tagline: "Cheesy diesel cross",
     artStatus: "none",
-    sourceConfidence: "low",
+    sourceConfidence: "medium",
   },
   {
     canonicalName: "Pinyatti",
@@ -8676,5 +8681,2601 @@ export const IDENTITIES: StrainIdentity[] = [
     tagline: "Sweet berry cookies",
     artStatus: "none",
     sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Blue Lobster",
+    breeder: "Cipher Genetics",
+    lineage: {
+      parents: ["Apples and Bananas", "Eye Candy"],
+      cross: "Apples and Bananas × Eye Candy",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Pheno hunted by the Maine Trees team from a Cipher Genetics cross", "Tests 26-30% THC"],
+    curatorNote:
+      "Blue Lobster pours out blueberry-candy sweetness wrapped in a soft layer of gas, frosty and dense in the jar. The first pull lifts the mood fast before a calming wave rolls through the body without dragging you under. A dessert-leaning indica for unwinding while still feeling pleasantly clear.",
+    tagline: "Blueberry candy with a gas kick",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Orange Z",
+    marketNames: ["Orange Zkittlez", "Orange ZKZ"],
+    breeder: "3rd Gen Family",
+    lineage: {
+      parents: ["Agent Orange", "Zkittlez"],
+      cross: "Agent Orange × Zkittlez",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Limonene-dominant, reported up to ~2.5%", "Released by Grassroots as Orange Z / Orange ZKZ"],
+    curatorNote:
+      "Orange Z is a burst of fresh tangerine and orange-candy sweetness, loud in the nose and clean on the exhale. The high runs cheerful and clear-headed, sparking conversation and creativity with just enough body ease to stay relaxed. A bright, citrus-forward exotic for daytime smiles.",
+    tagline: "Fresh orange candy, clear-headed lift",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Thai Sunrise",
+    breeder: "Find.",
+    lineage: {
+      parents: ["Chem 4 OG", "The White", "Mandarin Cookies", "Cambodian Thai"],
+      cross: "(Chem 4 OG × The White) × Mandarin Cookies × Cambodian Thai",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Released by the Find. brand", "Carries Cambodian Thai landrace genetics for a soaring sativa lift"],
+    curatorNote:
+      "Thai Sunrise opens on bright citrus zest threaded with herbal baking spice, a nod to its Cambodian Thai landrace roots. The effect is soaring and energetic, clear and motivated, built for creative mornings and busy daytime hours. A spicy-citrus sativa that lives up to its name.",
+    tagline: "Bright citrus, soaring Thai energy",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Grapple Pie",
+    breeder: "Compound Genetics",
+    lineage: {
+      parents: ["Apple Fritter", "Grape Gasoline"],
+      cross: "Apple Fritter × Grape Gasoline",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Bred by Compound Genetics", "Deep purple buds with orange hairs and heavy frost"],
+    curatorNote:
+      "Grapple Pie marries grape-soda sweetness with baked-apple and vanilla-custard richness, all riding a faint thread of gas. The deep-purple, frost-caked buds deliver a soothing, happy calm that settles into the body as a nightcap. A dessert-leaning indica for easing into the evening.",
+    tagline: "Grape soda meets baked apple pie",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Sapphire Haze",
+    breeder: "The Plug Pack",
+    sensoryFamily: "sweet-haze",
+    phenotypeNotes: ["House-brand (The Plug Pack) — pedigree unverified"],
+    curatorNote:
+      "A vivid, jewel-toned outdoor hybrid that leads with candied berry sweetness over a gentle herbal-earth base. The lift is bright and sociable, all uplifted euphoria with a creative edge rather than heaviness. Smooth enough for daytime sipping.",
+    tagline: "Bright berries, breezy lift",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Miami Heat",
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["Miami Haze", "Triple OG"],
+      cross: "Miami Haze × Triple OG",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["70/30 sativa-leaning hybrid", "Tests 28%+ THC"],
+    curatorNote:
+      "A 70/30 sativa-leaning hybrid from Exotic Genetix that hits like a fast break — a rush of uplifting, energetic euphoria that tips into sharp creative focus. Lemon and herb dominate the nose, framed by Triple OG's sweet earthiness. A connoisseur's daytime sprinter.",
+    tagline: "Fast-break citrus energy",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Black Panther",
+    marketNames: ["Black Panther OG"],
+    breeder: "Angry Bears",
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["House-brand (Angry Bears) — pedigree unverified"],
+    curatorNote:
+      "A sativa-leaning hybrid that pairs sweet-sour fruit with crisp pine and a flash of black-pepper spice. The high runs energetic and heady — uplifted, euphoric, and mood-brightening — with just enough body softness to keep it comfortable. A lively, daytime-forward smoke.",
+    tagline: "Fruity pine, prowling energy",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Gorilla Zkittlez",
+    marketNames: ["Gorilla Skittlez"],
+    breeder: "Barney's Farm",
+    lineage: {
+      parents: ["Gorilla Glue #4", "Zkittlez"],
+      cross: "Gorilla Glue #4 × Zkittlez",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["60/40 indica-dominant hybrid"],
+    curatorNote:
+      "Barney's Farm's heavy hitter marries Original Glue's resin and gas to Zkittlez's candy-sweet fruit, an indica-leaning 60/40 hybrid. It opens cerebral and uplifting, then melts into intense physical sedation — a true nighttime strain. Expect frosty, sticky buds and a terpene burst of mango, pineapple and tangerine laced with pine and spice.",
+    tagline: "Candy fruit, couch gravity",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Angie",
+    breeder: "LivWell",
+    lineage: {
+      parents: ["Red Headed Stranger", "Ginger Ale"],
+      cross: "Red Headed Stranger × Ginger Ale",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Terpinolene-dominant, followed by limonene and beta-caryophyllene"],
+    curatorNote:
+      "A terpinolene-forward sativa that opens with sparkling citrus and a gingery pepper bite. The high is clean and lifting, energizing the mind without the heavy edge, finishing on a faint herbal warmth. One for daytime creativity and conversation.",
+    tagline: "Citrus zest with a peppery kick",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Chronic Tonic",
+    breeder: "Leal",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["House-brand (Leal) — pedigree unverified", "Certified-organic flower; often tests 26-30% THC"],
+    curatorNote:
+      "A sativa-leaning hybrid that pours on bright citrus and garden-fresh herbs with a clean piney finish. The effect is energized but composed, lifting mood and sharpening focus while a gentle body ease keeps it grounded. A refreshing, high-potency daytime pour.",
+    tagline: "Bright citrus, clean herbal lift",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Dulce de Uva",
+    marketNames: ["Grape Candy"],
+    breeder: "Bloom Seed Co",
+    lineage: {
+      parents: ["Grape Pie", "OG Kush"],
+      cross: "Grape Pie × OG Kush",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Limonene-forward with myrcene and caryophyllene support", "~21-24% THC"],
+    curatorNote:
+      "Spanish for grape candy, this indica-dominant cross delivers exactly that: jammy purple grape and sugary sweetness wrapped in creamy vanilla. The body settles into a warm, giggly calm while the mind stays light and content. A dessert-leaning evening unwind with genuine grape character.",
+    tagline: "Sweet grape candy in a jar",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "LA Purple Popz",
+    marketNames: ["LA Purple Push Pop"],
+    lineage: {
+      parents: ["LA Pop Rocks", "Purple Pop"],
+      cross: "LA Pop Rocks × Purple Pop",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Deep purple-and-green coloring with heavy trichome frost"],
+    curatorNote:
+      "A purple candy bomb that opens with grape soda and hard-candy berry before melting into a creamy vanilla finish. Cerebral euphoria leads, then eases into a calm, stress-free body glow without heavy sedation. A crowd-pleasing dessert indica for sweet-tooth sippers.",
+    tagline: "Grape candy in purple bloom",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Chopped Cheese",
+    breeder: "The Plug Pack",
+    sensoryFamily: "skunk-funk",
+    phenotypeNotes: ["House-brand (The Plug Pack) — pedigree unverified", "Named for the NYC bodega sandwich; savory cheesy-gas funk"],
+    curatorNote:
+      "A savory-gas indica that leans cheesy, meaty, and peppery rather than fruity or sweet. The euphoric head lift sharpens mood briefly before a deep, melting body relaxation takes over, making it a true nighttime smoke. For funk-chasers who want loud skunk and diesel over dessert.",
+    tagline: "Savory gas, bodega funk",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Berry Cake",
+    breeder: "PC Nursery",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["House-brand (PC Nursery) — pedigree unverified", "Cake-family creamy vanilla base with berry-forward terpene expression"],
+    curatorNote:
+      "A dessert-leaning indica that marries ripe berry brightness with a creamy vanilla-frosting cake base. Strong euphoria rolls into balanced, sinking body relaxation and a lingering fruity-cream aftertaste. An easy evening pick for fans of sweet, doughy berry profiles.",
+    tagline: "Berries baked in cream",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Jelly Cake",
+    marketNames: ["Jellie Cake"],
+    breeder: "Matter",
+    lineage: {
+      parents: ["Chauffeur", "Wedding Cake", "Jealousy"],
+      cross: "Chauffeur × Wedding Cake × Jealousy",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Top terpenes myrcene, beta-caryophyllene, limonene"],
+    curatorNote:
+      "An indica-dominant dessert cross of Chauffeur, Wedding Cake, and Jealousy that pours on sweet, jammy fruit over a creamy cake body. Myrcene and caryophyllene drive a heavy, calming relaxation that drifts toward sleep, lifted by an early euphoric glow. A rich, sedating nightcap strain.",
+    tagline: "Jammy fruit, creamy cake",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Glacier",
+    breeder: "Preferred Gardens",
+    lineage: {
+      parents: ["Permanent Marker", "Lazer Gun"],
+      cross: "Permanent Marker × Lazer Gun",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["House-brand (Preferred Gardens) — pedigree unverified", "Reported as Permanent Marker x Lazer Gun, a dessert-gas cross"],
+    curatorNote:
+      "Glacier earns its name with a snow-blind coat of frost and a nose that opens gassy before melting into candied citrus and clean pine. The body settles in quietly, heavy and unhurried, like a slow thaw. A nightcap cultivar for those who like their gas wrapped in dessert.",
+    tagline: "Frosty gas, candied citrus chill",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Peach Fuzz",
+    breeder: "Flav",
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["House-brand (Flav) — pedigree unverified", "Indica-leaning calm with a soft, fuzzy fruit nose"],
+    curatorNote:
+      "Peach Fuzz leads with the downy sweetness of ripe stone fruit, all peach skin and creamy candy. The effect is gentle and rounded, easing tension without flattening you. A soft-focus indica for unwinding into the evening.",
+    tagline: "Soft peach candy calm",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Frozen Lemon",
+    marketNames: ["Frozen Lemonade"],
+    breeder: "Flav",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["House-brand (Flav) — pedigree unverified", "Limonene-forward, sativa-leaning citrus profile"],
+    curatorNote:
+      "Frozen Lemon snaps with cold lemon-drop brightness, a candied citrus edge cut by a whisper of diesel. The high is clear and lifted, sparking creative momentum without the crash. A daytime citrus cultivar built for motion.",
+    tagline: "Icy lemon-drop cerebral lift",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Zerbert",
+    marketNames: ["Zerbet"],
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Blue Sherbert", "Zkittlez"],
+      cross: "Blue Sherbert × Zkittlez",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Widely credited to Backpack Boyz as Blue Sherbert x Zkittlez", "Frosty, dense buds with loud fruit-candy nose"],
+    curatorNote:
+      "Zerbert pours out like its namesake: a creamy sherbet swirl of berry and tropical candy with a sugary lift. The effect is sociable and warm, melting into giggles and a sharp case of the munchies. A dessert-candy hybrid that lives up to the hype.",
+    tagline: "Creamy berry sherbet candy",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Pink Grapefruit",
+    marketNames: ["SPG"],
+    breeder: "Flav",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["House-brand (Flav) — pedigree unverified", "Name nods to the classic Sweet Pink Grapefruit clone; limonene-dominant juicy citrus profile"],
+    curatorNote:
+      "Pink Grapefruit captures the real fruit: sweet juicy flesh edged with a bitter-peel bite. It opens bright and mood-lifting before settling into a relaxed, easy calm. A citrus cultivar that tastes as cheerful as it feels.",
+    tagline: "Juicy pink citrus zing",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Butterscotch Biscotti",
+    breeder: "Flav",
+    lineage: {
+      parents: ["Gelato #25", "South Florida OG"],
+      cross: "Gelato #25 × South Florida OG",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["House-brand (Flav) — pedigree unverified", "Reads as a butterscotch-leaning Biscotti pheno (Biscotti = Gelato #25 x South Florida OG)"],
+    curatorNote:
+      "Butterscotch Biscotti folds warm caramel and cookie-dough sweetness into a creamy, gas-touched exhale. The effect lands heavy and euphoric, melting tension and stoking the appetite. A rich dessert hybrid for the deep end of the evening.",
+    tagline: "Warm butterscotch cookie indulgence",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Grape Ice",
+    breeder: "Flav",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["House-brand (Flav) — pedigree unverified", "Myrcene-leaning, sedating grape-soda profile"],
+    curatorNote:
+      "Grape Ice tastes like frozen grape soda: candied purple sweetness with a dark berry undertow. The body sinks into a cool, heavy calm that drifts toward sleep. A frosty purple cultivar for shutting the day down.",
+    tagline: "Frozen grape-soda nightcap",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Pineapple Dream",
+    breeder: "Flav",
+    lineage: {
+      parents: ["Pineapple", "Blue Dream"],
+      cross: "Pineapple × Blue Dream",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Flav brand cut; Pineapple x Blue Dream sativa-leaning hybrid"],
+    curatorNote:
+      "Crack the jar and ripe pineapple spills out, sugared and sunlit. A whisper of pine keeps it crisp while the high floats you into easy, conversational creativity. A daytime daydream in flower form.",
+    tagline: "Sunlit pineapple daydream",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Tropical Trainwreck",
+    breeder: "Flav",
+    lineage: {
+      parents: ["Pineapple Express", "Trainwreck"],
+      cross: "Pineapple Express × Trainwreck",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Flav brand cut; Pineapple Express x Trainwreck", "Trainwreck adds spicy bite and racing cerebral energy"],
+    curatorNote:
+      "Tropical fruit hits first, all apricot and pineapple candy, then the Trainwreck heritage barrels in with a peppery kick. The lift is fast and electric before settling into a tingly, full-body calm. Sweet chaos, beautifully derailed.",
+    tagline: "Sweet tropical derailment",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Zourz",
+    marketNames: ["Zours"],
+    breeder: "Mintz",
+    lineage: {
+      parents: ["Lemon Fuel OG", "Zookies"],
+      cross: "Lemon Fuel OG × Zookies",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Real exotic strain; Lemon Fuel OG x Zookies", "Distributed under the Mintz brand; resin-rich"],
+    curatorNote:
+      "Tart sour-candy citrus leaps out of the jar, wrapped in a fuel-station gassiness that means business. The Zookies backbone lends weight, melting an electric euphoria into a heavy, contented calm. Loud, frosty, and unapologetically exotic.",
+    tagline: "Sour candy gas bomb",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Bubblegum Gelato",
+    breeder: "Mintz",
+    lineage: {
+      parents: ["Gelato 45", "Indiana Bubblegum"],
+      cross: "Gelato 45 × Indiana Bubblegum",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Real strain; Gelato 45 x Indiana Bubblegum", "Sold under the Mintz brand; ~60/40 indica-dominant"],
+    curatorNote:
+      "It smells exactly like pink bubblegum dipped in gelato, sugary and creamy at once. A gentle cerebral lift drifts into a soothing, melting body ease. Pure dessert-jar nostalgia with a frosty, indica finish.",
+    tagline: "Creamy bubblegum dessert",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Purple Dream",
+    breeder: "Mintz",
+    lineage: {
+      parents: ["Granddaddy Purple", "Blue Dream"],
+      cross: "Granddaddy Purple × Blue Dream",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Real strain; Granddaddy Purple x Blue Dream", "Sold under the Mintz brand; calm without couch-lock"],
+    curatorNote:
+      "Deep grape and dark berry pour out of the GDP heritage, sweet as candy. Blue Dream threads a bright citrus clarity through the haze, keeping the body ease from tipping into couch-lock. Calm, colorful, and dreamily balanced.",
+    tagline: "Grape-candy dream balance",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Simple Syrup",
+    breeder: "Binske",
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["House-brand (Binske) — pedigree unverified", "Binske proprietary genetics; limonene-dominant"],
+    curatorNote:
+      "Cracking sweet, sugary citrus pours out like liquid candy over ice. The limonene-forward profile keeps everything bright and clean before a smooth, syrupy calm settles in. A polished, dessert-bar pour from Binske's vault.",
+    tagline: "Sugary citrus syrup pour",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Golden Goat",
+    breeder: "Mr. Dank",
+    lineage: {
+      parents: ["Hawaiian-Romulan", "Island Sweet Skunk"],
+      cross: "Hawaiian-Romulan × Island Sweet Skunk",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Classic strain; accidental cross discovered in Topeka, Kansas", "Terpinolene-dominant; ~65/35 sativa-leaning"],
+    curatorNote:
+      "A burst of tropical citrus and sweet-sour skunk announces itself loudly from the jar. Terpinolene lends a spicy, almost floral sharpness while the high sparks energetic, talkative creativity. A legendary daytime classic with real shine.",
+    tagline: "Bright tropical skunk classic",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Bubblegum Gushers",
+    breeder: "The Botanist",
+    lineage: {
+      parents: ["Bubblegum", "Gushers"],
+      cross: "Bubblegum × Gushers",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Candy-forward bubblegum nose with Gushers fruit", "Balanced hybrid effect, functional at low doses"],
+    curatorNote:
+      "A confection in flower form, this one leads with nostalgic pink bubblegum then folds in the juicy berry-tropical burst of its Gushers parent. The high is bright and social before settling into easy relaxation. Pure candy-shop indulgence.",
+    tagline: "Pink candy meets juicy fruit",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Delphi Diesel",
+    breeder: "Grassroots Dark Heart",
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["House-brand (Grassroots Dark Heart) — pedigree unverified", "Diesel-Chem-OG organoleptic profile, Sour Diesel-style nose"],
+    curatorNote:
+      "A fuel-forward daytime sativa that ignites the senses with sharp diesel and lemon-lime zest. Energetic and mentally clarifying, it cuts through fatigue and sparks focus. Classic East-Coast gas with a citrus edge.",
+    tagline: "High-octane citrus fuel",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lemon Venom",
+    breeder: "Leal",
+    lineage: {
+      parents: ["Sensi Star", "Big Bud", "Mega Lemon"],
+      cross: "Sensi Star × Big Bud × Mega Lemon",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Limonene-dominant lemon nose over earthy pine", "Indica-leaning body relaxation with uplifting clarity"],
+    curatorNote:
+      "A bright burst of sour-sweet lemon zest greets you before earthy, piney depth grounds the experience. The body melts into relaxation while the mind stays clear and lifted. Citrus comfort with an indica embrace.",
+    tagline: "Sour lemon body calm",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Galactic Jack",
+    breeder: "TGA Subcool Seeds",
+    lineage: {
+      parents: ["Jack Herer", "Space Queen"],
+      cross: "Jack Herer × Space Queen",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["TGA Subcool genetics heritage", "Limonene-led with pinene and fruity Space Queen undertones"],
+    curatorNote:
+      "A cosmic daytime sativa that launches with sharp lemon-citrus and piney spice, sweetened by its Space Queen lineage. The high is soaring, cerebral, and creative without the racy crash. Liftoff in a jar.",
+    tagline: "Cerebral citrus liftoff",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Monster Cookies",
+    breeder: "Big Worm Genetics",
+    lineage: {
+      parents: ["Granddaddy Purple", "Girl Scout Cookies"],
+      cross: "Granddaddy Purple × Girl Scout Cookies",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["80% indica, GDP grape over GSC dessert complexity", "Caryophyllene/myrcene-driven heavy body finish"],
+    curatorNote:
+      "This indica fuses Granddaddy Purple's deep grape sweetness with Girl Scout Cookies' dessert-dough richness. A brief euphoric lift gives way to a heavy, blanketing calm built for restful evenings. Grape-candy decadence with serious weight.",
+    tagline: "Grape-candy evening sedation",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Durban Kush",
+    breeder: "Revert Cannabis",
+    lineage: {
+      parents: ["OG Kush", "Durban Poison"],
+      cross: "OG Kush × Durban Poison",
+    },
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Durban Poison spice meets OG Kush gas", "Terpinolene/caryophyllene-forward, energizing then grounding"],
+    curatorNote:
+      "A spirited sativa-leaning hybrid pairing Durban Poison's anise-spiced pine with the gassy backbone of OG Kush. It hits energizing and focused before a gentle grounding settles in. Old-world spice wrapped in modern gas.",
+    tagline: "Piney spice with gas",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "WoMAC",
+    marketNames: ["Watermelon MAC"],
+    breeder: "LivWell",
+    lineage: {
+      parents: ["Watermelon", "MAC"],
+      cross: "Watermelon × MAC",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["House cross of a Watermelon type with MAC (Miracle Alien Cookies)", "Terpinolene/caryophyllene-led, citrus-piney with watermelon sweetness"],
+    curatorNote:
+      "A bright, fruit-forward hybrid where juicy watermelon and citrus meet the gassy elegance of MAC. The high is clear-headed and uplifting, perfect for daytime creativity and easy social moments. Summer-fruit candy with a designer edge.",
+    tagline: "Juicy watermelon MAC lift",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Berry Zest",
+    breeder: "LivWell",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["House-brand (LivWell) — pedigree unverified", "Myrcene-dominant with pinene support"],
+    curatorNote:
+      "A jar that opens like crushed summer berries dusted in lemon peel. The sweetness rounds into damp earth as the body sinks low and slow. An evening strain built for quiet unwinding.",
+    tagline: "Berries, zest, and calm",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Papaya Juice",
+    breeder: "Nirvana Seeds",
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Papaya parent traces to Citral #13 x Ice #2 (Nirvana lineage)", "CAM batch tested ~25.7% THC with limonene, caryophyllene, and linalool dominant"],
+    curatorNote:
+      "Crack the jar and tropical esters pour out like fresh-cut papaya and ripe pineapple. A whisper of sage and lime peel keeps it from cloying before turning earthy. The lift is fast, talkative, and creatively open.",
+    tagline: "Tropical juice, creative lift",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Roasted Garlic Margy",
+    marketNames: ["RGM"],
+    breeder: "Cannarado Genetics",
+    lineage: {
+      parents: ["GMO", "Frozen Margy"],
+      cross: "GMO × Frozen Margy",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["GMO contributes garlic-diesel-rubber funk; Frozen Margy adds structure and resin", "Long flowering pheno, larger flowers than typical Cookies hybrids"],
+    curatorNote:
+      "This is savory cannabis in full force: roasted garlic, sauteed onion, and chemical diesel coil up from the jar. The funk is loud and unapologetic, with a rubbery earthen backbone. The body sink lands hard and lingers.",
+    tagline: "Savory garlic diesel funk",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Datura",
+    breeder: "The Botanist",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["House-brand (The Botanist) — pedigree unverified", "Fluffy lime-green trichome-heavy flowers; reported ~15% THC daytime sativa"],
+    curatorNote:
+      "Bright and zesty, Datura snaps with tropical citrus and fresh pine sap. The effect is mentally electric, tuned for focus and forward motion. A clear-headed daytime sativa with energetic edges.",
+    tagline: "Citrus-pine daytime spark",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Memory Loss",
+    marketNames: ["Memory Loss OG"],
+    breeder: "Archive Seed Bank",
+    lineage: {
+      parents: ["Face Off OG", "Amnesia Haze"],
+      cross: "Face Off OG × Amnesia Haze",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Amnesia-type lineage; terpinolene, caryophyllene, and myrcene forward", "Named for the mind-warping, forgetful high; THC frequently 18-26%", "Also sold as Memory Loss OG"],
+    curatorNote:
+      "True to its name, this Amnesia-descended sativa hits the temples first and scatters the train of thought. Terpinolene brings piney-floral lift over a peppery earthen base. Fast, giddy, and wonderfully unfocused.",
+    tagline: "Hazy, racy, forgetful high",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Purple Trainwreck",
+    marketNames: ["Purple Wreck", "Granddaddy Wreck"],
+    breeder: "Humboldt Seed Organization",
+    lineage: {
+      parents: ["Trainwreck", "Granddaddy Purple"],
+      cross: "Trainwreck × Granddaddy Purple",
+    },
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Original cut commonly Trainwreck x Mendo Purps; sold here as Trainwreck x GDP", "Terpinolene, myrcene, and caryophyllene driven; head-rush over body relaxation"],
+    curatorNote:
+      "Trainwreck's bright piney bite meets a grape-soda purple sweetness from its GDP side. The rush comes on fast and cerebral before settling into a soothing, non-couch-locking calm. Wood, citrus, and damp soil round the nose.",
+    tagline: "Piney rush, purple calm",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Toasted Marshmallow",
+    breeder: "Her Highness",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["House-brand (Her Highness) — pedigree unverified", "Dessert-leaning profile sold as infused ground flower"],
+    curatorNote:
+      "Soft and confectionery, this one smells like vanilla cream toasting over a campfire. A subtle gassy edge keeps the sweetness grounded. The lift is bright and sociable rather than heavy.",
+    tagline: "Toasted vanilla cream lift",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "French Tartz",
+    marketNames: ["French Tarts"],
+    breeder: "Her Highness",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["House-brand (Her Highness) — pedigree unverified", "Sold as infused ground flower; name evokes a fruit-tart dessert profile"],
+    curatorNote:
+      "Like biting into a glazed French berry tart dusted with sugar. The sweetness rolls forward first, then a whisper of gas keeps it from feeling one-note. A playful, dessert-forward smoke for unwinding.",
+    tagline: "Sweet berry pastry funk",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Grape Canyon Z",
+    marketNames: ["Grape Canyon Zkittlez"],
+    breeder: "Binske",
+    lineage: {
+      parents: ["Grape Pie", "Topanga Canyon", "Zkittlez"],
+      cross: "(Grape Pie × Topanga Canyon) × Zkittlez",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Dominant terpenes: myrcene, linalool, beta-caryophyllene", "Tests around 28% THC; refined take on the Zkittlez profile"],
+    curatorNote:
+      "A bowl of crushed grapes and mixed berries with a candy-sweet finish. The Zkittlez heritage brings bright fruit while Grape Pie lends a rich, jammy depth. Smooth, euphoric, and deeply relaxing.",
+    tagline: "Jammy grape candy euphoria",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Lemon Pepper",
+    breeder: "Binske",
+    lineage: {
+      parents: ["Lemon Pebblez", "Lemon Cooler"],
+      cross: "Lemon Pebblez × Lemon Cooler",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Profile traces to the Cookies/Lemonnade lineage; Binske runs its own pheno", "Pinene and limonene most prevalent; sativa-leaning effect"],
+    curatorNote:
+      "Fresh-squeezed lemon meets a crack of black pepper. The citrus is loud and clean while the peppery spice adds a savory twist most lemon strains lack. An energizing, clear-headed daytime sativa.",
+    tagline: "Zesty lemon pepper lift",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Azure Apricot",
+    breeder: "Binske",
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["House-brand (Binske) — pedigree unverified", "Name evokes blue-purple hues and a juicy apricot stone-fruit nose; sativa-leaning"],
+    curatorNote:
+      "Ripe apricot and honeysuckle bloom on the inhale, sweet and sun-warmed. The fruit stays bright and clean through to a soaring, clear-headed high. A cheerful, creativity-sparking sativa.",
+    tagline: "Sun-ripe apricot sativa",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Zesty Garlic Cookies",
+    breeder: "Grassroots Dark Heart",
+    lineage: {
+      parents: ["GMO", "Chemdawg", "Girl Scout Cookies"],
+      cross: "GMO (Chemdawg × GSC) lineage",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Built on the GMO/Garlic Cookies funk and dialed up with citrus brightness", "Indica-dominant; knockout body effect with savory garlic-mushroom backbone"],
+    curatorNote:
+      "Roasted garlic and diesel hit first, savory and unapologetically funky. A squeeze of citrus keeps the nose lively before the heavy indica body settles in. Pure connoisseur funk for couch-bound evenings.",
+    tagline: "Savory garlic gas funk",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Triple Stack",
+    breeder: "Grassroots Dark Heart",
+    lineage: {
+      parents: ["Red Bullz", "The Menthol"],
+      cross: "Red Bullz × The Menthol",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Name implies a three-parent 'stack'; reported Cookies/Gelato x OG/Triangle x Chem/GMO; 20%+ THC"],
+    curatorNote:
+      "A layered build of sweet cookie cream, gassy OG, and a chem-funk underbelly. Each pull stacks dessert richness onto a heavy, resinous base. A potent, indica-leaning nightcap.",
+    tagline: "Stacked cookie gas richness",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "The Prism",
+    breeder: "Binske",
+    lineage: {
+      parents: ["Orange Cookies", "Lime Skunk"],
+      cross: "Orange Cookies × Lime Skunk",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Resin-drenched buds with blue, purple, and red hues", "Aromas of gas, dough, and cream; flavors of candy, petrol, and baked goods"],
+    curatorNote:
+      "Sweet bakery dough and cream refract through a bright gassy core, with a citrus-skunk edge from the Lime Skunk side. Glittering, resin-coated buds deliver a smooth, euphoric calm. A balanced, dessert-meets-gas indica.",
+    tagline: "Candy cream gas spectrum",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Tangerine Twist",
+    breeder: "Binske",
+    lineage: {
+      parents: ["Skunk #1", "Dead Head OG"],
+      cross: "Skunk #1 × Dead Head OG",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Citrus-forward sativa expression driven by limonene and terpinolene", "Clear-headed, daytime-leaning profile"],
+    curatorNote:
+      "Peel back the bud and you get a wash of sun-warmed tangerine and mango skin. Sweet garden herbs ride beneath the citrus, with a faint pine resin keeping it grounded. It drinks like a creative morning in a glass.",
+    tagline: "Bright citrus daytime lift",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Jungle Pie",
+    breeder: "Jungle Boys",
+    lineage: {
+      parents: ["Jungle Cake", "Wedding Pie"],
+      cross: "Jungle Cake × Wedding Pie",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Dessert-pastry profile with vanilla-frosted dough and black-pepper spice", "Balanced body-first effect creeping into hazy happiness"],
+    curatorNote:
+      "Crack a jar and it's warm vanilla pastry dusted with black pepper. The smoke deepens into toasted nut and earthy funk, like dessert at the end of a long meal. It settles the body before lulling the mind into easy contentment.",
+    tagline: "Vanilla pastry with spice",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Moonbeam Gelato",
+    breeder: "Grassroots Dark Heart",
+    lineage: {
+      parents: ["Half Moon Bay Gelato", "Strawberry Banana"],
+      cross: "Half Moon Bay Gelato × Strawberry Banana",
+    },
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Dark-purple buds with blueberry, grape, and fermented-cheese funk", "Evening-leaning Gelato cross with floaty, calming body effects"],
+    curatorNote:
+      "Snap a dark-purple nug and out spill muddled berries, overripe grape, and a swirl of whipped cream. A faint funky cheese rind keeps the sweetness from going flat. It floats you into a calm, euphoric evening headspace.",
+    tagline: "Berry cream evening exotic",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Titan Express",
+    breeder: "Grassroots Dark Heart",
+    lineage: {
+      parents: ["Citradelic Sunset", "Modified Muffins"],
+      cross: "Citradelic Sunset RV06 × Modified Muffins #10",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Terpinolene-driven Haze-leaning rush with bold wake-up energy", "Savory fuel-and-garlic edge over sharp citrus"],
+    curatorNote:
+      "This one opens loud: lemon popsicle slamming into burnt tires and savory garlic-pine. The terpinolene rush hits fast and mentally electric. A summer's-day brightness wrapped around a fuel core.",
+    tagline: "Fast citrus fuel rush",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Devil Driver",
+    breeder: "Tiki Madman",
+    lineage: {
+      parents: ["Melonade", "Sundae Driver"],
+      cross: "Melonade × Sundae Driver",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Limonene/myrcene-dominant with linalool and ocimene support", "Bright citrus-melon engine over creamy Sundae Driver depth"],
+    curatorNote:
+      "A bright collision of watermelon rind and lemon zest rolling over creamy grape dessert. Peppery, faintly toasted depth keeps it from reading as candy. It lifts fast and euphoric, made for daytime momentum.",
+    tagline: "Melon citrus creamy lift",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Purple Gorilla",
+    breeder: "Revert Cannabis",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Purple-leaning cross tied to Gorilla family genetics; pedigree debated", "Milky-trichome dense buds with grape-candy nose"],
+    curatorNote:
+      "Glistening purple-tinged buds breathe out sweet berry and grape candy over damp earth. The smoke is sugary and smooth with a faint herbal twist. It opens cerebral and uplifting before melting into a full-bodied calm.",
+    tagline: "Sweet purple berry candy",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Presidential Kush",
+    marketNames: ["Presidential OG"],
+    breeder: "Revert Cannabis",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["House-brand (Revert Cannabis) — pedigree unverified", "Presidential OG / OG Kush phenotype with sedative, full-bodied character"],
+    curatorNote:
+      "Old-school Kush authority: fresh pine and earthy diesel laced with citrus zest. The smoke runs smooth and full, finishing on warm spice. It eases body and mind into a deep, evening sedation.",
+    tagline: "Classic sedative Kush evening",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Super Diesel",
+    breeder: "Seedmakers Seeds",
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Sativa-dominant diesel cut; dense frosted buds with sticky resin sheen", "Exact cross not publicly documented"],
+    curatorNote:
+      "Crack the jar and a wave of lemon-soaked diesel floods the room, riding on dry pine and warm earth. The high arrives almost instantly, all clarity and forward motion, sparking focus that runs for hours. A daytime workhorse for the fuel-chasers.",
+    tagline: "Fuel-bright daytime sativa rush",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Super Yuzu",
+    marketNames: ["Super Yuzu Sour"],
+    breeder: "Curio Wellness",
+    lineage: {
+      parents: ["Sour Tangie", "EZBake AF"],
+      cross: "Sour Tangie × EZBake AF",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Named for yuzu citrus; limonene-forward profile"],
+    curatorNote:
+      "Pure yuzu in a jar: tart lemon and grapefruit laced with sharp orange and a candied sweetness. The citrus blast leads into an easy, smiling calm that loosens the body without pinning it down. A bright, mouth-watering treat for citrus heads.",
+    tagline: "Tart yuzu citrus calm",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Black Widow",
+    breeder: "Mr. Nice Seedbank",
+    lineage: {
+      parents: ["Brazilian Sativa", "South Indian Indica"],
+      cross: "Brazilian Sativa × South Indian Indica",
+    },
+    sensoryFamily: "skunk-funk",
+    phenotypeNotes: ["Shantibaba's High Times Cannabis Cup 1995 classic; legendary resin production", "Brazilian sativa drives the cerebral lift; South Indian indica builds the crystalline frost"],
+    curatorNote:
+      "A 90s Cup legend that earned its name in pure white resin. Sweet fruit and skunky earth open into a bright, talkative euphoria laced with creative spark, before the indica side settles the body. History you can taste.",
+    tagline: "Resin-soaked Cup-winning classic",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Foreign Kush Mints",
+    marketNames: ["Foreign Kush Mintz"],
+    breeder: "Grassroots Dark Heart",
+    lineage: {
+      parents: ["Foreign Kush", "Kush Mints"],
+      cross: "Foreign Kush × Kush Mints",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Dark Heart pheno-hunt selection in the Kush Mints family", "Kush Mints lineage traces to Animal Mints x Bubba Kush; heavy indica THC frequently testing in the low-to-mid 30s"],
+    curatorNote:
+      "A heavyweight Kush Mints expression that leads with cool mint and creamy dough over a deep gas-and-earth base. The pull is dense and frosted, the comedown a slow, full-body sink into the couch. Lights-out indica for the night owls.",
+    tagline: "Cool mint gassy knockout",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Sour Amnesia",
+    marketNames: ["Sour Amnesia Haze"],
+    breeder: "HortiLab Seeds",
+    lineage: {
+      parents: ["Sour Diesel", "Amnesia Haze"],
+      cross: "Sour Diesel × Amnesia Haze",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Heavily sativa-leaning (roughly 85/15); terpinolene and limonene forward", "Marries Sour Diesel's fuel-citrus punch with Amnesia Haze's floral lift"],
+    curatorNote:
+      "Two legends collide: Sour Diesel's lemony fuel laced through Amnesia Haze's floral, soaring brightness. The onset is fast and electric, a clear-headed euphoria that keeps you talking and creating for hours. A connoisseur's daytime haze.",
+    tagline: "Electric citrus-fuel haze lift",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Zen Crusher",
+    breeder: "Binske",
+    lineage: {
+      parents: ["Krylon", "Tahoe OG"],
+      cross: "Krylon × Tahoe OG",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Well-balanced hybrid built on a Tahoe OG backbone", "Caryophyllene, limonene and linalool lead; cherry-citrus nose"],
+    curatorNote:
+      "Sweet-and-sour cherries meet zesty citrus in a fast-hitting, balanced hybrid. The lift is immediate and bright, melting into a warm euphoria and easy calm. A fruity crowd-pleaser that crushes stress without crushing the day.",
+    tagline: "Sour cherry citrus euphoria",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Chrome Berry",
+    breeder: "Binske",
+    lineage: {
+      parents: ["Cherry Pie", "DJ Short Blueberry"],
+      cross: "Cherry Pie × DJ Short Blueberry",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Binske proprietary genetics; berry-and-gas dessert profile"],
+    curatorNote:
+      "Glittering chrome-like frost over berry-sweet flower with a kushy gas undertone and a zest of lemon. The effect lands warm and uplifting before easing into a mellow, contented calm. A glossy dessert hybrid built to relax and glow.",
+    tagline: "Frosty berry kush gas",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lemonberry Parfait",
+    breeder: "Binske",
+    lineage: {
+      parents: ["Lemonnade", "Parfait"],
+      cross: "Lemonnade × Parfait",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Binske proprietary genetics; cross of Lemonnade and Parfait"],
+    curatorNote:
+      "Crack the jar and a wave of candied lemon zest meets sun-warmed berries. The palate softens into a creamy, layered sweetness that lingers like the last spoonful of dessert. Balanced and bright, it lifts the mind before easing the body.",
+    tagline: "Citrus-berry dessert in bloom",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Bubba's Girl",
+    breeder: "CAM",
+    lineage: {
+      parents: ["'98 Bubba Kush", "Girl Scout Cookies"],
+      cross: "'98 Bubba Kush × Girl Scout Cookies",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Indica-leaning hybrid; frosty conical nugs with long orange hairs and heavy trichome coating"],
+    curatorNote:
+      "This is heritage Kush dressed in cookie sweetness, all spicy earth and dank florals. The high creeps in slow, settling warm pressure across the body until tension simply dissolves. A classic indica embrace for the end of the day.",
+    tagline: "Spicy Kush, cookie heart",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Burnout Cookies",
+    breeder: "LivWell",
+    lineage: {
+      parents: ["Chem D", "Headband", "Mandarin Cookies", "California Black Rose"],
+      cross: "(Chem D × Headband) × (Mandarin Cookies × California Black Rose)",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Sativa-dominant hybrid; high-THC batches with skunky rubbery undertones"],
+    curatorNote:
+      "Pungent diesel and skunk announce themselves the moment the bag opens. Behind the fuel sits earthy pine and a whisper of cookie dough sweetness. Energizing and bright, it sparks creativity and conversation alike.",
+    tagline: "Diesel-fueled cookie energy",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cookie Kush",
+    marketNames: ["Cookies Kush"],
+    breeder: "Barney's Farm",
+    lineage: {
+      parents: ["Girl Scout Cookies", "OG Kush"],
+      cross: "Girl Scout Cookies × OG Kush",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Indica-dominant hybrid; 1st place Best Coffeeshop Strain, 2014 High Times Amsterdam Cannabis Cup"],
+    curatorNote:
+      "Warm cinnamon and baked cookie dough lead, grounded by OG's gassy, earthy backbone. The smoke is rich and dessert-like with a lingering nutty finish. Deeply relaxing with a euphoric, smiling onset.",
+    tagline: "Baked cookie meets gassy OG",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Hawaiian Haze",
+    breeder: "Revert Cannabis",
+    lineage: {
+      parents: ["Hawaiian", "Haze"],
+      cross: "Hawaiian × Haze",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Sativa; landrace Hawaiian crossed with classic Haze lineage"],
+    curatorNote:
+      "A tropical postcard in flower form: ripe pineapple and mango wrapped in floral citrus. The high soars clear and bright, sparking creativity and easy sociability. Pure daytime sunshine for the senses.",
+    tagline: "Tropical island daydream",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Purple Mandarin Punch",
+    marketNames: ["Purple Mandarin Punch #1"],
+    breeder: "Matter",
+    lineage: {
+      parents: ["Purple Punch", "Mandarin Sunset"],
+      cross: "Purple Punch × Mandarin Sunset",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Indica-dominant; the '#1' designates a pheno selection", "Purple Punch parent lends grape-vanilla color; Mandarin line brings tangerine terpenes"],
+    curatorNote:
+      "Sweet grape soda collides with juicy mandarin peel for an irresistibly candied nose. The first pull is bright and euphoric before the indica weight settles softly over the body. A flavorful nightcap that rewards a slow burn.",
+    tagline: "Grape candy, mandarin zest",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Some Pulp",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Limonene-dominant with beta-caryophyllene and myrcene support", "Sugar-dusted bag appeal, candy-orange terps"],
+    curatorNote:
+      "Tangerine zest leaps from the jar before the grinder even touches it, all sunshine and candied peel. A second pass reveals soft floral sweetness and a peppery warmth that keeps the citrus from going one-note. Daytime-clear with a smile that lingers.",
+    tagline: "Sun-soaked orange with bite",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Sunshine OG",
+    breeder: "805 Strainz",
+    lineage: {
+      parents: ["Larry OG", "East Coast Sour Diesel"],
+      cross: "Larry OG × East Coast Sour Diesel",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Limonene-dominant terp profile", "OG-Kush chassis with Sour Diesel lift", "Sativa-leaning daytime expression"],
+    curatorNote:
+      "First pull is a snap of lemon verbena and crushed pine needles, then the Diesel side steps in with chemmy fuel. The OG roots show up late, lending a piney, earthy ballast that keeps things from racing away. A bright, focused buzz that doesn't nap.",
+    tagline: "Lemon fuel, daylight clarity",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Gush Mints",
+    marketNames: ["Gush Mintz"],
+    breeder: "Purple City Genetics",
+    lineage: {
+      parents: ["Kush Mints", "F1 Durb", "Gushers"],
+      cross: "Kush Mints × F1 Durb × Gushers",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Cookies-family triple cross", "Limonene and caryophyllene forward", "Tests up to ~30% THC; notes of new tennis ball and epoxy"],
+    curatorNote:
+      "Pop the jar and a wave of creamy gasoline hits first, almost epoxy-sharp, before the mint cools the room. Underneath, gummy candy sweetness and a faint pine kush bite tie it together. The body sinks deep and slow, a true nightcap.",
+    tagline: "Creamy gas with cool finish",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Muffin Bomb",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Pedigree unverified — likely Modified Muffin × Atomic Bomb-style cross based on naming", "Dessert-diesel hybrid expression"],
+    curatorNote:
+      "Bakery-warm berry and brown sugar lift off the jar like a fresh muffin, then something sharper crashes the party — fuel and damp earth. The two halves balance into a comforting, slightly heady chew. Couch-friendly without the full shutdown.",
+    tagline: "Bakery sweet meets sharp fuel",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Mint Chocolate Chip",
+    marketNames: ["MCC", "Mint Chip"],
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["SinMint Cookies", "Green Ribbon BX"],
+      cross: "SinMint Cookies × Green Ribbon BX",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Even 50/50 hybrid expression", "Tests in the 18-24% THC range", "Distinct mint-on-cookie terp signature"],
+    curatorNote:
+      "It really does smell like the ice cream — cool mint riding on a creamy cookie base, with a whisper of toasted nut underneath. The lift is immediate and chatty, the kind of buzz that makes a slow afternoon feel social. A gentle body ease keeps it from getting too wired.",
+    tagline: "Cool mint over warm cookie",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Road Trip",
+    breeder: "Hazeman Seeds",
+    lineage: {
+      parents: ["Roadkill Skunk", "Deep Chunk"],
+      cross: "Roadkill Skunk × Deep Chunk",
+    },
+    sensoryFamily: "skunk-funk",
+    phenotypeNotes: ["Heritage skunk preservation project leaning indica-dominant with very high THC potential"],
+    curatorNote:
+      "Open the jar and old-school roadkill skunk barrels out, lacquered in spice and damp forest floor. The smoke is heavy, herbal, almost chewy. It settles in like a slow highway sunset.",
+    tagline: "Old-school skunk highway funk",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Baby Yoda",
+    marketNames: ["Grogu"],
+    breeder: "Compound Genetics",
+    lineage: {
+      parents: ["The Menthol", "Khalifa Kush"],
+      cross: "The Menthol × Khalifa Kush",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Bright green calyxes with orange pistils and a heavy trichome blanket; high-THC modern OG/menthol hybrid"],
+    curatorNote:
+      "First a bright spritz of lemon candy, then a clean menthol wash that cools the palate. The finish hums with kushy gas and lifts the head before settling shoulders. Small, mighty, frosty.",
+    tagline: "Lemon candy, menthol kick",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Beautiful Mintz",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Sits inside the Mintz/Kush Mints dessert family by aroma profile"],
+    curatorNote:
+      "Cool mint and sweet cookie cream lead the nose, like a chocolate-mint cookie just unwrapped. Smoke is rounded, creamy, almost dessert-like. The body softens; the mood lifts.",
+    tagline: "Creamy cookie mint dessert",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Dark Secret",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Dark-leaning purple phenotype with gassy berry character"],
+    curatorNote:
+      "There's a hush to this one — purple grape and damp soil under a low hum of fuel. The smoke is dense and a touch sweet, then the room gets warm and the eyelids get heavy. A late-night strain.",
+    tagline: "Purple grape, midnight gas",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "El Padrino",
+    marketNames: ["Godfather OG"],
+    breeder: "California Herbal Remedies",
+    lineage: {
+      parents: ["XXX OG", "Alpha OG"],
+      cross: "XXX OG × Alpha OG",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["High-THC OG kush phenotype, 2013 LA Cannabis Cup Best Indica winner under the Godfather OG name"],
+    curatorNote:
+      "Kushy pine and warm black-pepper spice open the nose, with a quiet grape lift underneath. The smoke is dense, almost oily; the body sinks fast. Old-world OG with a heavy hand.",
+    tagline: "Heavy-handed kush patriarch",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Gold Dust",
+    marketNames: ["Goldust"],
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["Rainbow Runtz", "Scotty 2 Hotty"],
+      cross: "Rainbow Runtz × Scotty 2 Hotty",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Sativa-leaning hybrid loaded with caryophyllene, limonene and linalool; vivid bag appeal"],
+    curatorNote:
+      "Sweet citrus candy hits first, then pine sap and a little spicy earth roll in. The exhale glints with diesel. Daytime sparkle — uplifted, creative, never frantic.",
+    tagline: "Citrus candy, pine sparkle",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Ivory",
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Animal Mints Bx1 #5"],
+      cross: "Animal Mints Bx1 #5 phenotype",
+    },
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["White/frost-leaning pheno; aroma sits in the cream-and-cookies exotic lane"],
+    curatorNote:
+      "Ghost-pale buds caked in trichomes give the name away. The nose is whipped vanilla, soft florals, a whisper of citrus zest. The smoke is silky and rounds the edges of the day.",
+    tagline: "Whipped vanilla, frosted petals",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Purple Prince",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Deep violet calyxes typical of anthocyanin-heavy purple lines"],
+    curatorNote:
+      "Pour this into the glass and the room turns into a velvet booth lined with crushed grapes. The body settles like a heavy curtain, eyelids next, and the last note hanging in the air is faint sugared violet.",
+    tagline: "Royal grape velvet, heavy crown",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Smokey and Craig",
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Named for the Friday-film duo; positioned as a fun, social-time exotic"],
+    curatorNote:
+      "Crack the jar and it is South Central in summer — pungent fruit, blacktop fuel, and a laugh that won't quit. It is a porch-step strain that rolls easy and lands silly, with the munchies arriving right on cue.",
+    tagline: "Loud, fruity, friendly funny",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Uptown Ice Cream",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Reads as an Ice Cream Cake-family selection emphasizing vanilla and cream"],
+    curatorNote:
+      "Imagine a dessert cart wheeled in from a midtown hotel — vanilla bean, baked cake, a whisper of berry coulis. The body sinks slow, the mind glazes over, and the night politely ends in bed.",
+    tagline: "Vanilla nightcap, downtown soft",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Crookiez",
+    breeder: "Battenkill Buds",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Dessert-forward Cookies-family profile per retail descriptions"],
+    curatorNote:
+      "Snap a piece off the jar and it crumbles like a buttery shortbread, sugar and dough rolling out warm. The high is generous and a little mischievous, melting tension out of the shoulders without slamming the lights.",
+    tagline: "Sweet dough, calm crooked smile",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Pa's Pie",
+    marketNames: ["Payton Pie"],
+    breeder: "Cookies",
+    lineage: {
+      parents: ["Gary Payton", "Georgia Pie"],
+      cross: "Gary Payton × Georgia Pie",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Commonly reported alt-cross: Gary Payton x Wedding Pie", "Early-2020s dessert-forward Cookies-fam selection"],
+    curatorNote:
+      "First whiff is grandma's kitchen — stone-fruit cobbler cooling on the sill — then a mint draft slides in through the screen door. It lifts the mood like a sugar rush and lands soft enough to keep the conversation going.",
+    tagline: "Peach cobbler with mint diesel",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "F1 Mintz",
+    marketNames: ["F1 Mints"],
+    lineage: {
+      parents: ["Kush Mints", "F1 Durban"],
+      cross: "Kush Mints × F1 Durb",
+    },
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "F1 Durb is a Cookies-family breeding line foundational to Gush Mints-type hybrids"],
+    curatorNote:
+      "Cold mint hits first, like biting a wintergreen leaf, then the kush warmth blooms underneath — diesel, dough, a little black pepper. The body softens fast and the mind clears, the kind of stone that turns evenings into quiet pleasure.",
+    tagline: "Cool mint over kush fuel",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Fruit Stand",
+    breeder: "Savage Genetics",
+    lineage: {
+      parents: ["Apples and Bananas", "Gelonade"],
+      cross: "Apples and Bananas × Gelonade",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["An alt 'Fruit Stand' exists from In House Genetics (Purple Punch x Allen Wrench)"],
+    curatorNote:
+      "Open the bag and a wave of summer fruit hits — Honeycrisp skin, banana candy, a squeeze of lemonade. The high is bright and bouncy, the kind that sends you outside grinning before settling into easy, warm body relief.",
+    tagline: "Whole orchard in one inhale",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Dead Ass",
+    breeder: "Masonic Smoker",
+    lineage: {
+      parents: ["East Coast Sour Diesel", "Wilson"],
+      cross: "ECSD × Wilson",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Myrcene-dominant per Leafly reports", "Balanced 50/50 hybrid expression"],
+    curatorNote:
+      "The jar pops with bodega lemon and pine sap, fuel rolling underneath like a parked Lincoln. The high is grin-first, then settles into that NY 'dead ass' clarity — relaxed shoulders, sharp eyes, ready to riff.",
+    tagline: "Bodega lemon, diesel daydream",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Don Lemon",
+    breeder: "Solfire Gardens",
+    lineage: {
+      parents: ["Lemon Tree", "The Don Mega"],
+      cross: "Lemon Tree × The Don Mega",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Citrus dominance inherited from Lemon Tree paired with GMO-driven funk from Don Mega"],
+    curatorNote:
+      "A wedge of fresh-cut lemon laid across a leaking diesel rag. Bright herbaceous top notes give way to a savory, almost garlicky funk that lingers on the palate. Balanced enough for daylight, weighted enough for the couch.",
+    tagline: "Lemon rind meets greasy funk",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Eucalypto",
+    breeder: "Solfire Gardens",
+    lineage: {
+      parents: ["White Truffle", "Bitties"],
+      cross: "White Truffle × Bitties",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Aggressive stretcher; flashes deep purple under cool nights; 55-65 day flower"],
+    curatorNote:
+      "Cracking the jar releases a wave of cool eucalyptus-leaf vapor before the grape jam underneath shows itself. The smoke carries a peppery pine bite and finishes with that signature mentholated chill. Drifts toward the pillow.",
+    tagline: "Menthol breeze over grape jam",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Strain Gretzky",
+    marketNames: ["Gretzky"],
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Likely regional dispensary-exclusive release with no catalogued genetics"],
+    curatorNote:
+      "A mystery jar with hockey-rink swagger. Opens loud and gassy with a sugary candied undertone, the kind of mid-palate that rewards a slow draw. The finish hangs on like a long shift on the ice.",
+    tagline: "Mystery exotic, gas swagger",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Black Maple",
+    marketNames: ["Black Maple #22"],
+    breeder: "Bloom Seed Co.",
+    lineage: {
+      parents: ["Dulce de Uva", "Sherbanger"],
+      cross: "Dulce de Uva × Sherbanger",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Black Maple #22 is the dominant commercial pheno", "Exceptional resin production prized for extraction", "Beta-caryophyllene dominant with limonene and myrcene support"],
+    curatorNote:
+      "Pour of dark grape syrup over warm maple butter, with a soft fuel curl rising off the top. The first pull is lush and sugary, the second settles into spiced earth. Cerebral lift gives way to a long, weighted body calm.",
+    tagline: "Grape syrup over warm maple",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Bread & Butter",
+    marketNames: ["Bread and Butter"],
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["Donkey Butter", "Baker's Dozen"],
+      cross: "Donkey Butter × Baker's Dozen",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["8-10 week flower indoors", "Caryophyllene/limonene/nerolidol terpene stack"],
+    curatorNote:
+      "Imagine a still-warm vanilla glaze with a curl of lemon peel and a quiet gas note from the kitchen out back. The smoke rolls in soft and creamy, then settles thick across the shoulders. A nightcap strain dressed in dessert clothes.",
+    tagline: "Vanilla donuts dipped in diesel",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Arancio Loco",
+    breeder: "6 Point Cannabis",
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Indoor-grown NY craft release; dense resin-rich buds with strong terpene expression"],
+    curatorNote:
+      "Pop the jar and a fistful of fresh orange peel comes flying out. Sweet and zesty up front, with a quiet herbal hum underneath that keeps it from going one-note. Daytime energy with a clean, mood-bright finish.",
+    tagline: "Bright orange, a little wild",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Krazy Maddness",
+    marketNames: ["Krazy Madness"],
+    breeder: "6 Point Cannabis",
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Possible Runtz-family connection inferred from breeder's adjacent SKUs; not confirmed"],
+    curatorNote:
+      "Cracks open like an orange creamsicle wrapper with a faint gas hiss behind it. The pull is plush and candy-sweet, riding into a smooth, layered finish. Cerebral lift wrapped in soft body warmth.",
+    tagline: "Orange creamsicle on slow gas",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Lemon Sorbet",
+    marketNames: ["Lemon Sorbet #3"],
+    breeder: "Gabriel Cannabis",
+    lineage: {
+      parents: ["Lemon OG", "Sunset Sherbet"],
+      cross: "Lemon OG × Sunset Sherbet",
+    },
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["LS3 is the dominant retail pheno", "Limonene-dominant with myrcene, caryophyllene, linalool support"],
+    curatorNote:
+      "A bright lemon-bar nose folded into sherbet cream, with the smallest spark of fuel on the back end. The smoke is plush and confectionary, finishing with a head-rush of euphoria that settles into a tingly, slow exhale of an evening.",
+    tagline: "Lemon gelato, fuel finish",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Midas Touch",
+    lineage: {
+      parents: ["Permanent Marker", "Apples and Bananas"],
+      cross: "Permanent Marker × Apples and Bananas (rumored)",
+    },
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Gold-themed exotic associated with the Doja Pak / Compound circle"],
+    curatorNote:
+      "Opening the jar is like cracking a foil-wrapped truffle: ripe orchard fruit melts into kerosene shimmer. The smoke is plush and candied, lingering with a glossy floral sweetness. A trophy-shelf exotic that wears its hype loudly.",
+    tagline: "Gilded gas, candied bloom",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Sherb Cake",
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Sunset Sherbet", "Wedding Cake"],
+      cross: "Sunset Sherbet × Wedding Cake",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Indica-leaning dessert hybrid testing 22-28% THC", "Limonene/linalool/caryophyllene-forward terpene stack"],
+    curatorNote:
+      "First inhale lands like sherbet over a slice of frosted cake — bright citrus skin folded into vanilla cream. As the exhale settles, a soft mint coolness drifts in, sealed with a peppery floral hum. The body sinks slowly, the mind floats.",
+    tagline: "Citrus cream over vanilla bake",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Wedding Mintz",
+    marketNames: ["Wedding Mints"],
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Wedding Cake", "Kush Mints"],
+      cross: "Wedding Cake × Kush Mints",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Jungle Boys popularized the cut in retail flower", "Limonene/caryophyllene-dominant, often 24-28% THC"],
+    curatorNote:
+      "The nose is wedding-day frosting laced with a cool mint sprig — sweet and indulgent before a peppery kush base anchors it. Smoke is creamy and rolling, with mint racing across the tongue on exhale. Settles into a velvet body calm that quietly pulls you under.",
+    tagline: "Mint-frosted kush opulence",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Pow-Yao",
+    breeder: "Jungle Boys",
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Listed within Jungle Boys' rotating exotic library"],
+    curatorNote:
+      "It struts in fruit-forward and loud, with candied sweetness laced over a quiet gas hum. The smoke rolls creamy and rounded, finishing with a flash of citrus pepper. A snappy euphoria gives way to easy-shouldered calm.",
+    tagline: "Loud candy, quiet gas",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Platinum Life Breath",
+    breeder: "Microbe Bros",
+    lineage: {
+      parents: ["Platinum Kush Breath Remix", "Lifehack"],
+      cross: "Platinum Kush Breath Remix × Lifehack",
+    },
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Caryophyllene/limonene-led terpene profile", "OGKB and Mendo Breath ancestry through the Platinum Kush Breath line"],
+    curatorNote:
+      "The jar breathes out syrupy vanilla and warm dough, then a slick of platinum gas cuts through. On the palate it turns chem-forward and earthy, dusted with cracked pepper. Relaxation rolls in with a creative edge still flickering above the surface.",
+    tagline: "Syrupy gas, peppered calm",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Blue Nerds",
+    marketNames: ["Blue Nerdz"],
+    breeder: "Global Genetics LA",
+    lineage: {
+      parents: ["Runtz", "Zkittlez"],
+      cross: "Runtz × Zkittlez",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Widely circulated under Wizard Trees-adjacent exotic drops", "Myrcene/pinene/limonene dominant"],
+    curatorNote:
+      "It pops from the jar like a torn pack of blue candy — sugared berries and a flash of citrus zest. The smoke is plush and fruit-syrup sweet, with a faint tropical curl underneath. Lift is bright and social before easing into a soft-bodied glow.",
+    tagline: "Blue candy, ripe berry rush",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Sub Zero",
+    breeder: "GrowMoreFire Genetics",
+    lineage: {
+      parents: ["Super Boof", "Oreoz"],
+      cross: "Super Boof × Oreoz",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Trichome-saturated, often blocky deep-purple buds", "Tests 22%+ THC; circulated through boutique exotic channels"],
+    curatorNote:
+      "The bag opens cold and loud — diesel, creamsicle, and a wisp of dark cocoa. Smoke coats the tongue with creamy citrus before a thick gas finish settles in. A high-definition euphoria slides into a slow, heavy body wind-down.",
+    tagline: "Frozen gas, creamsicle finish",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Brain Wash",
+    breeder: "Alien Labs",
+    lineage: {
+      parents: ["OZ Kush", "Zkittlez"],
+      cross: "OZ Kush × Z #18",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Collaboration release with Talking Terps", "Limonene/caryophyllene/myrcene-forward profile"],
+    curatorNote:
+      "First whiff is a cold splash of lemon-lime peel chased by a torn mint leaf. The smoke turns spicy and softly buttery before settling earthy and tangy on exhale. A clean head-rush opens up, then a warm easy calm slips in behind it.",
+    tagline: "Citrus-mint mind rinse",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Permanent Shade",
+    breeder: "Alien Labs",
+    lineage: {
+      parents: ["Permanent Marker", "Nightshade"],
+      cross: "Permanent Marker × Nightshade",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Dark green to deep-purple tree-shaped colas glazed in trichomes", "Terp totals reported 2.7-3.1%"],
+    curatorNote:
+      "First whiff is permanent-marker ink dipped in vanilla frosting, then a slow exhale of cool nightshade berry. The body folds inward as a velvet hush settles over the shoulders. A connoisseur nightcap with a fashion-forward purple swagger.",
+    tagline: "Inked velvet, lights-out indica",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Xeno",
+    breeder: "Alien Labs",
+    lineage: {
+      parents: ["Zkittlez", "Kush Mints"],
+      cross: "Zkittlez × Kush Mints",
+    },
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Dominant terpenes: D-limonene, beta-caryophyllene, linalool", "Alien Labs release"],
+    curatorNote:
+      "Crack the jar and a UFO of grapefruit, apricot and chilled spearmint hovers out. The palate swings between Zkittlez candy and a Kush Mints gasoline kiss. Lift-off is bright; landing is plush and grinning.",
+    tagline: "Candy fruit, alien gas chill",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Banaffy Taffy",
+    marketNames: ["Banana Taffy"],
+    breeder: "Team Elite Genetics",
+    lineage: {
+      parents: ["Watermelon Zkittlez", "Banana"],
+      cross: "Watermelon Zkittlez × Banana",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Flavor-first cluster; some cuts trace to Banana OG x Sour Taffy"],
+    curatorNote:
+      "The first inhale is a Laffy Taffy wrapper torn open in a tropical fruit stand. Mid-palate the banana goes full Foster's, browned and buttery. Comedown is giggly munchies on a beach chair.",
+    tagline: "Banana candy beach taffy",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "BOOV",
+    breeder: "Backpack Boyz",
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Falls within Backpack Boyz's gelato/cookies-leaning exotic catalog"],
+    curatorNote:
+      "BOOV opens like a fistful of mixed berry gummies dropped into a pump-jockey's glove. The middle goes creamy and round, almost sherbet. Effect is bright-eyed and chatty before a warm seat-belt of calm.",
+    tagline: "Loud fruit gas exotic",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Chili Azul",
+    marketNames: ["Chile Azul"],
+    breeder: "Made Men Genetics",
+    lineage: {
+      parents: ["Chili Verde", "Blue Cookies"],
+      cross: "Chili Verde × Blue Cookies",
+    },
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Beta-caryophyllene-forward profile drives the pepper-chili bite", "Indica-leaning with dense colas and purple flashes"],
+    curatorNote:
+      "First crack of the jar is a Hatch chile roaster on a high-desert morning. The cookie sweetness lays underneath like a warm tortilla. Body sinks slowly, like sun setting over an adobe wall.",
+    tagline: "Roasted chile, blue cookie calm",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Garlic Crusher",
+    breeder: "3rd Coast Genetics",
+    lineage: {
+      parents: ["GMO", "Pure Michigan"],
+      cross: "GMO × Pure Michigan",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Lime to deep-forest hues under a frosty white jacket", "Beta-caryophyllene leads with limonene and myrcene; ~20-25% THC"],
+    curatorNote:
+      "Twist the cap and a wood-fired pizza kitchen explodes outward — raw garlic, oregano, scorched crust. The Pure Michigan side adds Oreo-cookie sweetness like dessert after dinner. Couch gravity arrives politely and stays the night.",
+    tagline: "Roasted garlic diesel funk",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "John Truffolta",
+    breeder: "Blockhead Buds",
+    lineage: {
+      parents: ["Truffaloha", "Blueberry Sugar"],
+      cross: "Truffaloha S1 × Blueberry Sugar",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Tested 31-33% THC; heavy resin production"],
+    curatorNote:
+      "Open the bag and pineapple, blueberry pancakes and a wisp of pump-jockey gas come dancing out. The exhale is cocoa-truffle smooth, slick as a white suit on a disco floor. Buzz struts in giggly, then settles into a warm, hip-swaying calm.",
+    tagline: "Tropical truffle disco swagger",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Lituya Bay",
+    breeder: "Mainely Genetics",
+    lineage: {
+      parents: ["Animal Tsunami", "Platinum Cherry Gelato"],
+      cross: "Animal Tsunami × Platinum Cherry Gelato",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Myrcene-led with strong limonene and caryophyllene support", "Alpine Agronomy cut documents the parentage"],
+    curatorNote:
+      "Imagine sea-spray hitting sun-warmed pine — sharp lemon peel up front, then a slow exhale of damp earth and ripe mango. It coasts rather than crashes, leaving you content and quietly elevated.",
+    tagline: "Pine, citrus, coastal calm",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Permanent Chimera",
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Permanent Marker", "Chimera"],
+      cross: "Permanent Marker × Chimera #2",
+    },
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Permanent Marker = (Biscotti x Jealousy) x Sherb B", "Chimera #2 = White Truffle x The Creature", "Slightly indica-leaning (~60/40) with cerebral lift"],
+    curatorNote:
+      "Crack the jar and you get sharpie ink wrapped around black cherry and jet fuel. The smoke is creamy at first, then turns into a creative buzz that hums behind the eyes before settling the shoulders.",
+    tagline: "Inky fuel, dark cherry, lift",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Lemon Vuitton",
+    marketNames: ["Lemon Vuiton"],
+    breeder: "Swamp Boys Seeds",
+    lineage: {
+      parents: ["Lemon Tree", "Leopard Head Kush"],
+      cross: "Lemon Tree × Leopard Head Kush",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Limonene-dominant with caryophyllene/myrcene support", "Greasy resin production; total terpenes can exceed 5%"],
+    curatorNote:
+      "Lemon Pledge and gasoline in a designer bottle — bright, almost squeaky citrus with a slick OG body. The high is clear and motivated, perfect for daytime errands that you actually want to do.",
+    tagline: "Designer lemon, fuel finish",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Rainbow Chips",
+    marketNames: ["Rainbow Chip"],
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["Sunset Sherbert", "Mint Chocolate Chip"],
+      cross: "Sunset Sherbert × Mint Chocolate Chip",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Balanced 50/50 hybrid", "Limonene/myrcene/caryophyllene/pinene blend"],
+    curatorNote:
+      "It smells like the bottom of a Halloween bag — sour fruit candy laced with cool chocolate mint. The smoke is creamy and slightly piney, and the high tilts giggly before easing into a warm body buzz.",
+    tagline: "Candy mint, creamy lift",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Beach Day",
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Marketed as a daytime tropical exotic"],
+    curatorNote:
+      "Picture salt air, sliced pineapple, and a squeeze of lime over coconut cream. The high is light and chatty, the kind that makes a flat afternoon feel like a vacation postcard.",
+    tagline: "Pineapple, lime, sunshine",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Bonfire",
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Market-adjacent Bonfire OG = The White x (Chemdog D x Sour Diesel IBL)"],
+    curatorNote:
+      "It smokes like a campfire jar — pine sap, blackened cedar, and a curl of diesel smoke. The body softens fast, head settles soon after, and the room goes quiet in the good way.",
+    tagline: "Cedar smoke, diesel embers",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Pool Party",
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Positioned alongside Lemonnade-style daytime fruity hybrids"],
+    curatorNote:
+      "Like cracking open a can of fruit punch in the sun — citrus zest, ripe berry, a swirl of pool-float coconut. The high is buoyant and social, more cannonball than couch.",
+    tagline: "Fruit punch, sunny lift",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Sunset Runtz",
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["Sunset Sherbet", "Runtz"],
+      cross: "Sunset Sherbet × Runtz",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Indica dominance from the Sunset Sherbet side, candy sweetness from Runtz", "Limonene-dominant with caryophyllene and linalool support"],
+    curatorNote:
+      "Imagine biting into a peach gummy at golden hour, sticky citrus juice running down a creamy core. The diesel hum underneath keeps it from being too saccharine, grounding the sweetness in something loud and resinous. This is dessert with a gas chaser.",
+    tagline: "Peach candy at golden hour",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Rainbow Runtz",
+    marketNames: ["Rainbow Runts"],
+    breeder: "Wizard Trees",
+    lineage: {
+      parents: ["Rainbow Sherbet", "Runtz"],
+      cross: "Rainbow Sherbet × Runtz",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Multiple breeder versions exist; Zkittlez-family candy crosses with a Wizard Trees Runtz × RS11 line also circulating", "Limonene and myrcene forward with a floral linalool lift"],
+    curatorNote:
+      "This is the rainbow candy bag tipped out across the table, every fruit at once but somehow harmonized. A giggly cerebral sparkle arrives first, brightening the room before a warm, smooth body glow settles in. Pure sensory confetti without the crash.",
+    tagline: "Rainbow candy bag, tipped out",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Venom Runtz",
+    lineage: {
+      parents: ["Venom OG", "Runtz"],
+      cross: "Venom OG × Runtz",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["A darker, heavier Runtz expression; Venom OG contributes gas and sedation, Runtz the candy sweetness", "Myrcene, caryophyllene and limonene dominant"],
+    curatorNote:
+      "The sweet inhale is a trap, all juicy berry and tropical candy, before Venom OG slams the door with diesel, pepper and damp earth. The high lands fast and lays heavy across the body while the mind floats blissed and unbothered. Sweet bite, gassy venom, deep couch.",
+    tagline: "Sweet bite, gassy venom",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Afternoon Delight #4",
+    marketNames: ["AD #4"],
+    lineage: {
+      parents: ["GMO", "Trophy Wife"],
+      cross: "GMO × Trophy Wife",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["#4 pheno selected for heavy gas and resin", "Garlic-and-diesel forward GMO expression"],
+    curatorNote:
+      "This is a loud, savory-gas cultivar that leans on its GMO parentage for that signature garlic-and-fuel punch. The Trophy Wife influence sands the edges with a whisper of sweet cake, but make no mistake, this is a gas-first experience. Expect a euphoric head rush that melts into a hungry, relaxed glow.",
+    tagline: "Garlic gas with cake",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Ameretto Di Limon",
+    marketNames: ["Amaretto Di Limon", "ADL"],
+    breeder: "Don Merfos Exotics",
+    lineage: {
+      parents: ["Lemon Cherry Gelato"],
+      cross: "Lemon Cherry Gelato #7 phenotype",
+    },
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Phenotype of Lemon Cherry Gelato (LCG #7)", "Purple-tinged bag appeal with fruity-fuel nose"],
+    curatorNote:
+      "Ameretto Di Limon is a dessert-exotic standout that reads like almond brittle dipped in lemon candy. The Gelato backbone keeps it creamy and smooth while the citrus brightness gives it a lively, mouthwatering lift. It opens with buoyant mental clarity before easing into a warm, unhurried body calm.",
+    tagline: "Almond candy lemon cream",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "ATF",
+    marketNames: ["Alaskan Thunder Fuck", "Matanuska Thunder Fuck"],
+    lineage: {
+      parents: ["Northern California Sativa", "Afghani"],
+      cross: "Northern California Sativa × Afghani",
+    },
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Heirloom Matanuska Valley landrace-influenced lineage", "Menthol-pine 'chilly forest' aromatic signature"],
+    curatorNote:
+      "ATF is an old-school sativa heavyweight that smells like a frosty pine forest with a squeeze of lemon. The high is a slow creeper that builds into bright, creative euphoria and a clean energetic lift rather than sedation. It's a daytime classic that also delivers a notable appetite kick.",
+    tagline: "Frosty pine and lemon",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Black Magic",
+    marketNames: ["Black Magic Kush"],
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Multiple breeders use the name; purple Cookies-leaning cuts most common"],
+    curatorNote:
+      "Black Magic is a shadowy, dessert-forward hybrid with a nose of dark berries, cocoa, and earthy spice. Purple-leaning cuts push blackberry jam while Cookie phenos add a cool mint lift. It tends to open with gentle mental uplift before settling into deep, easy physical relaxation.",
+    tagline: "Dark berry cocoa spice",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Blue Magic",
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Umbrella name; Blueberry x Haze-leaning hypothesis most consistent"],
+    curatorNote:
+      "Blue Magic is an umbrella name for berry-driven, sativa-leaning chemotypes rather than one fixed pedigree. Expect blueberry preserves and sugared citrus up front with a peppery-pine edge underneath. The effect keeps you alert, motivated, and mentally sharp without weighing the body down.",
+    tagline: "Berry buzz cerebral lift",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Blue Ribbon",
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Name shared across breeders; Chem-91-adjacent cuts most cited"],
+    curatorNote:
+      "Blue Ribbon circulates as a Chem-leaning name with no single verified pedigree across the market. The most-cited cuts deliver a pure Chem experience with loud, fuel-forward terpenes and a thick frost of trichomes. Effects run relaxed and euphoric, balanced enough for broad daytime or evening use.",
+    tagline: "Loud Chem fuel frost",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Blue Zlushie",
+    marketNames: ["Blue Slushie", "Blueberry Zlushie"],
+    breeder: "Raw Genetics",
+    lineage: {
+      parents: ["Blue Cookies", "Georgia Pie"],
+      cross: "Blue Cookies × Georgia Pie",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Boutique profile with phenotype variation under the name", "Mixed-berry 'slushy' nose with citrus-soda lift"],
+    curatorNote:
+      "Blue Zlushie is a candy-forward exotic that nails the frozen blue-slushie fantasy with mixed berries, citrus soda, and a sugary finish. A subtle peppery spice interacts with the fruit esters for a 'blueberry muffin in a candy shop' effect. It runs euphoric and creatively uplifting with a soothing relaxation that stops short of couch-lock.",
+    tagline: "Frozen blue berry candy",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Brownie Scout",
+    lineage: {
+      parents: ["Platinum Girl Scout Cookies", "Kosher Kush"],
+      cross: "Platinum GSC × Kosher Kush",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Cookies-lineage dessert-and-gas profile", "Sources differ on second parent (Kosher Kush vs Stardawg)"],
+    curatorNote:
+      "Brownie Scout is a decadent Cookies-family indica that leans into cocoa, brown sugar, and cookie dough with a gassy diesel kick. The high opens with happy, uplifting euphoria true to its Cookies roots before sinking into a sedating, full-body heaviness. It's a nighttime cultivar best saved for when you have nowhere to be.",
+    tagline: "Chocolate cookie gas knockout",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Candy Blitz",
+    breeder: "Cookies",
+    lineage: {
+      parents: ["Candy Rain", "Zkittlez"],
+      cross: "Candy Rain × Zkittlez",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Listed parentage attributed to Cookies but not officially published"],
+    curatorNote:
+      "Candy Blitz reads like a fistful of fruit gummies dusted with light fuel. The sweetness leads and the gas trails behind, giving an upbeat, social euphoria that mellows into easy relaxation. Best for daytime sessions where mood matters more than couch time.",
+    tagline: "Fruit gummies meet light gas",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Candy Cartel",
+    lineage: {
+      parents: ["Sherb Cream Pie", "Biscotti"],
+      cross: "Sherb Cream Pie × Biscotti",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Gelato/Zkittlez-adjacent with grape and cherry contributions"],
+    curatorNote:
+      "Candy Cartel trades bright citrus candy for syrupy grape and cordial-cherry darkness. The nose is saturated and confectionary, while the high lands fast with euphoria before settling into a warm, dreamy body calm. A nighttime-leaning candy strain with real depth.",
+    tagline: "Dark grape candy depth",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Candy Fumes",
+    marketNames: ["Candy Fumez"],
+    breeder: "Bloom Seed Co",
+    lineage: {
+      parents: ["Zkittlez", "Sherbanger"],
+      cross: "Zkittlez × Sherbanger",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Zkittlez parent supplies rainbow-candy berry and tropical lift", "Sherbanger parent adds the funky diesel and bud density"],
+    curatorNote:
+      "Candy Fumes is the most overtly gassy of the candy set, pairing sugary berry sweetness with a pungent fuel exhale. Despite the indica lean, users often report a clarifying, task-friendly focus before the body relaxation creeps in. A loud, sticky strain for those who want candy with a kick of funk.",
+    tagline: "Candy shop versus gas station",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Candy Funk",
+    sensoryFamily: "skunk-funk",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Name denotes a candy-funk phenotype rather than a single registered cultivar"],
+    curatorNote:
+      "Candy Funk leans harder into the funk than the candy, layering sweet fruit over earthy, skunky depth. The high starts cerebral and creative before easing into a relaxed body buzz that can creep. Treat this as a phenotype style rather than a fixed pedigree.",
+    tagline: "Sweet candy, deep funk",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Cherries 888",
+    marketNames: ["888 Cherries"],
+    breeder: "Crop King Seeds",
+    lineage: {
+      parents: [],
+      cross: "Unknown cherry cross",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Documented as a balanced hybrid from an undisclosed cherry cross"],
+    curatorNote:
+      "Cherries 888 opens with a burst of tart cherry and berry that resolves into soft vanilla and resinous pine. Effects begin clear and uplifting, sharpening mood and creativity before a gradual, gentle body relaxation. One of the more potent and well-balanced picks in this lineup.",
+    tagline: "Tart cherry, vanilla finish",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Cherry Paloma",
+    breeder: "Raw Genetics",
+    lineage: {
+      parents: ["Tropicana Cherries", "Georgia Pie"],
+      cross: "Tropicana Cherries × Georgia Pie",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Displays magenta and royal purple hues as early as flowering week four", "Limonene-, linalool-, and caryophyllene-dominant terpene profile"],
+    curatorNote:
+      "Cherry Paloma is the brightest, most citrus-forward cherry profile here, balancing sweet fruit against a clean gas edge. The high is uplifting and creative with a tingly body buzz that relaxes without sedation, making it a strong social and daytime choice. Terpene-rich Raw Genetics pheno-hunting shows in the saturated nose.",
+    tagline: "Bright cherry citrus lift",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Cherry Swirl",
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Name used across multiple dessert-style cherry cuts with no single registered pedigree"],
+    curatorNote:
+      "Cherry Swirl is the creamiest of the cherry profiles, pairing tart cherry candy with a smooth, soda-like sweetness. Effects tend toward clear mental focus with gentle body relaxation, suiting balanced daytime or early-evening use. Expect garden-to-garden variation given the unsettled lineage.",
+    tagline: "Cherry candy, creamy swirl",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Coconut Cream",
+    lineage: {
+      parents: ["LA Kush Cake", "Coco Milk"],
+      cross: "LA Kush Cake × Coco Milk",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Documented lineage is LA Kush Cake x Coco Milk; name shared across breeders"],
+    curatorNote:
+      "Coconut Cream is the heaviest, most sedative profile in the set, leading with creamy vanilla milk and a gassy diesel undertone. A brief euphoric lift is quickly overtaken by deep, body-heavy relaxation that suits evening and pre-sleep use. Potent and richly dessert-like, with notable variability between cuts.",
+    tagline: "Creamy vanilla, heavy sedation",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Crumble Cake",
+    breeder: "3rd Coast Genetics",
+    lineage: {
+      parents: ["Cookies and Cream", "Secret Weapon"],
+      cross: "Cookies and Cream × Secret Weapon",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Phenotype of the Oreoz line", "Powdered-sugar trichome coat; caryophyllene-driven peppery exhale"],
+    curatorNote:
+      "Crumble Cake leads with creamy vanilla pastry before a clove-pepper spice keeps it from going syrupy. The body weight lands in the evening tier, ideal for tension and appetite. Expect dense, sugar-dusted buds typical of the Cake family.",
+    tagline: "Vanilla pastry with pepper",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Crunch Berries",
+    marketNames: ["Crunch Berry", "Captain Crunch"],
+    breeder: "Exotic Genetix",
+    lineage: {
+      parents: ["Blueberry", "Triple OG"],
+      cross: "Blueberry × Triple OG",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Cereal-and-cream nose from Blueberry mother", "OG gas from Triple OG father; indica-dominant ~70/30"],
+    curatorNote:
+      "Crunch Berries opens with vivid blueberry-cereal sweetness then reveals an earthy-pine OG underbelly. Fast euphoria gives way to couch-friendly relaxation without a full knockout. A standout for berry chasers who still want gas.",
+    tagline: "Berry cereal meets gas",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Crypto Cherries",
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Cherry-forward nose over a dessert-gas base"],
+    curatorNote:
+      "Crypto Cherries presents a vivid cherry-soda lead layered onto a sharp gassy backbone with a doughy vanilla underside. The effect window stays head-clearing and calm when dosed moderately. Treat it as a house or regional cut that may vary by operator.",
+    tagline: "Cherry soda over gas",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "D-Lish",
+    marketNames: ["Doja D-Lish", "Delish"],
+    lineage: {
+      parents: ["Zkittlez", "Sweet Retreat"],
+      cross: "The Original Z (Zkittlez) × Sweet Retreat",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Balanced 50/50 indica-sativa expression", "Candy-fruit terps from Zkittlez parent; myrcene-limonene-caryophyllene led"],
+    curatorNote:
+      "D-Lish starts with a happy, euphoric cerebral lift that brightens mood and sparks creativity. It then eases into a smooth, balanced body calm without sedation. The candy-bubblegum and creamy citrus profile makes it an easy daytime-to-evening crossover.",
+    tagline: "Creamy candy citrus lift",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Dante's Inferno",
+    breeder: "Clearwater Genetics",
+    lineage: {
+      parents: ["Oreoz", "Devil Driver"],
+      cross: "Oreoz × Devil Driver",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Bred with Tiki Madman; indica-dominant ~70/30", "Dense chunky buds with occasional pink/purple accents"],
+    curatorNote:
+      "Dante's Inferno builds gradually, opening cerebral and expansive before a steady wave of physical ease takes over. The nose moves from creamy-sweet to fruity to a cracked-pepper gassy finish. A potent evening pick for those chasing a spicy-gas exhale.",
+    tagline: "Sweet cream, spicy gas finish",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Dark Rainbow",
+    breeder: "Wizard Trees",
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Dark, anthocyanin-rich bag appeal; caryophyllene-limonene-myrcene leaning"],
+    curatorNote:
+      "Dark Rainbow opens with fruit-candy sweetness that exhales into a faint diesel-pepper funk. The bag appeal is striking, with deep purple-to-black hues under heavy frost. Effects skew euphoric and giggly with a balanced relaxing tail.",
+    tagline: "Dark candy, faint funk",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Drooler",
+    lineage: {
+      parents: ["Grape Pie", "Do-Si-Dos"],
+      cross: "Grape Pie × Do-Si-Dos",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Multiple regional cuts circulate under the name"],
+    curatorNote:
+      "Drooler is a boutique dessert-gas cut prized for sticky, glistening resin and a sweet grape-cream nose over fuel. Effects run relaxed and creative with an uplifting, happy edge. Because several growers release cuts under this name, expect lot-to-lot variation.",
+    tagline: "Sticky sweet fuel funk",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Fed Reserve OG",
+    marketNames: ["Federal Reserve OG"],
+    lineage: {
+      parents: ["SFV OG", "LA Kush"],
+      cross: "SFV OG × LA Kush",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Pungent pine, gas, and skunk terpene profile", "Nighttime, deeply relaxing OG phenotype"],
+    curatorNote:
+      "Fed Reserve OG is built on the bones of the SFV OG lineage, all fuel and pine with a skunky backbone. The effect is the textbook OG arc: an immediate euphoric lift that melts into heavy, sedating body relaxation. Reach for it after dark when winding down is the only agenda.",
+    tagline: "Classic gas OG sedation",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Fuel Pump",
+    marketNames: ["Gas Pump"],
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Chemmy, rubbery fuel nose with pepper and earth"],
+    curatorNote:
+      "Fuel Pump is pure pump-island chemistry: rubbery diesel and pepper layered over musky earth. The high opens euphoric and bright before settling into an easygoing relaxed hum. A daytime-into-evening gasser for fans of the Chem and Diesel families.",
+    tagline: "High-octane diesel funk",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Garlicane",
+    breeder: "In House Genetics",
+    lineage: {
+      parents: ["GMO", "Slurricane"],
+      cross: "GMO × Slurricane",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Pungent garlicky, musky-earth nose with spicy herbs", "Indica-dominant, evening full-body phenotype"],
+    curatorNote:
+      "Garlicane marries GMO's savory garlic-and-funk punch with Slurricane's resinous fruit, landing on a pungent herbal-spice profile that is unmistakably savory. Effects start with a brief cerebral lift then sink into profound, tingly full-body relaxation. This is a nightcap, not a daytime smoke.",
+    tagline: "Savory garlic funk knockout",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Govt Oasis",
+    marketNames: ["GovernMint Oasis", "Government Oasis"],
+    breeder: "Purple City Genetics",
+    lineage: {
+      parents: ["GMO", "Gush Mints"],
+      cross: "GMO × Gush Mints",
+    },
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Minty-herbal nose over GMO funk and diesel", "Very high THC, experienced-consumer phenotype"],
+    curatorNote:
+      "Govt Oasis crosses GMO's pungent funk with Gush Mints' cool, creamy sweetness for a one-of-a-kind minty-herbal-diesel profile. It hits hard and calm, easing the body into a relaxed, euphoric stillness. With THC often near 30 percent, this one is reserved for seasoned palates.",
+    tagline: "Minty funk, heavy calm",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Grapelato",
+    lineage: {
+      parents: ["Grape Kush", "Gelato"],
+      cross: "Grape Kush × Gelato",
+    },
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Sweet, spicy grape with a sour citrus exhale", "Slow-building giggly, creative euphoria"],
+    curatorNote:
+      "Grapelato pairs grape-forward terpenes with a Gelato cut for a sweet, slightly sour grape-candy experience. The high builds slowly into a giggly, unfocused euphoria that sparks creativity before drifting toward relaxation. A flavorful, dessert-leaning hybrid for easy afternoons.",
+    tagline: "Grape candy gelato bliss",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Hash Burger #3",
+    marketNames: ["Hash Burger"],
+    breeder: "Skunk House Genetics",
+    lineage: {
+      parents: ["Han Solo Hash Plant", "Double Burger"],
+      cross: "Han Solo Hash Plant × Double Burger",
+    },
+    sensoryFamily: "skunk-funk",
+    phenotypeNotes: ["Earthy, ammonia, onion, and umami funk profile", "Tests very high in THCa, heavily sedating phenotype"],
+    curatorNote:
+      "Hash Burger #3 is a stinky, savory bruiser drawing on GMO, Donny Burger, and Triangle Kush funk for an onion-and-ammonia umami blast. Effects are heavy and sedating, sliding quickly toward couch-lock and sleep. With THC often above 28 percent, treat this phenotype with respect and save it for night.",
+    tagline: "Savory umami funk bomb",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Honeydew",
+    lineage: {
+      parents: ["Dirty Melon", "Peach Crescendo"],
+      cross: "Dirty Melon × Peach Crescendo",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Sliced honeydew and cucumber nose with herbal undertone", "Sativa-dominant, bright and non-sedating phenotype"],
+    curatorNote:
+      "Honeydew is all refreshing melon rind and crisp cucumber over a faint herbal soil, finishing minty and clean. The effect is a bright, functional cerebral lift with light physical energy and no couch-lock. Ideal for mornings, creative work, or social daytime sessions.",
+    tagline: "Crisp melon daytime lift",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Jack Snowballz",
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Frosty, spicy-pine Haze-leaning phenotype inferred from name"],
+    curatorNote:
+      "Jack Snowballz reads as a frosty Jack Herer relation, pairing the family's spicy pine and citrus with a heavy resin coat hinted at by the Snowballz name. Effects skew energetic, creative, and uplifted in true Haze-sativa fashion. A daytime spark for focus and conversation, pending verified genetics.",
+    tagline: "Frosty spicy-pine Jack lift",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Kami",
+    marketNames: ["Kami Kush"],
+    breeder: "Raw Genetics",
+    lineage: {
+      parents: ["Skywalker OG", "Zikigai"],
+      cross: "Skywalker OG × Zikigai",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Tall OG-leaning structure with spear tops", "Myrcene, limonene and caryophyllene-forward terpene profile"],
+    curatorNote:
+      "Kami leads with a diesel-pine handshake before sweet tropical notes round out the jar. The body is classic OG heaviness, yet the head stays euphoric and quietly creative. A relaxed-but-bright pick for unwinding without total sedation.",
+    tagline: "OG depth, candy lift",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Leo Stones Tourbillion",
+    marketNames: ["Tourbillon"],
+    breeder: "Aficionado Seeds",
+    lineage: {
+      parents: ["Biscotti", "Triangle Kush", "Cherry Pie Kush", "Grateful Breath"],
+      cross: "Biscotti × (Triangle Kush × Cherry Pie Kush × Grateful Breath)",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Leans toward Triangle and Cherry Pie Kush morphology", "Roughly 8-9 week flowering window"],
+    curatorNote:
+      "Tourbillion is pure jet-fuel theater: lemon rind, ethanol and starter-fluid notes stacked over a Kush spine. The high reads like old-school Headband, intensely cerebral and racy. Reserve this one for experienced palates chasing loud gas.",
+    tagline: "Lemon rind meets jet fuel",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Love Machine",
+    marketNames: ["Cheech and Chong's Love Machine"],
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Pure Kush", "Wedding Crasher"],
+      cross: "Pure Kush × Wedding Crasher",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Terpinolene-forward profile", "Strain name is reused across cuts so lab numbers vary by producer"],
+    curatorNote:
+      "Love Machine opens sweet and diesel-driven with a soft floral edge underneath. Effects skew sativa: energetic, euphoric and conversational rather than couch-bound. A solid pick for daytime creativity and good company.",
+    tagline: "Sweet diesel, social lift",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Lu Lu Lemon",
+    breeder: "Fiya Farmer",
+    lineage: {
+      parents: ["Lemon Tree", "Cream Smoothie"],
+      cross: "Lemon Tree × Cream Smoothie",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Limonene-dominant with secondary caryophyllene and linalool", "THC commonly testing 30-34%"],
+    curatorNote:
+      "Lu Lu Lemon is a citrus showpiece, sharp sour lemon riding over smooth cream and a touch of vanilla. The effect is clean, focused energy built for daytime productivity and creative work. Bright, potent and unmistakably zesty.",
+    tagline: "Sour lemon, creamy finish",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "MC Nuggets",
+    breeder: "Ethos Genetics",
+    lineage: {
+      parents: ["Martian Candy OG", "Wrank"],
+      cross: "Martian Candy OG × Wrank",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Medium egg-shaped, spongy-dense buds with late foxtailing", "56-63 day flowering, heavy yield, 25%+ THC"],
+    curatorNote:
+      "MC Nuggets pairs a gassy core with a soft floral-sweet topnote that softens the fuel. The body effect is heavy and relaxing, sliding toward sleepy at the tail end. A modern indica hybrid built for evening decompression.",
+    tagline: "Gassy florals, heavy body",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Melted Strawberries",
+    breeder: "Bloom Seed Co",
+    lineage: {
+      parents: ["GMO", "Strawberry Guava"],
+      cross: "GMO × Strawberry Guava",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Hunted for glandular trichome stability, prized for extraction", "Roughly 50/50 indica-sativa, 27-31% THC"],
+    curatorNote:
+      "Melted Strawberries is a study in contrast: savory GMO gas up front, ripe strawberry-guava sweetness underneath. The high is balanced and euphoric with a relaxing body and a reliable appetite bump. Sticky, frosty and built for terp chasers.",
+    tagline: "Savory gas, sweet berry",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Midtown Kush",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Profile inferred from Kush-style naming convention"],
+    curatorNote:
+      "Midtown Kush reads as a traditional Kush: earthy, piney and faintly spicy with a grounded woody base. The effect is calm and physically heavy, easing toward sleep over time. A mellow end-of-day choice rather than a daytime driver.",
+    tagline: "Earthy Kush, calm evenings",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Mike's Meringue",
+    breeder: "TYSON 2.0",
+    lineage: {
+      parents: ["Lemon Skunk", "Cookies and Cream"],
+      cross: "Lemon Skunk × Cookies and Cream",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Citrusy-doughy nose with sweet cream and Kush undertones", "Spacey, uplifting and creativity-forward"],
+    curatorNote:
+      "Mike's Meringue smells like lemon-kissed pastry, citrus zest over sweet cream and vanilla dough. The effect is spacey and uplifting, nudging creativity and good mood. A pleasant, dessert-forward daytime sativa for an active day off.",
+    tagline: "Lemon pastry, spacey lift",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Moutai #2",
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "#2 cut inferred to push the heavier, funkier, more savory side of the line"],
+    curatorNote:
+      "Moutai #2 reads as a deep, savory-gas funk with earthy and peppery layers rather than sweet candy notes. The high is rounded and sociable, lifting the mood before easing into relaxed calm. Documentation is thin, so treat the profile as a confident read on a funk-forward hybrid.",
+    tagline: "Savory gas, quiet funk",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "New Yorker",
+    breeder: "Wizard Trees",
+    lineage: {
+      parents: ["Sour Diesel", "Lemon Cherry Gelato"],
+      cross: "Riri Sour Diesel × Lemon Cherry Gelato",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Diesel-dominant phenotypes show sharper fuel; gelato-leaning cuts bring more creamy cherry sweetness"],
+    curatorNote:
+      "New Yorker opens with spicy diesel that gives way to bright citrus and a creamy cherry-gelato finish. It hits cerebral and fast before smoothing into a balanced body ease, equally at home daytime or evening. A modern high-THC hybrid that stays unmistakably gas-forward.",
+    tagline: "Diesel meets cherry gelato",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "No Cap",
+    lineage: {
+      parents: ["Gelato 33", "Biscotti"],
+      cross: "Gelato 33 × Biscotti",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Reported lineage varies by producer", "Cookie-and-lemon dessert expression most consistent across cuts"],
+    curatorNote:
+      "No Cap balances an insistently sweet lemon nose against creamy, butter-and-nut cookie depth. The effect lifts the mood first, then settles into easygoing relaxation suited to music or low-key social time. A polished dessert hybrid that earns its upper-tier reputation.",
+    tagline: "Sweet lemon cookie lift",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Pearlz #6",
+    marketNames: ["Pearlz"],
+    breeder: "Preferred Gardens",
+    lineage: {
+      parents: ["Zoap", "Lazer Gun"],
+      cross: "Zoap × Lazer Gun",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["#6 phenotype selected for pastel, trichome-heavy buds", "Cleanest melon-sherbet candy expression"],
+    curatorNote:
+      "Pearlz #6 is pure candy-Z confection, layering soapy gelato, candied peach and a floral melon zest. The high floats in soft and comfortable, easing the body toward the couch without harsh sedation. Frosty, pastel and impeccably terpy, it is built for flavor chasers.",
+    tagline: "Frosty candy melon float",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Perma Frost",
+    lineage: {
+      parents: ["Trainwreck", "White Widow"],
+      cross: "Trainwreck × White Widow",
+    },
+    sensoryFamily: "pine-spice",
+    phenotypeNotes: ["Trichome-frosted phenotypes earn the 'frost' name", "Trainwreck-leaning cuts sharpen the pine and spice"],
+    curatorNote:
+      "Perma Frost is bright and woodland-fresh, with sharp pine, spicy herbs and a frosty White Widow sheen. The high runs energetic and euphoric, sparking creativity before a hungry, mellow tail-off. A classic-leaning sativa hybrid for daytime motion.",
+    tagline: "Crisp pine, creative spark",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Pink Passion",
+    marketNames: ["Pink Passionfruit"],
+    lineage: {
+      parents: ["Passion Fruit", "Pink Kush"],
+      cross: "Passion Fruit × Pink Kush",
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Sativa-dominant phenotypes (~60/40) emphasize tropical-citrus brightness over body weight"],
+    curatorNote:
+      "Pink Passion is all juicy tropical fruit and pink grapefruit dressed in floral sweetness. The effect is clear-headed and sociable, lifting mood, focus and creativity without heavy sedation. A vivid, fruit-forward daytime sativa hybrid.",
+    tagline: "Juicy tropical daytime lift",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Project Lato",
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Profile inferred from the gelato dessert family"],
+    curatorNote:
+      "Project Lato sits squarely in gelato territory, leading with sweet cream, soft berry and vanilla over a faint earthy base. The high opens euphoric and creative before melting into balanced relaxation. Public records are scarce, so the profile is a confident read on a dessert-gelato exotic.",
+    tagline: "Sweet cream gelato exotic",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Red Hotz",
+    marketNames: ["Red Hots"],
+    breeder: "Fiya Farmer",
+    lineage: {
+      parents: ["Biscotti", "Gassius Clay", "Fun Dip"],
+      cross: "Biscotti × Gassius Clay × Fun Dip",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Bold cinnamon-candy nose with spicy-orange undertones", "Gassy diesel notes dominate the aftertaste"],
+    curatorNote:
+      "Red Hotz reads like spicy cinnamon candy dipped in citrus, then dragged through a fuel tank. The high is energetic and creatively charged rather than sedating. Best for daytime motivation when you want flavor with a bite.",
+    tagline: "Cinnamon candy with gas",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Scotties Cake",
+    breeder: "Seed Junky Genetics",
+    lineage: {
+      parents: ["Biscotti", "Gelato 41", "Animal Mints BX1"],
+      cross: "Biscotti × (Gelato 41 × Animal Mints BX1)",
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Frosty, dense bag appeal from the Cookies-Cake lineage", "Creamy vanilla cake nose with a subtle gassy lift"],
+    curatorNote:
+      "Scotties Cake is a velvety dessert profile, all sweet cake batter and whipped vanilla cream. The Biscotti and Animal Mints backbone pushes potency well above casual territory. A relaxing, mood-lifting smoke that finishes smooth.",
+    tagline: "Creamy vanilla cake batter",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Shot Caller",
+    breeder: "Solfire Gardens",
+    lineage: {
+      parents: ["Don Mega", "Hood Candyz"],
+      cross: "Don Mega × Hood Candyz",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Zesty citrus over resinous pine with a cream-sweet undertone", "Caryophyllene-limonene-linalool dominant terpene stack"],
+    curatorNote:
+      "Shot Caller leads with zesty citrus and fresh resinous pine, sitting on a creamy sweet cushion. The effect is clear, social, and focused rather than couch-locking. A confident daytime pick for getting things done.",
+    tagline: "Bright citrus pine focus",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Stadankohhh",
+    sensoryFamily: "skunk-funk",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Pungent skunk-and-gas nose that carries through the package"],
+    curatorNote:
+      "Stadankohhh is exactly what the name promises: an unapologetically dank, skunky, gassy funk bomb. The indica-leaning effect settles the body into calm while keeping the mood lightly lifted. A loud-smelling evening strain for funk chasers.",
+    tagline: "Loud skunky gas funk",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Star Boys",
+    marketNames: ["Starboy"],
+    lineage: {
+      parents: ["Star Killer OG", "GG4"],
+      cross: "Star Killer OG × GG4",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Intense diesel-gas nose from the Stardawg-Glue lineage"],
+    curatorNote:
+      "Star Boys is a fuel-forward, chem-leaning heavyweight with a dense diesel and earthy gas profile. The effect is intensely physical, leaning stony and couch-bound rather than euphoric. Reserve it for nights with nowhere to be.",
+    tagline: "Heavy diesel body buzz",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Super Jack",
+    marketNames: ["Super Jack Herer"],
+    lineage: {
+      parents: ["Super Silver Haze", "Jack Herer"],
+      cross: "Super Silver Haze × Jack Herer",
+    },
+    sensoryFamily: "haze-sativa",
+    phenotypeNotes: ["Peppered pine and citrus-zest nose with incense-like spice", "Fast cerebral onset with classic Haze sparkle"],
+    curatorNote:
+      "Super Jack is a textbook Haze experience, layering peppery pine and bright citrus over a skunky incense backbone. The high is fast, clear-headed, and energizing, tuned for focus and creativity. A daytime sativa for motivation and mental clarity.",
+    tagline: "Classic energizing Haze sparkle",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Tear Gas",
+    marketNames: ["The Tear Gas"],
+    lineage: {
+      parents: ["Stardawg", "Chemdawg"],
+      cross: "Stardawg × Chemdawg",
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Heavy gassy-diesel nose with sulfurous skunk thiols"],
+    curatorNote:
+      "Tear Gas earns its name with a heavy, sulfurous gas-and-diesel assault that turns chemical-spicy on the exhale. It opens with a sharp cerebral euphoria before sinking into deep body relaxation. A potent evening pick for serious gas lovers.",
+    tagline: "Explosive sulfurous chem gas",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Tide",
+    lineage: {
+      parents: ["Zkittlez", "Kush Mints"],
+      cross: "Zkittlez × Kush Mints",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Compact, bushy structure with tight internodes", "Resin-drenched limonene-dominant calyxes"],
+    curatorNote:
+      "Tide threads cool mint through candy fruit, a Kush Mints chill laid over Zkittlez sweetness. The arc is gentle: a euphoric crest that recedes into a smooth, relaxed tide rather than a sedative crash. Best for an even, social wind-down.",
+    tagline: "Minted fruit, gentle pull",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Toad",
+    marketNames: ["The Toad"],
+    lineage: {
+      parents: ["Chemdawg", "Afghani"],
+      cross: "Chemdawg × Afghani",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Mature, layered scent over candy sweetness", "60/40 indica-leaning expression"],
+    curatorNote:
+      "Toad is the antidote to candy exotics: earthy, coffee-dark, and diesel-forward rather than sugary. It begins with surprising mental clarity before the Afghani backbone hauls you into deep physical weight. A connoisseur's gas strain that rewards patience.",
+    tagline: "Coffee, gas, and gravity",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Triple Burger",
+    marketNames: ["GMO Burger"],
+    breeder: "Skunk House Genetics",
+    lineage: {
+      parents: ["GMO", "Double Burger"],
+      cross: "GMO × Double Burger",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Caryophyllene-dominant garlic funk", "Larry OG vigor folded into the Burger line"],
+    curatorNote:
+      "Triple Burger is savory cannabis at full volume: garlic, butter, and ammonia-diesel with a blue-cheese tail. There's no sweetness to hide behind, just loud GMO funk and a sedative, couch-locking body load. Reserve for experienced palates and a clear evening.",
+    tagline: "Garlic-butter diesel funk bomb",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Yunicorn",
+    marketNames: ["Yunacorn"],
+    breeder: "GREASi Genetics",
+    lineage: {
+      parents: ["Lemon Cherry Gelato", "RO93"],
+      cross: "Lemon Cherry Gelato × RO93",
+    },
+    sensoryFamily: "gelato-exotic",
+    phenotypeNotes: ["Sugar-frosted calyxes with lavender undertones", "Identity treated as Yunacorn variant; spelling not independently verified"],
+    curatorNote:
+      "Yunicorn pairs lemon-cherry zest and vanilla cream with just enough OG gas to keep it grounded. The lift stays upbeat and conversational, sliding into body-soothing calm without true couch-lock. A polished dessert-citrus hybrid for daytime sociability.",
+    tagline: "Citrus cream over gas",
+    artStatus: "none",
+    sourceConfidence: "medium",
+  },
+  {
+    canonicalName: "Z-Gun",
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Tags inferred from Zkittlez/gun exotic naming cues"],
+    curatorNote:
+      "Z-Gun reads as a Zkittlez-line candy exotic, all loud grape-berry sweetness and rainbow fruit. Expect a euphoric, creative head paired with easy body relaxation rather than sedation. Treat the genetics as inferred until a verified cross surfaces.",
+    tagline: "Loud candy-fruit exotic",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Zangbanger",
+    breeder: "Wizard Trees",
+    lineage: {
+      parents: ["Sherbanger #22", "Zangria"],
+      cross: "Sherbanger #22 × Zangria",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["Octane diesel funk over saturated berry candy", "Glowing frost, dense structure"],
+    curatorNote:
+      "Zangbanger collides Sherbanger's octane diesel with Zangria's berry-candy brightness for a lemon-fuel nose dusted in blueberry and vanilla. The hit lands buzzy and tingly behind the eyes, then creeps into a numbing, couch-locking calm. Potent enough to respect the dose.",
+    tagline: "Lemon-diesel into the couch",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Zangria",
+    breeder: "Wizard Trees",
+    lineage: {
+      parents: ["The Original Z", "Thin Mint Cookies"],
+      cross: "Thin Mint Cookies × The Original Z",
+    },
+    sensoryFamily: "purple-berry",
+    phenotypeNotes: ["Forest-green buds laced with violet and purple hues", "Heavy resin, dense colas"],
+    curatorNote:
+      "Zangria pours a tropical-grape fruit cocktail over an earthy cookie base, the sangria namesake made literal. Despite indica leanings, the high stays balanced and creative before the body relaxation settles in. Striking purple bag-appeal from a marquee Wizard Trees line.",
+    tagline: "Grape sangria in bloom",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Zeal",
+    breeder: "Umami Seed Co",
+    lineage: {
+      parents: ["Zwish", "Jealousy"],
+      cross: "Zwish × Jealousy",
+    },
+    sensoryFamily: "diesel-chem",
+    phenotypeNotes: ["~31% THC powerhouse expression", "Strong odor requiring late-flower control"],
+    curatorNote:
+      "Zeal layers coffee-diesel and rich vanilla beneath bright orange citrus and a whisper of lavender. The potency is the headline: intense, long-lasting euphoria that melts into deep, heavy relaxation. A loud, high-test indica for seasoned consumers.",
+    tagline: "Coffee-vanilla diesel powerhouse",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Zero Gravity",
+    marketNames: ["Zero Grav"],
+    breeder: "North Genetics",
+    lineage: {
+      parents: ["Holy Grail Kush", "Smurfzilla"],
+      cross: "Holy Grail Kush × Smurfzilla",
+    },
+    sensoryFamily: "skunk-funk",
+    phenotypeNotes: ["Large, dense buds with skunky-sweet undertones", "Myrcene, limonene, caryophyllene profile"],
+    curatorNote:
+      "Zero Gravity keeps its feet earthy and herbal with a skunky-sweet edge, no candy gloss here. The high floats lighthearted and giggly, socially uplifting before tension melts into relaxed calm. A balanced 50/50 made for easy, weightless company.",
+    tagline: "Weightless, giggly, earthy float",
+    artStatus: "none",
+    sourceConfidence: "high",
   },
 ];

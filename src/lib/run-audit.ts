@@ -61,6 +61,10 @@ export interface RunAuditItem {
   feedbackAdjustment: number;
   feedbackNote: string | null;
   purchaseConfidence: PurchaseConfidence;
+  // Merge runs only: which world (profile) produced this pick's score, and the
+  // raw pre-lean score in every world, so the leaned result reconciles.
+  world?: string;
+  perWorld?: Array<{ world: string; score: number }>;
 }
 
 // Mode 1 (Taste Match) carries additional context that Compare doesn't:
@@ -75,38 +79,63 @@ export interface RunAuditTasteContext {
   engine: "builtin" | "openai";
 }
 
+export interface RunAuditModeSnapshot {
+  trustMode: boolean;
+  targetArchetype: EffectArchetype | null;
+  targetTexture: EffectTexture | null;
+  targetFamily: BehavioralFamily | null;
+  // How the target was decided: "forced" (from the primaryAroma/
+  // primaryEffect/useTime answers) or "inferred" (legacy, from
+  // favourites/preferences).
+  targetSource: "forced" | "inferred";
+  // Dislikes silenced because the user's own favourites would
+  // themselves trigger them — surfaces self-contradicting profiles.
+  reconciledDislikes: string[];
+  // Structured records, one per detected contradiction. Always
+  // present — empty array means "no contradictions detected."
+  contradictions: ProfileContradiction[];
+  // Version markers — let audit readers pivot on era without git
+  // archaeology. vocabVersion bumps when sensory tokens change,
+  // engineVersion bumps when the scoring formula changes.
+  vocabVersion: string;
+  engineVersion: string;
+}
+
+// Merge runs only. One snapshot per merged profile (so each world reconciles
+// independently), plus the full recipe. Absent for single-profile runs.
+export interface RunAuditMerge {
+  // "merge" = a plain merged pair; "blender" = the 3-way Taste Blender.
+  mode: "merge" | "blender";
+  // Bridge mode (min across worlds) vs best-of (max). Leans don't apply in
+  // balance mode — penalties below are then all 0.
+  balance: boolean;
+  bias: number; // pair lean (lean1), −1…+1, + toward the primary profile
+  lean2: number; // third-admix recipe value (0…1); 0 when there's no third
+  profiles: Array<{
+    name: string;
+    primary: boolean; // the lean's "Main" end
+    penalty: number; // points subtracted from this world before the pick
+    profile: TasteProfileInput;
+    modeSnapshot: RunAuditModeSnapshot;
+  }>;
+}
+
 export interface RunAuditEntry {
   runAt: string;
-  schemaVersion: 2;
+  schemaVersion: 4;
   source: RunAuditSource;
   userId: string;
+  // The active profile (top-level, unchanged for single runs). On merge runs
+  // every world's snapshot lives under `merge.profiles`.
   profile: TasteProfileInput;
   rawInputs: string[];
-  modeSnapshot: {
-    trustMode: boolean;
-    targetArchetype: EffectArchetype | null;
-    targetTexture: EffectTexture | null;
-    targetFamily: BehavioralFamily | null;
-    // How the target was decided: "forced" (from the primaryAroma/
-    // primaryEffect/useTime answers) or "inferred" (legacy, from
-    // favourites/preferences).
-    targetSource: "forced" | "inferred";
-    // Dislikes silenced because the user's own favourites would
-    // themselves trigger them — surfaces self-contradicting profiles.
-    reconciledDislikes: string[];
-    // Structured records, one per detected contradiction. Always
-    // present — empty array means "no contradictions detected."
-    contradictions: ProfileContradiction[];
-    // Version markers — let audit readers pivot on era without git
-    // archaeology. vocabVersion bumps when sensory tokens change,
-    // engineVersion bumps when the scoring formula changes.
-    vocabVersion: string;
-    engineVersion: string;
-  };
+  modeSnapshot: RunAuditModeSnapshot;
   items: RunAuditItem[];
   closestName: string;
-  // Mode 1 only. Omitted for Compare runs.
+  // Mode 1 (Taste Match) only. Omitted for Compare runs.
   taste?: RunAuditTasteContext;
+  // Present only when two or more profiles were merged for this run.
+  merge?: RunAuditMerge;
 }
 
 export function buildAuditItem(
@@ -140,6 +169,23 @@ export function buildAuditItem(
   };
 }
 
+// The per-profile snapshot — derived purely from a profile, so it can be built
+// for the active profile and (on merge runs) for every merged world the same way.
+function buildModeSnapshot(profile: TasteProfileInput): RunAuditModeSnapshot {
+  const target = resolveProfileTarget(profile);
+  return {
+    trustMode: hasClusteredFavorites(profile),
+    targetArchetype: target.archetype,
+    targetTexture: target.texture,
+    targetFamily: target.family,
+    targetSource: target.source,
+    reconciledDislikes: reconciledDislikes(profile),
+    contradictions: detectProfileContradictions(profile),
+    vocabVersion: VOCAB_VERSION,
+    engineVersion: ENGINE_VERSION,
+  };
+}
+
 export interface BuildAuditEntryArgs {
   source: RunAuditSource;
   userId: string;
@@ -148,39 +194,66 @@ export interface BuildAuditEntryArgs {
   matches: StrainMatch[];
   closestName: string;
   taste?: RunAuditTasteContext;
+  // Present only for merge runs. `profiles` are the merged worlds (without the
+  // per-world modeSnapshot, which this builder fills in); `breakdown` maps each
+  // strain to its raw pre-lean score in every world.
+  merge?: {
+    mode: "merge" | "blender";
+    balance: boolean;
+    bias: number;
+    lean2: number;
+    profiles: Array<{
+      name: string;
+      primary: boolean;
+      penalty: number;
+      profile: TasteProfileInput;
+    }>;
+    breakdown: Record<string, Array<{ world: string; score: number }>>;
+  };
 }
 
 export function buildAuditEntry(args: BuildAuditEntryArgs): RunAuditEntry {
-  const target = resolveProfileTarget(args.profile);
   const entry: RunAuditEntry = {
     runAt: new Date().toISOString(),
-    schemaVersion: 2,
+    schemaVersion: 4,
     source: args.source,
     userId: args.userId,
     profile: args.profile,
     rawInputs: args.rawInputs,
-    modeSnapshot: {
-      trustMode: hasClusteredFavorites(args.profile),
-      targetArchetype: target.archetype,
-      targetTexture: target.texture,
-      targetFamily: target.family,
-      targetSource: target.source,
-      reconciledDislikes: reconciledDislikes(args.profile),
-      contradictions: detectProfileContradictions(args.profile),
-      vocabVersion: VOCAB_VERSION,
-      engineVersion: ENGINE_VERSION,
-    },
+    modeSnapshot: buildModeSnapshot(args.profile),
     // Each match carries its own raw input (strainName). Build items from
     // the matches directly rather than zipping rawInputs by index — the
     // engine sorts/dedups recommendations, so rawInputs[i] does NOT line up
     // with matches[i] (that mismatch swapped raw labels in Taste Match
     // audits). rawInputs is still recorded verbatim at the top level.
-    items: args.matches.map((match) =>
-      buildAuditItem(match.strainName, match),
-    ),
+    items: args.matches.map((match) => {
+      const item = buildAuditItem(match.strainName, match);
+      if (args.merge) {
+        // On a merge run, record which world won and every world's raw score,
+        // so the leaned matchScore reconciles with the per-world sub-scores.
+        item.world = match.world;
+        item.perWorld = args.merge.breakdown[match.strainName];
+      }
+      return item;
+    }),
     closestName: args.closestName,
   };
   if (args.taste) entry.taste = args.taste;
+  if (args.merge) {
+    entry.merge = {
+      mode: args.merge.mode,
+      balance: args.merge.balance,
+      bias: args.merge.bias,
+      lean2: args.merge.lean2,
+      profiles: args.merge.profiles.map((p) => ({
+        name: p.name,
+        primary: p.primary,
+        penalty: p.penalty,
+        profile: p.profile,
+        modeSnapshot: buildModeSnapshot(p.profile),
+      })),
+    };
+  }
   return entry;
 }
 

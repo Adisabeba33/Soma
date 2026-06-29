@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Check, Heart, ChevronRight } from "lucide-react";
+import { Check, Heart, ChevronRight, LayoutGrid } from "lucide-react";
 import { TasteProfileForm } from "@/components/taste-profile-form";
 import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
 import {
@@ -126,8 +126,25 @@ export default function ProfilePage() {
       )}
 
       <Link
-        href="/profile/feedback"
+        href="/collection"
         className="mt-6 flex items-center justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3 transition-colors hover:border-accent/40"
+      >
+        <span className="flex items-center gap-2.5">
+          <LayoutGrid className="h-4 w-4 text-accent" />
+          <span className="text-sm">
+            Your collection
+            <span className="block text-xs text-muted-foreground">
+              Your personal shelf — every strain you&apos;ve tried, as a visual
+              gallery.
+            </span>
+          </span>
+        </span>
+        <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+      </Link>
+
+      <Link
+        href="/profile/feedback"
+        className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3 transition-colors hover:border-accent/40"
       >
         <span className="flex items-center gap-2.5">
           <Heart className="h-4 w-4 text-accent" />
