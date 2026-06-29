@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BackButton } from "@/components/back-button";
 import { buttonClass } from "@/components/ui/button";
 
 export const metadata = {
@@ -93,6 +94,7 @@ const THINKS: { title: string; body: string }[] = [
 export default function HowItWorksPage() {
   return (
     <div className="mx-auto max-w-2xl px-5 py-16 sm:px-8">
+      <BackButton fallbackHref="/" label="Back" className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground" />
       <p className="text-xs uppercase tracking-[0.24em] text-brass">
         How it works
       </p>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BackButton } from "@/components/back-button";
 import { buttonClass } from "@/components/ui/button";
 
 export const metadata = {
@@ -62,6 +63,7 @@ const PHASES = [
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-editorial px-5 py-20 sm:px-8">
+      <BackButton fallbackHref="/" label="Back" className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground" />
       <p className="text-xs uppercase tracking-[0.28em] text-brass">About</p>
       <h1 className="mt-5 max-w-3xl font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
         A sommelier, not an encyclopedia.

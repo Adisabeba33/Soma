@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
-  ArrowLeft,
   Check,
   GitCompareArrows,
   Leaf,
   Sparkles,
 } from "lucide-react";
+import { BackButton } from "@/components/back-button";
 import { Badge } from "@/components/ui/badge";
 import { SensoryRadar } from "@/components/sensory-radar";
 import { RADAR_AXES, buildRadar } from "@/lib/sensory-radar";
@@ -136,13 +136,7 @@ export function StrainDetail({
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
-      <Link
-        href="/catalog"
-        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to catalog
-      </Link>
+      <BackButton fallbackHref="/catalog" label="Back to catalog" />
 
       {/* ── Hero ─────────────────────────────────────────────── */}
       <div className="mt-5 overflow-hidden rounded-3xl border border-border bg-card">

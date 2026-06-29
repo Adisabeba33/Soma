@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { BackButton } from "@/components/back-button";
 import { JsonLd } from "@/components/json-ld";
 import { absoluteUrl } from "@/lib/site-url";
 import {
@@ -136,14 +137,12 @@ export default async function LearnArticlePage({
       <JsonLd data={faqLd} />
       <JsonLd data={breadcrumbLd} />
 
-      {/* Breadcrumb trail, mirrored in the JSON-LD above. */}
-      <nav className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-        <Link href="/learn" className="text-brass hover:underline">
-          Learn
-        </Link>
-      </nav>
+      {/* Back to where the reader opened this article from (the Learn hub at
+          the right scroll, a related link…), falling back to the hub on a
+          direct hit. The breadcrumb trail still lives in the JSON-LD above. */}
+      <BackButton fallbackHref="/learn" label="Back to Learn" />
 
-      <h1 className="mt-4 font-display text-4xl font-semibold leading-tight tracking-tight">
+      <h1 className="mt-5 font-display text-4xl font-semibold leading-tight tracking-tight">
         {article.title}
       </h1>
       <p className="mt-3 text-sm text-muted-foreground">{article.readingTime}</p>

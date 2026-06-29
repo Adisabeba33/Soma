@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BackButton } from "@/components/back-button";
 
 export const metadata = {
   title: "Terms of Service — SŌMA",
@@ -37,6 +38,7 @@ function Section({
 export default function TermsPage() {
   return (
     <div className="mx-auto max-w-2xl px-5 py-16 sm:px-8">
+      <BackButton fallbackHref="/" label="Back" className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground" />
       <p className="text-xs uppercase tracking-[0.24em] text-brass">Legal</p>
       <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
         Terms of Service
