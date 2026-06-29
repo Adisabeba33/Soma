@@ -176,6 +176,71 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
+      {/* Profile depth — why honest, complete answers matter */}
+      <section className="mt-16">
+        <p className="text-xs uppercase tracking-[0.24em] text-brass">
+          Where the accuracy comes from
+        </p>
+        <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
+          The more honestly you fill your profile, the sharper the picks
+        </h2>
+        <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+          SŌMA can only be as precise as what you tell it. It's not about
+          answering <em>more</em> questions — it's about answering them{" "}
+          <span className="font-medium text-foreground">
+            honestly and specifically
+          </span>
+          . Pick the aromas you actually chase, the effects you're really after,
+          and — just as important — the things that ruin a session for you.
+        </p>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl border border-border bg-card p-5">
+            <p className="font-medium text-foreground">
+              A thin profile → everything looks similar
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              If you only say “I like sweet and relaxed,” half the menu fits
+              that — so half the menu scores about the same and the results
+              bunch into a cluster of near-identical numbers. There's nothing
+              for the engine to separate them by.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-accent/30 bg-accent/5 p-5">
+            <p className="font-medium text-accent">
+              A thorough profile → a real ranking
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Add the nose you reach for, the family you skip, the heads you
+              hate (racy, foggy), the textures you like — and strains start
+              pulling apart. Your dislikes do half the work: they push the wrong
+              flower <em>down</em>, so the right flower stands out.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-2xl border border-brass/30 bg-brass/[0.06] p-6">
+          <p className="font-display text-lg font-semibold tracking-tight text-brass">
+            Want to see the level? Look at the quick-start profiles.
+          </p>
+          <p className="mt-2 leading-relaxed text-muted-foreground">
+            The one-tap presets (Gas Head, Citrus Lift, Dessert &amp; Cream…)
+            aren't just a couple of favourites — each one carries its aromas and
+            flavours, the effects it wants, the aromas and families it avoids,
+            the risks to steer clear of, and the texture and quality it cares
+            about. That's the depth that makes a ranking meaningful. Two or
+            three real favourites is plenty —{" "}
+            <span className="font-medium text-foreground">
+              depth comes from the rest of the answers, not a long list of
+              strains
+            </span>
+            . Start from a preset and adjust it, or fill the full questionnaire;
+            either way, the more of <em>you</em> that's in there, the better the
+            match.
+          </p>
+        </div>
+      </section>
+
       {/* Honest caveat */}
       <section className="mt-16 rounded-2xl border border-border bg-card p-6">
         <h2 className="font-display text-xl font-semibold tracking-tight">

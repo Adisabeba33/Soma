@@ -1,10 +1,20 @@
 // Quick-start taste presets — eight ready-made profiles a new user can pick in
-// one tap instead of filling the full questionnaire. Each one fills enough of
-// the profile to clear the match gate (MATCH_GATE_PERCENT) and read a real
-// taste, and can be refined afterwards. The ninth option ("Custom") is the
-// full questionnaire. All strains here resolve in the catalogue, and every
-// aroma / flavour / effect token is a real vocab value, so a preset anchors
-// cleanly.
+// one tap instead of filling the full questionnaire. The ninth option
+// ("Custom") is the full questionnaire.
+//
+// These are deliberately DEEP, not minimal: each one fills ~94% of the profile
+// (everything except a couple of niche fields). That is on purpose — a thinly
+// filled profile makes too many strains score the same and the results bunch
+// into clusters; a profile with honest LIKES *and* DISLIKES (aromas, effects,
+// risks, families) spreads the menu out so the ranking is meaningful. The
+// presets double as a worked example of how thoroughly the questionnaire is
+// worth filling (see /how-it-works). Favourites are kept to three — the engine
+// only needs a couple of real anchors; depth comes from the rest, not from a
+// long favourites list.
+//
+// All strains resolve in the catalogue, and every token is a real vocab value
+// (aromas/flavours/effects, traits, risks, families, textures), so a preset
+// anchors cleanly.
 
 import { EMPTY_PROFILE, type TasteProfileState } from "./profile-state";
 
@@ -31,11 +41,15 @@ export const PRESETS: Preset[] = [
     aromaChips: ["gassy", "diesel", "earthy"],
     effectChips: ["relaxed", "euphoric", "happy"],
     profile: build({
-      favoriteStrains: ["GG4", "Gary Payton", "Chemdawg", "OG Kush"],
+      favoriteStrains: ["GG4", "Gary Payton", "Chemdawg"],
       preferredAromas: ["gassy", "diesel", "earthy", "pine"],
       preferredFlavors: ["gassy", "diesel", "earthy"],
       preferredEffects: ["relaxed", "euphoric", "happy", "calm"],
       dislikedAromas: ["floral", "mint"],
+      dislikedEffects: ["energetic"],
+      dislikedTraits: ["dry-flower", "weak-smell", "bland-taste"],
+      avoidedRisks: ["racy"],
+      avoidedFamilies: ["dessert", "fruit"],
       primaryAroma: "gas",
       primaryEffect: "calm",
       useTime: "evening",
@@ -43,6 +57,9 @@ export const PRESETS: Preset[] = [
       bodyFeel: 65,
       potencyPreference: "strong",
       likedTraits: ["terpy", "loud-smell", "sticky"],
+      qualityPriorities: ["aroma", "potency", "taste"],
+      texturePreferences: ["frosty", "sticky", "dense"],
+      smokingMethods: ["joint", "bong"],
     }),
   },
   {
@@ -53,11 +70,15 @@ export const PRESETS: Preset[] = [
     aromaChips: ["skunky", "cheese", "earthy"],
     effectChips: ["happy", "uplifted", "giggly"],
     profile: build({
-      favoriteStrains: ["Skunk #1", "Sour Diesel", "GMO", "Cheese"],
+      favoriteStrains: ["Skunk #1", "Sour Diesel", "GMO"],
       preferredAromas: ["skunky", "cheese", "earthy", "diesel"],
-      preferredFlavors: ["skunky", "cheese", "earthy"],
+      preferredFlavors: ["cheese", "earthy", "diesel"],
       preferredEffects: ["happy", "uplifted", "giggly", "euphoric"],
-      dislikedAromas: ["mint"],
+      dislikedAromas: ["mint", "floral"],
+      dislikedEffects: ["couch-lock"],
+      dislikedTraits: ["dry-flower", "weak-smell", "bland-taste"],
+      avoidedRisks: ["paranoia"],
+      avoidedFamilies: ["dessert"],
       primaryAroma: "earthfunk",
       primaryEffect: "social",
       useTime: "anytime",
@@ -65,6 +86,9 @@ export const PRESETS: Preset[] = [
       bodyFeel: 50,
       potencyPreference: "balanced",
       likedTraits: ["terpy", "loud-smell", "well-cured"],
+      qualityPriorities: ["aroma", "taste", "freshness"],
+      texturePreferences: ["sticky", "frosty"],
+      smokingMethods: ["joint", "blunt"],
     }),
   },
   {
@@ -75,11 +99,15 @@ export const PRESETS: Preset[] = [
     aromaChips: ["sweet", "fruity", "berry"],
     effectChips: ["euphoric", "happy", "relaxed"],
     profile: build({
-      favoriteStrains: ["Zkittlez", "Runtz", "Gelato", "Sherbet"],
+      favoriteStrains: ["Zkittlez", "Runtz", "Gelato"],
       preferredAromas: ["sweet", "fruity", "berry", "tropical"],
       preferredFlavors: ["sweet", "fruity", "berry"],
       preferredEffects: ["euphoric", "happy", "relaxed", "giggly"],
-      dislikedAromas: ["diesel", "gassy"],
+      dislikedAromas: ["diesel", "gassy", "skunky"],
+      dislikedEffects: ["couch-lock"],
+      dislikedTraits: ["harsh", "dry-flower", "bland-taste"],
+      avoidedRisks: ["paranoia"],
+      avoidedFamilies: ["gas", "diesel", "cheese"],
       primaryAroma: "sweet",
       primaryEffect: "lifted",
       useTime: "anytime",
@@ -87,6 +115,9 @@ export const PRESETS: Preset[] = [
       bodyFeel: 45,
       potencyPreference: "balanced",
       likedTraits: ["terpy", "frosty", "smooth"],
+      qualityPriorities: ["taste", "aroma", "appearance"],
+      texturePreferences: ["frosty", "sticky"],
+      smokingMethods: ["joint", "vape"],
     }),
   },
   {
@@ -97,11 +128,15 @@ export const PRESETS: Preset[] = [
     aromaChips: ["citrus", "pine", "sweet"],
     effectChips: ["energetic", "focused", "creative"],
     profile: build({
-      favoriteStrains: ["Super Lemon Haze", "Jack Herer", "Tangie", "Durban Poison"],
+      favoriteStrains: ["Super Lemon Haze", "Jack Herer", "Tangie"],
       preferredAromas: ["citrus", "pine", "sweet"],
       preferredFlavors: ["citrus", "sweet"],
       preferredEffects: ["energetic", "focused", "creative", "uplifted"],
+      dislikedAromas: ["cheese", "skunky"],
       dislikedEffects: ["sleepy", "couch-lock"],
+      dislikedTraits: ["dry-flower", "weak-smell", "too-heavy"],
+      avoidedRisks: ["foggy", "crash"],
+      avoidedFamilies: ["kush", "dessert"],
       primaryAroma: "citrus",
       primaryEffect: "sharp",
       useTime: "daytime",
@@ -109,6 +144,9 @@ export const PRESETS: Preset[] = [
       bodyFeel: 25,
       potencyPreference: "balanced",
       likedTraits: ["terpy", "smooth", "loud-smell"],
+      qualityPriorities: ["focus", "head-feel", "aroma"],
+      texturePreferences: ["frosty", "sticky"],
+      smokingMethods: ["joint", "vape"],
     }),
   },
   {
@@ -119,10 +157,15 @@ export const PRESETS: Preset[] = [
     aromaChips: ["earthy", "pine", "woody"],
     effectChips: ["relaxed", "sleepy", "calm"],
     profile: build({
-      favoriteStrains: ["OG Kush", "Bubba Kush", "Northern Lights", "Granddaddy Purple"],
+      favoriteStrains: ["OG Kush", "Bubba Kush", "Northern Lights"],
       preferredAromas: ["earthy", "pine", "woody"],
       preferredFlavors: ["earthy", "pine"],
       preferredEffects: ["relaxed", "sleepy", "calm", "body-heavy"],
+      dislikedAromas: ["floral"],
+      dislikedEffects: ["energetic", "focused"],
+      dislikedTraits: ["dry-flower", "harsh", "seedy"],
+      avoidedRisks: ["racy", "paranoia"],
+      avoidedFamilies: ["haze", "fruit"],
       primaryAroma: "pineherb",
       primaryEffect: "knockout",
       useTime: "bed",
@@ -130,6 +173,9 @@ export const PRESETS: Preset[] = [
       bodyFeel: 80,
       potencyPreference: "strong",
       likedTraits: ["terpy", "sticky", "well-cured"],
+      qualityPriorities: ["sleep", "body-feel", "potency"],
+      texturePreferences: ["dense", "sticky", "frosty"],
+      smokingMethods: ["pipe", "bong"],
     }),
   },
   {
@@ -140,11 +186,15 @@ export const PRESETS: Preset[] = [
     aromaChips: ["creamy", "vanilla", "sweet"],
     effectChips: ["relaxed", "euphoric", "happy"],
     profile: build({
-      favoriteStrains: ["Wedding Cake", "Cereal Milk", "Biscotti", "Ice Cream Cake"],
-      preferredAromas: ["creamy", "vanilla", "nutty", "sweet"],
-      preferredFlavors: ["creamy", "vanilla", "sweet"],
+      favoriteStrains: ["Wedding Cake", "Ice Cream Cake", "Biscotti"],
+      preferredAromas: ["creamy", "vanilla", "sweet"],
+      preferredFlavors: ["creamy", "vanilla", "nutty", "sweet"],
       preferredEffects: ["relaxed", "euphoric", "happy", "calm"],
-      dislikedAromas: ["gassy", "skunky"],
+      dislikedAromas: ["gassy", "skunky", "diesel"],
+      dislikedEffects: ["energetic"],
+      dislikedTraits: ["dry-flower", "harsh", "bland-taste"],
+      avoidedRisks: ["racy"],
+      avoidedFamilies: ["diesel", "garlic-funk"],
       primaryAroma: "sweet",
       primaryEffect: "calm",
       useTime: "evening",
@@ -152,6 +202,9 @@ export const PRESETS: Preset[] = [
       bodyFeel: 60,
       potencyPreference: "balanced",
       likedTraits: ["smooth", "frosty", "well-cured"],
+      qualityPriorities: ["taste", "aroma", "body-feel"],
+      texturePreferences: ["frosty", "sticky", "well-cured"],
+      smokingMethods: ["joint", "vape"],
     }),
   },
   {
@@ -162,11 +215,15 @@ export const PRESETS: Preset[] = [
     aromaChips: ["floral", "grape", "berry"],
     effectChips: ["calm", "euphoric", "relaxed"],
     profile: build({
-      favoriteStrains: ["Granddaddy Purple", "Grape Ape", "Lavender", "Zkittlez"],
+      favoriteStrains: ["Granddaddy Purple", "Grape Ape", "Lavender"],
       preferredAromas: ["floral", "grape", "berry", "sweet"],
       preferredFlavors: ["grape", "berry", "sweet"],
       preferredEffects: ["calm", "euphoric", "relaxed", "happy"],
-      dislikedAromas: ["diesel"],
+      dislikedAromas: ["diesel", "gassy", "cheese"],
+      dislikedEffects: ["energetic"],
+      dislikedTraits: ["dry-flower", "harsh", "weak-smell"],
+      avoidedRisks: ["racy", "paranoia"],
+      avoidedFamilies: ["gas", "diesel", "cheese"],
       primaryAroma: "fruit",
       primaryEffect: "calm",
       useTime: "evening",
@@ -174,6 +231,9 @@ export const PRESETS: Preset[] = [
       bodyFeel: 65,
       potencyPreference: "strong",
       likedTraits: ["terpy", "frosty", "smooth"],
+      qualityPriorities: ["aroma", "taste", "appearance"],
+      texturePreferences: ["frosty", "dense"],
+      smokingMethods: ["joint", "vape"],
     }),
   },
   {
@@ -184,11 +244,15 @@ export const PRESETS: Preset[] = [
     aromaChips: ["tropical", "fruity", "citrus"],
     effectChips: ["uplifted", "happy", "energetic"],
     profile: build({
-      favoriteStrains: ["Pineapple Express", "Maui Wowie", "Guava", "Mango"],
+      favoriteStrains: ["Pineapple Express", "Maui Wowie", "Guava"],
       preferredAromas: ["tropical", "fruity", "citrus", "sweet"],
       preferredFlavors: ["tropical", "fruity"],
       preferredEffects: ["uplifted", "happy", "energetic", "euphoric"],
-      dislikedEffects: ["couch-lock"],
+      dislikedAromas: ["diesel", "skunky"],
+      dislikedEffects: ["couch-lock", "sleepy"],
+      dislikedTraits: ["dry-flower", "weak-smell", "too-heavy"],
+      avoidedRisks: ["crash", "foggy"],
+      avoidedFamilies: ["kush", "diesel"],
       primaryAroma: "fruit",
       primaryEffect: "lifted",
       useTime: "daytime",
@@ -196,6 +260,9 @@ export const PRESETS: Preset[] = [
       bodyFeel: 30,
       potencyPreference: "balanced",
       likedTraits: ["terpy", "loud-smell", "smooth"],
+      qualityPriorities: ["taste", "aroma", "head-feel"],
+      texturePreferences: ["frosty", "sticky"],
+      smokingMethods: ["joint", "vape"],
     }),
   },
 ];
