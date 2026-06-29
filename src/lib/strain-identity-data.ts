@@ -12461,7 +12461,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Stank 41 lives up to its name with a loud, room-filling stank of gas, skunk and savory earth. The effect tends toward relaxed euphoria with a noticeable body weight and appetite bump.",
     tagline: "Loud gas and skunk funk",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "low",
   },
   {
