@@ -4,7 +4,6 @@ import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  ArrowRight,
   Check,
   ChevronRight,
   EllipsisVertical,
@@ -58,8 +57,6 @@ type ProfileItem = {
   topAromas: string[];
   topEffects: string[];
 };
-
-type Discovery = { name: string; slug: string; score: number };
 
 // Percentage circle, per the spec: a gold frame (#C8A76A, 135° gradient)
 // carrying the progress, a matte inner well (#F6F3EE) with a soft inner bevel
@@ -174,7 +171,6 @@ export default function AccountPage() {
   const router = useRouter();
   const [me, setMe] = useState<Me | null>(null);
   const [profiles, setProfiles] = useState<ProfileItem[]>([]);
-  const [discoveries, setDiscoveries] = useState<Discovery[]>([]);
   const [limit, setLimit] = useState(3);
   const [showPicker, setShowPicker] = useState(false);
   const [creatingId, setCreatingId] = useState<string | null>(null);
@@ -199,10 +195,6 @@ export default function AccountPage() {
       .then(setMe)
       .catch(() => setMe(null));
     loadProfiles();
-    fetch("/api/discoveries")
-      .then((r) => r.json())
-      .then((d) => setDiscoveries(Array.isArray(d?.matches) ? d.matches : []))
-      .catch(() => {});
   }, []);
 
   // Quick-start a new profile from a preset: create the named profile, then
@@ -814,47 +806,6 @@ export default function AccountPage() {
       <ProfileSimilarityHint />
 
       <TasteBlenderBlock />
-
-      {/* ── Last matches & discoveries ─────────────────────────── */}
-      {discoveries.length > 0 && (
-        <div className="mt-16">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.24em] text-brass">
-                Last matches &amp; discoveries
-              </p>
-              <p className="mt-1.5 text-sm text-muted-foreground">
-                Tonight&apos;s strongest picks for your taste.
-              </p>
-            </div>
-            <Link
-              href="/catalog"
-              className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-accent hover:underline"
-            >
-              All <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-            {discoveries.map((d) => (
-              <Link
-                key={d.slug}
-                href={`/catalog/${d.slug}`}
-                className={cn(CARD, "flex items-center gap-3 p-4")}
-              >
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brass/10 font-display text-sm font-semibold text-brass">
-                  {d.name.charAt(0)}
-                </span>
-                <span className="min-w-0 flex-1 truncate font-display text-[15px] font-semibold tracking-tight">
-                  {d.name}
-                </span>
-                <span className="shrink-0 font-display text-base font-semibold text-brass">
-                  {d.score}%
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* ── Quick links ────────────────────────────────────────── */}
       <div className="mt-14 grid grid-cols-1 gap-3 sm:grid-cols-2">
