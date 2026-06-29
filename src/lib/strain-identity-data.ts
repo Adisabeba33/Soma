@@ -13932,4 +13932,41 @@ export const IDENTITIES: StrainIdentity[] = [
     artStatus: "none",
     sourceConfidence: "high",
   },
+  {
+    canonicalName: "Championship Kush",
+    sensoryFamily: "kush-classic",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Presents as a typical OG/Kush-family indica with gassy, earthy dominance"],
+    curatorNote:
+      "Championship Kush lacks reliable breeder records, so we read it as a textbook kush-classic: gassy, earthy, and pine-edged with a peppery finish. The high is a weighted body relaxation that drifts toward sleep.",
+    tagline: "Heavyweight gas and earth",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Dessert Lime",
+    marketNames: ["Desert Lime"],
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Pedigree unverified — limited public documentation", "Lime-forward phenotype likely drawn from Lime Skunk / Key Lime Pie style families"],
+    curatorNote:
+      "Dessert Lime (also seen as Desert Lime) is a citrus-forward hybrid whose exact parents are kept quiet by multiple breeders. The nose is sparkling lime over sweet skunk, and the high runs bright, upbeat, and motivating rather than sedating.",
+    tagline: "Sparkling sweet lime zest",
+    artStatus: "none",
+    sourceConfidence: "low",
+  },
+  {
+    canonicalName: "Platinum Garlic Cookies",
+    marketNames: ["Platinum Garlic"],
+    breeder: "LOWD",
+    lineage: {
+      parents: ["GMO", "Platinum Girl Scout Cookies"],
+      cross: "GMO (Garlic Cookies) × Platinum Girl Scout Cookies",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Savory sulfurous garlic core inherited from the GMO/Garlic Cookies parent", "Platinum GSC lineage adds frost, density, and a faint dessert sweetness"],
+    curatorNote:
+      "Platinum Garlic Cookies, bred by LOWD from GMO (Garlic Cookies) crossed with Platinum GSC, leads with a sulfurous garlic-gas funk over peppery spice and a whisper of cookie sweetness. The effect is heavy and indica-leaning, sliding from euphoria into deep body relaxation.",
+    tagline: "Savory garlic gas funk",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
 ];
