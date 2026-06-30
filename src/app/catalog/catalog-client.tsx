@@ -89,6 +89,16 @@ export function CatalogClient({
     hasProfile ? "match" : "curated",
   );
 
+  // How many filtered cards we render in the DOM. The list paginates client-
+  // side: filters still apply across the full 888 entries (so a hit on row
+  // 700 still surfaces), but only the first N are mounted at any time. A
+  // "Load more" button extends the window by PAGE_SIZE. Without this the
+  // page mounted ~888 React subtrees + fired ~888 lazy <img> requests on
+  // first paint, which dominated the perceived load time.
+  const PAGE_SIZE = 40;
+  const [pageCount, setPageCount] = useState(1);
+  const visibleCount = pageCount * PAGE_SIZE;
+
   // Deep-link seed (e.g. from a "Nearby in sensory space" link).
   useEffect(() => {
     const q = searchParams.get("q");
@@ -174,6 +184,24 @@ export function CatalogClient({
     scored,
     favSet,
   ]);
+
+  // Any filter / sort / search change resets the visible window to page 1, so
+  // the user sees results from the top instead of staring at empty space
+  // because their previous window was past the new filtered length.
+  useEffect(() => {
+    setPageCount(1);
+  }, [
+    query,
+    typeFilter,
+    strengthMin,
+    aromaFilters,
+    flavorFilters,
+    effectFilters,
+    sortBy,
+  ]);
+
+  const visibleEntries = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
 
   function makeToggle(setter: typeof setAromaFilters) {
     return (value: string) =>
@@ -447,7 +475,7 @@ export function CatalogClient({
           </p>
         ) : view === "list" ? (
           <ul className="mt-5 space-y-3">
-            {filtered.map((entry) => (
+            {visibleEntries.map((entry) => (
               <CatalogRow
                 key={entry.strain.name}
                 entry={entry}
@@ -458,7 +486,7 @@ export function CatalogClient({
           </ul>
         ) : (
           <ul className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4">
-            {filtered.map((entry) => (
+            {visibleEntries.map((entry) => (
               <CatalogCollectibleCard
                 key={entry.strain.name}
                 entry={entry}
@@ -469,6 +497,21 @@ export function CatalogClient({
               />
             ))}
           </ul>
+        )}
+
+        {hasMore && (
+          <div className="mt-8 flex flex-col items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setPageCount((n) => n + 1)}
+              className="soma-ease rounded-full border border-brass/40 bg-brass/5 px-8 py-3 text-sm font-medium text-foreground transition-colors hover:border-brass hover:bg-brass/10 hover:text-brass"
+            >
+              Load more strains
+            </button>
+            <p className="text-xs text-muted-foreground">
+              Showing {visibleEntries.length} of {filtered.length}
+            </p>
+          </div>
         )}
       </div>
 
