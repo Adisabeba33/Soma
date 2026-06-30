@@ -9145,7 +9145,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "A cosmic daytime sativa that launches with sharp lemon-citrus and piney spice, sweetened by its Space Queen lineage. The high is soaring, cerebral, and creative without the racy crash. Liftoff in a jar.",
     tagline: "Cerebral citrus liftoff",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
