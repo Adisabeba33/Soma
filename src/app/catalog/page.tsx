@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { buildCatalog, type CatalogMatch } from "@/lib/catalog";
+import { buildCatalog, trimEntryForList, type CatalogMatch } from "@/lib/catalog";
 import { getActiveProfile } from "@/lib/active-profile";
 import { getUserIdReadOnly } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
@@ -63,7 +63,10 @@ async function loadMatches(): Promise<{
 }
 
 export default async function CatalogPage() {
-  const entries = await buildCatalog();
+  // Trim the per-card payload so the heavy curator paragraphs, lineage with
+  // parent details, similar list and family members don't get serialized into
+  // every visitor's HTML — the detail page reloads them on click.
+  const entries = (await buildCatalog()).map(trimEntryForList);
   const { matches, hasProfile, mergedWorlds, blenderActive } = await loadMatches();
   const favUserId = await getUserIdReadOnly();
   const favorites = favUserId ? await getFavoriteStrainNames(favUserId) : [];

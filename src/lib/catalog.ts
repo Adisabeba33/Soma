@@ -102,6 +102,42 @@ export function catalogSize(): number {
   return STRAINS.length;
 }
 
+// Trim an entry to only the fields the catalog LIST view actually reads, so
+// the page doesn't ship the heavy detail-only payload (curator paragraphs,
+// lineage with parent details, why-it-matters, art prompt, similar list,
+// family members…) to every visitor's browser. The detail page rebuilds the
+// full entry independently via getCatalogEntryBySlug, so nothing is lost —
+// the heavy bits just load on the strain page where they're actually shown.
+//
+// Identity fields kept: those used for search (marketNames), display
+// (shortName, tagline), the palette/art helpers (timeProfile, artFileName,
+// artVersion, artStatus, artFocus), and curatedScore (sourceConfidence).
+export function trimEntryForList(entry: CatalogEntry): CatalogEntry {
+  const id = entry.identity;
+  return {
+    strain: entry.strain,
+    archetype: entry.archetype,
+    source: entry.source,
+    confidence: entry.confidence,
+    similar: [],
+    familyMembers: [],
+    identity: id
+      ? {
+          canonicalName: id.canonicalName,
+          sourceConfidence: id.sourceConfidence,
+          ...(id.marketNames ? { marketNames: id.marketNames } : {}),
+          ...(id.shortName ? { shortName: id.shortName } : {}),
+          ...(id.tagline ? { tagline: id.tagline } : {}),
+          ...(id.timeProfile ? { timeProfile: id.timeProfile } : {}),
+          ...(id.artFileName ? { artFileName: id.artFileName } : {}),
+          ...(id.artVersion !== undefined ? { artVersion: id.artVersion } : {}),
+          ...(id.artStatus ? { artStatus: id.artStatus } : {}),
+          ...(id.artFocus ? { artFocus: id.artFocus } : {}),
+        }
+      : null,
+  };
+}
+
 // A per-strain user match, surfaced on cards and the strain page. Lives here
 // (not in the client) so both server and client modules can share the type.
 export interface CatalogMatch {
