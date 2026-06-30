@@ -8235,7 +8235,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Sunshine in a citrus wrapper.",
     tagline: "Bright sun-grown lemon",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "low",
   },
   {
