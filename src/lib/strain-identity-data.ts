@@ -1020,7 +1020,7 @@ export const IDENTITIES: StrainIdentity[] = [
   // ── Gas / OG / diesel expansions ──
   {
     canonicalName: "King Louis XIII",
-    marketNames: ["King Louis", "King Louie", "King Louie XIII", "King Louis XII"],
+    marketNames: ["King Louis", "King Louie", "King Louie XIII", "King Louis XII", "King Louie OG"],
     lineage: {
       parents: ["OG Kush", "LA Confidential"],
       cross: "OG Kush × LA Confidential",
@@ -14075,5 +14075,143 @@ export const IDENTITIES: StrainIdentity[] = [
     tagline: "Savory garlic gas funk",
     artStatus: "none",
     sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Pandora's Box",
+    marketNames: ["Pandoras Box", "Pandora Box", "PB"],
+    breeder: "TGA Subcool Seeds",
+    lineage: {
+      parents: ["Jack the Ripper", "Space Queen"],
+      cross: "Jack the Ripper × Space Queen",
+    },
+    sensoryFamily: "citrus-haze",
+    phenotypeNotes: ["Sweet-pineapple citrus over an industrial, gassy edge", "Cerebral, energizing sativa lean (~60/40)"],
+    curatorNote:
+      "Pandora's Box is TGA Subcool's bright, electric collision of Jack the Ripper and Space Queen — a sativa-leaning hybrid built to spark rather than sedate. Crack the lid and a wave of zesty citrus and sharp pine rushes out first, riding on a sweet pineapple undertone and a faintly industrial, gassy edge with spice and herb trailing behind. The high is unapologetically cerebral: a fast, uplifted lift into focus and energy that tips easily into the giggles and warm, creative momentum. With above-average potency and a loud, terpy nose, it rewards seasoned daytime smokers looking for motivation and mood — and it earns a wide berth from novices.",
+    tagline: "Citrus-pine sativa spark",
+    timeProfile: "daytime",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Moroccan Peaches",
+    marketNames: ["Moroccan Peach"],
+    breeder: "Purple City Genetics",
+    lineage: {
+      parents: ["Spanish Barbara", "Lemon Tree Skorange"],
+      cross: "Spanish Barbara × Lemon Tree Skorange",
+      parentDetails: {
+        "Lemon Tree Skorange": { lineageBrief: "Lemon Tree × Skorange", type: "hybrid" },
+        "Spanish Barbara": { lineageBrief: "Barbara Bud line (The Great Gardener)", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "tropical-fruit",
+    phenotypeNotes: ["Hash/rosin-bred — large, dense trichomes", "Ripe peach-apricot stone fruit over lemon and vanilla cream"],
+    curatorNote:
+      "Moroccan Peaches is Purple City Genetics' love letter to stone fruit — a hash-bred hybrid that earned a first-place Rosin trophy at the 2023 Emerald Cup on the strength of its terps alone. Cracking the jar releases an almost confectionary wave of ripe peach and apricot, layered over bright lemon-citrus, a swirl of vanilla cream, and the faintest dusting of warm spice. The smoke leads with a sparkling, euphoric lift — chatty, creative, made for music and good company — before melting into a warm, low-gravity calm that deepens the longer you linger. With trichome coverage built for the wash and THC that runs well above average, this is a loud, frosty, genuinely potent cultivar that wears its fruit-basket nose as proudly as its pedigree.",
+    whyItMatters:
+      "A modern hash-genetics standout: Moroccan Peaches took 1st in the Rosin category at the 2023 Emerald Cup, helping cement Purple City Genetics' reputation for terpene-loud, solventless-ready stone-fruit hybrids.",
+    tagline: "Champion stone-fruit rosin",
+    timeProfile: "sunset",
+    artStatus: "none",
+    sourceConfidence: "high",
+  },
+  {
+    canonicalName: "Bermuda Triangle",
+    marketNames: ["Bermuda Triangle OG"],
+    breeder: "GTR Seeds",
+    lineage: {
+      parents: ["Triangle Kush", "Auto Varin Lime"],
+      cross: "Triangle Kush S1 × Auto Varin Lime (AVL)",
+      parentDetails: {
+        "Auto Varin Lime": { lineageBrief: "Lime/citrus varin parent (AVL)", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "gas-og",
+    phenotypeNotes: ["Dried-lime citrus over a diesel-and-earth Kush backbone", "Name is shared across breeders — lineages differ"],
+    curatorNote:
+      "Bermuda Triangle is an OG-rooted hybrid that pulls you in with a nose-first blast of dried lime and lemon rind before the pungent diesel and earthy-pine Kush backbone takes over — a clean-gas profile that finishes on a soft sweet-vanilla exhale. The experience mirrors the disappearing act its name promises: an uplifting, talkative cerebral lift arrives first, then gradually pulls the body down into a deep, sedating calm, making this a potent late-day cultivar best saved for unwinding. Note that several breeders share this name with different parentage, so expect the lime-meets-fuel signature to be the through-line rather than an exact genetic match.",
+    tagline: "Lime-laced gas pull-down",
+    timeProfile: "night",
+    artStatus: "none",
+    sourceConfidence: "medium",
+    lineageConfidence: "medium",
+  },
+  {
+    canonicalName: "Strawberry Cheesecake",
+    marketNames: ["Strawberry Cake"],
+    breeder: "Heavyweight Seeds",
+    lineage: {
+      parents: ["Chronic", "White Widow", "Cheese"],
+      cross: "Chronic × White Widow × Cheese",
+      parentDetails: {
+        "Chronic": { lineageBrief: "Northern Lights × Skunk × AK-47 line", type: "hybrid" },
+        "Cheese": { lineageBrief: "Skunk #1 funk pheno (UK Cheese)", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "dessert-cookies",
+    phenotypeNotes: ["Sweet strawberry over a creamy, faintly cheesy funk", "Name shared across breeders (Heavyweight, Humboldt) with different genetics"],
+    curatorNote:
+      "Strawberry Cheesecake earns its name honestly — a sweet, berry-forward nose layered over a creamy, faintly cheesy funk that lands somewhere between fresh strawberries and a slice off the dessert cart. Most widely circulated as a Heavyweight Seeds triple-cross of Chronic, White Widow, and Cheese (a competing Humboldt Seed Co. line runs Purple Panty Dropper × GSC), it's a roughly 70% indica hybrid built around caryophyllene and limonene. The experience opens lighthearted and giggly, easing into a heavy-limbed calm that settles toward sleep and couch-lock as the dose climbs — an after-dinner cultivar for unwinding rather than getting things done. Any 'Karma Genetics' attribution should be treated as unverified; this name is shared across several unrelated breeders.",
+    tagline: "Sweet berry dessert sedation",
+    timeProfile: "night",
+    artStatus: "none",
+    sourceConfidence: "medium",
+    lineageConfidence: "medium",
+  },
+  {
+    canonicalName: "Sour Candy",
+    marketNames: ["Sour Candy"],
+    lineage: {
+      parents: ["Sour Diesel", "Bubble Gum"],
+      cross: "Sour Diesel × Bubble Gum",
+    },
+    sensoryFamily: "candy-exotic",
+    phenotypeNotes: ["Sour-candy sweetness over a funky diesel backbone", "Legacy name shared by several distinct crosses (G13 Labs, MOCA Humboldt)"],
+    curatorNote:
+      "Sour Candy is a sativa-leaning legacy hybrid most often traced to Sour Diesel crossed with Bubble Gum, and it tastes exactly like its name promises: a puckering Sour-Warhead hit of sweet tropical fruit and grapefruit zest laid over a funky, pungent diesel backbone. The nose is loud and unmistakable, all sweet candy and fruity gas. Effects skew bright and social, opening with a euphoric head rush that turns chatty, giggly, and creatively energized, making it a daytime, hang-out-and-create strain rather than a wind-down. Note the name is shared by several distinct crosses (G13 Labs' seed line, a MOCA Humboldt Sour Diesel × SAGE, and others) and should not be confused with the CBD-rich hemp strain Sour Space Candy.",
+    tagline: "Sour-candy gas, chatty buzz",
+    timeProfile: "daytime",
+    artStatus: "none",
+    sourceConfidence: "medium",
+    lineageConfidence: "medium",
+  },
+  {
+    canonicalName: "Love Potion #9",
+    marketNames: ["Love Potion", "Love Potion No. 9"],
+    lineage: {
+      parents: ["Northern Lights #5", "Love Potion #5"],
+      cross: "Northern Lights #5 × Love Potion #5",
+      parentDetails: {
+        "Northern Lights #5": { lineageBrief: "Northern Lights phenotype", type: "indica" },
+        "Love Potion #5": { lineageBrief: "Undocumented Love Potion line", type: "hybrid" },
+      },
+    },
+    sensoryFamily: "funky-exotic",
+    phenotypeNotes: ["Milky cheese funk laced with sweet mango/grapefruit", "Distinct from Reeferman's sativa Love Potion #1 and Love Potion OG"],
+    curatorNote:
+      "Love Potion #9 is the indica-leaning member of a confusingly named family — not to be confused with Reeferman's award-winning sativa Love Potion #1 (G-13 × Colombian Gold) or the heavier Love Potion OG. Said to descend from Northern Lights #5 crossed with Love Potion #5, this #9 leans toward the couch. The nose is its signature contradiction: a milky, tangy cheese funk laced with sweet stone-fruit, mango and grapefruit brightening the exhale over an undertone of spicy earth. The body comes on heavy and grounding, settling into deep relaxation and a warm, creeping euphoria better suited to a slow evening than a busy afternoon. Potency claims run wide and the breeder is unattributed, so treat the numbers as directional rather than precise.",
+    tagline: "Cheesy-sweet couch pull",
+    timeProfile: "night",
+    artStatus: "none",
+    sourceConfidence: "medium",
+    lineageConfidence: "low",
+  },
+  {
+    canonicalName: "Garlic Patties",
+    breeder: "Find. (Curaleaf)",
+    lineage: {
+      parents: ["GMO Cookies"],
+      cross: "GMO (Garlic Cookies) × undocumented second parent",
+    },
+    sensoryFamily: "garlic-funk",
+    phenotypeNotes: ["Savory roasted-garlic gas from the GMO line", "Retail-brand release — no breeder-confirmed pedigree"],
+    curatorNote:
+      "Garlic Patties leads with the unmistakable savory-gas signature of the GMO line — pungent roasted garlic and turned earth over a sharp diesel funk, rounded by a faint peppery, herbal warmth. It pours heavy and physical: a settling, body-forward calm that drifts toward sleep, best saved for the back end of the day. A note of honesty for the catalog — this one is a retail-brand release (sold under Curaleaf's Find. line) with no breeder-confirmed pedigree, so we place it confidently in the garlic-funk family while leaving its exact parentage as an open question. It is a relative of, but distinct from, Roasted Garlic Margy: same savory family, different second parent.",
+    tagline: "Savory gas, heavy body",
+    timeProfile: "night",
+    artStatus: "none",
+    sourceConfidence: "low",
+    lineageConfidence: "low",
   },
 ];
