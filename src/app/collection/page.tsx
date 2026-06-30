@@ -100,7 +100,7 @@ async function load(): Promise<{
   matchByName: Record<string, CatalogMatch>;
   hasProfile: boolean;
 }> {
-  const entries = buildCatalog();
+  const entries = await buildCatalog();
   const entryByName = new Map(entries.map((e) => [e.strain.name, e] as const));
 
   const userId = await getUserIdReadOnly();

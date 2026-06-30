@@ -112,7 +112,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const entry = getCatalogEntryBySlug(slug);
+  const entry = await getCatalogEntryBySlug(slug);
   if (!entry) return { title: "Strain — SŌMA" };
   const url = `/catalog/${slug}`;
   const title = `${entry.strain.name} — SŌMA`;
@@ -141,7 +141,7 @@ export default async function StrainPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const entry = getCatalogEntryBySlug(slug);
+  const entry = await getCatalogEntryBySlug(slug);
   if (!entry) notFound();
 
   const similar = similarWithProfiles(entry.similar);

@@ -63,7 +63,7 @@ async function loadMatches(): Promise<{
 }
 
 export default async function CatalogPage() {
-  const entries = buildCatalog();
+  const entries = await buildCatalog();
   const { matches, hasProfile, mergedWorlds, blenderActive } = await loadMatches();
   const favUserId = await getUserIdReadOnly();
   const favorites = favUserId ? await getFavoriteStrainNames(favUserId) : [];

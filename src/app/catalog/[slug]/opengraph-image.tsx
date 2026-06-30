@@ -13,7 +13,7 @@ export default async function Image({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const entry = getCatalogEntryBySlug(slug);
+  const entry = await getCatalogEntryBySlug(slug);
 
   if (!entry) {
     return renderOgImage({

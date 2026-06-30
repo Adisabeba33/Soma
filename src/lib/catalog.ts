@@ -8,6 +8,7 @@
 // No data is duplicated here — every catalog entry is a thin projection
 // over one StrainProfile plus an optional StrainIdentity.
 
+import { unstable_cache } from "next/cache";
 import { STRAINS } from "./strain-data";
 import { similarity, useCaseFor } from "./taste-engine";
 import { getIdentity, identitiesInFamily } from "./strain-identity";
@@ -60,9 +61,13 @@ function entryConfidence(s: StrainProfile): "high" | "medium" | "low" {
   return "low";
 }
 
+// The raw catalog assembly: pure projection over STRAINS + similarity matrix.
+// 888 strains × 888 similarity comparisons ≈ 789K ops per cold start, which
+// dominates the catalog page's first-load time. The exported `buildCatalog`
+// wraps this in Next.js's data cache so the result survives between cold
+// starts (the in-process `_cached` only covers a single warm instance).
 let _cached: CatalogEntry[] | null = null;
-
-export function buildCatalog(): CatalogEntry[] {
+function _buildCatalogSync(): CatalogEntry[] {
   if (_cached) return _cached;
   _cached = STRAINS.map((strain) => {
     const identity = getIdentity(strain.name);
@@ -83,6 +88,15 @@ export function buildCatalog(): CatalogEntry[] {
   }).sort((a, b) => a.strain.name.localeCompare(b.strain.name));
   return _cached;
 }
+
+// Cache key includes a version suffix — bump it any time strain-data /
+// strain-identity-data / taste-engine logic changes so stale entries aren't
+// served after a deploy. Revalidate hourly as a safety net.
+export const buildCatalog = unstable_cache(
+  async () => _buildCatalogSync(),
+  ["soma-catalog-v1"],
+  { revalidate: 3600, tags: ["catalog"] },
+);
 
 export function catalogSize(): number {
   return STRAINS.length;
@@ -131,8 +145,11 @@ export function strainSlug(name: string): string {
 }
 
 // Reverse lookup used by the dedicated strain page (/catalog/[slug]).
-export function getCatalogEntryBySlug(slug: string): CatalogEntry | null {
-  return buildCatalog().find((e) => strainSlug(e.strain.name) === slug) ?? null;
+export async function getCatalogEntryBySlug(
+  slug: string,
+): Promise<CatalogEntry | null> {
+  const entries = await buildCatalog();
+  return entries.find((e) => strainSlug(e.strain.name) === slug) ?? null;
 }
 
 // Similar strains enriched with their full profile, so the detail page can
