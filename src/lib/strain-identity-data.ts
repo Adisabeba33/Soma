@@ -8538,7 +8538,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Citrus clockwork, well wound.",
     tagline: "Orange-citrus enigma",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
@@ -9823,7 +9823,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Sweet citrus candy hits first, then pine sap and a little spicy earth roll in. The exhale glints with diesel. Daytime sparkle — uplifted, creative, never frantic.",
     tagline: "Citrus candy, pine sparkle",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
@@ -10257,7 +10257,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Twist the cap and a wood-fired pizza kitchen explodes outward — raw garlic, oregano, scorched crust. The Pure Michigan side adds Oreo-cookie sweetness like dessert after dinner. Couch gravity arrives politely and stays the night.",
     tagline: "Roasted garlic diesel funk",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
@@ -11146,7 +11146,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Tear Gas earns its name with a heavy, sulfurous gas-and-diesel assault that turns chemical-spicy on the exhale. It opens with a sharp cerebral euphoria before sinking into deep body relaxation. A potent evening pick for serious gas lovers.",
     tagline: "Explosive sulfurous chem gas",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
@@ -11339,7 +11339,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "A skunk-lineage name without verifiable genetics under this exact label, sitting near Island Sweet Skunk in sensory terms. Expect sweet, tropical-grapefruit funk over a classic Skunk #1 base, driving energetic, creative daytime uplift.",
     tagline: "Sweet tropical skunk lift",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "low",
   },
   {
@@ -11685,7 +11685,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Opulent resin and a pungent fuel nose make this a card-carrying member of the OG/Chem gas family. Lemon and peppery earth cut the diesel before a luxurious, heavyweight body settle.",
     tagline: "Loud fuel-forward OG gas",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
@@ -11985,7 +11985,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "A Tangie-fueled hybrid balancing zesty tangerine and diesel against sweet pine and a faint cocoa note. Effects are euphoric and mentally uplifting with gentle body calm, ideal as a functional daytime option.",
     tagline: "Tangerine diesel daytime euphoria",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
@@ -12461,7 +12461,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Stank 41 lives up to its name with a loud, room-filling stank of gas, skunk and savory earth. The effect tends toward relaxed euphoria with a noticeable body weight and appetite bump.",
     tagline: "Loud gas and skunk funk",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "low",
   },
   {
@@ -13700,7 +13700,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "An evenly balanced haze whose aroma reads like a fruit cornucopia, from melon and peach to raspberry with a tangerine top. The buzz is upbeat and creative, sparking energy and social warmth while the body stays relaxed.",
     tagline: "Fruit-basket haze, sunny lift",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
@@ -13950,7 +13950,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Dessert Lime (also seen as Desert Lime) is a citrus-forward hybrid whose exact parents are kept quiet by multiple breeders. The nose is sparkling lime over sweet skunk, and the high runs bright, upbeat, and motivating rather than sedating.",
     tagline: "Sparkling sweet lime zest",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "low",
   },
   {
