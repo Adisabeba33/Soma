@@ -14,7 +14,6 @@ import { RunBasisCard } from "@/components/run-basis-card";
 import { ActiveProfileCard, TIME_ICON } from "@/components/active-profile-card";
 import { timeProfileForHour, TIME_HEADLINE } from "@/lib/time-of-day";
 import type { TimeProfile } from "@/lib/types";
-import { ResultsView } from "@/components/results-view";
 import { MenuQualityReport } from "@/components/menu-quality-report";
 import { Button, buttonClass } from "@/components/ui/button";
 import {
@@ -705,27 +704,24 @@ export function TasteMatchClient() {
           )}
 
           <div className="mt-10">
-            {blendResult && blendResult.worlds.length >= 2 ? (
-              // Blend run: winners board → the per-profile / bridge lenses →
-              // the rest of the ranking (all selectable to compare).
-              <BlendResultsList
-                recommendations={rankedRecs}
-                verdicts={verdicts}
-                worlds={blendResult.worlds}
-                breakdown={rankedBreakdown}
-                middle={
+            {/* Always render the ranked + expandable shell: winners board on
+                top, then per-row expand for the full analysis. The per-profile
+                "lenses" section only makes sense for blended runs (2+ worlds);
+                for a single profile it just isn't rendered. */}
+            <BlendResultsList
+              recommendations={rankedRecs}
+              verdicts={verdicts}
+              worlds={blendResult?.worlds ?? []}
+              breakdown={rankedBreakdown}
+              middle={
+                blendResult && blendResult.worlds.length >= 2 ? (
                   <BlendOverview
                     worlds={blendResult.worlds}
                     breakdown={rankedBreakdown}
                   />
-                }
-              />
-            ) : (
-              <ResultsView
-                recommendations={rankedRecs}
-                verdicts={verdicts}
-              />
-            )}
+                ) : undefined
+              }
+            />
           </div>
 
           <div className="mt-12 flex flex-wrap items-center gap-3 border-t border-border pt-8">

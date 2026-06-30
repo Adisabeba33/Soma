@@ -119,13 +119,17 @@ export function BlendCompare({
           ))}
         </div>
 
-        <Section
-          title="By profile"
-          rows={worlds.map((w) => ({
-            label: w,
-            vals: recs.map((r) => worldScore(r.strainName, w)),
-          }))}
-        />
+        {/* "By profile" only makes sense for a blended run with 2+ worlds —
+            single-profile runs skip it cleanly. */}
+        {worlds.length > 0 && (
+          <Section
+            title="By profile"
+            rows={worlds.map((w) => ({
+              label: w,
+              vals: recs.map((r) => worldScore(r.strainName, w)),
+            }))}
+          />
+        )}
 
         <Section
           title="By sense"
@@ -137,9 +141,15 @@ export function BlendCompare({
         />
 
         <p className="mt-6 rounded-xl bg-muted/40 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
-          Brass marks the stronger of the two in each row. &ldquo;By profile&rdquo;
-          is the total match for each side of your taste; &ldquo;by sense&rdquo;
-          is how close the aroma, flavour and effect sit to what you entered.
+          Brass marks the stronger of the two in each row.{" "}
+          {worlds.length > 0 && (
+            <>
+              &ldquo;By profile&rdquo; is the total match for each side of your
+              taste;{" "}
+            </>
+          )}
+          &ldquo;by sense&rdquo; is how close the aroma, flavour and effect sit
+          to what you entered.
         </p>
       </div>
     </div>
