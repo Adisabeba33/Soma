@@ -9943,7 +9943,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "The jar pops with bodega lemon and pine sap, fuel rolling underneath like a parked Lincoln. The high is grin-first, then settles into that NY 'dead ass' clarity — relaxed shoulders, sharp eyes, ready to riff.",
     tagline: "Bodega lemon, diesel daydream",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
