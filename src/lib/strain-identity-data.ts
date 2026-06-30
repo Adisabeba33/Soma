@@ -6857,6 +6857,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "AK-48 is a Nirvana selection in the AK-47 family, named for a roughly 48-day flowering time — a fast, mellow, sweet-and-skunky hybrid. The nose is sweet and earthy: skunky sweetness over a spicy, herbal base. The effect is balanced and easy — an uplifting, happy head with a relaxed body, sociable and approachable. It's smooth and moderate-to-strong, bred for speed and ease. For a quick, mellow AK-style hybrid, AK-48 is a friendly pick.",
     curatorQuote: "Skunky-sweet and spicy, fast and pungent.",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
