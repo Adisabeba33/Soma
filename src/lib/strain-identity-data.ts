@@ -10290,7 +10290,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Imagine sea-spray hitting sun-warmed pine — sharp lemon peel up front, then a slow exhale of damp earth and ripe mango. It coasts rather than crashes, leaving you content and quietly elevated.",
     tagline: "Pine, citrus, coastal calm",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
