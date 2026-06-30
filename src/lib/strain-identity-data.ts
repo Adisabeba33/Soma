@@ -7380,6 +7380,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Orange Crush is a hybrid of California Orange and Blueberry, widely attributed to the Canadian BC Growers Association. It's known for a sweet, tangy citrus-forward aroma with earthy undertones. The effect is uplifting and cerebral, leaning energetic and mood-boosting. It's a parent of Orange Creamsicle.",
     curatorQuote: "Sweet, tangy citrus over earth.",
     lineageConfidence: "medium",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
