@@ -1403,6 +1403,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gelato 41 is a sibling cut from the same Sunset Sherbet × Thin Mint GSC line as Gelato 33 — gassier and a touch heavier, and the parent of hype strains like Jealousy. The nose leans more fuel than its sweeter sibling: sherbet and creamy sweetness over a pronounced gassy funk. The effect is balanced-leaning-relaxed — a euphoric head over comfortable body weight, a little more sedating than #33. It's frosty and potent, a favourite base for breeders chasing gas-and-dessert crosses. For Gelato lovers who want more gas in the mix, 41 is the pick.",
     curatorQuote:
       "Sherbet and creamy sweetness over a pronounced gassy funk.",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
@@ -1550,6 +1551,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pineapple Express earned its fame from the 2008 movie, but the strain is a real Trainwreck × Hawaiian cross — bright tropical fruit on a sativa-leaning frame. The nose is exactly the name: ripe pineapple and tropical fruit over a piney, earthy base, sweet and lively. The effect is uplifting and energetic — a happy, talkative, mildly buzzy head with enough body to stay comfortable, a daytime and social strain. It's approachable and flavour-forward, not overwhelming, which is part of why it's so widely known. For an easy, juicy tropical sativa, Pineapple Express lives up to the hype.",
     curatorQuote:
       "Ripe pineapple and tropical fruit over a piney, earthy base, sweet and lively.",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
@@ -4672,6 +4674,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Crystal Locomotive is a Trainwreck × Trinity cross — a frosty, pine-and-citrus sativa from the same NorCal pool as Green Ribbon. The nose is bright and clean: pine and lemon over a sweet, earthy base. The effect is up and energetic — an uplifting, creative head with a relaxed body, daytime-leaning. It's terpy and potent, and it's the sativa side behind Mendo Montage. For clean pine-citrus sativa genetics, Crystal Locomotive is a flavourful parent.",
     curatorQuote: "Pine and citrus over sweet earth, fast and frosty.",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
@@ -7379,6 +7382,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Orange Crush is a hybrid of California Orange and Blueberry, widely attributed to the Canadian BC Growers Association. It's known for a sweet, tangy citrus-forward aroma with earthy undertones. The effect is uplifting and cerebral, leaning energetic and mood-boosting. It's a parent of Orange Creamsicle.",
     curatorQuote: "Sweet, tangy citrus over earth.",
     lineageConfidence: "medium",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
@@ -8232,7 +8236,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Sunshine in a citrus wrapper.",
     tagline: "Bright sun-grown lemon",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "low",
   },
   {
@@ -9142,7 +9146,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "A cosmic daytime sativa that launches with sharp lemon-citrus and piney spice, sweetened by its Space Queen lineage. The high is soaring, cerebral, and creative without the racy crash. Liftoff in a jar.",
     tagline: "Cerebral citrus liftoff",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
@@ -9940,7 +9944,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "The jar pops with bodega lemon and pine sap, fuel rolling underneath like a parked Lincoln. The high is grin-first, then settles into that NY 'dead ass' clarity — relaxed shoulders, sharp eyes, ready to riff.",
     tagline: "Bodega lemon, diesel daydream",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
@@ -10287,7 +10291,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Imagine sea-spray hitting sun-warmed pine — sharp lemon peel up front, then a slow exhale of damp earth and ripe mango. It coasts rather than crashes, leaving you content and quietly elevated.",
     tagline: "Pine, citrus, coastal calm",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
@@ -11278,7 +11282,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Zero Gravity keeps its feet earthy and herbal with a skunky-sweet edge, no candy gloss here. The high floats lighthearted and giggly, socially uplifting before tension melts into relaxed calm. A balanced 50/50 made for easy, weightless company.",
     tagline: "Weightless, giggly, earthy float",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
@@ -13218,7 +13222,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "A citrus-forward, social hybrid that opens with tangerine and pineapple zest over honeyed sweetness. The high is talkative and creatively euphoric with a relaxed finish, suiting daytime use.",
     tagline: "Citrus zest, social euphoria",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "low",
   },
   {
