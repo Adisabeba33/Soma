@@ -8538,7 +8538,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Citrus clockwork, well wound.",
     tagline: "Orange-citrus enigma",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
