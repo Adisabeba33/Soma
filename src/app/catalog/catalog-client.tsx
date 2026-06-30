@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   Check,
   ChevronDown,
@@ -202,6 +202,27 @@ export function CatalogClient({
 
   const visibleEntries = filtered.slice(0, visibleCount);
   const hasMore = visibleCount < filtered.length;
+
+  // Infinite scroll — when the sentinel div near the bottom of the list
+  // crosses into the viewport, bump pageCount to reveal another PAGE_SIZE
+  // cards. rootMargin keeps the trigger ahead of the actual bottom so the
+  // next page is already mounting by the time the user reaches it.
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!hasMore) return;
+    const el = sentinelRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setPageCount((n) => n + 1);
+        }
+      },
+      { rootMargin: "600px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [hasMore, visibleCount]);
 
   function makeToggle(setter: typeof setAromaFilters) {
     return (value: string) =>
@@ -500,14 +521,18 @@ export function CatalogClient({
         )}
 
         {hasMore && (
-          <div className="mt-8 flex flex-col items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setPageCount((n) => n + 1)}
-              className="soma-ease rounded-full border border-brass/40 bg-brass/5 px-8 py-3 text-sm font-medium text-foreground transition-colors hover:border-brass hover:bg-brass/10 hover:text-brass"
-            >
-              Load more strains
-            </button>
+          // Sentinel — IntersectionObserver triggers the next page when this
+          // node enters the viewport (with a generous rootMargin so the new
+          // cards are already mounting by the time the user reaches them).
+          // A small spinner sits inside as a visible "loading more…" cue.
+          <div
+            ref={sentinelRef}
+            className="mt-10 flex flex-col items-center gap-3 py-4"
+          >
+            <span
+              className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-brass/25 border-t-brass"
+              aria-hidden
+            />
             <p className="text-xs text-muted-foreground">
               Showing {visibleEntries.length} of {filtered.length}
             </p>
