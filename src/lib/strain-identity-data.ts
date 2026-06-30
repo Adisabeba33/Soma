@@ -4673,6 +4673,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Crystal Locomotive is a Trainwreck × Trinity cross — a frosty, pine-and-citrus sativa from the same NorCal pool as Green Ribbon. The nose is bright and clean: pine and lemon over a sweet, earthy base. The effect is up and energetic — an uplifting, creative head with a relaxed body, daytime-leaning. It's terpy and potent, and it's the sativa side behind Mendo Montage. For clean pine-citrus sativa genetics, Crystal Locomotive is a flavourful parent.",
     curatorQuote: "Pine and citrus over sweet earth, fast and frosty.",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
