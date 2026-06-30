@@ -11280,7 +11280,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Zero Gravity keeps its feet earthy and herbal with a skunky-sweet edge, no candy gloss here. The high floats lighthearted and giggly, socially uplifting before tension melts into relaxed calm. A balanced 50/50 made for easy, weightless company.",
     tagline: "Weightless, giggly, earthy float",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
