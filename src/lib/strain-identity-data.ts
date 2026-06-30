@@ -9823,7 +9823,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "Sweet citrus candy hits first, then pine sap and a little spicy earth roll in. The exhale glints with diesel. Daytime sparkle — uplifted, creative, never frantic.",
     tagline: "Citrus candy, pine sparkle",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "high",
   },
   {
