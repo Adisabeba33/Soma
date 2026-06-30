@@ -13219,7 +13219,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorNote:
       "A citrus-forward, social hybrid that opens with tangerine and pineapple zest over honeyed sweetness. The high is talkative and creatively euphoric with a relaxed finish, suiting daytime use.",
     tagline: "Citrus zest, social euphoria",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "low",
   },
   {
