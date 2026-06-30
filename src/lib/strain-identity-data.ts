@@ -1403,6 +1403,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Gelato 41 is a sibling cut from the same Sunset Sherbet × Thin Mint GSC line as Gelato 33 — gassier and a touch heavier, and the parent of hype strains like Jealousy. The nose leans more fuel than its sweeter sibling: sherbet and creamy sweetness over a pronounced gassy funk. The effect is balanced-leaning-relaxed — a euphoric head over comfortable body weight, a little more sedating than #33. It's frosty and potent, a favourite base for breeders chasing gas-and-dessert crosses. For Gelato lovers who want more gas in the mix, 41 is the pick.",
     curatorQuote:
       "Sherbet and creamy sweetness over a pronounced gassy funk.",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
