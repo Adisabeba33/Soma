@@ -56,26 +56,7 @@ export async function PATCH(
         );
       }
     }
-    await prisma.tasteProfile.update({
-      where: { id },
-      // Stamp when it joined the merge set so the blend can order pair vs third
-      // (first two merged = pair, last merged = third). Cleared on unmerge.
-      data: { merged: on, mergedAt: on ? new Date() : null },
-    });
-    // When this merge brings the set to three, the blend becomes 3-way and
-    // starts at an equal third (33/33/33) — reset the admix recipe to full so
-    // the third isn't dosed down by a stale value from an earlier session.
-    if (on) {
-      const mergedCount = await prisma.tasteProfile.count({
-        where: { userId, merged: true },
-      });
-      if (mergedCount >= 3) {
-        await prisma.user.update({
-          where: { id: userId },
-          data: { blenderLean2: 1 },
-        });
-      }
-    }
+    await prisma.tasteProfile.update({ where: { id }, data: { merged: on } });
     return NextResponse.json({ ok: true, merged: on });
   }
 
