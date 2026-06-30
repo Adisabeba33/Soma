@@ -1551,6 +1551,7 @@ export const IDENTITIES: StrainIdentity[] = [
       "Pineapple Express earned its fame from the 2008 movie, but the strain is a real Trainwreck × Hawaiian cross — bright tropical fruit on a sativa-leaning frame. The nose is exactly the name: ripe pineapple and tropical fruit over a piney, earthy base, sweet and lively. The effect is uplifting and energetic — a happy, talkative, mildly buzzy head with enough body to stay comfortable, a daytime and social strain. It's approachable and flavour-forward, not overwhelming, which is part of why it's so widely known. For an easy, juicy tropical sativa, Pineapple Express lives up to the hype.",
     curatorQuote:
       "Ripe pineapple and tropical fruit over a piney, earthy base, sweet and lively.",
+    artStatus: "published",
     sourceConfidence: "medium",
   },
   {
