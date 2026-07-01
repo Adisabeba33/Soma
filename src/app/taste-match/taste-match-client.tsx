@@ -174,9 +174,7 @@ export function TasteMatchClient() {
           setBlenderInfo({
             pair: ((blender.pair ?? []) as Array<{ name: string }>).map((p) => p.name),
             third: blender.third?.name ?? "",
-            // Third's share of the blend, on the same 0–33% "full equal third"
-            // scale as the account's Taste Blender (lean2=1 → an equal third).
-            admix: Math.round((blender.lean2 ?? 0) * 33),
+            admix: Math.round((blender.lean2 ?? 0) * 100),
             balance: Boolean(blender.balance),
           });
           return;
