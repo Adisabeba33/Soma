@@ -8398,7 +8398,7 @@ export const IDENTITIES: StrainIdentity[] = [
     curatorQuote:
       "Loud fuel, lights out.",
     tagline: "Loud gas funk",
-    artStatus: "none",
+    artStatus: "published",
     sourceConfidence: "low",
   },
   {
