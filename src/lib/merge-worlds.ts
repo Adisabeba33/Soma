@@ -108,9 +108,7 @@ export async function resolveBlend(
       })
       .catch(() => null),
     prisma.tasteProfile
-      // id tiebreak so pair/third selection matches the account UI exactly even
-      // when two profiles share a createdAt.
-      .findMany({ where: { userId }, orderBy: [{ createdAt: "asc" }, { id: "asc" }] })
+      .findMany({ where: { userId }, orderBy: { createdAt: "asc" } })
       .catch(() => [] as TasteProfile[]),
   ]);
 
