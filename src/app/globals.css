@@ -80,3 +80,21 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .soma-hero-img, .soma-hero-glow { animation: none; }
 }
+
+/* ── Taste Blender — gold "active" pulse + node breathe ─────────────────
+   The blend's gold status dot breathes slowly; the active profile nodes
+   in the diagram give a near-imperceptible lift. Kept calm and premium. */
+@keyframes soma-gold-pulse {
+  0%, 100% { opacity: 0.5;  transform: scale(0.9); }
+  50%      { opacity: 1;    transform: scale(1.15); }
+}
+@keyframes soma-node-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.018); }
+}
+.soma-gold-dot  { animation: soma-gold-pulse 2.8s ease-in-out infinite; }
+.soma-node-live { animation: soma-node-breathe 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .soma-gold-dot, .soma-node-live { animation: none; }
+}
