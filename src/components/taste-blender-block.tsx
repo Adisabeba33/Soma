@@ -123,6 +123,12 @@ export function TasteBlenderBlock() {
     );
   }
 
+  // Defensive: this block renders as a SIBLING of the account's profile list,
+  // so it must never throw during render (a thrown error would unmount the
+  // whole page and blank the profiles). If a ready payload ever arrives without
+  // a valid pair, render nothing rather than dereference it.
+  if (!Array.isArray(s.pair) || s.pair.length < 2) return null;
+
   // The pair is ordered [primary-or-first, other]. Primary (Main) is the lean's
   // right/energized side; the other is the left/relaxed side.
   const main = s.pair.find((p) => p.primary) ?? s.pair[0];

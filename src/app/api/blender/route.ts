@@ -30,7 +30,9 @@ async function readState(userId: string) {
     }),
     prisma.tasteProfile.findMany({
       where: { userId },
-      orderBy: { createdAt: "asc" },
+      // id tiebreak so this order matches resolveBlend exactly even when two
+      // profiles share a createdAt (UI and scoring must pick the same pair/third).
+      orderBy: [{ createdAt: "asc" }, { id: "asc" }],
       select: {
         id: true,
         name: true,
@@ -79,7 +81,7 @@ async function readState(userId: string) {
     threeWay,
     balance: user?.blenderBalance ?? false,
     lean1: user?.blenderLean1 ?? 0,
-    lean2: user?.blenderLean2 ?? 1,
+    lean2: user?.blenderLean2 ?? 0,
     profileCount: profiles.length,
     mergedCount: mergedSorted.length,
     pair: pairProfiles.map((p) => ({
