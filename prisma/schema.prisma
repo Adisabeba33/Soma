@@ -31,10 +31,7 @@ model User {
   // Only meaningful with 3 profiles (2 merged into the pair, 1 the third).
   blenderActive Boolean @default(false)
   blenderLean1  Float   @default(0)
-  // Third-admix recipe (0…1). 1 = a full, equal third (33% of a 3-way blend),
-  // so when a third profile is merged in the blend starts at 33/33/33. Only
-  // meaningful with 3 merged profiles; ignored in a 2-way (pair-only) blend.
-  blenderLean2  Float   @default(1)
+  blenderLean2  Float   @default(0)
   // Blend mode: false = best-of (max — best under any one side); true = balance
   // (min — strains strong across ALL sides at once, the "bridge"). Leans don't
   // apply in balance mode (it weighs every world equally).
@@ -80,10 +77,6 @@ model TasteProfile {
   // catalog (Harvest) blends them best-of instead of using the single active
   // profile. Independent of isActive. Default false so existing rows are valid.
   merged             Boolean  @default(false)
-  // When this profile joined the merge set — orders the blend: the first two
-  // merged form the adjustable pair, the last merged is the "third" that blends
-  // in. Null when not merged (falls back to createdAt for legacy rows).
-  mergedAt           DateTime?
   favoriteStrains    String[]
   dislikedStrains    String[]
   likedTraits        String[]
