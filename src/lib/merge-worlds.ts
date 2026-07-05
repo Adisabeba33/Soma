@@ -112,16 +112,10 @@ export async function resolveBlend(
       .catch(() => [] as TasteProfile[]),
   ]);
 
-  // The merge set, ordered by when each profile joined it (legacy rows fall
-  // back to createdAt). First two merged = the adjustable pair; a third merged
+  // The merge set, in profile-creation order (the findMany is already ordered
+  // by createdAt). First two merged = the adjustable pair; a third merged
   // profile is the "third" that blends in.
-  const mergedSorted = all
-    .filter((p) => p.merged)
-    .sort(
-      (a, b) =>
-        (a.mergedAt ?? a.createdAt).getTime() -
-        (b.mergedAt ?? b.createdAt).getTime(),
-    );
+  const mergedSorted = all.filter((p) => p.merged);
   if (mergedSorted.length < 2) return null; // no base pair → no blend
 
   const penalties: Record<string, number> = {};

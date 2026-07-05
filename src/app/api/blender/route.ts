@@ -35,8 +35,6 @@ async function readState(userId: string) {
         id: true,
         name: true,
         merged: true,
-        mergedAt: true,
-        createdAt: true,
         isActive: true,
         primaryAroma: true,
         preferredAromas: true,
@@ -47,17 +45,11 @@ async function readState(userId: string) {
     }),
   ]);
 
-  // The blend is driven by the MERGE set, ordered by when each profile joined
-  // it (legacy rows fall back to createdAt). The first two merged are the
+  // The blend is driven by the MERGE set, kept in profile-creation order (the
+  // findMany is already ordered by createdAt). The first two merged are the
   // adjustable pair; once a third is merged it becomes the "third" that blends
   // in. 2 merged → 2-way (pair lean only); 3 merged → 3-way (33/33/33 start).
-  const mergedSorted = profiles
-    .filter((p) => p.merged)
-    .sort(
-      (a, b) =>
-        (a.mergedAt ?? a.createdAt).getTime() -
-        (b.mergedAt ?? b.createdAt).getTime(),
-    );
+  const mergedSorted = profiles.filter((p) => p.merged);
 
   const threeWay = mergedSorted.length >= 3;
   const pairProfiles = threeWay ? mergedSorted.slice(0, 2) : mergedSorted;

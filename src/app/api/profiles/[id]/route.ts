@@ -58,9 +58,7 @@ export async function PATCH(
     }
     await prisma.tasteProfile.update({
       where: { id },
-      // Stamp when it joined the merge set so the blend can order pair vs third
-      // (first two merged = pair, last merged = third). Cleared on unmerge.
-      data: { merged: on, mergedAt: on ? new Date() : null },
+      data: { merged: on },
     });
     // When this merge brings the set to three, the blend becomes 3-way and
     // starts at an equal third (33/33/33) — reset the admix recipe to full so
