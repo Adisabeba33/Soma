@@ -49,7 +49,7 @@ function formatBlend(b: BlendAudit): string {
   const parts = [
     b.mode === "blender" ? "Taste Blender (3-way)" : "Merge (pair)",
     b.worlds.join(" + "),
-    b.thirdName ? `+ ${b.thirdName} admix ${Math.round(b.lean2 * 100)}%` : null,
+    b.thirdName ? `+ ${b.thirdName} admix ${Math.round(b.lean2 * 33)}% of a full third` : null,
     leanStr,
     b.balance ? "mode: balance (min/bridge)" : "mode: best-of (max)",
   ].filter(Boolean);
