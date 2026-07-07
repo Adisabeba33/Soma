@@ -63,9 +63,12 @@ export function SiteFooter() {
         </div>
         <div className="mt-16 flex flex-col gap-1.5 border-t border-border/50 pt-6 text-[11px] leading-relaxed text-muted-foreground/60">
           <p className="max-w-xl">
-            SŌMA provides sensory guidance, not a guarantee. Real quality
-            depends on grower, freshness and storage. For use by adults 21+
-            where legal.
+            SŌMA is an educational resource for the sensory qualities of
+            cannabis — aroma, flavor and effect. We do not sell cannabis, are
+            not affiliated with any dispensary or retailer, and do not direct
+            anyone where to buy. Sensory guidance only, not a guarantee — real
+            quality depends on grower, freshness and storage. Nothing here is
+            medical or legal advice. For adults 21+ where cannabis is legal.
           </p>
           <p>© {new Date().getFullYear()} SŌMA</p>
         </div>

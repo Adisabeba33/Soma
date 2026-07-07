@@ -4,6 +4,7 @@ import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { FinishProfileNudge } from "@/components/finish-profile-nudge";
+import { AgeGate } from "@/components/age-gate";
 import { JsonLd } from "@/components/json-ld";
 import { siteUrl, absoluteUrl } from "@/lib/site-url";
 
@@ -117,6 +118,7 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <JsonLd data={organizationLd} />
         <JsonLd data={websiteLd} />
+        <AgeGate />
         <SiteHeader />
         <FinishProfileNudge />
         <main className="flex-1">{children}</main>
