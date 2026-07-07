@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ArrowRight, Blend, Check, Compass, Info, Leaf, Scale, Sparkles } from "lucide-react";
 import { profileEmblem, type EmblemIcon } from "@/components/aroma-icon";
 import { cn } from "@/lib/utils";
@@ -54,7 +53,6 @@ type State = {
 };
 
 export function TasteBlenderBlock() {
-  const router = useRouter();
   const [s, setS] = useState<State | null>(null);
 
   async function load() {
@@ -82,7 +80,10 @@ export function TasteBlenderBlock() {
       return;
     }
     if (d) setS(d);
-    router.refresh(); // re-score the surfaces under the new blend
+    // The blend is persisted by the PATCH above; other surfaces (Harvest,
+    // Taste Match) re-read it when the user navigates to them. We deliberately
+    // do NOT call router.refresh() here — refreshing the route on every slider
+    // tick hammered the server with re-fetches and amplified session hiccups.
   }
 
   if (!s) return null;
