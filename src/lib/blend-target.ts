@@ -64,11 +64,16 @@ function signatureTokens(p: TasteProfileInput): string[] {
   return Array.from(new Set([...own, ...group]));
 }
 
-// How hard a MINOR side is penalised for missing its target prominence.
-// Overshoot (cloying — sweet-dominant when you asked for a hint) hurts more
-// than undershoot (a touch too faint). Calibrated against scripts/stress.
+// How a MINOR side is scored against its target prominence:
+//   • OVERSHOOT — cloying (sweet-dominant when you asked for a hint): heavy cost
+//   • UNDERSHOOT — the note is missing entirely: also a cost, so a strain WITH
+//     the light note is confidently preferred over plain gas
+//   • ON_TARGET — a reward for landing right on the light note, so
+//     "gas + a light sweet touch" rises to the very top at a 20% dial.
+// Calibrated on the gas+20%-sweet case; retune broadly against scripts/stress.
 const OVERSHOOT = 46;
-const UNDERSHOOT = 20;
+const UNDERSHOOT = 42;
+const ON_TARGET = 10;
 
 export function scoreBlendTarget(
   strainName: string,
@@ -99,7 +104,11 @@ export function scoreBlendTarget(
     if (i === domIdx) return;
     const level = characterLevel(strainName, signatureTokens(m.profile)); // 0..1
     const desired = clamp01(m.share * 1.5); // 20%→.30 (light), 33%→.50, 60%→.90
-    penalty += OVERSHOOT * Math.max(0, level - desired) + UNDERSHOOT * Math.max(0, desired - level);
+    const onTarget = Math.max(0, 1 - 2 * Math.abs(level - desired)); // 1 = spot on
+    penalty +=
+      OVERSHOOT * Math.max(0, level - desired) +
+      UNDERSHOOT * Math.max(0, desired - level) -
+      ON_TARGET * onTarget;
   });
 
   return clamp01((weightedFit - penalty) / 100) * 100;
