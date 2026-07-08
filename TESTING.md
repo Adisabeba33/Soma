@@ -136,9 +136,18 @@ Keep these dumps. They're the ground truth for any later tuning.
 npm test
 ```
 
-Runs the `node:test` suite via `tsx`. Covers the menu parser, the strain
-name normalizer, and the unknown-strain payload builder. ~30 assertions,
-finishes in under a second. Use it as a smoke check before pushing.
+Runs the `node:test` suite via `tsx` — **~500 tests across ~50 files,
+finishes in under 15 seconds.** Coverage centres on the deterministic
+engine: scoring math and calibration bands, tag weighting
+(primary/secondary/trace), the feedback loop, the blender/merge logic,
+profile parsing (description / experience / presets), menu parsing and
+strain normalization, plus data-integrity and vocab-consistency checks
+that keep the catalog, identities and palettes in sync. Use it as the
+gate before pushing.
+
+> Two suites (`auth-core`, `taste-blender`) import the Prisma client, so a
+> fresh clone needs `npx prisma generate` (normally run by `npm install`'s
+> postinstall) before `npm test` — no database connection is required.
 
 ### Engine stress-test (`npm run stress`)
 

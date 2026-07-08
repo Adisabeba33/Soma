@@ -57,10 +57,14 @@ function tieRanksOf(
     (a, b) => b.matchScore - a.matchScore || b.unclampedScore - a.unclampedScore,
   );
   const map = new Map<string, { rank: number; total: number }>();
+  // Group by the DISPLAYED (rounded) score — scores render as whole numbers,
+  // so 91.63 and 91.57 look identical to the visitor and need the pill even
+  // though their raw values differ.
+  const shown = (r: { matchScore: number }) => Math.round(r.matchScore);
   let i = 0;
   while (i < sorted.length) {
     let j = i;
-    while (j < sorted.length && sorted[j].matchScore === sorted[i].matchScore) {
+    while (j < sorted.length && shown(sorted[j]) === shown(sorted[i])) {
       j++;
     }
     const total = j - i;

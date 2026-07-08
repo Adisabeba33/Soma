@@ -13,7 +13,11 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
 
 ## Engine / scoring
 
-### E1 — False precision: two-decimal scores in the elite band — MEDIUM
+### E1 — False precision: two-decimal scores in the elite band — MEDIUM — ✅ FIXED
+> Resolved: `formatScore()` now always rounds for display; tie-group pills in
+> results/compare group by the DISPLAYED score so leaders sharing a rounded
+> value still show "#n of m"; Audit mode keeps exact two-decimal values via
+> its own `preciseScore` formatter; `docs/scoring-scale.md` updated.
 - **Where:** `src/lib/taste-engine.ts` (elite-band remap, `matchScore > 88` →
   89.00–92.00 with 2 decimals), `formatScore()` in `src/lib/utils.ts`.
 - **What:** 91.63 vs 91.57 implies a resolution the inputs cannot support —
@@ -288,11 +292,10 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   profile CRUD, signup/login, feedback.
 - **Effort:** medium.
 
-### T3 — TESTING.md is stale — LOW
-- **Where:** `TESTING.md` says "~30 assertions, <1s"; reality is 489
-  assertions / 133 suites / ~11s.
-- **Fix:** refresh the numbers; mention `npm run stress` snapshot-diff flow.
-- **Effort:** trivial.
+### T3 — TESTING.md is stale — LOW — ✅ FIXED
+> Resolved: §6 now describes the real suite (~500 tests, engine-centred
+> coverage map) and notes the `prisma generate` prerequisite for the two
+> prisma-importing suites. The stress section was already accurate.
 
 ---
 

@@ -98,10 +98,13 @@ export default function ComparePage() {
   // pill explaining the order.
   const tieRanks = useMemo(() => {
     const map = new Map<string, { rank: number; total: number }>();
+    // Group by the DISPLAYED (rounded) score — scores render as whole
+    // numbers, so raw 91.63 vs 91.57 read as the same "92" to the visitor.
+    const shown = (it: { matchScore: number }) => Math.round(it.matchScore);
     let i = 0;
     while (i < items.length) {
       let j = i;
-      while (j < items.length && items[j].matchScore === items[i].matchScore) {
+      while (j < items.length && shown(items[j]) === shown(items[i])) {
         j++;
       }
       const groupSize = j - i;
@@ -251,7 +254,7 @@ export default function ComparePage() {
                     {tieRanks.get(item.strainName) && (
                       <span
                         className="rounded-full border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground"
-                        title={`Internal score ${item.unclampedScore.toFixed(2)} — the engine ranks this #${tieRanks.get(item.strainName)?.rank} of ${tieRanks.get(item.strainName)?.total} strains tied at ${formatScore(item.matchScore)}%. Below the 89–92 elite band the visible score is a whole number, so close non-anchors can share one; the order here is the engine's actual judgment.`}
+                        title={`Internal score ${item.unclampedScore.toFixed(2)} — the engine ranks this #${tieRanks.get(item.strainName)?.rank} of ${tieRanks.get(item.strainName)?.total} strains tied at ${formatScore(item.matchScore)}%. The visible score is a whole number, so close non-anchors can share one; the order here is the engine's actual judgment.`}
                       >
                         #{tieRanks.get(item.strainName)?.rank} of{" "}
                         {tieRanks.get(item.strainName)?.total}

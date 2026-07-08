@@ -1,9 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { formatScore } from "@/lib/utils";
 import { labelFor } from "@/lib/vocab";
 import type { StrainMatch } from "@/lib/types";
+
+// Audit mode is the precision surface: unlike the user-facing formatScore
+// (which rounds to whole numbers), the audit keeps the engine's two-decimal
+// values so tuning sessions see exactly what the formula produced.
+const preciseScore = (score: number): string =>
+  Number.isInteger(score) ? `${score}` : score.toFixed(2);
 
 type AuditItem = StrainMatch & { id?: string };
 
@@ -77,7 +82,7 @@ function buildAuditText(
         : `  [via ${item.world}]`
       : "";
     lines.push(
-      `${item.strainName} — Final ${formatScore(item.matchScore)}${worldTag}`,
+      `${item.strainName} — Final ${preciseScore(item.matchScore)}${worldTag}`,
     );
     if (item.avoidedBy && item.avoidedBy.length > 0) {
       lines.push(
@@ -88,7 +93,7 @@ function buildAuditText(
       item.feedbackPotential !== 0
         ? `potential ${item.feedbackPotential > 0 ? "+" : ""}${item.feedbackPotential} × decay ${item.feedbackDecay.toFixed(2)} → applied ${item.feedbackAdjustment > 0 ? "+" : ""}${item.feedbackAdjustment}`
         : "no feedback";
-    lines.push(`  raw ${formatScore(item.baseScore)} · ${fb}`);
+    lines.push(`  raw ${preciseScore(item.baseScore)} · ${fb}`);
     const ch = item.channels;
     lines.push(
       `  Channels (score → contribution): Ref similarity ${ch.ref.score} → +${ch.ref.contribution.toFixed(1)}, Effect archetype fit ${ch.effect.score} → +${ch.effect.contribution.toFixed(1)}, Aroma ${ch.aroma.score} → +${ch.aroma.contribution.toFixed(1)}, Flavor ${ch.flavor.score} → +${ch.flavor.contribution.toFixed(1)}`,
@@ -270,11 +275,11 @@ export function AuditPanel({
                     )}
                   </span>
                   <span className="font-mono text-xs">
-                    Final {formatScore(item.matchScore)}
+                    Final {preciseScore(item.matchScore)}
                   </span>
                 </div>
                 <div className="mt-0.5 font-mono text-[11px] text-muted-foreground">
-                  raw {formatScore(item.baseScore)}
+                  raw {preciseScore(item.baseScore)}
                   {item.feedbackPotential !== 0 ? (
                     <>
                       {" · potential "}
