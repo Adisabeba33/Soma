@@ -17,7 +17,21 @@
 
 import { scoreStrain } from "./taste-engine";
 import { findStrain } from "./strain-data";
+import { primaryAromaTokens } from "./profile-target";
 import type { TasteProfileInput, FeedbackSignal } from "./types";
+
+// Sweetness spans more than one forced-choice family (sweet ↔ fruit), so a
+// minor "sweet" side must also count fruity/creamy/candy prominence — else a
+// creamy-dessert strain slips the "not too sweet" penalty. Broad sensory
+// groups used only to MEASURE a side's prominence (never to match).
+const SENSORY_GROUPS: Record<string, string[]> = {
+  sweet: ["sweet", "creamy", "vanilla", "candy", "dessert", "fruity", "berry", "tropical", "grape"],
+  fruit: ["fruity", "berry", "tropical", "grape", "sweet"],
+  gas: ["gassy", "diesel"],
+  earthfunk: ["earthy", "skunky", "cheese", "woody"],
+  citrus: ["citrus"],
+  pineherb: ["pine", "herbal", "spicy", "floral"],
+};
 
 export type BlendMember = { profile: TasteProfileInput; share: number }; // shares sum to ~1
 
@@ -40,9 +54,14 @@ function characterLevel(strainName: string, tokens: string[]): number {
 
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 
-// Signature tokens of a profile — the aromas/flavours that define its character.
+// Tokens used to MEASURE a side's prominence in a strain: the profile's own
+// preferred aromas/flavours, widened to the whole sensory group of its
+// forced-choice primary aroma (so "sweet" also catches creamy/fruity/candy).
 function signatureTokens(p: TasteProfileInput): string[] {
-  return Array.from(new Set([...(p.preferredAromas ?? []), ...(p.preferredFlavors ?? [])]));
+  const own = [...(p.preferredAromas ?? []), ...(p.preferredFlavors ?? [])];
+  const famKey = p.primaryAroma && SENSORY_GROUPS[p.primaryAroma] ? p.primaryAroma : null;
+  const group = famKey ? SENSORY_GROUPS[famKey] : primaryAromaTokens(p);
+  return Array.from(new Set([...own, ...group]));
 }
 
 // How hard a MINOR side is penalised for missing its target prominence.
