@@ -5,6 +5,7 @@ import { getFeedbackSignals, isPlausibleStrainName } from "@/lib/api";
 import { mergedMatchForStrain } from "@/lib/merge-worlds";
 import { scoreStrain } from "@/lib/taste-engine";
 import type { TasteProfileInput } from "@/lib/types";
+import { toEngineInput } from "@/lib/engine-input";
 
 // Read-only per-strain match for the current visitor. The strain page is now
 // statically rendered (so it indexes well), so its personal match score is
@@ -29,7 +30,7 @@ export async function GET(req: NextRequest) {
   if (!profile) return NextResponse.json({ match: null });
 
   const feedback = await getFeedbackSignals(userId);
-  const m = scoreStrain(name, profile as unknown as TasteProfileInput, feedback);
+  const m = scoreStrain(name, toEngineInput(profile), feedback);
   return NextResponse.json({
     match: { score: m.matchScore, category: m.category },
   });

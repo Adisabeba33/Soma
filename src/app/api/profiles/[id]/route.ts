@@ -6,6 +6,7 @@ import {
   MATCH_GATE_PERCENT,
 } from "@/lib/profile-completeness";
 import type { TasteProfileInput } from "@/lib/types";
+import { toEngineInput } from "@/lib/engine-input";
 
 export const dynamic = "force-dynamic";
 
@@ -44,7 +45,7 @@ export async function PATCH(
     const on = body.on !== false; // default true
     if (on) {
       const percent = profileCompleteness(
-        profile as unknown as TasteProfileInput,
+        toEngineInput(profile),
       ).percent;
       if (percent < MATCH_GATE_PERCENT) {
         return NextResponse.json(
@@ -79,7 +80,7 @@ export async function PATCH(
 
   if (body.action === "activate") {
     const percent = profileCompleteness(
-      profile as unknown as TasteProfileInput,
+      toEngineInput(profile),
     ).percent;
     if (percent < MATCH_GATE_PERCENT) {
       return NextResponse.json(

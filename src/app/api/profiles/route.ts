@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
 import { profileCompleteness } from "@/lib/profile-completeness";
 import type { TasteProfileInput } from "@/lib/types";
+import { toEngineInput } from "@/lib/engine-input";
 
 export const dynamic = "force-dynamic";
 
@@ -30,7 +31,7 @@ export async function GET() {
       name: p.name ?? "Main",
       isActive: p.isActive,
       merged: p.merged,
-      percent: profileCompleteness(p as unknown as TasteProfileInput).percent,
+      percent: profileCompleteness(toEngineInput(p)).percent,
       topAromas: top(
         p.primaryAroma ? [p.primaryAroma] : [],
         p.preferredAromas,

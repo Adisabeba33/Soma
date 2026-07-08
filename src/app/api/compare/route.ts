@@ -15,6 +15,7 @@ import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
 import type { ComparisonItem, StrainMatch, TasteProfileInput } from "@/lib/types";
 import { profileCompleteness, MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
+import { toEngineInput } from "@/lib/engine-input";
 
 export const dynamic = "force-dynamic";
 
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Gate: same threshold as Taste Match — enough profile to rank with confidence.
-  const completion = profileCompleteness(profile as unknown as TasteProfileInput);
+  const completion = profileCompleteness(toEngineInput(profile));
   if (completion.percent < MATCH_GATE_PERCENT) {
     return NextResponse.json(
       {
@@ -149,7 +150,7 @@ export async function POST(req: NextRequest) {
               name: blend.worlds[i],
               primary: p.id === blend.primaryId,
               penalty: blend.penalties[p.id] ?? 0,
-              profile: p as unknown as TasteProfileInput,
+              profile: toEngineInput(p),
             })),
             breakdown: mergeBreakdown ?? {},
           }

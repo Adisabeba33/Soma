@@ -58,7 +58,11 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   more loudly than the current footnote.
 - **Effort:** small.
 
-### E5 — Prisma rows cast into engine input via `as unknown as TasteProfileInput` — LOW (tech debt)
+### E5 — Prisma rows cast into engine input via `as unknown as TasteProfileInput` — LOW (tech debt) — ✅ FIXED
+> Resolved: `src/lib/engine-input.ts` adds `toEngineInput()` — a structural
+> adapter that normalises every field (arrays → [], scalars → null) at one
+> seam. All 21 cast sites across routes, pages, merge-worlds and top-matches
+> now go through it; the raw cast pattern is gone from the codebase.
 - **Where:** `merge-worlds.ts:233,269,302`, `src/app/catalog/page.tsx:56`,
   and siblings.
 - **What:** the Prisma `TasteProfile` model and the engine's input type are
@@ -273,7 +277,12 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
 
 ## Tests / docs
 
-### T1 — Test suite requires a generated Prisma client for 2 pure-ish suites — LOW
+### T1 — Test suite requires a generated Prisma client for 2 pure-ish suites — LOW — ✅ FIXED
+> Resolved via the lazy-init option: `src/lib/prisma.ts` now defers BOTH the
+> `@prisma/client` require and the client construction to first use (Proxy +
+> `createRequire`), so importing prisma-adjacent modules no longer throws
+> without a generated client. Verified: auth-core + taste-blender pass with
+> `node_modules/.prisma` removed; full suite + production build green.
 - **Where:** `tests/auth-core.test.ts`, `tests/taste-blender.test.ts` (imports
   `merge-worlds` → `prisma.ts` throws when the client isn't generated).
 - **What:** 487/489 pass; the 2 failures in a fresh sandbox are environment

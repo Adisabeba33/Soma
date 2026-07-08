@@ -25,6 +25,7 @@ import { prisma } from "@/lib/prisma";
 import { CatalogCollectibleCard } from "@/components/catalog-collectible-card";
 import { cn } from "@/lib/utils";
 import type { TasteProfileInput } from "@/lib/types";
+import { toEngineInput } from "@/lib/engine-input";
 
 export const dynamic = "force-dynamic";
 
@@ -164,7 +165,7 @@ async function load(): Promise<{
         if (!entryByName.has(name)) continue;
         const m = scoreStrain(
           name,
-          profile as unknown as TasteProfileInput,
+          toEngineInput(profile),
           feedback,
         );
         matchByName[name] = { score: m.matchScore, category: m.category };

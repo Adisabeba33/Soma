@@ -32,6 +32,7 @@ import type {
 } from "./types";
 import type { CatalogMatch } from "./catalog";
 import type { TasteProfile } from "@prisma/client";
+import { toEngineInput } from "./engine-input";
 
 // Pair lean: at full lean a pair member loses at most this many points — a
 // tilt, not a switch. Third admix: at lean2=0 the third is dosed down by this
@@ -230,7 +231,7 @@ export async function mergedMatches(
 
   for (const strain of STRAINS) {
     const cands = spec.profiles.map((p, i) => {
-      const m = scoreStrain(strain.name, p as unknown as TasteProfileInput, feedback);
+      const m = scoreStrain(strain.name, toEngineInput(p), feedback);
       return {
         world: spec.worlds[i],
         eff: m.matchScore - (spec.penalties[p.id] ?? 0),
@@ -266,7 +267,7 @@ export async function mergedMatchForStrain(
   const feedback = await getFeedbackSignals(userId);
   const veto = vetoSet(spec.profiles);
   const cands = spec.profiles.map((p, i) => {
-    const m = scoreStrain(strainName, p as unknown as TasteProfileInput, feedback);
+    const m = scoreStrain(strainName, toEngineInput(p), feedback);
     return {
       world: spec.worlds[i],
       eff: m.matchScore - (spec.penalties[p.id] ?? 0),
@@ -300,7 +301,7 @@ export function analyzeMerged(opts: {
     penalty: opts.penalties[p.id] ?? 0,
     res: analyze(
       opts.strains,
-      p as unknown as TasteProfileInput,
+      toEngineInput(p),
       opts.feedback,
       opts.overrides,
       opts.density,

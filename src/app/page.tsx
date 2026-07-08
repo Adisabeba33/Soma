@@ -26,6 +26,7 @@ import {
 import { ProfileProgressRing } from "@/components/profile-progress";
 import type { TasteProfileInput } from "@/lib/types";
 import { getTopMatches, type TopMatch } from "@/lib/top-matches";
+import { toEngineInput } from "@/lib/engine-input";
 
 export const dynamic = "force-dynamic";
 
@@ -81,7 +82,7 @@ export default async function HomePage() {
       const profile = await getActiveProfile(userId!);
       if (profile) {
         percent = profileCompleteness(
-          profile as unknown as TasteProfileInput,
+          toEngineInput(profile),
         ).percent;
       }
     } catch (err) {

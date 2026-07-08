@@ -8,6 +8,7 @@ import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
 import { profileSimilarity } from "@/lib/profile-similarity";
 import type { TasteProfileInput } from "@/lib/types";
+import { toEngineInput } from "@/lib/engine-input";
 
 export const dynamic = "force-dynamic";
 
@@ -32,8 +33,8 @@ export async function GET() {
 
   const [a, b] = pair;
   const sim = profileSimilarity(
-    a as unknown as TasteProfileInput,
-    b as unknown as TasteProfileInput,
+    toEngineInput(a),
+    toEngineInput(b),
   );
 
   return NextResponse.json({

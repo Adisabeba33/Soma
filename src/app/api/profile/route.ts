@@ -15,6 +15,7 @@ import {
   isPreferredType,
 } from "@/lib/profile-target";
 import type { TasteProfileInput } from "@/lib/types";
+import { toEngineInput } from "@/lib/engine-input";
 
 const asEnum = <T extends string>(
   value: unknown,
@@ -41,7 +42,7 @@ export async function GET(req: NextRequest) {
     ? await prisma.tasteProfile.findFirst({ where: { id, userId } })
     : await getActiveProfile(userId);
   const contradictions = profile
-    ? detectProfileContradictions(profile as unknown as TasteProfileInput)
+    ? detectProfileContradictions(toEngineInput(profile))
     : [];
   return NextResponse.json({ profile, contradictions });
 }
@@ -93,7 +94,7 @@ async function upsertProfile(req: NextRequest) {
       });
 
   const contradictions = detectProfileContradictions(
-    profile as unknown as TasteProfileInput,
+    toEngineInput(profile),
   );
   return NextResponse.json({ profile, contradictions });
 }

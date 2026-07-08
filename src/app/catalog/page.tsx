@@ -11,6 +11,7 @@ import { STRAINS } from "@/lib/strain-data";
 import type { TasteProfileInput } from "@/lib/types";
 import { CatalogClient } from "./catalog-client";
 import { FeedbackReset } from "@/components/feedback-reset";
+import { toEngineInput } from "@/lib/engine-input";
 
 export const dynamic = "force-dynamic";
 
@@ -54,7 +55,7 @@ async function loadMatches(): Promise<{
   for (const strain of STRAINS) {
     const m = scoreStrain(
       strain.name,
-      profile as unknown as TasteProfileInput,
+      toEngineInput(profile),
       feedback,
     );
     matches[strain.name] = { score: m.matchScore, category: m.category };

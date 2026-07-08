@@ -22,6 +22,7 @@ import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
 import type { AnalysisResult, TasteProfileInput, FeedbackSignal } from "@/lib/types";
 import { profileCompleteness, MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
+import { toEngineInput } from "@/lib/engine-input";
 
 export const dynamic = "force-dynamic";
 
@@ -77,7 +78,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Gate: matching needs enough of the profile to read a taste with confidence.
-  const completion = profileCompleteness(profile as unknown as TasteProfileInput);
+  const completion = profileCompleteness(toEngineInput(profile));
   if (completion.percent < MATCH_GATE_PERCENT) {
     return NextResponse.json(
       {
@@ -155,7 +156,7 @@ export async function POST(req: NextRequest) {
   const favProfiles = blend ? blend.profiles : [profile];
   const favSet = new Set<string>();
   for (const p of favProfiles) {
-    for (const f of (p as unknown as TasteProfileInput).favoriteStrains ?? []) {
+    for (const f of (toEngineInput(p)).favoriteStrains ?? []) {
       const canon = findStrain(f)?.name;
       if (canon) favSet.add(canon);
     }
@@ -231,7 +232,7 @@ export async function POST(req: NextRequest) {
     const entry = buildAuditEntry({
       source: "taste-match",
       userId,
-      profile: profile as unknown as TasteProfileInput,
+      profile: toEngineInput(profile),
       rawInputs: strains,
       matches: result.recommendations,
       closestName: closest?.strainName ?? "",
@@ -252,7 +253,7 @@ export async function POST(req: NextRequest) {
               name: blend.worlds[i],
               primary: p.id === blend.primaryId,
               penalty: blend.penalties[p.id] ?? 0,
-              profile: p as unknown as TasteProfileInput,
+              profile: toEngineInput(p),
             })),
             breakdown: mergeBreakdown ?? {},
           }

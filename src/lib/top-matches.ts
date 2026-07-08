@@ -18,6 +18,7 @@ import {
   MATCH_GATE_PERCENT,
 } from "@/lib/profile-completeness";
 import type { TasteProfileInput } from "@/lib/types";
+import { toEngineInput } from "./engine-input";
 
 export type TopMatch = {
   name: string;
@@ -37,7 +38,7 @@ export async function getTopMatches(
   try {
     const profile = await getActiveProfile(userId);
     if (!profile) return [];
-    const p = profile as unknown as TasteProfileInput;
+    const p = toEngineInput(profile);
     if (profileCompleteness(p).percent < MATCH_GATE_PERCENT) return [];
 
     const feedback = await getFeedbackSignals(userId);
