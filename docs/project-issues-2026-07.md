@@ -181,6 +181,21 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
 ### D5 — Artwork coverage: 428 strains `artStatus: none` vs 181 published — LOW (cosmetic)
 - **Fix:** ongoing artwork batches; no action needed beyond the existing flow.
 
+### D6 — `paletteForFamily` has no UI consumers; its header comment is stale — LOW (dead code / decision needed)
+- **Where:** `src/lib/sensory-family-palette.ts` (header says it drives the
+  /catalog card background) vs actual usage — `catalog-collectible-card.tsx`,
+  `catalog-client.tsx`, `top-matches.ts` all call `paletteForTime` only.
+- **What:** found while fixing D1. The catalog moved to time-of-day gradients
+  at some point; the family palette became a dormant code path, which is WHY
+  the 276-strain fallback gap went unnoticed. D1's fix makes the map correct
+  and drift-proof, but nothing renders it today.
+- **Fix (decide one):** (a) wire the family palette back in where family
+  identity matters — e.g. the strain detail page accent, a family chip on
+  cards, or the catalog family filter; or (b) delete the module and its test.
+  Given 15 curated families and per-family adjacency logic elsewhere, (a) is
+  the more product-consistent choice.
+- **Effort:** small.
+
 ---
 
 ## App / security
