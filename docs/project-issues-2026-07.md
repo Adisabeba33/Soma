@@ -88,7 +88,31 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
 
 ## Blend-target branch (`claude/blend-weighted-engine`, not wired in)
 
-### B1 — Penalty constants are huge and calibrated on one case — HIGH (for that branch)
+> **Status 2026-07:** the module now lives on THIS branch
+> (`src/lib/blend-target.ts`) with B1–B4 fixed and tests added
+> (`tests/blend-target.test.ts`, invariants derived from live catalog
+> groups — no frozen tag arrays). Calibration harness:
+> `scripts/blend-target-report.ts` (4 recipes over the full catalog +
+> symmetry + unknown-strain checks). Found during recalibration: the
+> original `desired = share × 1.5` put the 20% target on the trace tier,
+> so a background (present) note overshot HARDER than total absence
+> undershot — the "light sweet touch" dial actively punished background
+> sweetness. Replaced with `desired = √share` (20% → .45, 50% → .71,
+> 100% → 1); at 20% the tier ordering is now trace > present > absent >
+> primary. Constants settled at OVERSHOOT 34 / UNDERSHOOT 30 /
+> ON_TARGET 8, unknown-strain closeness damped ×0.5. Verified: light-
+> sweet group median 66.2 vs pure-gas 61.3 (the lift exists), cloying
+> median 5.9 (sinks), 50/50 order-independent.
+>
+> **Remaining (B5, wiring):** connecting `scoreBlendTarget` to the
+> product needs an owner decision — how the Blender's lean1/lean2 dials
+> map to shares (proposal: pair splits `(1+lean1)/2 : (1−lean1)/2` of
+> the pair mass; the third takes `lean2/3` of the total), and whether
+> the weighted model replaces best-of in blender mode or ships behind a
+> flag first. The per-world breakdown UI (mergeBreakdown) also assumes
+> best-of semantics and would need a "target fit" presentation.
+
+### B1 — Penalty constants are huge and calibrated on one case — HIGH — ✅ FIXED (see status note above)
 - **Where:** `src/lib/blend-target.ts` — `OVERSHOOT = 46`, `UNDERSHOOT = 42`,
   `ON_TARGET = 10`; the comment itself says "Calibrated on the gas+20%-sweet
   case; retune broadly against scripts/stress".
@@ -98,7 +122,10 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   blend-specific report (extend `scripts/blend-report.ts`), not one recipe.
 - **Effort:** medium.
 
-### B2 — Equal shares pick an arbitrary dominant — HIGH (for that branch)
+### B2 — Equal shares pick an arbitrary dominant — HIGH — ✅ FIXED
+> Resolved: the closeness term now applies to EVERY side symmetrically; the
+> "dominant" pick is gone entirely, so equal-share recipes are
+> order-independent (asserted in tests).
 - **Where:** `blend-target.ts` `domIdx` reduce with strict `>`.
 - **What:** at 50/50 the first member in array order becomes "dominant" and the
   other gets minor-side prominence penalties — a symmetric recipe behaves
@@ -107,7 +134,9 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   minor-side penalties for them or apply the closeness term symmetrically.
 - **Effort:** small.
 
-### B3 — Unknown strains always register as undershoot — MEDIUM
+### B3 — Unknown strains always register as undershoot — MEDIUM — ✅ FIXED
+> Resolved: prominence is measured through resolveStrain (catalog hit, else
+> keyword inference) and the closeness term is damped ×0.5 for inferred data.
 - **Where:** `blend-target.ts` `characterLevel` returns 0 when
   `findStrain(name)` misses (inferred/AI-resolved strains aren't in STRAINS).
 - **What:** any off-catalog strain is charged UNDERSHOOT for "missing" a note
@@ -116,7 +145,9 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   uses, and/or scale the closeness term by data confidence.
 - **Effort:** small-medium.
 
-### B4 — weightedFit averages post-calibration matchScore — MEDIUM
+### B4 — weightedFit averages post-calibration matchScore — MEDIUM — ✅ FIXED
+> Resolved: fit is computed from unclampedScore; anchor floors and the
+> elite-band remap no longer leak into the blend math.
 - **Where:** `blend-target.ts` (`scoreStrain(...).matchScore`).
 - **What:** matchScore has anchor floors (94–96) and the elite band remap baked
   in; averaging it re-imports those display artifacts into a new formula. A
@@ -125,7 +156,9 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   kind of use), calibrate the output scale once at the end.
 - **Effort:** small.
 
-### B5 — No tests, not wired in — MEDIUM
+### B5 — No tests, not wired in — MEDIUM — ◑ TESTS DONE, wiring pending
+> Tests added (8 invariants). Wiring into the blender path awaits the owner
+> decision described in the status note above.
 - **Where:** the branch adds `blend-target.ts` only; nothing imports it and no
   test covers `scoreBlendTarget`.
 - **Fix:** before wiring: unit tests (dominant unaffected, overshoot sinks
