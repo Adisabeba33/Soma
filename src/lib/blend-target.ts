@@ -1,0 +1,87 @@
+// Weighted-blend scoring — the "mix into one taste" model for the Taste Blender.
+//
+// The best-of merge answers "which ONE of my profiles does this strain fit
+// best?". That never composes flavours: a gassy strain and a gassy-AND-sweet
+// strain tie (both win via gas), so a "20% sweet" dial does almost nothing.
+//
+// This model instead treats the recipe as a TARGET: each profile has a desired
+// prominence set by its share (gas 60% → want it strong; sweet 20% → want just
+// a light note). For each strain we combine, per profile:
+//   • fit      — how well the strain matches that profile (the existing engine)
+//   • closeness — how near the strain's ACTUAL prominence of that profile's
+//                 character is to the desired level, penalising OVERSHOOT
+//                 (a cloying, sweet-dominant strain when you asked for a hint).
+// Minor profiles lean on closeness (so cloying sinks); the dominant leans on
+// fit (so it still needs to nail the main character). Constants are calibrated
+// against scripts/stress.
+
+import { scoreStrain } from "./taste-engine";
+import { findStrain } from "./strain-data";
+import type { TasteProfileInput, FeedbackSignal } from "./types";
+
+export type BlendMember = { profile: TasteProfileInput; share: number }; // shares sum to ~1
+
+// Tier-scaled prominence of a set of tokens in a strain: dominant=1, present=.66,
+// trace=.33, absent=0. Takes the strongest signal across the tokens.
+function characterLevel(strainName: string, tokens: string[]): number {
+  const s = findStrain(strainName);
+  if (!s || tokens.length === 0) return 0;
+  const prim = new Set([...(s.primaryAromas ?? []), ...(s.primaryFlavors ?? [])]);
+  const pres = new Set([...(s.aromas ?? []), ...(s.flavors ?? [])]);
+  const tr = new Set([...(s.traceAromas ?? []), ...(s.traceFlavors ?? [])]);
+  let best = 0;
+  for (const t of tokens) {
+    if (prim.has(t)) best = Math.max(best, 1);
+    else if (pres.has(t)) best = Math.max(best, 0.66);
+    else if (tr.has(t)) best = Math.max(best, 0.33);
+  }
+  return best;
+}
+
+const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
+
+// Signature tokens of a profile — the aromas/flavours that define its character.
+function signatureTokens(p: TasteProfileInput): string[] {
+  return Array.from(new Set([...(p.preferredAromas ?? []), ...(p.preferredFlavors ?? [])]));
+}
+
+// How hard a MINOR side is penalised for missing its target prominence.
+// Overshoot (cloying — sweet-dominant when you asked for a hint) hurts more
+// than undershoot (a touch too faint). Calibrated against scripts/stress.
+const OVERSHOOT = 46;
+const UNDERSHOOT = 20;
+
+export function scoreBlendTarget(
+  strainName: string,
+  members: BlendMember[],
+  feedback: FeedbackSignal[] = [],
+): number {
+  if (members.length === 0) return 0;
+  // The dominant side (largest share) sets the main character; every other
+  // side is a "minor" whose prominence must land near its target level.
+  const domIdx = members.reduce(
+    (best, m, i) => (m.share > members[best].share ? i : best),
+    0,
+  );
+
+  // Base = share-weighted fit across all sides (the "mix into one taste").
+  let weightedFit = 0;
+  let wsum = 0;
+  for (const m of members) {
+    weightedFit += m.share * scoreStrain(strainName, m.profile, feedback).matchScore;
+    wsum += m.share;
+  }
+  weightedFit = wsum > 0 ? weightedFit / wsum : 0;
+
+  // Subtract how far each minor side's actual prominence sits from its target
+  // — cloying over-presence and total absence both cost points.
+  let penalty = 0;
+  members.forEach((m, i) => {
+    if (i === domIdx) return;
+    const level = characterLevel(strainName, signatureTokens(m.profile)); // 0..1
+    const desired = clamp01(m.share * 1.5); // 20%→.30 (light), 33%→.50, 60%→.90
+    penalty += OVERSHOOT * Math.max(0, level - desired) + UNDERSHOOT * Math.max(0, desired - level);
+  });
+
+  return clamp01((weightedFit - penalty) / 100) * 100;
+}
