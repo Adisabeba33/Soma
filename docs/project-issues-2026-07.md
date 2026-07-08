@@ -140,16 +140,20 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   vocab-consistency test asserting palette keys ⊇ live sensoryFamily values.
 - **Effort:** small.
 
-### D2 — Audit docs describe a 439-strain catalog; live catalog is 895 — MEDIUM (data quality)
+### D2 — Audit docs are stale (describe a 439-strain catalog; live is 895, fully curated) — LOW (docs)
 - **Where:** `docs/catalog-audit.md`, `docs/lineage-audit.md`,
-  `docs/sensory-tag-audit-2026-06.md` vs `strain-data.ts` (895 records).
-- **What:** roughly half the catalog was added after the last tag/lineage
-  audits — its primary-tag quality, lineage claims and identity assignments
-  have never been swept. All plausibility conclusions from the audits only
-  cover the first half.
-- **Fix:** re-run the audit process on records added after 2026-06; update the
-  docs' counts.
-- **Effort:** large (curation), can be batched.
+  `docs/sensory-tag-audit-2026-06.md` vs `strain-data.ts` /
+  `strain-identity-data.ts`.
+- **What:** ~~half the catalog un-audited~~ — **corrected after
+  verification**: the live data IS fully curated — primaryAromas /
+  primaryFlavors / primaryEffects populated on 895/895, identity records
+  (sensoryFamily, breeder, lineage) on 895/895, sourceConfidence 261
+  high / 544 medium / 90 low. Only the audit *documents* still describe
+  the 439-strain era, so a reader (or a future review) underestimates
+  coverage — exactly what happened in the first pass of this review.
+- **Fix:** refresh the three docs' counts and dates; note that tag/identity
+  coverage reached 100% after 2026-06.
+- **Effort:** small.
 
 ### D3 — 63 "anchor" strains frozen because tests hardwire their tag arrays — MEDIUM (structural)
 - **Where:** `docs/sensory-tag-audit-2026-06.md`; engine tests with exact-array

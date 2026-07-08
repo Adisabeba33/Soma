@@ -97,20 +97,54 @@ const PALETTE: Record<string, FamilyPalette> = {
     accent: "#a7caa5",
   },
   // Candy sunset dream — pink-coral exotic, sugar-glass haze.
-  "modern-exotic": {
+  "candy-exotic": {
     background:
       "linear-gradient(155deg, #4a2a3a 0%, #2a1822 55%, #120a10 100%)",
     contentTone: "light",
     accent: "#e8a5c5",
   },
+  // Mango dusk over a warm lagoon — guava, papaya, late-holiday teal.
+  "tropical-fruit": {
+    background:
+      "linear-gradient(155deg, #1f3d3a 0%, #14262b 55%, #081114 100%)",
+    contentTone: "light",
+    accent: "#f2b25c",
+  },
+  // Scoop-shop twilight — creamy lavender gelato over cool cream.
+  "gelato-exotic": {
+    background:
+      "linear-gradient(155deg, #3a3348 0%, #221e2e 55%, #0f0c15 100%)",
+    contentTone: "light",
+    accent: "#cdb8e8",
+  },
+  // Murky funk cellar — olive gas and cheese-rind bruise.
+  "funky-exotic": {
+    background:
+      "linear-gradient(155deg, #35322a 0%, #201d24 55%, #0e0c10 100%)",
+    contentTone: "light",
+    accent: "#c8c07a",
+  },
+  // Airy equatorial haze — sun-bleached green, thin high-altitude light.
+  "haze-sativa": {
+    background:
+      "linear-gradient(160deg, #33422b 0%, #1e281a 55%, #0d120a 100%)",
+    contentTone: "light",
+    accent: "#bfdc8f",
+  },
   // Outdoor skunk funk — yellow-green pasture under overcast.
-  skunk: {
+  "skunk-funk": {
     background:
       "linear-gradient(155deg, #2f3320 0%, #1c1d12 55%, #0c0d07 100%)",
     contentTone: "light",
     accent: "#cad883",
   },
 };
+
+// Exposed for the consistency test: every live sensoryFamily value must have
+// a palette, and every palette key must correspond to a live family — a
+// renamed/split family that leaves this map stale falls back silently on the
+// catalog cards, which is exactly the drift the test exists to catch.
+export const FAMILY_PALETTE_KEYS = Object.keys(PALETTE);
 
 export function paletteForFamily(family: string | null | undefined): FamilyPalette {
   if (!family) return FALLBACK;
