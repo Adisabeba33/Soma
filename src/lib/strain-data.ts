@@ -1,4 +1,5 @@
 import type { StrainProfile } from "./types";
+import { TRACE_ENRICHMENT } from "./strain-trace-enrichment";
 
 // Curated reference dataset. SOMA is not a strain encyclopedia — this set
 // exists only to give the Taste Match Engine sensory anchors. Real batch
@@ -12668,6 +12669,34 @@ export const STRAINS: StrainProfile[] = [
 export function normalizeStrainName(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]/g, "");
 }
+
+// Merge the ground-truth trace-tag overlay onto the base catalog once, before
+// the index is built. Traces are the faint third tier of a strain's character
+// (see strain-trace-enrichment.ts) — the layer the Signature blender reads to
+// distinguish a light note from a cloying one. We union onto any existing
+// traces and DROP any token already present as a base aroma/flavor, so the
+// type contract (traceAromas disjoint from aromas) always holds.
+function applyTraceEnrichment() {
+  const byName = new Map<string, StrainProfile>();
+  for (const s of STRAINS) byName.set(normalizeStrainName(s.name), s);
+  for (const [name, add] of Object.entries(TRACE_ENRICHMENT)) {
+    const s = byName.get(normalizeStrainName(name));
+    if (!s) continue; // name drift — skip rather than crash the catalog
+    const merge = (
+      existing: string[] | undefined,
+      extra: string[] | undefined,
+      base: string[],
+    ): string[] | undefined => {
+      const baseSet = new Set(base);
+      const out = new Set(existing ?? []);
+      for (const t of extra ?? []) if (!baseSet.has(t)) out.add(t);
+      return out.size ? [...out] : existing;
+    };
+    s.traceAromas = merge(s.traceAromas, add.traceAromas, s.aromas);
+    s.traceFlavors = merge(s.traceFlavors, add.traceFlavors, s.flavors);
+  }
+}
+applyTraceEnrichment();
 
 const STRAIN_INDEX = new Map<string, StrainProfile>();
 for (const strain of STRAINS) {
