@@ -44,4 +44,34 @@ export const TRACE_ENRICHMENT: Record<string, TraceEnrichment> = {
   // Pine/spice sativa with a lemon-herbal body and, on the exhale, a faint
   // earthy sweetness/creaminess reviewers call out. Sources: Leafly, Abstrax.
   "Jack Herer": { traceFlavors: ["sweet"] },
+
+  // Sweet-cream dessert dominant, but reviews consistently note bright orange
+  // citrus on the nose and a peppery spice edge. Sources: Leafly, AllBud.
+  Gelato: { traceAromas: ["citrus"], traceFlavors: ["spicy"] },
+
+  // Gas top over sweet cream, with sugary diesel, nutty cherry and a fresh
+  // citrus zest below the dominant. Sources: Leafly, AllBud, Mood Shine.
+  "Gary Payton": { traceAromas: ["citrus", "diesel"], traceFlavors: ["nutty", "creamy", "berry"] },
+
+  // Sweet-fruit dominant (Gelato 41 × Gushers) with a resinous pine, damp
+  // earthiness and tropical undertone. Sources: Leafly, GrowDiaries, weedsearch.
+  Gushlato: { traceAromas: ["earthy", "pine"], traceFlavors: ["tropical"] },
+
+  // Candy-sweet fruit dominant with a bright citrus lift many reviews note.
+  // Sources: Leafly, AllBud.
+  Runtz: { traceAromas: ["citrus"] },
+
+  // Garlic/cheese funk over nutty cream, with a limonene citrus edge and a
+  // faint sweetness under the savoury character. Sources: Leafly, AllBud.
+  "Garlic Budder": { traceAromas: ["citrus"], traceFlavors: ["sweet"] },
+
+  // Sour earth/skunk with sweet floral; sessions open citrusy and finish on a
+  // peppery, sandalwood-herbal sweetness with a pine edge. Sources: Leafly,
+  // AllBud, Serious Seeds.
+  "AK-47": { traceAromas: ["citrus", "pine"], traceFlavors: ["sweet", "herbal"] },
+
+  // Sour Diesel × SFV OG: tart fuel + lemon over damp earth/pine, finishing on
+  // a woody kush with a minty-herbal undertone. Sources: Leafly, Strainpedia,
+  // AllBud.
+  "Sour OG": { traceAromas: ["woody"], traceFlavors: ["herbal", "woody"] },
 };

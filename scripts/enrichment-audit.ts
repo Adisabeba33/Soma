@@ -73,6 +73,6 @@ const queue = names
 
 console.log(`\nОЧЕРЕДЬ НА ОБОГАЩЕНИЕ (видимые + без trace, top-60 хоть в одном прогоне): ${queue.length} шт.`);
 console.log("".padEnd(72, "─"));
-queue.slice(0, 25).forEach((r) => {
-  console.log(`  видим#${String(r.vis).padStart(2)}  ${r.n.padEnd(22)} вторичка: ${(r.secondaryAromas.concat(r.secondaryFlavors).join(", ") || "—")}`);
+queue.forEach((r) => {
+  console.log(`${String(r.vis).padStart(3)}\t${r.n}\t${r.secondaryAromas.concat(r.secondaryFlavors).join(",") || "-"}`);
 });
