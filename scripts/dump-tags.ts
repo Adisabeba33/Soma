@@ -1,7 +1,6 @@
 import { findStrain } from "../src/lib/strain-data";
 const NAMES = [
-  "Gelato", "Millionaire", "Afternoon Delight #4", "Garlic Budder",
-  "Gushlato", "Gluttony", "Fuel Pump", "Bonfire", "Gary Payton", "Runtz",
+  "Jack Herer", "Tangie", "Cherry Pie", "Sour OG", "Zoap", "AK-47",
 ];
 for (const n of NAMES) {
   const s = findStrain(n);
@@ -13,5 +12,4 @@ for (const n of NAMES) {
   console.log(`  primaryFlavors:${(s.primaryFlavors ?? []).join(", ") || "—"}`);
   console.log(`  traceAromas:   ${(s.traceAromas ?? []).join(", ") || "—"}`);
   console.log(`  traceFlavors:  ${(s.traceFlavors ?? []).join(", ") || "—"}`);
-  console.log(`  effects:       ${(s.effects ?? []).join(", ")}`);
 }
