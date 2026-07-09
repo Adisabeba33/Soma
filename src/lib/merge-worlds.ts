@@ -24,7 +24,7 @@ import { scoreStrain, analyze } from "./taste-engine";
 import { getFeedbackSignals } from "./api";
 import { STRAINS, findStrain } from "./strain-data";
 import type {
-  TasteProfileInput,
+  Category,
   StrainMatch,
   AnalysisResult,
   FeedbackSignal,
@@ -33,12 +33,56 @@ import type {
 import type { CatalogMatch } from "./catalog";
 import type { TasteProfile } from "@prisma/client";
 import { toEngineInput } from "./engine-input";
+import { scoreBlendTarget, type BlendMember } from "./blend-target";
 
 // Pair lean: at full lean a pair member loses at most this many points — a
 // tilt, not a switch. Third admix: at lean2=0 the third is dosed down by this
 // (still slightly present), at lean2=1 it's a full equal world.
 const PAIR_CAP = 25;
 const ADMIX_CAP = 30;
+
+// ── Weighted-recipe mode (experimental, env-gated) ─────────────────────────
+// BLEND_MODEL=target switches the Taste Blender's best-of merge to the
+// weighted-recipe scorer (blend-target.ts): the dials become SHARES of one
+// composed taste instead of penalties on separate worlds. Only affects
+// blenderActive + best-of runs; balance (bridge) mode and the blender-off
+// Harvest merge keep their existing semantics. Unset (default) = no change.
+const blendTargetEnabled = () => process.env.BLEND_MODEL === "target";
+
+// Dial → share mapping, consistent with the dials' documented meaning:
+//   • the third takes lean2/3 of the total — at lean2=1 it is "a full equal
+//     world" (⅓ with a balanced pair), at 0 it vanishes from the recipe;
+//   • the pair splits the remaining mass (1+lean1)/2 : (1−lean1)/2, primary
+//     on the (1+lean1) side — lean1=0 is an even split.
+// Shares are keyed by profile id and sum to 1.
+export function leanToShares(
+  pair: { id: string }[],
+  primaryId: string,
+  lean1: number,
+  third?: { id: string } | null,
+  lean2?: number,
+): Record<string, number> {
+  const thirdShare = third ? clamp(lean2 ?? 0, 0, 1) / 3 : 0;
+  const pairMass = 1 - thirdShare;
+  const l = clamp(lean1, -1, 1);
+  const shares: Record<string, number> = {};
+  for (const p of pair) {
+    shares[p.id] = pairMass * (p.id === primaryId ? (1 + l) / 2 : (1 - l) / 2);
+  }
+  if (third) shares[third.id] = thirdShare;
+  return shares;
+}
+
+// Category from the score bands alone (thresholds mirror categorize() in
+// taste-engine.ts). The weighted-recipe score has no single "winning world"
+// whose conflict count could cap the category, so banding is the honest read.
+function bandOf(score: number): Category {
+  if (score >= 80) return "Best Match";
+  if (score >= 66) return "Closest Alternative";
+  if (score >= 50) return "Worth Trying";
+  if (score >= 36) return "Risky";
+  return "Avoid";
+}
 
 const clamp = (n: number, lo: number, hi: number) =>
   Math.max(lo, Math.min(hi, n));
@@ -73,6 +117,10 @@ export type BlendSpec = {
   blenderActive: boolean; // 3-way Taste Blender on
   balance: boolean; // true = bridge mode (min across worlds); false = best-of
   thirdName?: string; // present in blender mode
+  // Weighted-recipe shares by profile id (sum 1). Present ONLY when the
+  // BLEND_MODEL=target flag is on and this is a blenderActive best-of run —
+  // consumers switch to scoreBlendTarget when they see it.
+  shares?: Record<string, number>;
 };
 
 // Distribute the pair lean as a penalty on one side. lean>0 favours primary
@@ -151,6 +199,17 @@ export async function resolveBlend(
         blenderActive: true,
         balance,
         thirdName: worldNameOf(third, 2),
+        ...(blendTargetEnabled() && !balance
+          ? {
+              shares: leanToShares(
+                pair,
+                primary.id,
+                lean1,
+                third,
+                clamp(user.blenderLean2, 0, 1),
+              ),
+            }
+          : {}),
       };
     }
 
@@ -167,6 +226,9 @@ export async function resolveBlend(
       lean2: 0,
       blenderActive: true,
       balance,
+      ...(blendTargetEnabled() && !balance
+        ? { shares: leanToShares(pair, primary.id, lean1) }
+        : {}),
     };
   }
 
@@ -229,9 +291,30 @@ export async function mergedMatches(
   const veto = vetoSet(spec.profiles);
   const matches: Record<string, CatalogMatch> = {};
 
+  // Weighted-recipe mode (BLEND_MODEL=target): non-vetoed strains score
+  // against the recipe as one composed taste. Vetoes keep best-of semantics
+  // (sunk to the lowest world) — a dealbreaker is a dealbreaker in any model.
+  const engineInputs = spec.profiles.map(toEngineInput);
+  const members: BlendMember[] | null = spec.shares
+    ? spec.profiles.map((p, i) => ({
+        profile: engineInputs[i],
+        share: spec.shares![p.id] ?? 0,
+      }))
+    : null;
+
   for (const strain of STRAINS) {
+    if (members && !veto.has(strain.name)) {
+      const t = scoreBlendTarget(strain.name, members, feedback);
+      const score = clamp(Math.round(t), 4, 99);
+      matches[strain.name] = {
+        score,
+        category: bandOf(score),
+        sort: sortKey(score, t),
+      };
+      continue;
+    }
     const cands = spec.profiles.map((p, i) => {
-      const m = scoreStrain(strain.name, toEngineInput(p), feedback);
+      const m = scoreStrain(strain.name, engineInputs[i], feedback);
       return {
         world: spec.worlds[i],
         eff: m.matchScore - (spec.penalties[p.id] ?? 0),
@@ -266,6 +349,17 @@ export async function mergedMatchForStrain(
 
   const feedback = await getFeedbackSignals(userId);
   const veto = vetoSet(spec.profiles);
+  // Weighted-recipe mode — same rule as mergedMatches so the detail page
+  // agrees with the catalog list.
+  if (spec.shares && !veto.has(strainName)) {
+    const members: BlendMember[] = spec.profiles.map((p) => ({
+      profile: toEngineInput(p),
+      share: spec.shares![p.id] ?? 0,
+    }));
+    const t = scoreBlendTarget(strainName, members, feedback);
+    const score = clamp(Math.round(t), 4, 99);
+    return { score, category: bandOf(score), sort: sortKey(score, t) };
+  }
   const cands = spec.profiles.map((p, i) => {
     const m = scoreStrain(strainName, toEngineInput(p), feedback);
     return {
@@ -285,6 +379,11 @@ export async function mergedMatchForStrain(
 // The winning world's recommendation is kept; only matchScore reflects the
 // blend, and `world` tags its origin. `mergeBreakdown` carries raw per-world
 // scores for the audit.
+//
+// When `shares` is present (weighted-recipe mode, BLEND_MODEL=target), the
+// matchScore of non-vetoed strains comes from scoreBlendTarget instead of
+// best-of; the prose/sub-scores still come from the strongest world (the
+// closest single read we have) and mergeBreakdown stays per-world truthful.
 export function analyzeMerged(opts: {
   strains: string[];
   profiles: TasteProfile[];
@@ -294,14 +393,16 @@ export function analyzeMerged(opts: {
   density?: number;
   priorities?: { senses?: number; effect?: number };
   balance?: boolean; // bridge mode: rank by the weakest world (min)
+  shares?: Record<string, number>; // weighted-recipe shares by profile id
 }): AnalysisResult & { mergeBreakdown: MergeBreakdown } {
+  const engineInputs = opts.profiles.map(toEngineInput);
   const per = opts.profiles.map((p, i) => ({
     p,
     world: worldNameOf(p, i),
     penalty: opts.penalties[p.id] ?? 0,
     res: analyze(
       opts.strains,
-      toEngineInput(p),
+      engineInputs[i],
       opts.feedback,
       opts.overrides,
       opts.density,
@@ -335,13 +436,31 @@ export function analyzeMerged(opts: {
     const resolved = cands[0].rec.resolvedName;
     const vetoed = veto.has(resolved);
     const pick = pickWorld(cands, vetoed || Boolean(opts.balance));
-    const score = clamp(Math.round(pick.eff), 4, 99);
+    // Weighted-recipe score for non-vetoed strains; vetoes keep the
+    // lowest-world sink in every model.
+    const targetScore =
+      opts.shares && !vetoed
+        ? scoreBlendTarget(
+            key,
+            opts.profiles.map((p, i) => ({
+              profile: engineInputs[i],
+              share: opts.shares![p.id] ?? 0,
+            })),
+            opts.feedback,
+            opts.overrides,
+          )
+        : null;
+    const score =
+      targetScore !== null
+        ? clamp(Math.round(targetScore), 4, 99)
+        : clamp(Math.round(pick.eff), 4, 99);
     const avoidedBy = vetoed
       ? avoidByWorld.filter((a) => a.names.has(resolved)).map((a) => a.world)
       : [];
     recommendations.push({
       ...pick.rec,
       matchScore: score,
+      ...(targetScore !== null ? { category: bandOf(score) } : {}),
       world: pick.world,
       avoidedBy: avoidedBy.length > 0 ? avoidedBy : undefined,
     });

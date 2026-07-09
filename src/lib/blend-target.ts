@@ -33,7 +33,7 @@
 
 import { scoreStrain, resolveStrain } from "./taste-engine";
 import { primaryAromaTokens } from "./profile-target";
-import type { TasteProfileInput, FeedbackSignal } from "./types";
+import type { TasteProfileInput, FeedbackSignal, StrainProfile } from "./types";
 
 // Sweetness spans more than one forced-choice family (sweet ↔ fruit), so a
 // minor "sweet" side must also count fruity/creamy/candy prominence — else a
@@ -62,8 +62,9 @@ export type BlendMember = { profile: TasteProfileInput; share: number }; // shar
 function characterLevel(
   strainName: string,
   tokens: string[],
+  overrides?: Map<string, StrainProfile>,
 ): { level: number; known: boolean } {
-  const { strain: s, known } = resolveStrain(strainName);
+  const { strain: s, known } = resolveStrain(strainName, overrides);
   if (tokens.length === 0) return { level: 0, known };
   const prim = new Set([...(s.primaryAromas ?? []), ...(s.primaryFlavors ?? [])]);
   const pres = new Set([...(s.aromas ?? []), ...(s.flavors ?? [])]);
@@ -108,6 +109,9 @@ export function scoreBlendTarget(
   strainName: string,
   members: BlendMember[],
   feedback: FeedbackSignal[] = [],
+  // Pre-resolved profiles for off-catalog strains (the AI-inference layer at
+  // the API boundary) — same contract as scoreStrain's overrides.
+  overrides?: Map<string, StrainProfile>,
 ): number {
   if (members.length === 0) return 0;
 
@@ -116,7 +120,8 @@ export function scoreBlendTarget(
   let weightedFit = 0;
   let wsum = 0;
   for (const m of members) {
-    weightedFit += m.share * scoreStrain(strainName, m.profile, feedback).unclampedScore;
+    weightedFit +=
+      m.share * scoreStrain(strainName, m.profile, feedback, overrides).unclampedScore;
     wsum += m.share;
   }
   if (wsum <= 0) return 0;
@@ -139,7 +144,11 @@ export function scoreBlendTarget(
   // cloying dominance sinks hardest.
   let penalty = 0;
   for (const m of members) {
-    const { level, known } = characterLevel(strainName, signatureTokens(m.profile));
+    const { level, known } = characterLevel(
+      strainName,
+      signatureTokens(m.profile),
+      overrides,
+    );
     const desired = clamp01(Math.sqrt(m.share / wsum));
     const onTarget = Math.max(0, 1 - 2 * Math.abs(level - desired)); // 1 = spot on
     const memberPenalty =

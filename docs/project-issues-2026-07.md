@@ -104,13 +104,11 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
 > sweet group median 66.2 vs pure-gas 61.3 (the lift exists), cloying
 > median 5.9 (sinks), 50/50 order-independent.
 >
-> **Remaining (B5, wiring):** connecting `scoreBlendTarget` to the
-> product needs an owner decision — how the Blender's lean1/lean2 dials
-> map to shares (proposal: pair splits `(1+lean1)/2 : (1−lean1)/2` of
-> the pair mass; the third takes `lean2/3` of the total), and whether
-> the weighted model replaces best-of in blender mode or ships behind a
-> flag first. The per-world breakdown UI (mergeBreakdown) also assumes
-> best-of semantics and would need a "target fit" presentation.
+> **Wiring (B5): done behind `BLEND_MODEL=target`** — dials map to shares
+> as third = lean2/3, pair = (1+lean1)/2 : (1−lean1)/2 of the remainder.
+> Left open deliberately: the per-world breakdown UI (mergeBreakdown)
+> still tells the best-of story ("via <world>"); if the flag graduates to
+> default, that panel wants a "target fit per side" presentation.
 
 ### B1 — Penalty constants are huge and calibrated on one case — HIGH — ✅ FIXED (see status note above)
 - **Where:** `src/lib/blend-target.ts` — `OVERSHOOT = 46`, `UNDERSHOOT = 42`,
@@ -156,9 +154,16 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   kind of use), calibrate the output scale once at the end.
 - **Effort:** small.
 
-### B5 — No tests, not wired in — MEDIUM — ◑ TESTS DONE, wiring pending
-> Tests added (8 invariants). Wiring into the blender path awaits the owner
-> decision described in the status note above.
+### B5 — No tests, not wired in — MEDIUM — ✅ FIXED
+> Tests added (8 scorer invariants + 7 wiring tests in
+> blend-weighted-mode.test.ts). Wired behind the BLEND_MODEL=target env flag
+> (documented in .env.example): resolveBlend computes shares via
+> leanToShares (third = lean2/3 of the total; pair splits the remainder
+> (1+lean1)/2 : (1−lean1)/2), and mergedMatches / mergedMatchForStrain /
+> analyzeMerged score non-vetoed strains with scoreBlendTarget when shares
+> are present. Vetoes keep the lowest-world sink; balance mode and the
+> blender-off merge are untouched. Default (flag unset) behaviour unchanged
+> — asserted by tests.
 - **Where:** the branch adds `blend-target.ts` only; nothing imports it and no
   test covers `scoreBlendTarget`.
 - **Fix:** before wiring: unit tests (dominant unaffected, overshoot sinks

@@ -81,6 +81,7 @@ export async function POST(req: NextRequest) {
       feedback,
       overrides,
       balance: blend.balance,
+      shares: blend.shares,
     });
     const byName = new Map(m.recommendations.map((r) => [r.strainName, r]));
     matches = strains.map(
