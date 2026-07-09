@@ -7,9 +7,12 @@ export const meta = {
   ],
 }
 
-const QUEUE_PATH = args.queuePath
-const TOTAL = args.total
-const BATCH = args.batchSize || 5
+// args may arrive as a JSON string rather than a parsed object — normalize.
+const A = typeof args === 'string' ? JSON.parse(args) : (args || {})
+const QUEUE_PATH = A.queuePath
+const TOTAL = A.total
+const BATCH = A.batchSize || 5
+if (!QUEUE_PATH || !TOTAL) throw new Error(`bad args: queuePath=${QUEUE_PATH} total=${TOTAL}`)
 const AROMA_VOCAB = 'gassy, diesel, earthy, pine, citrus, sweet, fruity, berry, tropical, floral, herbal, spicy, woody, skunky, cheese, creamy, vanilla, mint, grape'
 const FLAVOR_VOCAB = 'gassy, earthy, citrus, sweet, fruity, berry, tropical, pine, spicy, herbal, creamy, woody, nutty, mint, grape, vanilla, diesel, floral, cheese'
 
