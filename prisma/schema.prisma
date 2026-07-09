@@ -36,6 +36,12 @@ model User {
   // (min — strains strong across ALL sides at once, the "bridge"). Leans don't
   // apply in balance mode (it weighs every world equally).
   blenderBalance Boolean @default(false)
+  // Blend engine mode (supersedes the boolean above as a 3-way choice):
+  //   "explorer"  = best-of / max (widest — best under any one side)
+  //   "signature" = weighted-target (compose one taste, penalise overshoot)
+  //   "harmony"   = min / bridge (strong across ALL sides at once)
+  // Additive, defaulted so existing rows and un-migrated reads stay valid.
+  blenderMode String @default("explorer")
 
   tasteProfiles    TasteProfile[]
   analysisSessions AnalysisSession[]
