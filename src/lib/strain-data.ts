@@ -1,5 +1,6 @@
 import type { StrainProfile } from "./types";
 import { TRACE_ENRICHMENT } from "./strain-trace-enrichment";
+import { TRACE_ENRICHMENT_GENERATED } from "./strain-trace-enrichment.generated";
 
 // Curated reference dataset. SOMA is not a strain encyclopedia — this set
 // exists only to give the Taste Match Engine sensory anchors. Real batch
@@ -12679,7 +12680,10 @@ export function normalizeStrainName(name: string): string {
 function applyTraceEnrichment() {
   const byName = new Map<string, StrainProfile>();
   for (const s of STRAINS) byName.set(normalizeStrainName(s.name), s);
-  for (const [name, add] of Object.entries(TRACE_ENRICHMENT)) {
+  // Machine-generated (workflow-verified) overlay first, hand-curated second —
+  // both only ADD faint notes, so the result is their union either way.
+  const combined = { ...TRACE_ENRICHMENT_GENERATED, ...TRACE_ENRICHMENT };
+  for (const [name, add] of Object.entries(combined)) {
     const s = byName.get(normalizeStrainName(name));
     if (!s) continue; // name drift — skip rather than crash the catalog
     const merge = (
