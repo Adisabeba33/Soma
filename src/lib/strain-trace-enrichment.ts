@@ -74,4 +74,32 @@ export const TRACE_ENRICHMENT: Record<string, TraceEnrichment> = {
   // a woody kush with a minty-herbal undertone. Sources: Leafly, Strainpedia,
   // AllBud.
   "Sour OG": { traceAromas: ["woody"], traceFlavors: ["herbal", "woody"] },
+
+  // Sweet-cream dessert with sugared-violet florals, orange/lemon citrus, a
+  // small pinene note and herbal/peppery (linalool/caryophyllene) undertones.
+  // Sources: True Terpenes, Verano, strngseeds.
+  "Gelato 33": { traceAromas: ["floral", "pine"], traceFlavors: ["herbal", "spicy"] },
+
+  // Candy fruit dominant, but sources note tropical citrus (mango/papaya) up
+  // top and an earthy/herbal humulene backbone with gentle spice. Sources:
+  // Abstrax, CannaConnection, Gold Coast Terpenes.
+  Zkittlez: { traceAromas: ["citrus", "earthy"], traceFlavors: ["herbal", "spicy"] },
+
+  // Tangy vanilla cake with a subtle citrus/lemon twist and a peppery-spice
+  // (caryophyllene) finish under the sweetness. Sources: Leafly, AllBud, DNA.
+  "Wedding Cake": { traceAromas: ["citrus"], traceFlavors: ["citrus", "spicy"] },
+
+  // Pineapple-tropical dominant with subtle earthy pine, floral sweetness and a
+  // herbal/peppery exhale. Sources: AllBud, Strainpedia, JointCommerce.
+  "Maui Wowie": { traceAromas: ["pine", "earthy", "floral"], traceFlavors: ["herbal", "spicy"] },
+
+  // Sweet fruit/berry candy over a kushy base — reviews consistently note
+  // earthy/cedar undertones, a light gas note and a mild peppery snap with
+  // vanilla cream. Sources: AllBud, Alien Labs, Strainpedia.
+  Gushers: { traceAromas: ["earthy", "gassy", "citrus"], traceFlavors: ["creamy", "spicy"] },
+
+  // Strawberry-banana cream dominant with, from its Kush heritage, subtle
+  // earthy/hash spice and a limonene citrus undertone. Sources: DNA Genetics,
+  // Strainpedia, Medical Terpenes.
+  "Strawberry Banana": { traceAromas: ["earthy", "citrus"], traceFlavors: ["spicy"] },
 };
