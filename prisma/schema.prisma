@@ -12,8 +12,8 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String?  @unique
+  id            String    @id @default(uuid())
+  email         String?   @unique
   // Account fields (real registration). All optional so existing anonymous-
   // cookie users stay valid; a User becomes "registered" when username/
   // passwordHash are set on its existing row, so its history carries over.
@@ -21,17 +21,17 @@ model User {
   username      String?   @unique
   passwordHash  String?
   emailVerified DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   // Taste Blender — a virtual "4th profile" that mixes all three real profiles.
   // blenderActive makes it the profile that drives every surface (Harvest,
   // Collection, Taste Match, dashboard). lean1 is the lean inside the merged
   // pair (−1…+1); lean2 is how much the third profile is blended in (0…1).
   // Only meaningful with 3 profiles (2 merged into the pair, 1 the third).
-  blenderActive Boolean @default(false)
-  blenderLean1  Float   @default(0)
-  blenderLean2  Float   @default(0)
+  blenderActive  Boolean @default(false)
+  blenderLean1   Float   @default(0)
+  blenderLean2   Float   @default(0)
   // Blend mode: false = best-of (max — best under any one side); true = balance
   // (min — strains strong across ALL sides at once, the "bridge"). Leans don't
   // apply in balance mode (it weighs every world equally).
@@ -41,7 +41,7 @@ model User {
   //   "signature" = weighted-target (compose one taste, penalise overshoot)
   //   "harmony"   = min / bridge (strong across ALL sides at once)
   // Additive, defaulted so existing rows and un-migrated reads stay valid.
-  blenderMode String @default("explorer")
+  blenderMode    String  @default("explorer")
 
   tasteProfiles    TasteProfile[]
   analysisSessions AnalysisSession[]
@@ -102,9 +102,9 @@ model TasteProfile {
   lookingFor         String?  @default("similar") // "similar" replacement or "new" experience
   // Forced-choice dimensions (see src/lib/profile-target.ts). Nullable so
   // existing rows stay valid; drive the scoring target directly when present.
-  primaryAroma       String?  // gas | earthfunk | citrus | sweet | fruit | pineherb
-  primaryEffect      String?  // calm | knockout | social | lifted | sharp
-  useTime            String?  // morning | daytime | evening | bed
+  primaryAroma       String? // gas | earthfunk | citrus | sweet | fruit | pineherb
+  primaryEffect      String? // calm | knockout | social | lifted | sharp
+  useTime            String? // morning | daytime | evening | bed
   // How the person consumes. Legacy single value (smokingMethod) kept for
   // back-compat; smokingMethods is the multi-select successor. Values: joint |
   // blunt | pipe | bong | vape. Nullable / default-empty so old rows stay valid.
@@ -115,8 +115,8 @@ model TasteProfile {
   budStructure       String?
   // Preferred plant type: indica | sativa | hybrid | any. Soft signal, nullable.
   preferredType      String?
-  bodyFeel           Int?     // 0 (clear/light) .. 100 (heavy/couch-lock)
-  potencyPreference  String?  // mild | balanced | strong (how hard-hitting)
+  bodyFeel           Int? // 0 (clear/light) .. 100 (heavy/couch-lock)
+  potencyPreference  String? // mild | balanced | strong (how hard-hitting)
   // Strain "families" the user seeks out / usually avoids (buying behaviour,
   // distinct from sensory match). Named-family keys; see src/lib/strain-families.ts.
   preferredFamilies  String[] @default([])
@@ -135,20 +135,20 @@ model TasteProfile {
 }
 
 model AnalysisSession {
-  id             String   @id @default(uuid())
+  id             String        @id @default(uuid())
   userId         String
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   tasteProfileId String?
   tasteProfile   TasteProfile? @relation(fields: [tasteProfileId], references: [id], onDelete: SetNull)
-  inputType      String   // manual | paste | screenshot
+  inputType      String // manual | paste | screenshot
   rawInput       String
-  saved          Boolean  @default(false)
+  saved          Boolean       @default(false)
   title          String?
-  engine         String   @default("builtin") // builtin | openai
-  parsedItems    Json?    // ParsedMenuItem[] captured from the menu parser
-  parserWarnings String[] @default([]) // distinct warning strings surfaced by the parser
-  menuQuality    Json?    // { totalParsed, unclearRows, unknownStrains, avgConfidence }
-  createdAt      DateTime @default(now())
+  engine         String        @default("builtin") // builtin | openai
+  parsedItems    Json? // ParsedMenuItem[] captured from the menu parser
+  parserWarnings String[]      @default([]) // distinct warning strings surfaced by the parser
+  menuQuality    Json? // { totalParsed, unclearRows, unknownStrains, avgConfidence }
+  createdAt      DateTime      @default(now())
 
   recommendations Recommendation[]
   unknownStrains  UnknownStrain[]
@@ -157,15 +157,15 @@ model AnalysisSession {
 }
 
 model Recommendation {
-  id                 String   @id @default(uuid())
+  id                 String          @id @default(uuid())
   sessionId          String
   session            AnalysisSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
   strainName         String
   resolvedName       String
-  knownStrain        Boolean  @default(true)
-  category           String   // Best Match | Closest Alternative | Worth Trying | Risky | Avoid
-  matchScore         Int      // sensory match (0–99)
-  confidence         String   // sensory confidence: low | medium | high
+  knownStrain        Boolean         @default(true)
+  category           String // Best Match | Closest Alternative | Worth Trying | Risky | Avoid
+  matchScore         Int // sensory match (0–99)
+  confidence         String // sensory confidence: low | medium | high
   aromaMatch         Int
   flavorMatch        Int
   effectMatch        Int
@@ -176,7 +176,7 @@ model Recommendation {
   // Second axis — see src/lib/purchase-confidence.ts. Nullable so old rows
   // stay valid; readers default to all-"unknown".
   purchaseConfidence Json?
-  createdAt          DateTime @default(now())
+  createdAt          DateTime        @default(now())
 
   feedback Feedback[]
 
@@ -184,16 +184,16 @@ model Recommendation {
 }
 
 model Feedback {
-  id               String   @id @default(uuid())
+  id               String         @id @default(uuid())
   userId           String
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user             User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   recommendationId String
   recommendation   Recommendation @relation(fields: [recommendationId], references: [id], onDelete: Cascade)
   purchased        Boolean?
   liked            Boolean?
   rating           Int?
   notes            String?
-  createdAt        DateTime @default(now())
+  createdAt        DateTime       @default(now())
 
   @@index([userId])
   @@index([recommendationId])
@@ -214,7 +214,7 @@ model StrainFeedback {
   id         String   @id @default(uuid())
   userId     String
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  strainName String   // resolved canonical name
+  strainName String // resolved canonical name
   verdict    String
   source     String?
   createdAt  DateTime @default(now())
@@ -241,7 +241,7 @@ model Wishlist {
   id         String   @id @default(uuid())
   userId     String
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  strainName String   // resolved canonical name (same resolution as StrainFeedback)
+  strainName String // resolved canonical name (same resolution as StrainFeedback)
   source     String?
   createdAt  DateTime @default(now())
 
@@ -255,20 +255,20 @@ model Wishlist {
 // (normalizedName, growerKey) so a recurring "Gelato" doesn't blow up the
 // table — repeats bump `occurrences` and `lastSeenAt` instead.
 model UnknownStrain {
-  id             String   @id @default(uuid())
+  id             String           @id @default(uuid())
   userId         String
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   sessionId      String?
   session        AnalysisSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
   rawName        String
   normalizedName String
   grower         String?
-  growerKey      String   @default("")
+  growerKey      String           @default("")
   rawLine        String?
-  occurrences    Int      @default(1)
-  firstSeenAt    DateTime @default(now())
-  lastSeenAt     DateTime @default(now())
-  createdAt      DateTime @default(now())
+  occurrences    Int              @default(1)
+  firstSeenAt    DateTime         @default(now())
+  lastSeenAt     DateTime         @default(now())
+  createdAt      DateTime         @default(now())
 
   @@unique([userId, normalizedName, growerKey])
   @@index([userId])
@@ -284,12 +284,12 @@ model UnknownStrain {
 // so it survives serverless deploys (Vercel filesystem is ephemeral).
 // Owner-only via /api/audit/export.
 model RunAudit {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  source    String   // "compare" | "taste-match"
-  runAt     DateTime @default(now())
-  snapshot  Json
+  id       String   @id @default(uuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  source   String // "compare" | "taste-match"
+  runAt    DateTime @default(now())
+  snapshot Json
 
   @@index([userId])
   @@index([runAt])
