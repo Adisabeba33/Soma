@@ -216,7 +216,17 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   coverage reached 100% after 2026-06.
 - **Effort:** small.
 
-### D3 — 63 "anchor" strains frozen because tests hardwire their tag arrays — MEDIUM (structural)
+### D3 — 63 "anchor" strains frozen because tests hardwire their tag arrays — MEDIUM (structural) — ✅ FIXED
+> Resolved by splitting the two concerns the old tests glued together:
+> (1) MECHANICS — tag-weighting tests now run on synthetic fixtures through
+> scoreStrain's overrides path (off-catalog names), so curation can never
+> break them; (2) DATA GUARD — 12 reference strains' exact tags live in an
+> explicit snapshot (tests/fixtures/anchor-tags.json) with a one-command
+> regenerator (scripts/update-anchor-snapshot.ts) — accidental damage fails
+> loudly, deliberate curation is a reviewed snapshot diff. Proven end to
+> end: the same GG4/Sour Diesel edit that used to break mechanics tests now
+> fails ONLY the guard. Plus a new catalog-wide invariant: every strain
+> carries primaries (895/895).
 - **Where:** `docs/sensory-tag-audit-2026-06.md`; engine tests with exact-array
   assertions.
 - **What:** test fixtures constrain data curation — the most important strains

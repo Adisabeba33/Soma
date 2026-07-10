@@ -33,6 +33,13 @@ essentially absent across the long tail of the catalog.
 | **Audited (targets)** | **377** | corrected tags + populated `primary*` |
 | **Anchors (excluded)** | **63** | left byte-for-byte untouched |
 
+> **Update (2026-07-10): the anchor freeze is lifted.** The tag-mechanics
+> tests now run on synthetic fixtures (via the engine's `overrides` path),
+> and the reference strains are guarded by an explicit snapshot instead
+> (`tests/anchor-tags-guard.test.ts` + `scripts/update-anchor-snapshot.ts`).
+> Anchors can be curated again — a deliberate edit means regenerating the
+> snapshot in one command; an accidental edit still fails loudly.
+
 **Why the 63 anchors were excluded.** A pilot on 20 famous strains (GG4, Blue
 Dream, Green Crack, …) broke 13 engine tests: the scoring test suite hardwires
 the exact tag arrays of those strains as invariants (e.g. `tag-weighting`,

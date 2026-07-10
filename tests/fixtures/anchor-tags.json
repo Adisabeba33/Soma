@@ -1,0 +1,508 @@
+{
+  "GG4": {
+    "type": "hybrid",
+    "potency": "very-strong",
+    "aromas": [
+      "gassy",
+      "earthy",
+      "pine",
+      "diesel"
+    ],
+    "primaryAromas": [
+      "gassy",
+      "earthy"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "earthy",
+      "pine",
+      "gassy"
+    ],
+    "primaryFlavors": [
+      "gassy",
+      "earthy"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "relaxed",
+      "euphoric",
+      "body-heavy",
+      "happy",
+      "calm"
+    ],
+    "primaryEffects": [
+      "relaxed",
+      "body-heavy"
+    ],
+    "traits": [
+      "gassy",
+      "earthy",
+      "sticky",
+      "loud-smell",
+      "heavy-body",
+      "frosty",
+      "potent"
+    ]
+  },
+  "Sour Diesel": {
+    "type": "sativa",
+    "potency": "strong",
+    "aromas": [
+      "diesel",
+      "gassy",
+      "citrus",
+      "skunky"
+    ],
+    "primaryAromas": [
+      "diesel",
+      "gassy"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "gassy",
+      "citrus",
+      "herbal"
+    ],
+    "primaryFlavors": [
+      "gassy",
+      "citrus"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "energetic",
+      "uplifted",
+      "euphoric",
+      "head-high",
+      "creative"
+    ],
+    "primaryEffects": [
+      "energetic",
+      "uplifted"
+    ],
+    "traits": [
+      "gassy",
+      "loud-smell",
+      "terpy",
+      "potent"
+    ]
+  },
+  "OG Kush": {
+    "type": "hybrid",
+    "potency": "strong",
+    "aromas": [
+      "gassy",
+      "earthy",
+      "pine",
+      "woody"
+    ],
+    "primaryAromas": [
+      "gassy",
+      "earthy"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "earthy",
+      "pine",
+      "woody",
+      "gassy"
+    ],
+    "primaryFlavors": [
+      "gassy",
+      "earthy"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "relaxed",
+      "euphoric",
+      "happy",
+      "body-heavy",
+      "calm"
+    ],
+    "primaryEffects": [
+      "relaxed",
+      "euphoric"
+    ],
+    "traits": [
+      "gassy",
+      "earthy",
+      "loud-smell",
+      "dense-buds",
+      "potent"
+    ]
+  },
+  "Chemdawg": {
+    "type": "hybrid",
+    "potency": "very-strong",
+    "aromas": [
+      "diesel",
+      "gassy",
+      "skunky",
+      "earthy",
+      "pine"
+    ],
+    "primaryAromas": [
+      "diesel",
+      "gassy"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "diesel",
+      "earthy",
+      "gassy"
+    ],
+    "primaryFlavors": [
+      "diesel",
+      "gassy"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "euphoric",
+      "relaxed",
+      "happy",
+      "head-high",
+      "calm"
+    ],
+    "primaryEffects": [
+      "euphoric",
+      "head-high"
+    ],
+    "traits": [
+      "gassy",
+      "loud-smell",
+      "sticky",
+      "potent"
+    ]
+  },
+  "Blue Dream": {
+    "type": "hybrid",
+    "potency": "moderate",
+    "aromas": [
+      "berry",
+      "sweet",
+      "herbal",
+      "fruity"
+    ],
+    "primaryAromas": [
+      "berry",
+      "sweet"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "berry",
+      "sweet",
+      "fruity"
+    ],
+    "primaryFlavors": [
+      "berry",
+      "sweet"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "happy",
+      "uplifted",
+      "relaxed",
+      "creative",
+      "calm"
+    ],
+    "primaryEffects": [
+      "happy",
+      "uplifted"
+    ],
+    "traits": [
+      "smooth",
+      "terpy"
+    ]
+  },
+  "Green Crack": {
+    "type": "sativa",
+    "potency": "strong",
+    "aromas": [
+      "citrus",
+      "fruity",
+      "tropical",
+      "earthy"
+    ],
+    "primaryAromas": [
+      "citrus",
+      "tropical"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "citrus",
+      "fruity",
+      "tropical"
+    ],
+    "primaryFlavors": [
+      "citrus",
+      "tropical"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "energetic",
+      "focused",
+      "uplifted",
+      "happy",
+      "head-high"
+    ],
+    "primaryEffects": [
+      "energetic",
+      "focused"
+    ],
+    "traits": [
+      "loud-smell",
+      "terpy"
+    ]
+  },
+  "Northern Lights": {
+    "type": "indica",
+    "potency": "strong",
+    "aromas": [
+      "earthy",
+      "pine",
+      "sweet",
+      "spicy"
+    ],
+    "primaryAromas": [
+      "earthy",
+      "pine"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "sweet",
+      "earthy",
+      "pine"
+    ],
+    "primaryFlavors": [
+      "sweet",
+      "earthy"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "relaxed",
+      "sleepy",
+      "body-heavy",
+      "happy",
+      "calm"
+    ],
+    "primaryEffects": [
+      "relaxed",
+      "sleepy"
+    ],
+    "traits": [
+      "earthy",
+      "dense-buds",
+      "smooth",
+      "heavy-body"
+    ]
+  },
+  "Granddaddy Purple": {
+    "type": "indica",
+    "potency": "strong",
+    "aromas": [
+      "berry",
+      "sweet",
+      "floral",
+      "fruity"
+    ],
+    "primaryAromas": [
+      "berry",
+      "sweet"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "grape",
+      "berry",
+      "sweet"
+    ],
+    "primaryFlavors": [
+      "grape",
+      "berry"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "relaxed",
+      "sleepy",
+      "body-heavy",
+      "couch-lock",
+      "happy"
+    ],
+    "primaryEffects": [
+      "sleepy",
+      "couch-lock"
+    ],
+    "traits": [
+      "dense-buds",
+      "smooth",
+      "heavy-body",
+      "frosty"
+    ]
+  },
+  "Wedding Cake": {
+    "type": "hybrid",
+    "potency": "very-strong",
+    "aromas": [
+      "sweet",
+      "earthy",
+      "creamy",
+      "spicy"
+    ],
+    "primaryAromas": [
+      "sweet",
+      "earthy"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "sweet",
+      "vanilla",
+      "earthy",
+      "creamy"
+    ],
+    "primaryFlavors": [
+      "sweet",
+      "vanilla"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "relaxed",
+      "euphoric",
+      "happy",
+      "body-heavy",
+      "calm"
+    ],
+    "primaryEffects": [
+      "relaxed",
+      "euphoric"
+    ],
+    "traits": [
+      "frosty",
+      "dense-buds",
+      "sticky",
+      "potent",
+      "terpy"
+    ]
+  },
+  "Zkittlez": {
+    "type": "indica",
+    "potency": "moderate",
+    "aromas": [
+      "fruity",
+      "sweet",
+      "berry",
+      "tropical"
+    ],
+    "primaryAromas": [
+      "fruity",
+      "sweet"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "fruity",
+      "sweet",
+      "berry",
+      "tropical"
+    ],
+    "primaryFlavors": [
+      "fruity",
+      "berry"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "relaxed",
+      "happy",
+      "calm",
+      "euphoric",
+      "uplifted"
+    ],
+    "primaryEffects": [
+      "relaxed",
+      "happy"
+    ],
+    "traits": [
+      "terpy",
+      "frosty",
+      "smooth"
+    ]
+  },
+  "Jack Herer": {
+    "type": "sativa",
+    "potency": "strong",
+    "aromas": [
+      "pine",
+      "spicy",
+      "earthy",
+      "herbal",
+      "citrus"
+    ],
+    "primaryAromas": [
+      "pine",
+      "spicy"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "pine",
+      "spicy",
+      "citrus",
+      "herbal"
+    ],
+    "primaryFlavors": [
+      "pine",
+      "spicy"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "uplifted",
+      "focused",
+      "creative",
+      "energetic",
+      "happy"
+    ],
+    "primaryEffects": [
+      "uplifted",
+      "focused"
+    ],
+    "traits": [
+      "terpy",
+      "loud-smell"
+    ]
+  },
+  "Skunk #1": {
+    "type": "hybrid",
+    "potency": "moderate",
+    "aromas": [
+      "skunky",
+      "earthy",
+      "sweet",
+      "spicy"
+    ],
+    "primaryAromas": [
+      "skunky",
+      "earthy"
+    ],
+    "traceAromas": [],
+    "flavors": [
+      "earthy",
+      "sweet",
+      "spicy"
+    ],
+    "primaryFlavors": [
+      "earthy",
+      "sweet"
+    ],
+    "traceFlavors": [],
+    "effects": [
+      "uplifted",
+      "happy",
+      "relaxed",
+      "creative",
+      "hungry"
+    ],
+    "primaryEffects": [
+      "uplifted",
+      "happy"
+    ],
+    "traits": [
+      "loud-smell",
+      "earthy"
+    ]
+  }
+}
