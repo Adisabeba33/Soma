@@ -26,6 +26,7 @@ async function readState(userId: string) {
         blenderLean1: true,
         blenderLean2: true,
         blenderBalance: true,
+        blenderMode: true,
       },
     }),
     prisma.tasteProfile.findMany({
@@ -75,11 +76,23 @@ async function readState(userId: string) {
   const effects = (p: Prof) =>
     top(p.primaryEffect ? [p.primaryEffect] : [], p.preferredEffects);
 
+  // 3-way mode (explorer | signature | harmony), defaulting from the legacy
+  // boolean so un-migrated rows keep their behaviour. `balance` kept for older
+  // clients but `mode` is authoritative.
+  const rawMode = user?.blenderMode;
+  const mode: "explorer" | "signature" | "harmony" =
+    rawMode === "explorer" || rawMode === "signature" || rawMode === "harmony"
+      ? rawMode
+      : user?.blenderBalance
+        ? "harmony"
+        : "explorer";
+
   return {
     active,
     ready,
     threeWay,
-    balance: user?.blenderBalance ?? false,
+    mode,
+    balance: mode === "harmony",
     lean1: user?.blenderLean1 ?? 0,
     lean2: user?.blenderLean2 ?? 0,
     profileCount: profiles.length,
@@ -116,10 +129,24 @@ export async function PATCH(req: NextRequest) {
     blenderLean1?: number;
     blenderLean2?: number;
     blenderBalance?: boolean;
+    blenderMode?: string;
   } = {};
 
   if (typeof body.active === "boolean") data.blenderActive = body.active;
-  if (typeof body.balance === "boolean") data.blenderBalance = body.balance;
+  // Legacy boolean first; the 3-way `mode` (if sent) wins and keeps the boolean
+  // in sync so older read paths stay correct.
+  if (typeof body.balance === "boolean") {
+    data.blenderBalance = body.balance;
+    data.blenderMode = body.balance ? "harmony" : "explorer";
+  }
+  if (
+    body.mode === "explorer" ||
+    body.mode === "signature" ||
+    body.mode === "harmony"
+  ) {
+    data.blenderMode = body.mode;
+    data.blenderBalance = body.mode === "harmony";
+  }
   const l1 = clampNum(body.lean1, -1, 1);
   if (l1 !== null) data.blenderLean1 = l1;
   const l2 = clampNum(body.lean2, 0, 1);

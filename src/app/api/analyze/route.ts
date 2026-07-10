@@ -125,6 +125,8 @@ export async function POST(req: NextRequest) {
       density: densityPreference,
       priorities,
       balance: blend.balance,
+      mode: blend.mode,
+      shares: blend.shares,
     });
     result = m;
     mergeBreakdown = m.mergeBreakdown;

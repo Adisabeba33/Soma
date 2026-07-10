@@ -42,6 +42,7 @@ type State = {
   ready: boolean;
   threeWay: boolean;
   balance: boolean;
+  mode: "explorer" | "signature" | "harmony";
   lean1: number;
   lean2: number;
   profileCount: number;
@@ -140,7 +141,13 @@ export function TasteBlenderBlock() {
   const mainPct = Math.round((pairTotal * (1 + s.lean1)) / 2);
   const otherPct = pairTotal - mainPct;
 
-  const explorer = !s.balance;
+  const mode: "explorer" | "signature" | "harmony" =
+    s.mode ?? (s.balance ? "harmony" : "explorer");
+  const explorer = mode === "explorer";
+  const signature = mode === "signature";
+  // Explorer and Signature both use the leans (best-of tilt / target dose);
+  // Harmony ignores them (weakest-side bridge), so the arcs go quiet there.
+  const leansActive = mode !== "harmony";
 
   return (
     <section>
@@ -166,24 +173,26 @@ export function TasteBlenderBlock() {
           live={s.active}
           lean1={s.lean1}
           lean2={s.lean2}
-          explorer={explorer}
+          explorer={leansActive}
           onLean1={(v) => patch({ lean1: v })}
           onLean2={(v) => patch({ lean2: v })}
         />
 
-        {!explorer && (
+        {signature && (
+          <p className="mt-1 rounded-2xl bg-brass/10 px-4 py-2.5 text-xs leading-relaxed text-foreground">
+            <span className="font-medium">Signature composes one taste from your recipe.</span>{" "}
+            The leans set each note&apos;s dose — a light touch stays light, overpowering picks sink.
+          </p>
+        )}
+        {mode === "harmony" && (
           <p className="mt-1 rounded-2xl bg-brass/10 px-4 py-2.5 text-xs leading-relaxed text-foreground">
             <span className="font-medium">Harmony weighs every profile equally.</span>{" "}
             Leans don&apos;t apply — a strain is only as good as its weakest side.
           </p>
         )}
 
-        {/* Explorer / Harmony — compact segmented control */}
-        <SelectionToggle
-          explorer={explorer}
-          onExplorer={() => patch({ balance: false })}
-          onHarmony={() => patch({ balance: true })}
-        />
+        {/* Explorer / Signature / Harmony — compact segmented control */}
+        <SelectionToggle mode={mode} onMode={(m) => patch({ mode: m })} />
 
         {/* CTA */}
         <Link
@@ -642,23 +651,22 @@ function Circle({
   );
 }
 
-// ── Explorer / Harmony — compact segmented pill ──────────────────────────
+// ── Explorer / Signature / Harmony — compact segmented pill ──────────────
 function SelectionToggle({
-  explorer,
-  onExplorer,
-  onHarmony,
+  mode,
+  onMode,
 }: {
-  explorer: boolean;
-  onExplorer: () => void;
-  onHarmony: () => void;
+  mode: "explorer" | "signature" | "harmony";
+  onMode: (m: "explorer" | "signature" | "harmony") => void;
 }) {
   return (
     <div
-      className="mt-4 grid grid-cols-2 gap-1 rounded-full p-1"
+      className="mt-4 grid grid-cols-3 gap-1 rounded-[22px] p-1"
       style={{ border: "1px solid rgba(190,155,90,0.25)", background: "rgba(244,235,220,0.5)" }}
     >
-      <Segment Icon={Compass} title="Explorer" sub="Strongest matches" selected={explorer} onClick={onExplorer} />
-      <Segment Icon={Scale} title="Harmony" sub="Balanced fits" selected={!explorer} onClick={onHarmony} />
+      <Segment Icon={Compass} title="Explorer" sub="Strongest" selected={mode === "explorer"} onClick={() => onMode("explorer")} />
+      <Segment Icon={Blend} title="Signature" sub="Your recipe" selected={mode === "signature"} onClick={() => onMode("signature")} />
+      <Segment Icon={Scale} title="Harmony" sub="Bridge" selected={mode === "harmony"} onClick={() => onMode("harmony")} />
     </div>
   );
 }
@@ -682,7 +690,7 @@ function Segment({
       onClick={onClick}
       aria-pressed={selected}
       className={cn(
-        "soma-ease flex items-center justify-center gap-2 rounded-full px-3 py-2.5 text-left transition-all",
+        "soma-ease flex flex-col items-center justify-center gap-1 rounded-[18px] px-2 py-2 text-center transition-all",
         selected ? "shadow-[0_4px_12px_-6px_rgba(120,92,40,0.4)]" : "",
       )}
       style={
@@ -698,11 +706,11 @@ function Segment({
       />
       <span className="min-w-0">
         <span
-          className={cn("block font-display text-[15px] font-semibold leading-tight", selected ? "text-foreground" : "text-[rgba(31,27,22,0.5)]")}
+          className={cn("block font-display text-[13.5px] font-semibold leading-tight", selected ? "text-foreground" : "text-[rgba(31,27,22,0.5)]")}
         >
           {title}
         </span>
-        <span className="block text-[11px] leading-tight [@media(max-height:760px)]:hidden" style={{ color: selected ? T.muted : "rgba(31,27,22,0.4)" }}>
+        <span className="block text-[10.5px] leading-tight [@media(max-height:760px)]:hidden" style={{ color: selected ? T.muted : "rgba(31,27,22,0.4)" }}>
           {sub}
         </span>
       </span>

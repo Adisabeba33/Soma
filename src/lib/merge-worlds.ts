@@ -21,6 +21,7 @@
 
 import { prisma } from "./prisma";
 import { scoreStrain, analyze } from "./taste-engine";
+import { scoreBlendTarget, type BlendMember } from "./blend-target";
 import { getFeedbackSignals } from "./api";
 import { STRAINS, findStrain } from "./strain-data";
 import type {
@@ -29,9 +30,37 @@ import type {
   AnalysisResult,
   FeedbackSignal,
   StrainProfile,
+  Category,
 } from "./types";
 import type { CatalogMatch } from "./catalog";
 import type { TasteProfile } from "@prisma/client";
+
+// Blend engine mode — the three ways to combine the worlds:
+//   explorer  = best-of / max (widest — best under any one side)
+//   signature = weighted-target (compose one taste, penalise overshoot)
+//   harmony   = min / bridge (strong across ALL sides at once)
+export type BlendMode = "explorer" | "signature" | "harmony";
+
+// Resolve the stored mode, defaulting from the legacy boolean so un-migrated
+// rows (blenderMode absent/empty) keep their old behaviour: balance→harmony,
+// else explorer. Never throws on a stray value.
+function normalizeMode(
+  mode: string | null | undefined,
+  balance: boolean | null | undefined,
+): BlendMode {
+  if (mode === "explorer" || mode === "signature" || mode === "harmony") return mode;
+  return balance ? "harmony" : "explorer";
+}
+
+// Score-band → category, for the signature path (which has no single winning
+// world to borrow a category from). Same thresholds as the engine's categorize.
+function bandCategory(score: number): Category {
+  if (score >= 80) return "Best Match";
+  if (score >= 66) return "Closest Alternative";
+  if (score >= 50) return "Worth Trying";
+  if (score >= 36) return "Risky";
+  return "Avoid";
+}
 
 // Pair lean: at full lean a pair member loses at most this many points — a
 // tilt, not a switch. Third admix: at lean2=0 the third is dosed down by this
@@ -71,8 +100,32 @@ export type BlendSpec = {
   lean2: number; // the third-admix recipe value (0 when no third)
   blenderActive: boolean; // 3-way Taste Blender on
   balance: boolean; // true = bridge mode (min across worlds); false = best-of
+  mode: BlendMode; // explorer (best-of) | signature (weighted target) | harmony (min)
+  shares: number[]; // per-profile target share (aligned with `profiles`), sums ~1 — signature only
   thirdName?: string; // present in blender mode
 };
+
+// Per-profile target shares for the signature (weighted-target) recipe, aligned
+// with `profiles`. Mirrors what the UI shows: the third is dosed by lean2 (0…33%),
+// the pair splits the rest, tilted by lean1. Non-signature modes ignore these.
+function computeShares(
+  profiles: TasteProfile[],
+  primaryId: string,
+  lean1: number,
+  lean2: number,
+  hasThird: boolean,
+): number[] {
+  const l1 = clamp(lean1, -1, 1);
+  const split = (isPrimary: boolean) => (isPrimary ? (1 + l1) / 2 : (1 - l1) / 2);
+  if (hasThird) {
+    const thirdShare = clamp(lean2, 0, 1) * 0.33;
+    const pairTotal = 1 - thirdShare;
+    return profiles.map((p, i) =>
+      i === profiles.length - 1 ? thirdShare : pairTotal * split(p.id === primaryId),
+    );
+  }
+  return profiles.map((p) => split(p.id === primaryId));
+}
 
 // Distribute the pair lean as a penalty on one side. lean>0 favours primary
 // (penalise the other pair member); lean<0 penalises primary.
@@ -104,6 +157,7 @@ export async function resolveBlend(
           blenderLean1: true,
           blenderLean2: true,
           blenderBalance: true,
+          blenderMode: true,
         },
       })
       .catch(() => null),
@@ -124,7 +178,9 @@ export async function resolveBlend(
 
   // ── Taste Blender ON — the merge set drives every surface via the recipe ──
   if (user?.blenderActive) {
-    const balance = Boolean(user.blenderBalance);
+    const mode = normalizeMode(user.blenderMode, user.blenderBalance);
+    const balance = mode === "harmony";
+    const signature = mode === "signature";
     const lean1 = clamp(user.blenderLean1, -1, 1);
 
     // 3-way: pair (first two merged) + a third (last merged) blended in.
@@ -132,9 +188,10 @@ export async function resolveBlend(
       const pair = mergedSorted.slice(0, 2);
       const third = mergedSorted[mergedSorted.length - 1];
       const primary = pair.find((p) => p.isActive) ?? pair[0];
-      // Balance (bridge) mode weighs every world equally — no lean penalties,
-      // so min() finds strains strong across ALL sides at once.
-      if (!balance) {
+      // Only best-of (explorer) applies lean as penalties. Harmony weighs every
+      // world equally (min); signature carries lean/dose in the target SHARES
+      // instead (see computeShares) — both leave penalties empty.
+      if (!balance && !signature) {
         const lean2 = clamp(user.blenderLean2, 0, 1);
         applyPairLean(penalties, pair, primary.id, lean1);
         penalties[third.id] = (1 - lean2) * ADMIX_CAP; // dosed admix
@@ -149,6 +206,8 @@ export async function resolveBlend(
         lean2: clamp(user.blenderLean2, 0, 1),
         blenderActive: true,
         balance,
+        mode,
+        shares: computeShares(profiles, primary.id, lean1, user.blenderLean2, true),
         thirdName: worldNameOf(third, 2),
       };
     }
@@ -156,7 +215,7 @@ export async function resolveBlend(
     // 2-way: exactly two merged — a blend of the pair, pair lean only.
     const pair = mergedSorted;
     const primary = pair.find((p) => p.isActive) ?? pair[0];
-    if (!balance) applyPairLean(penalties, pair, primary.id, lean1);
+    if (!balance && !signature) applyPairLean(penalties, pair, primary.id, lean1);
     return {
       profiles: pair,
       penalties,
@@ -166,6 +225,8 @@ export async function resolveBlend(
       lean2: 0,
       blenderActive: true,
       balance,
+      mode,
+      shares: computeShares(pair, primary.id, lean1, 0, false),
     };
   }
 
@@ -183,7 +244,29 @@ export async function resolveBlend(
     lean2: 0,
     blenderActive: false,
     balance: false,
+    mode: "explorer",
+    shares: mergedSorted.map(() => 1 / mergedSorted.length),
   };
+}
+
+// Signature (weighted-target) score for one strain: compose the worlds into a
+// single taste per their shares and penalise overshoot/undershoot. Returns the
+// clamped display score, the raw value (for sort tie-breaks) and a banded
+// category. Callers handle veto separately (a vetoed strain still sinks).
+function signatureScore(
+  strainName: string,
+  spec: BlendSpec,
+  feedback: FeedbackSignal[],
+  overrides?: Map<string, StrainProfile>,
+): { score: number; unclamped: number; category: Category } {
+  const members: BlendMember[] = spec.profiles.map((p, i) => ({
+    profile: p as unknown as TasteProfileInput,
+    share: spec.shares[i] ?? 0,
+  }));
+  void overrides; // scoreBlendTarget resolves catalog strains itself
+  const raw = scoreBlendTarget(strainName, members, feedback);
+  const score = clamp(Math.round(raw), 4, 99);
+  return { score, unclamped: raw, category: bandCategory(score) };
 }
 
 // Pick the representative world for one strain. Normally the highest penalised
@@ -229,6 +312,17 @@ export async function mergedMatches(
   const matches: Record<string, CatalogMatch> = {};
 
   for (const strain of STRAINS) {
+    // Signature composes all worlds into one target; a vetoed strain still
+    // sinks via the best-of/min path below (a dealbreaker can't be blended away).
+    if (spec.mode === "signature" && !veto.has(strain.name)) {
+      const s = signatureScore(strain.name, spec, feedback);
+      matches[strain.name] = {
+        score: s.score,
+        category: s.category,
+        sort: sortKey(s.score, s.unclamped),
+      };
+      continue;
+    }
     const cands = spec.profiles.map((p, i) => {
       const m = scoreStrain(strain.name, p as unknown as TasteProfileInput, feedback);
       return {
@@ -265,6 +359,10 @@ export async function mergedMatchForStrain(
 
   const feedback = await getFeedbackSignals(userId);
   const veto = vetoSet(spec.profiles);
+  if (spec.mode === "signature" && !veto.has(strainName)) {
+    const s = signatureScore(strainName, spec, feedback);
+    return { score: s.score, category: s.category, sort: sortKey(s.score, s.unclamped) };
+  }
   const cands = spec.profiles.map((p, i) => {
     const m = scoreStrain(strainName, p as unknown as TasteProfileInput, feedback);
     return {
@@ -293,7 +391,13 @@ export function analyzeMerged(opts: {
   density?: number;
   priorities?: { senses?: number; effect?: number };
   balance?: boolean; // bridge mode: rank by the weakest world (min)
+  mode?: BlendMode; // explorer | signature | harmony (defaults to balance→harmony/explorer)
+  shares?: number[]; // per-world target shares, signature only (aligned with profiles)
 }): AnalysisResult & { mergeBreakdown: MergeBreakdown } {
+  const mode: BlendMode =
+    opts.mode ?? (opts.balance ? "harmony" : "explorer");
+  const shares = opts.shares ?? opts.profiles.map(() => 1 / opts.profiles.length);
+  const domI = shares.reduce((b, s, i) => (s > shares[b] ? i : b), 0);
   const per = opts.profiles.map((p, i) => ({
     p,
     world: worldNameOf(p, i),
@@ -333,6 +437,28 @@ export function analyzeMerged(opts: {
 
     const resolved = cands[0].rec.resolvedName;
     const vetoed = veto.has(resolved);
+
+    // Signature (non-vetoed): score the composed target, but keep the DOMINANT
+    // world's prose/sub-scores (largest share) and re-band its category so the
+    // badge matches the blended score.
+    if (mode === "signature" && !vetoed) {
+      const members: BlendMember[] = per.map((pp, i) => ({
+        profile: pp.p as unknown as TasteProfileInput,
+        share: shares[i] ?? 0,
+      }));
+      const raw = scoreBlendTarget(resolved, members, opts.feedback);
+      const score = clamp(Math.round(raw), 4, 99);
+      const dom = cands[domI];
+      recommendations.push({
+        ...dom.rec,
+        matchScore: score,
+        unclampedScore: raw,
+        category: bandCategory(score),
+        world: dom.world,
+      });
+      continue;
+    }
+
     const pick = pickWorld(cands, vetoed || Boolean(opts.balance));
     const score = clamp(Math.round(pick.eff), 4, 99);
     const avoidedBy = vetoed
