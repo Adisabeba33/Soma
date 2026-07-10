@@ -266,7 +266,7 @@ const C = {
   other: { cx: 70, cy: 185, r: 56 }, // left  — relaxed
   main: { cx: 270, cy: 185, r: 56 }, // right — energized
   center: { cx: 170, cy: 242, r: 52 },
-  third: { cx: 170, cy: 350, r: 56 },
+  third: { cx: 170, cy: 364, r: 56 },
   topArc: { cx: 170, cy: 250, r: 175, a0: 224, a1: 316 }, // knob a = 224 + t*92
   botArc: { cx: 170, cy: 326, r: 104, a0: 44, a1: 136 }, //  knob a = 136 − t*92
 };
@@ -404,7 +404,7 @@ function BlendArcDiagram({
       <Circle spec={C.other} live={live} node={other} />
       <Circle spec={C.main} live={live} node={main} />
       {third && <Circle spec={C.third} live={live} node={third} />}
-      <Circle spec={C.center} center />
+      <Circle spec={C.center} center live={live} />
 
       {/* Front layer — arcs, knobs, bubbles, labels (interactive) */}
       <svg
@@ -605,7 +605,10 @@ function Circle({
   };
   if (center) {
     return (
-      <div className="absolute z-20 aspect-square rounded-full p-[2px]" style={{ ...style, background: T.goldRing }}>
+      <div
+        className={cn("absolute z-20 aspect-square rounded-full p-[2px]", live && "soma-blend-pulse")}
+        style={{ ...style, background: T.goldRing }}
+      >
         <div
           className="grid h-full w-full place-items-center rounded-full text-center"
           style={{

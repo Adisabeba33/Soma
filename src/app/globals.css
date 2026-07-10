@@ -95,6 +95,22 @@ body {
 .soma-gold-dot  { animation: soma-gold-pulse 2.8s ease-in-out infinite; }
 .soma-node-live { animation: soma-node-breathe 6s ease-in-out infinite; }
 
+/* "YOUR BLEND" medallion — a slow, premium breathe with a soft gold halo that
+   swells and settles, so the centre of the console feels alive when the blend
+   is active. Scales around its own centre (the medallion is corner-positioned,
+   so this can't knock it off-mark). */
+@keyframes soma-blend-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(190, 143, 76, 0), 0 4px 14px rgba(120, 92, 40, 0.12);
+  }
+  50% {
+    transform: scale(1.045);
+    box-shadow: 0 0 0 7px rgba(190, 143, 76, 0.1), 0 8px 20px rgba(120, 92, 40, 0.22);
+  }
+}
+.soma-blend-pulse { animation: soma-blend-pulse 3s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
-  .soma-gold-dot, .soma-node-live { animation: none; }
+  .soma-gold-dot, .soma-node-live, .soma-blend-pulse { animation: none; }
 }
