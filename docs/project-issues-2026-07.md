@@ -401,7 +401,14 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
 
 ## Hygiene
 
-### H1 — ~80 stale remote branches with fully diverged history — LOW
+### H1 — ~80 stale remote branches with fully diverged history — LOW — ◑ VERIFIED, deletion needs owner
+> All 86 stale branches audited (ancestor + cherry + content checks): safe to
+> delete except ONE unmerged commit — the AK-48 artwork on
+> github-project-review-nDujE — which was cherry-picked onto this branch
+> before cleanup. prisma-migrate-setup (unadopted migrate workflow) and
+> blend-weighted-engine (superseded here) noted. The managed environment's
+> git proxy blocks branch deletion (403), so the actual delete is a
+> one-paste command documented in docs/branch-cleanup-2026-07.md.
 - **What:** most `claude/*` and `feature/*` branches show 100–600 commits
   "ahead" of main because history was rebased/squashed; only
   `claude/blend-weighted-engine` (and a couple of 1–2 commit branches) carry
