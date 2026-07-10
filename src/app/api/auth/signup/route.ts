@@ -15,7 +15,7 @@ import { clientIp, rateLimit } from "@/lib/rate-limit";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
-  if (!rateLimit(`signup:${clientIp(req)}`, 5, 60_000)) {
+  if (!(await rateLimit(`signup:${clientIp(req)}`, 5, 60_000))) {
     return NextResponse.json({ error: "Too many attempts. Try again shortly." }, { status: 429 });
   }
 

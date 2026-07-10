@@ -60,8 +60,44 @@ export function validateEmail(email: string): string | null {
   return null;
 }
 
+// The most common passwords that clear the length bar anyway (top of every
+// breach list, lowercased). Not a breach-database check — just the shortlist
+// that would otherwise sail through. Checked case-insensitively.
+const COMMON_PASSWORDS = new Set([
+  "1234567890",
+  "12345678910",
+  "0123456789",
+  "qwertyuiop",
+  "1q2w3e4r5t",
+  "q1w2e3r4t5y6",
+  "password12",
+  "password123",
+  "password1234",
+  "passw0rd123",
+  "1234qwerty",
+  "qwerty1234",
+  "qwerty123456",
+  "asdfghjkl123",
+  "iloveyou12",
+  "iloveyou123",
+  "welcome123",
+  "admin12345",
+  "letmein123",
+  "sunshine123",
+  "football123",
+  "baseball123",
+  "dragon12345",
+  "superman123",
+  "montypython",
+]);
+
+// Validation applies when a password is SET (signup / reset) — existing
+// accounts keep logging in with whatever they registered.
 export function validatePassword(password: string): string | null {
-  if (password.length < 8) return "Password must be at least 8 characters.";
+  if (password.length < 10) return "Password must be at least 10 characters.";
   if (password.length > 200) return "Password is too long.";
+  if (/^(.)\1+$/.test(password)) return "Password can't be one repeated character.";
+  if (COMMON_PASSWORDS.has(password.toLowerCase()))
+    return "That password is too common — pick something more unique.";
   return null;
 }

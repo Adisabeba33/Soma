@@ -8,13 +8,19 @@ import { clientIp, rateLimit } from "@/lib/rate-limit";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
-  if (!rateLimit(`login:${clientIp(req)}`, 10, 60_000)) {
+  if (!(await rateLimit(`login:${clientIp(req)}`, 10, 60_000))) {
     return NextResponse.json({ error: "Too many attempts. Try again shortly." }, { status: 429 });
   }
 
   const body = await req.json().catch(() => ({}));
   const email = normalizeEmail(String(body.email ?? ""));
   const password = String(body.password ?? "");
+
+  // Second key on the target account: an attacker rotating IPs still hits
+  // this one. Looser than the IP window so a shared household doesn't trip it.
+  if (email && !(await rateLimit(`login:acct:${email}`, 15, 300_000))) {
+    return NextResponse.json({ error: "Too many attempts. Try again shortly." }, { status: 429 });
+  }
 
   // Guard the credential lookup: if the database is briefly unreachable
   // (e.g. Supabase pausing), return an honest "service waking up" message
@@ -41,7 +47,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const token = createSessionToken(user.id);
+  const token = createSessionToken(user.id, user.sessionEpoch);
   if (!token) {
     return NextResponse.json({ error: "Sign-in isn't configured yet (AUTH_SECRET)." }, { status: 503 });
   }

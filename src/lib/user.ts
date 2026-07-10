@@ -1,7 +1,8 @@
 import { randomUUID } from "crypto";
+import { cache } from "react";
 import { cookies } from "next/headers";
 import { prisma } from "./prisma";
-import { SESSION_COOKIE, verifySessionToken } from "./session";
+import { SESSION_COOKIE, verifySessionClaims } from "./session";
 
 export const SOMA_UID_COOKIE = "soma_uid";
 
@@ -11,6 +12,43 @@ const COOKIE_OPTIONS = {
   path: "/",
   maxAge: 60 * 60 * 24 * 365,
 };
+
+// Session-epoch gate, deliberately FAIL-OPEN: only a SUCCESSFUL read showing a
+// mismatched epoch revokes the token. A DB hiccup must never downgrade a
+// logged-in member to a fresh anonymous user (the "Run Taste Match logs me
+// out" bug) — so on any error we trust the signed token, exactly as before
+// the epoch existed. react cache() memoises per request, so pages that
+// resolve identity several times pay for one SELECT.
+const epochValid = cache(async (uid: string, epoch: number): Promise<boolean> => {
+  try {
+    const row = await prisma.user.findUnique({
+      where: { id: uid },
+      select: { sessionEpoch: true },
+    });
+    if (!row) return true; // unknown row → keep prior semantics, downstream handles it
+    return row.sessionEpoch === epoch;
+  } catch {
+    return true; // fail-open by design
+  }
+});
+
+// Registered-account guard for the ANONYMOUS cookie path, also memoised. The
+// soma_uid cookie is an unsigned raw id — possession must stop equalling
+// account access the moment the row gains credentials, otherwise anyone who
+// ever learned the id (e.g. planted it pre-registration — cookie fixation)
+// owns the account forever. Fail-open on DB error: worst case is the
+// pre-guard behaviour.
+const isRegisteredRow = cache(async (uid: string): Promise<boolean> => {
+  try {
+    const row = await prisma.user.findUnique({
+      where: { id: uid },
+      select: { passwordHash: true },
+    });
+    return Boolean(row?.passwordHash);
+  } catch {
+    return false; // fail-open by design
+  }
+});
 
 // Resolves the current SOMA visitor.
 //   1. A valid authenticated session cookie wins — that's a registered user.
@@ -23,25 +61,27 @@ export async function getUserId(): Promise<string> {
 
   const session = store.get(SESSION_COOKIE)?.value;
   if (session) {
-    const uid = verifySessionToken(session);
-    // A valid signed (HMAC) token IS the authentication. Return it WITHOUT a DB
-    // round-trip: a database hiccup must never downgrade a logged-in member to
-    // a freshly created anonymous user (which overwrote their cookie and read
-    // as a logout — the "Run Taste Match logs me out" bug). Account deletion
-    // clears the cookie, and rotating AUTH_SECRET invalidates all tokens, so
-    // skipping the existence check here is safe.
-    if (uid) return uid;
+    const claims = verifySessionClaims(session);
+    // A valid signed (HMAC) token IS the authentication — the epoch gate is
+    // fail-open, so a database hiccup still never downgrades a logged-in
+    // member. Only a confirmed epoch mismatch (password was reset) rejects.
+    if (claims && (await epochValid(claims.uid, claims.epoch))) return claims.uid;
   }
 
   const existing = store.get(SOMA_UID_COOKIE)?.value;
 
   if (existing) {
-    await prisma.user.upsert({
-      where: { id: existing },
-      create: { id: existing },
-      update: {},
-    });
-    return existing;
+    // An anonymous cookie may not claim a row that has registered credentials
+    // — that account is reachable only through a signed session. Fall through
+    // and mint a fresh anonymous identity instead (same as a new visitor).
+    if (!(await isRegisteredRow(existing))) {
+      await prisma.user.upsert({
+        where: { id: existing },
+        create: { id: existing },
+        update: {},
+      });
+      return existing;
+    }
   }
 
   const id = randomUUID();
@@ -61,11 +101,13 @@ export async function getUserIdReadOnly(): Promise<string | null> {
 
   const session = store.get(SESSION_COOKIE)?.value;
   if (session) {
-    const uid = verifySessionToken(session);
-    // Trust the signed token directly — no DB round-trip — so a Supabase blip
-    // never reads a logged-in member as anonymous.
-    if (uid) return uid;
+    const claims = verifySessionClaims(session);
+    // Same fail-open epoch gate as getUserId — a Supabase blip never reads a
+    // logged-in member as anonymous.
+    if (claims && (await epochValid(claims.uid, claims.epoch))) return claims.uid;
   }
 
-  return store.get(SOMA_UID_COOKIE)?.value ?? null;
+  const anon = store.get(SOMA_UID_COOKIE)?.value ?? null;
+  if (anon && (await isRegisteredRow(anon))) return null;
+  return anon;
 }

@@ -7,7 +7,7 @@ import { clientIp, rateLimit } from "@/lib/rate-limit";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
-  if (!rateLimit(`reset:${clientIp(req)}`, 5, 60_000)) {
+  if (!(await rateLimit(`reset:${clientIp(req)}`, 5, 60_000))) {
     return NextResponse.json({ error: "Too many attempts. Try again shortly." }, { status: 429 });
   }
   const body = await req.json().catch(() => ({}));
@@ -22,10 +22,16 @@ export async function POST(req: Request) {
   if (!userId) {
     return NextResponse.json({ error: "This reset link is invalid or has expired." }, { status: 400 });
   }
-  // Resetting via emailed link proves email ownership, so mark it verified too.
+  // Resetting via emailed link proves email ownership, so mark it verified
+  // too. sessionEpoch bump revokes every session minted before the reset —
+  // account recovery logs the attacker (and every other device) out.
   await prisma.user.update({
     where: { id: userId },
-    data: { passwordHash: hashPassword(password), emailVerified: new Date() },
+    data: {
+      passwordHash: hashPassword(password),
+      emailVerified: new Date(),
+      sessionEpoch: { increment: 1 },
+    },
   });
   return NextResponse.json({ ok: true });
 }

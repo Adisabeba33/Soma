@@ -21,6 +21,12 @@ model User {
   username      String?   @unique
   passwordHash  String?
   emailVerified DateTime?
+  // Session revocation epoch. Signed session tokens embed the epoch they were
+  // minted with; a token whose embedded epoch no longer matches this value is
+  // rejected. Bumped on password reset, so account recovery logs out every
+  // other device. Old cookies (minted before this column existed) read as
+  // epoch 0 — the default — so the migration itself logs nobody out.
+  sessionEpoch  Int       @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -45,6 +51,18 @@ model User {
   unknownStrains   UnknownStrain[]
   runAudits        RunAudit[]
   authTokens       AuthToken[]
+}
+
+// Shared fixed-window rate-limit counters for the auth endpoints. The
+// in-memory limiter in rate-limit.ts resets on every cold start and is
+// per-instance, which on serverless means "no real limit" — this table makes
+// the window global across instances. Rows are tiny, keyed by
+// "<route>:<ip-or-account>", and reused per window (resetAt). The in-memory
+// map remains as the fallback when the DB is unreachable.
+model RateLimit {
+  key     String   @id
+  count   Int
+  resetAt DateTime
 }
 
 // Single-use, hashed tokens for email verification and password reset. The raw

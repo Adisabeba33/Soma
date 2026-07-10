@@ -246,7 +246,11 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
 
 ## App / security
 
-### A1 — No CSRF protection on state-changing routes — MEDIUM
+### A1 — No CSRF protection on state-changing routes — MEDIUM — ✅ FIXED
+> Resolved: `src/middleware.ts` rejects mutating /api requests whose Origin
+> host matches neither the request host nor NEXT_PUBLIC_APP_URL. Rules live
+> in the pure `src/lib/origin-check.ts` (unit-tested); safe methods and
+> origin-less non-browser clients pass.
 - **Where:** all `src/app/api/**` POST/DELETE handlers; session cookie is
   `sameSite: "lax"`.
 - **What:** Lax blocks cross-site POST from forms/fetch in modern browsers, so
@@ -255,7 +259,13 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
 - **Fix:** double-submit token or origin-check middleware on mutating routes.
 - **Effort:** small-medium.
 
-### A2 — Rate limiting is per-instance, in-memory — MEDIUM
+### A2 — Rate limiting is per-instance, in-memory — MEDIUM — ✅ FIXED
+> Resolved: rateLimit() is now backed by the new RateLimit table (shared
+> fixed window across instances), falling back to the old in-memory map when
+> the DB is unreachable — fail-open to local counting, never to an error.
+> Login additionally rate-limits per target account (15/5min) so IP rotation
+> doesn't bypass the window. Requires `npm run db:push` on deploy.
+> XFF spoofing note stands: clientIp trusts the platform proxy header.
 - **Where:** `src/lib/rate-limit.ts` (documented as a guardrail);
   `clientIp` trusts the first `x-forwarded-for` token.
 - **What:** on serverless/multi-instance deploys the login/signup limits are
@@ -265,7 +275,13 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   already anticipates this); read client IP from the platform's trusted header.
 - **Effort:** small-medium.
 
-### A3 — No session revocation — MEDIUM
+### A3 — No session revocation — MEDIUM — ✅ FIXED
+> Resolved: User.sessionEpoch + epoch claim in the signed session token.
+> getUserId/getUserIdReadOnly compare token epoch to the DB value — FAIL-OPEN
+> (only a successful read with a mismatch revokes), preserving the "a DB blip
+> never logs a member out" design. Password reset bumps the epoch, so account
+> recovery kills every other session. Legacy cookies read as epoch 0 and stay
+> valid. Requires `npm run db:push` on deploy.
 - **Where:** `src/lib/session.ts` — stateless HMAC cookie, 30-day TTL.
 - **What:** a leaked cookie stays valid for 30 days; the only kill-switch is
   rotating `AUTH_SECRET`, which logs out everyone. Password reset does not
@@ -275,13 +291,24 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   table needed.
 - **Effort:** medium.
 
-### A4 — Password policy is length ≥ 8 only — LOW
+### A4 — Password policy is length ≥ 8 only — LOW — ✅ FIXED
+> Resolved: minimum raised to 10, one-repeated-character rejected, and a
+> small case-insensitive denylist of the common passwords that clear the
+> length bar (password123, qwerty1234, …). Applies when a password is SET;
+> existing accounts keep logging in.
 - **Where:** `src/lib/password.ts:64`.
 - **Fix:** raise to 10+, optionally add a top-10k-common-passwords denylist.
   Scrypt params are fine.
 - **Effort:** small.
 
-### A5 — Signup adopts the anonymous cookie's user row (fixation window) — LOW
+### A5 — Signup adopts the anonymous cookie's user row (fixation window) — LOW — ✅ FIXED
+> Resolved (and the found hole was wider than filed): the anonymous soma_uid
+> cookie is an unsigned raw id, and it kept resolving to rows AFTER they
+> gained credentials — anyone who ever learned the id (fixation, logs)
+> permanently owned the account. Now the anonymous path refuses rows with a
+> passwordHash (registered accounts are reachable only through a signed
+> session); getUserId mints a fresh anonymous identity instead and
+> getUserIdReadOnly reads as signed-out. Fail-open on DB error.
 - **Where:** `src/app/api/auth/signup/route.ts` (account written onto the
   visitor's existing anonymous row).
 - **What:** deliberate and useful (profile carries over), but if an attacker

@@ -20,17 +20,30 @@ function secret(): string | null {
   return process.env.AUTH_SECRET || null;
 }
 
-export function createSessionToken(userId: string, ttlDays = TTL_DAYS): string | null {
+// `epoch` is the user's sessionEpoch at mint time. Verification compares the
+// embedded epoch against the current DB value (see user.ts) — bumping the
+// column revokes every token minted before the bump. Tokens minted before the
+// epoch existed carry no `epo` field and read as 0, matching the column
+// default, so nothing is invalidated retroactively.
+export function createSessionToken(
+  userId: string,
+  epoch = 0,
+  ttlDays = TTL_DAYS,
+): string | null {
   const s = secret();
   if (!s) return null;
   const payload = Buffer.from(
-    JSON.stringify({ uid: userId, exp: Date.now() + ttlDays * 86_400_000 }),
+    JSON.stringify({ uid: userId, epo: epoch, exp: Date.now() + ttlDays * 86_400_000 }),
   ).toString("base64url");
   const sig = createHmac("sha256", s).update(payload).digest("base64url");
   return `${payload}.${sig}`;
 }
 
-export function verifySessionToken(token: string): string | null {
+export type SessionClaims = { uid: string; epoch: number };
+
+// Full verification: signature + expiry, returning the claims. The epoch is
+// NOT checked here (this module stays DB-free) — user.ts owns that.
+export function verifySessionClaims(token: string): SessionClaims | null {
   const s = secret();
   if (!s) return null;
   const dot = token.indexOf(".");
@@ -49,8 +62,12 @@ export function verifySessionToken(token: string): string | null {
       Date.now() > data.exp
     )
       return null;
-    return data.uid;
+    return { uid: data.uid, epoch: typeof data.epo === "number" ? data.epo : 0 };
   } catch {
     return null;
   }
+}
+
+export function verifySessionToken(token: string): string | null {
+  return verifySessionClaims(token)?.uid ?? null;
 }
