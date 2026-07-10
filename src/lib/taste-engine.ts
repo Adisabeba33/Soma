@@ -457,6 +457,15 @@ const QUALITY_SIGNALS: Record<
 // Potency preference (cold-start ISSUE-6). Bounded nudge: penalise a clear
 // strength mismatch, small reward on a clean match. Absent / "balanced" is a
 // no-op, so existing profiles are unaffected.
+//
+// HONEST LIMITATION (deferred #28): the catalog's potency distribution is
+// heavily top-skewed — 518/895 "strong" + 211 "very-strong" (81% in the top
+// two of four buckets; only 6 "mild"). So this channel is a DISLIKE-GUARD,
+// not a ranker: a "mild" preference meaningfully penalises the (many)
+// too-strong picks, but a "strong" preference barely discriminates because
+// almost everything qualifies. That's acceptable for a ±6-point nudge; do
+// NOT grow this channel's weight without first re-curating potency toward a
+// real distribution.
 const POTENCY_RANK: Record<Potency, number> = {
   mild: 0,
   moderate: 1,

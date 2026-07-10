@@ -1475,6 +1475,29 @@ and didn't do is itself valuable context.
   deterministic (no AI key needed), so independent of #26. Pairs with the
   time-of-day artwork system.
 
+### #28 — Potency labels are top-skewed: the channel guards, it doesn't rank
+
+- **Found:** 2026-07-10
+- **Source:** Whole-project review (issue E3 in docs/project-issues-2026-07.md)
+- **What:** The catalog's 4-level ordinal `potency` is heavily skewed:
+  518/895 `strong` + 211 `very-strong` (81% in the top two buckets), only
+  6 `mild`, 160 `moderate`. Consequence: `potencyContribution` works as a
+  dislike-guard (a "mild" preference meaningfully penalises the many
+  too-strong picks) but barely discriminates for a "strong" preference —
+  almost everything qualifies. Acceptable at the current ±6-point nudge;
+  a code comment at POTENCY_RANK now states this plainly.
+- **Why deferred:** fixing it properly means re-curating potency across
+  895 strains against consensus sources — hours of curation for a channel
+  that deliberately carries ~2% of the score. Not the bottleneck.
+- **Potential fix:** re-curate toward a real distribution (most classic
+  mids are honestly "moderate"; reserve "very-strong" for the documented
+  30%+ testers), or split the ordinal into THC-band + experienced-weight
+  the way potency actually reads on menus.
+- **Estimated effort:** 4–6 hours curation + a distribution check in
+  scripts/score-distribution.ts
+- **Trigger to revisit:** the potency channel's weight ever grows past a
+  tiebreaker, or user feedback shows strength mismatches driving misses.
+
 ---
 
 ## Resolved

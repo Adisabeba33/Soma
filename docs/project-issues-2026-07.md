@@ -45,7 +45,13 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   + stress snapshot diff before/after.
 - **Effort:** medium (the fix is small; the recalibration check is the work).
 
-### E3 — Potency channel barely discriminates — LOW
+### E3 — Potency channel barely discriminates — LOW — ✅ FIXED (documented option)
+> Resolved via the documentation option: the limitation is now stated
+> plainly at POTENCY_RANK in taste-engine.ts (dislike-guard, not a ranker;
+> do not grow the channel's weight without re-curating first), and the
+> eventual re-curation is tracked as deferred-improvements #28 with the
+> concrete fix shape and revisit trigger. Curation itself deliberately
+> deferred — hours of work for a ~2%-weight channel is not the bottleneck.
 - **Where:** `src/lib/strain-data.ts` (`potency` values), `potencyContribution`
   in `taste-engine.ts`.
 - **What:** 518/895 strains are `strong` and 211 `very-strong` (81% in the top
