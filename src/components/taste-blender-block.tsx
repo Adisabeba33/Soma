@@ -139,7 +139,11 @@ export function TasteBlenderBlock() {
   const thirdPct = third ? Math.round((s.lean2 ?? 0) * 33) : 0;
   const pairTotal = 100 - thirdPct;
   const mainPct = Math.round((pairTotal * (1 + s.lean1)) / 2);
-  const otherPct = pairTotal - mainPct;
+  let otherPct = pairTotal - mainPct;
+  // Never show the pair tied (e.g. 42 / 42) — nudge the non-primary a point
+  // down so the primary always reads as the single, clear dominant.
+  if (mainPct === otherPct) otherPct -= 1;
+  const dominantSide: "main" | "other" = mainPct >= otherPct ? "main" : "other";
 
   const mode: "explorer" | "signature" | "harmony" =
     s.mode ?? (s.balance ? "harmony" : "explorer");
@@ -174,6 +178,7 @@ export function TasteBlenderBlock() {
           lean1={s.lean1}
           lean2={s.lean2}
           explorer={leansActive}
+          dominant={dominantSide}
           onLean1={(v) => patch({ lean1: v })}
           onLean2={(v) => patch({ lean2: v })}
         />
@@ -294,6 +299,7 @@ function BlendArcDiagram({
   lean1,
   lean2,
   explorer,
+  dominant,
   onLean1,
   onLean2,
 }: {
@@ -304,6 +310,7 @@ function BlendArcDiagram({
   lean1: number;
   lean2: number;
   explorer: boolean;
+  dominant: "main" | "other";
   onLean1: (v: number) => void;
   onLean2: (v: number) => void;
 }) {
@@ -452,11 +459,29 @@ function BlendArcDiagram({
             strokeLinecap="round"
           />
         )}
-        <text x={66} y={124} textAnchor="middle" fontSize={10} fill={T.muted} style={{ fontFamily: "var(--font-sans)" }}>
-          More relaxed
+        <text
+          x={66}
+          y={124}
+          textAnchor="middle"
+          fontSize={10}
+          fill={explorer && dominant === "other" ? T.goldText : T.muted}
+          fontWeight={explorer && dominant === "other" ? 700 : 400}
+          letterSpacing={explorer && dominant === "other" ? 1.4 : 0}
+          style={{ fontFamily: "var(--font-sans)" }}
+        >
+          {explorer && dominant === "other" ? "DOMINANT" : "More relaxed"}
         </text>
-        <text x={274} y={124} textAnchor="middle" fontSize={10} fill={T.muted} style={{ fontFamily: "var(--font-sans)" }}>
-          More energized
+        <text
+          x={274}
+          y={124}
+          textAnchor="middle"
+          fontSize={10}
+          fill={explorer && dominant === "main" ? T.goldText : T.muted}
+          fontWeight={explorer && dominant === "main" ? 700 : 400}
+          letterSpacing={explorer && dominant === "main" ? 1.4 : 0}
+          style={{ fontFamily: "var(--font-sans)" }}
+        >
+          {explorer && dominant === "main" ? "DOMINANT" : "More energized"}
         </text>
         {explorer && (
           <Knob
