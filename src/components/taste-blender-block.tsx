@@ -261,14 +261,14 @@ function ActiveIndicator({ active, onToggle }: { active: boolean; onToggle: () =
 
 // ── Geometry ─────────────────────────────────────────────────────────────
 const VBW = 340;
-const VBH = 506;
+const VBH = 524;
 const C = {
   other: { cx: 70, cy: 185, r: 56 }, // left  — relaxed
   main: { cx: 270, cy: 185, r: 56 }, // right — energized
   center: { cx: 170, cy: 242, r: 52 },
   third: { cx: 170, cy: 364, r: 56 },
   topArc: { cx: 170, cy: 250, r: 175, a0: 224, a1: 316 }, // knob a = 224 + t*92
-  botArc: { cx: 170, cy: 326, r: 104, a0: 44, a1: 136 }, //  knob a = 136 − t*92
+  botArc: { cx: 170, cy: 340, r: 104, a0: 44, a1: 136 }, //  knob a = 136 − t*92
 };
 
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
@@ -488,15 +488,15 @@ function BlendArcDiagram({
                 strokeLinecap="round"
               />
             )}
-            <text x={52} y={406} textAnchor="middle" fontSize={11} fill={T.muted} style={{ fontFamily: "var(--font-sans)" }}>
+            <text x={52} y={420} textAnchor="middle" fontSize={11} fill={T.muted} style={{ fontFamily: "var(--font-sans)" }}>
               A touch
             </text>
-            <text x={288} y={406} textAnchor="middle" fontSize={11} fill={T.muted} style={{ fontFamily: "var(--font-sans)" }}>
+            <text x={288} y={420} textAnchor="middle" fontSize={11} fill={T.muted} style={{ fontFamily: "var(--font-sans)" }}>
               Full third
             </text>
             <text
               x={C.botArc.cx}
-              y={496}
+              y={512}
               textAnchor="middle"
               fontSize={11}
               letterSpacing={1.6}
