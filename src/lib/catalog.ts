@@ -125,6 +125,10 @@ export function trimEntryForList(entry: CatalogEntry): CatalogEntry {
       ? {
           canonicalName: id.canonicalName,
           sourceConfidence: id.sourceConfidence,
+          // Family key rides along for the card chip + the family filter
+          // rail — one short string per card, not one of the heavy fields
+          // this trim exists to strip.
+          ...(id.sensoryFamily ? { sensoryFamily: id.sensoryFamily } : {}),
           ...(id.marketNames ? { marketNames: id.marketNames } : {}),
           ...(id.shortName ? { shortName: id.shortName } : {}),
           ...(id.tagline ? { tagline: id.tagline } : {}),

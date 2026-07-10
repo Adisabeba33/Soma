@@ -242,7 +242,16 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
 ### D5 — Artwork coverage: 428 strains `artStatus: none` vs 181 published — LOW (cosmetic)
 - **Fix:** ongoing artwork batches; no action needed beyond the existing flow.
 
-### D6 — `paletteForFamily` has no UI consumers; its header comment is stale — LOW (dead code / decision needed)
+### D6 — `paletteForFamily` has no UI consumers; its header comment is stale — LOW — ✅ FIXED
+> Resolved with the owner-approved A+C+B plan: (A) smell-territory chip on
+> catalog cards — glowing dot in the family accent over the time-of-day
+> gradient; (B) "Smell territory" band on the strain page — full family
+> gradient, label + character line (new FAMILY_META in
+> sensory-family-palette.ts, guarded by the coverage test), cluster members
+> as links and adjacent territories deep-linking into the filter; (C) family
+> filter rail on /catalog — 15 gradient swatches with live counts, one
+> active at a time, wired into the existing filter state + ?family= deep
+> link. All three verified in the running app (screenshots).
 - **Where:** `src/lib/sensory-family-palette.ts` (header says it drives the
   /catalog card background) vs actual usage — `catalog-collectible-card.tsx`,
   `catalog-client.tsx`, `top-matches.ts` all call `paletteForTime` only.

@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { CatalogCollectibleCard } from "@/components/catalog-collectible-card";
+import { paletteForFamily } from "@/lib/sensory-family-palette";
 import { CompareBasketTray } from "@/components/compare-basket-tray";
 import { WishlistButton } from "@/components/wishlist-button";
 import { FitText } from "@/components/fit-text";
@@ -74,6 +75,9 @@ export function CatalogClient({
   const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
+  // Smell-territory filter (the family rail). One family at a time — tap
+  // again (or Clear) to release. null = all families.
+  const [familyFilter, setFamilyFilter] = useState<string | null>(null);
   const [strengthMin, setStrengthMin] = useState(0);
   const [aromaFilters, setAromaFilters] = useState<Set<string>>(new Set());
   const [flavorFilters, setFlavorFilters] = useState<Set<string>>(new Set());
@@ -128,6 +132,8 @@ export function CatalogClient({
         if (!haystack.some((h) => h.includes(q))) return false;
       }
       if (typeFilter !== "all" && e.strain.type !== typeFilter) return false;
+      if (familyFilter && e.identity?.sensoryFamily !== familyFilter)
+        return false;
       if (strengthMin > 0) {
         const lvl = POTENCY_ORDER.indexOf(
           e.strain.potency as (typeof POTENCY_ORDER)[number],
@@ -174,6 +180,7 @@ export function CatalogClient({
     entries,
     query,
     typeFilter,
+    familyFilter,
     strengthMin,
     aromaFilters,
     flavorFilters,
@@ -193,6 +200,7 @@ export function CatalogClient({
   }, [
     query,
     typeFilter,
+    familyFilter,
     strengthMin,
     aromaFilters,
     flavorFilters,
@@ -240,6 +248,7 @@ export function CatalogClient({
   function clearAll() {
     setQuery("");
     setTypeFilter("all");
+    setFamilyFilter(null);
     setStrengthMin(0);
     setAromaFilters(new Set());
     setFlavorFilters(new Set());
@@ -249,6 +258,7 @@ export function CatalogClient({
   const anyFilter =
     query !== "" ||
     typeFilter !== "all" ||
+    familyFilter !== null ||
     strengthMin > 0 ||
     aromaFilters.size > 0 ||
     flavorFilters.size > 0 ||
@@ -259,10 +269,33 @@ export function CatalogClient({
   // the results even when the rail is collapsed.
   const activeFilterCount =
     (typeFilter !== "all" ? 1 : 0) +
+    (familyFilter !== null ? 1 : 0) +
     (strengthMin > 0 ? 1 : 0) +
     aromaFilters.size +
     flavorFilters.size +
     effectFilters.size;
+
+  // Family counts for the rail — computed once from the full entry list, so
+  // the counters stay stable while other filters narrow the results.
+  const familyCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const e of entries) {
+      const f = e.identity?.sensoryFamily;
+      if (f) counts.set(f, (counts.get(f) ?? 0) + 1);
+    }
+    return [...counts.entries()].sort((a, b) => b[1] - a[1]);
+  }, [entries]);
+
+  // Deep link: /catalog?family=gas-og pre-selects a family (the strain
+  // page's adjacent-territory chips link here). Applied on mount only —
+  // after that the rail owns the state.
+  useEffect(() => {
+    const fam = new URLSearchParams(window.location.search).get("family");
+    if (fam && entries.some((e) => e.identity?.sensoryFamily === fam)) {
+      setFamilyFilter(fam);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="mt-8 space-y-4">
@@ -316,6 +349,53 @@ export function CatalogClient({
             </button>
           )}
         </div>
+      </div>
+
+      {/* ── Family rail: every smell territory as a tappable gradient
+          swatch. One family at a time; tap the active one to release.
+          Counts come from the full catalog so they don't jitter while
+          other filters narrow the list. ─────────────────────────────── */}
+      <div
+        role="group"
+        aria-label="Filter by smell territory"
+        className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]"
+      >
+        {familyCounts.map(([family, count]) => {
+          const pal = paletteForFamily(family);
+          const active = familyFilter === family;
+          return (
+            <button
+              key={family}
+              type="button"
+              aria-pressed={active}
+              onClick={() => setFamilyFilter(active ? null : family)}
+              className={cn(
+                "shrink-0 overflow-hidden rounded-xl border text-left transition-all",
+                active
+                  ? "border-brass shadow-[0_0_0_1px_hsl(var(--brass))]"
+                  : "border-border hover:-translate-y-0.5 hover:border-accent/40",
+              )}
+            >
+              <span
+                className="block h-9 w-[104px]"
+                style={{ background: pal.background }}
+              />
+              <span className="block bg-card px-2 py-1.5">
+                <span
+                  className={cn(
+                    "block truncate font-mono text-[10px] font-semibold leading-tight",
+                    active ? "text-brass" : "text-foreground",
+                  )}
+                >
+                  {family}
+                </span>
+                <span className="block font-mono text-[10px] text-muted-foreground">
+                  {count}
+                </span>
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* ── Filter panel (collapsed by default) ─────────────────── */}

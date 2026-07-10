@@ -5,7 +5,7 @@ import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { strainSlug } from "@/lib/catalog";
 import { knownAsNames } from "@/lib/strain-identity";
-import { paletteForTime } from "@/lib/sensory-family-palette";
+import { paletteForTime, paletteForFamily } from "@/lib/sensory-family-palette";
 import { timeProfileOf, artImageSrc, artFocusOf } from "@/lib/strain-art";
 import { tierOf, TIER_STYLE } from "@/lib/collection-tier";
 import { FitText } from "@/components/fit-text";
@@ -157,6 +157,29 @@ export function CatalogCollectibleCard({
             <p className={cn("mt-0.5 text-[10px] italic", mutedText)}>
               aka {aka.slice(0, 2).join(" · ")}
             </p>
+          )}
+          {/* Smell-territory chip — the card gradient stays time-of-day (the
+              mood); the chip's glowing dot carries the FAMILY accent, so a
+              row of cards reads on two axes at a glance: "night + gas-og",
+              "daytime + citrus-haze". Same colour keys the family filter. */}
+          {identity?.sensoryFamily && (
+            <span
+              className={cn(
+                "mt-2 inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono text-[10px] tracking-wide backdrop-blur-sm",
+                lightText
+                  ? "border-white/15 bg-black/35 text-white/85"
+                  : "border-black/10 bg-white/55 text-black/70",
+              )}
+            >
+              <span
+                className="h-2 w-2 rounded-full"
+                style={{
+                  background: paletteForFamily(identity.sensoryFamily).accent,
+                  boxShadow: `0 0 5px ${paletteForFamily(identity.sensoryFamily).accent}`,
+                }}
+              />
+              {identity.sensoryFamily}
+            </span>
           )}
           <div className="mt-3 flex items-end justify-between gap-3">
             {identity?.tagline ? (

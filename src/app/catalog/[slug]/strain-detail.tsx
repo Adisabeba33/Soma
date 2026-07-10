@@ -15,7 +15,8 @@ import { RADAR_AXES, buildRadar } from "@/lib/sensory-radar";
 import { cn, formatScore } from "@/lib/utils";
 import { FeedbackPill, type Verdict } from "@/components/feedback-pill";
 import { labelFor } from "@/lib/vocab";
-import { knownAsNames, lineageConfidenceOf, lineageStatus } from "@/lib/strain-identity";
+import { knownAsNames, lineageConfidenceOf, lineageStatus, adjacentFamilies } from "@/lib/strain-identity";
+import { paletteForFamily, familyMeta } from "@/lib/sensory-family-palette";
 import { artImageSrc, artFocusOf } from "@/lib/strain-art";
 import { strainSlug } from "@/lib/catalog";
 import { layoutParents } from "@/lib/genetics-layout";
@@ -427,6 +428,62 @@ export function StrainDetail({
           )}
         </aside>
       </div>
+
+      {/* ── Smell territory: the family band (D6, variant B). Full family
+          gradient + character line + cluster neighbours as links, and the
+          adjacent territories (the same relations the engine credits with
+          the +3 adjacency bonus) deep-linking into the catalog's family
+          filter. ─────────────────────────────────────────────────────── */}
+      {identity?.sensoryFamily && (
+        <section className="mt-12 overflow-hidden rounded-2xl border border-border/40 shadow-lg">
+          <div
+            className="p-6 text-white sm:p-8"
+            style={{
+              background: paletteForFamily(identity.sensoryFamily).background,
+            }}
+          >
+            <p
+              className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.24em]"
+              style={{ color: paletteForFamily(identity.sensoryFamily).accent }}
+            >
+              Smell territory
+            </p>
+            <h2
+              className="mt-2 font-display text-2xl font-semibold tracking-tight"
+              style={{ color: paletteForFamily(identity.sensoryFamily).accent }}
+            >
+              {familyMeta(identity.sensoryFamily).label}
+            </h2>
+            <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-white/80">
+              {familyMeta(identity.sensoryFamily).blurb}{" "}
+              {entry.familyMembers.length > 0 && (
+                <>({entry.familyMembers.length + 1} strains in the catalog.)</>
+              )}
+            </p>
+            <div className="mt-5 flex flex-wrap items-center gap-2">
+              {entry.familyMembers.slice(0, 6).map((name) => (
+                <Link
+                  key={name}
+                  href={`/catalog/${strainSlug(name)}`}
+                  className="rounded-full border border-white/15 bg-white/10 px-3 py-1.5 font-mono text-xs text-white/90 transition-colors hover:bg-white/20"
+                >
+                  {name}
+                </Link>
+              ))}
+              {[...adjacentFamilies(identity.sensoryFamily)].map((fam) => (
+                <Link
+                  key={fam}
+                  href={`/catalog?family=${encodeURIComponent(fam)}`}
+                  title={`Adjacent territory — same smell neighbourhood. Browse the ${familyMeta(fam).label} family.`}
+                  className="rounded-full border border-dashed border-white/25 px-3 py-1.5 font-mono text-xs text-white/60 transition-colors hover:text-white/90"
+                >
+                  ↔ {familyMeta(fam).label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {faq.length > 0 && (
         <section className="mt-12 max-w-2xl">

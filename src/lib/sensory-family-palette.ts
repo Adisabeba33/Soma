@@ -146,6 +146,89 @@ const PALETTE: Record<string, FamilyPalette> = {
 // catalog cards, which is exactly the drift the test exists to catch.
 export const FAMILY_PALETTE_KEYS = Object.keys(PALETTE);
 
+// ── Family display meta ─────────────────────────────────────────────────
+// Human-facing label + one-line character for each smell territory. Used by
+// the strain page's "Smell territory" band; kept beside the palettes so the
+// coverage test guards both maps against family renames/splits.
+export interface FamilyMeta {
+  label: string;
+  blurb: string;
+}
+
+const FAMILY_META: Record<string, FamilyMeta> = {
+  "gas-og": {
+    label: "Gas & OG",
+    blurb: "Fuel, pine and damp earth — the OG line's sharp gas backbone.",
+  },
+  "diesel-chem": {
+    label: "Diesel & Chem",
+    blurb: "Sour fuel and chemical funk — the East Coast diesel school.",
+  },
+  "garlic-funk": {
+    label: "Garlic Funk",
+    blurb: "Savoury garlic-and-onion funk; slow, heavy burners.",
+  },
+  "kush-classic": {
+    label: "Kush Classic",
+    blurb: "Warm hash, spice and old-world earth — the Afghan kush line.",
+  },
+  "purple-berry": {
+    label: "Purple Berry",
+    blurb: "Grape and dark berry over floral musk; twilight indicas.",
+  },
+  "dessert-cookies": {
+    label: "Dessert & Cookies",
+    blurb: "Doughy vanilla-cream sweetness — the Cookies-and-Cake dynasty.",
+  },
+  "citrus-haze": {
+    label: "Citrus Haze",
+    blurb: "Bright lemon oil over spicy haze — daytime citrus energy.",
+  },
+  "sweet-haze": {
+    label: "Sweet Haze",
+    blurb: "Soft berry-sweet haze; blue-sky, easy-going sativas.",
+  },
+  "pine-spice": {
+    label: "Pine & Spice",
+    blurb: "Fresh pine resin and cracked pepper; forest-morning clarity.",
+  },
+  "candy-exotic": {
+    label: "Candy Exotic",
+    blurb: "Sugar-glass candy over fruity gas — the Zkittlez-to-Runtz era.",
+  },
+  "tropical-fruit": {
+    label: "Tropical Fruit",
+    blurb: "Mango, guava and papaya — juicy island-fruit terpenes.",
+  },
+  "gelato-exotic": {
+    label: "Gelato Exotic",
+    blurb: "Creamy gelato sweetness with a gassy undertow — the MAC and sherbet school.",
+  },
+  "funky-exotic": {
+    label: "Funky Exotic",
+    blurb: "Gas, cheese and diesel funk in modern exotic wrappers.",
+  },
+  "haze-sativa": {
+    label: "Haze Sativa",
+    blurb: "Airy, herbal old-school haze; long-flowering equatorial energy.",
+  },
+  "skunk-funk": {
+    label: "Skunk Funk",
+    blurb: "Loud classic skunk and cheese — the original outdoor funk.",
+  },
+};
+
+export const FAMILY_META_KEYS = Object.keys(FAMILY_META);
+
+export function familyMeta(family: string): FamilyMeta {
+  return (
+    FAMILY_META[family] ?? {
+      label: family,
+      blurb: "A distinct smell territory in the SŌMA catalog.",
+    }
+  );
+}
+
 export function paletteForFamily(family: string | null | undefined): FamilyPalette {
   if (!family) return FALLBACK;
   return PALETTE[family] ?? FALLBACK;
