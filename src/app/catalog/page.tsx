@@ -6,12 +6,9 @@ import { getUserIdReadOnly } from "@/lib/user";
 import { getFeedbackSignals } from "@/lib/api";
 import { mergedMatches } from "@/lib/merge-worlds";
 import { getFavoriteStrainNames } from "@/lib/favorites";
-import { scoreStrain } from "@/lib/taste-engine";
-import { STRAINS } from "@/lib/strain-data";
-import type { TasteProfileInput } from "@/lib/types";
+import { catalogScoresForProfile } from "@/lib/catalog-scores";
 import { CatalogClient } from "./catalog-client";
 import { FeedbackReset } from "@/components/feedback-reset";
-import { toEngineInput } from "@/lib/engine-input";
 
 export const dynamic = "force-dynamic";
 
@@ -51,15 +48,9 @@ async function loadMatches(): Promise<{
     return { matches: {}, hasProfile: false, mergedWorlds: [], blenderActive: false };
 
   const feedback = await getFeedbackSignals(userId);
-  const matches: Record<string, CatalogMatch> = {};
-  for (const strain of STRAINS) {
-    const m = scoreStrain(
-      strain.name,
-      toEngineInput(profile),
-      feedback,
-    );
-    matches[strain.name] = { score: m.matchScore, category: m.category };
-  }
+  // Cached full-catalog scoring — shared with /collection and the home
+  // top-matches, keyed on profile updatedAt + feedback (see catalog-scores).
+  const matches = catalogScoresForProfile(profile, feedback);
   return { matches, hasProfile: true, mergedWorlds: [], blenderActive: false };
 }
 

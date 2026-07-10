@@ -290,13 +290,23 @@ export function resolveStrain(
 
 // ---- Similarity & scoring ------------------------------------------
 
+// Memoised per StrainProfile object. Catalog strains are stable module
+// singletons scored thousands of times per catalog render (each similarity()
+// call used to build both sides' sets from scratch); inferred/override
+// profiles are short-lived objects the WeakMap lets the GC reclaim.
+const PROFILE_SET_CACHE = new WeakMap<StrainProfile, Set<string>>();
+
 function profileSet(s: StrainProfile): Set<string> {
-  return new Set([
+  const hit = PROFILE_SET_CACHE.get(s);
+  if (hit) return hit;
+  const set = new Set([
     ...s.aromas.map((t) => `a:${t}`),
     ...s.flavors.map((t) => `f:${t}`),
     ...s.effects.map((t) => `e:${t}`),
     ...s.traits.map((t) => `t:${t}`),
   ]);
+  PROFILE_SET_CACHE.set(s, set);
+  return set;
 }
 
 export function similarity(a: StrainProfile, b: StrainProfile): number {
@@ -893,6 +903,27 @@ function topFeedbackTags(entries: ResolvedFeedback[]): string[] {
     .map(([tag]) => tag);
 }
 
+// Feedback strain resolution is independent of the candidate, but scoring a
+// catalog render calls evaluateFeedback once per strain (~900×) with the SAME
+// feedback array — resolving every signal each time was O(strains × signals)
+// name lookups. Memoise the resolved (strain, liked, strength) triples per
+// array instance; only the candidate-dependent similarity is computed per
+// call. WeakMap keying means per-request arrays are GC'd naturally.
+type ResolvedSignal = { strain: StrainProfile; liked: boolean; strength: number };
+const RESOLVED_FEEDBACK_CACHE = new WeakMap<FeedbackSignal[], ResolvedSignal[]>();
+
+function resolveFeedbackSignals(feedback: FeedbackSignal[]): ResolvedSignal[] {
+  const hit = RESOLVED_FEEDBACK_CACHE.get(feedback);
+  if (hit) return hit;
+  const resolved = feedback.map((signal) => ({
+    strain: resolveStrain(signal.strainName).strain,
+    liked: signal.liked,
+    strength: signal.strength,
+  }));
+  RESOLVED_FEEDBACK_CACHE.set(feedback, resolved);
+  return resolved;
+}
+
 function evaluateFeedback(
   candidate: StrainProfile,
   feedback: FeedbackSignal[],
@@ -901,15 +932,14 @@ function evaluateFeedback(
     return { adjustment: 0, note: null, confidenceBoost: 0 };
   }
 
-  const entries: ResolvedFeedback[] = feedback.map((signal) => {
-    const { strain } = resolveStrain(signal.strainName);
-    return {
-      strain,
+  const entries: ResolvedFeedback[] = resolveFeedbackSignals(feedback).map(
+    (signal) => ({
+      strain: signal.strain,
       liked: signal.liked,
       strength: signal.strength,
-      sim: similarity(candidate, strain),
-    };
-  });
+      sim: similarity(candidate, signal.strain),
+    }),
+  );
 
   // "Support" is how much of the user's feedback is actually relevant
   // to this candidate — the sum of similarities.

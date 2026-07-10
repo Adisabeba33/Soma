@@ -8,7 +8,7 @@ import { getActiveProfile } from "@/lib/active-profile";
 import { getFeedbackSignals } from "@/lib/api";
 import { mergedMatches } from "@/lib/merge-worlds";
 import { STRAINS, findStrain, normalizeStrainName } from "@/lib/strain-data";
-import { scoreStrain } from "@/lib/taste-engine";
+import { catalogScoresForProfile } from "@/lib/catalog-scores";
 import { strainSlug } from "@/lib/catalog";
 import { getIdentity } from "@/lib/strain-identity";
 import { artImageSrc, artFocusOf, timeProfileOf } from "@/lib/strain-art";
@@ -17,7 +17,6 @@ import {
   profileCompleteness,
   MATCH_GATE_PERCENT,
 } from "@/lib/profile-completeness";
-import type { TasteProfileInput } from "@/lib/types";
 import { toEngineInput } from "./engine-input";
 
 export type TopMatch = {
@@ -43,6 +42,9 @@ export async function getTopMatches(
 
     const feedback = await getFeedbackSignals(userId);
     const merged = await mergedMatches(userId);
+    // Cached single-profile catalog scores (shared with /catalog); the merged
+    // path has its own cache inside mergedMatches.
+    const single = merged ? null : catalogScoresForProfile(profile, feedback);
     const favourites = new Set(
       (p.favoriteStrains ?? [])
         .map((f) => normalizeStrainName(findStrain(f)?.name ?? f))
@@ -51,10 +53,10 @@ export async function getTopMatches(
 
     return STRAINS.filter((s) => !favourites.has(normalizeStrainName(s.name)))
       .map((s) => {
-        const mm = merged?.matches[s.name];
+        const mm = merged?.matches[s.name] ?? single?.[s.name];
         const m = mm
           ? { matchScore: mm.score, category: mm.category }
-          : scoreStrain(s.name, p, feedback);
+          : { matchScore: 0, category: "Avoid" };
         const identity = getIdentity(s.name);
         return {
           name: s.name,

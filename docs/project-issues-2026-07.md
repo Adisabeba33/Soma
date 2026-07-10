@@ -324,7 +324,18 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
 
 ## Performance
 
-### P1 — Catalog/collection score the full catalog per request, uncached — MEDIUM
+### P1 — Catalog/collection score the full catalog per request, uncached — MEDIUM — ✅ FIXED
+> Resolved, two layers. (1) Engine memoisation: profileSet() is cached per
+> StrainProfile object and feedback-strain resolution per feedback-array
+> instance (both WeakMap — GC-safe), cutting the cold full-catalog pass from
+> 456ms to 312ms (60-signal profile). (2) src/lib/match-cache.ts — a
+> per-instance TTL/LRU cache whose keys embed ENGINE_VERSION, profile
+> id+updatedAt, blender dials and a feedback fingerprint, so entries
+> self-invalidate on any relevant change; a repeat render costs ~0.1ms.
+> Wired via catalogScoresForProfile() (shared by /catalog, /collection and
+> home top-matches — they now also reuse each other's work) and inside
+> mergedMatches for blend mode. Per-run surfaces (taste-match sliders) stay
+> uncached by design.
 - **Where:** `src/app/catalog/page.tsx` `loadMatches`, `src/lib/top-matches.ts`,
   `merge-worlds.ts` `mergedMatches` — loop over all 895 STRAINS × up to 3
   profiles; `evaluateFeedback` inside `scoreStrain` iterates every feedback

@@ -19,13 +19,11 @@ import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 import { getUserIdReadOnly } from "@/lib/user";
 import { getActiveProfile } from "@/lib/active-profile";
 import { getFeedbackSignals } from "@/lib/api";
-import { scoreStrain } from "@/lib/taste-engine";
+import { catalogScoresForProfile } from "@/lib/catalog-scores";
 import { mergedMatches } from "@/lib/merge-worlds";
 import { prisma } from "@/lib/prisma";
 import { CatalogCollectibleCard } from "@/components/catalog-collectible-card";
 import { cn } from "@/lib/utils";
-import type { TasteProfileInput } from "@/lib/types";
-import { toEngineInput } from "@/lib/engine-input";
 
 export const dynamic = "force-dynamic";
 
@@ -161,14 +159,12 @@ async function load(): Promise<{
     hasProfile = Boolean(profile);
     if (profile) {
       const feedback = await getFeedbackSignals(userId);
+      // Cached full-catalog scoring, shared with /catalog and top-matches —
+      // a wishlist visit right after a catalog visit costs no rescoring.
+      const scores = catalogScoresForProfile(profile, feedback);
       for (const name of wishlist) {
         if (!entryByName.has(name)) continue;
-        const m = scoreStrain(
-          name,
-          toEngineInput(profile),
-          feedback,
-        );
-        matchByName[name] = { score: m.matchScore, category: m.category };
+        if (scores[name]) matchByName[name] = scores[name];
       }
     }
   }

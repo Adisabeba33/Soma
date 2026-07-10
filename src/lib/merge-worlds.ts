@@ -20,8 +20,9 @@
 //     top of the pair (lean1), and the whole blend drives every surface.
 
 import { prisma } from "./prisma";
-import { scoreStrain, analyze } from "./taste-engine";
+import { scoreStrain, analyze, ENGINE_VERSION } from "./taste-engine";
 import { getFeedbackSignals } from "./api";
+import { getOrCompute, fingerprint } from "./match-cache";
 import { STRAINS, findStrain } from "./strain-data";
 import type {
   Category,
@@ -288,6 +289,34 @@ export async function mergedMatches(
   if (!spec) return null;
 
   const feedback = await getFeedbackSignals(userId);
+
+  // Full-catalog blend scoring is pure CPU on inputs that rarely change
+  // between requests — cache per instance, keyed on everything that can move
+  // a score (see match-cache.ts). Profile updatedAt covers profile edits;
+  // penalties/shares/balance cover every blender dial.
+  const cacheKey = [
+    "merged",
+    ENGINE_VERSION,
+    fingerprint(spec.profiles.map((p) => [p.id, p.updatedAt?.getTime?.() ?? 0])),
+    fingerprint([spec.penalties, spec.shares ?? null, spec.balance, spec.blenderActive]),
+    fingerprint(feedback),
+  ].join("|");
+  const matches = getOrCompute(cacheKey, () =>
+    computeMergedMatches(spec, feedback),
+  );
+
+  return {
+    worlds: spec.worlds,
+    matches,
+    veto: [...vetoSet(spec.profiles)],
+    blenderActive: spec.blenderActive,
+  };
+}
+
+function computeMergedMatches(
+  spec: BlendSpec,
+  feedback: FeedbackSignal[],
+): Record<string, CatalogMatch> {
   const veto = vetoSet(spec.profiles);
   const matches: Record<string, CatalogMatch> = {};
 
@@ -331,12 +360,7 @@ export async function mergedMatches(
     };
   }
 
-  return {
-    worlds: spec.worlds,
-    matches,
-    veto: [...veto],
-    blenderActive: spec.blenderActive,
-  };
+  return matches;
 }
 
 // Single-strain version for the catalog detail page, so it agrees with the list.
