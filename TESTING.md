@@ -149,6 +149,25 @@ gate before pushing.
 > fresh clone needs `npx prisma generate` (normally run by `npm install`'s
 > postinstall) before `npm test` — no database connection is required.
 
+### API contract tests (`npm run test:api`)
+
+End-to-end contracts for the top routes — signup/login/session, the
+cross-origin write guard, rate limiting, profile → analyze → compare, and
+the strain-feedback round-trip. The suite spawns its own `next dev` on a
+private port; it needs a **disposable Postgres** with the schema pushed:
+
+```bash
+# one-time: point at any empty database and push the schema
+DATABASE_URL="postgresql://postgres@127.0.0.1:5433/soma" npm run db:push
+
+# run the contracts
+DATABASE_URL="postgresql://postgres@127.0.0.1:5433/soma" npm run test:api
+```
+
+Each run uses fresh random emails/usernames, so it is rerunnable against
+the same database. Kept out of `npm test` on purpose — the unit suite stays
+fast and infrastructure-free.
+
 ### Engine stress-test (`npm run stress`)
 
 ```bash

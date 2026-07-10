@@ -12,7 +12,8 @@
     "db:generate": "prisma generate",
     "test": "tsx --test tests/*.test.ts",
     "stress": "tsx scripts/stress/run.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "test:api": "tsx --test tests/api/*.test.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",

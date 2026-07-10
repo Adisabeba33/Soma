@@ -403,7 +403,17 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   import the pure module; or lazy-init prisma.
 - **Effort:** small.
 
-### T2 — No API-route/E2E tests; OpenAI layer untested beyond a stub — MEDIUM
+### T2 — No API-route/E2E tests; OpenAI layer untested beyond a stub — MEDIUM — ✅ FIXED (routes half)
+> Resolved for the route contracts: tests/api/routes.test.ts (npm run
+> test:api, opt-in — needs a disposable Postgres) spawns its own next dev
+> and covers 12 contracts end-to-end: the cross-origin write guard (403 on
+> foreign Origin, pass-through same-origin/origin-less), signup validation
+> (email, 10-char minimum, denylist) and the anonymous-row upgrade, login
+> (unverified 403, generic 401, session cookie + /api/auth/me), shared rate
+> limiting via forwarded IP (429), and the anonymous profile → analyze
+> (sorted recs, 94–96 anchor, inferred-strain flags) → compare →
+> strain-feedback round-trip. The OpenAI prose layer stays stub-tested only
+> (deliberate: it never changes scores and degrades to deterministic).
 - **Where:** `tests/` covers `src/lib` thoroughly; `src/app/api/**` has zero
   coverage (auth flows, analyze/compare payload contracts, blender state).
 - **Fix:** a thin route-level test pass (node:test + fetch against `next dev`
