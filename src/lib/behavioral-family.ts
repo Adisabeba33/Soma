@@ -185,6 +185,11 @@ export interface FamilyEvidence {
 // Combined with Layer 1's archetype bonus (+4) and Layer 2's texture bonus
 // (+3), the maximum upward swing on a richly-aligned non-anchor strain is
 // +19. Anchor floor 94–96 still wins.
+//
+// NOTE: the engine caps this bonus at +8 when the candidate's curated
+// sensory family is known-unrelated to every favourite's (deferred #2,
+// taste-engine.ts) — the 9/12 tiers are reachable only on same or adjacent
+// smell territory.
 export function familyBonus(
   strainFamily: BehavioralFamily | null,
   targetFamily: BehavioralFamily | null,

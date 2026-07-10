@@ -93,7 +93,13 @@ const FLAVOR_VOCAB = new Set(FLAVORS.map((o) => o.value));
 // favourite scores a little above one resembling their #4 — favourites are
 // read most-loved-first. Single-favourite profiles are unchanged (weight 1.0).
 // Multi-favourite score distributions shift; older v7 audits stay readable.
-export const ENGINE_VERSION = "v9";
+// v9 → v10: behavioural-family bonus capped at +8 (was up to +12) when the
+// candidate's curated sensory family is KNOWN unrelated to every favourite's
+// (both sides carry identity, no exact/adjacent match). Closes deferred #2:
+// "right effect-family, wrong smell" no longer rides the full family bonus
+// past genuinely same-smell strains. Scores of affected candidates drop by
+// up to 4 points; same-smell and unknown-identity candidates are unchanged.
+export const ENGINE_VERSION = "v10";
 
 const NEUTRAL = 52;
 
@@ -1160,6 +1166,23 @@ export function scoreStrain(
     effectScore: effect.score,
   };
 
+  // Sensory-family relation to the favourites, computed up front because it
+  // both adds its own bonus (sensoryMod, below) and CAPS the behavioural
+  // family bonus (deferred #2, Option A): "right effect-family, wrong smell"
+  // used to collect the full +12 and ride to the ceiling past genuinely
+  // same-smell strains. When the candidate's curated smell territory is
+  // KNOWN to be unrelated to every favourite's (both sides carry identity,
+  // no exact or adjacent match), the behavioural bonus is capped at +8 —
+  // trimmed, not zeroed: same effect-feel still deserves recognition. The
+  // cap never fires on missing data (inferred strains, favourites without
+  // identity), so it punishes only a confirmed smell mismatch.
+  const sensoryMod = sensoryFamilyBonus(strain, resolvedFavorites);
+  const knownUnrelatedSmell =
+    sensoryMod === 0 &&
+    Boolean(getIdentity(strain.name)?.sensoryFamily) &&
+    resolvedFavorites.some((f) => getIdentity(f.name)?.sensoryFamily);
+  const FAMILY_BONUS_UNRELATED_CAP = 8;
+
   const layersForTarget = (t: ResolvedTarget) => {
     const tArch = t.archetype;
     const match = tArch !== null && tArch === strainArchetype;
@@ -1176,7 +1199,10 @@ export function scoreStrain(
         ? 1
         : 0;
     const textureMod = textureContribution(strainTexture, t.texture);
-    const familyMod = familyBonus(strainFamily, t.family, familyEvidence);
+    let familyMod = familyBonus(strainFamily, t.family, familyEvidence);
+    if (knownUnrelatedSmell) {
+      familyMod = Math.min(familyMod, FAMILY_BONUS_UNRELATED_CAP);
+    }
     return { effectContribution, archetypeBonus, textureMod, familyMod };
   };
 
@@ -1300,14 +1326,13 @@ export function scoreStrain(
     effect: collectMissing(effect.missed),
   };
 
-  // Sensory-family bonus — orthogonal to the behavioural family used by
-  // familyMod above. familyMod looks at effect-feel (nighttime-indica,
-  // daytime-functional, …); sensoryFamily looks at aroma/cluster
-  // identity (gas-og, garlic-funk, kush-classic, …). Both can fire on
-  // the same candidate without double-counting because they measure
-  // different signals — but the bonus only fires when both candidate
-  // and at least one favourite carry an identity record.
-  const sensoryMod = sensoryFamilyBonus(strain, resolvedFavorites);
+  // sensoryMod (computed above, next to the unrelated-smell cap) is
+  // orthogonal to the behavioural familyMod: familyMod looks at effect-feel
+  // (nighttime-indica, daytime-functional, …); sensoryFamily looks at
+  // aroma/cluster identity (gas-og, garlic-funk, kush-classic, …). Both can
+  // fire on the same candidate without double-counting because they measure
+  // different signals — but the bonus only fires when both candidate and at
+  // least one favourite carry an identity record.
 
   // Defensive against legacy DB rows where these columns were not
   // backfilled (the schema declares String[] but historic profiles in

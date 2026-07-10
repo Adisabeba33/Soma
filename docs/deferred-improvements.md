@@ -91,6 +91,16 @@ and didn't do is itself valuable context.
 
 ### #2 — `behavioralFamily +12 dominance` over `sensoryFamily +5`
 
+> **✓ Resolved (2026-07-10, engine v10).** Implemented Option A: the
+> behavioural-family bonus is capped at **+8** when the candidate's curated
+> sensory family is KNOWN unrelated to every favourite's (both sides carry
+> identity, no exact/adjacent match). Trimmed, not zeroed — same effect-feel
+> still earns recognition; the cap never fires on missing identity data.
+> Verified on the gas-cluster profile: 148 unrelated-smell strains dropped
+> by up to 4 raw points (Wedding Cake 73→69, Biscotti 88→84, LA Kush Cake
+> 89.24→85), the gas/kush top-20 unchanged. Tests in
+> `tests/family-bonus-cap.test.ts`; stress snapshot regenerated.
+
 - **Found:** 2026-06-09
 - **Source:** External expert review (GG4 / GMO Cookies test)
 - **What:** When a candidate strain shares the user's favourite's

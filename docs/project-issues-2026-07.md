@@ -28,7 +28,14 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   whole numbers (or "91+") in the UI. Pure display change; engine untouched.
 - **Effort:** small.
 
-### E2 — behavioralFamily bonus (max +12) dominates sensoryFamily (+5) — MEDIUM
+### E2 — behavioralFamily bonus (max +12) dominates sensoryFamily (+5) — MEDIUM — ✅ FIXED
+> Resolved (engine v9→v10): behavioural-family bonus capped at +8 when the
+> candidate's curated sensory family is KNOWN unrelated to every favourite's
+> (both sides have identity, no exact/adjacent match). Never fires on missing
+> data. Gas-cluster verification: 148 unrelated-smell strains −up to 4 raw
+> points (Wedding Cake 73→69, Biscotti 88→84), gas/kush top-20 untouched,
+> same-smell strains keep the full 12. Tests: family-bonus-cap.test.ts;
+> stress snapshot regenerated; deferred-improvements #2 marked resolved.
 - **Where:** `src/lib/behavioral-family.ts` (`familyBonus`),
   `taste-engine.ts` bonuses; already tracked as `deferred-improvements.md` #2.
 - **What:** "right effect-family, wrong smell" candidates (GG4 fan → GMO
