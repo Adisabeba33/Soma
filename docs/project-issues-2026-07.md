@@ -55,7 +55,12 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   document that the channel is a dislike-guard, not a ranker).
 - **Effort:** medium (curation), or small (document the limitation).
 
-### E4 — Keyword fallback for unknown strains produces confident-looking reads — LOW
+### E4 — Keyword fallback for unknown strains produces confident-looking reads — LOW — ✅ FIXED
+> Resolved: inferred-strain scores now render as "~62" — a visible tilde
+> (plus slight muting and an explanatory tooltip on the main card) in the
+> recommendation card, blend results list and Compare. The "read inferred
+> from the name" footnote stays; the number itself no longer poses as a
+> curated read.
 - **Where:** `inferStrain` / `BUCKETS` in `taste-engine.ts`.
 - **What:** any unknown name containing e.g. "sour" is read as citrus/sativa;
   no keyword hit → generic "earthy/sweet/relaxed hybrid". Confidence is capped
@@ -193,7 +198,10 @@ Legend: **E** = engine/scoring · **B** = blend-target branch · **D** = data/ca
   vocab-consistency test asserting palette keys ⊇ live sensoryFamily values.
 - **Effort:** small.
 
-### D2 — Audit docs are stale (describe a 439-strain catalog; live is 895, fully curated) — LOW (docs)
+### D2 — Audit docs are stale (describe a 439-strain catalog; live is 895, fully curated) — LOW (docs) — ✅ FIXED
+> Resolved: all three audit docs now open with a status banner marking them
+> as historical snapshots and stating the re-verified 2026-07-10 coverage
+> (895/895 primaries + identity, sourceConfidence 261/544/90).
 - **Where:** `docs/catalog-audit.md`, `docs/lineage-audit.md`,
   `docs/sensory-tag-audit-2026-06.md` vs `strain-data.ts` /
   `strain-identity-data.ts`.

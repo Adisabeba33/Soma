@@ -244,6 +244,7 @@ export default function ComparePage() {
                         TONE[item.category],
                       )}
                     >
+                      {!item.knownStrain && "~"}
                       {formatScore(item.matchScore)}%
                     </span>
                     <span

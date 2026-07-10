@@ -1,5 +1,14 @@
 # Catalog audit — duplicates & completeness (2026-06-15)
 
+> **Status update (2026-07-10):** this document is a historical snapshot of
+> the 439-strain catalog. The live catalog has since grown to **895 strains**,
+> and coverage was re-verified against the code on 2026-07-10:
+> `primaryAromas` / `primaryFlavors` / `primaryEffects` populated on
+> **895/895**, identity records (sensoryFamily, breeder, lineage) on
+> **895/895**, `sourceConfidence` 261 high / 544 medium / 90 low. The
+> numbers below describe the audit as it was run, not the current state.
+
+
 Full pass over all **439** catalog strains (`STRAINS` ↔ `IDENTITIES`, 1:1).
 
 ## Verified clean

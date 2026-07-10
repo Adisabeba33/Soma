@@ -170,11 +170,32 @@ export function RecommendationCard({
             </div>
 
             <div className="shrink-0 text-right">
-              <div className="flex items-baseline justify-end gap-0.5">
+              <div
+                className="flex items-baseline justify-end gap-0.5"
+                title={
+                  match.knownStrain
+                    ? undefined
+                    : "Estimate — this read is inferred from the strain's name, not curated sensory data."
+                }
+              >
+                {/* Inferred strains get a visible "~" so the estimate never
+                    poses as a curated read (E4) — the footnote alone was too
+                    easy to miss next to a confident full-size number. */}
+                {!match.knownStrain && (
+                  <span
+                    className={cn(
+                      "font-display text-3xl font-semibold leading-none opacity-70",
+                      meta.tone,
+                    )}
+                  >
+                    ~
+                  </span>
+                )}
                 <span
                   className={cn(
                     "font-display text-5xl font-semibold tabular-nums leading-none",
                     meta.tone,
+                    !match.knownStrain && "opacity-80",
                   )}
                 >
                   {formatScore(match.matchScore)}

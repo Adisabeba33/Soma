@@ -144,6 +144,7 @@ export function BlendResultsList({
                 prominent ? "text-xl" : "text-base",
               )}
             >
+              {!r.knownStrain && "~"}
               {formatScore(r.matchScore)}%
             </span>
             <ChevronDown

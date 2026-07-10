@@ -1,5 +1,14 @@
 # Catalog lineage audit — genetic parents
 
+> **Status update (2026-07-10):** this document is a historical snapshot of
+> the 400-strain catalog. The live catalog has since grown to **895 strains**,
+> and coverage was re-verified against the code on 2026-07-10:
+> `primaryAromas` / `primaryFlavors` / `primaryEffects` populated on
+> **895/895**, identity records (sensoryFamily, breeder, lineage) on
+> **895/895**, `sourceConfidence` 261 high / 544 medium / 90 low. The
+> numbers below describe the audit as it was run, not the current state.
+
+
 > Regenerated 2026-06-15 after the lineage-fill sessions. Source of truth:
 > `STRAINS` (src/lib/strain-data.ts) + `getIdentity().lineage` and the derived
 > `lineageStatus()` (src/lib/strain-identity.ts). Every strain now resolves to a
