@@ -476,7 +476,7 @@ export function TasteMatchClient() {
                   </h1>
                   <p className="mt-3 leading-relaxed text-muted-foreground">
                     Add the strains available to you. SŌMA will score each one
-                    against {against} and tell you what is worth your money.
+                    against {against} and tell you what truly fits your taste.
                   </p>
                 </>
               );
@@ -497,7 +497,7 @@ export function TasteMatchClient() {
                   <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
                     <Icon className="mr-1.5 inline-block h-4 w-4 align-[-2px] text-brass" />
                     Add the strains available to you. SŌMA scores each one
-                    against {against} and ranks them by what is worth your money.
+                    against {against} and ranks them by how well they fit you.
                   </p>
                 </div>
                 <div className="relative order-1 aspect-[16/11] overflow-hidden rounded-[1.75rem] shadow-[0_44px_90px_-34px_rgba(55,40,20,0.6)] ring-1 ring-black/5 sm:order-2 sm:aspect-[3/4]">

@@ -22,6 +22,7 @@ import { familyMatches } from "./strain-families";
 import { riskEntryFor, riskTagsFor, RISK_EFFECT_OVERLAP } from "./risk-tags";
 import { densityBonus, densityPreferenceFromProfile } from "./bud-structure";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
+import { categoryForScore, categoryRank } from "./score-taxonomy";
 import type {
   AnalysisResult,
   Category,
@@ -832,16 +833,10 @@ function categorize(
   isDisliked: boolean,
 ): Category {
   if (isDisliked) return "Avoid";
-  let cat: Category;
-  if (score >= 80) cat = "Best Match";
-  else if (score >= 66) cat = "Closest Alternative";
-  else if (score >= 50) cat = "Worth Trying";
-  else if (score >= 36) cat = "Risky";
-  else cat = "Avoid";
+  let cat: Category = categoryForScore(score);
 
-  const rank: Category[] = ["Avoid", "Risky", "Worth Trying", "Closest Alternative", "Best Match"];
   const cap = (max: Category) => {
-    if (rank.indexOf(cat) > rank.indexOf(max)) cat = max;
+    if (categoryRank(cat) > categoryRank(max)) cat = max;
   };
   if (conflicts >= 2) cap("Risky");
   else if (conflicts === 1) cap("Closest Alternative");

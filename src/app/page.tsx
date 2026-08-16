@@ -26,6 +26,7 @@ import {
 import { ProfileProgressRing } from "@/components/profile-progress";
 import type { TasteProfileInput } from "@/lib/types";
 import { getTopMatches, type TopMatch } from "@/lib/top-matches";
+import { HOME_SAMPLE, HOME_SAMPLE_CATEGORY } from "@/lib/home-sample";
 
 export const dynamic = "force-dynamic";
 
@@ -394,9 +395,10 @@ function AnonymousHome() {
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 No feed, no public profile, nothing to share — you&apos;re
-                one-on-one with SŌMA. Your data stays in your account: never
-                sold, never handed to advertisers or other services. It exists
-                to serve your taste, full stop.
+                one-on-one with SŌMA. Your profile is never sold and never
+                used for advertising. It&apos;s shared only with the service
+                providers that run SŌMA, exactly as described in our Privacy
+                Policy.
               </p>
             </div>
           </div>
@@ -472,18 +474,18 @@ function AnonymousHome() {
             <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
               <span className="inline-flex items-center gap-2 text-sm font-medium text-accent">
                 <span className="h-2 w-2 rounded-full bg-accent" />
-                Closest Alternative
+                {HOME_SAMPLE_CATEGORY}
               </span>
               <span className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground">
-                Confidence: medium
+                Confidence: {HOME_SAMPLE.confidence}
               </span>
             </div>
             <div className="mt-2 flex items-baseline gap-3">
               <h3 className="font-display text-3xl font-semibold tracking-tight">
-                Triple Double OG
+                {HOME_SAMPLE.name}
               </h3>
               <span className="font-display text-3xl font-semibold text-accent">
-                82%
+                {HOME_SAMPLE.score}%
               </span>
             </div>
             <p className="mt-4 max-w-2xl leading-relaxed text-foreground">

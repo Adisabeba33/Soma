@@ -10,35 +10,9 @@ import {
 } from "@/lib/purchase-confidence";
 import type { Verdict } from "@/components/feedback-pill";
 import type { Category, StrainMatch } from "@/lib/types";
+import { CATEGORY_META } from "@/lib/score-taxonomy";
 
 export type RecommendationView = StrainMatch & { id?: string };
-
-const CATEGORY_META: Record<
-  Category,
-  { tone: string; bar: string; dot: string }
-> = {
-  "Best Match": { tone: "text-accent", bar: "bg-accent", dot: "bg-accent" },
-  "Closest Alternative": {
-    tone: "text-brass",
-    bar: "bg-brass",
-    dot: "bg-brass",
-  },
-  "Worth Trying": {
-    tone: "text-foreground",
-    bar: "bg-foreground/65",
-    dot: "bg-foreground/55",
-  },
-  Risky: {
-    tone: "text-[#b4791f]",
-    bar: "bg-[#b4791f]",
-    dot: "bg-[#b4791f]",
-  },
-  Avoid: {
-    tone: "text-[#a23b2c]",
-    bar: "bg-[#a23b2c]",
-    dot: "bg-[#a23b2c]",
-  },
-};
 
 const PURCHASE_TONE: Record<SignalLevel, string> = {
   unknown: "text-muted-foreground",

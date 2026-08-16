@@ -88,13 +88,16 @@ The engine is **not** touched.
   Best use / Likely families) with **Looks right** (save → Taste Match) /
   **Adjust profile** (save → full questionnaire). The "Guide Me" card points
   here; free-text describe + full questionnaire remain as secondary links.
-- **Phase C — 3-tier verdict results + "Why?" reasons** ✅ done — results now
-  group into **Worth your money (81–100) / Worth a shot (56–80) / Save your
-  money (0–55)** with coloured headers (green / brass / terracotta), reusing the
+- **Phase C — grouped verdict results + "Why?" reasons** ✅ done, then
+  revised — the original 3-tier purchase framing (**Worth your money / Worth a
+  shot / Save your money**) was retired in favor of grouping by the engine's
+  five sensory categories (see `docs/PRODUCT_DECISIONS.md` #1–2 and
+  `src/lib/score-taxonomy.ts`): purchase-value language overstated what the
+  engine knows while purchase confidence is `unknown`. Results still reuse the
   card's `whyItFits` / `riskNotes`; matched tokens render as ✓ "Why" reasons.
   The menu input ("What's on the menu?") is reached via the home "Find My
-  Flower" card. Still open: reconciling the 5-category card label vs the tier
-  framing, and the Compare-feature vs menu-analysis naming.
+  Flower" card. The 5-vs-3 taxonomy question is now resolved (one scale);
+  Compare-feature vs menu-analysis naming remains open.
 - **Phase D (later)** — LLM extractor behind the parsers (#17) for robust
   free-text understanding.
 

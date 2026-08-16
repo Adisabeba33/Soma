@@ -31,7 +31,7 @@ const BANDS: {
     range: "80–92",
     name: "Best Match",
     blurb:
-      "A really strong fit for your taste. If the flower itself is fresh and well grown, this is worth your money.",
+      "A really strong fit for your taste — the closest thing on the menu to what you already love. How the actual jar was grown and stored is a separate question SŌMA can't see.",
     tone: "border-accent/30 bg-accent/5",
     dot: "bg-accent",
   },
