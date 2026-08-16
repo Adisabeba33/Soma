@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
-import {
-  profileCompleteness,
-  MATCH_GATE_PERCENT,
-} from "@/lib/profile-completeness";
+import { matchingReadiness } from "@/lib/profile-completeness";
 import type { TasteProfileInput } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -12,8 +9,13 @@ export const dynamic = "force-dynamic";
 const cleanName = (v: unknown, fallback: string): string =>
   (typeof v === "string" ? v : "").trim().slice(0, 40) || fallback;
 
+// The one gate message for activate/merge. Readiness (not the completeness
+// percent) is what unlocks use — see matchingReadiness().
+const NOT_READY_ERROR =
+  "This profile needs real matching signal first: a favourite strain, or a primary effect + time plus one aroma/effect you enjoy.";
+
 // Rename, or activate (set as the profile all matching runs under). Activating
-// requires the profile to be at least MATCH_GATE_PERCENT complete.
+// requires the profile to be matching-ready.
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -38,20 +40,17 @@ export async function PATCH(
   }
 
   // Toggle this profile in/out of the merge set. Like activate, a profile must
-  // be usable (>= the match gate) before it can join — merging an empty profile
-  // would only dilute the blend. Removing from the set is always allowed.
+  // be matching-ready before it can join — merging an empty profile would only
+  // dilute the blend. Removing from the set is always allowed.
   if (body.action === "merge") {
     const on = body.on !== false; // default true
     if (on) {
-      const percent = profileCompleteness(
+      const readiness = matchingReadiness(
         profile as unknown as TasteProfileInput,
-      ).percent;
-      if (percent < MATCH_GATE_PERCENT) {
+      );
+      if (!readiness.ready) {
         return NextResponse.json(
-          {
-            error: `Finish this profile to ${MATCH_GATE_PERCENT}% before merging it.`,
-            percent,
-          },
+          { error: NOT_READY_ERROR, missing: readiness.missing },
           { status: 400 },
         );
       }
@@ -78,15 +77,12 @@ export async function PATCH(
   }
 
   if (body.action === "activate") {
-    const percent = profileCompleteness(
+    const readiness = matchingReadiness(
       profile as unknown as TasteProfileInput,
-    ).percent;
-    if (percent < MATCH_GATE_PERCENT) {
+    );
+    if (!readiness.ready) {
       return NextResponse.json(
-        {
-          error: `Finish this profile to ${MATCH_GATE_PERCENT}% before making it active.`,
-          percent,
-        },
+        { error: NOT_READY_ERROR, missing: readiness.missing },
         { status: 400 },
       );
     }

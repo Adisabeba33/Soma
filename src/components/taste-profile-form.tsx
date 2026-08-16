@@ -23,6 +23,7 @@ import {
 } from "@/lib/profile-target";
 import { NAMED_FAMILIES } from "@/lib/strain-families";
 import { STRAIN_NAMES } from "@/lib/strain-data";
+import { CURATED_RISK_TAGS, type RiskTag } from "@/lib/risk-tags";
 import { type TasteProfileState } from "@/lib/profile-state";
 
 const AROMA_VALUES = new Set(AROMAS.map((o) => o.value));
@@ -244,10 +245,14 @@ export function TasteProfileForm({
       <Section
         index={9}
         title="Anything in the high you'd rather avoid?"
-        hint="For daytime energy without the nervous edge. SŌMA gently lowers strains known to run this way — never if your own favourites already do."
+        hint="For daytime energy without the nervous edge. SŌMA gently lowers strains known to run this way — never if your own favourites already do. Options marked (soon) are recorded but not scored yet — they start working as the catalog is curated."
       >
         <ChipSelect
-          options={RISK_AVOIDANCE}
+          options={RISK_AVOIDANCE.map((o) =>
+            CURATED_RISK_TAGS.has(o.value as RiskTag)
+              ? o
+              : { ...o, label: `${o.label} (soon)` },
+          )}
           value={state.avoidedRisks}
           onChange={(v) => set("avoidedRisks", v)}
         />

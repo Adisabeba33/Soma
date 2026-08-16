@@ -1,12 +1,18 @@
-// Profile completeness — a single per-question cost model used everywhere
-// (onboarding progress, the finish-your-profile nudge, the profile ring) so the
-// percentage is one consistent number. Each question carries a weight; the
-// percent is the sum of answered weights. The 15 onboarding questions total
-// 75%; five extra refinement questions (full profile only) take it to 100%.
-// Weights are tuned so the answers that point the engine in the right direction
-// up front — favourite strains, primary effect, use-time, primary aroma — are
-// worth the most (39% between them). It never gates matching here; the 60% gate
-// lives at the call sites.
+// Two separate questions live here, deliberately kept apart:
+//
+// 1. Profile COMPLETENESS — how much of the editable profile is filled in.
+//    A per-question cost model used everywhere (the finish-your-profile
+//    nudge, the profile ring) so the percentage is one consistent number.
+//    Each question carries a weight; percent = answered weights over the
+//    computed total (the raw weights are relative, not hand-tuned to 100 —
+//    normalization happens in profileCompleteness()). Weights favour the
+//    answers that point the engine in the right direction — favourite
+//    strains, primary effect, use-time, primary aroma.
+//
+// 2. Matching READINESS — whether the engine has real scoring signal
+//    (matchingReadiness() below). Matching, activation and merging gate on
+//    readiness, never on the percent: completeness includes contextual and
+//    not-yet-scored questions, and filling only those must not unlock a run.
 
 import {
   isPrimaryAroma,
@@ -19,11 +25,6 @@ import type { TasteProfileInput } from "./types";
 const nonEmpty = (v: unknown): boolean => Array.isArray(v) && v.length > 0;
 const hasText = (v: unknown): boolean =>
   typeof v === "string" && v.trim().length > 0;
-
-// Below this, matching is gated — the engine needs the directional answers
-// (favourites + effect + time + aroma ≈ 39%, plus a couple of the broad
-// sensory picks) before a run is worth showing.
-export const MATCH_GATE_PERCENT = 60;
 
 // One scorable question: its weight, whether the profile carries an answer, and
 // the human hint shown in "what's missing". `section` groups onboarding ("base")
@@ -41,7 +42,7 @@ function items(p: Partial<TasteProfileInput>): CompletenessItem[] {
     nonEmpty(p.preferredFamilies) || nonEmpty(p.avoidedFamilies);
 
   return [
-    // ── Onboarding (73): the questions, weighted by directional value ──
+    // ── Base: the core questions, weighted by directional value ──
     { key: "favoriteStrains", label: "A few strains you already love", weight: 13, filled: nonEmpty(p.favoriteStrains), section: "base" },
     { key: "primaryEffect", label: "Your one-word session (primary effect)", weight: 10, filled: isPrimaryEffect(p.primaryEffect), section: "base" },
     { key: "useTime", label: "When you usually reach for it", weight: 8, filled: isUseTime(p.useTime), section: "base" },
@@ -56,7 +57,7 @@ function items(p: Partial<TasteProfileInput>): CompletenessItem[] {
     { key: "avoidedRisks", label: "Risks in the high to avoid", weight: 2, filled: nonEmpty(p.avoidedRisks), section: "base" },
     { key: "dislikedStrains", label: "Strains to steer away from", weight: 2, filled: nonEmpty(p.dislikedStrains), section: "base" },
     { key: "dislikedTraits", label: "Past-pickup dealbreakers", weight: 1, filled: nonEmpty(p.dislikedTraits), section: "base" },
-    // ── Full-profile refinement (23): the extra precision questions ──
+    // ── Depth: the extra precision questions (full profile only) ──
     { key: "likedTraits", label: "What you liked about your favourites", weight: 7, filled: nonEmpty(p.likedTraits), section: "depth" },
     { key: "families", label: "Strain families you seek or avoid", weight: 6, filled: familiesSet, section: "depth" },
     { key: "preferredType", label: "Indica / sativa / hybrid preference", weight: 4, filled: isPreferredType(p.preferredType), section: "depth" },
@@ -89,7 +90,9 @@ export function profileCompleteness(
 ): ProfileCompleteness {
   const all = items(p);
   const earned = all.reduce((sum, i) => sum + (i.filled ? i.weight : 0), 0);
-  const total = all.reduce((sum, i) => sum + i.weight, 0); // 100 by construction
+  // Weights are relative; normalize by the computed total so the percent
+  // stays honest when questions are added or removed.
+  const total = all.reduce((sum, i) => sum + i.weight, 0);
   const percent = Math.round((earned / total) * 100);
 
   const filled = all.filter((i) => i.filled);
@@ -105,4 +108,44 @@ export function profileCompleteness(
     missing,
     nextHint: missing[0] ?? null,
   };
+}
+
+// ── Matching readiness ──────────────────────────────────────────────
+// Depends ONLY on fields scoreStrain() actually consumes as positive
+// signal, so contextual fields (smokingMethods), similarity-only fields
+// (bodyFeel) and not-yet-curated options (avoidedRisks beyond the curated
+// tags, moist/fluffy textures) can never unlock matching.
+//
+// Ready when either:
+//  - at least one favourite strain is named (the anchor path — favourites
+//    carry full sensory information and dominate the engine), or
+//  - the forced-choice base target exists (primaryEffect + useTime) AND at
+//    least one positive sensory pick is present (primary aroma, preferred
+//    effects, aromas or flavours).
+
+export interface MatchingReadiness {
+  ready: boolean;
+  // What would unlock matching, in order of value. Empty when ready.
+  missing: string[];
+}
+
+export function matchingReadiness(
+  p: Partial<TasteProfileInput>,
+): MatchingReadiness {
+  const anchor = nonEmpty(p.favoriteStrains);
+  const base = computeHasBase(p);
+  const sensory =
+    isPrimaryAroma(p.primaryAroma) ||
+    nonEmpty(p.preferredEffects) ||
+    nonEmpty(p.preferredAromas) ||
+    nonEmpty(p.preferredFlavors);
+
+  const ready = anchor || (base && sensory);
+  const missing: string[] = [];
+  if (!ready) {
+    missing.push("A strain you already love");
+    if (!base) missing.push("Your primary effect and when you smoke");
+    if (!sensory) missing.push("At least one aroma or effect you enjoy");
+  }
+  return { ready, missing };
 }

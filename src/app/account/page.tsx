@@ -24,7 +24,6 @@ import { ProfileSimilarityHint } from "@/components/profile-similarity-hint";
 import { PresetPicker } from "@/components/preset-picker";
 import type { Preset } from "@/lib/profile-presets";
 import { labelFor } from "@/lib/vocab";
-import { MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
 import { cn } from "@/lib/utils";
 
 // Premium card surface, shared across the dossier.
@@ -54,6 +53,8 @@ type ProfileItem = {
   isActive: boolean;
   merged: boolean;
   percent: number;
+  // Matching readiness from the API — the gate for activate/merge/use.
+  ready: boolean;
   topAromas: string[];
   topEffects: string[];
 };
@@ -526,7 +527,7 @@ export default function AccountPage() {
 
       <div className="mt-4 space-y-4">
         {profiles.map((p, idx) => {
-          const ready = p.percent >= MATCH_GATE_PERCENT;
+          const ready = p.ready;
           const Emblem = profileEmblem(p.topAromas, p.topEffects);
           const menuOpen = openMenuId === p.id;
 
@@ -547,7 +548,7 @@ export default function AccountPage() {
                 </button>
               ) : (
                 <span key="finish" className={cn(act, "text-muted-foreground")}>
-                  Finish to {MATCH_GATE_PERCENT}%
+                  Needs core answers
                 </span>
               ),
             );
@@ -718,7 +719,7 @@ export default function AccountPage() {
                   <p className="mt-0.5 text-sm text-muted-foreground">
                     {ready
                       ? `${p.percent}% complete`
-                      : `${p.percent}% — finish to ${MATCH_GATE_PERCENT}% to use`}
+                      : `${p.percent}% — add the core answers to use`}
                   </p>
                 </div>
               </div>

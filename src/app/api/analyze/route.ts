@@ -21,7 +21,7 @@ import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { enhanceWithOpenAI, isOpenAIEnabled } from "@/lib/openai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
 import type { AnalysisResult, TasteProfileInput, FeedbackSignal } from "@/lib/types";
-import { profileCompleteness, MATCH_GATE_PERCENT } from "@/lib/profile-completeness";
+import { matchingReadiness } from "@/lib/profile-completeness";
 
 export const dynamic = "force-dynamic";
 
@@ -76,14 +76,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Gate: matching needs enough of the profile to read a taste with confidence.
-  const completion = profileCompleteness(profile as unknown as TasteProfileInput);
-  if (completion.percent < MATCH_GATE_PERCENT) {
+  // Gate: matching needs real scoring signal, not a completeness percent —
+  // see matchingReadiness() for the rule.
+  const readiness = matchingReadiness(profile as unknown as TasteProfileInput);
+  if (!readiness.ready) {
     return NextResponse.json(
       {
-        error: `Finish your sensory profile to ${MATCH_GATE_PERCENT}% to start matching.`,
+        error:
+          "Add real matching signal first: a favourite strain, or a primary effect + time plus one aroma/effect you enjoy.",
         gated: true,
-        percent: completion.percent,
+        missing: readiness.missing,
       },
       { status: 400 },
     );

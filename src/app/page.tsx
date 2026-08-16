@@ -20,8 +20,8 @@ import { getUserIdReadOnly } from "@/lib/user";
 import { prisma } from "@/lib/prisma";
 import { getActiveProfile } from "@/lib/active-profile";
 import {
+  matchingReadiness,
   profileCompleteness,
-  MATCH_GATE_PERCENT,
 } from "@/lib/profile-completeness";
 import { ProfileProgressRing } from "@/components/profile-progress";
 import type { TasteProfileInput } from "@/lib/types";
@@ -78,12 +78,16 @@ export default async function HomePage() {
     // home page — and the post-login redirect to it — down. Anything that
     // throws here degrades gracefully to the shell without the carousel.
     let percent = 0;
+    let ready = false;
     try {
       const profile = await getActiveProfile(userId!);
       if (profile) {
         percent = profileCompleteness(
           profile as unknown as TasteProfileInput,
         ).percent;
+        ready = matchingReadiness(
+          profile as unknown as TasteProfileInput,
+        ).ready;
       }
     } catch (err) {
       console.error("home: profile completeness failed", err);
@@ -97,6 +101,7 @@ export default async function HomePage() {
       <LoggedInHome
         username={user.username}
         percent={percent}
+        ready={ready}
         topMatches={topMatches}
       />
     );
@@ -112,13 +117,15 @@ export default async function HomePage() {
 function LoggedInHome({
   username,
   percent,
+  ready,
   topMatches,
 }: {
   username: string | null;
   percent: number;
+  ready: boolean;
   topMatches: TopMatch[];
 }) {
-  const canMatch = percent >= MATCH_GATE_PERCENT;
+  const canMatch = ready;
   return (
     <section className="relative flex min-h-[calc(100vh-4rem)] flex-col overflow-hidden">
       {/* Soft apothecary backdrop; frosted cards float over it. */}
@@ -163,9 +170,7 @@ function LoggedInHome({
               <div className="text-sm">
                 <p className="font-medium">{percent}% profile</p>
                 <p className="text-muted-foreground">
-                  {canMatch
-                    ? "Ready to match"
-                    : `Need ${MATCH_GATE_PERCENT}% to match`}
+                  {canMatch ? "Ready to match" : "Core answers needed"}
                 </p>
               </div>
             </div>
@@ -174,7 +179,7 @@ function LoggedInHome({
                 href={canMatch ? "/taste-match" : "/profile"}
                 className={buttonClass("primary", "md")}
               >
-                {canMatch ? "Find my flower" : `Finish to ${MATCH_GATE_PERCENT}%`}
+                {canMatch ? "Find my flower" : "Finish my profile"}
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link

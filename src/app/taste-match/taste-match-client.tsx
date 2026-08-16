@@ -26,11 +26,11 @@ import type { ProfileContradiction } from "@/lib/profile-contradictions";
 import type { MenuQuality, StrainMatch, TasteProfileInput } from "@/lib/types";
 import { ProfileContradictionBanner } from "@/components/profile-contradiction-banner";
 import {
+  matchingReadiness,
   profileCompleteness,
-  MATCH_GATE_PERCENT,
   type CompletenessItem,
 } from "@/lib/profile-completeness";
-import { ProfileProgressRing, ProfileMissingList } from "@/components/profile-progress";
+import { ProfileProgressRing } from "@/components/profile-progress";
 import type { Verdict } from "@/components/feedback-pill";
 import { AuditPanel } from "@/components/audit-panel";
 import { BlendOverview } from "@/components/blend-overview";
@@ -123,11 +123,13 @@ export function TasteMatchClient() {
   // The visitor's own verdicts (loved/good/neutral/avoid) per strain, so a
   // result they've already rated can show a "You loved it" badge.
   const [verdicts, setVerdicts] = useState<Record<string, Verdict>>({});
-  // Profile completeness — matching is gated until MATCH_GATE_PERCENT.
+  // Profile completeness (the display scale) plus what's missing for
+  // matching readiness — the actual gate (see matchingReadiness()).
   const [completion, setCompletion] = useState<{
     percent: number;
     missing: CompletenessItem[];
-  }>({ percent: 0, missing: [] });
+    readinessMissing: string[];
+  }>({ percent: 0, missing: [], readinessMissing: [] });
 
   useEffect(() => {
     setTimeOfDay(timeProfileForHour(new Date().getHours()));
@@ -204,9 +206,16 @@ export function TasteMatchClient() {
         const c = d.profile
           ? profileCompleteness(d.profile as TasteProfileInput)
           : null;
-        setCompletion({ percent: c?.percent ?? 0, missing: c?.missing ?? [] });
+        const readiness = d.profile
+          ? matchingReadiness(d.profile as TasteProfileInput)
+          : null;
+        setCompletion({
+          percent: c?.percent ?? 0,
+          missing: c?.missing ?? [],
+          readinessMissing: readiness?.missing ?? [],
+        });
         if (!result.exists) setPhase("profile");
-        else if ((c?.percent ?? 0) < MATCH_GATE_PERCENT) setPhase("gated");
+        else if (!readiness?.ready) setPhase("gated");
         else setPhase("input");
       })
       .catch(() => setPhase("profile"));
@@ -420,24 +429,27 @@ export function TasteMatchClient() {
             Let&apos;s finish your profile first
           </h1>
           <p className="mt-3 leading-relaxed text-muted-foreground">
-            SŌMA needs a bit more to read your taste with confidence. Get your
-            sensory profile to {MATCH_GATE_PERCENT}% and matching unlocks.
+            SŌMA needs real matching signal before a run is worth showing —
+            answer the core questions below and matching unlocks.
           </p>
           <div className="mt-8 flex items-start gap-5 rounded-2xl border border-border bg-card p-6">
             <ProfileProgressRing percent={completion.percent} size={76} />
             <div className="min-w-0">
               <p className="font-display text-lg font-semibold tracking-tight">
                 {completion.percent}% complete
-                <span className="text-muted-foreground">
-                  {" "}
-                  · need {MATCH_GATE_PERCENT}%
-                </span>
               </p>
-              <p className="mt-1 text-sm text-muted-foreground">Still missing:</p>
-              <ProfileMissingList
-                missing={completion.missing.slice(0, 4)}
-                className="mt-2"
-              />
+              <p className="mt-1 text-sm text-muted-foreground">
+                Name a strain you love — or add the rest of these — and
+                matching unlocks:
+              </p>
+              <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+                {completion.readinessMissing.map((m) => (
+                  <li key={m} className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brass/50" />
+                    {m}
+                  </li>
+                ))}
+              </ul>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
                   href="/onboarding/quick"

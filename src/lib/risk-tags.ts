@@ -93,6 +93,14 @@ export function riskTagsFor(strainName: string): RiskTag[] {
 // until the catalog is curated for them.
 export const RISK_TAG_VALUES: RiskTag[] = ["racy", "paranoia", "foggy", "crash"];
 
+// The tags that actually move scores today — i.e. appear on at least one
+// curated strain entry. Derived from the RISK table so it can never drift:
+// when paranoia/foggy/crash get curated entries, they graduate here
+// automatically and the questionnaire stops marking them as pending.
+export const CURATED_RISK_TAGS: ReadonlySet<RiskTag> = new Set(
+  Object.values(RISK).flatMap((e) => e.tags),
+);
+
 export function isRiskTag(value: unknown): value is RiskTag {
   return typeof value === "string" && (RISK_TAG_VALUES as string[]).includes(value);
 }

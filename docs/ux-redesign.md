@@ -82,12 +82,14 @@ The engine is **not** touched.
 
 - **Phase A — scenario home + outcome copy** ✅ done — three scenario cards
   routing to the existing flows; outcome-led headline.
-- **Phase B — 4-question budtender onboarding + "Here's what I think you like"
-  interpretation** ✅ done — `/onboarding/quick`: four button-only questions map
-  straight onto canonical profile tokens, then a read-back (Taste / Effects /
-  Best use / Likely families) with **Looks right** (save → Taste Match) /
-  **Adjust profile** (save → full questionnaire). The "Guide Me" card points
-  here; free-text describe + full questionnaire remain as secondary links.
+- **Phase B — budtender onboarding + "Here's what I think you like"
+  interpretation** ✅ done (recut 2026-08) — `/onboarding/quick` asks five
+  high-signal questions, one per screen (favourite strain, primary effect,
+  use time, primary aroma, effects to avoid — see docs/PRODUCT_DECISIONS.md
+  #3), then a read-back with **Start matching** / **Fine-tune my profile**.
+  Matching unlocks via matchingReadiness(), not a completeness percent. The
+  "Guide Me" card points here; free-text describe + full questionnaire
+  remain as secondary links.
 - **Phase C — grouped verdict results + "Why?" reasons** ✅ done, then
   revised — the original 3-tier purchase framing (**Worth your money / Worth a
   shot / Save your money**) was retired in favor of grouping by the engine's
