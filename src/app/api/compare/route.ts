@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 import { getActiveProfile } from "@/lib/active-profile";
 import { isOwner, redactAuditFields } from "@/lib/owner";
 import { getUserId } from "@/lib/user";
@@ -9,7 +8,7 @@ import {
   isPlausibleStrainName,
   logUnknownStrains,
 } from "@/lib/api";
-import { resolveStrain, scoreStrain, useCaseFor } from "@/lib/taste-engine";
+import { resolveStrain, scoreStrain, archetypeFor } from "@/lib/taste-engine";
 import { resolveBlend, analyzeMerged } from "@/lib/merge-worlds";
 import { inferStrainsAI } from "@/lib/strain-inference-ai";
 import { buildAuditEntry, writeRunAudit } from "@/lib/run-audit";
@@ -103,7 +102,7 @@ export async function POST(req: NextRequest) {
       aromas: strain.aromas,
       flavors: strain.flavors,
       effects: strain.effects,
-      useCase: useCaseFor(strain),
+      useCase: archetypeFor(strain),
     };
   });
 

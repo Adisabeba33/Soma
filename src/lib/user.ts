@@ -8,6 +8,8 @@ export const SOMA_UID_COOKIE = "soma_uid";
 const COOKIE_OPTIONS = {
   httpOnly: true,
   sameSite: "lax" as const,
+  // Matches the authenticated session cookie: HTTPS-only in production.
+  secure: process.env.NODE_ENV === "production",
   path: "/",
   maxAge: 60 * 60 * 24 * 365,
 };

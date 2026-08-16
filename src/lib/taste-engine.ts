@@ -843,7 +843,7 @@ function categorize(
   return cat;
 }
 
-export function useCaseFor(strain: StrainProfile): string {
+export function archetypeFor(strain: StrainProfile): string {
   const e = new Set(strain.effects);
   if (e.has("sleepy") || e.has("couch-lock")) return "Late-night wind-down and sleep";
   if (e.has("body-heavy") || (e.has("relaxed") && strain.type === "indica"))

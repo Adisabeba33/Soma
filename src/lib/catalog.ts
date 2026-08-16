@@ -9,7 +9,7 @@
 // over one StrainProfile plus an optional StrainIdentity.
 
 import { STRAINS } from "./strain-data";
-import { similarity, useCaseFor } from "./taste-engine";
+import { similarity, archetypeFor } from "./taste-engine";
 import { getIdentity, identitiesInFamily } from "./strain-identity";
 import type { StrainIdentity } from "./strain-identity";
 import type { StrainProfile } from "./types";
@@ -81,7 +81,7 @@ function _buildCatalogSync(): CatalogEntry[] {
       : [];
     return {
       strain,
-      archetype: useCaseFor(strain),
+      archetype: archetypeFor(strain),
       source: "curated" as const,
       confidence: entryConfidence(strain),
       similar: topSimilar(strain, 4),
