@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Blend, Compass, Scale, Sparkles } from "lucide-react";
 import { profileEmblem, type EmblemIcon } from "@/components/aroma-icon";
 import { cn } from "@/lib/utils";
+import { createLatestWins } from "@/lib/latest-wins";
 
 // Taste Blender — the virtual "4th profile" that mixes all three real profiles.
 // A private-lounge "blending instrument": dark-olive profile circles ringed in
@@ -50,22 +51,45 @@ type State = {
   third: Node | null;
 };
 
+// The two lean controls the sliders preview/commit.
+export type LeanKey = "lean1" | "lean2";
+
 export function TasteBlenderBlock() {
   const [s, setS] = useState<State | null>(null);
+  // Latest-wins sequencing: a slow older PATCH (or the initial load) must
+  // never overwrite state from a newer write.
+  const writes = useRef(createLatestWins()).current;
+  // Trailing debounce for keyboard nudges — arrow keys fire in bursts.
+  const commitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(
+    () => () => {
+      if (commitTimer.current) clearTimeout(commitTimer.current);
+    },
+    [],
+  );
 
   async function load() {
+    const seq = writes.next();
     const d = await fetch("/api/blender")
       .then((r) => r.json())
       .catch(() => null);
-    if (d) setS(d);
+    if (d && writes.isCurrent(seq)) setS(d);
   }
   useEffect(() => {
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function patch(body: Record<string, unknown>) {
-    // Optimistic so dragging the arcs feels instant.
+  // Local-only update while a knob is mid-drag — dragging renders live but
+  // touches the network exactly once, on release (see patch()).
+  function preview(body: Partial<State>) {
     setS((prev) => (prev ? { ...prev, ...body } : prev));
+  }
+
+  async function patch(body: Record<string, unknown>) {
+    // Optimistic so the controls feel instant.
+    setS((prev) => (prev ? { ...prev, ...body } : prev));
+    const seq = writes.next();
     const d = await fetch("/api/blender", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -73,6 +97,9 @@ export function TasteBlenderBlock() {
     })
       .then((r) => r.json())
       .catch(() => null);
+    // A newer write started while this one was in flight — drop this
+    // response instead of regressing to it.
+    if (!writes.isCurrent(seq)) return;
     if (d?.error) {
       await load();
       return;
@@ -80,6 +107,13 @@ export function TasteBlenderBlock() {
     if (d) setS(d);
     // No router.refresh() — the blend persists via PATCH and other surfaces
     // re-read it on navigation; refreshing per drag hammered the server.
+  }
+
+  // Keyboard nudges: apply locally at once, persist after the burst ends.
+  function patchDebounced(body: Record<string, unknown>) {
+    preview(body as Partial<State>);
+    if (commitTimer.current) clearTimeout(commitTimer.current);
+    commitTimer.current = setTimeout(() => patch(body), 250);
   }
 
   if (!s) return null;
@@ -167,11 +201,18 @@ export function TasteBlenderBlock() {
           lean1={s.lean1}
           lean2={s.lean2}
           explorer={explorer}
-          onLean1={(v) => patch({ lean1: v })}
-          onLean2={(v) => patch({ lean2: v })}
+          onPreview={(key, v) => preview({ [key]: v })}
+          onCommit={(key, v) => patch({ [key]: v })}
+          onNudge={(key, v) => patchDebounced({ [key]: v })}
         />
 
-        {!explorer && (
+        {explorer ? (
+          <p className="mt-1 rounded-2xl bg-brass/10 px-4 py-2.5 text-xs leading-relaxed text-foreground">
+            <span className="font-medium">Explorer chases strongest sides.</span>{" "}
+            A strain leads when it thrills any profile in the blend — your
+            leans set whose voice counts most.
+          </p>
+        ) : (
           <p className="mt-1 rounded-2xl bg-brass/10 px-4 py-2.5 text-xs leading-relaxed text-foreground">
             <span className="font-medium">Harmony weighs every profile equally.</span>{" "}
             Leans don&apos;t apply — a strain is only as good as its weakest side.
@@ -263,6 +304,8 @@ const C = {
 };
 
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
+const clampRange = (lo: number, hi: number, n: number) =>
+  Math.max(lo, Math.min(hi, n));
 const polar = (cx: number, cy: number, r: number, deg: number) => {
   const a = (deg * Math.PI) / 180;
   return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
@@ -285,8 +328,9 @@ function BlendArcDiagram({
   lean1,
   lean2,
   explorer,
-  onLean1,
-  onLean2,
+  onPreview,
+  onCommit,
+  onNudge,
 }: {
   main: { name: string; pct: number; Icon: EmblemIcon };
   other: { name: string; pct: number; Icon: EmblemIcon };
@@ -295,15 +339,21 @@ function BlendArcDiagram({
   lean1: number;
   lean2: number;
   explorer: boolean;
-  onLean1: (v: number) => void;
-  onLean2: (v: number) => void;
+  // Preview renders live during a drag; commit persists once, on release;
+  // nudge is the keyboard path (local + debounced persist).
+  onPreview: (key: LeanKey, v: number) => void;
+  onCommit: (key: LeanKey, v: number) => void;
+  onNudge: (key: LeanKey, v: number) => void;
 }) {
   const svgRef = useRef<SVGSVGElement | null>(null);
-  // drag holds a mapper from an on-screen angle to the control's new value.
+  // drag maps an on-screen angle to the control's new value. The latest
+  // previewed value is kept in a ref so release can commit exactly it.
   const [drag, setDrag] = useState<null | {
+    key: LeanKey;
     center: { x: number; y: number };
-    apply: (angle: number) => void;
+    toValue: (angle: number) => number;
   }>(null);
+  const lastDragValue = useRef<number | null>(null);
 
   useEffect(() => {
     if (!drag) return;
@@ -320,9 +370,16 @@ function BlendArcDiagram({
       const p = toVb(e.clientX, e.clientY);
       if (!p) return;
       const deg = (Math.atan2(p.y - drag.center.y, p.x - drag.center.x) * 180) / Math.PI;
-      drag.apply((deg + 360) % 360);
+      const v = drag.toValue((deg + 360) % 360);
+      lastDragValue.current = v;
+      onPreview(drag.key, v);
     };
-    const up = () => setDrag(null);
+    const up = () => {
+      // One persistence request per drag — only if the knob actually moved.
+      if (lastDragValue.current !== null) onCommit(drag.key, lastDragValue.current);
+      lastDragValue.current = null;
+      setDrag(null);
+    };
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", up);
     window.addEventListener("pointercancel", up);
@@ -331,7 +388,7 @@ function BlendArcDiagram({
       window.removeEventListener("pointerup", up);
       window.removeEventListener("pointercancel", up);
     };
-  }, [drag]);
+  }, [drag, onPreview, onCommit]);
 
   // Knob positions from current values.
   const t1 = clamp01((lean1 + 1) / 2);
@@ -344,20 +401,31 @@ function BlendArcDiagram({
 
   const startTopDrag = () =>
     setDrag({
+      key: "lean1",
       center: { x: C.topArc.cx, y: C.topArc.cy },
-      apply: (a) => {
+      toValue: (a) => {
         const v = clamp01((a - C.topArc.a0) / (C.topArc.a1 - C.topArc.a0));
-        onLean1(v * 2 - 1);
+        return v * 2 - 1;
       },
     });
   const startBotDrag = () =>
     setDrag({
+      key: "lean2",
       center: { x: C.botArc.cx, y: C.botArc.cy },
-      apply: (a) => {
-        const v = clamp01((C.botArc.a1 - a) / (C.botArc.a1 - C.botArc.a0));
-        onLean2(v);
-      },
+      toValue: (a) => clamp01((C.botArc.a1 - a) / (C.botArc.a1 - C.botArc.a0)),
     });
+
+  // Keyboard steps: a tenth of the travel per arrow press.
+  const nudgeTop = (dir: -1 | 1 | "min" | "max") => {
+    const next =
+      dir === "min" ? -1 : dir === "max" ? 1 : clampRange(-1, 1, lean1 + dir * 0.2);
+    onNudge("lean1", Math.round(next * 100) / 100);
+  };
+  const nudgeBot = (dir: -1 | 1 | "min" | "max") => {
+    const next =
+      dir === "min" ? 0 : dir === "max" ? 1 : clampRange(0, 1, lean2 + dir * 0.1);
+    onNudge("lean2", Math.round(next * 100) / 100);
+  };
 
   const pct = (n: number) => `${n}%`;
 
@@ -456,6 +524,12 @@ function BlendArcDiagram({
             bubble={pct(other.pct)}
             bubbleAbove
             onDown={startTopDrag}
+            ariaLabel={`Lean between ${other.name} and ${main.name}`}
+            min={-1}
+            max={1}
+            now={Math.round(lean1 * 100) / 100}
+            valueText={`${other.pct}% ${other.name}, ${main.pct}% ${main.name}`}
+            onKeyNudge={nudgeTop}
           />
         )}
 
@@ -503,6 +577,12 @@ function BlendArcDiagram({
                 y={botKnob.y}
                 bubble={pct(third.pct)}
                 onDown={startBotDrag}
+                ariaLabel={`Blend in ${third.name}`}
+                min={0}
+                max={1}
+                now={Math.round(lean2 * 100) / 100}
+                valueText={`${third.pct}% ${third.name}`}
+                onKeyNudge={nudgeBot}
               />
             )}
           </>
@@ -513,20 +593,36 @@ function BlendArcDiagram({
   );
 }
 
-// A draggable gold knob with a value bubble and a generous invisible hit area.
+// A draggable gold knob with a value bubble and a generous invisible hit
+// area. Also a real slider for keyboard and assistive tech: focusable,
+// role="slider" with live aria values, arrow-key steps, Home/End, and a
+// visible focus ring.
 function Knob({
   x,
   y,
   bubble,
   bubbleAbove,
   onDown,
+  ariaLabel,
+  min,
+  max,
+  now,
+  valueText,
+  onKeyNudge,
 }: {
   x: number;
   y: number;
   bubble: string;
   bubbleAbove?: boolean;
   onDown: () => void;
+  ariaLabel: string;
+  min: number;
+  max: number;
+  now: number;
+  valueText: string;
+  onKeyNudge: (dir: -1 | 1 | "min" | "max") => void;
 }) {
+  const [focused, setFocused] = useState(false);
   const by = bubbleAbove ? y - 27 : y + 27;
   return (
     <g>
@@ -554,16 +650,65 @@ function Knob({
           {bubble}
         </text>
       </g>
-      {/* invisible 44px hit area */}
+      {/* visible focus ring */}
+      {focused && (
+        <circle
+          cx={x}
+          cy={y}
+          r={17}
+          fill="none"
+          stroke={T.goldDeep}
+          strokeWidth={2}
+          strokeDasharray="3 3"
+          style={{ pointerEvents: "none" }}
+        />
+      )}
+      {/* invisible 44px hit area — the focusable slider element */}
       <circle
         cx={x}
         cy={y}
         r={22}
         fill="transparent"
-        style={{ pointerEvents: "auto", cursor: "grab", touchAction: "none" }}
+        role="slider"
+        tabIndex={0}
+        aria-label={ariaLabel}
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={now}
+        aria-valuetext={valueText}
+        style={{
+          pointerEvents: "auto",
+          cursor: "grab",
+          touchAction: "none",
+          outline: "none",
+        }}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         onPointerDown={(e) => {
           e.preventDefault();
           onDown();
+        }}
+        onKeyDown={(e) => {
+          let handled = true;
+          switch (e.key) {
+            case "ArrowLeft":
+            case "ArrowDown":
+              onKeyNudge(-1);
+              break;
+            case "ArrowRight":
+            case "ArrowUp":
+              onKeyNudge(1);
+              break;
+            case "Home":
+              onKeyNudge("min");
+              break;
+            case "End":
+              onKeyNudge("max");
+              break;
+            default:
+              handled = false;
+          }
+          if (handled) e.preventDefault();
         }}
       />
       {/* visible knob */}
