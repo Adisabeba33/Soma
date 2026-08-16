@@ -128,13 +128,21 @@ function LoggedInHome({
   const canMatch = ready;
   return (
     <section className="relative flex min-h-[calc(100vh-4rem)] flex-col overflow-hidden">
-      {/* Soft apothecary backdrop; frosted cards float over it. */}
-      <img
-        src="/hero/dashboard.png"
-        alt=""
-        aria-hidden
-        className="absolute inset-0 h-full w-full object-cover object-top"
-      />
+      {/* Soft apothecary backdrop; frosted cards float over it. WebP variants
+          (the 3 MB source PNGs stay out of the page): 720w for phones, full
+          width above. Decorative backdrop → lazy, so it never competes with
+          content for bandwidth. */}
+      <picture>
+        <source media="(max-width: 720px)" srcSet="/hero/dashboard-720.webp" />
+        <img
+          src="/hero/dashboard.webp"
+          alt=""
+          aria-hidden
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-top"
+        />
+      </picture>
       <div
         className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background/75"
         aria-hidden
@@ -282,12 +290,20 @@ function AnonymousHome() {
           className="absolute inset-0 bg-gradient-to-b from-[#e9e1d2] via-[#d9cdb8] to-[#cdbfa6]"
           aria-hidden
         />
-        <img
-          src="/hero/hero.png"
-          alt=""
-          aria-hidden
-          className="absolute inset-0 h-full w-full object-cover object-top"
-        />
+        {/* The anonymous landing's LCP image — eager + async decode, WebP
+            variants sized to the viewport (source PNG is 3 MB; these are
+            ~60–100 KB). */}
+        <picture>
+          <source media="(max-width: 720px)" srcSet="/hero/hero-720.webp" />
+          <img
+            src="/hero/hero.webp"
+            alt=""
+            aria-hidden
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover object-top"
+          />
+        </picture>
         {/* Gentle bottom scrim so the cream card reads over the light counter. */}
         <div
           className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent"
