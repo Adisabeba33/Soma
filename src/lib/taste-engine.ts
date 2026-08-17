@@ -1663,7 +1663,7 @@ function buildExplanation(
   const opener = `${strain.name} — a ${category.toLowerCase()} for your profile.`;
   const direction =
     category === "Avoid"
-      ? "On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+      ? "On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor fit for you."
       : category === "Risky"
         ? "There is some overlap with your taste, but enough friction that it could genuinely go either way."
         : category === "Worth Trying"

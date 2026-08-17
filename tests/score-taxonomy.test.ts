@@ -102,11 +102,16 @@ describe("score taxonomy — copy honesty", () => {
 
   it("no UI source contains purchase-value verdict copy", () => {
     // The old three-tier framing must not creep back anywhere in src/.
+    // \s+ between words: JSX copy wraps across lines, and a wrapped
+    // "worth your\n  money" evaded the first literal-space version.
     const banned = [
-      /worth your money/i,
-      /buy with confidence/i,
-      /save your money/i,
-      /worth a shot/i,
+      /worth\s+your\s+money/i,
+      /buy\s+with\s+confidence/i,
+      /save\s+your\s+money/i,
+      /worth\s+a\s+shot/i,
+      /waste\s+of\s+money/i,
+      /use\s+of\s+your\s+money/i,
+      /save\s+you\s+money/i,
     ];
     const offenders: string[] = [];
     const walk = (dir: string) => {

@@ -63,9 +63,7 @@ export default function QuickOnboardingPage() {
   const [presetBusy, setPresetBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Single source for the readiness check and the save payload. Only the
-  // five asked fields are sent — the depth questions stay untouched for
-  // the full profile.
+  // Single source for the readiness check and the save payload.
   const draft = {
     favoriteStrains: favorites,
     primaryEffect,
@@ -80,11 +78,18 @@ export default function QuickOnboardingPage() {
     setSubmitting(true);
     setError(null);
     try {
+      // POST /api/profile resets any field missing from the body, so overlay
+      // the five quick answers on the existing profile — a returning visitor
+      // redoing the quick flow must not lose their depth answers (textures,
+      // families, dealbreakers…).
+      const existing = await fetch("/api/profile")
+        .then((r) => (r.ok ? r.json() : null))
+        .catch(() => null);
       // The API reads each field loosely and clips to vocab.
       const res = await fetch("/api/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(draft),
+        body: JSON.stringify({ ...(existing?.profile ?? {}), ...draft }),
       });
       if (!res.ok) throw new Error();
       router.push(target === "profile" ? "/profile" : "/taste-match");

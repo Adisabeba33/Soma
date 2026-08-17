@@ -5,6 +5,16 @@
 > scoring. Goal: turn SŌMA from "a site with a questionnaire" into "a personal
 > cannabis sommelier." This doc is the plan; build in phases.
 
+> **⚠️ Revised 2026-08 — see `docs/PRODUCT_DECISIONS.md`.** Two of the
+> decisions specced below were later reversed and the sections are kept
+> only as history: the **3-tier buy verdict** (Worth Your Money / Worth A
+> Shot / Save Your Money) was retired for the engine's five sensory
+> categories with no purchase-value language, and the quick onboarding is
+> now **five questions** gated by `matchingReadiness()`, not a 4-question
+> flow gated by a completeness percent. The "stop wasting money"
+> positioning copy is likewise superseded — SŌMA speaks about sensory fit,
+> not money outcomes.
+
 ## The core reframe
 
 Today the home page sells **input modes** (Full Questionnaire / Experience

@@ -27,6 +27,7 @@ import { ProfileProgressRing } from "@/components/profile-progress";
 import type { TasteProfileInput } from "@/lib/types";
 import { getTopMatches, type TopMatch } from "@/lib/top-matches";
 import { HOME_SAMPLE, HOME_SAMPLE_CATEGORY } from "@/lib/home-sample";
+import { CATEGORY_META } from "@/lib/score-taxonomy";
 
 export const dynamic = "force-dynamic";
 
@@ -323,8 +324,8 @@ function AnonymousHome() {
 
           <p className="mt-4 text-sm leading-relaxed text-[#5c5040]">
             Hi, I&apos;m <span className="font-medium text-[#2a2018]">SŌMA</span>,
-            a professional cannabis sommelier. My job is to save you money on
-            flower you were never going to love.
+            a professional cannabis sommelier. My job is to steer you away
+            from flower you were never going to love.
           </p>
 
           <div className="mt-7 space-y-3">
@@ -437,8 +438,8 @@ function AnonymousHome() {
             <div className="space-y-4 text-[0.97rem] leading-relaxed text-muted-foreground">
               <p>
                 You open a dispensary menu and see dozens of names. Most people
-                cannot tell what is genuinely good, what resembles flower they
-                already loved, and what will simply be a waste of money.
+                cannot tell what resembles flower they already loved and what
+                simply isn&apos;t their taste.
               </p>
               <p>
                 SŌMA does not ask{" "}
@@ -493,8 +494,12 @@ function AnonymousHome() {
 
           <div className="mt-8 rounded-2xl border border-border bg-background p-7 sm:p-9">
             <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-              <span className="inline-flex items-center gap-2 text-sm font-medium text-accent">
-                <span className="h-2 w-2 rounded-full bg-accent" />
+              <span
+                className={`inline-flex items-center gap-2 text-sm font-medium ${CATEGORY_META[HOME_SAMPLE_CATEGORY].tone}`}
+              >
+                <span
+                  className={`h-2 w-2 rounded-full ${CATEGORY_META[HOME_SAMPLE_CATEGORY].dot}`}
+                />
                 {HOME_SAMPLE_CATEGORY}
               </span>
               <span className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground">

@@ -18,6 +18,7 @@ import { labelFor } from "@/lib/vocab";
 import { knownAsNames, lineageConfidenceOf, lineageStatus } from "@/lib/strain-identity";
 import { artImageSrc, artFocusOf } from "@/lib/strain-art";
 import { strainSlug } from "@/lib/catalog";
+import { CATEGORY_META } from "@/lib/score-taxonomy";
 import { layoutParents } from "@/lib/genetics-layout";
 import { geneticsFor, densityFor, densityLabel } from "@/lib/bud-structure";
 import {
@@ -33,13 +34,11 @@ import type {
 } from "@/lib/catalog";
 import type { StrainType } from "@/lib/types";
 
-const CATEGORY_TONE: Record<string, string> = {
-  "Best Match": "text-accent",
-  "Closest Alternative": "text-brass",
-  "Worth Trying": "text-foreground",
-  Risky: "text-[#b4791f]",
-  Avoid: "text-[#a23b2c]",
-};
+// Tone tokens come from the shared taxonomy so the detail page can never
+// disagree with the results list or the card.
+const CATEGORY_TONE: Record<string, string> = Object.fromEntries(
+  Object.entries(CATEGORY_META).map(([c, m]) => [c, m.tone]),
+);
 
 export interface LineageParent {
   name: string;

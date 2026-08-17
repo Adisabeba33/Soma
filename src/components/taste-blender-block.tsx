@@ -57,14 +57,26 @@ export type LeanKey = "lean1" | "lean2";
 export function TasteBlenderBlock() {
   const [s, setS] = useState<State | null>(null);
   // Latest-wins sequencing: a slow older PATCH (or the initial load) must
-  // never overwrite state from a newer write.
+  // never overwrite state from a newer write or a newer local preview.
   const writes = useRef(createLatestWins()).current;
-  // Trailing debounce for keyboard nudges — arrow keys fire in bursts.
-  const commitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Trailing debounce for keyboard nudges — arrow keys fire in bursts. One
+  // timer per body key, so nudging one knob can't drop the other knob's
+  // pending commit.
+  const commitTimers = useRef(
+    new Map<string, { timer: ReturnType<typeof setTimeout>; body: Record<string, unknown> }>(),
+  ).current;
+  const patchRef = useRef<(body: Record<string, unknown>) => void>(() => {});
   useEffect(
     () => () => {
-      if (commitTimer.current) clearTimeout(commitTimer.current);
+      // Unmounting mid-debounce: persist the pending values instead of
+      // silently dropping the user's last keyboard adjustment.
+      for (const [, pending] of commitTimers) {
+        clearTimeout(pending.timer);
+        patchRef.current(pending.body);
+      }
+      commitTimers.clear();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
@@ -81,12 +93,24 @@ export function TasteBlenderBlock() {
   }, []);
 
   // Local-only update while a knob is mid-drag — dragging renders live but
-  // touches the network exactly once, on release (see patch()).
+  // touches the network exactly once, on release (see patch()). Bumping the
+  // sequence here means any response still in flight (an earlier commit or
+  // the initial load) is now stale and can't clobber the live preview.
   function preview(body: Partial<State>) {
+    writes.next();
     setS((prev) => (prev ? { ...prev, ...body } : prev));
   }
 
   async function patch(body: Record<string, unknown>) {
+    // A pending debounced commit for the same keys is superseded — cancel it
+    // so it can't fire later and overwrite this newer value.
+    for (const key of Object.keys(body)) {
+      const pending = commitTimers.get(key);
+      if (pending) {
+        clearTimeout(pending.timer);
+        commitTimers.delete(key);
+      }
+    }
     // Optimistic so the controls feel instant.
     setS((prev) => (prev ? { ...prev, ...body } : prev));
     const seq = writes.next();
@@ -97,8 +121,8 @@ export function TasteBlenderBlock() {
     })
       .then((r) => r.json())
       .catch(() => null);
-    // A newer write started while this one was in flight — drop this
-    // response instead of regressing to it.
+    // A newer write or preview started while this one was in flight — drop
+    // this response instead of regressing to it.
     if (!writes.isCurrent(seq)) return;
     if (d?.error) {
       await load();
@@ -108,12 +132,22 @@ export function TasteBlenderBlock() {
     // No router.refresh() — the blend persists via PATCH and other surfaces
     // re-read it on navigation; refreshing per drag hammered the server.
   }
+  patchRef.current = patch;
 
   // Keyboard nudges: apply locally at once, persist after the burst ends.
   function patchDebounced(body: Record<string, unknown>) {
     preview(body as Partial<State>);
-    if (commitTimer.current) clearTimeout(commitTimer.current);
-    commitTimer.current = setTimeout(() => patch(body), 250);
+    for (const key of Object.keys(body)) {
+      const pending = commitTimers.get(key);
+      if (pending) clearTimeout(pending.timer);
+      commitTimers.set(key, {
+        body,
+        timer: setTimeout(() => {
+          commitTimers.delete(key);
+          patch(body);
+        }, 250),
+      });
+    }
   }
 
   if (!s) return null;
@@ -124,8 +158,8 @@ export function TasteBlenderBlock() {
         <Blend className="h-3.5 w-3.5" /> Taste Blender
       </p>
       <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-muted-foreground">
-        Merge two profiles for a blend of the pair; merge a third and it splits
-        evenly across all three. When on, it drives every match: Harvest,
+        Merge two profiles for a blend of the pair; merge a third and dose it
+        in with the lower dial. When on, it drives every match: Harvest,
         Collection, Taste Match.
       </p>
     </div>
@@ -145,7 +179,7 @@ export function TasteBlenderBlock() {
             <>
               <strong className="text-foreground">Merge two</strong> profiles (the
               Merge button above) to start a blend of the pair. Merge a third and
-              it blends in evenly across all three.
+              dose how much of it joins the pour.
             </>
           )}
         </div>
@@ -166,15 +200,20 @@ export function TasteBlenderBlock() {
     ? profileEmblem(third.topAromas ?? [], third.topEffects ?? [])
     : MainIcon;
 
-  // ── Live percentages ────────────────────────────────────────────────
-  // Third's share on a 0–33% ("full equal third") scale; the pair splits the
-  // remainder by lean1 (−1 → all "other"/relaxed, +1 → all "main"/energized).
-  const thirdPct = third ? Math.round((s.lean2 ?? 0) * 33) : 0;
-  const pairTotal = 100 - thirdPct;
-  const mainPct = Math.round((pairTotal * (1 + s.lean1)) / 2);
-  const otherPct = pairTotal - mainPct;
-
   const explorer = !s.balance;
+
+  // ── Live percentages ────────────────────────────────────────────────
+  // Explorer: third's share on a 0–33% ("full equal third") scale; the pair
+  // splits the remainder by lean1 (−1 → all "other"/relaxed, +1 → all
+  // "main"/energized). Harmony weighs every profile equally and ignores
+  // leans, so the circles show the even split — anything else would
+  // contradict the mode's own copy.
+  const thirdPct = third ? (explorer ? Math.round((s.lean2 ?? 0) * 33) : 33) : 0;
+  const pairTotal = 100 - thirdPct;
+  const mainPct = explorer
+    ? Math.round((pairTotal * (1 + s.lean1)) / 2)
+    : Math.round(pairTotal / 2);
+  const otherPct = pairTotal - mainPct;
 
   return (
     <section>
@@ -208,9 +247,10 @@ export function TasteBlenderBlock() {
 
         {explorer ? (
           <p className="mt-1 rounded-2xl bg-brass/10 px-4 py-2.5 text-xs leading-relaxed text-foreground">
-            <span className="font-medium">Explorer chases strongest sides.</span>{" "}
-            A strain leads when it thrills any profile in the blend — your
-            leans set whose voice counts most.
+            <span className="font-medium">Explorer takes each strain&apos;s best
+            world.</span>{" "}
+            Your leans set whose voice counts most — but anything one profile
+            avoids stays out for everyone.
           </p>
         ) : (
           <p className="mt-1 rounded-2xl bg-brass/10 px-4 py-2.5 text-xs leading-relaxed text-foreground">

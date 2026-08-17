@@ -35,7 +35,10 @@ jobs:
         run: node --import tsx --test tests/*.test.ts
 
       - name: Production build
-        run: npx next build 2>&1 | tee build.log
+        # pipefail: without it, tee's exit code would mask a build failure.
+        run: |
+          set -o pipefail
+          npx next build 2>&1 | tee build.log
         env:
           DATABASE_URL: "postgresql://ci:ci@localhost:5432/ci?schema=public"
 
@@ -43,5 +46,21 @@ jobs:
         run: |
           if grep -q "items over 2MB can not be cached" build.log; then
             echo "::error::Build produced an unstable_cache value over 2MB (see docs/PRODUCT_DECISIONS.md #7)"
+            exit 1
+          fi
+
+      - name: Catalog first-load JS ratchet
+        # Non-regression ceiling on the /catalog route's first-load JS, on the
+        # way down toward the 250 kB target (docs/PRODUCT_DECISIONS.md #7).
+        # Tighten the ceiling as the number drops; never raise it.
+        run: |
+          kb=$(grep -E "/catalog\s" build.log | head -1 | grep -oE "[0-9.]+ kB" | tail -1 | grep -oE "[0-9.]+")
+          if [ -z "$kb" ]; then
+            echo "::warning::Could not read /catalog first-load size from build output"
+            exit 0
+          fi
+          echo "/catalog first-load JS: ${kb} kB (ceiling 450)"
+          if [ "$(printf '%.0f' "$kb")" -gt 450 ]; then
+            echo "::error::/catalog first-load JS ${kb} kB exceeds the 450 kB ratchet"
             exit 1
           fi

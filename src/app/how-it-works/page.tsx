@@ -103,8 +103,8 @@ export default function HowItWorksPage() {
       </h1>
       <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
         SŌMA is like a friend who happens to remember every strain and exactly
-        what you like — then tells you, honestly, which ones are worth your
-        money. Here's how to read what it gives you, and the one thing that
+        what you like — then tells you, honestly, which ones truly fit your
+        taste. Here's how to read what it gives you, and the one thing that
         makes it smarter every time you use it.
       </p>
 

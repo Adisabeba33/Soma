@@ -48,10 +48,11 @@ navigation, breadcrumbs and docs; route paths stay stable.
 The Explorer/Harmony (max-vs-min) blend model is kept as-is, but the UI
 gets a short explanation of the behavior. No changes to blend math.
 
-## 7. Performance budgets (PR-blocking)
+## 7. Performance budgets
 
-- First-load JS for catalog routes: **< 250 KB**.
 - Production build must emit **no** "items over 2MB can not be cached"
-  warnings.
-
-Both are blocking criteria for PRs that touch the affected areas.
+  warnings — enforced in CI (blocking).
+- First-load JS for catalog routes: **250 KB target**. Enforced today as a
+  non-regression ratchet in CI (currently 450 KB ceiling; tighten as the
+  number drops, never raise it) plus a 700 KB budget on the serialized
+  catalog list payload in tests/doc-drift.test.ts.
