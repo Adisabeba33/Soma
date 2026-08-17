@@ -14,7 +14,7 @@
 import Link from "next/link";
 import { ArrowLeft, Bookmark, Heart, Meh, Smile, Star, ThumbsDown } from "lucide-react";
 import { getFavoriteStrainNames } from "@/lib/favorites";
-import { buildCatalog, curatedScore, strainSlug } from "@/lib/catalog";
+import { buildCatalog, curatedScore } from "@/lib/catalog";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
 import { getUserIdReadOnly } from "@/lib/user";
 import { getActiveProfile } from "@/lib/active-profile";

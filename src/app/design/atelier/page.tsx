@@ -69,8 +69,8 @@ export default function AtelierPage() {
             <p className="atl-lede" data-reveal>
               <Moon className="atl-moon" strokeWidth={1.5} />
               Your palate leans dark and resinous this evening. Bring a menu —
-              each one is read against your taste and ranked by what&apos;s
-              worth your money.
+              each one is read against your taste and ranked by how closely
+              it fits you.
             </p>
           </div>
           {/* Placeholder "photograph" — warm, soft, time-tinted */}

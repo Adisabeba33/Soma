@@ -20,12 +20,14 @@ import { getUserIdReadOnly } from "@/lib/user";
 import { prisma } from "@/lib/prisma";
 import { getActiveProfile } from "@/lib/active-profile";
 import {
+  matchingReadiness,
   profileCompleteness,
-  MATCH_GATE_PERCENT,
 } from "@/lib/profile-completeness";
 import { ProfileProgressRing } from "@/components/profile-progress";
 import type { TasteProfileInput } from "@/lib/types";
 import { getTopMatches, type TopMatch } from "@/lib/top-matches";
+import { HOME_SAMPLE, HOME_SAMPLE_CATEGORY } from "@/lib/home-sample";
+import { CATEGORY_META } from "@/lib/score-taxonomy";
 
 export const dynamic = "force-dynamic";
 
@@ -77,12 +79,16 @@ export default async function HomePage() {
     // home page — and the post-login redirect to it — down. Anything that
     // throws here degrades gracefully to the shell without the carousel.
     let percent = 0;
+    let ready = false;
     try {
       const profile = await getActiveProfile(userId!);
       if (profile) {
         percent = profileCompleteness(
           profile as unknown as TasteProfileInput,
         ).percent;
+        ready = matchingReadiness(
+          profile as unknown as TasteProfileInput,
+        ).ready;
       }
     } catch (err) {
       console.error("home: profile completeness failed", err);
@@ -96,6 +102,7 @@ export default async function HomePage() {
       <LoggedInHome
         username={user.username}
         percent={percent}
+        ready={ready}
         topMatches={topMatches}
       />
     );
@@ -111,22 +118,32 @@ export default async function HomePage() {
 function LoggedInHome({
   username,
   percent,
+  ready,
   topMatches,
 }: {
   username: string | null;
   percent: number;
+  ready: boolean;
   topMatches: TopMatch[];
 }) {
-  const canMatch = percent >= MATCH_GATE_PERCENT;
+  const canMatch = ready;
   return (
     <section className="relative flex min-h-[calc(100vh-4rem)] flex-col overflow-hidden">
-      {/* Soft apothecary backdrop; frosted cards float over it. */}
-      <img
-        src="/hero/dashboard.png"
-        alt=""
-        aria-hidden
-        className="absolute inset-0 h-full w-full object-cover object-top"
-      />
+      {/* Soft apothecary backdrop; frosted cards float over it. WebP variants
+          (the 3 MB source PNGs stay out of the page): 720w for phones, full
+          width above. Decorative backdrop → lazy, so it never competes with
+          content for bandwidth. */}
+      <picture>
+        <source media="(max-width: 720px)" srcSet="/hero/dashboard-720.webp" />
+        <img
+          src="/hero/dashboard.webp"
+          alt=""
+          aria-hidden
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-top"
+        />
+      </picture>
       <div
         className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background/75"
         aria-hidden
@@ -162,9 +179,7 @@ function LoggedInHome({
               <div className="text-sm">
                 <p className="font-medium">{percent}% profile</p>
                 <p className="text-muted-foreground">
-                  {canMatch
-                    ? "Ready to match"
-                    : `Need ${MATCH_GATE_PERCENT}% to match`}
+                  {canMatch ? "Ready to match" : "Core answers needed"}
                 </p>
               </div>
             </div>
@@ -173,7 +188,7 @@ function LoggedInHome({
                 href={canMatch ? "/taste-match" : "/profile"}
                 className={buttonClass("primary", "md")}
               >
-                {canMatch ? "Find my flower" : `Finish to ${MATCH_GATE_PERCENT}%`}
+                {canMatch ? "Find my flower" : "Finish my profile"}
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
@@ -276,12 +291,20 @@ function AnonymousHome() {
           className="absolute inset-0 bg-gradient-to-b from-[#e9e1d2] via-[#d9cdb8] to-[#cdbfa6]"
           aria-hidden
         />
-        <img
-          src="/hero/hero.png"
-          alt=""
-          aria-hidden
-          className="absolute inset-0 h-full w-full object-cover object-top"
-        />
+        {/* The anonymous landing's LCP image — eager + async decode, WebP
+            variants sized to the viewport (source PNG is 3 MB; these are
+            ~60–100 KB). */}
+        <picture>
+          <source media="(max-width: 720px)" srcSet="/hero/hero-720.webp" />
+          <img
+            src="/hero/hero.webp"
+            alt=""
+            aria-hidden
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover object-top"
+          />
+        </picture>
         {/* Gentle bottom scrim so the cream card reads over the light counter. */}
         <div
           className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent"
@@ -301,8 +324,8 @@ function AnonymousHome() {
 
           <p className="mt-4 text-sm leading-relaxed text-[#5c5040]">
             Hi, I&apos;m <span className="font-medium text-[#2a2018]">SŌMA</span>,
-            a professional cannabis sommelier. My job is to save you money on
-            flower you were never going to love.
+            a professional cannabis sommelier. My job is to steer you away
+            from flower you were never going to love.
           </p>
 
           <div className="mt-7 space-y-3">
@@ -394,9 +417,10 @@ function AnonymousHome() {
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 No feed, no public profile, nothing to share — you&apos;re
-                one-on-one with SŌMA. Your data stays in your account: never
-                sold, never handed to advertisers or other services. It exists
-                to serve your taste, full stop.
+                one-on-one with SŌMA. Your profile is never sold and never
+                used for advertising. It&apos;s shared only with the service
+                providers that run SŌMA, exactly as described in our Privacy
+                Policy.
               </p>
             </div>
           </div>
@@ -414,8 +438,8 @@ function AnonymousHome() {
             <div className="space-y-4 text-[0.97rem] leading-relaxed text-muted-foreground">
               <p>
                 You open a dispensary menu and see dozens of names. Most people
-                cannot tell what is genuinely good, what resembles flower they
-                already loved, and what will simply be a waste of money.
+                cannot tell what resembles flower they already loved and what
+                simply isn&apos;t their taste.
               </p>
               <p>
                 SŌMA does not ask{" "}
@@ -470,20 +494,24 @@ function AnonymousHome() {
 
           <div className="mt-8 rounded-2xl border border-border bg-background p-7 sm:p-9">
             <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-              <span className="inline-flex items-center gap-2 text-sm font-medium text-accent">
-                <span className="h-2 w-2 rounded-full bg-accent" />
-                Closest Alternative
+              <span
+                className={`inline-flex items-center gap-2 text-sm font-medium ${CATEGORY_META[HOME_SAMPLE_CATEGORY].tone}`}
+              >
+                <span
+                  className={`h-2 w-2 rounded-full ${CATEGORY_META[HOME_SAMPLE_CATEGORY].dot}`}
+                />
+                {HOME_SAMPLE_CATEGORY}
               </span>
               <span className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground">
-                Confidence: medium
+                Confidence: {HOME_SAMPLE.confidence}
               </span>
             </div>
             <div className="mt-2 flex items-baseline gap-3">
               <h3 className="font-display text-3xl font-semibold tracking-tight">
-                Triple Double OG
+                {HOME_SAMPLE.name}
               </h3>
               <span className="font-display text-3xl font-semibold text-accent">
-                82%
+                {HOME_SAMPLE.score}%
               </span>
             </div>
             <p className="mt-4 max-w-2xl leading-relaxed text-foreground">

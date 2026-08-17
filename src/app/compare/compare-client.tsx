@@ -13,14 +13,16 @@ import { clearBasket, getBasket } from "@/lib/compare-basket";
 import { labelFor } from "@/lib/vocab";
 import { cn, formatScore } from "@/lib/utils";
 import type { Category, ComparisonItem } from "@/lib/types";
+import { CATEGORY_META } from "@/lib/score-taxonomy";
 
-const TONE: Record<Category, string> = {
-  "Best Match": "text-accent",
-  "Closest Alternative": "text-brass",
-  "Worth Trying": "text-foreground",
-  Risky: "text-[#b4791f]",
-  Avoid: "text-[#a23b2c]",
-};
+// Tone tokens come from the shared taxonomy so Compare can never disagree
+// with the results list or the card.
+const TONE: Record<Category, string> = Object.fromEntries(
+  (Object.keys(CATEGORY_META) as Category[]).map((c) => [
+    c,
+    CATEGORY_META[c].tone,
+  ]),
+) as Record<Category, string>;
 
 export default function ComparePage() {
   const [strains, setStrains] = useState<string[]>([]);

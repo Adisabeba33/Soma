@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserId } from "@/lib/user";
-import { profileCompleteness } from "@/lib/profile-completeness";
+import {
+  matchingReadiness,
+  profileCompleteness,
+} from "@/lib/profile-completeness";
 import type { TasteProfileInput } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -31,6 +34,7 @@ export async function GET() {
       isActive: p.isActive,
       merged: p.merged,
       percent: profileCompleteness(p as unknown as TasteProfileInput).percent,
+      ready: matchingReadiness(p as unknown as TasteProfileInput).ready,
       topAromas: top(
         p.primaryAroma ? [p.primaryAroma] : [],
         p.preferredAromas,

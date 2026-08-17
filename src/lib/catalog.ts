@@ -8,9 +8,8 @@
 // No data is duplicated here — every catalog entry is a thin projection
 // over one StrainProfile plus an optional StrainIdentity.
 
-import { unstable_cache } from "next/cache";
 import { STRAINS } from "./strain-data";
-import { similarity, useCaseFor } from "./taste-engine";
+import { similarity, archetypeFor } from "./taste-engine";
 import { getIdentity, identitiesInFamily } from "./strain-identity";
 import type { StrainIdentity } from "./strain-identity";
 import type { StrainProfile } from "./types";
@@ -62,10 +61,14 @@ function entryConfidence(s: StrainProfile): "high" | "medium" | "low" {
 }
 
 // The raw catalog assembly: pure projection over STRAINS + similarity matrix.
-// 888 strains × 888 similarity comparisons ≈ 789K ops per cold start, which
-// dominates the catalog page's first-load time. The exported `buildCatalog`
-// wraps this in Next.js's data cache so the result survives between cold
-// starts (the in-process `_cached` only covers a single warm instance).
+// N strains × N similarity comparisons (~800K ops at today's catalog size)
+// per cold start. Memoized at module level: the data is immutable per
+// deploy, so one warm instance computes it once and every request/page in
+// that instance reuses it. Deliberately NOT wrapped in Next's data cache —
+// the serialized result is ~2.9 MB, over unstable_cache's 2 MB limit, so
+// the old wrapper failed to store on every build/render while still paying
+// serialization. If cross-instance caching is ever needed, cache small
+// per-slug values instead of this whole array.
 let _cached: CatalogEntry[] | null = null;
 function _buildCatalogSync(): CatalogEntry[] {
   if (_cached) return _cached;
@@ -78,7 +81,7 @@ function _buildCatalogSync(): CatalogEntry[] {
       : [];
     return {
       strain,
-      archetype: useCaseFor(strain),
+      archetype: archetypeFor(strain),
       source: "curated" as const,
       confidence: entryConfidence(strain),
       similar: topSimilar(strain, 4),
@@ -89,14 +92,10 @@ function _buildCatalogSync(): CatalogEntry[] {
   return _cached;
 }
 
-// Cache key includes a version suffix — bump it any time strain-data /
-// strain-identity-data / taste-engine logic changes so stale entries aren't
-// served after a deploy. Revalidate hourly as a safety net.
-export const buildCatalog = unstable_cache(
-  async () => _buildCatalogSync(),
-  ["soma-catalog-v1"],
-  { revalidate: 3600, tags: ["catalog"] },
-);
+// Async only to keep call sites unchanged from the cached era.
+export async function buildCatalog(): Promise<CatalogEntry[]> {
+  return _buildCatalogSync();
+}
 
 export function catalogSize(): number {
   return STRAINS.length;
@@ -114,8 +113,22 @@ export function catalogSize(): number {
 // artVersion, artStatus, artFocus), and curatedScore (sourceConfidence).
 export function trimEntryForList(entry: CatalogEntry): CatalogEntry {
   const id = entry.identity;
+  const s = entry.strain;
   return {
-    strain: entry.strain,
+    // Only the strain fields the list view reads (cards, search, client-side
+    // curatedScore). The optional deep-scoring fields (note, primary*/trace*
+    // weighting arrays) are detail-page material — dropping them here cuts
+    // the serialized payload across ~900 entries.
+    strain: {
+      name: s.name,
+      ...(s.aliases ? { aliases: s.aliases } : {}),
+      type: s.type,
+      aromas: s.aromas,
+      flavors: s.flavors,
+      effects: s.effects,
+      traits: s.traits,
+      potency: s.potency,
+    },
     archetype: entry.archetype,
     source: entry.source,
     confidence: entry.confidence,
@@ -180,12 +193,19 @@ export function strainSlug(name: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-// Reverse lookup used by the dedicated strain page (/catalog/[slug]).
+// Reverse lookup used by the dedicated strain page (/catalog/[slug]) —
+// O(1) via a lazily built slug index instead of a linear scan per route
+// (page render + metadata + OG image across ~900 static routes).
+let _bySlug: Map<string, CatalogEntry> | null = null;
 export async function getCatalogEntryBySlug(
   slug: string,
 ): Promise<CatalogEntry | null> {
-  const entries = await buildCatalog();
-  return entries.find((e) => strainSlug(e.strain.name) === slug) ?? null;
+  if (!_bySlug) {
+    _bySlug = new Map(
+      _buildCatalogSync().map((e) => [strainSlug(e.strain.name), e]),
+    );
+  }
+  return _bySlug.get(slug) ?? null;
 }
 
 // Similar strains enriched with their full profile, so the detail page can
@@ -194,12 +214,16 @@ export interface SimilarStrainEntry extends SimilarStrain {
   strain: StrainProfile;
 }
 
+let _strainByName: Map<string, StrainProfile> | null = null;
 export function similarWithProfiles(
   similar: SimilarStrain[],
 ): SimilarStrainEntry[] {
+  if (!_strainByName) {
+    _strainByName = new Map(STRAINS.map((x) => [x.name, x]));
+  }
   const out: SimilarStrainEntry[] = [];
   for (const s of similar) {
-    const strain = STRAINS.find((x) => x.name === s.name);
+    const strain = _strainByName.get(s.name);
     if (strain) out.push({ ...s, strain });
   }
   return out;

@@ -10,39 +10,34 @@ import { PresetPicker } from "@/components/preset-picker";
 import type { Preset } from "@/lib/profile-presets";
 import { cn } from "@/lib/utils";
 import {
-  SMOKING_METHODS,
   USE_TIMES,
   PRIMARY_AROMAS,
   PRIMARY_EFFECTS,
 } from "@/lib/profile-target";
-import {
-  AROMAS,
-  FLAVORS,
-  AROMA_FLAVOR,
-  EFFECTS,
-  RISK_AVOIDANCE,
-  DISLIKED_TRAITS,
-} from "@/lib/vocab";
+import { EFFECTS } from "@/lib/vocab";
 import { STRAIN_NAMES } from "@/lib/strain-data";
 import {
+  matchingReadiness,
   profileCompleteness,
-  MATCH_GATE_PERCENT,
 } from "@/lib/profile-completeness";
 import { ProfileProgressRing } from "@/components/profile-progress";
 import { labelFor } from "@/lib/vocab";
 
-// Onboarding — the questionnaire fills the profile over five screens, each
-// worth ~15% (→ 75% by the end; the final 25% is optional precision in the full
-// profile). Every question is optional and just earns progress — Continue is
-// always active, and skipping a whole screen simply adds 0%.
-//   1. a strain you love, how/when you smoke
-//   2. aromas/flavours, your one primary note, bud structure
-//   3. effects you want, one-word session, effects to avoid
-//   4. risks in the high to avoid, past-pickup dealbreakers, strains to avoid
-//   5. final calibration & cross-check — disliked aromas, body feel, potency
+// Quick onboarding — five questions, one per screen, every one skippable.
+// Only high-signal questions the engine actually scores live here (see
+// docs/PRODUCT_DECISIONS.md #3); everything else — smoking method, body
+// feel, textures, risk avoidance, dealbreakers — belongs to the full
+// profile at /profile. Matching unlocks via matchingReadiness(), not a
+// completeness percent: a favourite strain alone is enough, or primary
+// effect + time plus one sensory pick.
+//   1. a strain you already love
+//   2. your one-word session (primary effect)
+//   3. when you usually smoke (use time)
+//   4. the one aroma that pulls you in (primary aroma)
+//   5. effects you want to avoid
 
 const ONBOARDING_SCREENS = 5;
-const LAST_STEP = ONBOARDING_SCREENS - 1; // 0-indexed (screen 5 = step 4)
+const LAST_STEP = ONBOARDING_SCREENS - 1;
 
 const TIME_LABELS: Record<string, string> = {
   morning: "Morning",
@@ -52,47 +47,15 @@ const TIME_LABELS: Record<string, string> = {
   anytime: "Any time",
 };
 
-const POTENCY_OPTIONS = [
-  { value: "mild", label: "Easy-going" },
-  { value: "balanced", label: "Balanced" },
-  { value: "strong", label: "Strong" },
-];
-
-// bodyFeel is a 0–100 axis; three taps map onto it.
-const BODY_FEEL_OPTIONS = [
-  { value: "0", label: "Clear & light" },
-  { value: "50", label: "In between" },
-  { value: "100", label: "Heavy & sunk-in" },
-];
-
-// Aroma and flavour are one question for the user; the selection feeds both
-// engine dimensions, split by vocab so a flavour-only note goes only to flavours.
-const AROMA_VALUES = new Set(AROMAS.map((o) => o.value));
-const FLAVOR_VALUES = new Set(FLAVORS.map((o) => o.value));
-
 export default function QuickOnboardingPage() {
   const router = useRouter();
   const [step, setStep] = useState(0); // 0–4 = screens 1–5
 
-  // Screen 1
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [methods, setMethods] = useState<string[]>([]);
-  const [time, setTime] = useState("");
-  // Screen 2
-  const [sensoryNotes, setSensoryNotes] = useState<string[]>([]);
-  const [primaryAroma, setPrimaryAroma] = useState("");
-  // Screen 3
-  const [preferredEffects, setPreferredEffects] = useState<string[]>([]);
   const [primaryEffect, setPrimaryEffect] = useState("");
+  const [time, setTime] = useState("");
+  const [primaryAroma, setPrimaryAroma] = useState("");
   const [dislikedEffects, setDislikedEffects] = useState<string[]>([]);
-  // Screen 4 (all optional)
-  const [avoidedRisks, setAvoidedRisks] = useState<string[]>([]);
-  const [dislikedTraits, setDislikedTraits] = useState<string[]>([]);
-  const [dislikedStrains, setDislikedStrains] = useState<string[]>([]);
-  // Screen 5 (calibration & cross-check)
-  const [dislikedAromas, setDislikedAromas] = useState<string[]>([]);
-  const [bodyFeel, setBodyFeel] = useState("");
-  const [potency, setPotency] = useState("");
 
   const [started, setStarted] = useState(false);
   const [review, setReview] = useState(false);
@@ -100,38 +63,33 @@ export default function QuickOnboardingPage() {
   const [presetBusy, setPresetBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Single source for both the live progress and the save payload.
+  // Single source for the readiness check and the save payload.
   const draft = {
     favoriteStrains: favorites,
-    smokingMethods: methods,
-    useTime: time,
-    preferredAromas: sensoryNotes.filter((t) => AROMA_VALUES.has(t)),
-    preferredFlavors: sensoryNotes.filter((t) => FLAVOR_VALUES.has(t)),
-    primaryAroma,
-    preferredEffects,
     primaryEffect,
+    useTime: time,
+    primaryAroma,
     dislikedEffects,
-    avoidedRisks,
-    dislikedTraits,
-    dislikedStrains,
-    dislikedAromas,
-    bodyFeel: bodyFeel ? Number(bodyFeel) : null,
-    potencyPreference: potency,
   };
-  // One unified scale: progress = the shared per-question completeness. Each
-  // answer is worth its own weight (so skipping a screen adds 0), and the
-  // onboarding tops out near 75% — the extra questions live in the full profile.
+  const readiness = matchingReadiness(draft);
   const percent = profileCompleteness(draft).percent;
 
   async function save(target: "match" | "profile") {
     setSubmitting(true);
     setError(null);
     try {
+      // POST /api/profile resets any field missing from the body, so overlay
+      // the five quick answers on the existing profile — a returning visitor
+      // redoing the quick flow must not lose their depth answers (textures,
+      // families, dealbreakers…).
+      const existing = await fetch("/api/profile")
+        .then((r) => (r.ok ? r.json() : null))
+        .catch(() => null);
       // The API reads each field loosely and clips to vocab.
       const res = await fetch("/api/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(draft),
+        body: JSON.stringify({ ...(existing?.profile ?? {}), ...draft }),
       });
       if (!res.ok) throw new Error();
       router.push(target === "profile" ? "/profile" : "/taste-match");
@@ -188,8 +146,8 @@ export default function QuickOnboardingPage() {
           Find your taste in one tap.
         </h1>
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
-          Pick the profile that fits you and start matching right away — or build
-          your own for the sharpest read. You can refine it anytime.
+          Pick the profile that fits you and start matching right away — or
+          answer five quick questions for your own. You can refine it anytime.
         </p>
 
         {error && (
@@ -211,14 +169,12 @@ export default function QuickOnboardingPage() {
 
   // ── Final summary / read-back ──────────────────────────────────────
   if (review) {
-    const canMatch = percent >= MATCH_GATE_PERCENT;
+    const canMatch = readiness.ready;
     const effectLabel =
       PRIMARY_EFFECTS.find((o) => o.value === primaryEffect)?.label ?? "—";
     const aromaLabel =
       PRIMARY_AROMAS.find((o) => o.value === primaryAroma)?.label ?? "—";
     const timeLabel = time ? TIME_LABELS[time] : "Anytime";
-    const effectChips =
-      preferredEffects.length > 0 ? preferredEffects.map(labelFor) : ["—"];
 
     return (
       <div className="mx-auto max-w-editorial px-5 py-16 sm:px-8">
@@ -233,8 +189,8 @@ export default function QuickOnboardingPage() {
             </h1>
             <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
               {canMatch
-                ? "That's enough to start matching. Fill in the rest of your profile anytime for an even sharper read."
-                : `You're at ${percent}% — reach ${MATCH_GATE_PERCENT}% and matching unlocks. A few more answers will do it.`}
+                ? "That's enough real signal to start matching. Fine-tune the rest of your profile anytime for an even sharper read."
+                : "Matching needs a bit of real signal first — a strain you love, or your primary effect and time plus one aroma or effect you enjoy."}
             </p>
           </div>
         </div>
@@ -248,7 +204,6 @@ export default function QuickOnboardingPage() {
           <ReadItem label="Wants to feel" values={[effectLabel]} tone="accent" />
           <ReadItem label="Drawn to" values={[aromaLabel]} />
           <ReadItem label="Best time" values={[timeLabel]} />
-          <ReadItem label="Effects" values={effectChips} />
           <ReadItem
             label="Steers clear of"
             values={
@@ -276,12 +231,12 @@ export default function QuickOnboardingPage() {
                 disabled={submitting}
                 className="inline-flex items-center gap-1.5 rounded-xl border border-border px-4 py-2.5 text-sm font-medium hover:border-accent/40 disabled:opacity-60"
               >
-                Finish my profile (100%)
+                Fine-tune my profile
               </button>
             </>
           ) : (
             <Button onClick={() => save("profile")} disabled={submitting} size="lg">
-              {submitting ? "Saving…" : `Finish to ${MATCH_GATE_PERCENT}%`}
+              {submitting ? "Saving…" : "Save & finish my profile"}
               <ArrowRight className="h-4 w-4" />
             </Button>
           )}
@@ -321,35 +276,28 @@ export default function QuickOnboardingPage() {
           </button>
         )}
         <span className="text-xs uppercase tracking-[0.2em] text-brass">
-          Step {step + 1} of {ONBOARDING_SCREENS}
-        </span>
-        <span className="ml-auto text-xs font-semibold tabular-nums text-brass">
-          {percent}% complete
+          Question {step + 1} of {ONBOARDING_SCREENS}
         </span>
       </div>
 
-      {/* progress bar — grows toward 75% across the five screens */}
+      {/* progress bar — one segment per question */}
       <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-muted">
         <span
           className="block h-full rounded-full bg-accent transition-[width] duration-500 ease-out"
-          style={{ width: `${Math.max(4, percent)}%` }}
+          style={{ width: `${((step + 1) / ONBOARDING_SCREENS) * 100}%` }}
         />
       </div>
 
       {step === 0 ? (
         <>
           <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
-            Let&apos;s get your taste.
+            A strain you already love?
           </h1>
           <p className="mt-2 text-muted-foreground">
-            A few quick answers — no typing beyond a strain name if you have one.
+            Pick from the catalog or type your own — it&apos;s the strongest
+            signal you can give. New to this? Skip it.
           </p>
-
-          <Question
-            n={1}
-            title="A strain you already love"
-            sub="Pick from the catalog or type your own. New to this? Skip it."
-          >
+          <div className="mt-6">
             <TagInput
               value={favorites}
               onChange={setFavorites}
@@ -358,25 +306,33 @@ export default function QuickOnboardingPage() {
               validateStrains
               ordered
             />
-          </Question>
-
-          <Question
-            n={2}
-            title="How do you usually smoke?"
-            sub="Pick all that apply."
-          >
-            <ChipSelect
-              options={SMOKING_METHODS}
-              value={methods}
-              onChange={setMethods}
+          </div>
+        </>
+      ) : step === 1 ? (
+        <>
+          <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
+            A perfect session — in one word, how do you feel?
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            Pick one. This is the outcome that matters most to you.
+          </p>
+          <div className="mt-6">
+            <OptionRow
+              options={PRIMARY_EFFECTS}
+              selected={primaryEffect}
+              onSelect={(v) => setPrimaryEffect(v === primaryEffect ? "" : v)}
             />
-          </Question>
-
-          <Question
-            n={3}
-            title="When do you prefer to smoke?"
-            sub="Time of day shapes the match."
-          >
+          </div>
+        </>
+      ) : step === 2 ? (
+        <>
+          <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
+            When do you prefer to smoke?
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            Time of day shapes the match.
+          </p>
+          <div className="mt-6">
             <OptionRow
               options={USE_TIMES.map((o) => ({
                 value: o.value,
@@ -385,177 +341,40 @@ export default function QuickOnboardingPage() {
               selected={time}
               onSelect={(v) => setTime(v === time ? "" : v)}
             />
-          </Question>
+          </div>
         </>
-      ) : step === 1 ? (
+      ) : step === 3 ? (
         <>
           <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
-            Now your nose.
+            One jar stops you dead. What does it smell like?
           </h1>
           <p className="mt-2 text-muted-foreground">
-            What you&apos;re drawn to in the jar — smell, taste and structure.
+            Pick one. This is your primary note — it carries extra weight.
           </p>
-
-          <Question
-            n={1}
-            title="Which aromas & flavours do you reach for?"
-            sub="Smell and taste together — pick everything that appeals."
-          >
-            <ChipSelect
-              options={AROMA_FLAVOR}
-              value={sensoryNotes}
-              onChange={setSensoryNotes}
-            />
-          </Question>
-
-          <Question
-            n={2}
-            title="One jar stops you dead. What does it smell like?"
-            sub="Pick one. This is your primary note — it carries extra weight."
-          >
+          <div className="mt-6">
             <OptionRow
               options={PRIMARY_AROMAS}
               selected={primaryAroma}
               onSelect={(v) => setPrimaryAroma(v === primaryAroma ? "" : v)}
             />
-          </Question>
+          </div>
         </>
-      ) : step === 2 ? (
+      ) : (
         <>
           <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
-            Now the high.
+            Any effects you want to avoid?
           </h1>
           <p className="mt-2 text-muted-foreground">
-            The effects you want — and the ones to steer clear of.
+            Couch-lock, paranoia, a head-heavy spin. SŌMA steers you away (and
+            won&apos;t if your favourites already deliver it).
           </p>
-
-          <Question
-            n={1}
-            title="What effect are you looking for?"
-            sub="Pick everything that fits — head and body."
-          >
-            <ChipSelect
-              options={EFFECTS}
-              value={preferredEffects}
-              onChange={setPreferredEffects}
-            />
-          </Question>
-
-          <Question
-            n={2}
-            title="A perfect session — in one word, how do you feel?"
-            sub="Pick one. This is the outcome that matters most to you."
-          >
-            <OptionRow
-              options={PRIMARY_EFFECTS}
-              selected={primaryEffect}
-              onSelect={(v) => setPrimaryEffect(v === primaryEffect ? "" : v)}
-            />
-          </Question>
-
-          <Question
-            n={3}
-            title="Any effects you want to avoid?"
-            sub="Couch-lock, paranoia, a head-heavy spin. SŌMA steers you away (and won't if your favourites already deliver it)."
-          >
+          <div className="mt-6">
             <ChipSelect
               options={EFFECTS}
               value={dislikedEffects}
               onChange={setDislikedEffects}
             />
-          </Question>
-        </>
-      ) : step === 3 ? (
-        <>
-          <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
-            A few dealbreakers.
-          </h1>
-          <p className="mt-2 text-muted-foreground">
-            What to steer you away from — each answer sharpens the match.
-          </p>
-
-          <Question
-            n={1}
-            title="Anything in the high you'd rather avoid?"
-            sub="For daytime energy without the nervous edge. SŌMA gently lowers strains known to run this way — only for you, never if your favourites already do."
-          >
-            <ChipSelect
-              options={RISK_AVOIDANCE}
-              value={avoidedRisks}
-              onChange={setAvoidedRisks}
-            />
-          </Question>
-
-          <Question
-            n={2}
-            title="What disappointed you in past pickups?"
-            sub="Honest dealbreakers. Some come down to freshness and storage rather than the strain — SŌMA accounts for that."
-          >
-            <ChipSelect
-              options={DISLIKED_TRAITS}
-              value={dislikedTraits}
-              onChange={setDislikedTraits}
-            />
-          </Question>
-
-          <Question
-            n={3}
-            title="Strains to steer away from"
-            sub="Anything you already know is not for you."
-          >
-            <TagInput
-              value={dislikedStrains}
-              onChange={setDislikedStrains}
-              placeholder="Type a strain and press Enter"
-              suggestions={STRAIN_NAMES}
-              validateStrains
-            />
-          </Question>
-        </>
-      ) : (
-        <>
-          <h1 className="mt-8 font-display text-4xl font-semibold tracking-tight">
-            Final calibration.
-          </h1>
-          <p className="mt-2 text-muted-foreground">
-            Three quick checks to sharpen — and sanity-check — your profile.
-          </p>
-
-          <Question
-            n={1}
-            title="Any aroma that's an instant no?"
-            sub="The opposite of what you reach for — helps catch contradictions."
-          >
-            <ChipSelect
-              options={AROMA_FLAVOR}
-              value={dislikedAromas}
-              onChange={setDislikedAromas}
-            />
-          </Question>
-
-          <Question
-            n={2}
-            title="When it hits right, how heavy is the body?"
-            sub="Clear-headed and light, or sunk into the couch?"
-          >
-            <OptionRow
-              options={BODY_FEEL_OPTIONS}
-              selected={bodyFeel}
-              onSelect={(v) => setBodyFeel(v === bodyFeel ? "" : v)}
-            />
-          </Question>
-
-          <Question
-            n={3}
-            title="How hard should it hit?"
-            sub="Your preferred strength."
-          >
-            <OptionRow
-              options={POTENCY_OPTIONS}
-              selected={potency}
-              onSelect={(v) => setPotency(v === potency ? "" : v)}
-            />
-          </Question>
+          </div>
         </>
       )}
 
@@ -566,7 +385,7 @@ export default function QuickOnboardingPage() {
       )}
 
       <div className="mt-10 flex items-center gap-3 border-t border-border pt-6">
-        {/* Always active — every question is optional; skipping just adds 0%. */}
+        {/* Always active — every question is optional; skipping just moves on. */}
         <Button onClick={onContinue} disabled={submitting} size="lg">
           {submitting
             ? "Saving…"
@@ -596,31 +415,6 @@ export default function QuickOnboardingPage() {
           full questionnaire
         </Link>
       </p>
-    </div>
-  );
-}
-
-function Question({
-  n,
-  title,
-  sub,
-  children,
-}: {
-  n: number;
-  title: string;
-  sub: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="mt-8">
-      <div className="flex items-baseline gap-2.5">
-        <span className="font-display text-sm text-brass">0{n}</span>
-        <h2 className="font-display text-xl font-semibold tracking-tight">
-          {title}
-        </h2>
-      </div>
-      <p className="ml-7 mt-0.5 text-sm text-muted-foreground">{sub}</p>
-      <div className="ml-7 mt-3">{children}</div>
     </div>
   );
 }

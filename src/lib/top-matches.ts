@@ -13,10 +13,7 @@ import { strainSlug } from "@/lib/catalog";
 import { getIdentity } from "@/lib/strain-identity";
 import { artImageSrc, artFocusOf, timeProfileOf } from "@/lib/strain-art";
 import { paletteForTime } from "@/lib/sensory-family-palette";
-import {
-  profileCompleteness,
-  MATCH_GATE_PERCENT,
-} from "@/lib/profile-completeness";
+import { matchingReadiness } from "@/lib/profile-completeness";
 import type { TasteProfileInput } from "@/lib/types";
 
 export type TopMatch = {
@@ -38,7 +35,7 @@ export async function getTopMatches(
     const profile = await getActiveProfile(userId);
     if (!profile) return [];
     const p = profile as unknown as TasteProfileInput;
-    if (profileCompleteness(p).percent < MATCH_GATE_PERCENT) return [];
+    if (!matchingReadiness(p).ready) return [];
 
     const feedback = await getFeedbackSignals(userId);
     const merged = await mergedMatches(userId);

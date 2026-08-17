@@ -22,6 +22,7 @@ import { familyMatches } from "./strain-families";
 import { riskEntryFor, riskTagsFor, RISK_EFFECT_OVERLAP } from "./risk-tags";
 import { densityBonus, densityPreferenceFromProfile } from "./bud-structure";
 import { getIdentity, isAdjacentSensoryFamily } from "./strain-identity";
+import { categoryForScore, categoryRank } from "./score-taxonomy";
 import type {
   AnalysisResult,
   Category,
@@ -832,23 +833,17 @@ function categorize(
   isDisliked: boolean,
 ): Category {
   if (isDisliked) return "Avoid";
-  let cat: Category;
-  if (score >= 80) cat = "Best Match";
-  else if (score >= 66) cat = "Closest Alternative";
-  else if (score >= 50) cat = "Worth Trying";
-  else if (score >= 36) cat = "Risky";
-  else cat = "Avoid";
+  let cat: Category = categoryForScore(score);
 
-  const rank: Category[] = ["Avoid", "Risky", "Worth Trying", "Closest Alternative", "Best Match"];
   const cap = (max: Category) => {
-    if (rank.indexOf(cat) > rank.indexOf(max)) cat = max;
+    if (categoryRank(cat) > categoryRank(max)) cat = max;
   };
   if (conflicts >= 2) cap("Risky");
   else if (conflicts === 1) cap("Closest Alternative");
   return cat;
 }
 
-export function useCaseFor(strain: StrainProfile): string {
+export function archetypeFor(strain: StrainProfile): string {
   const e = new Set(strain.effects);
   if (e.has("sleepy") || e.has("couch-lock")) return "Late-night wind-down and sleep";
   if (e.has("body-heavy") || (e.has("relaxed") && strain.type === "indica"))
@@ -1668,7 +1663,7 @@ function buildExplanation(
   const opener = `${strain.name} — a ${category.toLowerCase()} for your profile.`;
   const direction =
     category === "Avoid"
-      ? "On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor use of your money."
+      ? "On sensory grounds it pulls away from what you've told us you enjoy, so it is likely a poor fit for you."
       : category === "Risky"
         ? "There is some overlap with your taste, but enough friction that it could genuinely go either way."
         : category === "Worth Trying"
