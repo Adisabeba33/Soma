@@ -10,21 +10,19 @@ import {
 } from "lucide-react";
 import { AccountNavItem } from "@/components/account/account-nav-item";
 
-// Where everything in the lounge lives. Each entry points at an existing
-// destination — a route the app already serves, a section further down this
-// page, or the support mailbox published in the privacy policy. No new
-// surfaces were invented for the grid.
-const SUPPORT_EMAIL = "Somasensory@somasensory.com";
-
+// Where everything in the lounge lives. Every entry opens a page of its
+// own — the four lounge sub-pages under /account, and the member surfaces
+// the app already serves — and every one of those pages carries a back
+// control to this hub.
 const ITEMS = [
   {
-    href: "#profiles",
+    href: "/account/profiles",
     title: "Your profiles",
     subtitle: "Manage your taste profiles",
     Icon: UserRound,
   },
   {
-    href: "#blender",
+    href: "/account/blender",
     title: "Taste blender",
     subtitle: "Craft the perfect blend",
     Icon: Sparkles,
@@ -42,19 +40,19 @@ const ITEMS = [
     Icon: BookOpen,
   },
   {
-    href: "/privacy",
+    href: "/account/privacy",
     title: "Privacy & data",
     subtitle: "Control your information",
     Icon: ShieldCheck,
   },
   {
-    href: "#settings",
+    href: "/account/settings",
     title: "Settings",
     subtitle: "Preferences & account",
     Icon: Settings,
   },
   {
-    href: `mailto:${SUPPORT_EMAIL}`,
+    href: "/account/help",
     title: "Help & support",
     subtitle: "Get help when you need it",
     Icon: CircleHelp,
