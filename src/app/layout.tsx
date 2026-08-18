@@ -3,6 +3,7 @@ import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { FinishProfileNudge } from "@/components/finish-profile-nudge";
 import { AgeGate } from "@/components/age-gate";
 import { JsonLd } from "@/components/json-ld";
@@ -115,14 +116,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable} scroll-smooth`}>
-      <body className="flex min-h-screen flex-col font-sans antialiased">
+      {/* pb-bottom-nav reserves the fixed mobile tab bar + iOS home
+          indicator on every page, so nothing is ever covered by it. */}
+      <body className="pb-bottom-nav flex min-h-screen flex-col font-sans antialiased">
         <JsonLd data={organizationLd} />
         <JsonLd data={websiteLd} />
         <AgeGate />
         <SiteHeader />
         <FinishProfileNudge />
         <main className="flex-1">{children}</main>
-        <SiteFooter />
+        <SiteChrome footer={<SiteFooter />} />
       </body>
     </html>
   );

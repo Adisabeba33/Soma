@@ -2,18 +2,92 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Design tokens ─────────────────────────────────────────────────────
+   Two themes, one system. The default (soma-light) is the warm ivory
+   editorial surface used everywhere; [data-theme="soma-private"] is the
+   graphite/forest/gold "private lounge" used by My Account. The private
+   theme is applied to a page subtree, NOT globally — the contrast between
+   a light SŌMA and a dark Account is part of the design language.
+
+   Everything below is HSL triplets so Tailwind's `hsl(var(--x) / alpha)`
+   keeps working. Component code should reference tokens (bg-background,
+   text-brass, border-border …) rather than hex values, so a surface can
+   never be light-only again. */
+
+:root,
+[data-theme="soma-light"] {
+  /* Warm ivory paper, not beige */
+  --background: 42 36% 95%;        /* #F6F3EC ivory */
+  --foreground: 80 7% 9%;          /* #171815 ink */
+  --card: 43 47% 97%;              /* #FBF9F4 raised surface */
+  --card-foreground: 80 7% 9%;
+  --muted: 40 35% 90%;             /* #EEE8DC cream */
+  --muted-foreground: 60 4% 39%;   /* #66665F secondary text */
+  --accent: 150 29% 23%;           /* #294B3A forest green */
+  --accent-foreground: 42 36% 95%;
+  --accent-deep: 155 41% 16%;      /* #18392B */
+  --brass: 38 43% 49%;             /* #B18A47 antique gold */
+  --border: 40 14% 84%;            /* rgba(35,38,32,.16) over ivory */
+  --ring: 150 29% 23%;
+  --surface-hover: 41 34% 92%;
+  --danger: 4 41% 47%;             /* #A94E47 */
+  color-scheme: light;
+}
+
+/* Private lounge — My Account. Graphite + deep forest + antique gold. */
+[data-theme="soma-private"] {
+  --background: 120 6% 7%;         /* #111311 graphite */
+  --foreground: 44 28% 92%;        /* #F1EEE6 */
+  --card: 120 5% 11%;              /* #1A1D1A surface */
+  --card-foreground: 44 28% 92%;
+  --muted: 120 6% 13%;             /* #202420 surface hover */
+  --muted-foreground: 86 4% 65%;   /* #A7AAA3 */
+  --accent: 156 46% 18%;           /* #194332 forest, readable on graphite */
+  --accent-foreground: 44 28% 92%;
+  --accent-deep: 156 51% 14%;      /* #123728 */
+  --brass: 41 47% 56%;             /* #C3A15A antique gold */
+  --border: 120 5% 17%;            /* rgba(255,255,255,.09) over graphite */
+  --ring: 41 47% 56%;
+  --surface-hover: 120 6% 13%;
+  --danger: 4 41% 47%;
+  color-scheme: dark;
+}
+
+/* ── Layout helpers ───────────────────────────────────────────────────
+   The mobile bottom navigation is fixed, so every page reserves room for
+   it (plus the iOS home indicator) and any fixed element that sits above
+   it can share the same measurement. */
 :root {
-  --background: 44 30% 96%;
-  --foreground: 40 9% 12%;
-  --card: 42 40% 99%;
-  --card-foreground: 40 9% 12%;
-  --muted: 42 22% 90%;
-  --muted-foreground: 38 7% 38%;
-  --accent: 122 13% 23%;
-  --accent-foreground: 44 32% 96%;
-  --brass: 34 36% 46%;
-  --border: 40 17% 84%;
-  --ring: 122 13% 23%;
+  --bottom-nav-h: 4.25rem;
+}
+
+.pb-bottom-nav {
+  padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+}
+
+.above-bottom-nav {
+  margin-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 768px) {
+  .pb-bottom-nav {
+    padding-bottom: 0;
+  }
+  .above-bottom-nav {
+    margin-bottom: 0;
+  }
+}
+
+/* Themed subtrees paint their own ground — the body keeps the light theme,
+   so a [data-theme] region must not inherit it through transparency. */
+[data-theme="soma-private"] {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Hairline used for section rules and card edges at very low contrast. */
+.rule-hairline {
+  border-color: hsl(var(--border) / 0.7);
 }
 
 * {

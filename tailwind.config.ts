@@ -26,15 +26,23 @@ const config: Config = {
         brass: "hsl(var(--brass))",
         border: "hsl(var(--border))",
         ring: "hsl(var(--ring))",
+        // Extra tokens both themes define (see src/app/globals.css).
+        "accent-deep": "hsl(var(--accent-deep))",
+        "surface-hover": "hsl(var(--surface-hover))",
+        danger: "hsl(var(--danger))",
       },
       fontFamily: {
         display: ["var(--font-display)", "Georgia", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
+      // One radius scale for the whole system: controls -> buttons ->
+      // compact cards -> large cards. Components pick a step, never a
+      // bespoke value.
       borderRadius: {
-        lg: "0.5rem",
-        xl: "0.875rem",
-        "2xl": "1.25rem",
+        lg: "0.625rem",   // 10px  small controls
+        xl: "0.9375rem",  // 15px  buttons
+        "2xl": "1.125rem", // 18px compact cards
+        "3xl": "1.625rem", // 26px large cards
       },
       maxWidth: {
         editorial: "68rem",

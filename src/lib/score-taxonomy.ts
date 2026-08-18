@@ -53,6 +53,10 @@ export interface CategoryMeta {
   // One-line sensory description. Speaks only about fit with the user's
   // taste profile — never about money, batch quality or buying.
   hint: string;
+  // Compact rendering of the SAME category, for chips and cards too narrow
+  // for the full name. Not a second scale: one mapping, defined here, so a
+  // compact badge can never disagree with the card it sits on.
+  short: string;
   // Tailwind tone tokens. Keep these as full literal class names so the
   // Tailwind scanner picks them up (src/lib is in tailwind content globs).
   tone: string;
@@ -63,30 +67,35 @@ export interface CategoryMeta {
 export const CATEGORY_META: Record<Category, CategoryMeta> = {
   "Best Match": {
     hint: "Closest to your taste profile — strong sensory fit.",
+    short: "Top match",
     tone: "text-accent",
     bar: "bg-accent",
     dot: "bg-accent",
   },
   "Closest Alternative": {
     hint: "Close to your taste, with small trade-offs.",
+    short: "Close match",
     tone: "text-brass",
     bar: "bg-brass",
     dot: "bg-brass",
   },
   "Worth Trying": {
     hint: "Partial fit — some of what you like, some gaps.",
+    short: "Worth trying",
     tone: "text-foreground",
     bar: "bg-foreground/65",
     dot: "bg-foreground/55",
   },
   Risky: {
     hint: "Clashes with things you avoid — read the watch-outs first.",
+    short: "Mixed fit",
     tone: "text-[#b4791f]",
     bar: "bg-[#b4791f]",
     dot: "bg-[#b4791f]",
   },
   Avoid: {
     hint: "Poor sensory fit for your profile.",
+    short: "Not your taste",
     tone: "text-[#a23b2c]",
     bar: "bg-[#a23b2c]",
     dot: "bg-[#a23b2c]",

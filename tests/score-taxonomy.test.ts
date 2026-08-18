@@ -93,6 +93,19 @@ describe("score taxonomy — copy honesty", () => {
     }
   });
 
+  it("every category has a compact label, and it never sells a purchase", () => {
+    // The compact label is the SAME scale rendered small (chips, cards). It
+    // must exist for every category so a narrow surface can't invent its own
+    // wording, and it is held to the same honesty rule as the hints.
+    for (const [category, meta] of Object.entries(CATEGORY_META)) {
+      assert.ok(
+        meta.short.length > 0 && meta.short.length <= 16,
+        `${category} needs a short label that fits a chip`,
+      );
+      assert.doesNotMatch(meta.short.toLowerCase(), /money|buy|purchase|price/);
+    }
+  });
+
   it("homepage sample is consistent with the taxonomy", () => {
     assert.equal(HOME_SAMPLE_CATEGORY, categoryForScore(HOME_SAMPLE.score));
     // The sample narrative describes a close-but-not-perfect read; pin the

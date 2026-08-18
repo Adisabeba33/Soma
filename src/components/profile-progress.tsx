@@ -1,9 +1,10 @@
-// Visual readout of profile completeness — a brass ring with the percent in
-// the middle, plus an optional "what's missing" list. Pure presentational;
-// the percent/missing come from src/lib/profile-completeness.ts. Used on the
-// profile page and the onboarding read-back.
-import { cn } from "@/lib/utils";
+// Profile completeness, drawn by the one ring component the app has
+// (src/components/ui/score-ring.tsx). This wrapper stays because several
+// screens already speak in terms of "profile progress"; the visual itself
+// is shared with Home and Account so the dial is identical everywhere.
+import { ScoreRing } from "@/components/ui/score-ring";
 import type { CompletenessItem } from "@/lib/profile-completeness";
+import { cn } from "@/lib/utils";
 
 export function ProfileProgressRing({
   percent,
@@ -14,47 +15,13 @@ export function ProfileProgressRing({
   size?: number;
   className?: string;
 }) {
-  const stroke = size >= 64 ? 6 : 5;
-  const r = (size - stroke) / 2;
-  const circ = 2 * Math.PI * r;
-  const pct = Math.max(0, Math.min(100, percent));
-  const offset = circ * (1 - pct / 100);
-
   return (
-    <div
-      className={cn("relative shrink-0", className)}
-      style={{ width: size, height: size }}
-    >
-      <svg width={size} height={size} className="-rotate-90">
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={r}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={stroke}
-          className="text-border"
-        />
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={r}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          strokeDasharray={circ}
-          strokeDashoffset={offset}
-          className={cn(
-            "transition-[stroke-dashoffset] duration-700 ease-out",
-            pct >= 100 ? "text-accent" : "text-brass",
-          )}
-        />
-      </svg>
-      <span className="absolute inset-0 flex items-center justify-center font-display text-sm font-semibold tabular-nums">
-        {pct}%
-      </span>
-    </div>
+    <ScoreRing
+      value={percent}
+      size={size}
+      label="Profile completeness"
+      className={className}
+    />
   );
 }
 
