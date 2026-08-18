@@ -10,6 +10,7 @@ import {
   Sparkles,
   Trash2,
 } from "lucide-react";
+import { BackButton } from "@/components/back-button";
 import { ResultsView } from "@/components/results-view";
 import { FeedbackControl } from "@/components/feedback-control";
 import { buttonClass } from "@/components/ui/button";
@@ -54,6 +55,11 @@ export default function SavedPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
+      <BackButton
+        fallbackHref="/account"
+        label="Back"
+        className="-ml-1 mb-2 inline-flex min-h-[44px] items-center gap-1.5 pr-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+      />
       <p className="text-xs uppercase tracking-[0.24em] text-brass">History</p>
       <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
         History

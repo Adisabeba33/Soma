@@ -12,7 +12,8 @@
 // separate Phase 2 layer and deliberately absent here.
 
 import Link from "next/link";
-import { ArrowLeft, Bookmark, Heart, Meh, Smile, Star, ThumbsDown } from "lucide-react";
+import { Bookmark, Heart, Meh, Smile, Star, ThumbsDown } from "lucide-react";
+import { BackButton } from "@/components/back-button";
 import { getFavoriteStrainNames } from "@/lib/favorites";
 import { buildCatalog, curatedScore } from "@/lib/catalog";
 import type { CatalogEntry, CatalogMatch } from "@/lib/catalog";
@@ -183,15 +184,13 @@ export default async function CollectionPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
-      <Link
-        href="/profile"
-        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to profile
-      </Link>
+      <BackButton
+        fallbackHref="/account"
+        label="Back"
+        className="-ml-1 inline-flex min-h-[44px] items-center gap-1.5 pr-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+      />
 
-      <p className="mt-5 text-xs uppercase tracking-[0.24em] text-brass">
+      <p className="mt-2 text-xs uppercase tracking-[0.24em] text-brass">
         Your shelf
       </p>
       <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight">

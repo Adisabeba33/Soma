@@ -2,9 +2,8 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// One row of the lounge's navigation grid. Renders a Next link for internal
-// routes, a plain anchor for on-page sections and external targets (mailto),
-// so every destination stays a real, focusable link.
+// One row of the lounge's navigation grid. Each row opens a page; the page
+// it opens carries a back control to the hub.
 export function AccountNavItem({
   href,
   title,
@@ -16,7 +15,6 @@ export function AccountNavItem({
   subtitle: string;
   Icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
 }) {
-  const inPage = href.startsWith("#") || href.startsWith("mailto:");
   const className = cn(
     "group flex h-full min-h-[5.5rem] flex-col justify-between rounded-2xl border border-border bg-card p-4",
     "transition-[background-color,border-color,transform] duration-200 ease-out",
@@ -45,11 +43,7 @@ export function AccountNavItem({
     </>
   );
 
-  return inPage ? (
-    <a href={href} className={className}>
-      {body}
-    </a>
-  ) : (
+  return (
     <Link href={href} className={className}>
       {body}
     </Link>
