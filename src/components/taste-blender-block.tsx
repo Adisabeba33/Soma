@@ -27,7 +27,10 @@ const T = {
   goldText: "#b3873f",
   shine: "#f6d88a",
   ink: "#1f1b16",
-  muted: "#7e7467",
+  // Text/labels inside the SVG follow the active theme's tokens, so the
+  // instrument is legible on ivory and on graphite alike.
+  muted: "hsl(var(--muted-foreground))",
+  goldToken: "hsl(var(--brass))",
 };
 
 type Node = {
@@ -221,13 +224,14 @@ export function TasteBlenderBlock() {
 
       {/* One compact ivory panel: status → diagram+arc controls → toggle → CTA */}
       <div
-        className="soma-lift mx-auto mt-4 max-w-[26rem] rounded-[28px] p-5 sm:p-6"
+        // overflow-hidden clips the diagram's deliberate SVG bleed (arc
+        // ends, value bubbles) at the panel edge, so a narrow phone never
+        // gets a horizontally scrollable page out of it.
+        className="soma-lift mx-auto mt-4 max-w-[26rem] overflow-hidden rounded-[28px] p-5 sm:p-6"
         style={{
-          background: "rgba(251, 245, 232, 0.9)",
-          border: "1px solid rgba(190, 155, 90, 0.28)",
-          boxShadow:
-            "0 16px 40px rgba(34, 25, 10, 0.1), inset 0 1px 0 rgba(255,255,255,0.7)",
-          backdropFilter: "blur(2px)",
+          background: "hsl(var(--card))",
+          border: "1px solid hsl(var(--border))",
+          boxShadow: "0 16px 40px -28px rgba(0, 0, 0, 0.55)",
         }}
       >
         <ActiveIndicator active={s.active} onToggle={() => patch({ active: !s.active })} />
@@ -300,7 +304,7 @@ function ActiveIndicator({ active, onToggle }: { active: boolean; onToggle: () =
       <Sparkles
         className="h-4 w-4"
         strokeWidth={2}
-        style={{ color: active ? T.goldText : "hsl(var(--muted-foreground))" }}
+        style={{ color: active ? "hsl(var(--brass))" : "hsl(var(--muted-foreground))" }}
       />
       <span
         className={cn(
@@ -529,7 +533,7 @@ function BlendArcDiagram({
           fontSize={11}
           letterSpacing={1.6}
           style={{ fontFamily: "var(--font-sans)" }}
-          fill={T.goldText}
+          fill={T.goldToken}
           fontWeight={600}
         >
           LEAN WITHIN THE PAIR
@@ -605,7 +609,7 @@ function BlendArcDiagram({
               textAnchor="middle"
               fontSize={11}
               letterSpacing={1.6}
-              fill={T.goldText}
+              fill={T.goldToken}
               fontWeight={600}
               style={{ fontFamily: "var(--font-sans)" }}
             >
@@ -840,7 +844,7 @@ function SelectionToggle({
   return (
     <div
       className="mt-4 grid grid-cols-2 gap-1 rounded-full p-1"
-      style={{ border: "1px solid rgba(190,155,90,0.25)", background: "rgba(244,235,220,0.5)" }}
+      style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--surface-hover))" }}
     >
       <Segment Icon={Compass} title="Explorer" sub="Strongest matches" selected={explorer} onClick={onExplorer} />
       <Segment Icon={Scale} title="Harmony" sub="Balanced fits" selected={!explorer} onClick={onHarmony} />
@@ -872,22 +876,28 @@ function Segment({
       )}
       style={
         selected
-          ? { background: "rgba(255,250,238,0.9)", border: "1px solid rgba(190,143,76,0.5)" }
+          ? {
+              background: "hsl(var(--card))",
+              border: "1px solid hsl(var(--brass) / 0.45)",
+            }
           : { border: "1px solid transparent" }
       }
     >
       <Icon
         className="h-5 w-5 shrink-0"
         strokeWidth={1.8}
-        style={{ color: selected ? T.goldText : "rgba(31,27,22,0.4)" }}
+        style={{ color: selected ? "hsl(var(--brass))" : "hsl(var(--muted-foreground))" }}
       />
       <span className="min-w-0">
         <span
-          className={cn("block font-display text-[15px] font-semibold leading-tight", selected ? "text-foreground" : "text-[rgba(31,27,22,0.5)]")}
+          className={cn(
+            "block font-display text-[15px] font-semibold leading-tight",
+            selected ? "text-foreground" : "text-muted-foreground",
+          )}
         >
           {title}
         </span>
-        <span className="block text-[11px] leading-tight [@media(max-height:760px)]:hidden" style={{ color: selected ? T.muted : "rgba(31,27,22,0.4)" }}>
+        <span className="block text-[11px] leading-tight [@media(max-height:760px)]:hidden" style={{ color: "hsl(var(--muted-foreground))" }}>
           {sub}
         </span>
       </span>

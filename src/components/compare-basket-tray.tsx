@@ -37,7 +37,9 @@ export function CompareBasketTray() {
         : `${count} queued`;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 px-3 pb-3 sm:inset-x-auto sm:right-6 sm:bottom-6 sm:px-0 sm:pb-0">
+    // above-bottom-nav lifts the tray over the fixed mobile tab bar so the
+    // two never stack on top of each other (no-op from md up).
+    <div className="above-bottom-nav fixed inset-x-0 bottom-0 z-40 px-3 pb-3 sm:inset-x-auto sm:right-6 sm:bottom-6 sm:px-0 sm:pb-0">
       <div className="mx-auto max-w-xl rounded-2xl border border-border bg-card p-3 shadow-lg sm:mx-0">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">

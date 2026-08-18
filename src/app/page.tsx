@@ -9,8 +9,6 @@ import {
   User,
   BookOpen,
   ChevronDown,
-  Mic,
-  Wand2,
   Fingerprint,
   Compass,
   Lock,
@@ -23,9 +21,9 @@ import {
   matchingReadiness,
   profileCompleteness,
 } from "@/lib/profile-completeness";
-import { ProfileProgressRing } from "@/components/profile-progress";
 import type { TasteProfileInput } from "@/lib/types";
-import { getTopMatches, type TopMatch } from "@/lib/top-matches";
+import { getTopMatches } from "@/lib/top-matches";
+import { LoggedInHome } from "@/components/home/logged-in-home";
 import { HOME_SAMPLE, HOME_SAMPLE_CATEGORY } from "@/lib/home-sample";
 import { CATEGORY_META } from "@/lib/score-taxonomy";
 
@@ -115,170 +113,6 @@ export default async function HomePage() {
 // plus a placeholder for the conversational/voice LLM quick-pick (ships once the
 // AI layer is activated — it builds a throwaway profile from a description, not
 // the saved one).
-function LoggedInHome({
-  username,
-  percent,
-  ready,
-  topMatches,
-}: {
-  username: string | null;
-  percent: number;
-  ready: boolean;
-  topMatches: TopMatch[];
-}) {
-  const canMatch = ready;
-  return (
-    <section className="relative flex min-h-[calc(100vh-4rem)] flex-col overflow-hidden">
-      {/* Soft apothecary backdrop; frosted cards float over it. WebP variants
-          (the 3 MB source PNGs stay out of the page): 720w for phones, full
-          width above. Decorative backdrop → lazy, so it never competes with
-          content for bandwidth. */}
-      <picture>
-        <source media="(max-width: 720px)" srcSet="/hero/dashboard-720.webp" />
-        <img
-          src="/hero/dashboard.webp"
-          alt=""
-          aria-hidden
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-top"
-        />
-      </picture>
-      <div
-        className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background/75"
-        aria-hidden
-      />
-
-      <div className="relative z-10 mx-auto flex w-full max-w-editorial flex-1 flex-col px-5 py-12 sm:px-8">
-        <p className="text-xs uppercase tracking-[0.28em] text-brass">
-          Sensory Sommelier
-        </p>
-        <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          Welcome back{username ? `, @${username}` : ""}.
-        </h1>
-        <p className="mt-3 max-w-xl text-lg leading-relaxed text-foreground/70">
-          Two ways to find your flower.
-        </p>
-
-        <div className="mt-10 grid items-start gap-5 sm:grid-cols-[1.5fr_1fr]">
-          {/* Element 1 — the deterministic engine on the saved profile. The
-              hero of the dashboard: it always reads stronger than the rest. */}
-          <div className="soma-lift flex flex-col rounded-[1.75rem] border border-accent/50 bg-white/70 p-7 shadow-2xl backdrop-blur-md">
-            <div className="flex items-center gap-3">
-              <Leaf className="h-6 w-6 text-accent" />
-              <h2 className="font-display text-xl font-semibold tracking-tight">
-                Taste Match
-              </h2>
-            </div>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-              Score any menu against your saved sensory profile — ranked Best
-              Match to Avoid, with the reasoning and the honest risks.
-            </p>
-            <div className="mt-5 flex items-center gap-3">
-              <ProfileProgressRing percent={percent} size={52} />
-              <div className="text-sm">
-                <p className="font-medium">{percent}% profile</p>
-                <p className="text-muted-foreground">
-                  {canMatch ? "Ready to match" : "Core answers needed"}
-                </p>
-              </div>
-            </div>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link
-                href={canMatch ? "/taste-match" : "/profile"}
-                className={buttonClass("primary", "md")}
-              >
-                {canMatch ? "Find my flower" : "Finish my profile"}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/profile"
-                className="inline-flex items-center justify-center rounded-xl border border-border bg-white/50 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-white/80"
-              >
-                Sensory profile
-              </Link>
-            </div>
-          </div>
-
-          {/* Element 2 — conversational / voice LLM quick-pick (stub). Kept
-              deliberately secondary so it never competes with Taste Match:
-              lighter surface, softer shadow, shorter. */}
-          <div className="relative flex flex-col self-start rounded-[1.75rem] border border-white/40 bg-white/30 p-6 shadow-sm backdrop-blur-md">
-            <span className="absolute right-4 top-4 rounded-full bg-white/70 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
-              Coming soon
-            </span>
-            <div className="flex items-center gap-3">
-              <Wand2 className="h-6 w-6 text-brass" />
-              <h2 className="font-display text-xl font-semibold tracking-tight">
-                Talk to SŌMA
-              </h2>
-            </div>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-              No time for the profile? Just say what you&apos;re after —
-              &ldquo;something mellow for an evening film&rdquo; — and SŌMA builds
-              a one-off read on the spot and picks for you. Voice &amp; AI,
-              landing soon.
-            </p>
-            <div className="mt-5 flex items-center gap-2 text-sm text-muted-foreground">
-              <Mic className="h-4 w-4" />
-              <span>Voice-driven, no profile needed</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Best matches carousel — a premium collection to browse. Snap +
-            momentum, cards peek from the edge, soft shadows, a subtle lift. */}
-        {topMatches.length > 0 && (
-          <section className="mt-16">
-            <p className="text-[11px] uppercase tracking-[0.24em] text-brass">
-              Your collection
-            </p>
-            <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight">
-              Best matches for your taste
-            </h2>
-            <div className="mt-5 -mx-5 flex snap-x snap-mandatory scroll-smooth gap-4 overflow-x-auto px-5 pb-3 [-ms-overflow-style:none] [scrollbar-width:none] sm:-mx-8 sm:px-8 [&::-webkit-scrollbar]:hidden">
-              {topMatches.map((m) => (
-                <Link
-                  key={m.slug}
-                  href={`/catalog/${m.slug}`}
-                  className="soma-ease w-44 shrink-0 snap-start overflow-hidden rounded-[1.5rem] border border-white/55 bg-white/55 shadow-lg backdrop-blur-md transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-2xl sm:w-48"
-                >
-                  <div className="relative aspect-[3/4]">
-                    {m.img ? (
-                      <img
-                        src={m.img}
-                        alt=""
-                        className="absolute inset-0 h-full w-full object-cover"
-                        style={{ objectPosition: m.focus }}
-                      />
-                    ) : (
-                      <div
-                        className="absolute inset-0"
-                        style={{ background: m.bg }}
-                      />
-                    )}
-                    <span className="absolute right-2 top-2 rounded-full bg-black/45 px-2 py-0.5 font-display text-xs font-semibold text-white backdrop-blur-sm">
-                      {m.score}%
-                    </span>
-                  </div>
-                  <div className="p-3">
-                    <span className="line-clamp-2 font-display text-sm font-semibold leading-tight tracking-tight">
-                      {m.name}
-                    </span>
-                    <span className="mt-0.5 block text-[0.62rem] uppercase tracking-[0.14em] text-muted-foreground">
-                      {m.type}
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
-      </div>
-    </section>
-  );
-}
-
 function AnonymousHome() {
   return (
     <div>
