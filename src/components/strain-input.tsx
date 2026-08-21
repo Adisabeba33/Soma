@@ -5,14 +5,25 @@ import {
   AlertTriangle,
   ClipboardList,
   ConciergeBell,
+  Link2 as LinkIcon,
   Sparkles,
   UtensilsCrossed,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { TagInput } from "@/components/ui/selectors";
 import type { ParsedMenuItem } from "@/lib/parse-menu";
+
+type ReadStats = {
+  strainCount: number;
+  listingCount: number;
+  refusedCount: number;
+  durationMs: number;
+};
+
+type RefusedLine = { line: string; reason: string };
 
 export function StrainInput({
   strains,
@@ -34,6 +45,75 @@ export function StrainInput({
   const [pasteText, setPasteText] = useState("");
   const [parsing, setParsing] = useState(false);
   const [parseNote, setParseNote] = useState<string | null>(null);
+  const [menuUrl, setMenuUrl] = useState("");
+  const [reading, setReading] = useState(false);
+  const [readNote, setReadNote] = useState<string | null>(null);
+  const [readStats, setReadStats] = useState<ReadStats | null>(null);
+  const [refused, setRefused] = useState<RefusedLine[]>([]);
+
+  /** Fold a freshly read menu into what is already on the table. */
+  function absorb(parsed: string[], items: ParsedMenuItem[]) {
+    const merged = [...strains];
+    for (const p of parsed) {
+      if (!merged.some((x) => x.toLowerCase() === p.toLowerCase())) merged.push(p);
+    }
+    onChange(merged);
+
+    const seen = new Set(parsedItems.map((i) => i.strainName.toLowerCase()));
+    const mergedItems = [...parsedItems];
+    for (const item of items) {
+      const key = item.strainName.toLowerCase();
+      if (!seen.has(key)) {
+        seen.add(key);
+        mergedItems.push(item);
+      }
+    }
+    onParsedItemsChange(mergedItems);
+  }
+
+  // Reading a link is the short way in: no copying, no switching apps, and the
+  // same gesture on any phone. It is not the reliable way in — a menu can
+  // refuse to be read — so a failure here says what happened and leaves the
+  // paste box below, which always works.
+  async function readLink() {
+    const url = menuUrl.trim();
+    if (!url) return;
+    setReading(true);
+    setReadNote(null);
+    setReadStats(null);
+    setRefused([]);
+    try {
+      const res = await fetch("/api/menu/from-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setReadNote(
+          typeof data?.message === "string"
+            ? data.message
+            : "That menu could not be read. Paste the text instead.",
+        );
+        return;
+      }
+      const parsed: string[] = Array.isArray(data.strains) ? data.strains : [];
+      const items: ParsedMenuItem[] = Array.isArray(data.items) ? data.items : [];
+      absorb(parsed, items);
+      setRefused(Array.isArray(data.refused) ? data.refused.slice(0, 40) : []);
+      setReadStats(data.stats ?? null);
+      setMenuUrl("");
+      setReadNote(
+        parsed.length
+          ? null
+          : "The page opened, but nothing on it read as flower. Paste the text instead.",
+      );
+    } catch {
+      setReadNote("Something went wrong reading that link.");
+    } finally {
+      setReading(false);
+    }
+  }
 
   async function extract() {
     const text = pasteText.trim();
@@ -49,24 +129,7 @@ export function StrainInput({
       const data = await res.json();
       const parsed: string[] = Array.isArray(data.strains) ? data.strains : [];
       const items: ParsedMenuItem[] = Array.isArray(data.items) ? data.items : [];
-      const merged = [...strains];
-      for (const p of parsed) {
-        if (!merged.some((x) => x.toLowerCase() === p.toLowerCase())) {
-          merged.push(p);
-        }
-      }
-      onChange(merged);
-      // Merge new items into the existing preview, deduped by strain name.
-      const seen = new Set(parsedItems.map((i) => i.strainName.toLowerCase()));
-      const mergedItems = [...parsedItems];
-      for (const item of items) {
-        const key = item.strainName.toLowerCase();
-        if (!seen.has(key)) {
-          seen.add(key);
-          mergedItems.push(item);
-        }
-      }
-      onParsedItemsChange(mergedItems);
+      absorb(parsed, items);
       setPasteText("");
       setParseNote(
         parsed.length
@@ -83,6 +146,8 @@ export function StrainInput({
   function dismissPreview() {
     onParsedItemsChange([]);
     setParseNote(null);
+    setReadStats(null);
+    setRefused([]);
   }
 
   return (
@@ -109,7 +174,9 @@ export function StrainInput({
         </div>
       </div>
 
-      {/* Paste a menu — warm panel, not a form box */}
+      {/* Bring in a menu — warm panel, not a form box. The link is offered
+          first because it is one gesture on any phone; the paste box stays
+          directly below it because it is the one that never fails. */}
       <div className="relative">
         <div className="mb-5 flex items-center gap-4">
           <span className="h-px flex-1 bg-border" />
@@ -119,6 +186,65 @@ export function StrainInput({
           <span className="h-px flex-1 bg-border" />
         </div>
         <div className="soma-lift rounded-[1.75rem] border border-border/70 bg-card p-7 shadow-[0_28px_60px_-42px_rgba(60,45,20,0.45)] hover:shadow-[0_34px_70px_-40px_rgba(60,45,20,0.55)] sm:p-8">
+          <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] text-brass">
+            <LinkIcon className="h-3.5 w-3.5" />
+            Bring in a dispensary menu
+          </p>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            Paste the link to the menu page and it gets read for you — no
+            copying, no app switching.
+          </p>
+
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+            <Input
+              type="url"
+              inputMode="url"
+              value={menuUrl}
+              onChange={(e) => setMenuUrl(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  void readLink();
+                }
+              }}
+              placeholder="https://…  the menu page you are looking at"
+              className="soma-ease rounded-2xl border-border/60 bg-background/40 px-4 py-3.5 transition-shadow focus-visible:ring-accent/15"
+            />
+            <Button
+              size="sm"
+              className="soma-ease shrink-0 rounded-full px-6 transition-all"
+              onClick={readLink}
+              disabled={reading || !menuUrl.trim()}
+            >
+              {reading ? "Reading the menu…" : "Read the link"}
+            </Button>
+          </div>
+
+          {reading && (
+            <p className="mt-3 text-sm text-muted-foreground">
+              Opening the page and scrolling to the end of it. This takes a few
+              seconds.
+            </p>
+          )}
+
+          {readNote && (
+            <p className="mt-3 rounded-2xl bg-brass/10 px-4 py-3 text-sm text-foreground/80">
+              {readNote}
+            </p>
+          )}
+
+          {readStats && (
+            <MenuReadSummary stats={readStats} refused={refused} />
+          )}
+
+          <div className="my-6 flex items-center gap-4">
+            <span className="h-px flex-1 bg-border/70" />
+            <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+              or paste the text
+            </span>
+            <span className="h-px flex-1 bg-border/70" />
+          </div>
+
           <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] text-brass">
             <ClipboardList className="h-3.5 w-3.5" />
             Paste a dispensary menu
@@ -210,6 +336,58 @@ export function StrainInput({
             {analyzing ? "Analyzing…" : "Run Taste Match"}
           </Button>
         </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * What came back, stated plainly.
+ *
+ * A count on its own invites the reader to trust it. Listings and cultivars are
+ * different numbers when one strain is sold by two growers, and anything the
+ * parser refused is named rather than quietly dropped — someone standing in
+ * front of the menu can see in a second whether it read the whole thing.
+ */
+function MenuReadSummary({
+  stats,
+  refused,
+}: {
+  stats: ReadStats;
+  refused: RefusedLine[];
+}) {
+  const merged = stats.listingCount - stats.strainCount;
+  return (
+    <div className="mt-4 rounded-2xl border border-border/70 bg-background/40 px-4 py-3.5">
+      <p className="text-sm text-foreground/85">
+        Read{" "}
+        <span className="font-display text-lg font-semibold text-foreground">
+          {stats.strainCount}
+        </span>{" "}
+        strain{stats.strainCount === 1 ? "" : "s"} in{" "}
+        {(stats.durationMs / 1000).toFixed(0)}s
+        {merged > 0
+          ? ` · ${merged} listing${merged === 1 ? "" : "s"} were the same strain twice`
+          : ""}
+      </p>
+      {refused.length > 0 && (
+        <details className="mt-2">
+          <summary className="cursor-pointer text-xs text-muted-foreground">
+            {refused.length} item{refused.length === 1 ? "" : "s"} left out for
+            not being flower
+          </summary>
+          <ul className="mt-2 space-y-1">
+            {refused.map((item, index) => (
+              <li
+                key={`${item.line}-${index}`}
+                className="flex flex-wrap items-baseline gap-x-2 text-[11px] text-muted-foreground"
+              >
+                <span className="text-foreground/70">{item.line}</span>
+                <span className="italic">{item.reason}</span>
+              </li>
+            ))}
+          </ul>
+        </details>
       )}
     </div>
   );
